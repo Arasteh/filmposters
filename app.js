@@ -29,6 +29,19 @@ createApp({
                 logoCrop: "pct:10.1,16,39.8,10.1"
             }
         ]);
+        
+        // تبدیل سال میلادی به شمسی
+        const toPersianYear = (gregorianYear) => {
+            const gYear = parseInt(gregorianYear, 10);
+            if (isNaN(gYear)) return null;
+            const shYear = gYear - 621;
+            return shYear;
+        };
+
+        const getMovieTitleWithYear = (word) => {
+            const shamsiYear = toPersianYear(word.publicationYear);
+            return shamsiYear ? `${word.filmLabel} (${shamsiYear})` : word.filmLabel;
+        };
 
         const similarCharsMapping = {
             'ط': '[طظ]', 'ظ': '[طظ]', 'ب': '[بپتثن]', 'پ': '[بپتثن]',
