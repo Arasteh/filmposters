@@ -92,6 +92,6 @@ createApp({
         const getImdbLink = (imdbID) => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = (film) => film;
 
-        return { searchTerm, combineSimilarChars, posterMode, filteredWords, getImageUrl, getImdbLink, getWikidataLink };
+        return { searchTerm, combineSimilarChars, posterMode, filteredWords, getImageUrl, getImdbLink, getWikidataLink, getMovieTitleWithYear };
     }
 }).mount('#app');
