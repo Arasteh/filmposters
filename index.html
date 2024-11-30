@@ -84,7 +84,7 @@
     <div v-if="filteredWords.length > 0" class="results-grid">
         <div class="movie-card" v-for="(word, index) in filteredWords" :key="index">
             <img :src="getImageUrl(word)" :alt="word.filmLabel" class="movie-image" />
-            <div class="movie-title">{{ getMovieTitleWithYear(word) }}</div>
+            <div class="movie-title" v-html="word.filmLabel"></div>
             <div class="movie-links">
                 <a :href="getImdbLink(word.imdbID)" target="_blank">T</a>
                 <a :href="getWikidataLink(word.film)" target="_blank">Q</a>
@@ -101,13 +101,12 @@
         setup() {
             const searchTerm = ref('');
             const combineSimilarChars = ref(false);
-            const posterMode = ref(false);
+            const posterMode = ref(false); // پیش‌فرض نمایش لوگو
 
             const words = ref([
                 {
                     film: "http://www.wikidata.org/entity/Q14756739",
                     filmLabel: "بی‌گناه",
-                    publicationYear: "1976",
                     imdbID: "tt11383472",
                     image: "http://commons.wikimedia.org/wiki/Special:FilePath/بی%20گناه.jpg",
                     logoCrop: "pct:28.3,84.4,44.4,14.7"
@@ -115,15 +114,13 @@
                 {
                     film: "http://www.wikidata.org/entity/Q5710929",
                     filmLabel: "برهنه تا ظهر با سرعت",
-                    publicationYear: "1976",
                     imdbID: "tt0319045",
                     image: "http://commons.wikimedia.org/wiki/Special:FilePath/برهنه%20تا%20ظهر%20با%20سرعت.jpg",
                     logoCrop: "pct:7,82.1,85.5,7"
-                }
+                },
                 {
                     film: "http://www.wikidata.org/entity/Q5867554",
                     filmLabel: "شطرنج باد",
-                    publicationYear: "1976",
                     imdbID: "tt0318069",
                     image: "http://commons.wikimedia.org/wiki/Special:FilePath/شطرنج%20باد.jpg",
                     logoCrop: "pct:10.1,16,39.8,10.1"
@@ -152,17 +149,6 @@
                 return words.value.filter(word => regex.test(word.filmLabel));
             });
 
-            const toPersianYear = (gregorianYear) => {
-                const gYear = parseInt(gregorianYear, 10);
-                if (isNaN(gYear)) return null;
-                return gYear - 621;
-            };
-
-            const getMovieTitleWithYear = (word) => {
-                const shamsiYear = toPersianYear(word.publicationYear);
-                return shamsiYear ? `${word.filmLabel} (${shamsiYear})` : word.filmLabel;
-            };
-
 const getPosterUrl = (filePath, width = 600) => {
     if (!filePath) return 'https://via.placeholder.com/600x900?text=No+Poster';
 
@@ -181,6 +167,7 @@ const getPosterUrl = (filePath, width = 600) => {
     return `https://upload.wikimedia.org/wikipedia/commons/thumb/${firstChar}/${firstTwoChars}/${encodedFileName}/${width}px-${fileName}`;
 };
 
+
             const getLogoUrl = (word) => {
                 if (!word.image || !word.logoCrop) return 'https://via.placeholder.com/200x300?text=No+Logo';
                 const fileName = word.image.split('/').pop();
@@ -198,7 +185,7 @@ const getPosterUrl = (filePath, width = 600) => {
             const getImdbLink = (imdbID) => `https://www.imdb.com/title/${imdbID}`;
             const getWikidataLink = (film) => film;
 
-            return { searchTerm, combineSimilarChars, posterMode, filteredWords, getMovieTitleWithYear, getImageUrl, getImdbLink, getWikidataLink };
+            return { searchTerm, combineSimilarChars, posterMode, filteredWords, getImageUrl, getImdbLink, getWikidataLink };
         }
     }).mount('#app');
 </script>
