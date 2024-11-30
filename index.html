@@ -139,9 +139,14 @@
             const filteredWords = computed(() => {
                 if (searchTerm.value.length < 2) return [];
                 let modifiedSearchTerm = searchTerm.value;
+
                 if (combineSimilarChars.value) {
                     modifiedSearchTerm = modifiedSearchTerm.split('').map(char => similarCharsMapping[char] || char).join('');
                 }
+
+                const regex = new RegExp(modifiedSearchTerm, 'i');
+                return words.value.filter(word => regex.test(word.filmLabel));
+            });
 
             const getThumbnailUrl = (filePath, width = 600) => {
                 const fileName = filePath.replace(
