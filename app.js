@@ -7,9 +7,10 @@ createApp({
         const posterMode = ref(false);
 
         const words = ref([
-            {
+           {
                 film: "http://www.wikidata.org/entity/Q14756739",
                 filmLabel: "بی‌گناه",
+                publicationYear: "1976",
                 imdbID: "tt11383472",
                 image: "http://commons.wikimedia.org/wiki/Special:FilePath/بی%20گناه.jpg",
                 logoCrop: "pct:28.3,84.4,44.4,14.7"
@@ -17,6 +18,7 @@ createApp({
             {
                 film: "http://www.wikidata.org/entity/Q5710929",
                 filmLabel: "برهنه تا ظهر با سرعت",
+                publicationYear: "1976",
                 imdbID: "tt0319045",
                 image: "http://commons.wikimedia.org/wiki/Special:FilePath/برهنه%20تا%20ظهر%20با%20سرعت.jpg",
                 logoCrop: "pct:7,82.1,85.5,7"
@@ -24,6 +26,7 @@ createApp({
             {
                 film: "http://www.wikidata.org/entity/Q5867554",
                 filmLabel: "شطرنج باد",
+                publicationYear: "1976",
                 imdbID: "tt0318069",
                 image: "http://commons.wikimedia.org/wiki/Special:FilePath/شطرنج%20باد.jpg",
                 logoCrop: "pct:10.1,16,39.8,10.1"
