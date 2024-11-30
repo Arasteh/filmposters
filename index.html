@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جستجوی فیلم‌ها و سریال‌های ایرانی</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+            margin: 0;
+            direction: rtl;
+        }
+        #app {
+            max-width: 800px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        label {
+            margin: 5px;
+            display: block;
+        }
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        .movie-card {
+            text-align: center;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .movie-image {
+            width: 100%;
+            object-fit: contain;
+            border-radius: 4px;
+            background-color: #f0f0f0;
+            margin-bottom: 10px;
+        }
+        .movie-title {
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .movie-links a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="searchTerm" placeholder="جستجو..." />
+    <label>
+        <input type="checkbox" v-model="combineSimilarChars" /> در نظر گرفتن حروف مشابه
+    </label>
+    <label>
+        <input type="radio" v-model="posterMode" :value="false" /> لوگو
+        <input type="radio" v-model="posterMode" :value="true" /> پوستر
+    </label>
+
+    <div v-if="filteredWords.length > 0" class="results-grid">
+        <div class="movie-card" v-for="(word, index) in filteredWords" :key="index">
+            <img :src="getImageUrl(word)" :alt="word.filmLabel" class="movie-image" />
+            <div class="movie-title" v-html="word.filmLabel"></div>
+            <div class="movie-links">
+                <a :href="getImdbLink(word.imdbID)" target="_blank">T</a>
+                <a :href="getWikidataLink(word.film)" target="_blank">Q</a>
+            </div>
+        </div>
+    </div>
+    <p v-else>نتیجه‌ای برای نمایش وجود ندارد.</p>
+</div>
+
+<script>
+    const { createApp, ref, computed } = Vue;
+
+    createApp({
+        setup() {
+            const searchTerm = ref('');
+            const combineSimilarChars = ref(false);
+            const posterMode = ref(false); // پیش‌فرض نمایش لوگو
+
+            const words = ref([
+                {
+                    film: "http://www.wikidata.org/entity/Q14756739",
+                    filmLabel: "بی‌گناه",
+                    imdbID: "tt11383472",
+                    image: "http://commons.wikimedia.org/wiki/Special:FilePath/بی%20گناه.jpg",
+                    logoCrop: "pct:28.3,84.4,44.4,14.7"
+                },
+                {
+                    film: "http://www.wikidata.org/entity/Q5710929",
+                    filmLabel: "برهنه تا ظهر با سرعت",
+                    imdbID: "tt0319045",
+                    image: "http://commons.wikimedia.org/wiki/Special:FilePath/برهنه%20تا%20ظهر%20با%20سرعت.jpg",
+                    logoCrop: "pct:7,82.1,85.5,7"
+                },
+                {
+                    film: "http://www.wikidata.org/entity/Q5867554",
+                    filmLabel: "شطرنج باد",
+                    imdbID: "tt0318069",
+                    image: "http://commons.wikimedia.org/wiki/Special:FilePath/شطرنج%20باد.jpg",
+                    logoCrop: "pct:10.1,16,39.8,10.1"
+                }
+            ]);
+
+            const filteredWords = computed(() => {
+                if (searchTerm.value.length < 2) return [];
+                const regex = new RegExp(searchTerm.value, 'i');
+                return words.value.filter(word => regex.test(word.filmLabel));
+            });
+
+            const getThumbnailUrl = (filePath, width = 600) => {
+                const fileName = filePath.replace(
+                    "http://commons.wikimedia.org/wiki/Special:FilePath/",
+                    ""
+                );
+                return `https://upload.wikimedia.org/wikipedia/commons/thumb/${encodeURIComponent(
+                    fileName
+                )}/${width}px-${fileName}`;
+            };
+
+            const getLogoUrl = (word) => {
+                if (!word.image || !word.logoCrop) return 'https://via.placeholder.com/200x300?text=No+Logo';
+                const fileName = word.image.split('/').pop();
+                return `http://tools.wmflabs.org/zoomviewer/proxy.php?iiif=File:${fileName}/${word.logoCrop}/full/0/default.jpg`;
+            };
+
+            const getImageUrl = (word) => {
+                if (posterMode.value) {
+                    return getThumbnailUrl(word.image);
+                } else {
+                    return getLogoUrl(word);
+                }
+            };
+
+            const getImdbLink = (imdbID) => {
+                return `https://www.imdb.com/title/${imdbID}`;
+            };
+
+            const getWikidataLink = (wikidataID) => {
+                return `${wikidataID}`;
+            };
+
+            return {
+                searchTerm,
+                combineSimilarChars,
+                posterMode,
+                filteredWords,
+                getImageUrl,
+                getImdbLink,
+                getWikidataLink
+            };
+        }
+    }).mount('#app');
+</script>
+</body>
+</html>
