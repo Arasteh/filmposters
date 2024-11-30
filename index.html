@@ -155,7 +155,7 @@ const getPosterUrl = (filePath, width = 600) => {
     // نام فایل را آماده کنید
     const fileName = filePath
         .replace("http://commons.wikimedia.org/wiki/Special:FilePath/", "")
-        .replace(/ /g, '_');
+        .replace(/%20/g, '_');
     const encodedFileName = encodeURIComponent(fileName);
 
     // محاسبه هش MD5
