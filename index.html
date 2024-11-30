@@ -171,7 +171,7 @@ const getPosterUrl = (filePath, width = 600) => {
             const getLogoUrl = (word) => {
                 if (!word.image || !word.logoCrop) return 'https://via.placeholder.com/200x300?text=No+Logo';
                 const fileName = word.image.split('/').pop();
-                return `http://tools.wmflabs.org/zoomviewer/proxy.php?iiif=File:${fileName}/${word.logoCrop}/full/600,/0/default.jpg`;
+                return `http://tools.wmflabs.org/zoomviewer/proxy.php?iiif=File:${fileName}/${word.logoCrop}/full/0/default.jpg`;
             };
 
             const getImageUrl = (word) => {
