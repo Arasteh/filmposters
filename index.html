@@ -135,12 +135,13 @@
                 'غ': '[عغ]', 'ف': '[فق]', 'ق': '[فق]', 'ک': '[کگ]',
                 'گ': '[کگ]'
             };
-            
+
             const filteredWords = computed(() => {
                 if (searchTerm.value.length < 2) return [];
-                const regex = new RegExp(searchTerm.value, 'i');
-                return words.value.filter(word => regex.test(word.filmLabel));
-            });
+                let modifiedSearchTerm = searchTerm.value;
+                if (combineSimilarChars.value) {
+                    modifiedSearchTerm = modifiedSearchTerm.split('').map(char => similarCharsMapping[char] || char).join('');
+                }
 
             const getThumbnailUrl = (filePath, width = 600) => {
                 const fileName = filePath.replace(
