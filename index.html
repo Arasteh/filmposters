@@ -149,16 +149,24 @@
                 return words.value.filter(word => regex.test(word.filmLabel));
             });
 
-            const getPosterUrl = (filePath, width = 600) => {
-                if (!filePath) return 'https://via.placeholder.com/600x900?text=No+Poster';
+const getPosterUrl = (filePath, width = 600) => {
+    if (!filePath) return 'https://via.placeholder.com/600x900?text=No+Poster';
 
-                const fileName = filePath.replace("http://commons.wikimedia.org/wiki/Special:FilePath/", "").replace(/ /g, '_');
-                const md5Hash = md5(fileName);
-                const firstChar = md5Hash.charAt(0);
-                const firstTwoChars = md5Hash.substring(0, 2);
+    // نام فایل را آماده کنید
+    const fileName = filePath
+        .replace("http://commons.wikimedia.org/wiki/Special:FilePath/", "")
+        .replace(/ /g, '_');
+    const encodedFileName = encodeURIComponent(fileName);
 
-                return `https://upload.wikimedia.org/wikipedia/commons/thumb/${firstChar}/${firstTwoChars}/${encodeURIComponent(fileName)}/${width}px-${fileName}`;
-            };
+    // محاسبه هش MD5
+    const md5Hash = md5(fileName); // فرض می‌کنیم تابع md5 قبلاً تعریف شده است
+    const firstChar = md5Hash.charAt(0); // اولین کاراکتر
+    const firstTwoChars = md5Hash.substring(0, 2); // دو کاراکتر اول
+
+    // تولید URL نهایی
+    return `https://upload.wikimedia.org/wikipedia/commons/thumb/${firstChar}/${firstTwoChars}/${encodedFileName}/${width}px-${fileName}`;
+};
+
 
             const getLogoUrl = (word) => {
                 if (!word.image || !word.logoCrop) return 'https://via.placeholder.com/200x300?text=No+Logo';
