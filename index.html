@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>جستجوی فیلم‌ها و سریال‌های ایرانی</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js"></script>
     <style>
         body {
             font-family: sans-serif;
@@ -148,47 +149,35 @@
                 return words.value.filter(word => regex.test(word.filmLabel));
             });
 
-            const getThumbnailUrl = (filePath, width = 600) => {
-                const fileName = filePath.replace(
-                    "http://commons.wikimedia.org/wiki/Special:FilePath/",
-                    ""
-                );
-                return `https://upload.wikimedia.org/wikipedia/commons/thumb/${encodeURIComponent(
-                    fileName
-                )}/${width}px-${fileName}`;
+            const getPosterUrl = (filePath, width = 600) => {
+                if (!filePath) return 'https://via.placeholder.com/600x900?text=No+Poster';
+
+                const fileName = filePath.replace("http://commons.wikimedia.org/wiki/Special:FilePath/", "").replace(/ /g, '_');
+                const md5Hash = md5(fileName);
+                const firstChar = md5Hash.charAt(0);
+                const firstTwoChars = md5Hash.substring(0, 2);
+
+                return `https://upload.wikimedia.org/wikipedia/commons/thumb/${firstChar}/${firstTwoChars}/${encodeURIComponent(fileName)}/${width}px-${fileName}`;
             };
 
             const getLogoUrl = (word) => {
                 if (!word.image || !word.logoCrop) return 'https://via.placeholder.com/200x300?text=No+Logo';
                 const fileName = word.image.split('/').pop();
-                return `http://tools.wmflabs.org/zoomviewer/proxy.php?iiif=File:${fileName}/${word.logoCrop}/full/0/default.jpg`;
+                return `http://tools.wmflabs.org/zoomviewer/proxy.php?iiif=File:${fileName}/${word.logoCrop}/full/600,/0/default.jpg`;
             };
 
             const getImageUrl = (word) => {
                 if (posterMode.value) {
-                    return getThumbnailUrl(word.image);
+                    return getPosterUrl(word.image);
                 } else {
                     return getLogoUrl(word);
                 }
             };
 
-            const getImdbLink = (imdbID) => {
-                return `https://www.imdb.com/title/${imdbID}`;
-            };
+            const getImdbLink = (imdbID) => `https://www.imdb.com/title/${imdbID}`;
+            const getWikidataLink = (film) => film;
 
-            const getWikidataLink = (wikidataID) => {
-                return `${wikidataID}`;
-            };
-
-            return {
-                searchTerm,
-                combineSimilarChars,
-                posterMode,
-                filteredWords,
-                getImageUrl,
-                getImdbLink,
-                getWikidataLink
-            };
+            return { searchTerm, combineSimilarChars, posterMode, filteredWords, getImageUrl, getImdbLink, getWikidataLink };
         }
     }).mount('#app');
 </script>
