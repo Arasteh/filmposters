@@ -84,7 +84,7 @@
     <div v-if="filteredWords.length > 0" class="results-grid">
         <div class="movie-card" v-for="(word, index) in filteredWords" :key="index">
             <img :src="getImageUrl(word)" :alt="word.filmLabel" class="movie-image" />
-            <div class="movie-title" v-html="word.filmLabel" v-html="word.publicationYear"></div>
+            <div class="movie-title" v-html="word.filmLabel"></div><div class="movie-title" v-html="word.publicationYear"></div> <div class="movie-title">{{ getMovieTitleWithYear(word) }}</div>
             <div class="movie-links">
                 <a :href="getImdbLink(word.imdbID)" target="_blank">T</a>
                 <a :href="getWikidataLink(word.film)" target="_blank">Q</a>
@@ -139,7 +139,18 @@
                 'غ': '[عغ]', 'ف': '[فق]', 'ق': '[فق]', 'ک': '[کگ]',
                 'گ': '[کگ]'
             };
+            
+            const toPersianYear = (gregorianYear) => {
+                const gYear = parseInt(gregorianYear, 10);
+                if (isNaN(gYear)) return null;
+                return gYear - 621;
+            };
 
+            const getMovieTitleWithYear = (word) => {
+                const shamsiYear = toPersianYear(word.publicationYear);
+                return shamsiYear ? `${word.filmLabel} (${shamsiYear})` : word.filmLabel;
+            };
+            
             const filteredWords = computed(() => {
                 if (searchTerm.value.length < 2) return [];
                 let modifiedSearchTerm = searchTerm.value;
@@ -188,7 +199,7 @@ const getPosterUrl = (filePath, width = 600) => {
             const getImdbLink = (imdbID) => `https://www.imdb.com/title/${imdbID}`;
             const getWikidataLink = (film) => film;
 
-            return { searchTerm, combineSimilarChars, posterMode, filteredWords, getImageUrl, getImdbLink, getWikidataLink };
+            return { searchTerm, combineSimilarChars, posterMode, filteredWords, getImageUrl, getImdbLink, getWikidataLink, getMovieTitleWithYear };
         }
     }).mount('#app');
 </script>
