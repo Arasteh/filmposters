@@ -74,7 +74,7 @@
 <div id="app">
     <input type="text" v-model="searchTerm" placeholder="جستجو..." />
     <label>
-        <input type="checkbox" v-model="combineSimilarChars" /> در نظر گرفتن حرف مشابه
+        <input type="checkbox" v-model="combineSimilarChars" /> در نظر گرفتن حروف مشابه
     </label>
     <label>
         <input type="radio" v-model="posterMode" :value="false" /> لوگو
@@ -126,7 +126,7 @@
                     publicationYear: "1976",
                     imdbID: "tt0318069",
                     image: null,
-                    logoCrop: null
+                    logoCrop: "pct:10.1,16,39.8,10.1"
                 }
             ]);
 
@@ -164,7 +164,7 @@
             });
 
 const getPosterUrl = (filePath, width = 600) => {
-    if (!filePath) return 'https://via.placeholder.com/600x900?text=No+Poster';
+    if (!filePath) return 'https://via.placeholder.com/300x420?text=No+Poster';
 
     // نام فایل را آماده کنید
     const fileName = filePath
