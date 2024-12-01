@@ -74,7 +74,7 @@
 <div id="app">
     <input type="text" v-model="searchTerm" placeholder="جستجو..." />
     <label>
-        <input type="checkbox" v-model="combineSimilarChars" /> در نظر گرفتن حرف مشابه
+        <input type="checkbox" v-model="combineSimilarChars" /> در نظر گرفتن حروف مشابه
     </label>
     <label>
         <input type="radio" v-model="posterMode" :value="false" /> لوگو
@@ -84,7 +84,7 @@
     <div v-if="filteredWords.length > 0" class="results-grid">
         <div class="movie-card" v-for="(word, index) in filteredWords" :key="index">
             <img :src="getImageUrl(word)" :alt="word.filmLabel" class="movie-image" />
-            <div class="movie-title" v-html="word.filmLabel"></div><div class="movie-title" v-html="word.publicationYear"></div> <div class="movie-title">{{ getMovieTitleWithYear(word) }}</div>
+            <div class="movie-title">{{ getMovieTitleWithYear(word) }}</div>
             <div class="movie-links">
                 <a :href="getImdbLink(word.imdbID)" target="_blank">T</a>
                 <a :href="getWikidataLink(word.film)" target="_blank">Q</a>
