@@ -30,8 +30,7 @@
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            transition: background-color 0.3s, color 0.3s;
+            width: 90%;            transition: background-color 0.3s, color 0.3s;
         }
 
         body.dark-mode #app {
@@ -46,13 +45,15 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-
+        label {
+            margin: 5px;
+            display: block;
+        }
         .results-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 10px;
         }
-
         .movie-card {
             text-align: center;
             padding: 10px;
@@ -65,7 +66,7 @@
             align-items: center;
             transition: background-color 0.3s, border-color 0.3s;
         }
-
+        
         body.dark-mode .movie-card {
             background: #292929;
             border-color: #444;
@@ -79,9 +80,19 @@
             margin-bottom: 10px;
             transition: filter 0.3s;
         }
+        .movie-title {
+            font-weight: bold;
+            margin: 10px 0;
+        }
 
         body.dark-mode .movie-image {
             filter: invert(1); /* تبدیل رنگ تصاویر به نگاتیو */
+        }
+
+        .movie-links a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 5px;
         }
 
         .dark-mode-toggle {
@@ -105,8 +116,7 @@
 </head>
 <body>
 <div id="app">
-    <button class="dark-mode-toggle" @click="toggleDarkMode">{{ darkMode ? 'تغییر به حالت روشن' : 'تغییر به حالت تاریک' }}</button>
-
+    <button class="dark-mode-toggle" @click="toggleDarkMode">{{ darkMode ? 'تغییر به روشن' : 'تغییر به تاریک' }}</button>
     <input type="text" v-model="searchTerm" placeholder="جستجو..." />
     <label>
         <input type="checkbox" v-model="combineSimilarChars" /> در نظر گرفتن حروف مشابه
@@ -135,16 +145,14 @@
     createApp({
         setup() {
             const darkMode = ref(false);
-
             const toggleDarkMode = () => {
                 darkMode.value = !darkMode.value;
                 document.body.classList.toggle('dark-mode', darkMode.value);
             };
 
-            // بقیه متغیرها و توابع شما
             const searchTerm = ref('');
             const combineSimilarChars = ref(false);
-            const posterMode = ref(false);
+            const posterMode = ref(false); // پیش‌فرض نمایش لوگو
 
             const words = ref([
                 {
@@ -173,24 +181,76 @@
                 }
             ]);
 
+            const similarCharsMapping = {
+                'ط': '[طظ]', 'ظ': '[طظ]', 'ب': '[بپتثن]', 'پ': '[بپتثن]',
+                'ت': '[بپتثن]', 'ث': '[بپتثن]', 'ن': '[بپتثن]', 'ج': '[جچحخ]',
+                'چ': '[جچحخ]', 'ح': '[جچحخ]', 'خ': '[جچحخ]', 'د': '[دذ]',
+                'ذ': '[دذ]', 'ر': '[رزژ]', 'ز': '[رزژ]', 'ژ': '[رزژ]', 'س': '[سش]',
+                'ش': '[سش]', 'ص': '[صض]', 'ض': '[صض]', 'ع': '[عغ]',
+                'غ': '[عغ]', 'ف': '[فق]', 'ق': '[فق]', 'ک': '[کگ]',
+                'گ': '[کگ]'
+            };
+            
+            const toPersianYear = (gregorianYear) => {
+                const gYear = parseInt(gregorianYear, 10);
+                if (isNaN(gYear)) return null;
+                return gYear - 621;
+            };
+
+            const getMovieTitleWithYear = (word) => {
+                const shamsiYear = toPersianYear(word.publicationYear);
+                return shamsiYear ? `${word.filmLabel} (${shamsiYear})` : word.filmLabel;
+            };
+            
             const filteredWords = computed(() => {
                 if (searchTerm.value.length < 2) return [];
-                const regex = new RegExp(searchTerm.value, 'i');
+                let modifiedSearchTerm = searchTerm.value;
+
+                if (combineSimilarChars.value) {
+                    modifiedSearchTerm = modifiedSearchTerm.split('').map(char => similarCharsMapping[char] || char).join('');
+                }
+
+                const regex = new RegExp(modifiedSearchTerm, 'i');
                 return words.value.filter(word => regex.test(word.filmLabel));
             });
 
-            const getMovieTitleWithYear = (word) => {
-                return `${word.filmLabel} (${word.publicationYear})`;
+const getPosterUrl = (filePath, width = 600) => {
+    if (!filePath) return 'https://via.placeholder.com/300x420?text=No+Poster';
+
+    // نام فایل را آماده کنید
+    const fileName = filePath
+        .replace("http://commons.wikimedia.org/wiki/Special:FilePath/", "")
+        .replace(/%20/g, '_');
+    const encodedFileName = encodeURIComponent(fileName);
+
+    // محاسبه هش MD5
+    const md5Hash = md5(fileName); // فرض می‌کنیم تابع md5 قبلاً تعریف شده است
+    const firstChar = md5Hash.charAt(0); // اولین کاراکتر
+    const firstTwoChars = md5Hash.substring(0, 2); // دو کاراکتر اول
+
+    // تولید URL نهایی
+    return `https://upload.wikimedia.org/wikipedia/commons/thumb/${firstChar}/${firstTwoChars}/${encodedFileName}/${width}px-${fileName}`;
+};
+
+
+            const getLogoUrl = (word) => {
+                if (!word.image || !word.logoCrop) return 'https://via.placeholder.com/300x200?text=No+Logo';
+                const fileName = word.image.split('/').pop();
+                return `http://tools.wmflabs.org/zoomviewer/proxy.php?iiif=File:${fileName}/${word.logoCrop}/full/0/default.jpg`;
             };
 
             const getImageUrl = (word) => {
-                return posterMode.value ? word.image : word.logoCrop;
+                if (posterMode.value) {
+                    return getPosterUrl(word.image);
+                } else {
+                    return getLogoUrl(word);
+                }
             };
 
             const getImdbLink = (imdbID) => `https://www.imdb.com/title/${imdbID}`;
             const getWikidataLink = (film) => film;
 
-            return { searchTerm, combineSimilarChars, posterMode, filteredWords, getMovieTitleWithYear, getImageUrl, getImdbLink, getWikidataLink, darkMode, toggleDarkMode };
+            return { searchTerm, combineSimilarChars, posterMode, filteredWords, getImageUrl, getImdbLink, getWikidataLink, getMovieTitleWithYear, darkMode, toggleDarkMode  };
         }
     }).mount('#app');
 </script>
