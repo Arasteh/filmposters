@@ -180,7 +180,7 @@ const sortOrder = ref("default"); // حالت پیش‌فرض
                 {
                     film: "http://www.wikidata.org/entity/Q14756739",
                     filmLabel: "بی‌گناه",
-                    publicationYear: "1975",
+                    publicationYear: "1978",
                     imdbID: "tt11383472",
                     image: "http://commons.wikimedia.org/wiki/Special:FilePath/بی%20گناه.jpg",
                     logoCrop: "pct:28.3,84.4,44.4,14.7"
@@ -294,7 +294,7 @@ const getPosterUrl = (filePath, width = 600) => {
             const getImdbLink = (imdbID) => `https://www.imdb.com/title/${imdbID}`;
             const getWikidataLink = (film) => film;
 
-            return { searchTerm, combineSimilarChars, posterMode, filteredWords, getImageUrl, getImdbLink, getWikidataLink, getMovieTitleWithYear, darkMode, toggleDarkMode  };
+            return { searchTerm, combineSimilarChars, posterMode, filteredWords, getImageUrl, getImdbLink, getWikidataLink, getMovieTitleWithYear, darkMode, toggleDarkMode, sortOrder  };
         }
     }).mount('#app');
 </script>
