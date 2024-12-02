@@ -299,13 +299,13 @@ const getPosterUrl = (filePath, width = 600) => {
     const encodedFileName = filePath.replace("http://commons.wikimedia.org/wiki/Special:FilePath/", "");
     const decodedFileName = decodeURIComponent(encodedFileName);
 
+    // تولید URL نهایی
+    const safeFileName = encodedFileName.replace(/%20/g, '_'); // جایگزینی فضا با '_'
     // محاسبه هش MD5 از نام فایل دیکود شده
     const md5Hash = md5(decodedFileName); // فرض می‌کنیم تابع md5 قبلاً تعریف شده است
     const firstChar = md5Hash.charAt(0); // اولین کاراکتر
     const firstTwoChars = md5Hash.substring(0, 2); // دو کاراکتر اول
 
-    // تولید URL نهایی
-    const safeFileName = encodedFileName.replace(/%20/g, '_'); // جایگزینی فضا با '_'
     return `https://upload.wikimedia.org/wikipedia/commons/thumb/${firstChar}/${firstTwoChars}/${safeFileName}/${width}px-${safeFileName}`;
 };
 
