@@ -132,7 +132,7 @@
         <input type="radio" v-model="posterMode" :value="true" /> پوستر
         </label>
         <label>
-        <input type="checkbox" v-model="combineSimilarChars" />حرف مشابه
+        <input type="checkbox" v-model="combineSimilarChars" />حروف مشابه
         </label>
         <label>
         ⇵
@@ -154,7 +154,7 @@
     <div v-if="filteredWords.length > 0" class="results-grid">
         <div class="movie-card" v-for="(word, index) in filteredWords" :key="index">
             <a :href="word.image" target="_blank"><img :src="getImageUrl(word)" :alt="word.filmLabel" class="movie-image" /></a>
-            <div class="movie-title">{{ getMovieTitleWithYear(word) }}</div>
+            <div class="movie-title">{{ getMovieTitleWithYear(word) }}</div><div class="movie-links"><a :href="getWikidataLink(word.creator)" target="_blank">طراح</a>
             <div class="movie-links">
                 <a :href="getImdbLink(word.imdbID)" target="_blank">T</a>
                 <a :href="getWikidataLink(word.film)" target="_blank">Q</a>
