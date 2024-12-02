@@ -132,7 +132,7 @@
         <input type="radio" v-model="posterMode" :value="true" /> پوستر
         </label>
         <label>
-        <input type="checkbox" v-model="combineSimilarChars" />حروف مشابه
+        <input type="checkbox" v-model="combineSimilarChars" />حرف مشابه
         </label>
         <label>
         ⇵
@@ -254,6 +254,12 @@ const filteredWords = computed(() => {
     const regex = new RegExp(modifiedSearchTerm, 'i');
     let results = words.value.filter(word => regex.test(word.filmLabel));
 
+
+            if (selectedYear.value) {
+                results = results.filter(word => toPersianYear(word.publicationYear) == selectedYear.value);
+            }
+
+    
     // مرتب‌سازی نتایج
     if (sortOrder.value === "alphabetical") {
         results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, "fa"));
