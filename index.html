@@ -56,7 +56,7 @@
             .options {
         display: flex;
         align-items: center;
-        gap: 10px; /* فاصله بین عناصر */
+        gap: 50px; /* فاصله بین عناصر */
     }
     .options label {
         margin: 0; /* حذف فاصله‌های پیش‌فرض */
@@ -111,7 +111,7 @@
             background-color: #333;
             color: #fff;
             border: none;
-            border-radius: 16px;
+            border-radius: 20px;
             cursor: pointer;
             transition: background-color 0.3s, color 0.3s;
         }
@@ -128,13 +128,13 @@
     <button class="dark-mode-toggle" @click="toggleDarkMode">{{ darkMode ? 'عادی' : 'نگاتیو' }}</button>
     <div class="options">
         <label>
-        <input type="checkbox" v-model="combineSimilarChars" />حروف مشابه</label>
-    <label>
         <input type="radio" v-model="posterMode" :value="false" /> لوگو
         <input type="radio" v-model="posterMode" :value="true" /> پوستر
-    </label>
+        </label>
+        <label>
+        <input type="checkbox" v-model="combineSimilarChars" />حروف مشابه
+        </label>
     </div>
-
 
     <div v-if="filteredWords.length > 0" class="results-grid">
         <div class="movie-card" v-for="(word, index) in filteredWords" :key="index">
