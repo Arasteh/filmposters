@@ -300,7 +300,7 @@ const getPosterUrl = (filePath, width = 600) => {
     const decodedFileName = decodeURIComponent(encodedFileName);
 
     // تولید URL نهایی
-    const safeFileName = encodedFileName.replace(/ /g, '_'); // جایگزینی فضا با '_'
+    const safeFileName = encodedFileName.replace(/%20/g, '_'); // جایگزینی فضا با '_'
     // محاسبه هش MD5 از نام فایل دیکود شده
     const md5Hash = md5(decodedFileName); // فرض می‌کنیم تابع md5 قبلاً تعریف شده است
     const firstChar = md5Hash.charAt(0); // اولین کاراکتر
