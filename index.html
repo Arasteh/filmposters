@@ -128,7 +128,7 @@
     <button class="dark-mode-toggle" @click="toggleDarkMode">{{ darkMode ? 'عادی' : 'نگاتیو' }}</button>
     <div class="options">
         <label>
-        <input type="radio" v-model="posterMode" :value="false" /> لوگوها
+        <input type="radio" v-model="posterMode" :value="false" /> لوگو
         <input type="radio" v-model="posterMode" :value="true" /> پوستر
         </label>
         <label>
@@ -277,19 +277,18 @@ const filteredWords = computed(() => {
 const getPosterUrl = (filePath, width = 600) => {
     if (!filePath) return 'https://via.placeholder.com/300x420?text=No+Poster';
 
-    // نام فایل را آماده کنید
-    const fileName = filePath
-        .replace("http://commons.wikimedia.org/wiki/Special:FilePath/", "")
-        .replace(/%20/g, '_');
-    const encodedFileName = encodeURIComponent(fileName);
+    // استخراج و دیکود کردن نام فایل
+    const encodedFileName = filePath.replace("http://commons.wikimedia.org/wiki/Special:FilePath/", "");
+    const decodedFileName = decodeURIComponent(encodedFileName);
 
-    // محاسبه هش MD5
-    const md5Hash = md5(fileName); // فرض می‌کنیم تابع md5 قبلاً تعریف شده است
+    // محاسبه هش MD5 از نام فایل دیکود شده
+    const md5Hash = md5(decodedFileName); // فرض می‌کنیم تابع md5 قبلاً تعریف شده است
     const firstChar = md5Hash.charAt(0); // اولین کاراکتر
     const firstTwoChars = md5Hash.substring(0, 2); // دو کاراکتر اول
 
     // تولید URL نهایی
-    return `https://upload.wikimedia.org/wikipedia/commons/thumb/${firstChar}/${firstTwoChars}/${encodedFileName}/${width}px-${fileName}`;
+    const safeFileName = encodedFileName.replace(/%20/g, '_'); // جایگزینی فضا با '_'
+    return `https://upload.wikimedia.org/wikipedia/commons/thumb/${firstChar}/${firstTwoChars}/${safeFileName}/${width}px-${safeFileName}`;
 };
 
 
