@@ -52,10 +52,15 @@
             border: 1px solid #ccc;
             border-radius: 16px;
         }
-        label {
-            margin: 5px;
-            display: block;
-        }
+        
+            .options {
+        display: flex;
+        align-items: center;
+        gap: 10px; /* فاصله بین عناصر */
+    }
+    .options label {
+        margin: 0; /* حذف فاصله‌های پیش‌فرض */
+    }
         .results-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -121,12 +126,15 @@
 <div id="app">
     <input type="text" v-model="searchTerm" placeholder="جستجو..." />
     <button class="dark-mode-toggle" @click="toggleDarkMode">{{ darkMode ? 'عادی' : 'نگاتیو' }}</button>
-    <label>
+    <div class="options">
+        <label>
         <input type="checkbox" v-model="combineSimilarChars" />حروف مشابه</label>
     <label>
         <input type="radio" v-model="posterMode" :value="false" /> لوگو
         <input type="radio" v-model="posterMode" :value="true" /> پوستر
     </label>
+    </div>
+
 
     <div v-if="filteredWords.length > 0" class="results-grid">
         <div class="movie-card" v-for="(word, index) in filteredWords" :key="index">
