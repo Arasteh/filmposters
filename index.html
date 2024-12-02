@@ -142,6 +142,13 @@
             <option value="year">سال تولید</option>
         </select>
     </label>
+        <label>
+            سال:
+            <select v-model="selectedYear">
+                <option value="">همه</option>
+                <option v-for="year in availableYears" :key="year" :value="year">{{ year }}</option>
+            </select>
+        </label>
     </div>
 
     <div v-if="filteredWords.length > 0" class="results-grid">
@@ -176,6 +183,7 @@ const sortOrder = ref("default"); // حالت پیش‌فرض
             const searchTerm = ref('');
             const combineSimilarChars = ref(false);
             const posterMode = ref(false); // پیش‌فرض نمایش لوگو
+        const selectedYear = ref(""); // فیلتر سال انتخاب‌شده
 
             const words = ref([]); // آرایه خالی در ابتدا
 
@@ -209,6 +217,14 @@ const loadWordsFromFile = async () => {
                 return gYear - 621;
             };
 
+        const availableYears = computed(() => {
+            const years = words.value
+                .map(word => toPersianYear(word.publicationYear))
+                .filter((year, index, self) => year && self.indexOf(year) === index)
+                .sort((a, b) => a - b);
+            return years;
+        });
+            
             const getMovieTitleWithYear = (word) => {
                 const shamsiYear = toPersianYear(word.publicationYear);
                 return shamsiYear ? `${word.filmLabel} (${shamsiYear})` : word.filmLabel;
@@ -284,7 +300,7 @@ const getPosterUrl = (filePath, width = 600) => {
             const getImdbLink = (imdbID) => `https://www.imdb.com/title/${imdbID}`;
             const getWikidataLink = (film) => film;
 
-            return { searchTerm, combineSimilarChars, posterMode, filteredWords, getImageUrl, getImdbLink, getWikidataLink, getMovieTitleWithYear, darkMode, toggleDarkMode, sortOrder, loadWordsFromFile  };
+            return { searchTerm, combineSimilarChars, posterMode, filteredWords, getImageUrl, getImdbLink, getWikidataLink, getMovieTitleWithYear, darkMode, toggleDarkMode, sortOrder, loadWordsFromFile, selectedYear, availableYears  };
         }
     }).mount('#app');
 </script>
