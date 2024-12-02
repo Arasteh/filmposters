@@ -34,10 +34,6 @@
             border-color: #444;
         }
 
-        body.dark-mode .dark-mode-toggle {
-            background-color: #fff;
-            color: #333;
-        }
 */
         #app {
             max-width: 800px;
@@ -115,11 +111,15 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
+        body.dark-mode .dark-mode-toggle {
+            background-color: #ddd;
+            color: #333;
+        }
     </style>
 </head>
 <body>
 <div id="app">
-    <button class="dark-mode-toggle" @click="toggleDarkMode">{{ darkMode ? 'تغییر به حالت روشن' : 'تغییر به حالت تاریک' }}</button>
+    <button class="dark-mode-toggle" @click="toggleDarkMode">{{ darkMode ? 'تغییر به عادی' : 'تغییر به نگاتیو' }}</button>
     <input type="text" v-model="searchTerm" placeholder="جستجو..." />
     <label>
         <input type="checkbox" v-model="combineSimilarChars" /> در نظر گرفتن حروف مشابه
