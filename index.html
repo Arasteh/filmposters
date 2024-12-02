@@ -177,33 +177,22 @@ const sortOrder = ref("default"); // حالت پیش‌فرض
             const combineSimilarChars = ref(false);
             const posterMode = ref(false); // پیش‌فرض نمایش لوگو
 
-            const words = ref([
-                {
-                    film: "http://www.wikidata.org/entity/Q14756739",
-                    filmLabel: "بی‌گناه",
-                    publicationYear: "1978",
-                    imdbID: "tt11383472",
-                    image: "http://commons.wikimedia.org/wiki/Special:FilePath/بی%20گناه.jpg",
-                    logoCrop: "pct:28.3,84.4,44.4,14.7"
-                },
-                {
-                    film: "http://www.wikidata.org/entity/Q5710929",
-                    filmLabel: "برهنه تا ظهر با سرعت",
-                    publicationYear: "1976",
-                    imdbID: "tt0319045",
-                    image: "http://commons.wikimedia.org/wiki/Special:FilePath/برهنه%20تا%20ظهر%20با%20سرعت.jpg",
-                    logoCrop: "pct:7,82.1,85.5,7"
-                },
-                {
-                    film: "http://www.wikidata.org/entity/Q5867554",
-                    filmLabel: "شطرنج باد",
-                    publicationYear: "1977",
-                    imdbID: "tt0318069",
-                    image: "http://commons.wikimedia.org/wiki/Special:FilePath/شطرنج%20باد.jpg",
-                    logoCrop: "pct:10.1,16,39.8,10.1"
-                }
-            ]);
+            const words = ref([]); // آرایه خالی در ابتدا
 
+const loadWordsFromFile = async () => {
+    try {
+        const response = await fetch('data.json'); // مسیر فایل JSON
+        if (!response.ok) throw new Error('خطا در دریافت اطلاعات JSON');
+        const data = await response.json();
+        words.value = data; // مقداردهی به آرایه
+    } catch (error) {
+        console.error('خطا در بارگذاری داده‌ها:', error);
+    }
+};
+
+    // بارگذاری داده‌ها در زمان شروع
+    loadWordsFromFile();
+            
             const similarCharsMapping = {
                 'ط': '[طظ]', 'ظ': '[طظ]', 'ب': '[بپتثن]', 'پ': '[بپتثن]',
                 'ت': '[بپتثن]', 'ث': '[بپتثن]', 'ن': '[بپتثن]', 'ج': '[جچحخ]',
@@ -295,7 +284,7 @@ const getPosterUrl = (filePath, width = 600) => {
             const getImdbLink = (imdbID) => `https://www.imdb.com/title/${imdbID}`;
             const getWikidataLink = (film) => film;
 
-            return { searchTerm, combineSimilarChars, posterMode, filteredWords, getImageUrl, getImdbLink, getWikidataLink, getMovieTitleWithYear, darkMode, toggleDarkMode, sortOrder  };
+            return { searchTerm, combineSimilarChars, posterMode, filteredWords, getImageUrl, getImdbLink, getWikidataLink, getMovieTitleWithYear, darkMode, toggleDarkMode, sortOrder, loadWordsFromFile  };
         }
     }).mount('#app');
 </script>
