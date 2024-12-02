@@ -244,7 +244,13 @@ const loadWordsFromFile = async () => {
             */
             
 const filteredWords = computed(() => {
-    if (searchTerm.value.length < 2) return [];
+    // اگر هیچ متن جستجویی وارد نشده و سال انتخاب شده است
+    if (!searchTerm.value && selectedYear.value) {
+        return words.value.filter(word => toPersianYear(word.publicationYear) == selectedYear.value);
+    }
+
+    // اگر کادر جستجو خالی است و هیچ سالی انتخاب نشده است
+    if (searchTerm.value.length < 2 && !selectedYear.value) return [];
 
     let modifiedSearchTerm = searchTerm.value;
     if (combineSimilarChars.value) {
@@ -254,13 +260,11 @@ const filteredWords = computed(() => {
     const regex = new RegExp(modifiedSearchTerm, 'i');
     let results = words.value.filter(word => regex.test(word.filmLabel));
 
+    // اگر سال انتخاب شده است، فیلتر بر اساس سال نیز اعمال شود
+    if (selectedYear.value) {
+        results = results.filter(word => toPersianYear(word.publicationYear) == selectedYear.value);
+    }
 
-            if (selectedYear.value) {
-                results = results.filter(word => toPersianYear(word.publicationYear) == selectedYear.value);
-            }
-
-    
-    // مرتب‌سازی نتایج
     if (sortOrder.value === "alphabetical") {
         results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, "fa"));
     } else if (sortOrder.value === "year") {
