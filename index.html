@@ -142,7 +142,7 @@
     <button class="dark-mode-toggle" @click="toggleDarkMode">{{ darkMode ? 'عادی' : 'نگاتیو' }}</button>
     <div class="options">
         <label>
-        <input type="radio" v-model="posterMode" :value="false" /> لوگوها
+        <input type="radio" v-model="posterMode" :value="false" /> لوگو
         <input type="radio" v-model="posterMode" :value="true" /> پوستر
         </label>
         <label>
@@ -170,7 +170,7 @@
             <a :href="word.image" target="_blank"><img :src="getImageUrl(word)" :alt="word.filmLabel" class="movie-image" /></a>
             <div class="movie-title">{{ getMovieTitleWithYear(word) }}</div>
                 <div v-if="word.creator && word.creatorLabel" class="movie-creator">
-        طراحی‌شده توسط: <a :href="word.creator" target="_blank">{{ word.creatorLabel }}</a>
+        طراح: <a :href="word.creator" target="_blank">{{ word.creatorLabel }}</a>
     </div>
 
             <div class="movie-links">
@@ -220,8 +220,8 @@ const loadWordsFromFile = async () => {
     loadWordsFromFile();
             
             const similarCharsMapping = {
-                'ط': '[طظ]', 'ظ': '[طظ]', 'ب': '[بپتثن]', 'پ': '[بپتثن]',
-                'ت': '[بپتثن]', 'ث': '[بپتثن]', 'ن': '[بپتثن]', 'ج': '[جچحخ]',
+                'ط': '[طظ]', 'ظ': '[طظ]', 'ب': '[بپتثنی]', 'پ': '[بپتثنی]',
+                'ت': '[بپتثنی]', 'ث': '[بپتثنی]', 'ن': '[بپتثنی]', 'ی': '[بپتثنی]', 'ج': '[جچحخ]',
                 'چ': '[جچحخ]', 'ح': '[جچحخ]', 'خ': '[جچحخ]', 'د': '[دذ]',
                 'ذ': '[دذ]', 'ر': '[رزژ]', 'ز': '[رزژ]', 'ژ': '[رزژ]', 'س': '[سش]',
                 'ش': '[سش]', 'ص': '[صض]', 'ض': '[صض]', 'ع': '[عغ]',
