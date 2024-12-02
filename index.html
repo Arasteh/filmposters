@@ -143,7 +143,7 @@
     <div class="options">
         <label>
         <input type="radio" v-model="posterMode" :value="false" /> لوگوها
-        <input type="radio" v-model="posterMode" :value="true" /> پوسترها
+        <input type="radio" v-model="posterMode" :value="true" /> پوستر
         </label>
         <label>
         <input type="checkbox" v-model="combineSimilarChars" />حروف مشابه
@@ -302,7 +302,7 @@ const getPosterUrl = (filePath, width = 600) => {
     // تولید URL نهایی
     const safeFileName = encodedFileName.replace(/%20/g, '_'); // جایگزینی فضا با '_'
     // محاسبه هش MD5 از نام فایل دیکود شده
-    const md5Hash = md5(decodedFileName); // فرض می‌کنیم تابع md5 قبلاً تعریف شده است
+    const md5Hash = md5(safeFileName); // فرض می‌کنیم تابع md5 قبلاً تعریف شده است
     const firstChar = md5Hash.charAt(0); // اولین کاراکتر
     const firstTwoChars = md5Hash.substring(0, 2); // دو کاراکتر اول
 
