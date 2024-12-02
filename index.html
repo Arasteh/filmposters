@@ -97,6 +97,20 @@
             margin: 10px 0;
         }
 
+        .movie-creator {
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 5px;
+}
+.movie-creator a {
+    color: #007bff;
+    text-decoration: none;
+}
+.movie-creator a:hover {
+    text-decoration: underline;
+}
+
+
         .movie-links a {
             color: #007bff;
             text-decoration: none;
@@ -128,7 +142,7 @@
     <button class="dark-mode-toggle" @click="toggleDarkMode">{{ darkMode ? 'عادی' : 'نگاتیو' }}</button>
     <div class="options">
         <label>
-        <input type="radio" v-model="posterMode" :value="false" /> لوگو
+        <input type="radio" v-model="posterMode" :value="false" /> لوگوها
         <input type="radio" v-model="posterMode" :value="true" /> پوستر
         </label>
         <label>
@@ -154,7 +168,11 @@
     <div v-if="filteredWords.length > 0" class="results-grid">
         <div class="movie-card" v-for="(word, index) in filteredWords" :key="index">
             <a :href="word.image" target="_blank"><img :src="getImageUrl(word)" :alt="word.filmLabel" class="movie-image" /></a>
-            <div class="movie-title">{{ getMovieTitleWithYear(word) }}</div><div class="movie-links"><a :href="getWikidataLink(word.creator)" target="_blank">طراح</a>
+            <div class="movie-title">{{ getMovieTitleWithYear(word) }}</div>
+                <div v-if="word.creator && word.creatorLabel" class="movie-creator">
+        طراحی‌شده توسط: <a :href="word.creator" target="_blank">{{ word.creatorLabel }}</a>
+    </div>
+
             <div class="movie-links">
                 <a :href="getImdbLink(word.imdbID)" target="_blank">T</a>
                 <a :href="getWikidataLink(word.film)" target="_blank">Q</a>
