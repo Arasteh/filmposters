@@ -106,7 +106,6 @@
 
         .movie-title {
             font-weight: bold;
-            margin: 10px 0;
         }
 
         .movie-creator {
@@ -154,7 +153,7 @@
     <button class="dark-mode-toggle" @click="toggleDarkMode">{{ darkMode ? 'عادی' : 'نگاتیو' }}</button>
     <div class="options">
         <label>
-        <input type="radio" v-model="posterMode" :value="false" /> لوگوها
+        <input type="radio" v-model="posterMode" :value="false" /> لوگو
         <input type="radio" v-model="posterMode" :value="true" /> پوسترها
         </label>
         <label>
