@@ -55,11 +55,23 @@
 
         .options {
         display: flex;
-        align-items: center;
-        gap: 50px; /* فاصله بین عناصر */
+    flex-wrap: wrap; /* اجازه بدهد آیتم‌ها در خطوط جدید قرار بگیرند */
+    gap: 20px; /* فاصله مناسب بین آیتم‌ها */
+    justify-content: space-around; /* توزیع مناسب آیتم‌ها در عرض */
         margin-bottom: 10px;
             border: none;
         }
+
+        @media (max-width: 768px) { /* تنظیم برای صفحات با عرض کمتر از 768px */
+    .options {
+        flex-direction: column; /* آیتم‌ها زیر هم نمایش داده شوند */
+        align-items: flex-start; /* چیدمان به صورت چپ‌چین (یا راست‌چین در RTL) */
+        gap: 10px; /* فاصله کمتر بین آیتم‌ها */
+    }
+    .options label {
+        width: 100%; /* آیتم‌ها کل عرض را بگیرند */
+    }
+}
         
         .results-grid {
             display: grid;
@@ -143,7 +155,7 @@
     <div class="options">
         <label>
         <input type="radio" v-model="posterMode" :value="false" /> لوگوها
-        <input type="radio" v-model="posterMode" :value="true" /> پوستر
+        <input type="radio" v-model="posterMode" :value="true" /> پوسترها
         </label>
         <label>
         <input type="checkbox" v-model="combineSimilarChars" />حروف مشابه
