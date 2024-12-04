@@ -174,6 +174,13 @@
                 <option v-for="year in availableYears" :key="year" :value="year">{{ year }}</option>
             </select>
         </label>
+        <label>
+            طراح:
+            <select v-model="selectedDesigner">
+                <option value="">همه</option>
+                <option v-for="designer in availableDesigners" :key="designer" :value="designer">{{ designer }}</option>
+            </select>
+        </label>
     </div>
 
     <div v-if="filteredWords.length > 0" class="results-grid">
@@ -220,6 +227,7 @@ const sortOrder = ref("default"); // حالت پیش‌فرض
             const combineSimilarChars = ref(false);
             const posterMode = ref(false); // پیش‌فرض نمایش لوگو
         const selectedYear = ref(""); // فیلتر سال انتخاب‌شده
+        const selectedDesigner = ref(""); 
 
             const words = ref([]); // آرایه خالی در ابتدا
 
@@ -261,6 +269,14 @@ const loadWordsFromFile = async () => {
             return years;
         });
             
+        const availableDesigners = computed(() => {
+            const designers = words.value
+                .map(word => word.creatorLabel)
+                .filter((designer, index, self) => designer && self.indexOf(designer) === index)
+                .sort((a, b) => a - b);
+            return designers;
+        });
+            
             const getMovieTitleWithYear = (word) => {
                 const shamsiYear = toPersianYear(word.publicationYear);
                 return shamsiYear ? `${word.filmLabel} (${shamsiYear})` : word.filmLabel;
@@ -284,9 +300,14 @@ const filteredWords = computed(() => {
     if (!searchTerm.value && selectedYear.value) {
         return words.value.filter(word => toPersianYear(word.publicationYear) == selectedYear.value);
     }
+    
+    if (!searchTerm.value && selectedDesigner.value) {
+        return words.value.filter(word => word.creatorLabel) == selectedDesigner.value);
+    }
 
     // اگر کادر جستجو خالی است و هیچ سالی انتخاب نشده است
     if (searchTerm.value.length < 2 && !selectedYear.value) return [];
+    if (searchTerm.value.length < 2 && !selectedDesigner.value) return [];
 
     let modifiedSearchTerm = searchTerm.value;
     if (combineSimilarChars.value) {
@@ -299,6 +320,9 @@ const filteredWords = computed(() => {
     // اگر سال انتخاب شده است، فیلتر بر اساس سال نیز اعمال شود
     if (selectedYear.value) {
         results = results.filter(word => toPersianYear(word.publicationYear) == selectedYear.value);
+    }
+    if (selectedDesigner.value) {
+        results = results.filter(word => word.creatorLabel) == selectedDesigner.value);
     }
 
     if (sortOrder.value === "alphabetical") {
@@ -345,7 +369,7 @@ const getPosterUrl = (filePath, width = 600) => {
             const getImdbLink = (imdbID) => `https://www.imdb.com/title/${imdbID}`;
             const getWikidataLink = (film) => film;
 
-            return { searchTerm, combineSimilarChars, posterMode, filteredWords, getImageUrl, getImdbLink, getWikidataLink, getMovieTitleWithYear, darkMode, toggleDarkMode, sortOrder, loadWordsFromFile, selectedYear, availableYears  };
+            return { searchTerm, combineSimilarChars, posterMode, filteredWords, getImageUrl, getImdbLink, getWikidataLink, getMovieTitleWithYear, darkMode, toggleDarkMode, sortOrder, loadWordsFromFile, selectedYear, availableYears, availableDesigners, selectedDesigner  };
         }
     }).mount('#app');
 </script>
