@@ -302,12 +302,13 @@ const filteredWords = computed(() => {
     }
     
     if (!searchTerm.value && selectedDesigner.value) {
-        return words.value.filter(word => word.creatorLabel) == selectedDesigner.value);
+        return words.value.filter(word => word.creatorLabel == selectedDesigner.value);
+
     }
 
     // اگر کادر جستجو خالی است و هیچ سالی انتخاب نشده است
-    if (searchTerm.value.length < 2 && !selectedYear.value) return [];
-    if (searchTerm.value.length < 2 && !selectedDesigner.value) return [];
+if (searchTerm.value.length < 2 && !selectedYear.value && !selectedDesigner.value) return [];
+
 
     let modifiedSearchTerm = searchTerm.value;
     if (combineSimilarChars.value) {
@@ -322,7 +323,8 @@ const filteredWords = computed(() => {
         results = results.filter(word => toPersianYear(word.publicationYear) == selectedYear.value);
     }
     if (selectedDesigner.value) {
-        results = results.filter(word => word.creatorLabel) == selectedDesigner.value);
+        results = results.filter(word => word.creatorLabel == selectedDesigner.value);
+
     }
 
     if (sortOrder.value === "alphabetical") {
