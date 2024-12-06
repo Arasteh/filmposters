@@ -355,14 +355,16 @@ const getPosterUrl = (filePath, width = 600) => {
 
 
             const getLogoUrl = (word) => {
-                if (!word.image || !word.logoCrop) return 'https://via.placeholder.com/300x200?text=No+Logo';
-                const fileName = word.image.split('/').pop();
-                return `http://tools.wmflabs.org/zoomviewer/proxy.php?iiif=File:${fileName}/${word.logoCrop}/full/0/default.jpg`;
+                if (!word.logo) return 'https://via.placeholder.com/300x200?text=No+Logo';
+                // const fileName = word.image.split('/').pop();
+                else {
+                return getPosterUrl(word.logo);
+                }
             };
 
             const getImageUrl = (word) => {
                 if (posterMode.value) {
-                    return getPosterUrl(word.image);
+                    return getPosterUrl(word.poster);
                 } else {
                     return getLogoUrl(word);
                 }
