@@ -153,7 +153,7 @@
     <button class="dark-mode-toggle" @click="toggleDarkMode">{{ darkMode ? 'عادی' : 'نگاتیو' }}</button>
     <div class="options">
         <label>
-        <input type="radio" v-model="posterMode" :value="false" /> لوگو
+        <input type="radio" v-model="posterMode" :value="false" /> لوگوها
         <input type="radio" v-model="posterMode" :value="true" /> پوسترها
         </label>
         <label>
@@ -185,7 +185,7 @@
 
     <div v-if="filteredWords.length > 0" class="results-grid">
         <div class="movie-card" v-for="(word, index) in filteredWords" :key="index">
-            <a :href="word.image" target="_blank"><img :src="getImageUrl(word)" :alt="word.filmLabel" class="movie-image" /></a>
+            <a :href="word.poster" target="_blank"><img :src="getImageUrl(word)" :alt="word.filmLabel" class="movie-image" /></a>
             <div class="movie-title">{{ getMovieTitleWithYear(word) }}</div>
                 <div v-if="word.creator && word.creatorLabel" class="movie-creator">
         طراح: <a :href="word.creator" target="_blank">{{ word.creatorLabel }}</a>
@@ -356,7 +356,7 @@ const getPosterUrl = (filePath, width = 600) => {
 
             const getLogoUrl = (word) => {
                 if (!word.logo) return 'https://via.placeholder.com/300x200?text=No+Logo';
-                // const fileName = word.image.split('/').pop();
+                // const fileName = word.poster.split('/').pop();
                 else {
                 return getPosterUrl(word.logo);
                 }
