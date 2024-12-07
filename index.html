@@ -153,7 +153,7 @@
     <button class="dark-mode-toggle" @click="toggleDarkMode">{{ darkMode ? 'عادی' : 'نگاتیو' }}</button>
     <div class="options">
         <label>
-        <input type="radio" v-model="posterMode" :value="false" /> لوگوها
+        <input type="radio" v-model="posterMode" :value="false" /> لوگو
         <input type="radio" v-model="posterMode" :value="true" /> پوسترها
         </label>
         <label>
@@ -185,7 +185,7 @@
 
     <div v-if="filteredWords.length > 0" class="results-grid">
         <div class="movie-card" v-for="(word, index) in filteredWords" :key="index">
-            <a :href="word.poster" target="_blank"><img :src="getImageUrl(word)" :alt="word.filmLabel" class="movie-image" /></a>
+            <a :href="getImageLink(word)" target="_blank"><img :src="getImageUrl(word)" :alt="word.filmLabel" class="movie-image" /></a>
             <div class="movie-title">{{ getMovieTitleWithYear(word) }}</div>
                 <div v-if="word.creator && word.creatorLabel" class="movie-creator">
         طراح: <a :href="word.creator" target="_blank">{{ word.creatorLabel }}</a>
@@ -370,10 +370,18 @@ const getPosterUrl = (filePath, width = 600) => {
                 }
             };
 
+            const getImageLink = (word) => {
+                if (posterMode.value) {
+                    return word.poster;
+                } else {
+                    return word.logo;
+                }
+            };
+
             const getImdbLink = (imdbID) => `https://www.imdb.com/title/${imdbID}`;
             const getWikidataLink = (film) => film;
 
-            return { searchTerm, combineSimilarChars, posterMode, filteredWords, getImageUrl, getImdbLink, getWikidataLink, getMovieTitleWithYear, darkMode, toggleDarkMode, sortOrder, loadWordsFromFile, selectedYear, availableYears, availableDesigners, selectedDesigner  };
+            return { searchTerm, combineSimilarChars, posterMode, filteredWords, getImageUrl, getImdbLink, getWikidataLink, getMovieTitleWithYear, darkMode, toggleDarkMode, sortOrder, loadWordsFromFile, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink  };
         }
     }).mount('#app');
 </script>
