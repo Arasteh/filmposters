@@ -150,7 +150,7 @@
 
 <body>
     <div id="app">
-        <input type="text" v-model="searchTerm" placeholder="جستجو..." />
+        <input type="text" v-model="searchTerm" placeholder="جستجو…" />
         <button class="dark-mode-toggle" @click="toggleDarkMode">{{ darkMode ? 'عادی' : 'نگاتیو' }}</button>
         <div class="options">
             <fieldset style="border: none; padding: 0; margin: 0;">
@@ -159,7 +159,7 @@
                 <label><input type="radio" v-model="posterMode" :value="true" /> پوسترها</label>
             </fieldset>
             <label>
-                <input type="checkbox" v-model="combineSimilarChars" />حروف مشابه
+                <input type="checkbox" v-model="combineSimilarChars" /> حروف مشابه
             </label>
             <label>
                 ⇵
@@ -173,20 +173,20 @@
                 سال:
                 <select v-model="selectedYear">
                     <option value="">همه</option>
-                    <option v-for="year in Object.keys(availableYears).sort()" :key="year" :value="year">{{ year }} ({{ availableYears[year].length.toLocaleString('fa') }})</option>
+                    <option v-for="[year, count] in availableYears" :key="year" :value="year">{{ year }} ({{ count }})</option>
                 </select>
             </label>
             <label>
                 طراح:
                 <select v-model="selectedDesigner">
                     <option value="">همه</option>
-                    <option v-for="designer in Object.keys(availableDesigners).sort()" :key="designer" :value="designer">{{ designer }} ({{ availableDesigners[designer].length.toLocaleString('fa') }})</option>
+                    <option v-for="[designer, count] in availableDesigners" :key="designer" :value="designer">{{ designer }} ({{ count }})</option>
                 </select>
             </label>
         </div>
 
-        <div v-if="filteredWords.length > 0" class="results-grid">
-            <div class="movie-card" v-for="(word, index) in filteredWords" :key="index">
+        <div v-if="filteredMovies.length > 0" class="results-grid">
+            <div class="movie-card" v-for="(word, index) in filteredMovies" :key="index">
                 <a :href="getImageLink(word)" target="_blank"><img :src="getImageUrl(word)" :alt="word.filmLabel"
                         class="movie-image" /></a>
                 <div class="movie-title">{{ getMovieTitleWithYear(word) }}</div>
@@ -267,8 +267,8 @@ createApp({
         const selectedYear = ref(""); // فیلتر سال انتخاب‌شده
         const selectedDesigner = ref("");
 
-        const words = ref([]);
-        getAllItems().then(result => words.value = result);
+        const movies = ref([]);
+        getAllItems().then(result => movies.value = result);
 
         const similarCharsMapping = {
             'ط': '[طظ]', 'ظ': '[طظ]', 'ب': '[بپتثنی]', 'پ': '[بپتثنی]',
@@ -282,15 +282,17 @@ createApp({
 
         const toPersianYear = (date) => {
             const year = new Date(date).toLocaleDateString('fa').split('/')[0];
-            return year == 'Invalid Date' ? 'ناموجود' : year;
+            return year === 'Invalid Date' ? 'ناموجود' : year;
         };
 
         const availableYears = computed(() => {
-            return Object.groupBy(words.value, movie => toPersianYear(movie.date));
+            const groups = Object.groupBy(movies.value, movie => toPersianYear(movie.date));
+            return Object.keys(groups).sort().map(x => [x, groups[x].length.toLocaleString('fa')]);
         });
 
         const availableDesigners = computed(() => {
-            return Object.groupBy(words.value.filter(x => x.creatorLabel), movie => movie.creatorLabel);
+            const groups = Object.groupBy(movies.value.filter(x => x.creatorLabel), movie => movie.creatorLabel);
+            return Object.keys(groups).sort().map(x => [x, groups[x].length.toLocaleString('fa')]);
         });
 
         const getMovieTitleWithYear = (word) => {
@@ -298,7 +300,7 @@ createApp({
             return date ? `${word.filmLabel} (${toPersianYear(date)})` : word.filmLabel;
         };
         /*
-        const filteredWords = computed(() => {
+        const filteredMovies = computed(() => {
             if (searchTerm.value.length < 2) return [];
             let modifiedSearchTerm = searchTerm.value;
 
@@ -307,40 +309,38 @@ createApp({
             }
 
             const regex = new RegExp(modifiedSearchTerm, 'i');
-            return words.value.filter(word => regex.test(word.filmLabel));
+            return movies.value.filter(word => regex.test(word.filmLabel));
         });
         */
 
-        const filteredWords = computed(() => {
+        const filteredMovies = computed(() => {
             // اگر هیچ متن جستجویی وارد نشده و سال انتخاب شده است
             if (!searchTerm.value && selectedYear.value) {
-                return words.value.filter(word => toPersianYear(word.date) == selectedYear.value);
+                return movies.value.filter(word => toPersianYear(word.date) === selectedYear.value);
             }
 
             if (!searchTerm.value && selectedDesigner.value) {
-                return words.value.filter(word => word.creatorLabel == selectedDesigner.value);
-
+                return movies.value.filter(word => word.creatorLabel === selectedDesigner.value);
             }
 
             // اگر کادر جستجو خالی است و هیچ سالی انتخاب نشده است
             if (searchTerm.value.length < 2 && !selectedYear.value && !selectedDesigner.value) return [];
 
 
-            let modifiedSearchTerm = searchTerm.value;
+            const modifiedSearchTerm = searchTerm.value;
             if (combineSimilarChars.value) {
                 modifiedSearchTerm = modifiedSearchTerm.split('').map(char => similarCharsMapping[char] || char).join('');
             }
 
             const regex = new RegExp(modifiedSearchTerm, 'i');
-            let results = words.value.filter(word => regex.test(word.filmLabel));
+            let results = movies.value.filter(word => regex.test(word.filmLabel));
 
             // اگر سال انتخاب شده است، فیلتر بر اساس سال نیز اعمال شود
             if (selectedYear.value) {
-                results = results.filter(word => toPersianYear(word.date) == selectedYear.value);
+                results = results.filter(word => toPersianYear(word.date) === selectedYear.value);
             }
             if (selectedDesigner.value) {
-                results = results.filter(word => word.creatorLabel == selectedDesigner.value);
-
+                results = results.filter(word => word.creatorLabel === selectedDesigner.value);
             }
 
             if (sortOrder.value === "alphabetical") {
@@ -379,25 +379,17 @@ createApp({
         };
 
         const getImageUrl = (word) => {
-            if (posterMode.value) {
-                return getPosterUrl(word.poster);
-            } else {
-                return getLogoUrl(word);
-            }
+            return posterMode.value ? getPosterUrl(word.poster) : getLogoUrl(word);
         };
 
         const getImageLink = (word) => {
-            if (posterMode.value) {
-                return word.poster;
-            } else {
-                return word.logo;
-            }
+            return posterMode.value ? word.poster : word.logo;
         };
 
         const getImdbLink = (imdbID) => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = (film) => film;
 
-        return { searchTerm, combineSimilarChars, posterMode, filteredWords, getImageUrl, getImdbLink, getWikidataLink, getMovieTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink };
+        return { searchTerm, combineSimilarChars, posterMode, filteredMovies, getImageUrl, getImdbLink, getWikidataLink, getMovieTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink };
     }
 }).mount('#app');
 </script>
