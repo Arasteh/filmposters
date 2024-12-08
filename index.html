@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fa">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js"></script>
     <style>
         body {
-            font-family: sans-serif;
+            font-family: system-ui;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -154,7 +153,7 @@
         <input type="text" v-model="searchTerm" placeholder="جستجو..." />
         <button class="dark-mode-toggle" @click="toggleDarkMode">{{ darkMode ? 'عادی' : 'نگاتیو' }}</button>
         <div class="options">
-            <fieldset style="border: none">
+            <fieldset style="border: none; padding: 0; margin: 0;">
                 <label><input type="radio" v-model="posterMode" :value="false" /> لوگو</label>
                 &nbsp;
                 <label><input type="radio" v-model="posterMode" :value="true" /> پوسترها</label>
