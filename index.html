@@ -210,7 +210,7 @@ async function getAllItems() {
                 'Accept': 'application/json'
             },
             body: `
-SELECT DISTINCT ?film ?filmLabel (MIN(?publicationDate) AS ?date) ?imdbID ?poster ?logo ?designer ?designerLabel WHERE {
+SELECT DISTINCT ?film ?filmLabel (GROUP_CONCAT(DISTINCT ?alias; separator=", ") AS ?aliases) (MIN(?publicationDate) AS ?date) ?imdbID ?poster ?logo ?designer ?designerLabel WHERE {
   VALUES ?type { wd:Q11424 wd:Q24862 wd:Q5398426 }
   ?film wdt:P31 ?type;
         wdt:P495 wd:Q794.
@@ -223,6 +223,8 @@ SELECT DISTINCT ?film ?filmLabel (MIN(?publicationDate) AS ?date) ?imdbID ?poste
 
   OPTIONAL { ?film wdt:P577 ?publicationDate. }
   OPTIONAL { ?film wdt:P345 ?imdbID. }
+
+  OPTIONAL { ?film skos:altLabel ?alias. }
 
   SERVICE wikibase:label { bd:serviceParam wikibase:language "fa". }
 }
@@ -325,7 +327,7 @@ createApp({
             }
 
             const regex = new RegExp(modifiedSearchTerm, 'i');
-            let results = items.value.filter(item => regex.test(item.filmLabel));
+            let results = items.value.filter(item => regex.test(item.filmLabel) || regex.test(item.aliases || ''));
 
             // اگر سال انتخاب شده است، فیلتر بر اساس سال نیز اعمال شود
             if (selectedYear.value) {
