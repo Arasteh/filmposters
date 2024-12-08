@@ -188,7 +188,7 @@
                 سال:
                 <select v-model="selectedYear">
                     <option value="">همه</option>
-                    <option v-for="year in availableYears" :key="year" :value="year">{{ year }}</option>
+                    <option v-for="year in Object.keys(availableYears).sort()" :key="year" :value="year">{{ year }} ({{ availableYears[year].length.toLocaleString('fa') }})</option>
                 </select>
             </label>
             <label>
@@ -232,7 +232,7 @@ async function getAllItems() {
                 'Accept': 'application/json'
             },
             body: `
-SELECT DISTINCT ?film ?filmLabel (MIN(?year) AS ?publicationYear) ?imdbID ?poster ?logo ?creator ?creatorLabel WHERE {
+SELECT DISTINCT ?film ?filmLabel (MIN(?publicationDate) AS ?date) ?imdbID ?poster ?logo ?creator ?creatorLabel WHERE {
   VALUES ?type { wd:Q11424 wd:Q24862 wd:Q5398426 }
   ?film wdt:P31 ?type;
         wdt:P495 wd:Q794.
@@ -243,20 +243,19 @@ SELECT DISTINCT ?film ?filmLabel (MIN(?year) AS ?publicationYear) ?imdbID ?poste
 
   OPTIONAL { ?film wdt:P154 ?logo. }
 
-  OPTIONAL { ?film wdt:P577 ?publicationYear. }
-  BIND(YEAR(?publicationYear) AS ?year)
+  OPTIONAL { ?film wdt:P577 ?publicationDate. }
   OPTIONAL { ?film wdt:P345 ?imdbID. }
 
   SERVICE wikibase:label { bd:serviceParam wikibase:language "fa". }
 }
 GROUP BY ?film ?filmLabel ?imdbID ?poster ?creator ?creatorLabel ?logo
-ORDER BY (?year)
+ORDER BY ?publicationDate
 `
         }
     );
     const data = await response.json();
     return data.results.bindings.map(x => Object.fromEntries(Object.entries(x).map(x => [x[0], x[1].value])));
-}
+}//getAllItems().then(console.log)
 
 createApp({
     setup() {
@@ -297,18 +296,13 @@ createApp({
             'گ': '[کگ]'
         };
 
-        const toPersianYear = (gregorianYear) => {
-            const gYear = parseInt(gregorianYear, 10);
-            if (isNaN(gYear)) return null;
-            return gYear - 621;
+        const toPersianYear = (date) => {
+            const year = new Date(date).toLocaleDateString('fa').split('/')[0];
+            return year == 'Invalid Date' ? 'ناموجود' : year;
         };
 
         const availableYears = computed(() => {
-            const years = words.value
-                .map(word => toPersianYear(word.publicationYear))
-                .filter((year, index, self) => year && self.indexOf(year) === index)
-                .sort((a, b) => a - b);
-            return years;
+            return Object.groupBy(words.value, movie => toPersianYear(movie.date));
         });
 
         const availableDesigners = computed(() => {
@@ -320,8 +314,8 @@ createApp({
         });
 
         const getMovieTitleWithYear = (word) => {
-            const shamsiYear = toPersianYear(word.publicationYear);
-            return shamsiYear ? `${word.filmLabel} (${shamsiYear})` : word.filmLabel;
+            const date = word.date;
+            return date ? `${word.filmLabel} (${toPersianYear(date)})` : word.filmLabel;
         };
         /*
         const filteredWords = computed(() => {
@@ -340,7 +334,7 @@ createApp({
         const filteredWords = computed(() => {
             // اگر هیچ متن جستجویی وارد نشده و سال انتخاب شده است
             if (!searchTerm.value && selectedYear.value) {
-                return words.value.filter(word => toPersianYear(word.publicationYear) == selectedYear.value);
+                return words.value.filter(word => toPersianYear(word.date) == selectedYear.value);
             }
 
             if (!searchTerm.value && selectedDesigner.value) {
@@ -362,7 +356,7 @@ createApp({
 
             // اگر سال انتخاب شده است، فیلتر بر اساس سال نیز اعمال شود
             if (selectedYear.value) {
-                results = results.filter(word => toPersianYear(word.publicationYear) == selectedYear.value);
+                results = results.filter(word => toPersianYear(word.date) == selectedYear.value);
             }
             if (selectedDesigner.value) {
                 results = results.filter(word => word.creatorLabel == selectedDesigner.value);
@@ -372,7 +366,7 @@ createApp({
             if (sortOrder.value === "alphabetical") {
                 results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, "fa"));
             } else if (sortOrder.value === "year") {
-                results = results.sort((a, b) => parseInt(a.publicationYear, 10) - parseInt(b.publicationYear, 10));
+                results = results.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
             }
 
             return results;
