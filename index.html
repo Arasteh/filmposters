@@ -6,7 +6,6 @@
     <meta name="color-scheme" content="light dark">
     <title>جستجوی فیلم‌ها و سریال‌های ایرانی</title>
     <script src="vue.global.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js"></script>
     <style>
         body {
             font-family: system-ui;
@@ -258,14 +257,14 @@ createApp({
         },
         */
 
-        const sortOrder = ref("default"); // حالت پیش‌فرض
+        const sortOrder = ref('default'); // حالت پیش‌فرض
 
 
         const searchTerm = ref('');
         const combineSimilarChars = ref(false);
         const posterMode = ref(false); // پیش‌فرض نمایش لوگو
-        const selectedYear = ref(""); // فیلتر سال انتخاب‌شده
-        const selectedDesigner = ref("");
+        const selectedYear = ref(''); // فیلتر سال انتخاب‌شده
+        const selectedDesigner = ref('');
 
         const items = ref([]);
         getAllItems().then(result => items.value = result);
@@ -280,7 +279,7 @@ createApp({
             'گ': '[کگ]'
         };
 
-        const toPersianYear = (date) => {
+        const toPersianYear = date => {
             const year = new Date(date).toLocaleDateString('fa').split('/')[0];
             return year === 'Invalid Date' ? 'ناموجود' : year;
         };
@@ -342,9 +341,9 @@ createApp({
                 results = results.filter(item => item.designerLabel === selectedDesigner.value);
             }
 
-            if (sortOrder.value === "alphabetical") {
-                results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, "fa"));
-            } else if (sortOrder.value === "year") {
+            if (sortOrder.value === 'alphabetical') {
+                results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, 'fa'));
+            } else if (sortOrder.value === 'year') {
                 results = results.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
             }
 
@@ -354,18 +353,10 @@ createApp({
         const getPosterUrl = (filePath, width = 600) => {
             if (!filePath) return 'https://via.placeholder.com/300x420?text=No+Poster';
 
-            // استخراج و دیکود کردن نام فایل
-            const encodedFileName = filePath.replace("http://commons.wikimedia.org/wiki/Special:FilePath/", "");
-            const decodedFileName = decodeURIComponent(encodedFileName);
-
-            // تولید URL نهایی
-            const safeFileName = decodedFileName.replace(/ /g, '_'); // جایگزینی فضا با '_'
-            // محاسبه هش MD5 از نام فایل دیکود شده
-            const md5Hash = md5(safeFileName); // فرض می‌کنیم تابع md5 قبلاً تعریف شده است
-            const firstChar = md5Hash.charAt(0); // اولین کاراکتر
-            const firstTwoChars = md5Hash.substring(0, 2); // دو کاراکتر اول
-
-            return `https://upload.wikimedia.org/wikipedia/commons/thumb/${firstChar}/${firstTwoChars}/${safeFileName}/${width}px-${safeFileName}`;
+            const url = new URL('https://commons.wikimedia.org/w/thumb.php');
+            url.searchParams.append('f', decodeURIComponent(filePath.replace('http://commons.wikimedia.org/wiki/Special:FilePath/', '')));
+            url.searchParams.append('w', '600');
+            return url.toString();
         };
 
 
