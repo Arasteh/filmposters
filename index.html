@@ -295,7 +295,7 @@ createApp({
         });
 
         const getItemTitleWithYear = item => {
-            return item.filmLabel + item.date ? ` (${toPersianYear(item.date)})` : '';
+            return item.filmLabel + (item.date ? ` (${toPersianYear(item.date)})` : '');
         };
         /*
         const filteredItems = computed(() => {
