@@ -325,7 +325,7 @@ createApp({
             if (searchTerm.value.length < 2 && !selectedYear.value && !selectedDesigner.value) return [];
 
 
-            const modifiedSearchTerm = searchTerm.value;
+            let modifiedSearchTerm = searchTerm.value;
             if (combineSimilarChars.value) {
                 modifiedSearchTerm = modifiedSearchTerm.split('').map(char => similarCharsMapping[char] || char).join('');
             }
