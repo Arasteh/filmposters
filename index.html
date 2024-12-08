@@ -75,7 +75,7 @@
             gap: 10px;
         }
 
-        .movie-card {
+        .item-card {
             text-align: center;
             padding: 10px;
             background: light-dark(#fff, #292929);
@@ -88,7 +88,7 @@
             transition: background-color 0.3s, border-color 0.3s;
         }
 
-        .movie-image {
+        .item-image {
             width: 100%;
             object-fit: contain;
             border-radius: 4px;
@@ -97,32 +97,32 @@
             transition: filter 0.3s;
         }
 
-        body.dark-mode .movie-image {
+        body.dark-mode .item-image {
             filter: invert(1) contrast(200%) grayscale(100%);
             /* تبدیل رنگ تصاویر به نگاتیو */
         }
 
-        .movie-title {
+        .item-title {
             font-weight: bold;
         }
 
-        .movie-creator {
+        .item-designer {
             font-size: 0.9em;
             color: #555;
             margin-top: 5px;
         }
 
-        .movie-creator a {
+        .item-designer a {
             color: #007bff;
             text-decoration: none;
         }
 
-        .movie-creator a:hover {
+        .item-designer a:hover {
             text-decoration: underline;
         }
 
 
-        .movie-links a {
+        .item-links a {
             color: #007bff;
             text-decoration: none;
             margin: 0 5px;
@@ -185,18 +185,18 @@
             </label>
         </div>
 
-        <div v-if="filteredMovies.length > 0" class="results-grid">
-            <div class="movie-card" v-for="(word, index) in filteredMovies" :key="index">
-                <a :href="getImageLink(word)" target="_blank"><img :src="getImageUrl(word)" :alt="word.filmLabel"
-                        class="movie-image" /></a>
-                <div class="movie-title">{{ getMovieTitleWithYear(word) }}</div>
-                <div v-if="word.creator && word.creatorLabel" class="movie-creator">
-                    طراح: <a :href="word.creator" target="_blank">{{ word.creatorLabel }}</a>
+        <div v-if="filteredItems.length > 0" class="results-grid">
+            <div class="item-card" v-for="(item, index) in filteredItems" :key="index">
+                <a :href="getImageLink(item)" target="_blank"><img :src="getImageUrl(item)" :alt="item.filmLabel"
+                        class="item-image" /></a>
+                <div class="item-title">{{ getItemTitleWithYear(item) }}</div>
+                <div v-if="item.designer && item.designerLabel" class="item-designer">
+                    طراح: <a :href="item.designer" target="_blank">{{ item.designerLabel }}</a>
                 </div>
 
-                <div class="movie-links">
-                    <a :href="getImdbLink(word.imdbID)" target="_blank">T</a>
-                    <a :href="getWikidataLink(word.film)" target="_blank">Q</a>
+                <div class="item-links">
+                    <a :href="getImdbLink(item.imdbID)" target="_blank">T</a>
+                    <a :href="getWikidataLink(item.film)" target="_blank">Q</a>
                 </div>
             </div>
         </div>
@@ -216,14 +216,14 @@ async function getAllItems() {
                 'Accept': 'application/json'
             },
             body: `
-SELECT DISTINCT ?film ?filmLabel (MIN(?publicationDate) AS ?date) ?imdbID ?poster ?logo ?creator ?creatorLabel WHERE {
+SELECT DISTINCT ?film ?filmLabel (MIN(?publicationDate) AS ?date) ?imdbID ?poster ?logo ?designer ?designerLabel WHERE {
   VALUES ?type { wd:Q11424 wd:Q24862 wd:Q5398426 }
   ?film wdt:P31 ?type;
         wdt:P495 wd:Q794.
 
   ?film p:P18 ?imageStatement.
   ?imageStatement ps:P18 ?poster.
-  OPTIONAL { ?imageStatement pq:P170 ?creator. }
+  OPTIONAL { ?imageStatement pq:P170 ?designer. }
 
   OPTIONAL { ?film wdt:P154 ?logo. }
 
@@ -232,7 +232,7 @@ SELECT DISTINCT ?film ?filmLabel (MIN(?publicationDate) AS ?date) ?imdbID ?poste
 
   SERVICE wikibase:label { bd:serviceParam wikibase:language "fa". }
 }
-GROUP BY ?film ?filmLabel ?imdbID ?poster ?creator ?creatorLabel ?logo
+GROUP BY ?film ?filmLabel ?imdbID ?poster ?designer ?designerLabel ?logo
 ORDER BY ?publicationDate
 `
         }
@@ -267,8 +267,8 @@ createApp({
         const selectedYear = ref(""); // فیلتر سال انتخاب‌شده
         const selectedDesigner = ref("");
 
-        const movies = ref([]);
-        getAllItems().then(result => movies.value = result);
+        const items = ref([]);
+        getAllItems().then(result => items.value = result);
 
         const similarCharsMapping = {
             'ط': '[طظ]', 'ظ': '[طظ]', 'ب': '[بپتثنی]', 'پ': '[بپتثنی]',
@@ -286,21 +286,20 @@ createApp({
         };
 
         const availableYears = computed(() => {
-            const groups = Object.groupBy(movies.value, movie => toPersianYear(movie.date));
-            return Object.keys(groups).sort().map(x => [x, groups[x].length.toLocaleString('fa')]);
+            const groups = Object.groupBy(items.value, item => toPersianYear(item.date));
+            return Object.keys(groups).sort().map(year => [year, groups[year].length.toLocaleString('fa')]);
         });
 
         const availableDesigners = computed(() => {
-            const groups = Object.groupBy(movies.value.filter(x => x.creatorLabel), movie => movie.creatorLabel);
-            return Object.keys(groups).sort().map(x => [x, groups[x].length.toLocaleString('fa')]);
+            const groups = Object.groupBy(items.value.filter(x => x.designerLabel), item => item.designerLabel);
+            return Object.keys(groups).sort().map(designer => [designer, groups[designer].length.toLocaleString('fa')]);
         });
 
-        const getMovieTitleWithYear = (word) => {
-            const date = word.date;
-            return date ? `${word.filmLabel} (${toPersianYear(date)})` : word.filmLabel;
+        const getItemTitleWithYear = item => {
+            return item.filmLabel + item.date ? ` (${toPersianYear(item.date)})` : '';
         };
         /*
-        const filteredMovies = computed(() => {
+        const filteredItems = computed(() => {
             if (searchTerm.value.length < 2) return [];
             let modifiedSearchTerm = searchTerm.value;
 
@@ -309,18 +308,18 @@ createApp({
             }
 
             const regex = new RegExp(modifiedSearchTerm, 'i');
-            return movies.value.filter(word => regex.test(word.filmLabel));
+            return items.value.filter(item => regex.test(item.filmLabel));
         });
         */
 
-        const filteredMovies = computed(() => {
+        const filteredItems = computed(() => {
             // اگر هیچ متن جستجویی وارد نشده و سال انتخاب شده است
             if (!searchTerm.value && selectedYear.value) {
-                return movies.value.filter(word => toPersianYear(word.date) === selectedYear.value);
+                return items.value.filter(item => toPersianYear(item.date) === selectedYear.value);
             }
 
             if (!searchTerm.value && selectedDesigner.value) {
-                return movies.value.filter(word => word.creatorLabel === selectedDesigner.value);
+                return items.value.filter(item => item.designerLabel === selectedDesigner.value);
             }
 
             // اگر کادر جستجو خالی است و هیچ سالی انتخاب نشده است
@@ -333,14 +332,14 @@ createApp({
             }
 
             const regex = new RegExp(modifiedSearchTerm, 'i');
-            let results = movies.value.filter(word => regex.test(word.filmLabel));
+            let results = items.value.filter(item => regex.test(item.filmLabel));
 
             // اگر سال انتخاب شده است، فیلتر بر اساس سال نیز اعمال شود
             if (selectedYear.value) {
-                results = results.filter(word => toPersianYear(word.date) === selectedYear.value);
+                results = results.filter(item => toPersianYear(item.date) === selectedYear.value);
             }
             if (selectedDesigner.value) {
-                results = results.filter(word => word.creatorLabel === selectedDesigner.value);
+                results = results.filter(item => item.designerLabel === selectedDesigner.value);
             }
 
             if (sortOrder.value === "alphabetical") {
@@ -370,26 +369,13 @@ createApp({
         };
 
 
-        const getLogoUrl = (word) => {
-            if (!word.logo) return 'https://via.placeholder.com/300x200?text=No+Logo';
-            // const fileName = word.poster.split('/').pop();
-            else {
-                return getPosterUrl(word.logo);
-            }
-        };
+        const getLogoUrl = item => item.logo ? getPosterUrl(item.logo) : 'https://via.placeholder.com/300x200?text=No+Logo';
+        const getImageUrl = item => posterMode.value ? getPosterUrl(item.poster) : getLogoUrl(item);
+        const getImageLink = item => posterMode.value ? item.poster : item.logo;
+        const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
+        const getWikidataLink = film => film;
 
-        const getImageUrl = (word) => {
-            return posterMode.value ? getPosterUrl(word.poster) : getLogoUrl(word);
-        };
-
-        const getImageLink = (word) => {
-            return posterMode.value ? word.poster : word.logo;
-        };
-
-        const getImdbLink = (imdbID) => `https://www.imdb.com/title/${imdbID}`;
-        const getWikidataLink = (film) => film;
-
-        return { searchTerm, combineSimilarChars, posterMode, filteredMovies, getImageUrl, getImdbLink, getWikidataLink, getMovieTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink };
+        return { searchTerm, combineSimilarChars, posterMode, filteredItems, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink };
     }
 }).mount('#app');
 </script>
