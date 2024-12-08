@@ -224,7 +224,8 @@ SELECT DISTINCT ?film ?filmLabel (GROUP_CONCAT(DISTINCT ?alias; separator=", ") 
   OPTIONAL { ?film wdt:P577 ?publicationDate. }
   OPTIONAL { ?film wdt:P345 ?imdbID. }
 
-  OPTIONAL { ?film skos:altLabel ?alias. }
+  OPTIONAL { ?film skos:altLabel ?alias.
+             FILTER(LANG(?alias) = "fa") }
 
   SERVICE wikibase:label { bd:serviceParam wikibase:language "fa". }
 }
