@@ -154,10 +154,11 @@
         <input type="text" v-model="searchTerm" placeholder="جستجو..." />
         <button class="dark-mode-toggle" @click="toggleDarkMode">{{ darkMode ? 'عادی' : 'نگاتیو' }}</button>
         <div class="options">
-            <label>
-                <input type="radio" v-model="posterMode" :value="false" /> لوگو
-                <input type="radio" v-model="posterMode" :value="true" /> پوسترها
-            </label>
+            <fieldset style="border: none">
+                <label><input type="radio" v-model="posterMode" :value="false" /> لوگو</label>
+                &nbsp;
+                <label><input type="radio" v-model="posterMode" :value="true" /> پوسترها</label>
+            </fieldset>
             <label>
                 <input type="checkbox" v-model="combineSimilarChars" />حروف مشابه
             </label>
