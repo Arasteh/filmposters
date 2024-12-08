@@ -181,8 +181,7 @@
                 طراح:
                 <select v-model="selectedDesigner">
                     <option value="">همه</option>
-                    <option v-for="designer in availableDesigners" :key="designer" :value="designer">{{ designer }}
-                    </option>
+                    <option v-for="designer in Object.keys(availableDesigners).sort()" :key="designer" :value="designer">{{ designer }} ({{ availableDesigners[designer].length.toLocaleString('fa') }})</option>
                 </select>
             </label>
         </div>
@@ -292,11 +291,7 @@ createApp({
         });
 
         const availableDesigners = computed(() => {
-            const designers = words.value
-                .map(word => word.creatorLabel)
-                .filter((designer, index, self) => designer && self.indexOf(designer) === index)
-                .sort((a, b) => a - b);
-            return designers;
+            return Object.groupBy(words.value.filter(x => x.creatorLabel), movie => movie.creatorLabel);
         });
 
         const getMovieTitleWithYear = (word) => {
