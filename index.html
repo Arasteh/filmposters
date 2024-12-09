@@ -148,12 +148,15 @@
         <button class="negative-mode-toggle" @click="toggleDarkMode">{{ darkMode ? 'عادی' : 'نگاتیو' }}</button>
         <div class="options">
             <fieldset style="border: none; padding: 0; margin: 0;">
-                <label><input type="radio" v-model="posterMode" :value="false" /> لوگو</label>
+                <label><input type="radio" v-model="posterMode" :value="false" /> لوگوها</label>
                 &nbsp;
                 <label><input type="radio" v-model="posterMode" :value="true" /> پوسترها</label>
             </fieldset>
             <label>
                 <input type="checkbox" v-model="combineSimilarChars" /> حروف مشابه
+            </label>
+            <label>
+                <input type="checkbox" v-model="allowSingleCharSearch" /> جستجو با یک حرف
             </label>
             <label>
                 ⇵
@@ -256,10 +259,10 @@ createApp({
 
         const sortOrder = ref('default'); // حالت پیش‌فرض
 
-
         const searchTerm = ref('');
         const combineSimilarChars = ref(false);
         const posterMode = ref(false); // پیش‌فرض نمایش لوگو
+        const allowSingleCharSearch = ref(false); // متغیر جدید
         const selectedYear = ref(''); // فیلتر سال انتخاب‌شده
         const selectedDesigner = ref('');
 
@@ -309,6 +312,9 @@ createApp({
         */
 
         const filteredItems = computed(() => {
+            const minLength = allowSingleCharSearch.value ? 1 : 2; // تنظیم حداقل طول جستجو
+            if (searchTerm.value.length < minLength && !selectedYear.value && !selectedDesigner.value) return [];
+
             // اگر هیچ متن جستجویی وارد نشده و سال انتخاب شده است
             if (!searchTerm.value && selectedYear.value) {
                 return items.value.filter(item => toPersianYear(item.date) === selectedYear.value);
@@ -356,14 +362,13 @@ createApp({
             return url.toString();
         };
 
-
         const getLogoUrl = item => item.logo ? getPosterUrl(item.logo) : 'https://via.placeholder.com/300x200?text=No+Logo';
         const getImageUrl = item => posterMode.value ? getPosterUrl(item.poster) : getLogoUrl(item);
         const getImageLink = item => posterMode.value ? item.poster : item.logo;
         const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = film => film;
 
-        return { searchTerm, combineSimilarChars, posterMode, filteredItems, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink };
+        return { searchTerm, combineSimilarChars, posterMode, filteredItems, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, allowSingleCharSearch };
     }
 }).mount('#app');
 </script>
