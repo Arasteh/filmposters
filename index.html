@@ -214,7 +214,7 @@ async function getAllItems() {
             },
             body: `
 SELECT DISTINCT ?film ?filmLabel (GROUP_CONCAT(DISTINCT ?alias; separator=", ") AS ?aliases) (MIN(?publicationDate) AS ?date) ?imdbID ?poster ?logo ?designer ?designerLabel WHERE {
-  VALUES ?type { wd:Q11424 wd:Q24862 wd:Q5398426 }
+  VALUES ?type { wd:Q11424 wd:Q24862 wd:Q5398426 wd:Q7777570 wd:Q17517379 }
   ?film wdt:P31 ?type;
         wdt:P495 wd:Q794.
 
