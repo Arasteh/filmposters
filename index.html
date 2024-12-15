@@ -252,9 +252,9 @@ createApp({
         const toggleDarkMode = () => {
             darkMode.value = !darkMode.value;
         };
-        const showMore = ref(false);
-        const enableShowMore = () => {
-            showMore.value = true;
+        const isShowMore = ref(false);
+        const showMore = () => {
+            isShowMore.value = true;
         };
         /*
         resetFilters() {
@@ -375,7 +375,7 @@ createApp({
         const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = film => film;
 
-        return { showMore, enableShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink };
+        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink };
     }
 }).mount('#app');
 </script>
