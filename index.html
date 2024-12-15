@@ -200,7 +200,7 @@
             </div>
         </div>
         <p v-else>نتیجه‌ای برای نمایش وجود ندارد.</p>
-        <div v-if="filteredItems.length > 30" style="text-align: center; padding-top: 1em;">
+        <div v-if="!isShowMore && filteredItems.length > 30" style="text-align: center; padding-top: 1em;">
             <button @click="showMore">نمایش بیشتر</button>
         </div>
     </div>
