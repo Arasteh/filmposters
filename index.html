@@ -185,7 +185,7 @@
             {{ filteredItems.length.toLocaleString('fa') }} از {{ items.length.toLocaleString('fa') }}
         </div>
         <div v-if="filteredItems.length > 0" class="results-grid">
-            <div class="item-card" v-for="(item, index) in filteredItems" :key="index">
+            <div class="item-card" v-for="(item, index) in (isShowMore ? filteredItems : filteredItems.slice(0, 30))" :key="index">
                 <a :href="getImageLink(item)" target="_blank"><img :src="getImageUrl(item)" :alt="item.filmLabel"
                         class="item-image" /></a>
                 <div class="item-title">{{ getItemTitleWithYear(item) }}</div>
@@ -200,6 +200,9 @@
             </div>
         </div>
         <p v-else>نتیجه‌ای برای نمایش وجود ندارد.</p>
+        <div v-if="filteredItems.length > 30" style="text-align: center; padding-top: 1em;">
+            <button @click="showMore">نمایش بیشتر</button>
+        </div>
     </div>
 
 <script>
@@ -248,6 +251,10 @@ createApp({
         const darkMode = ref(false);
         const toggleDarkMode = () => {
             darkMode.value = !darkMode.value;
+        };
+        const showMore = ref(false);
+        const enableShowMore = () => {
+            showMore.value = true;
         };
         /*
         resetFilters() {
@@ -368,7 +375,7 @@ createApp({
         const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = film => film;
 
-        return { searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink };
+        return { showMore, enableShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink };
     }
 }).mount('#app');
 </script>
