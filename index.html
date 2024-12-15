@@ -148,7 +148,7 @@
         <button class="negative-mode-toggle" @click="toggleDarkMode">{{ darkMode ? 'عادی' : 'نگاتیو' }}</button>
         <div class="options">
             <fieldset style="border: none; padding: 0; margin: 0;">
-                <label><input type="radio" v-model="posterMode" :value="false" /> لوگو</label>
+                <label><input type="radio" v-model="posterMode" :value="false" /> لوگوها</label>
                 &nbsp;
                 <label><input type="radio" v-model="posterMode" :value="true" /> پوسترها</label>
             </fieldset>
@@ -181,7 +181,9 @@
                 </select>
             </label>
         </div>
-
+<p v-if="items.length > 0">
+    نمایش {{ filteredItems.length.toLocaleString('fa') }} از {{ items.length.toLocaleString('fa') }} عنوان
+</p>
         <div v-if="filteredItems.length > 0" class="results-grid">
             <div class="item-card" v-for="(item, index) in filteredItems" :key="index">
                 <a :href="getImageLink(item)" target="_blank"><img :src="getImageUrl(item)" :alt="item.filmLabel"
