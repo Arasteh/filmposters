@@ -159,9 +159,6 @@
                 <input type="checkbox" v-model="combineSimilarChars" /> حروف مشابه
             </label>
             <label>
-                <input type="checkbox" v-model="allowSingleCharSearch" /> جستجو با یک حرف
-            </label>
-            <label>
                 ⇵
                 <select v-model="sortOrder">
                     <option value="default">پیش‌فرض</option>
@@ -264,7 +261,6 @@ createApp({
         const searchTerm = ref('');
         const combineSimilarChars = ref(false);
         const posterMode = ref(false); // پیش‌فرض نمایش لوگو
-        const allowSingleCharSearch = ref(false); // متغیر جدید
         const selectedYear = ref(''); // فیلتر سال انتخاب‌شده
         const selectedDesigner = ref('');
 
@@ -314,8 +310,7 @@ createApp({
         */
 
         const filteredItems = computed(() => {
-            const minLength = allowSingleCharSearch.value ? 1 : 2; // تنظیم حداقل طول جستجو
-            if (searchTerm.value.length < minLength && !selectedYear.value && !selectedDesigner.value) return [];
+            if (!searchTerm.value.length && !selectedYear.value && !selectedDesigner.value) return [];
 
             // اگر هیچ متن جستجویی وارد نشده و سال انتخاب شده است
             if (!searchTerm.value && selectedYear.value) {
@@ -370,7 +365,7 @@ createApp({
         const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = film => film;
 
-        return { searchTerm, combineSimilarChars, posterMode, filteredItems, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, allowSingleCharSearch };
+        return { searchTerm, combineSimilarChars, posterMode, filteredItems, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink };
     }
 }).mount('#app');
 </script>
