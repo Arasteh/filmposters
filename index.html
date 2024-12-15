@@ -181,6 +181,9 @@
                 </select>
             </label>
         </div>
+        <div v-if="filteredItems.length > 0" style="text-align: center">
+            {{ filteredItems.length.toLocaleString('fa') }} از {{ items.length.toLocaleString('fa') }}
+        </div>
         <div v-if="filteredItems.length > 0" class="results-grid">
             <div class="item-card" v-for="(item, index) in filteredItems" :key="index">
                 <a :href="getImageLink(item)" target="_blank"><img :src="getImageUrl(item)" :alt="item.filmLabel"
@@ -365,7 +368,7 @@ createApp({
         const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = film => film;
 
-        return { searchTerm, combineSimilarChars, posterMode, filteredItems, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink };
+        return { searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink };
     }
 }).mount('#app');
 </script>
