@@ -181,11 +181,6 @@
                 </select>
             </label>
         </div>
-/*
-        <p v-if="items.length > 0">
-    نمایش {{ filteredItems.length.toLocaleString('fa') }} از {{ items.length.toLocaleString('fa') }} عنوان
-</p>
-        */
         <div v-if="filteredItems.length > 0" class="results-grid">
             <div class="item-card" v-for="(item, index) in filteredItems" :key="index">
                 <a :href="getImageLink(item)" target="_blank"><img :src="getImageUrl(item)" :alt="item.filmLabel"
