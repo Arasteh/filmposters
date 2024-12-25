@@ -151,7 +151,7 @@
         <button class="negative-mode-toggle" @click="toggleDarkMode">{{ darkMode ? 'عادی' : 'نگاتیو' }}</button>
         <div class="options">
             <fieldset style="border: none; padding: 0; margin: 0;">
-                <label><input type="radio" v-model="posterMode" :value="false" /> لوگوها</label>
+                <label><input type="radio" v-model="posterMode" :value="false" /> لوگو</label>
                 &nbsp;
                 <label><input type="radio" v-model="posterMode" :value="true" /> پوسترها</label>
             </fieldset>
@@ -166,21 +166,20 @@
                     <option value="year">سال تولید</option>
                 </select>
             </label>
-            <label>
-                سال:
-                <select v-model="selectedYear">
-                    <option value="">همه</option>
-                    <option v-for="[year, count] in availableYears" :key="year" :value="year">{{ year }} ({{ count }})</option>
-                </select>
-            </label>
-            <label>
-                طراح:
-                <select v-model="selectedDesigner">
-                    <option value="">همه</option>
-                    <option v-for="[designer, count] in availableDesigners" :key="designer" :value="designer">{{ designer }} ({{ count }})</option>
-                </select>
-            </label>
-        </div>
+<label>
+    سال:
+    <select v-model="selectedYear">
+        <option value="">همه</option>
+        <option v-for="[year, count] in filteredYears" :key="year" :value="year">{{ year }} ({{ count }})</option>
+    </select>
+</label>
+<label>
+    طراح:
+    <select v-model="selectedDesigner">
+        <option value="">همه</option>
+        <option v-for="[designer, count] in filteredDesigners" :key="designer" :value="designer">{{ designer }} ({{ count }})</option>
+    </select>
+</label>        </div>
         <div v-if="filteredItems.length > 0" style="text-align: center; padding-bottom: .5em;">
             {{ filteredItems.length.toLocaleString('fa') }} از {{ items.length.toLocaleString('fa') }}
         </div>
@@ -345,7 +344,20 @@ createApp({
     if (selectedDesigner.value) {
         results = results.filter(item => item.designerLabel === selectedDesigner.value);
     }
+            
+const filteredYears = computed(() => {
+    const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
+    return Object.keys(groups)
+        .sort()
+        .map(year => [year, groups[year].length.toLocaleString('fa')]);
+});
 
+const filteredDesigners = computed(() => {
+    const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
+    return Object.keys(groups)
+        .sort()
+        .map(designer => [designer, groups[designer].length.toLocaleString('fa')]);
+});
     // مرتب‌سازی
     if (sortOrder.value === 'alphabetical') {
         results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, 'fa'));
@@ -372,7 +384,7 @@ createApp({
         const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = film => film;
 
-        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink };
+        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners };
     }
 }).mount('#app');
 </script>
