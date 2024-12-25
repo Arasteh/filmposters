@@ -308,6 +308,8 @@ createApp({
         const posterMode = ref(false); // پیش‌فرض نمایش لوگو
         const selectedYear = ref(''); // فیلتر سال انتخاب‌شده
         const selectedDesigner = ref('');
+        const allDesigners = ref('');
+        const allYears = ref('');
 
         const items = ref([]);
         getAllItems().then(result => items.value = result);
