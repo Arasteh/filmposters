@@ -321,44 +321,40 @@ createApp({
         */
 
         const filteredItems = computed(() => {
-            if (!searchTerm.value.length && !selectedYear.value && !selectedDesigner.value) return [];
+    if (!searchTerm.value.length && !selectedYear.value && !selectedDesigner.value) return [];
 
-            // اگر هیچ متن جستجویی وارد نشده و سال انتخاب شده است
-            if (!searchTerm.value && selectedYear.value) {
-                return items.value.filter(item => toPersianYear(item.date) === selectedYear.value);
-            }
+    let modifiedSearchTerm = searchTerm.value;
+    if (combineSimilarChars.value) {
+        modifiedSearchTerm = modifiedSearchTerm.split('').map(char => similarCharsMapping[char] || char).join('');
+    }
 
-            if (!searchTerm.value && selectedDesigner.value) {
-                return items.value.filter(item => item.designerLabel === selectedDesigner.value);
-            }
+    const regex = new RegExp(modifiedSearchTerm, 'i');
+    let results = items.value;
 
-            // اگر کادر جستجو خالی است و هیچ سالی انتخاب نشده است
-            // if (searchTerm.value.length < 2 && !selectedYear.value && !selectedDesigner.value) return [];
+    // فیلتر براساس متن جستجو
+    if (searchTerm.value.length) {
+        results = results.filter(item => regex.test(item.filmLabel) || regex.test(item.aliases || ''));
+    }
 
+    // فیلتر براساس سال
+    if (selectedYear.value) {
+        results = results.filter(item => toPersianYear(item.date) === selectedYear.value);
+    }
 
-            let modifiedSearchTerm = searchTerm.value;
-            if (combineSimilarChars.value) {
-                modifiedSearchTerm = modifiedSearchTerm.split('').map(char => similarCharsMapping[char] || char).join('');
-            }
+    // فیلتر براساس طراح
+    if (selectedDesigner.value) {
+        results = results.filter(item => item.designerLabel === selectedDesigner.value);
+    }
 
-            const regex = new RegExp(modifiedSearchTerm, 'i');
-            let results = items.value.filter(item => regex.test(item.filmLabel) || regex.test(item.aliases || ''));
+    // مرتب‌سازی
+    if (sortOrder.value === 'alphabetical') {
+        results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, 'fa'));
+    } else if (sortOrder.value === 'year') {
+        results = results.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    }
 
-            // اگر سال انتخاب شده است، فیلتر بر اساس سال نیز اعمال شود
-            if (selectedYear.value) {
-                results = results.filter(item => toPersianYear(item.date) === selectedYear.value);
-            }
-            if (selectedDesigner.value) {
-                results = results.filter(item => item.designerLabel === selectedDesigner.value);
-            }
+    return results;
 
-            if (sortOrder.value === 'alphabetical') {
-                results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, 'fa'));
-            } else if (sortOrder.value === 'year') {
-                results = results.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-            }
-
-            return results;
         });
 
         const getPosterUrl = (filePath, width = 600) => {
