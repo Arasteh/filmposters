@@ -207,6 +207,17 @@
 <script>
 const { createApp, ref, computed } = Vue;
 
+Object.groupBy = function (array, keyGetter) {
+    return array.reduce((result, item) => {
+        const key = keyGetter(item);
+        if (!result[key]) {
+            result[key] = [];
+        }
+        result[key].push(item);
+        return result;
+    }, {});
+};
+    
 async function getAllItems() {
     const response = await fetch(
         'https://query.wikidata.org/bigdata/namespace/wdq/sparql',
@@ -344,7 +355,18 @@ createApp({
     if (selectedDesigner.value) {
         results = results.filter(item => item.designerLabel === selectedDesigner.value);
     }
-            
+           
+    // مرتب‌سازی
+    if (sortOrder.value === 'alphabetical') {
+        results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, 'fa'));
+    } else if (sortOrder.value === 'year') {
+        results = results.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    }
+
+    return results;
+
+        });
+        
 const filteredYears = computed(() => {
     const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
     return Object.keys(groups)
@@ -358,16 +380,6 @@ const filteredDesigners = computed(() => {
         .sort()
         .map(designer => [designer, groups[designer].length.toLocaleString('fa')]);
 });
-    // مرتب‌سازی
-    if (sortOrder.value === 'alphabetical') {
-        results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, 'fa'));
-    } else if (sortOrder.value === 'year') {
-        results = results.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-    }
-
-    return results;
-
-        });
 
         const getPosterUrl = (filePath, width = 600) => {
             if (!filePath) return 'https://via.placeholder.com/300x420?text=No+Poster';
