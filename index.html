@@ -166,44 +166,20 @@
                     <option value="year">سال تولید</option>
                 </select>
             </label>
-<div>
-    <h3>سال‌ها</h3>
-    <ul>
-        <li
-            v-for="[year, count] in filteredYears"
-            :key="year"
-            :class="{ selected: year === selectedYear.value }"
-            @click="selectedYear.value = year"
-        >
-            {{ year }} ({{ count }})
-        </li>
-        <li
-            :class="{ selected: !selectedYear.value }"
-            @click="selectedYear.value = null"
-        >
-            همه
-        </li>
-    </ul>
-
-    <h3>طراحان</h3>
-    <ul>
-        <li
-            v-for="[designer, count] in filteredDesigners"
-            :key="designer"
-            :class="{ selected: designer === selectedDesigner.value }"
-            @click="selectedDesigner.value = designer"
-        >
-            {{ designer }} ({{ count }})
-        </li>
-        <li
-            :class="{ selected: !selectedDesigner.value }"
-            @click="selectedDesigner.value = null"
-        >
-            همه
-        </li>
-    </ul>
-</div>
-        </div>
+<label>
+    سال:
+    <select v-model="selectedYear">
+        <option value="">همه</option>
+        <option v-for="[year, count] in filteredYears" :key="year" :value="year">{{ year }} ({{ count }})</option>
+    </select>
+</label>
+<label>
+    طراح:
+    <select v-model="selectedDesigner">
+        <option value="">همه</option>
+        <option v-for="[designer, count] in filteredDesigners" :key="designer" :value="designer">{{ designer }} ({{ count }})</option>
+    </select>
+</label>        </div>
         <div v-if="filteredItems.length > 0" style="text-align: center; padding-bottom: .5em;">
             {{ filteredItems.length.toLocaleString('fa') }} از {{ items.length.toLocaleString('fa') }}
         </div>
@@ -308,8 +284,6 @@ createApp({
         const posterMode = ref(false); // پیش‌فرض نمایش لوگو
         const selectedYear = ref(''); // فیلتر سال انتخاب‌شده
         const selectedDesigner = ref('');
-        const allDesigners = ref('');
-        const allYears = ref('');
 
         const items = ref([]);
         getAllItems().then(result => items.value = result);
@@ -377,40 +351,17 @@ const filteredItems = computed(() => {
 });
 
 const filteredYears = computed(() => {
-    const selectedDesignerItems = selectedDesigner.value
-        ? items.value.filter(item => item.designerLabel === selectedDesigner.value)
-        : items.value;
-    const groups = Object.groupBy(selectedDesignerItems, item => toPersianYear(item.date));
-
-    return allYears.value.map(year => [
-        year,
-        (groups[year]?.length || 0).toLocaleString('fa'),
-    ]);
+    const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
+    return Object.keys(groups)
+        .sort()
+        .map(year => [year, groups[year].length.toLocaleString('fa')]);
 });
 
 const filteredDesigners = computed(() => {
-    const selectedYearItems = selectedYear.value
-        ? items.value.filter(item => toPersianYear(item.date) === selectedYear.value)
-        : items.value;
-    const groups = Object.groupBy(selectedYearItems.filter(x => x.designerLabel), item => item.designerLabel);
-
-    return allDesigners.value.map(designer => [
-        designer,
-        (groups[designer]?.length || 0).toLocaleString('fa'),
-    ]);
-});
-
-const finalFilteredItems = computed(() => {
-    return items.value.filter(item => {
-        const matchesYear = selectedYear.value
-            ? toPersianYear(item.date) === selectedYear.value
-            : true;
-        const matchesDesigner = selectedDesigner.value
-            ? item.designerLabel === selectedDesigner.value
-            : true;
-
-        return matchesYear && matchesDesigner;
-    });
+    const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
+    return Object.keys(groups)
+        .sort()
+        .map(designer => [designer, groups[designer].length.toLocaleString('fa')]);
 });
 
         const getPosterUrl = (filePath, width = 600) => {
@@ -428,7 +379,7 @@ const finalFilteredItems = computed(() => {
         const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = film => film;
 
-        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, finalFilteredItems, allYears, allDesigners };
+        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners };
     }
 }).mount('#app');
 </script>
