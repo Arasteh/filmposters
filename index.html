@@ -151,7 +151,7 @@
         <button class="negative-mode-toggle" @click="toggleDarkMode">{{ darkMode ? 'عادی' : 'نگاتیو' }}</button>
         <div class="options">
             <fieldset style="border: none; padding: 0; margin: 0;">
-                <label><input type="radio" v-model="posterMode" :value="false" /> لوگو</label>
+                <label><input type="radio" v-model="posterMode" :value="false" /> لوگوها</label>
                 &nbsp;
                 <label><input type="radio" v-model="posterMode" :value="true" /> پوسترها</label>
             </fieldset>
@@ -318,24 +318,21 @@ createApp({
         };
 
 const filteredItems = computed(() => {
-    let results = items.value;
-
-    // اگر همه فیلترها خالی هستند، تمام داده‌ها نمایش داده شوند
     if (!searchTerm.value.length && !selectedYear.value && !selectedDesigner.value) {
-        return results;
+        return []; // وقتی هیچ فیلتری اعمال نشده، چیزی نمایش داده نشود
     }
+
+    let modifiedSearchTerm = searchTerm.value;
+    if (combineSimilarChars.value) {
+        modifiedSearchTerm = modifiedSearchTerm.split('').map(char => similarCharsMapping[char] || char).join('');
+    }
+
+    const regex = new RegExp(modifiedSearchTerm, 'i');
+    let results = items.value;
 
     // فیلتر براساس متن جستجو
     if (searchTerm.value.length) {
-        let modifiedSearchTerm = searchTerm.value;
-        if (combineSimilarChars.value) {
-            modifiedSearchTerm = modifiedSearchTerm.split('').map(char => similarCharsMapping[char] || char).join('');
-        }
-
-        const regex = new RegExp(modifiedSearchTerm, 'i');
-        results = results.filter(item =>
-            regex.test(item.filmLabel) || regex.test(item.aliases || '')
-        );
+        results = results.filter(item => regex.test(item.filmLabel) || regex.test(item.aliases || ''));
     }
 
     // فیلتر براساس سال
@@ -350,28 +347,23 @@ const filteredItems = computed(() => {
 
     // مرتب‌سازی
     if (sortOrder.value === 'alphabetical') {
-        results = results.sort((a, b) =>
-            a.filmLabel.localeCompare(b.filmLabel, 'fa')
-        );
+        results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, 'fa'));
     } else if (sortOrder.value === 'year') {
-        results = results.sort(
-            (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-        );
+        results = results.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     }
 
     return results;
 });
 
-        
 const filteredYears = computed(() => {
-    const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
+    const groups = Object.groupBy(items.value, item => toPersianYear(item.date)); // از کل داده‌ها استفاده کنید
     return Object.keys(groups)
         .sort()
         .map(year => [year, groups[year].length.toLocaleString('fa')]);
 });
 
 const filteredDesigners = computed(() => {
-    const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
+    const groups = Object.groupBy(items.value.filter(x => x.designerLabel), item => item.designerLabel); // از کل داده‌ها استفاده کنید
     return Object.keys(groups)
         .sort()
         .map(designer => [designer, groups[designer].length.toLocaleString('fa')]);
