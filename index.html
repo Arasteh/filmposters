@@ -142,6 +142,18 @@
             cursor: pointer;
             transition: background-color 0.3s, color 0.3s;
         }
+
+        .language-toggle {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background: #eee;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.language-toggle:hover {
+    background: #ddd;
+}
     </style>
 </head>
 
@@ -149,6 +161,7 @@
     <div id="app">
         <input type="text" v-model="searchTerm" placeholder="جستجو…" />
         <button class="negative-mode-toggle" @click="toggleDarkMode">{{ darkMode ? 'عادی' : 'نگاتیو' }}</button>
+        <button class="language-toggle" @click="toggleLanguage">{{ isEnglish ? 'FA' : 'EN' }}</button>
         <div class="options">
             <fieldset style="border: none; padding: 0; margin: 0;">
                 <label><input type="radio" v-model="posterMode" :value="false" /> لوگو</label>
@@ -246,7 +259,7 @@ SELECT DISTINCT ?film ?filmLabel (GROUP_CONCAT(DISTINCT ?alias; separator=", ") 
   OPTIONAL { ?film skos:altLabel ?alias.
              FILTER(LANG(?alias) = "fa") }
 
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "fa". }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fa,en". }
 }
 GROUP BY ?film ?filmLabel ?imdbID ?poster ?designer ?designerLabel ?logo
 ORDER BY ?publicationDate
@@ -278,7 +291,10 @@ createApp({
         */
 
         const sortOrder = ref('default'); // حالت پیش‌فرض
-
+const isEnglish = ref(false);
+const toggleLanguage = () => {
+    isEnglish.value = !isEnglish.value;
+};
         const searchTerm = ref('');
         const combineSimilarChars = ref(false);
         const posterMode = ref(false); // پیش‌فرض نمایش لوگو
@@ -308,14 +324,18 @@ createApp({
             return Object.keys(groups).sort().map(year => [year, groups[year].length.toLocaleString('fa')]);
         });
 
-        const availableDesigners = computed(() => {
-            const groups = Object.groupBy(items.value.filter(x => x.designerLabel), item => item.designerLabel);
-            return Object.keys(groups).sort().map(designer => [designer, groups[designer].length.toLocaleString('fa')]);
-        });
+const availableDesigners = computed(() => {
+    const groups = Object.groupBy(items.value.filter(x => isEnglish.value ? x.designerLabel_en : x.designerLabel), item =>
+        isEnglish.value ? item.designerLabel_en || item.designerLabel : item.designerLabel
+    );
+    return Object.keys(groups).sort().map(designer => [designer, groups[designer].length.toLocaleString('fa')]);
+});
 
         const getItemTitleWithYear = item => {
-            return item.filmLabel + (item.date ? ` (${toPersianYear(item.date)})` : '');
-        };
+    const title = isEnglish.value ? item.filmLabel_en || item.filmLabel : item.filmLabel;
+    return title + (item.date ? ` (${toPersianYear(item.date)})` : '');
+};
+
 
 const filteredItems = computed(() => {
     let results = items.value;
@@ -379,7 +399,7 @@ const filteredDesigners = computed(() => {
         const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = film => film;
 
-        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners };
+        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, isEnglish, toggleLanguage };
     }
 }).mount('#app');
 </script>
