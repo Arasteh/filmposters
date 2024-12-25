@@ -151,7 +151,7 @@
         <button class="negative-mode-toggle" @click="toggleDarkMode">{{ darkMode ? 'عادی' : 'نگاتیو' }}</button>
         <div class="options">
             <fieldset style="border: none; padding: 0; margin: 0;">
-                <label><input type="radio" v-model="posterMode" :value="false" /> لوگوها</label>
+                <label><input type="radio" v-model="posterMode" :value="false" /> لوگو</label>
                 &nbsp;
                 <label><input type="radio" v-model="posterMode" :value="true" /> پوسترها</label>
             </fieldset>
@@ -317,24 +317,25 @@ createApp({
             return item.filmLabel + (item.date ? ` (${toPersianYear(item.date)})` : '');
         };
 
-        const filteredItems = computed(() => {
-    if (!searchTerm.value.length && !selectedYear.value && !selectedDesigner.value) return [];
-            
-    if (!searchQuery.value.trim()) {
-        // اگر جستجو خالی است، تمام داده‌ها نمایش داده شوند
-        return Object.groupBy(allItems.value, item => item[key.value]);
-    }
-    let modifiedSearchTerm = searchTerm.value;
-    if (combineSimilarChars.value) {
-        modifiedSearchTerm = modifiedSearchTerm.split('').map(char => similarCharsMapping[char] || char).join('');
-    }
-
-    const regex = new RegExp(modifiedSearchTerm, 'i');
+const filteredItems = computed(() => {
     let results = items.value;
+
+    // اگر همه فیلترها خالی هستند، تمام داده‌ها نمایش داده شوند
+    if (!searchTerm.value.length && !selectedYear.value && !selectedDesigner.value) {
+        return results;
+    }
 
     // فیلتر براساس متن جستجو
     if (searchTerm.value.length) {
-        results = results.filter(item => regex.test(item.filmLabel) || regex.test(item.aliases || ''));
+        let modifiedSearchTerm = searchTerm.value;
+        if (combineSimilarChars.value) {
+            modifiedSearchTerm = modifiedSearchTerm.split('').map(char => similarCharsMapping[char] || char).join('');
+        }
+
+        const regex = new RegExp(modifiedSearchTerm, 'i');
+        results = results.filter(item =>
+            regex.test(item.filmLabel) || regex.test(item.aliases || '')
+        );
     }
 
     // فیلتر براساس سال
@@ -346,17 +347,21 @@ createApp({
     if (selectedDesigner.value) {
         results = results.filter(item => item.designerLabel === selectedDesigner.value);
     }
-           
+
     // مرتب‌سازی
     if (sortOrder.value === 'alphabetical') {
-        results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, 'fa'));
+        results = results.sort((a, b) =>
+            a.filmLabel.localeCompare(b.filmLabel, 'fa')
+        );
     } else if (sortOrder.value === 'year') {
-        results = results.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+        results = results.sort(
+            (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+        );
     }
 
     return results;
+});
 
-        });
         
 const filteredYears = computed(() => {
     const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
