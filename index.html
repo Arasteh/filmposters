@@ -342,24 +342,6 @@ createApp({
 
 const filteredItems = computed(() => {
     let results = items.value;
-
-    // حذف موارد تکراری براساس نام فایل
-    const extractFileName = url => {
-        if (!url) return null;
-        const decodedUrl = decodeURIComponent(url);
-        const match = decodedUrl.match(/([^/]+)$/); // آخرین بخش از URL را جدا می‌کند
-        return match ? match[1] : null;
-    };
-
-    const seenFiles = new Set();
-    results = results.filter(item => {
-        const fileKey = posterMode.value ? extractFileName(item.poster) : extractFileName(item.logo);
-        if (fileKey && !seenFiles.has(fileKey)) {
-            seenFiles.add(fileKey);
-            return true; // اولین بار دیده شده، نگهش می‌داریم
-        }
-        return false; // قبلاً دیده شده، حذف می‌کنیم
-    });
     
     // فیلتر براساس متن جستجو
     if (searchTerm.value.length) {
