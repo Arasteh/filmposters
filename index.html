@@ -277,6 +277,8 @@ createApp({
         };
         
     const seenFiles = new Set();
+            let results = items.value;
+
     results = results.filter(item => {
         const fileKey = posterMode.value ? extractFileName(item.poster) : extractFileName(item.logo);
         if (fileKey && !seenFiles.has(fileKey)) {
