@@ -155,9 +155,9 @@
         <button class="negative-mode-toggle" @click="toggleDarkMode">{{ darkMode ? 'عادی' : 'نگاتیو' }}</button>
         <div class="options">
             <fieldset style="border: none; padding: 0; margin: 0;">
-                <label><input type="radio" v-model="posterMode" :value="false" /> لوگوها</label>
+                <label><input type="radio" v-model="posterMode" :value="false" /> لوگو</label>
                 &nbsp;
-                <label><input type="radio" v-model="posterMode" :value="true" /> پوسترها</label>
+                <label><input type="radio" v-model="posterMode" :value="true" /> پوستر</label>
             </fieldset>
             <label>
                 <input type="checkbox" v-model="combineSimilarChars" /> حروف مشابه
@@ -324,6 +324,24 @@ createApp({
 const filteredItems = computed(() => {
     let results = items.value;
 
+    // حذف موارد تکراری براساس نام فایل
+    const extractFileName = url => {
+        if (!url) return null;
+        const decodedUrl = decodeURIComponent(url);
+        const match = decodedUrl.match(/([^/]+)$/); // آخرین بخش از URL را جدا می‌کند
+        return match ? match[1] : null;
+    };
+
+    const seenFiles = new Set();
+    results = results.filter(item => {
+        const fileKey = posterMode.value ? extractFileName(item.poster) : extractFileName(item.logo);
+        if (fileKey && !seenFiles.has(fileKey)) {
+            seenFiles.add(fileKey);
+            return true; // اولین بار دیده شده، نگهش می‌داریم
+        }
+        return false; // قبلاً دیده شده، حذف می‌کنیم
+    });
+    
     // فیلتر براساس متن جستجو
     if (searchTerm.value.length) {
     const modifiedSearchTerm = searchTerm.value
@@ -383,7 +401,7 @@ const filteredDesigners = computed(() => {
         const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = film => film;
 
-        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners };
+        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, extractFileName, seenFiles };
     }
 }).mount('#app');
 </script>
