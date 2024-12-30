@@ -267,6 +267,15 @@ createApp({
         const toggleDarkMode = () => {
             darkMode.value = !darkMode.value;
         };
+
+        
+        const extractFileName = url => {
+            if (!url) return null;
+            const decodedUrl = decodeURIComponent(url);
+            const match = decodedUrl.match(/([^/]+)$/); // آخرین بخش از URL را جدا می‌کند
+            return match ? match[1] : null;
+        };
+        
         const isShowMore = ref(false);
         const showMore = () => {
             isShowMore.value = true;
