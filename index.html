@@ -165,7 +165,6 @@
             <label>
                 ⇵
                 <select v-model="sortOrder">
-                    <option value="default">پیش‌فرض</option>
                     <option value="alphabetical">الفبایی</option>
                     <option value="year">سال تولید</option>
                 </select>
@@ -281,8 +280,7 @@ createApp({
         },
         */
 
-        const sortOrder = ref('default'); // حالت پیش‌فرض
-
+        const sortOrder = ref('year');
         const searchTerm = ref('');
         const combineSimilarChars = ref(false);
         const posterMode = ref(false); // پیش‌فرض نمایش لوگو
