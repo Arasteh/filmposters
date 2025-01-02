@@ -237,8 +237,8 @@ SELECT DISTINCT ?film ?filmLabel (GROUP_CONCAT(DISTINCT ?alias; separator=", ") 
   ?film wdt:P31 ?type;
         wdt:P495 wd:Q794.
 
-  ?film p:P18 ?imageStatement.
-  ?imageStatement ps:P18 ?poster.
+  ?film p:P3383 ?imageStatement.
+  ?imageStatement ps:P3383 ?poster.
   OPTIONAL { ?imageStatement pq:P170 ?designer. }
 
   OPTIONAL { ?film p:P154 ?logoStatement.
