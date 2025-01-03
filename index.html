@@ -167,6 +167,7 @@
                 <select v-model="sortOrder">
                     <option value="alphabetical">الفبایی</option>
                     <option value="year">سال تولید</option>
+                    <option value="random">تصادفی</option>
                 </select>
             </label>
 <label>
@@ -280,7 +281,7 @@ createApp({
         },
         */
 
-        const sortOrder = ref('year');
+        const sortOrder = ref('random');
         const searchTerm = ref('');
         const combineSimilarChars = ref(false);
         const posterMode = ref(false); // پیش‌فرض نمایش لوگو
@@ -350,6 +351,8 @@ const filteredItems = computed(() => {
         results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, 'fa'));
     } else if (sortOrder.value === 'year') {
         results = results.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    } else if (sortOrder.value === 'random') {
+        results = results.slice().sort(() => Math.random() - 0.5); // مرتب‌سازی تصادفی
     }
 
     return results;
