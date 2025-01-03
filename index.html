@@ -310,10 +310,13 @@ createApp({
             return Object.keys(groups).sort().map(year => [year, groups[year].length.toLocaleString('fa')]);
         });
 
-        const availableDesigners = computed(() => {
-            const groups = Object.groupBy(items.value.filter(x => x.designerLabel), item => item.designerLabel);
-            return Object.keys(groups).sort().map(designer => [designer, groups[designer].length.toLocaleString('fa')]);
-        });
+const availableDesigners = computed(() => {
+    const groups = Object.groupBy(items.value.filter(x => x.designerLabel), item => item.designerLabel);
+    return Object.keys(groups)
+        .map(designer => [designer, groups[designer].length])
+        .sort((a, b) => b[1] - a[1]) // مرتب‌سازی بر اساس تعداد پوسترها به صورت نزولی
+        .map(([designer, count]) => [designer, count.toLocaleString('fa')]);
+});
 
         const getItemTitleWithYear = item => {
             return item.filmLabel + (item.date ? ` (${toPersianYear(item.date)})` : '');
@@ -362,8 +365,9 @@ const filteredYears = computed(() => {
 const filteredDesigners = computed(() => {
     const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
     return Object.keys(groups)
-        .sort()
-        .map(designer => [designer, groups[designer].length.toLocaleString('fa')]);
+        .map(designer => [designer, groups[designer].length])
+        .sort((a, b) => b[1] - a[1]) // مرتب‌سازی بر اساس تعداد پوسترها به صورت نزولی
+        .map(([designer, count]) => [designer, count.toLocaleString('fa')]);
 });
 
         const getPosterUrl = (filePath, width = 600) => {
