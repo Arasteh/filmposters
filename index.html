@@ -44,30 +44,22 @@
         .options {
             display: flex;
             flex-wrap: wrap;
-            /* اجازه بدهد آیتم‌ها در خطوط جدید قرار بگیرند */
             gap: 20px;
-            /* فاصله مناسب بین آیتم‌ها */
             justify-content: space-around;
-            /* توزیع مناسب آیتم‌ها در عرض */
             margin-bottom: 10px;
             border: none;
         }
 
         @media (max-width: 768px) {
 
-            /* تنظیم برای صفحات با عرض کمتر از 768px */
             .options {
                 flex-direction: column;
-                /* آیتم‌ها زیر هم نمایش داده شوند */
                 align-items: flex-start;
-                /* چیدمان به صورت چپ‌چین (یا راست‌چین در RTL) */
                 gap: 10px;
-                /* فاصله کمتر بین آیتم‌ها */
             }
 
             .options label {
                 width: 100%;
-                /* آیتم‌ها کل عرض را بگیرند */
             }
         }
 
@@ -99,11 +91,6 @@
             transition: filter 0.3s;
         }
 
-        body.negative-mode .item-image {
-            filter: invert(1) contrast(200%) grayscale(100%);
-            /* تبدیل رنگ تصاویر به نگاتیو */
-        }
-
         .item-title {
             font-weight: bold;
         }
@@ -129,10 +116,6 @@
             text-decoration: none;
             margin: 0 5px;
         }
-
-        body.negative-mode .item-image {
-            filter: invert(1) contrast(200%) grayscale(100%);
-        }
         
         .negative-mode-toggle {
             position: fixed;
@@ -152,7 +135,6 @@
 <body>
     <div id="app">
         <input type="text" v-model="searchTerm" placeholder="جستجو…" />
-        <button class="negative-mode-toggle" @click="toggleDarkMode">{{ darkMode ? 'عادی' : 'نگاتیو' }}</button>
         <div class="options">
             <fieldset style="border: none; padding: 0; margin: 0;">
                 <label><input type="radio" v-model="posterMode" :value="false" /> لوگوها</label>
@@ -259,7 +241,7 @@ ORDER BY ?publicationDate
     );
     const data = await response.json();
     return data.results.bindings.map(x => Object.fromEntries(Object.entries(x).map(x => [x[0], x[1].value])));
-}//getAllItems().then(console.log)
+}
 
 createApp({
     setup() {
@@ -284,8 +266,8 @@ createApp({
         const sortOrder = ref('random');
         const searchTerm = ref('');
         const combineSimilarChars = ref(false);
-        const posterMode = ref(false); // پیش‌فرض نمایش لوگو
-        const selectedYear = ref(''); // فیلتر سال انتخاب‌شده
+        const posterMode = ref(false);
+        const selectedYear = ref('');
         const selectedDesigner = ref('');
 
         const items = ref([]);
@@ -315,7 +297,7 @@ const availableDesigners = computed(() => {
     const groups = Object.groupBy(items.value.filter(x => x.designerLabel), item => item.designerLabel);
     return Object.keys(groups)
         .map(designer => [designer, groups[designer].length])
-        .sort((a, b) => b[1] - a[1]) // مرتب‌سازی بر اساس تعداد پوسترها به صورت نزولی
+        .sort((a, b) => b[1] - a[1])
         .map(([designer, count]) => [designer, count.toLocaleString('fa')]);
 });
 
@@ -326,7 +308,6 @@ const availableDesigners = computed(() => {
 const filteredItems = computed(() => {
     let results = items.value;
 
-    // فیلتر براساس متن جستجو
     if (searchTerm.value.length) {
     const modifiedSearchTerm = searchTerm.value
         .split('')
@@ -336,23 +317,20 @@ const filteredItems = computed(() => {
     results = results.filter(item => regex.test(item.filmLabel) || regex.test(item.aliases || ''));
 }
 
-    // فیلتر براساس سال
     if (selectedYear.value) {
         results = results.filter(item => toPersianYear(item.date) === selectedYear.value);
     }
 
-    // فیلتر براساس طراح
     if (selectedDesigner.value) {
         results = results.filter(item => item.designerLabel === selectedDesigner.value);
     }
 
-    // مرتب‌سازی
     if (sortOrder.value === 'alphabetical') {
         results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, 'fa'));
     } else if (sortOrder.value === 'year') {
         results = results.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     } else if (sortOrder.value === 'random') {
-        results = results.slice().sort(() => Math.random() - 0.5); // مرتب‌سازی تصادفی
+        results = results.slice().sort(() => Math.random() - 0.5);
     }
 
     return results;
@@ -369,7 +347,7 @@ const filteredDesigners = computed(() => {
     const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
     return Object.keys(groups)
         .map(designer => [designer, groups[designer].length])
-        .sort((a, b) => b[1] - a[1]) // مرتب‌سازی بر اساس تعداد پوسترها به صورت نزولی
+        .sort((a, b) => b[1] - a[1])
         .map(([designer, count]) => [designer, count.toLocaleString('fa')]);
 });
 
