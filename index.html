@@ -126,22 +126,23 @@
   font-size: 18px;
   border: none;
   outline: none;
-  background-color: red;
+  background-color: gray;
   color: white;
   cursor: pointer;
   padding: 15px;
-  border-radius: 4px;
+    opacity: 50%;
+  border-radius: 10px;
 }
 
 #myBtn:hover {
-  background-color: #555;
+    opacity:80%;
 }
     </style>
 </head>
 
 <body>
     <div id="app">
-        <button onclick="topFunction()" id="myBtn" title="Go to top">^</button>
+        <button onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
         <input type="text" v-model="searchTerm" placeholder="جستجو…" />
         <div class="options">
             <fieldset style="border: none; padding: 0; margin: 0;">
