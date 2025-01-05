@@ -236,6 +236,14 @@ function topFunction() {
   document.documentElement.scrollTop = 0;
 }
     
+        resetFilters() {
+            this.searchTerm = '';
+            this.combineSimilarChars = false;
+            this.sortOrder = 'random';
+            this.selectedYear = '';
+        this.selectedDesigner = '';
+        },
+
 const { createApp, ref, computed } = Vue;
 
 Object.groupBy = function (array, keyGetter) {
@@ -298,14 +306,6 @@ createApp({
         const showMore = () => {
             isShowMore.value = true;
         };
-
-        resetFilters() {
-            this.searchTerm = '';
-            this.combineSimilarChars = false;
-            this.sortOrder = 'random';
-            this.selectedYear = '';
-        this.selectedDesigner = '';
-        },
 
         const sortOrder = ref('random');
         const searchTerm = ref('');
