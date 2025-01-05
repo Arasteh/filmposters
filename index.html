@@ -242,14 +242,6 @@ function topFunction() {
   document.documentElement.scrollTop = 0;
 }
     
-        function resetFilters() {
-            this.searchTerm = '';
-            this.combineSimilarChars = false;
-            this.sortOrder = 'random';
-            this.selectedYear = '';
-        this.selectedDesigner = '';
-        }
-
 const { createApp, ref, computed } = Vue;
 
 Object.groupBy = function (array, keyGetter) {
@@ -415,6 +407,15 @@ const filteredDesigners = computed(() => {
         const getImageLink = item => posterMode.value ? item.poster : item.logo;
         const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = film => film;
+
+        
+     resetFilters() {
+            this.searchTerm = '';
+            this.combineSimilarChars = false;
+            this.sortOrder = 'random';
+            this.selectedYear = '';
+        this.selectedDesigner = '';
+        }
 
         
         return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners };
