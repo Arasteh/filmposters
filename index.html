@@ -186,12 +186,13 @@ padding: 8px;
 .autocomplete-items {
     position: absolute;
     border: 1px solid #d4d4d4;
-    background-color: #fff;
-    max-height: 200px;
+    background-color: #bbb;
+    max-height: 400px;
     overflow-y: auto;
     z-index: 10;
     left: 0;
     right: 0;
+    border-radius: 16px;
 }
 
 .autocomplete-items div {
@@ -200,7 +201,7 @@ padding: 8px;
 }
 
 .autocomplete-items div:hover {
-    background-color: #f1f1f1;
+    background-color: #ddd;
 }       
     </style>
 </head>
@@ -239,7 +240,7 @@ padding: 8px;
 </label>
 <label>
     طراح:
-    <div class="autocomplete">
+    <div class="autocomplete" @click="isDesignerDropdownOpen = true" @click.outside="isDesignerDropdownOpen = false">
         <input type="text" v-model="designerQuery" @input="filterDesigners" placeholder="نام طراح…" />
         <div class="autocomplete-items" v-if="designerSuggestions.length">
             <div v-for="[designer, count] in designerSuggestions" 
@@ -388,6 +389,7 @@ createApp({
         const selectedYear = ref('');
         const designerQuery = ref("");
         const selectedDesigner = ref('');
+        const isDesignerDropdownOpen = ref(false); // وضعیت باز بودن لیست
 const topDesigners = computed(() => availableDesigners.value.slice(0, 10));
 
         const designerSuggestions = computed(() => {
@@ -403,6 +405,18 @@ const topDesigners = computed(() => availableDesigners.value.slice(0, 10));
 function selectDesigner(designer) {
     selectedDesigner.value = designer; // ذخیره طراح انتخاب‌شده
     designerQuery.value = designer; // مقدار فیلد جستجو را تنظیم کن
+    isDesignerDropdownOpen.value = false; // بستن لیست پیشنهادها
+    applyFilters(); // فراخوانی فیلتر نتایج
+}
+
+        function applyFilters() {
+    results.value = items.value.filter(item => {
+        let matchesDesigner = true;
+        if (selectedDesigner.value) {
+            matchesDesigner = item.designerLabel === selectedDesigner.value;
+        }
+        return matchesDesigner;
+    });
 }
 /*
         methods: {
@@ -511,7 +525,7 @@ const filteredDesigners = computed(() => {
         const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = film => film;
         
-        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions };
+        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen };
     }
 }).mount('#app');
 </script>
