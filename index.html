@@ -165,7 +165,7 @@
     <div id="app">
         <button onclick="topFunction()" id="myBtn">↑</button>
         <input type="text" v-model="searchTerm" placeholder="جستجو…" />
-        <button onclick="resetFilters()" id="resetSearch">بازنشانی</button>
+        <button  @click="resetFilters" id="resetSearch">بازنشانی</button>
         <div class="options">
             <fieldset style="border: none; padding: 0; margin: 0;">
                 <label><input type="radio" v-model="posterMode" :value="false" /> لوگوها</label>
@@ -311,17 +311,17 @@ createApp({
         const posterMode = ref(false);
         const selectedYear = ref('');
         const selectedDesigner = ref('');
-
-                methods: {
+/*
+        methods: {
      resetFilters() {
             this.searchTerm = '';
             this.combineSimilarChars = false;
             this.sortOrder = 'random';
             this.selectedYear = '';
-        this.selectedDesigner = '';
+            this.selectedDesigner = '';
         }
         }
-        
+        */
         const items = ref([]);
         getAllItems().then(result => items.value = result);
 
