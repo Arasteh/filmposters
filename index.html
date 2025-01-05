@@ -243,7 +243,7 @@ padding: 8px;
     طراح:
     <div class="autocomplete" @click="isDesignerDropdownOpen = true" @click.outside="isDesignerDropdownOpen = false">
         <input type="text" v-model="designerQuery" @input="filterDesigners" placeholder="نام طراح…" />
-        <div class="autocomplete-items" v-if="designerSuggestions.length">
+        <div class="autocomplete-items" v-if="designerQuery.length && designerSuggestions.length > 1">
             <div v-for="[designer, count] in designerSuggestions" 
                  :key="designer" 
                  @click="selectDesigner(designer)">
@@ -526,7 +526,7 @@ const filteredDesigners = computed(() => {
         const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = film => film;
         
-        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen };
+        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner };
     }
 }).mount('#app');
 </script>
