@@ -32,29 +32,30 @@
             width: 90%;
             transition: background-color 0.3s, color 0.3s;
         }
-        
-.search-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-            margin-bottom: 10px;
-}
-        
-        .search-bar {
-    position: sticky;
-    top: 0;
-            background-color: light-dark(#fff, #1e1e1e);
-    padding: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
-}
 
-.search-bar.hidden {
-    transform: translateY(-100%); /* مخفی کردن بخش */
-}
-        
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .search-bar {
+            position: sticky;
+            top: 0;
+            background-color: light-dark(#fff, #1e1e1e);
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .search-bar.hidden {
+            transform: translateY(-100%);
+            /* مخفی کردن بخش */
+        }
+
         input[type="text"] {
-            width:100%;
+            width: 100%;
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 16px;
@@ -136,128 +137,133 @@
             text-decoration: none;
             margin: 0 5px;
         }
-        
-#myBtn {
-  transition: bottom ease-in-out 350ms;
-  bottom: -100px;
-  width: 52px;
-  height: 52px;
-  position: fixed;
-  right: 30px;
-  z-index: 99;
-  font-size: 18px;
-  border: none;
-  outline: none;
-  background-color: gray;
-  color: white;
-  cursor: pointer;
-  padding: 15px;
-  border-radius: 10px;
-}
 
-#myBtn:hover {
-    opacity:60%;
-    box-shadow: 0px 4px 10px gray;
-    transition-duration: 0.1s;
-}
+        #myBtn {
+            transition: bottom ease-in-out 350ms;
+            bottom: -100px;
+            width: 52px;
+            height: 52px;
+            position: fixed;
+            right: 30px;
+            z-index: 99;
+            font-size: 18px;
+            border: none;
+            outline: none;
+            background-color: gray;
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        #myBtn:hover {
+            opacity: 60%;
+            box-shadow: 0px 4px 10px gray;
+            transition-duration: 0.1s;
+        }
 
         #resetSearch {
-  border: none;
-  color: white;
-padding: 8px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  cursor: pointer;
-  border-radius: 16px;
-  background-color: gray;
-    opacity: 80%;
-}
+            border: none;
+            color: white;
+            padding: 8px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            border-radius: 16px;
+            background-color: gray;
+            opacity: 80%;
+        }
 
         #resetSearch:hover {
-    opacity: 100%;
-    transition-duration: 0.1s;
-}
+            opacity: 100%;
+            transition-duration: 0.1s;
+        }
 
-.autocomplete {
-    position: relative;
-    display: inline-block;
-}
+        .autocomplete {
+            position: relative;
+            display: inline-block;
+        }
 
-.autocomplete-items {
-    position: absolute;
-    color: light-dark(#e0e0e0, black);
-    border: 1px solid #d4d4d4;
-    background-color: #bbb;
-    max-height: 400px;
-    overflow-y: auto;
-    z-index: 10;
-    left: 0;
-    right: 0;
-    border-radius: 16px;
-}
+        .autocomplete-items {
+            position: absolute;
+            color: light-dark(#e0e0e0, black);
+            border: 1px solid #d4d4d4;
+            background-color: #bbb;
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 10;
+            left: 0;
+            right: 0;
+            border-radius: 16px;
+        }
 
-.autocomplete-items div {
-    padding: 8px;
-    cursor: pointer;
-}
+        .autocomplete-items div {
+            padding: 8px;
+            cursor: pointer;
+        }
 
-.autocomplete-items div:hover {
-    background-color: #ddd;
-}       
+        .autocomplete-items div:hover {
+            background-color: #ddd;
+        }
     </style>
 </head>
 
 <body>
     <div id="app">
         <button onclick="topFunction()" id="myBtn">↑</button>
-        
-    <div id="searchBar" class="search-bar"><div class="search-container">
-        <input type="text" v-model="searchTerm" placeholder="جستجو…" />
-        <button  @click="resetFilters" id="resetSearch">بازنشانی</button>
+
+        <div id="searchBar" class="search-bar">
+            <div class="search-container">
+                <input type="text" v-model="searchTerm" placeholder="جستجو…" />
+                <button @click="resetFilters" id="resetSearch">بازنشانی</button>
             </div>
-        <div class="options">
-            <fieldset style="border: none; padding: 0; margin: 0;">
-                <label><input type="radio" v-model="posterMode" :value="false" /> لوگوها</label>
-                &nbsp;
-                <label><input type="radio" v-model="posterMode" :value="true" /> پوسترها</label>
-            </fieldset>
-            <label>
-                <input type="checkbox" v-model="combineSimilarChars" /> حروف مشابه
-            </label>
-            <label>
-                ⇵
-                <select v-model="sortOrder">
-                    <option value="alphabetical">الفبایی</option>
-                    <option value="year">سال تولید</option>
-                    <option value="random">تصادفی</option>
-                </select>
-            </label>
-<label>
-    سال:
-    <select v-model="selectedYear">
-        <option value="">همه</option>
-        <option v-for="[year, count] in filteredYears" :key="year" :value="year">{{ year }} ({{ count }})</option>
-    </select>
-</label>
-<label>
-    طراح:
-    <div class="autocomplete" @click="isDesignerDropdownOpen = true" @click.outside="isDesignerDropdownOpen = false">
-        <input type="text" v-model="designerQuery" @input="filterDesigners" placeholder="نام طراح…" />
-        <div class="autocomplete-items" v-if="designerQuery.length && designerSuggestions.length > 1">
-            <div v-for="[designer, count] in designerSuggestions" 
-                 :key="designer" 
-                 @click="selectDesigner(designer)">
-                {{ designer }} ({{ count }})
+            <div class="options">
+                <fieldset style="border: none; padding: 0; margin: 0;">
+                    <label><input type="radio" v-model="posterMode" :value="false" /> لوگوها</label>
+                    &nbsp;
+                    <label><input type="radio" v-model="posterMode" :value="true" /> پوسترها</label>
+                </fieldset>
+                <label>
+                    <input type="checkbox" v-model="combineSimilarChars" /> حروف مشابه
+                </label>
+                <label>
+                    ⇵
+                    <select v-model="sortOrder">
+                        <option value="alphabetical">الفبایی</option>
+                        <option value="year">سال تولید</option>
+                        <option value="random">تصادفی</option>
+                    </select>
+                </label>
+                <label>
+                    سال:
+                    <select v-model="selectedYear">
+                        <option value="">همه</option>
+                        <option v-for="[year, count] in filteredYears" :key="year" :value="year">{{ year }} ({{ count
+                            }})</option>
+                    </select>
+                </label>
+                <label>
+                    طراح:
+                    <div class="autocomplete" @click="isDesignerDropdownOpen = true"
+                        @click.outside="isDesignerDropdownOpen = false">
+                        <input type="text" v-model="designerQuery" @input="filterDesigners" placeholder="نام طراح…" />
+                        <div class="autocomplete-items" v-if="designerQuery.length && designerSuggestions.length > 1">
+                            <div v-for="[designer, count] in designerSuggestions" :key="designer"
+                                @click="selectDesigner(designer)">
+                                {{ designer }} ({{ count }})
+                            </div>
+                        </div>
+                    </div>
+                </label>
+            </div>
+            <div v-if="filteredItems.length > 0" style="text-align: center; padding-bottom: .5em;">
+                {{ filteredItems.length.toLocaleString('fa') }} از {{ items.length.toLocaleString('fa') }}
             </div>
         </div>
-    </div>
-</label>        </div>
-        <div v-if="filteredItems.length > 0" style="text-align: center; padding-bottom: .5em;">
-            {{ filteredItems.length.toLocaleString('fa') }} از {{ items.length.toLocaleString('fa') }}
-        </div></div>
         <div v-if="filteredItems.length > 0" class="results-grid">
-            <div class="item-card" v-for="(item, index) in (isShowMore ? filteredItems : filteredItems.slice(0, 30))" :key="index">
+            <div class="item-card" v-for="(item, index) in (isShowMore ? filteredItems : filteredItems.slice(0, 30))"
+                :key="index">
                 <a :href="getImageLink(item)" target="_blank"><img :src="getImageUrl(item)" :alt="item.filmLabel"
                         class="item-image" /></a>
                 <div class="item-title">{{ getItemTitleWithYear(item) }}</div>
@@ -278,7 +284,7 @@ padding: 8px;
         </div>
     </div>
 
-<script>
+    <script>
 let myBtn;
 window.onscroll = () => {
     if (!myBtn) myBtn = document.getElementById("myBtn");
@@ -287,7 +293,7 @@ window.onscroll = () => {
 
 // When the user clicks on the button, scroll to the top of the document
 function topFunction() {
-  document.documentElement.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
 }
 
 
@@ -307,7 +313,7 @@ window.addEventListener("scroll", () => {
 
     lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // جلوگیری از مقادیر منفی
 });
-    
+
 const { createApp, ref, computed } = Vue;
 
 Object.groupBy = function (array, keyGetter) {
@@ -320,7 +326,7 @@ Object.groupBy = function (array, keyGetter) {
         return result;
     }, {});
 };
-    
+
 async function getAllItems() {
     const response = await fetch(
         'https://query.wikidata.org/bigdata/namespace/wdq/sparql',
@@ -383,45 +389,45 @@ createApp({
         const designerQuery = ref("");
         const selectedDesigner = ref('');
         const isDesignerDropdownOpen = ref(false); // وضعیت باز بودن لیست
-const topDesigners = computed(() => availableDesigners.value.slice(0, 10));
+        const topDesigners = computed(() => availableDesigners.value.slice(0, 10));
 
         const designerSuggestions = computed(() => {
-    if (!designerQuery.value) {
-        return topDesigners.value;
-    }
-    return availableDesigners.value.filter(([designer]) =>
-        designer.includes(designerQuery.value)
-    );
-});
+            if (!designerQuery.value) {
+                return topDesigners.value;
+            }
+            return availableDesigners.value.filter(([designer]) =>
+                designer.includes(designerQuery.value)
+            );
+        });
 
-// وقتی طراح انتخاب شد
-function selectDesigner(designer) {
-    selectedDesigner.value = designer; // ذخیره طراح انتخاب‌شده
-    designerQuery.value = designer; // مقدار فیلد جستجو را تنظیم کن
-    isDesignerDropdownOpen.value = false; // بستن لیست پیشنهادها
-    applyFilters(); // فراخوانی فیلتر نتایج
-}
+        // وقتی طراح انتخاب شد
+        function selectDesigner(designer) {
+            selectedDesigner.value = designer; // ذخیره طراح انتخاب‌شده
+            designerQuery.value = designer; // مقدار فیلد جستجو را تنظیم کن
+            isDesignerDropdownOpen.value = false; // بستن لیست پیشنهادها
+            applyFilters(); // فراخوانی فیلتر نتایج
+        }
 
         function applyFilters() {
-    results.value = items.value.filter(item => {
-        let matchesDesigner = true;
-        if (selectedDesigner.value) {
-            matchesDesigner = item.designerLabel === selectedDesigner.value;
+            results.value = items.value.filter(item => {
+                let matchesDesigner = true;
+                if (selectedDesigner.value) {
+                    matchesDesigner = item.designerLabel === selectedDesigner.value;
+                }
+                return matchesDesigner;
+            });
         }
-        return matchesDesigner;
-    });
-}
-/*
-        methods: {
-     resetFilters() {
-            this.searchTerm = '';
-            this.combineSimilarChars = false;
-            this.sortOrder = 'random';
-            this.selectedYear = '';
-            this.selectedDesigner = '';
-        }
-        }
-        */
+        /*
+                methods: {
+                resetFilters() {
+                    this.searchTerm = '';
+                    this.combineSimilarChars = false;
+                    this.sortOrder = 'random';
+                    this.selectedYear = '';
+                    this.selectedDesigner = '';
+                }
+                }
+                */
         const items = ref([]);
         getAllItems().then(result => items.value = result);
 
@@ -445,63 +451,63 @@ function selectDesigner(designer) {
             return Object.keys(groups).sort().map(year => [year, groups[year].length.toLocaleString('fa')]);
         });
 
-const availableDesigners = computed(() => {
-    const groups = Object.groupBy(items.value.filter(x => x.designerLabel), item => item.designerLabel);
-    return Object.keys(groups)
-        .map(designer => [designer, groups[designer].length])
-        .sort((a, b) => b[1] - a[1])
-        .map(([designer, count]) => [designer, count.toLocaleString('fa')]);
-});
+        const availableDesigners = computed(() => {
+            const groups = Object.groupBy(items.value.filter(x => x.designerLabel), item => item.designerLabel);
+            return Object.keys(groups)
+                .map(designer => [designer, groups[designer].length])
+                .sort((a, b) => b[1] - a[1])
+                .map(([designer, count]) => [designer, count.toLocaleString('fa')]);
+        });
 
         const getItemTitleWithYear = item => {
             return item.filmLabel + (item.date ? ` (${toPersianYear(item.date)})` : '');
         };
 
-const filteredItems = computed(() => {
-    let results = items.value;
+        const filteredItems = computed(() => {
+            let results = items.value;
 
-    if (searchTerm.value.length) {
-    const modifiedSearchTerm = searchTerm.value
-        .split('')
-        .map(char => (combineSimilarChars.value ? (similarCharsMapping[char] || char) : char))
-        .join('');
-    const regex = new RegExp(modifiedSearchTerm, 'i');
-    results = results.filter(item => regex.test(item.filmLabel) || regex.test(item.aliases || ''));
-}
+            if (searchTerm.value.length) {
+                const modifiedSearchTerm = searchTerm.value
+                    .split('')
+                    .map(char => (combineSimilarChars.value ? (similarCharsMapping[char] || char) : char))
+                    .join('');
+                const regex = new RegExp(modifiedSearchTerm, 'i');
+                results = results.filter(item => regex.test(item.filmLabel) || regex.test(item.aliases || ''));
+            }
 
-    if (selectedYear.value) {
-        results = results.filter(item => toPersianYear(item.date) === selectedYear.value);
-    }
+            if (selectedYear.value) {
+                results = results.filter(item => toPersianYear(item.date) === selectedYear.value);
+            }
 
-    if (selectedDesigner.value) {
-        results = results.filter(item => item.designerLabel === selectedDesigner.value);
-    }
+            if (selectedDesigner.value) {
+                results = results.filter(item => item.designerLabel === selectedDesigner.value);
+            }
 
-    if (sortOrder.value === 'alphabetical') {
-        results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, 'fa'));
-    } else if (sortOrder.value === 'year') {
-        results = results.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-    } else if (sortOrder.value === 'random') {
-        results = results.slice().sort(() => Math.random() - 0.5);
-    }
+            if (sortOrder.value === 'alphabetical') {
+                results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, 'fa'));
+            } else if (sortOrder.value === 'year') {
+                results = results.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+            } else if (sortOrder.value === 'random') {
+                results = results.slice().sort(() => Math.random() - 0.5);
+            }
 
-    return results;
-});
+            return results;
+        });
 
-const filteredYears = computed(() => {
-    const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
-    return Object.keys(groups)
-        .sort()
-        .map(year => [year, groups[year].length.toLocaleString('fa')]);
-});
+        const filteredYears = computed(() => {
+            const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
+            return Object.keys(groups)
+                .sort()
+                .map(year => [year, groups[year].length.toLocaleString('fa')]);
+        });
 
-const filteredDesigners = computed(() => {
-    const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
-    return Object.keys(groups)
-        .map(designer => [designer, groups[designer].length])
-        .sort((a, b) => b[1] - a[1])
-        .map(([designer, count]) => [designer, count.toLocaleString('fa')]);
-});
+        const filteredDesigners = computed(() => {
+            const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
+            return Object.keys(groups)
+                .map(designer => [designer, groups[designer].length])
+                .sort((a, b) => b[1] - a[1])
+                .map(([designer, count]) => [designer, count.toLocaleString('fa')]);
+        });
 
         const getPosterUrl = (filePath, width = 600) => {
             if (!filePath) return 'https://via.placeholder.com/300x420?text=No+Poster';
@@ -517,10 +523,10 @@ const filteredDesigners = computed(() => {
         const getImageLink = item => posterMode.value ? item.poster : item.logo;
         const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = film => film;
-        
+
         return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner };
     }
 }).mount('#app');
-</script>
+    </script>
 </body>
 </html>
