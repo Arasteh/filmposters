@@ -217,10 +217,10 @@ padding: 8px;
         <option value="">همه</option>
         <option v-for="[designer, count] in filteredDesigners" :key="designer" :value="designer">{{ designer }} ({{ count }})</option>
     </select>
-</label>        </div></div>
+</label>        </div>
         <div v-if="filteredItems.length > 0" style="text-align: center; padding-bottom: .5em;">
             {{ filteredItems.length.toLocaleString('fa') }} از {{ items.length.toLocaleString('fa') }}
-        </div>
+        </div></div>
         <div v-if="filteredItems.length > 0" class="results-grid">
             <div class="item-card" v-for="(item, index) in (isShowMore ? filteredItems : filteredItems.slice(0, 30))" :key="index">
                 <a :href="getImageLink(item)" target="_blank"><img :src="getImageUrl(item)" :alt="item.filmLabel"
