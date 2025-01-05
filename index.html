@@ -233,6 +233,7 @@ padding: 8px;
                 <div class="item-links">
                     <a :href="getImdbLink(item.imdbID)" target="_blank">T</a>
                     <a :href="getWikidataLink(item.film)" target="_blank">Q</a>
+                    <a :href="item.faWikipediaLink" target="_blank">W</a>
                 </div>
             </div>
         </div>
@@ -304,17 +305,17 @@ async function getAllItems() {
                 'Accept': 'application/json'
             },
             body: `
-SELECT DISTINCT ?film ?filmLabel (GROUP_CONCAT(DISTINCT ?alias; separator=", ") AS ?aliases) (MIN(?publicationDate) AS ?date) ?imdbID ?poster ?logo ?designer ?designerLabel WHERE {
+SELECT DISTINCT ?film ?filmLabel (GROUP_CONCAT(DISTINCT ?alias; separator=", ") AS ?aliases) (MIN(?publicationDate) AS ?date) ?imdbID ?poster ?logo ?designer ?designerLabel ?faWikipediaLink
+WHERE {
   VALUES ?type { wd:Q11424 wd:Q24862 wd:Q5398426 wd:Q7777570 wd:Q17517379 }
-  ?film wdt:P31 ?type;
-        wdt:P495 wd:Q794.
+  ?film wdt:P31 ?type; wdt:P495 wd:Q794.
 
   ?film p:P3383 ?imageStatement.
   ?imageStatement ps:P3383 ?poster.
   OPTIONAL { ?imageStatement pq:P170 ?designer. }
 
   OPTIONAL { ?film p:P154 ?logoStatement.
-  ?logoStatement ps:P154 ?logo. }
+             ?logoStatement ps:P154 ?logo. }
 
   OPTIONAL { ?film wdt:P577 ?publicationDate. }
   OPTIONAL { ?film wdt:P345 ?imdbID. }
@@ -322,9 +323,13 @@ SELECT DISTINCT ?film ?filmLabel (GROUP_CONCAT(DISTINCT ?alias; separator=", ") 
   OPTIONAL { ?film skos:altLabel ?alias.
              FILTER(LANG(?alias) = "fa") }
 
+  OPTIONAL { ?wikipedia schema:about ?film;
+                        schema:isPartOf <https://fa.wikipedia.org/>.
+    BIND(STR(?wikipedia) AS ?faWikipediaLink) }
+
   SERVICE wikibase:label { bd:serviceParam wikibase:language "fa". }
 }
-GROUP BY ?film ?filmLabel ?imdbID ?poster ?designer ?designerLabel ?logo
+GROUP BY ?film ?filmLabel ?imdbID ?poster ?designer ?designerLabel ?logo ?faWikipediaLink
 ORDER BY ?publicationDate
 `
         }
