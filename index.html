@@ -119,10 +119,6 @@
         
 #myBtn {
   display: block;
-  position: fixed;
-  bottom: 20px;
-  right: 30px;
-  z-index: 99;
   font-size: 18px;
   border: none;
   outline: none;
@@ -139,6 +135,23 @@
     box-shadow: 0px 4px 10px gray;
     transition-duration: 0.2s;
 }
+
+        #resetSearch {
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+        #resetSearch:hover {
+  background-color: #04AA6D;
+  color: white;
+}
     </style>
 </head>
 
@@ -146,6 +159,7 @@
     <div id="app">
         <button onclick="topFunction()" id="myBtn">↑</button>
         <input type="text" v-model="searchTerm" placeholder="جستجو…" />
+        <button onclick="resetFilters()" id="resetSearch">بازنشانی</button>
         <div class="options">
             <fieldset style="border: none; padding: 0; margin: 0;">
                 <label><input type="radio" v-model="posterMode" :value="false" /> لوگوها</label>
@@ -284,15 +298,14 @@ createApp({
         const showMore = () => {
             isShowMore.value = true;
         };
-        /*
+
         resetFilters() {
             this.searchTerm = '';
-            this.posterMode = false;
             this.combineSimilarChars = false;
-            this.sortOrder = 'default';
+            this.sortOrder = 'random';
             this.selectedYear = '';
+        this.selectedDesigner = '';
         },
-        */
 
         const sortOrder = ref('random');
         const searchTerm = ref('');
