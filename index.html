@@ -40,6 +40,19 @@
             margin-bottom: 10px;
 }
         
+        .search-bar {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.search-bar.hidden {
+    transform: translateY(-100%); /* مخفی کردن بخش */
+}
+        
         input[type="text"] {
             width:100%;
             padding: 8px;
@@ -170,7 +183,7 @@ padding: 8px;
     <div id="app">
         <button onclick="topFunction()" id="myBtn">↑</button>
         
-    <div class="search-container">
+    <div id="searchBar" class="search-bar"><div class="search-container">
         <input type="text" v-model="searchTerm" placeholder="جستجو…" />
         <button  @click="resetFilters" id="resetSearch">بازنشانی</button>
             </div>
@@ -204,7 +217,7 @@ padding: 8px;
         <option value="">همه</option>
         <option v-for="[designer, count] in filteredDesigners" :key="designer" :value="designer">{{ designer }} ({{ count }})</option>
     </select>
-</label>        </div>
+</label>        </div></div>
         <div v-if="filteredItems.length > 0" style="text-align: center; padding-bottom: .5em;">
             {{ filteredItems.length.toLocaleString('fa') }} از {{ items.length.toLocaleString('fa') }}
         </div>
@@ -249,6 +262,24 @@ function topFunction() {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
 }
+
+
+let lastScrollTop = 0;
+
+window.addEventListener("scroll", () => {
+    const searchBar = document.getElementById("searchBar");
+    const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (currentScrollTop > lastScrollTop) {
+        // کاربر به پایین اسکرول می‌کند
+        searchBar.classList.add("hidden");
+    } else {
+        // کاربر به بالا اسکرول می‌کند
+        searchBar.classList.remove("hidden");
+    }
+
+    lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // جلوگیری از مقادیر منفی
+});
     
 const { createApp, ref, computed } = Vue;
 
