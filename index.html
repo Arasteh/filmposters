@@ -311,13 +311,15 @@ createApp({
         const posterMode = ref(false);
         const selectedYear = ref('');
         const selectedDesigner = ref('');
-        
+
+                methods: {
      resetFilters() {
             this.searchTerm = '';
             this.combineSimilarChars = false;
             this.sortOrder = 'random';
             this.selectedYear = '';
         this.selectedDesigner = '';
+        }
         }
         
         const items = ref([]);
