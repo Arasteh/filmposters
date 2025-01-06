@@ -248,7 +248,7 @@
                     طراح:
                     <div class="autocomplete" @click="isDesignerDropdownOpen = true"
                         @click.outside="isDesignerDropdownOpen = false">
-                        <input type="text" v-model="designerQuery" @input="filterDesigners" placeholder="نام طراح…" />
+                        <input type="text" v-model="designerQuery" @input="filteredDesigners" placeholder="نام طراح…" />
                         <div class="autocomplete-items" v-if="designerQuery.length && designerSuggestions.length > 1">
                             <div v-for="[designer, count] in designerSuggestions" :key="designer"
                                 @click="selectDesigner(designer)">
