@@ -272,9 +272,12 @@
                 :key="index">
                 <a :href="getImageLink(item)" target="_blank"><img :src="getImageUrl(item)" :alt="item.filmLabel"
                         class="item-image" /></a>
-                <div class="item-title">{{ getItemTitleWithYear(item) }}</div><div>{{ item.publicationDate }}</div>
+                <div class="item-title">{{ getItemTitleWithYear(item) }}</div>
                 <div v-if="item.designer && item.designerLabel" class="item-designer">
                     طراح: <a :href="item.designer" target="_blank">{{ item.designerLabel }}</a>
+                </div>
+                                <div v-if="item.designer && item.designerLabel" class="item-designer">
+                    طراح: <a :href="item.designer" target="_blank">{{ item.publicationDate }}</a>
                 </div>
 
                 <div class="item-links">
