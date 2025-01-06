@@ -406,23 +406,33 @@ createApp({
             );
         });
 
-        // وقتی طراح انتخاب شد
         function selectDesigner(designer) {
-            selectedDesigner.value = designer; // ذخیره طراح انتخاب‌شده
-            designerQuery.value = designer; // مقدار فیلد جستجو را تنظیم کن
-            isDesignerDropdownOpen.value = false; // بستن لیست پیشنهادها
-            applyFilters(); // فراخوانی فیلتر نتایج
+            selectedDesigner.value = designer;
+            designerQuery.value = designer;
+            isDesignerDropdownOpen.value = false;
+            applyFilters();
         }
 
-        function applyFilters() {
-            results.value = items.value.filter(item => {
-                let matchesDesigner = true;
-                if (selectedDesigner.value) {
-                    matchesDesigner = item.designerLabel === selectedDesigner.value;
-                }
-                return matchesDesigner;
-            });
+function filterDesigners() {
+    const query = designerQuery.value.toLowerCase();
+
+    if (!query) {
+        // ریست کردن طراح انتخاب‌شده و نمایش همه نتایج
+        selectedDesigner.value = '';
+        applyFilters();
+        return;
+    }
+
+        
+       function applyFilters() {
+    results.value = items.value.filter(item => {
+        if (!selectedDesigner.value) {
+            return true; // نمایش همه نتایج
         }
+        return item.designerLabel === selectedDesigner.value;
+    });
+}
+
         /*
                 methods: {
                 resetFilters() {
