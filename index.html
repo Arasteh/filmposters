@@ -327,7 +327,7 @@ window.addEventListener("scroll", () => {
     lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // جلوگیری از مقادیر منفی
 });
 
-const { createApp, ref, computed } = Vue;
+const { createApp, ref, computed, watch } = Vue;
 
 Object.groupBy = function (array, keyGetter) {
     return array.reduce((result, item) => {
