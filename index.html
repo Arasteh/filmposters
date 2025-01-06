@@ -249,29 +249,27 @@
                             }})</option>
                     </select>
                 </label>
-                <label>
-                    طراح:
-                    <div class="autocomplete" @click="isDesignerDropdownOpen = true" @click.outside="isDesignerDropdownOpen = false">
-    <input
-        id="designerquery"
-        type="text"
-        v-model="designerQuery"
-        @input="filterDesigners"
-        placeholder="نام طراح…"
-    />
-    <div class="autocomplete-items" v-if="isDesignerDropdownOpen">
-        <div
-            v-for="[designer, count] in designerSuggestions"
-            :key="designer"
-            @click="selectDesigner(designer)"
-        >
-            {{ designer }} ({{ count }})
+<label>
+    طراح:
+    <div class="autocomplete" @click="isDesignerDropdownOpen = true" @click.outside="isDesignerDropdownOpen = false">
+        <input
+            id="designerquery"
+            type="text"
+            v-model="designerQuery"
+            @input="filterDesigners"
+            placeholder="نام طراح…"
+        />
+        <div class="autocomplete-items" v-if="isDesignerDropdownOpen">
+            <div
+                v-for="[designer, count] in designerSuggestions"
+                :key="designer"
+                @click="selectDesigner(designer)"
+            >
+                {{ designer }} ({{ count }})
+            </div>
         </div>
     </div>
-</div>
-
-                </label>
-            </div>
+</label>            </div>
             <div v-if="filteredItems.length > 0" style="text-align: center; padding-bottom: .5em;">
                 {{ filteredItems.length.toLocaleString('fa') }} از {{ items.length.toLocaleString('fa') }}
             </div>
@@ -405,6 +403,7 @@ createApp({
         const selectedDesigner = ref('');
         const isDesignerDropdownOpen = ref(false); // وضعیت باز بودن لیست
         const topDesigners = computed(() => availableDesigners.value.slice(0, 10));
+const designerSuggestions = ref([]); // لیست پیشنهادات طراح‌ها
 
         const designerSuggestions = computed(() => {
             if (!designerQuery.value) {
@@ -422,21 +421,17 @@ createApp({
             applyFilters();
         }
 
+// به‌روزرسانی لیست پیشنهادات بر اساس جستجو
 function filterDesigners() {
     const query = designerQuery.value.trim();
-
     if (!query) {
-        // ریست کردن طراح انتخاب‌شده و نمایش همه نتایج
-        selectedDesigner.value = '';
-        applyFilters(); // نمایش تمام موارد
-        return;
+        designerSuggestions.value = topDesigners.value; // بازنشانی به 10 طراح برتر
+    } else {
+        designerSuggestions.value = availableDesigners.value.filter(([designer]) =>
+            designer.includes(query)
+        );
     }
-
-    designerSuggestions.value = availableDesigners.value.filter(([designer]) =>
-        designer.includes(query)
-    );
 }
-
         
        function applyFilters() {
     results.value = items.value.filter(item => {
@@ -447,6 +442,18 @@ function filterDesigners() {
     });
 }
 
+// زمانی که جستجو خالی می‌شود، تمام نتایج نمایش داده می‌شوند
+watch(designerQuery, (newQuery) => {
+    if (!newQuery) {
+        selectedDesigner.value = ''; // حذف طراح انتخاب‌شده
+        applyFilters(); // نمایش همه موارد
+    }
+});
+
+// مقداردهی اولیه به پیشنهادات
+onMounted(() => {
+    designerSuggestions.value = topDesigners.value; // شروع با 10 طراح برتر
+});
 
         /*
                 methods: {
