@@ -403,7 +403,6 @@ createApp({
         const selectedDesigner = ref('');
         const isDesignerDropdownOpen = ref(false); // وضعیت باز بودن لیست
         const topDesigners = computed(() => availableDesigners.value.slice(0, 10));
-const designerSuggestions = ref([]); // لیست پیشنهادات طراح‌ها
 
         const designerSuggestions = computed(() => {
             if (!designerQuery.value) {
