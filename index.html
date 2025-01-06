@@ -251,16 +251,25 @@
                 </label>
                 <label>
                     طراح:
-                    <div class="autocomplete" @click="isDesignerDropdownOpen = true"
-                        @click.outside="isDesignerDropdownOpen = false">
-                        <input id="designerquery" type="text" v-model="designerQuery" @input="filterDesigners" placeholder="نام طراح…" />
-                        <div class="autocomplete-items" v-if="designerQuery.length && designerSuggestions.length > 1">
-                            <div v-for="[designer, count] in designerSuggestions" :key="designer"
-                                @click="selectDesigner(designer)">
-                                {{ designer }} ({{ count }})
-                            </div>
-                        </div>
-                    </div>
+                    <div class="autocomplete" @click="isDesignerDropdownOpen = true" @click.outside="isDesignerDropdownOpen = false">
+    <input
+        id="designerquery"
+        type="text"
+        v-model="designerQuery"
+        @input="filterDesigners"
+        placeholder="نام طراح…"
+    />
+    <div class="autocomplete-items" v-if="isDesignerDropdownOpen">
+        <div
+            v-for="[designer, count] in designerSuggestions"
+            :key="designer"
+            @click="selectDesigner(designer)"
+        >
+            {{ designer }} ({{ count }})
+        </div>
+    </div>
+</div>
+
                 </label>
             </div>
             <div v-if="filteredItems.length > 0" style="text-align: center; padding-bottom: .5em;">
@@ -414,24 +423,30 @@ createApp({
         }
 
 function filterDesigners() {
-    const query = designerQuery.value.toLowerCase();
+    const query = designerQuery.value.trim();
 
     if (!query) {
         // ریست کردن طراح انتخاب‌شده و نمایش همه نتایج
         selectedDesigner.value = '';
-        applyFilters();
+        applyFilters(); // نمایش تمام موارد
         return;
     }
+
+    designerSuggestions.value = availableDesigners.value.filter(([designer]) =>
+        designer.includes(query)
+    );
+}
 
         
        function applyFilters() {
     results.value = items.value.filter(item => {
-        if (!selectedDesigner.value) {
-            return true; // نمایش همه نتایج
-        }
-        return item.designerLabel === selectedDesigner.value;
+        const matchesDesigner = selectedDesigner.value
+            ? item.designerLabel === selectedDesigner.value
+            : true; // اگر طراح انتخاب نشده، همه موارد را نشان بده
+        return matchesDesigner;
     });
 }
+
 
         /*
                 methods: {
