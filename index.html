@@ -249,27 +249,20 @@
                             }})</option>
                     </select>
                 </label>
-<label>
-    طراح:
-    <div class="autocomplete" @click="isDesignerDropdownOpen = true" @click.outside="isDesignerDropdownOpen = false">
-        <input
-            id="designerquery"
-            type="text"
-            v-model="designerQuery"
-            @input="filterDesigners"
-            placeholder="نام طراح…"
-        />
-        <div class="autocomplete-items" v-if="isDesignerDropdownOpen">
-            <div
-                v-for="[designer, count] in designerSuggestions"
-                :key="designer"
-                @click="selectDesigner(designer)"
-            >
-                {{ designer }} ({{ count }})
+                <label>
+                    طراح:
+                    <div class="autocomplete" @click="isDesignerDropdownOpen = true"
+                        @click.outside="isDesignerDropdownOpen = false">
+                        <input id="designerquery" type="text" v-model="designerQuery" @input="filterDesigners" placeholder="نام طراح…" />
+                        <div class="autocomplete-items" v-if="designerQuery.length && designerSuggestions.length > 1">
+                            <div v-for="[designer, count] in designerSuggestions" :key="designer"
+                                @click="selectDesigner(designer)">
+                                {{ designer }} ({{ count }})
+                            </div>
+                        </div>
+                    </div>
+                </label>
             </div>
-        </div>
-    </div>
-</label>            </div>
             <div v-if="filteredItems.length > 0" style="text-align: center; padding-bottom: .5em;">
                 {{ filteredItems.length.toLocaleString('fa') }} از {{ items.length.toLocaleString('fa') }}
             </div>
@@ -327,7 +320,7 @@ window.addEventListener("scroll", () => {
     lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // جلوگیری از مقادیر منفی
 });
 
-const { createApp, ref, computed, watch, onMounted } = Vue;
+const { createApp, ref, computed } = Vue;
 
 Object.groupBy = function (array, keyGetter) {
     return array.reduce((result, item) => {
@@ -413,47 +406,23 @@ createApp({
             );
         });
 
+        // وقتی طراح انتخاب شد
         function selectDesigner(designer) {
-            selectedDesigner.value = designer;
-            designerQuery.value = designer;
-            isDesignerDropdownOpen.value = false;
-            applyFilters();
+            selectedDesigner.value = designer; // ذخیره طراح انتخاب‌شده
+            designerQuery.value = designer; // مقدار فیلد جستجو را تنظیم کن
+            isDesignerDropdownOpen.value = false; // بستن لیست پیشنهادها
+            applyFilters(); // فراخوانی فیلتر نتایج
         }
 
-// به‌روزرسانی لیست پیشنهادات بر اساس جستجو
-function filterDesigners() {
-    const query = designerQuery.value.trim();
-    if (!query) {
-        designerSuggestions.value = topDesigners.value; // بازنشانی به 10 طراح برتر
-    } else {
-        designerSuggestions.value = availableDesigners.value.filter(([designer]) =>
-            designer.includes(query)
-        );
-    }
-}
-        
-       function applyFilters() {
-    results.value = items.value.filter(item => {
-        const matchesDesigner = selectedDesigner.value
-            ? item.designerLabel === selectedDesigner.value
-            : true; // اگر طراح انتخاب نشده، همه موارد را نشان بده
-        return matchesDesigner;
-    });
-}
-
-// زمانی که جستجو خالی می‌شود، تمام نتایج نمایش داده می‌شوند
-watch(designerQuery, (newQuery) => {
-    if (!newQuery) {
-        selectedDesigner.value = ''; // حذف طراح انتخاب‌شده
-        applyFilters(); // نمایش همه موارد
-    }
-});
-
-// مقداردهی اولیه به پیشنهادات
-onMounted(() => {
-    designerSuggestions.value = topDesigners.value; // شروع با 10 طراح برتر
-});
-
+        function applyFilters() {
+            results.value = items.value.filter(item => {
+                let matchesDesigner = true;
+                if (selectedDesigner.value) {
+                    matchesDesigner = item.designerLabel === selectedDesigner.value;
+                }
+                return matchesDesigner;
+            });
+        }
         /*
                 methods: {
                 resetFilters() {
