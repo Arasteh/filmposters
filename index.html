@@ -475,7 +475,7 @@ createApp({
         const availableDirectors = computed(() => {
             const groups = Object.groupBy(items.value.filter(x => x.directorLabel), item => item.directorLabel);
             return Object.keys(groups)
-                .map(designer => [director, groups[director].length])
+                .map(director => [director, groups[director].length])
                 .sort((a, b) => b[1] - a[1])
                 .map(([director, count]) => [director, count.toLocaleString('fa')]);
         });
@@ -502,6 +502,10 @@ createApp({
 
             if (selectedDesigner.value) {
                 results = results.filter(item => item.designerLabel === selectedDesigner.value);
+            }
+
+            if (selectedDirector.value) {
+                results = results.filter(item => item.directorLabel === selectedDirector.value);
             }
 
             if (sortOrder.value === 'alphabetical') {
@@ -533,7 +537,7 @@ createApp({
         const filteredDirectors = computed(() => {
             const groups = Object.groupBy(filteredItems.value.filter(x => x.directorLabel), item => item.directorLabel);
             return Object.keys(groups)
-                .map(designer => [director, groups[director].length])
+                .map(director => [director, groups[director].length])
                 .sort((a, b) => b[1] - a[1])
                 .map(([director, count]) => [director, count.toLocaleString('fa')]);
         });
