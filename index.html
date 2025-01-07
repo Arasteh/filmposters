@@ -245,8 +245,7 @@
                     سال:
                     <select v-model="selectedYear">
                         <option value="">همه</option>
-                        <option v-for="[year, count] in filteredYears" :key="year" :value="year">{{ year }} ({{ count
-                            }})</option>
+                        <option v-for="[year, count] in filteredYears" :key="year" :value="year">{{ year }} ({{ count }})</option>
                     </select>
                 </label>
                 <label>
@@ -261,7 +260,13 @@
                             </div>
                         </div>
                     </div>
-                </label>
+                </label><label>
+    کارگردان:
+    <select v-model="selectedDirector">
+        <option value="">همه</option>
+        <option v-for="[director, count] in filteredDirectors" :key="director" :value="director">{{ director }} ({{ count }})</option>
+    </select>
+</label> 
             </div>
             <div v-if="filteredItems.length > 0" style="text-align: center; padding-bottom: .5em;">
                 {{ filteredItems.length.toLocaleString('fa') }} از {{ items.length.toLocaleString('fa') }}
@@ -343,7 +348,7 @@ async function getAllItems() {
                 'Accept': 'application/json'
             },
             body: `
-SELECT DISTINCT ?film ?filmLabel (GROUP_CONCAT(DISTINCT ?alias; separator=", ") AS ?aliases) (MIN(?publicationDate) AS ?date) ?imdbID ?poster ?logo ?designer ?designerLabel ?faWikipediaLink
+SELECT DISTINCT ?film ?filmLabel (GROUP_CONCAT(DISTINCT ?alias; separator=", ") AS ?aliases) (MIN(?publicationDate) AS ?date) ?imdbID ?poster ?logo ?designer ?designerLabel ?director ?directorLabel ?faWikipediaLink
 WHERE {
   VALUES ?type { wd:Q11424 wd:Q24862 wd:Q5398426 wd:Q7777570 wd:Q17517379 }
   ?film wdt:P31 ?type; wdt:P495 wd:Q794.
@@ -356,6 +361,7 @@ WHERE {
              ?logoStatement ps:P154 ?logo. }
 
   OPTIONAL { ?film wdt:P577 ?publicationDate. }
+  OPTIONAL { ?film wdt:P57 ?director. }
   OPTIONAL { ?film wdt:P345 ?imdbID. }
 
   OPTIONAL { ?film skos:altLabel ?alias.
@@ -367,7 +373,7 @@ WHERE {
 
   SERVICE wikibase:label { bd:serviceParam wikibase:language "fa". }
 }
-GROUP BY ?film ?filmLabel ?imdbID ?poster ?designer ?designerLabel ?logo ?faWikipediaLink
+GROUP BY ?film ?filmLabel ?imdbID ?poster ?designer ?designerLabel ?logo ?director ?directorLabel ?faWikipediaLink
 ORDER BY ?publicationDate
 `
         }
@@ -394,6 +400,7 @@ createApp({
         const selectedYear = ref('');
         const designerQuery = ref("");
         const selectedDesigner = ref('');
+        const selectedDirector = ref('');
         const isDesignerDropdownOpen = ref(false); // وضعیت باز بودن لیست
         const topDesigners = computed(() => availableDesigners.value.slice(0, 10));
 
@@ -465,6 +472,14 @@ createApp({
                 .map(([designer, count]) => [designer, count.toLocaleString('fa')]);
         });
 
+        const availableDirectors = computed(() => {
+            const groups = Object.groupBy(items.value.filter(x => x.directorLabel), item => item.directorLabel);
+            return Object.keys(groups)
+                .map(designer => [director, groups[director].length])
+                .sort((a, b) => b[1] - a[1])
+                .map(([director, count]) => [director, count.toLocaleString('fa')]);
+        });
+        
         const getItemTitleWithYear = item => {
             return item.filmLabel + (item.date ? ` (${toPersianYear(item.date)})` : '');
         };
@@ -514,6 +529,14 @@ createApp({
                 .sort((a, b) => b[1] - a[1])
                 .map(([designer, count]) => [designer, count.toLocaleString('fa')]);
         });
+        
+        const filteredDirectors = computed(() => {
+            const groups = Object.groupBy(filteredItems.value.filter(x => x.directorLabel), item => item.directorLabel);
+            return Object.keys(groups)
+                .map(designer => [director, groups[director].length])
+                .sort((a, b) => b[1] - a[1])
+                .map(([director, count]) => [director, count.toLocaleString('fa')]);
+        });
 
         const getPosterUrl = (filePath, width = 600) => {
             if (!filePath) return 'https://via.placeholder.com/300x420?text=No+Poster';
@@ -530,7 +553,7 @@ createApp({
         const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = film => film;
 
-        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner };
+        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, selectDesigner, availableDirectors };
     }
 }).mount('#app');
     </script>
