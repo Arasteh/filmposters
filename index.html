@@ -302,11 +302,9 @@ window.onscroll = () => {
     myBtn.style.bottom = document.documentElement.scrollTop > 20 ? '20px' : '-100px';
 }
 
-// When the user clicks on the button, scroll to the top of the document
 function topFunction() {
     document.documentElement.scrollTop = 0;
 }
-
 
 let lastScrollTop = 0;
 
@@ -315,14 +313,12 @@ window.addEventListener("scroll", () => {
     const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
     if (currentScrollTop > lastScrollTop) {
-        // کاربر به پایین اسکرول می‌کند
         searchBar.classList.add("hidden");
     } else {
-        // کاربر به بالا اسکرول می‌کند
         searchBar.classList.remove("hidden");
     }
 
-    lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // جلوگیری از مقادیر منفی
+    lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
 });
 
 const { createApp, ref, computed } = Vue;
@@ -557,7 +553,7 @@ createApp({
         const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = film => film;
 
-        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, selectDirector, availableDirectors };
+        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors };
     }
 }).mount('#app');
     </script>
