@@ -234,6 +234,20 @@
                     <input type="checkbox" v-model="combineSimilarChars" /> حروف مشابه
                 </label>
                 <label>
+    حرف الفبا:
+    <select v-model="selectedLetter">
+        <option value="">همه</option>
+        <option 
+            v-for="letter in persianAlphabet" 
+            :key="letter" 
+            :value="letter">
+            {{ letter }} ({{ letterCounts[letter] || 0 }})
+        </option>
+    </select>
+</label>
+
+
+                <label>
                     ⇵
                     <select v-model="sortOrder">
                         <option value="alphabetical">الفبایی</option>
@@ -399,6 +413,7 @@ createApp({
         const selectedDirector = ref('');
         const isDesignerDropdownOpen = ref(false); // وضعیت باز بودن لیست
         const topDesigners = computed(() => availableDesigners.value.slice(0, 10));
+        const selectedLetter = ref('');
 
         const designerSuggestions = computed(() => {
             if (!designerQuery.value) {
@@ -450,6 +465,10 @@ createApp({
             'گ': '[کگ]'
         };
 
+        const persianAlphabet = [
+            'آ', 'ا', 'ب', 'پ', 'ت', 'ث', 'ج', 'چ', 'ح', 'خ', 'د', 'ذ', 'ر', 'ز', 'ژ', 'س', 'ش', 'ص', 'ض', 'ط', 'ظ', 'ع', 'غ', 'ف', 'ق', 'ک', 'گ', 'ل', 'م', 'ن', 'و', 'ه', 'ی'
+        ];
+
         const toPersianYear = date => {
             const year = new Date(date).toLocaleDateString('fa').split('/')[0];
             return year === 'Invalid Date' ? 'ناموجود' : year;
@@ -480,6 +499,15 @@ createApp({
             return item.filmLabel + (item.date ? ` (${toPersianYear(item.date)})` : '');
         };
 
+        const letterCounts = computed(() => {
+    const counts = persianAlphabet.reduce((acc, letter) => {
+        acc[letter] = items.value.filter(item => item.filmLabel.startsWith(letter)).length;
+        return acc;
+    }, {});
+    return counts;
+});
+
+
         const filteredItems = computed(() => {
             let results = items.value;
 
@@ -503,7 +531,10 @@ createApp({
             if (selectedDirector.value) {
                 results = results.filter(item => item.directorLabel === selectedDirector.value);
             }
-
+            if (selectedLetter.value) {
+                results = results.filter(item => item.filmLabel.startsWith(selectedLetter.value));
+            }
+            
             if (sortOrder.value === 'alphabetical') {
                 results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, 'fa'));
             } else if (sortOrder.value === 'year') {
