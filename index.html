@@ -241,7 +241,7 @@
             v-for="letter in persianAlphabet" 
             :key="letter" 
             :value="letter">
-            {{ letter }} ({{ letterCounts[letter] || 0 }})
+            {{ letter }} ({{ (letterCounts[letter] || 0).toLocaleString('fa') }})
         </option>
     </select>
 </label>
