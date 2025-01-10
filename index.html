@@ -222,7 +222,7 @@
         <div id="searchBar" class="search-bar">
             <div class="search-container">
                 <input type="text" v-model="searchTerm" placeholder="جستجو…" />
-                <button onclick="resetFilters()" id="resetSearch">بازنشانی</button>
+                <button @click="resetFilters" id="resetSearch">بازنشانی</button>
             </div>
             <div class="options">
                 <fieldset style="border: none; padding: 0; margin: 0;">
