@@ -450,7 +450,9 @@ createApp({
         }
         
                function resetFilters() {
+    console.log('Reset button clicked');
                     this.searchTerm = '';
+    console.log('Search Term:', searchTerm.value); // Check the updated value
                     this.combineSimilarChars = false;
                     this.sortOrder = 'random';
                     this.selectedYear = '';
