@@ -578,7 +578,7 @@ createApp({
         });
 
         const getPosterUrl = (filePath, width = 600) => {
-            if (!filePath) return 'https://via.placeholder.com/300x420?text=No+Poster';
+            if (!filePath) return 'https://commons.wikimedia.org/w/thumb.php?f=No photo available.svg&w=600';
 
             const url = new URL('https://commons.wikimedia.org/w/thumb.php');
             url.searchParams.append('f', decodeURIComponent(filePath.replace('http://commons.wikimedia.org/wiki/Special:FilePath/', '')));
@@ -586,7 +586,7 @@ createApp({
             return url.toString();
         };
 
-        const getLogoUrl = item => item.logo ? getPosterUrl(item.logo) : 'https://via.placeholder.com/300x200?text=No+Logo';
+        const getLogoUrl = item => item.logo ? getPosterUrl(item.logo) : 'https://commons.wikimedia.org/w/thumb.php?f=No-logo.svg&w=600';
         const getImageUrl = item => posterMode.value ? getPosterUrl(item.poster) : getLogoUrl(item);
         const getImageLink = item => posterMode.value ? item.poster : item.logo;
         const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
