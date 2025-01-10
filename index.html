@@ -273,7 +273,7 @@
                     طراح:
                     <div class="autocomplete" @click="isDesignerDropdownOpen = true"
                         @click.outside="isDesignerDropdownOpen = false">
-                        <input id="designerquery" type="text" v-model="designerQuery" @input="filterDesigners" placeholder="نام طراح…" />
+                        <input id="designerquery" type="text" v-model="designerQuery" placeholder="نام طراح…" />
                         <div class="autocomplete-items" v-if="designerQuery.length && designerSuggestions.length > 1">
                             <div v-for="[designer, count] in designerSuggestions" :key="designer"
                                 @click="selectDesigner(designer)">
@@ -463,7 +463,7 @@ createApp({
         getAllItems().then(result => items.value = result);
 
         const similarCharsMapping = {
-            'آ': 'آاأإ', 'ا': 'آاأإ', 'أ': 'آاأإ', 'إ': 'آاأإ', 'ط': '[طظ]', 'ظ': '[طظ]', 'ب': '[بپتثنی]', 'پ': '[بپتثنی]',
+            'آ': '[آاأإ]', 'ا': '[آاأإ]', 'أ': '[آاأإ]', 'إ': '[آاأإ]', 'ط': '[طظ]', 'ظ': '[طظ]', 'ب': '[بپتثنی]', 'پ': '[بپتثنی]',
             'ت': '[بپتثنی]', 'ث': '[بپتثنی]', 'ن': '[بپتثنی]', 'ی': '[بپتثنی]', 'ج': '[جچحخ]',
             'چ': '[جچحخ]', 'ح': '[جچحخ]', 'خ': '[جچحخ]', 'د': '[دذ]',
             'ذ': '[دذ]', 'ر': '[رزژ]', 'ز': '[رزژ]', 'ژ': '[رزژ]', 'س': '[سش]',
