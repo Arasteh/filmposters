@@ -139,7 +139,7 @@
             margin: 0 5px;
         }
 
-        #myBtn {
+        #toTop {
             transition: bottom ease-in-out 350ms;
             bottom: -100px;
             width: 52px;
@@ -157,7 +157,7 @@
             border-radius: 10px;
         }
 
-        #myBtn:hover {
+        #toTop:hover {
             opacity: 60%;
             box-shadow: 0px 4px 10px gray;
             transition-duration: 0.1s;
@@ -217,7 +217,7 @@
 
 <body>
     <div id="app">
-        <button onclick="topFunction()" id="myBtn">↑</button>
+        <button onclick="topFunction()" id="toTop">↑</button>
 
         <div id="searchBar" class="search-bar">
             <div class="search-container">
@@ -317,10 +317,10 @@
     </div>
 
     <script>
-let myBtn;
+let toTop;
 window.onscroll = () => {
-    if (!myBtn) myBtn = document.getElementById("myBtn");
-    myBtn.style.bottom = document.documentElement.scrollTop > 20 ? '20px' : '-100px';
+    if (!toTop) toTop = document.getElementById("toTop");
+    toTop.style.bottom = document.documentElement.scrollTop > 20 ? '20px' : '-100px';
 }
 
 function topFunction() {
@@ -448,22 +448,20 @@ createApp({
                 return matchesDesigner;
             });
         }
-        /*
-                methods: {
-                resetFilters() {
+        
+               function resetFilters() {
                     this.searchTerm = '';
                     this.combineSimilarChars = false;
                     this.sortOrder = 'random';
                     this.selectedYear = '';
                     this.selectedDesigner = '';
                 }
-                }
-                */
+                
         const items = ref([]);
         getAllItems().then(result => items.value = result);
 
         const similarCharsMapping = {
-            'ط': '[طظ]', 'ظ': '[طظ]', 'ب': '[بپتثنی]', 'پ': '[بپتثنی]',
+            'آ': 'آاأإ', 'ا': 'آاأإ', 'أ': 'آاأإ', 'إ': 'آاأإ', 'ط': '[طظ]', 'ظ': '[طظ]', 'ب': '[بپتثنی]', 'پ': '[بپتثنی]',
             'ت': '[بپتثنی]', 'ث': '[بپتثنی]', 'ن': '[بپتثنی]', 'ی': '[بپتثنی]', 'ج': '[جچحخ]',
             'چ': '[جچحخ]', 'ح': '[جچحخ]', 'خ': '[جچحخ]', 'د': '[دذ]',
             'ذ': '[دذ]', 'ر': '[رزژ]', 'ز': '[رزژ]', 'ژ': '[رزژ]', 'س': '[سش]',
@@ -538,6 +536,7 @@ createApp({
             if (selectedDirector.value) {
                 results = results.filter(item => item.directorLabel === selectedDirector.value);
             }
+            
             if (selectedLetter.value) {
                 results = results.filter(item => item.filmLabel.startsWith(selectedLetter.value));
             }
