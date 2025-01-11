@@ -213,26 +213,6 @@
             width: auto;
         }
 
-        .toggle-button {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 16px;
-            background-color: light-dark(#007bff, #1e90ff);
-            color: white;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-
-        .toggle-button:hover {
-            background-color: light-dark(#0056b3, #007bff);
-            transform: scale(1.05);
-        }
-        
-        .toggle-button:active {
-            transform: scale(0.95);
-        }
-        
         .toggle-switch {
             display: flex;
             align-items: center;
@@ -292,9 +272,6 @@
                     &nbsp;
                     <label><input type="radio" v-model="posterMode" :value="true" /> پوسترها</label>
                 </fieldset>
-                <button @click="togglePosterMode" class="toggle-button">
-        {{ posterMode ? 'لوگوها' : 'پوسترها' }}
-    </button>
                 <div class="toggle-switch" @click="togglePosterMode" :data-mode="posterMode ? 'poster' : 'logo'">
     <span :class="{ active: !posterMode }">پوستر</span>
     <span :class="{ active: posterMode }">لوگو</span>
