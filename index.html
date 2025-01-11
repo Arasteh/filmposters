@@ -554,6 +554,12 @@ createApp({
             return results;
         });
 
+watch(designerQuery, (newValue) => {
+    if (!newValue) {
+        selectedDesigner.value = '';
+    }
+});
+        
         const filteredYears = computed(() => {
             const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
             return Object.keys(groups)
