@@ -296,8 +296,8 @@
         {{ posterMode ? 'لوگوها' : 'پوسترها' }}
     </button>
                 <div class="toggle-switch" @click="togglePosterMode" :data-mode="posterMode ? 'poster' : 'logo'">
-    <span :class="{ active: !posterMode }">لوگو</span>
-    <span :class="{ active: posterMode }">پوستر</span>
+    <span :class="{ active: !posterMode }">پوستر</span>
+    <span :class="{ active: posterMode }">لوگو</span>
 </div>
                 <label>
                     <input type="checkbox" v-model="combineSimilarChars" /> حروف مشابه
