@@ -267,15 +267,10 @@
                 <button @click="resetFilters" id="resetSearch">بازنشانی</button>
             </div>
             <div class="options">
-                <fieldset style="border: none; padding: 0; margin: 0;">
-                    <label><input type="radio" v-model="posterMode" :value="false" /> لوگوها</label>
-                    &nbsp;
-                    <label><input type="radio" v-model="posterMode" :value="true" /> پوسترها</label>
-                </fieldset>
                 <div class="toggle-switch" @click="togglePosterMode" :data-mode="posterMode ? 'poster' : 'logo'">
-    <span :class="{ active: !posterMode }">پوستر</span>
-    <span :class="{ active: posterMode }">لوگو</span>
-</div>
+                    <span :class="{ active: !posterMode }">پوستر</span>
+                    <span :class="{ active: posterMode }">لوگو</span>
+                </div>
                 <label>
                     <input type="checkbox" v-model="combineSimilarChars" /> حروف مشابه
                 </label>
