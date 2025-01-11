@@ -212,6 +212,27 @@
         #designerquery {
             width: auto;
         }
+
+        .toggle-button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 16px;
+            background-color: light-dark(#007bff, #1e90ff);
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .toggle-button:hover {
+            background-color: light-dark(#0056b3, #007bff);
+            transform: scale(1.05);
+        }
+        
+        .toggle-button:active {
+            transform: scale(0.95);
+        }
+
     </style>
 </head>
 
@@ -230,6 +251,9 @@
                     &nbsp;
                     <label><input type="radio" v-model="posterMode" :value="true" /> پوسترها</label>
                 </fieldset>
+                <button @click="togglePosterMode" class="toggle-button">
+        {{ posterMode ? 'لوگوها' : 'پوسترها' }}
+    </button>
                 <label>
                     <input type="checkbox" v-model="combineSimilarChars" /> حروف مشابه
                 </label>
@@ -421,6 +445,10 @@ createApp({
         const isDesignerDropdownOpen = ref(false); // وضعیت باز بودن لیست
         const topDesigners = computed(() => availableDesigners.value.slice(0, 10));
         const selectedLetter = ref('');
+        
+        const togglePosterMode = () => {
+            posterMode.value = !posterMode.value;
+        };
 
         const designerSuggestions = computed(() => {
             if (!designerQuery.value) {
