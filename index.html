@@ -378,25 +378,6 @@
             flex-direction: column;
             gap: 10px;
         }
-        
-        .designer-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-                
-        .designer-item {
-            padding: 5px 10px 5px 10px;
-            border: 1px solid light-dark(#ddd, #444);
-            border-radius: 30px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            white-space: nowrap;
-        }
-        
-        .designer-item:hover {
-            background-color: light-dark(#f0f0f0, #333);
-        }
 
         .sidebar {
             position: fixed;
@@ -427,6 +408,53 @@
             .mobile-only {
                 display: inline-block;
             }
+        }
+
+        .sidebar-section {
+            margin-bottom: 20px;
+            border-bottom: 1px solid light-dark(#ddd, #444);
+            padding-bottom: 10px;
+        }
+        
+        .sidebar-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px;
+            background-color: light-dark(#f5f5f5, #333);
+            border-radius: 8px;
+        }
+        
+        .sidebar-section-body {
+            padding: 10px;
+        }
+        
+        .collapse-button {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: light-dark(#000, #fff);
+        }
+        
+        .designer-grid, .director-grid, .year-grid, .letter-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .designer-item, .director-item, .year-item, .letter-item {
+            padding: 5px 10px;
+            border: 1px solid light-dark(#ddd, #444);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            white-space: nowrap;
+        }
+        
+        .designer-item:hover, .director-item:hover, .year-item:hover, .letter-item:hover {
+            background-color: light-dark(#f0f0f0, #333);
         }
     </style>
 </head>
@@ -519,27 +547,76 @@
                         </div>
                     </div>
                 </label><label>
-    کارگردان:
-    <select v-model="selectedDirector">
-        <option value="">همه</option>
-        <option v-for="[director, count] in filteredDirectors" :key="director" :value="director">{{ director }} ({{ count }})</option>
-    </select>
-</label> 
+                    کارگردان:
+                    <select v-model="selectedDirector">
+                        <option value="">همه</option>
+                        <option v-for="[director, count] in filteredDirectors" :key="director" :value="director">{{ director }} ({{ count }})</option>
+                    </select>
+                </label> 
             </div>
             <div v-if="filteredItems.length > 0" style="text-align: center; padding-bottom: .5em;">
                 {{ filteredItems.length.toLocaleString('fa') }} از {{ items.length.toLocaleString('fa') }}
             </div>
         </div>
-        <!-- سایدبار ثابت برای نمایش محتویات مدال -->
-        <div id="sidebar" class="sidebar">
+         <div id="sidebar" class="sidebar">
             <div class="sidebar-content">
-                <div class="modal-header">
-                    <input type="text" v-model="designerSearchQuery" placeholder="جستجوی طراح…" />
+                <!-- بخش طراحان -->
+                <div class="sidebar-section">
+                    <div class="sidebar-section-header" @click="toggleCollapse('designers')">
+                        <span>طراحان</span>
+                        <button class="collapse-button">{{ isCollapsed.designers ? '▼' : '▲' }}</button>
+                    </div>
+                    <div class="sidebar-section-body" v-if="!isCollapsed.designers">
+                        <input type="text" v-model="designerSearchQuery" placeholder="جستجوی طراح…" />
+                        <div class="designer-grid">
+                            <div v-for="[designer, count] in filteredDesignersInModal" :key="designer" @click="selectDesignerFromModal(designer)" class="designer-item">
+                                {{ designer }} ({{ count }})
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <div class="designer-grid">
-                        <div v-for="[designer, count] in filteredDesignersInModal" :key="designer" @click="selectDesignerFromModal(designer)" class="designer-item">
-                            {{ designer }} ({{ count }})
+        
+                <!-- بخش کارگردان‌ها -->
+                <div class="sidebar-section">
+                    <div class="sidebar-section-header" @click="toggleCollapse('directors')">
+                        <span>کارگردان‌ها</span>
+                        <button class="collapse-button">{{ isCollapsed.directors ? '▼' : '▲' }}</button>
+                    </div>
+                    <div class="sidebar-section-body" v-if="!isCollapsed.directors">
+                        <div class="director-grid">
+                            <div v-for="[director, count] in filteredDirectorsInModal" :key="director" @click="selectDirectorFromModal(director)" class="director-item">
+                                {{ director }} ({{ count }})
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- بخش سال‌ها -->
+                <div class="sidebar-section">
+                    <div class="sidebar-section-header" @click="toggleCollapse('years')">
+                        <span>سال‌ها</span>
+                        <button class="collapse-button">{{ isCollapsed.years ? '▼' : '▲' }}</button>
+                    </div>
+                    <div class="sidebar-section-body" v-if="!isCollapsed.years">
+                        <div class="year-grid">
+                            <div v-for="[year, count] in filteredYearsInModal" :key="year" @click="selectYearFromModal(year)" class="year-item">
+                                {{ year }} ({{ count }})
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- بخش حروف اول -->
+                <div class="sidebar-section">
+                    <div class="sidebar-section-header" @click="toggleCollapse('letters')">
+                        <span>حروف اول</span>
+                        <button class="collapse-button">{{ isCollapsed.letters ? '▼' : '▲' }}</button>
+                    </div>
+                    <div class="sidebar-section-body" v-if="!isCollapsed.letters">
+                        <div class="letter-grid">
+                            <div v-for="[letter, count] in filteredLettersInModal" :key="letter" @click="selectLetterFromModal(letter)" class="letter-item">
+                                {{ letter }} ({{ count }})
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -726,7 +803,52 @@ createApp({
             designerQuery.value = designer; // مقدار فیلد جستجو را تنظیم کن
             closeDesignerModal();
         };
-                
+
+        const filteredDirectorsInModal = computed(() => {
+            const groups = Object.groupBy(filteredItems.value.filter(x => x.directorLabel), item => item.directorLabel);
+            return Object.keys(groups)
+                .map(director => [director, groups[director].length])
+                .sort((a, b) => b[1] - a[1])
+                .map(([director, count]) => [director, count.toLocaleString('fa')]);
+        });
+        
+        const filteredYearsInModal = computed(() => {
+            const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
+            return Object.keys(groups)
+                .sort()
+                .map(year => [year, groups[year].length.toLocaleString('fa')]);
+        });
+        
+        const filteredLettersInModal = computed(() => {
+            const groups = Object.groupBy(filteredItems.value, item => item.filmLabel.charAt(0));
+            return Object.keys(groups)
+                .sort()
+                .map(letter => [letter, groups[letter].length.toLocaleString('fa')]);
+        });
+        
+        const isCollapsed = ref({
+            designers: false,
+            directors: false,
+            years: false,
+            letters: false
+        });
+        
+        const toggleCollapse = (section) => {
+            isCollapsed.value[section] = !isCollapsed.value[section];
+        };
+        
+        const selectDirectorFromModal = (director) => {
+            selectedDirector.value = director;
+        };
+        
+        const selectYearFromModal = (year) => {
+            selectedYear.value = year;
+        };
+        
+        const selectLetterFromModal = (letter) => {
+            selectedLetter.value = letter;
+        };
+
         const togglePosterMode = () => {
             posterMode.value = !posterMode.value;
         };
@@ -914,7 +1036,7 @@ watch(designerQuery, (newValue) => {
         const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = film => film;
 
-        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside };
+        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed,  };
     }
 }).mount('#app');
     </script>
