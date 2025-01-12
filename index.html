@@ -307,6 +307,16 @@
             cursor: pointer;
             font-size: 18px;
         }
+        
+        .rotate-up {
+            transform: rotate(0deg);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .rotate-down {
+            transform: rotate(180deg);
+            transition: transform 0.3s ease-in-out;
+        }
 
         @media (max-width: 768px) {
             .collapse-button {
@@ -316,7 +326,7 @@
             .options.collapsed {
                 display: none; /* وقتی collapsed است، options مخفی شود */
             }
-}
+        }
     </style>
 </head>
 
@@ -328,7 +338,7 @@
             <div class="search-container">
                 <input type="text" v-model="searchTerm" placeholder="جستجو…" />
                 <button @click="resetFilters" id="resetSearch">بازنشانی</button>
-                <button @click="toggleOptions" id="collapseButton" class="collapse-button">☰</button>
+                <button @click="toggleOptions" id="collapseButton" class="collapse-button" :class="collapseIconClass">A</button>
             </div>
             <div class="options" :class="{ 'collapsed': isOptionsCollapsed }">
                 <div class="toggle-switch" @click="togglePosterMode" :data-mode="posterMode ? 'poster' : 'logo'">
@@ -529,6 +539,7 @@ createApp({
         const selectedLetter = ref('');
         const isOptionsCollapsed = ref(false); // وضعیت collapse
 
+        
         const togglePosterMode = () => {
             posterMode.value = !posterMode.value;
         };
@@ -536,6 +547,10 @@ createApp({
         const toggleOptions = () => {
             isOptionsCollapsed.value = !isOptionsCollapsed.value; // تغییر وضعیت collapse
         };
+
+        const collapseIconClass = computed(() => {
+            return isOptionsCollapsed.value ? 'rotate-down' : 'rotate-up';
+        });
     
         const designerSuggestions = computed(() => {
             if (!designerQuery.value) {
@@ -629,7 +644,6 @@ createApp({
     return counts;
 });
 
-
         const filteredItems = computed(() => {
             let results = items.value;
 
@@ -713,7 +727,7 @@ watch(designerQuery, (newValue) => {
         const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = film => film;
 
-        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed };
+        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass };
     }
 }).mount('#app');
     </script>
