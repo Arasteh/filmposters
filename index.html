@@ -480,7 +480,19 @@
                             </div>
                         </div>
                     </div>
-                </label><label>
+                </label>
+                <label>
+                    طراح:
+                    <div class="autocomplete" @click="isDesignerDropdownOpen = true" @click.outside="isDesignerDropdownOpen = false">
+                        <input id="designerquery" type="text" v-model="designerQuery" placeholder="نام طراح…" />
+                        <div class="autocomplete-items" v-if="isDesignerDropdownOpen">
+                            <div v-for="[designer, count] in filteredDesignersInDropdown" :key="designer" @click="selectDesigner(designer)">
+                                {{ designer }} ({{ count }})
+                            </div>
+                        </div>
+                    </div>
+                </label>
+                <label>
     کارگردان:
     <select v-model="selectedDirector">
         <option value="">همه</option>
