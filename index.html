@@ -707,10 +707,16 @@ createApp({
         };
         
         const filteredDesignersInModal = computed(() => {
+            const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
+            const designers = Object.keys(groups)
+                .map(designer => [designer, groups[designer].length])
+                .sort((a, b) => b[1] - a[1])
+                .map(([designer, count]) => [designer, count.toLocaleString('fa')]);
+        
             if (!designerSearchQuery.value) {
-                return availableDesigners.value;
+                return designers;
             }
-            return availableDesigners.value.filter(([designer]) =>
+            return designers.filter(([designer]) =>
                 designer.includes(designerSearchQuery.value)
             );
         });
