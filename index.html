@@ -260,7 +260,7 @@
         .tooltip {
           position: relative;
           display: inline-block;
-          border-bottom: 1px dotted black;
+          border-bottom: 1px dotted gray;
         }
         
         .tooltip .tooltiptext {
@@ -448,10 +448,6 @@ window.addEventListener("scroll", () => {
     lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
 });
         
-const toggleOptions = () => {
-    isOptionsCollapsed.value = !isOptionsCollapsed.value; // تغییر وضعیت collapse
-};
-        
 const { createApp, ref, computed, watch } = Vue;
 
 Object.groupBy = function (array, keyGetter) {
@@ -536,7 +532,11 @@ createApp({
         const togglePosterMode = () => {
             posterMode.value = !posterMode.value;
         };
-
+        
+        const toggleOptions = () => {
+            isOptionsCollapsed.value = !isOptionsCollapsed.value; // تغییر وضعیت collapse
+        };
+    
         const designerSuggestions = computed(() => {
             if (!designerQuery.value) {
                 return topDesigners.value;
