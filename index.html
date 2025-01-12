@@ -470,27 +470,17 @@
                 </div>
                 <label>
                     طراح:
-                    <div class="autocomplete" @click="isDesignerDropdownOpen = true" @click.outside="isDesignerDropdownOpen = false">
+                    <div class="autocomplete" @click="isDesignerDropdownOpen = true"
+                        @click.outside="isDesignerDropdownOpen = false">
                         <input id="designerquery" type="text" v-model="designerQuery" placeholder="نام طراح…" />
-                        <div class="autocomplete-items" v-if="isDesignerDropdownOpen && designerQuery.length && designerSuggestions.length && !designerSuggestions.some(x => x[0] === designerQuery)">
-                            <div v-for="[designer, count] in designerSuggestions" :key="designer" @click="selectDesigner(designer)">
+                        <div class="autocomplete-items" v-if="designerQuery.length && designerSuggestions.length && !designerSuggestions.some(x => x[0] === designerQuery)">
+                            <div v-for="[designer, count] in designerSuggestions" :key="designer"
+                                @click="selectDesigner(designer)">
                                 {{ designer }} ({{ count }})
                             </div>
                         </div>
                     </div>
-                </label>
-                <label>
-                    طراح:
-                    <div class="autocomplete" @click="isDesignerDropdownOpen = true" @click.outside="isDesignerDropdownOpen = false">
-                        <input id="designerquery" type="text" v-model="designerQuery" placeholder="نام طراح…" />
-                        <div class="autocomplete-items" v-if="isDesignerDropdownOpen && designerQuery.length && designerSuggestions.length && !designerSuggestions.some(x => x[0] === designerQuery)">
-                            <div v-for="[designer, count] in filteredDesignersInDropdown" :key="designer" @click="selectDesigner(designer)">
-                                {{ designer }} ({{ count }})
-                            </div>
-                        </div>
-                    </div>
-                </label>
-                <label>
+                </label><label>
     کارگردان:
     <select v-model="selectedDirector">
         <option value="">همه</option>
