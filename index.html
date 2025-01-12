@@ -288,14 +288,35 @@
             border-width: 5px;
             border-style: solid;
             border-color: transparent transparent #666 transparent;
+            transition: opacity 0.5s;
         }
         
         .tooltip:hover .tooltiptext {
           visibility: visible;
         opacity: 0.9;
-        transition: 0.5s;
         transition-delay: 1s;
         }
+        
+        .collapse-button {
+            display: none; /* به طور پیش‌فرض مخفی است */
+            padding: 8px;
+            border: none;
+            border-radius: 16px;
+            background-color: gray;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .collapse-button {
+                display: inline-block; /* در نسخه موبایل نمایش داده شود */
+            }
+        
+            .options.collapsed {
+                display: none; /* وقتی collapsed است، options مخفی شود */
+            }
+}
     </style>
 </head>
 
@@ -307,8 +328,9 @@
             <div class="search-container">
                 <input type="text" v-model="searchTerm" placeholder="جستجو…" />
                 <button @click="resetFilters" id="resetSearch">بازنشانی</button>
+                <button @click="toggleOptions" id="collapseButton" class="collapse-button">☰</button>
             </div>
-            <div class="options">
+            <div class="options" :class="{ 'collapsed': isOptionsCollapsed }">
                 <div class="toggle-switch" @click="togglePosterMode" :data-mode="posterMode ? 'poster' : 'logo'">
                     <span :class="{ active: !posterMode }">پوستر</span>
                     <span :class="{ active: posterMode }">لوگو</span>
