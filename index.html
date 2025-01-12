@@ -453,38 +453,6 @@
                 </label>
                 <!-- دکمه برای باز کردن Modal -->
                 <button @click="openDesignerModal" id="openDesignerModalButton">فیلتر پیشرفته طراح‌ها</button>
-                
-                <!-- Modal برای نمایش لیست طراح‌ها -->
-                <div v-if="isDesignerModalOpen" class="modal-overlay">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <input type="text" v-model="designerSearchQuery" placeholder="جستجوی طراح…" />
-                            <button @click="closeDesignerModal" class="close-modal-button">×</button>
-                        </div>
-                        <div class="modal-body">
-                            <div v-for="[designer, count] in filteredDesignersInModal" :key="designer" @click="selectDesignerFromModal(designer)" class="designer-item">
-                                {{ designer }} ({{ count }})
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <label>
-                    طراح:
-                    <div class="autocomplete" @click="isDesignerDropdownOpen = true" @click.outside="isDesignerDropdownOpen = false">
-                        <input id="designerquery" type="text" v-model="designerQuery" placeholder="نام طراح…" />
-                        <div class="autocomplete-items" v-if="isDesignerDropdownOpen">
-                            <div v-for="[designer, count] in filteredDesignersInDropdown" :key="designer" @click="selectDesigner(designer)">
-                                {{ designer }} ({{ count }})
-                            </div>
-                        </div>
-                    </div>
-                </label>
-                <label>
-                    طراح:
-                    <div class="autocomplete" @click="openDesignerModal">
-                        <input id="designerquery" type="text" v-model="designerQuery" placeholder="نام طراح…" readonly />
-                    </div>
-                </label>
                 <label>
                     طراح:
                     <div class="autocomplete" @click="isDesignerDropdownOpen = true"
