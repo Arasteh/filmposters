@@ -385,6 +385,9 @@
                         class="item-image" /></a>
                 <div class="item-title">{{ getItemTitleWithYear(item) }}</div>
                 <div v-if="item.designer && item.designerLabel" class="item-designer">
+                طراح: <a href="#" @click.prevent="selectDesigner(item.designerLabel)">{{ item.designerLabel }}</a> <a :href="item.designer" target="_blank">Q</a>
+                </div>
+                <div v-if="item.designer && item.designerLabel" class="item-designer">
                     طراح: <a :href="item.designer" target="_blank">{{ item.designerLabel }}</a>
                 </div>
 
