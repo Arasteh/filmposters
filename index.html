@@ -330,7 +330,7 @@
                 display: none; /* وقتی collapsed است، options مخفی شود */
             }
         }
-
+        
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -469,6 +469,25 @@
                         </div>
                     </div>
                 </div>
+                <div v-if="isDesignerModalOpen" class="modal-overlay">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <input type="text" v-model="designerSearchQuery" placeholder="جستجوی طراح…" />
+                            <button @click="closeDesignerModal" class="close-modal-button">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <div v-for="[designer, count] in filteredDesignersInModal" :key="designer" @click="selectDesignerFromModal(designer)" class="designer-item">
+                                {{ designer }} ({{ count }})
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <label>
+                    طراح:
+                    <div class="autocomplete" @click="openDesignerModal">
+                        <input id="designerquery" type="text" v-model="designerQuery" placeholder="نام طراح…" readonly />
+                    </div>
+                </label>
                 <label>
                     طراح:
                     <div class="autocomplete" @click="isDesignerDropdownOpen = true"
@@ -643,9 +662,10 @@ createApp({
         
         const selectDesignerFromModal = (designer) => {
             selectedDesigner.value = designer;
+            designerQuery.value = designer; // مقدار فیلد جستجو را تنظیم کن
             closeDesignerModal();
         };
-        
+                
         const togglePosterMode = () => {
             posterMode.value = !posterMode.value;
         };
