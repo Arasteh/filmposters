@@ -25,10 +25,10 @@
 
         #app {
             max-width: 800px;
+            margin-top: 10px;
             padding: 20px;
             background-color: light-dark(#fff, #1e1e1e);
-            border-radius: 16px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
             width: 90%;
             transition: background-color 0.3s, color 0.3s;
         }
@@ -45,7 +45,6 @@
             top: 0;
             background-color: light-dark(#fff, #1e1e1e);
             padding: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease-in-out;
         }
 
@@ -64,7 +63,8 @@
         .options {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            column-gap: 20px;
+            row-gap: 10px;
             justify-content: space-around;
             margin-bottom: 10px;
             border: none;
@@ -395,7 +395,7 @@
                 </div>
             </div>
         </div>
-        <p v-else>نتیجه‌ای برای نمایش وجود ندارد.</p>
+        <p style="text-align: center" v-else>نتیجه‌ای برای نمایش وجود ندارد.</p>
         <div v-if="!isShowMore && filteredItems.length > 30" style="text-align: center; padding-top: 1em;">
             <button @click="showMore">نمایش بیشتر</button>
         </div>
