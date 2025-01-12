@@ -721,18 +721,6 @@ createApp({
             designerQuery.value = designer; // مقدار فیلد جستجو را تنظیم کن
             closeDesignerModal();
         };
-
-        const closeDesignerModal = () => {
-            isDesignerModalOpen.value = false;
-            document.removeEventListener('click', handleClickOutside);
-        };
-
-        const handleClickOutside = (event) => {
-            if (modalContent.value && !modalContent.value.contains(event.target)) {
-                closeDesignerModal();
-            }
-        };
-
                 
         const togglePosterMode = () => {
             posterMode.value = !posterMode.value;
