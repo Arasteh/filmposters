@@ -330,6 +330,69 @@
                 display: none; /* وقتی collapsed است، options مخفی شود */
             }
         }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            background-color: light-dark(#fff, #1e1e1e);
+            border-radius: 20px;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .modal-header input {
+            width: 80%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 16px;
+        }
+        
+        .close-modal-button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: light-dark(#000, #fff);
+        }
+        
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .designer-item {
+            padding: 10px;
+            border: 1px solid light-dark(#ddd, #444);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .designer-item:hover {
+            background-color: light-dark(#f0f0f0, #333);
+        }
     </style>
 </head>
 
@@ -383,12 +446,29 @@
                     </select>
                 </label>
                 <label>
-    طراح:
-    <select v-model="selectedDesigner">
-        <option value="">همه</option>
-        <option v-for="[designer, count] in filteredDesigners" :key="designer" :value="designer">{{ designer }} ({{ count }})</option>
-    </select>
-</label>
+                    طراح:
+                    <select v-model="selectedDesigner">
+                        <option value="">همه</option>
+                        <option v-for="[designer, count] in filteredDesigners" :key="designer" :value="designer">{{ designer }} ({{ count }})</option>
+                    </select>
+                </label>
+                <!-- دکمه برای باز کردن Modal -->
+                <button @click="openDesignerModal" id="openDesignerModalButton">فیلتر پیشرفته طراح‌ها</button>
+                
+                <!-- Modal برای نمایش لیست طراح‌ها -->
+                <div v-if="isDesignerModalOpen" class="modal-overlay">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <input type="text" v-model="designerSearchQuery" placeholder="جستجوی طراح…" />
+                            <button @click="closeDesignerModal" class="close-modal-button">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <div v-for="[designer, count] in filteredDesignersInModal" :key="designer" @click="selectDesignerFromModal(designer)" class="designer-item">
+                                {{ designer }} ({{ count }})
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <label>
                     طراح:
                     <div class="autocomplete" @click="isDesignerDropdownOpen = true"
@@ -541,7 +621,30 @@ createApp({
         const topDesigners = computed(() => availableDesigners.value.slice(0, 10));
         const selectedLetter = ref('');
         const isOptionsCollapsed = ref(false); // وضعیت collapse
-
+        const isDesignerModalOpen = ref(false); // وضعیت باز بودن Modal
+        const designerSearchQuery = ref(''); // فیلد جستجو در Modal
+        
+        const openDesignerModal = () => {
+            isDesignerModalOpen.value = true;
+        };
+        
+        const closeDesignerModal = () => {
+            isDesignerModalOpen.value = false;
+        };
+        
+        const filteredDesignersInModal = computed(() => {
+            if (!designerSearchQuery.value) {
+                return availableDesigners.value;
+            }
+            return availableDesigners.value.filter(([designer]) =>
+                designer.includes(designerSearchQuery.value)
+            );
+        });
+        
+        const selectDesignerFromModal = (designer) => {
+            selectedDesigner.value = designer;
+            closeDesignerModal();
+        };
         
         const togglePosterMode = () => {
             posterMode.value = !posterMode.value;
@@ -583,13 +686,13 @@ createApp({
         }
         
                function resetFilters() {
-    searchTerm.value = '';
-    combineSimilarChars.value = false;
-    sortOrder.value = 'random';
-    selectedYear.value = '';
-    selectedDesigner.value = '';
-    selectedDirector.value = '';
-    selectedLetter.value = '';
+                    searchTerm.value = '';
+                    combineSimilarChars.value = false;
+                    sortOrder.value = 'random';
+                    selectedYear.value = '';
+                    selectedDesigner.value = '';
+                    selectedDirector.value = '';
+                    selectedLetter.value = '';
                 }
                 
         const items = ref([]);
@@ -730,7 +833,7 @@ watch(designerQuery, (newValue) => {
         const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = film => film;
 
-        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass };
+        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery };
     }
 }).mount('#app');
     </script>
