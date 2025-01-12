@@ -447,7 +447,13 @@ window.addEventListener("scroll", () => {
 
     lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
 });
+        
+const isOptionsCollapsed = ref(false); // وضعیت collapse
 
+const toggleOptions = () => {
+    isOptionsCollapsed.value = !isOptionsCollapsed.value; // تغییر وضعیت collapse
+};
+        
 const { createApp, ref, computed, watch } = Vue;
 
 Object.groupBy = function (array, keyGetter) {
