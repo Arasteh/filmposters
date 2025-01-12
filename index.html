@@ -394,6 +394,9 @@
         
         .sidebar-content {
             padding: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
         
         .mobile-only {
@@ -410,10 +413,13 @@
             }
         }
 
-        .sidebar-section {
+         .sidebar-section {
+            flex: 1;
             margin-bottom: 20px;
             border-bottom: 1px solid light-dark(#ddd, #444);
             padding-bottom: 10px;
+            display: flex;
+            flex-direction: column;
         }
         
         .sidebar-section-header {
@@ -427,7 +433,9 @@
         }
         
         .sidebar-section-body {
+            flex: 1;
             padding: 10px;
+            overflow-y: auto;
         }
         
         .collapse-button {
