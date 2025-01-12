@@ -294,9 +294,9 @@
         }
         
         .tooltip:hover .tooltiptext {
-          visibility: visible;
-        opacity: 0.9;
-        transition-delay: 1s;
+            visibility: visible;
+            opacity: 0.9;
+            transition-delay: 1s;
         }
         
         .collapse-button {
@@ -312,21 +312,19 @@
         
         .rotate-up {
             transform: rotate(0deg);
-            /*transition: transform 0.3s ease-in-out;*/
         }
         
         .rotate-down {
             transform: rotate(180deg);
-            /*transition: transform 0.3s ease-in-out;*/
         }
 
         @media (max-width: 768px) {
             .collapse-button {
-                display: inline-block; /* در نسخه موبایل نمایش داده شود */
+                display: inline-block;
             }
         
             .options.collapsed {
-                display: none; /* وقتی collapsed است، options مخفی شود */
+                display: none;
             }
         }
         
@@ -384,16 +382,16 @@
         .designer-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px; /* فاصله بین آیتم‌ها */
+            gap: 10px;
         }
                 
         .designer-item {
             padding: 10px;
             border: 1px solid light-dark(#ddd, #444);
-            border-radius: 16px;
+            border-radius: 30px;
             cursor: pointer;
             transition: background-color 0.3s;
-            white-space: nowrap; /* متن در یک خط باقی می‌ماند و خط نمی‌شکند */
+            white-space: nowrap;
         }
         
         .designer-item:hover {
@@ -459,11 +457,11 @@
                     </select>
                 </label>
                 <!-- دکمه برای باز کردن Modal -->
-                <button @click="openDesignerModal" id="openDesignerModalButton">فیلتر پیشرفته طراح‌ها</button>
+                <button @click="openDesignerModal" id="openDesignerModalButton">انتخاب طراحان</button>
                 
                 <!-- Modal برای نمایش لیست طراح‌ها -->
                 <div v-if="isDesignerModalOpen" class="modal-overlay">
-                    <div class="modal-content">
+                    <div class="modal-content" ref="modalContent">
                         <div class="modal-header">
                             <input type="text" v-model="designerSearchQuery" placeholder="جستجوی طراح…" />
                             <button @click="closeDesignerModal" class="close-modal-button">×</button>
@@ -631,6 +629,8 @@ createApp({
         const isOptionsCollapsed = ref(false); // وضعیت collapse
         const isDesignerModalOpen = ref(false); // وضعیت باز بودن Modal
         const designerSearchQuery = ref(''); // فیلد جستجو در Modal
+        const modalContent = ref(null); // Ref برای دسترسی به محتوای Modal
+
 
         const filteredDesignersInDropdown = computed(() => {
             if (!designerQuery.value) {
@@ -643,10 +643,21 @@ createApp({
         
         const openDesignerModal = () => {
             isDesignerModalOpen.value = true;
+            // اضافه کردن event listener برای تشخیص کلیک خارج از Modal
+            document.addEventListener('click', handleClickOutside);
         };
         
         const closeDesignerModal = () => {
             isDesignerModalOpen.value = false;
+            // حذف event listener هنگام بسته شدن Modal
+            document.removeEventListener('click', handleClickOutside);
+        };
+        
+        const handleClickOutside = (event) => {
+            // اگر کلیک خارج از Modal بود، Modal بسته شود
+            if (modalContent.value && !modalContent.value.contains(event.target)) {
+                closeDesignerModal();
+            }
         };
         
         const filteredDesignersInModal = computed(() => {
