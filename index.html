@@ -381,12 +381,20 @@
             gap: 10px;
         }
         
+        .designer-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px; /* فاصله بین آیتم‌ها */
+        }
+                
         .designer-item {
             padding: 10px;
             border: 1px solid light-dark(#ddd, #444);
             border-radius: 16px;
             cursor: pointer;
             transition: background-color 0.3s;
+            flex: 1 1 calc(25% - 10px); /* هر آیتم 25% عرض داشته باشد و فاصله بین آیتم‌ها در نظر گرفته شود */
+            box-sizing: border-box; /* برای محاسبه صحیح عرض با در نظر گرفتن padding و border */
         }
         
         .designer-item:hover {
@@ -462,8 +470,10 @@
                             <button @click="closeDesignerModal" class="close-modal-button">×</button>
                         </div>
                         <div class="modal-body">
-                            <div v-for="[designer, count] in filteredDesignersInModal" :key="designer" @click="selectDesignerFromModal(designer)" class="designer-item">
-                                {{ designer }} ({{ count }})
+                            <div class="designer-grid">
+                                <div v-for="[designer, count] in filteredDesignersInModal" :key="designer" @click="selectDesignerFromModal(designer)" class="designer-item">
+                                    {{ designer }} ({{ count }})
+                                </div>
                             </div>
                         </div>
                     </div>
