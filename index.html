@@ -256,6 +256,42 @@
         .toggle-switch[data-mode="poster"]::before {
             transform: translateX(56px);
         }
+
+        .tooltip {
+          position: relative;
+          display: inline-block;
+          border-bottom: 1px dotted black;
+        }
+        
+        .tooltip .tooltiptext {
+          visibility: hidden;
+          width: 120px;
+          background-color: black;
+          color: #fff;
+          text-align: center;
+          border-radius: 6px;
+          padding: 5px 0;
+          position: absolute;
+          z-index: 1;
+          bottom: 150%;
+          left: 50%;
+          margin-left: -60px;
+        }
+        
+        .tooltip .tooltiptext::after {
+          content: "";
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          margin-left: -5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: black transparent transparent transparent;
+        }
+        
+        .tooltip:hover .tooltiptext {
+          visibility: visible;
+        }
     </style>
 </head>
 
@@ -274,7 +310,9 @@
                     <span :class="{ active: posterMode }">لوگو</span>
                 </div>
                 <label>
-                    <input type="checkbox" v-model="combineSimilarChars" /> حروف مشابه
+                    <input type="checkbox" v-model="combineSimilarChars" /> <div class="tooltip">حروف مشابه
+  <span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود:  مانند س، ش</span>
+</div>
                 </label>
                 <label>
     حرف اول:
