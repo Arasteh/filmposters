@@ -500,24 +500,24 @@
                     <span :class="{ active: posterMode }">لوگو</span>
                 </div>
                 <label>
-                    <input type="checkbox" v-model="combineSimilarChars" /> <div class="tooltip">حروف مشابه
-  <span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود:  مانند س، ش</span>
-</div>
+                    <input type="checkbox" v-model="combineSimilarChars" />
+                    <div class="tooltip">حروف مشابه
+                      <span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود:  مانند س، ش</span>
+                    </div>
                 </label>
-                <label>
-    حرف اول:
-    <select v-model="selectedLetter">
-        <option value="">همه</option>
-        <option 
-            v-for="letter in persianAlphabet" 
-            :key="letter" 
-            :value="letter">
-            {{ letter }} ({{ (letterCounts[letter] || 0).toLocaleString('fa') }})
-        </option>
-    </select>
-</label>
-
-
+                <label class="mobile-only">
+                    حرف اول:
+                    <select v-model="selectedLetter">
+                        <option value="">همه</option>
+                        <option 
+                            v-for="letter in persianAlphabet" 
+                            :key="letter" 
+                            :value="letter">
+                            {{ letter }} ({{ (letterCounts[letter] || 0).toLocaleString('fa') }})
+                        </option>
+                    </select>
+                </label>
+                
                 <label>
                     ترتیب:
                     <select v-model="sortOrder">
