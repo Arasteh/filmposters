@@ -526,14 +526,14 @@
                         <option value="random">تصادفی</option>
                     </select>
                 </label>
-                <label>
+                <label class="mobile-only">
                     سال:
                     <select v-model="selectedYear">
                         <option value="">همه</option>
                         <option v-for="[year, count] in filteredYears" :key="year" :value="year">{{ year }} ({{ count }})</option>
                     </select>
                 </label>
-                <label>
+                <label class="mobile-only">
                     طراح:
                     <select v-model="selectedDesigner">
                         <option value="">همه</option>
@@ -559,7 +559,7 @@
                         </div>
                     </div>
                 </div>
-                <label>
+                <label class="mobile-only">
                     طراح:
                     <div class="autocomplete" @click="isDesignerDropdownOpen = true"
                         @click.outside="isDesignerDropdownOpen = false">
@@ -571,7 +571,8 @@
                             </div>
                         </div>
                     </div>
-                </label><label>
+                </label>
+                <label class="mobile-only">
                     کارگردان:
                     <select v-model="selectedDirector">
                         <option value="">همه</option>
