@@ -779,7 +779,6 @@ createApp({
         const designerSearchQuery = ref(''); // فیلد جستجو در Modal
         const modalContent = ref(null); // Ref برای دسترسی به محتوای Modal
 
-
         const filteredDesignersInDropdown = computed(() => {
             if (!designerQuery.value) {
                 return availableDesigners.value;
@@ -807,66 +806,6 @@ createApp({
                 closeDesignerModal();
             }
         };
-        
-        const filteredDesignersInModal = computed(() => {
-            const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
-            const designers = Object.keys(groups)
-                .map(designer => [designer, groups[designer].length])
-                .sort((a, b) => b[1] - a[1])
-                .map(([designer, count]) => [designer, count.toLocaleString('fa')]);
-        
-            if (!designerSearchQuery.value) {
-                return designers;
-            }
-            return designers.filter(([designer]) =>
-                designer.includes(designerSearchQuery.value)
-            );
-        });
-        
-        const selectDesignerFromModal = (designer) => {
-            selectedDesigner.value = designer;
-            designerQuery.value = designer; // مقدار فیلد جستجو را تنظیم کن
-            closeDesignerModal();
-        };
-
-        const filteredDirectorsInModal = computed(() => {
-            const groups = Object.groupBy(filteredItems.value.filter(x => x.directorLabel), item => item.directorLabel);
-            return Object.keys(groups)
-                .map(director => [director, groups[director].length])
-                .sort((a, b) => b[1] - a[1])
-                .map(([director, count]) => [director, count.toLocaleString('fa')]);
-        });
-        
-        const filteredYearsInModal = computed(() => {
-            const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
-            return Object.keys(groups)
-                .sort()
-                .map(year => [year, groups[year].length.toLocaleString('fa')]);
-        });
-
-        const minYear = computed(() => {
-            const years = filteredYearsInModal.value.map(([year]) => parseInt(year));
-            return Math.min(...years);
-        });
-        
-        const maxYear = computed(() => {
-            const years = filteredYearsInModal.value.map(([year]) => parseInt(year));
-            return Math.max(...years);
-        });
-        
-        const selectedYearSlider = ref(minYear.value);
-        
-        const updateSelectedYear = () => {
-            selectedYear.value = selectedYearSlider.value.toString();
-        };
-
-        
-        const filteredLettersInModal = computed(() => {
-            const groups = Object.groupBy(filteredItems.value, item => item.filmLabel.charAt(0));
-            return Object.keys(groups)
-                .sort()
-                .map(letter => [letter, groups[letter].length.toLocaleString('fa')]);
-        });
         
         const isCollapsed = ref({
             designers: false,
@@ -1063,6 +1002,67 @@ watch(designerQuery, (newValue) => {
                 .map(([director, count]) => [director, count.toLocaleString('fa')]);
         });
 
+
+        const filteredDesignersInModal = computed(() => {
+            const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
+            const designers = Object.keys(groups)
+                .map(designer => [designer, groups[designer].length])
+                .sort((a, b) => b[1] - a[1])
+                .map(([designer, count]) => [designer, count.toLocaleString('fa')]);
+        
+            if (!designerSearchQuery.value) {
+                return designers;
+            }
+            return designers.filter(([designer]) =>
+                designer.includes(designerSearchQuery.value)
+            );
+        });
+        
+        const selectDesignerFromModal = (designer) => {
+            selectedDesigner.value = designer;
+            designerQuery.value = designer; // مقدار فیلد جستجو را تنظیم کن
+            closeDesignerModal();
+        };
+
+        const filteredDirectorsInModal = computed(() => {
+            const groups = Object.groupBy(filteredItems.value.filter(x => x.directorLabel), item => item.directorLabel);
+            return Object.keys(groups)
+                .map(director => [director, groups[director].length])
+                .sort((a, b) => b[1] - a[1])
+                .map(([director, count]) => [director, count.toLocaleString('fa')]);
+        });
+        
+        const filteredYearsInModal = computed(() => {
+            const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
+            return Object.keys(groups)
+                .sort()
+                .map(year => [year, groups[year].length.toLocaleString('fa')]);
+        });
+
+        const minYear = computed(() => {
+            const years = filteredYearsInModal.value.map(([year]) => parseInt(year));
+            return Math.min(...years);
+        });
+        
+        const maxYear = computed(() => {
+            const years = filteredYearsInModal.value.map(([year]) => parseInt(year));
+            return Math.max(...years);
+        });
+        
+        const selectedYearSlider = ref(minYear.value);
+        
+        const updateSelectedYear = () => {
+            selectedYear.value = selectedYearSlider.value.toString();
+        };
+
+        
+        const filteredLettersInModal = computed(() => {
+            const groups = Object.groupBy(filteredItems.value, item => item.filmLabel.charAt(0));
+            return Object.keys(groups)
+                .sort()
+                .map(letter => [letter, groups[letter].length.toLocaleString('fa')]);
+        });
+        
         const getPosterUrl = (filePath, width = 600) => {
             if (!filePath) return 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=600';
 
