@@ -638,8 +638,8 @@
                     </div>
                 </div>
                 
-                <div class="sidebar-section">
-                    <div class="sidebar-section" :class="getSectionClass('letters')">
+                <div class="sidebar-section" :class="getSectionClass('letters')">
+                    <div class="sidebar-section-header" @click="toggleCollapse('letters')">
                         <span>{{ filteredLetterLabel }}</span>
                         <button class="collapse-button">{{ isCollapsed.letters ? '▼' : '▲' }}</button>
                     </div>
