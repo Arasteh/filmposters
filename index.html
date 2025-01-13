@@ -420,7 +420,8 @@
             padding-bottom: 10px;
             display: flex;
             flex-direction: column;
-             min-height: 0; /* اضافه شده */
+            min-height: 0;
+            transition: flex-grow 0.3s ease-in-out;
         }
         
         .sidebar-section-header {
@@ -438,6 +439,14 @@
             padding: 10px;
             overflow-y: auto;    
             min-height: 0; /* اضافه شده */
+        }
+        
+        .sidebar-section.collapsed {
+            flex-grow: 0; /* وقتی بخش بسته است، ارتفاع کاهش می‌یابد */
+        }
+        
+        .sidebar-section.expanded {
+            flex-grow: 1; /* وقتی بخش باز است، ارتفاع افزایش می‌یابد */
         }
         
         .collapse-button {
@@ -577,7 +586,7 @@
          <div id="sidebar" class="sidebar">
             <div class="sidebar-content">
                 <!-- بخش سال‌ها -->
-                <div class="sidebar-section">
+                <div class="sidebar-section" :class="getSectionClass('years')">
                     <div class="sidebar-section-header" @click="toggleCollapse('years')">
                         <span>{{ filteredYearLabel }}</span>
                         <button class="collapse-button">{{ isCollapsed.years ? '▼' : '▲' }}</button>
@@ -600,7 +609,7 @@
                     </div>
                 </div>
                 
-                <div class="sidebar-section">
+                <div class="sidebar-section" :class="getSectionClass('designers')">
                     <div class="sidebar-section-header" @click="toggleCollapse('designers')">
                         <span>{{ filteredDesignerLabel }}</span>
                         <button class="collapse-button">{{ isCollapsed.designers ? '▼' : '▲' }}</button>
@@ -615,7 +624,7 @@
                     </div>
                 </div>
                 
-                <div class="sidebar-section">
+                <div class="sidebar-section" :class="getSectionClass('directors')">
                     <div class="sidebar-section-header" @click="toggleCollapse('directors')">
                         <span>{{ filteredDirectorLabel }}</span>
                         <button class="collapse-button">{{ isCollapsed.directors ? '▼' : '▲' }}</button>
@@ -630,7 +639,7 @@
                 </div>
                 
                 <div class="sidebar-section">
-                    <div class="sidebar-section-header" @click="toggleCollapse('letters')">
+                    <div class="sidebar-section" :class="getSectionClass('letters')">
                         <span>{{ filteredLetterLabel }}</span>
                         <button class="collapse-button">{{ isCollapsed.letters ? '▼' : '▲' }}</button>
                     </div>
@@ -814,7 +823,11 @@ createApp({
         const toggleCollapse = (section) => {
             isCollapsed.value[section] = !isCollapsed.value[section];
         };
-        
+
+        const getSectionClass = (section) => {
+            return isCollapsed.value[section] ? 'collapsed' : 'expanded';
+        };
+
         const selectDirectorFromModal = (director) => {
             selectedDirector.value = director;
         };
@@ -1089,7 +1102,7 @@ watch(designerQuery, (newValue) => {
         const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = film => film;
 
-        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, minYear, maxYear, selectedYearSlider, updateSelectedYear, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel  };
+        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, minYear, maxYear, selectedYearSlider, updateSelectedYear, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass  };
     }
 }).mount('#app');
     </script>
