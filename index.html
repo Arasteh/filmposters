@@ -1036,22 +1036,20 @@ watch(designerQuery, (newValue) => {
                 .map(year => [year, groups[year].length.toLocaleString('fa')]);
         });
 
-        const minYear = computed(() => {
-            const years = filteredYearsInModal.value.map(([year]) => parseInt(year));
-            return Math.min(...years);
-        });
-        
-        const maxYear = computed(() => {
-            const years = filteredYearsInModal.value.map(([year]) => parseInt(year));
-            return Math.max(...years);
-        });
+        const minYear = ref(1309); // حداقل سال
+        const maxYear = ref(1403); // حداکثر سال
         
         const selectedYearSlider = ref(minYear.value);
         
         const updateSelectedYear = () => {
             selectedYear.value = selectedYearSlider.value.toString();
         };
-
+        
+        watch(selectedYear, (newValue) => {
+            if (newValue) {
+                selectedYearSlider.value = parseInt(newValue); // به‌روزرسانی اسلایدر بر اساس selectedYear
+            }
+        });
         
         const filteredLettersInModal = computed(() => {
             const groups = Object.groupBy(filteredItems.value, item => item.filmLabel.charAt(0));
