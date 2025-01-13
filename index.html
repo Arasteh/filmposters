@@ -579,11 +579,11 @@
                 <!-- بخش سال‌ها -->
                 <div class="sidebar-section">
                     <div class="sidebar-section-header" @click="toggleCollapse('years')">
-                        <span>سال‌ها</span>
+                        <span>{{ filteredYearLabel }}</span>
                         <button class="collapse-button">{{ isCollapsed.years ? '▼' : '▲' }}</button>
                     </div>
                     <div class="sidebar-section-body" v-if="!isCollapsed.years">
-                                <!-- اسلایدر برای انتخاب سال -->
+                        <!-- اسلایدر برای انتخاب سال -->
                         <input 
                             type="range" 
                             :min="minYear" 
@@ -599,26 +599,10 @@
                         </div>
                     </div>
                 </div>
-        
-                <!-- بخش حروف اول -->
-                <div class="sidebar-section">
-                    <div class="sidebar-section-header" @click="toggleCollapse('letters')">
-                        <span>حروف اول</span>
-                        <button class="collapse-button">{{ isCollapsed.letters ? '▼' : '▲' }}</button>
-                    </div>
-                    <div class="sidebar-section-body" v-if="!isCollapsed.letters">
-                        <div class="letter-grid">
-                            <div v-for="[letter, count] in filteredLettersInModal" :key="letter" @click="selectLetterFromModal(letter)" class="letter-item">
-                                {{ letter }} ({{ count }})
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 
-                <!-- بخش طراحان -->
                 <div class="sidebar-section">
                     <div class="sidebar-section-header" @click="toggleCollapse('designers')">
-                        <span>طراحان</span>
+                        <span>{{ filteredDesignerLabel }}</span>
                         <button class="collapse-button">{{ isCollapsed.designers ? '▼' : '▲' }}</button>
                     </div>
                     <div class="sidebar-section-body" v-if="!isCollapsed.designers">
@@ -630,17 +614,30 @@
                         </div>
                     </div>
                 </div>
-        
-                <!-- بخش کارگردان‌ها -->
+                
                 <div class="sidebar-section">
                     <div class="sidebar-section-header" @click="toggleCollapse('directors')">
-                        <span>کارگردان‌ها</span>
+                        <span>{{ filteredDirectorLabel }}</span>
                         <button class="collapse-button">{{ isCollapsed.directors ? '▼' : '▲' }}</button>
                     </div>
                     <div class="sidebar-section-body" v-if="!isCollapsed.directors">
                         <div class="director-grid">
                             <div v-for="[director, count] in filteredDirectorsInModal" :key="director" @click="selectDirectorFromModal(director)" class="director-item">
                                 {{ director }} ({{ count }})
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-section-header" @click="toggleCollapse('letters')">
+                        <span>{{ filteredLetterLabel }}</span>
+                        <button class="collapse-button">{{ isCollapsed.letters ? '▼' : '▲' }}</button>
+                    </div>
+                    <div class="sidebar-section-body" v-if="!isCollapsed.letters">
+                        <div class="letter-grid">
+                            <div v-for="[letter, count] in filteredLettersInModal" :key="letter" @click="selectLetterFromModal(letter)" class="letter-item">
+                                {{ letter }} ({{ count }})
                             </div>
                         </div>
                     </div>
@@ -1062,6 +1059,22 @@ watch(designerQuery, (newValue) => {
                 .sort()
                 .map(letter => [letter, groups[letter].length.toLocaleString('fa')]);
         });
+
+        const filteredYearLabel = computed(() => {
+            return selectedYear.value ? `سال: ${selectedYear.value}` : 'سال‌ها';
+        });
+        
+        const filteredDesignerLabel = computed(() => {
+            return selectedDesigner.value ? `طراح: ${selectedDesigner.value}` : 'طراحان';
+        });
+        
+        const filteredDirectorLabel = computed(() => {
+            return selectedDirector.value ? `کارگردان: ${selectedDirector.value}` : 'کارگردان‌ها';
+        });
+        
+        const filteredLetterLabel = computed(() => {
+            return selectedLetter.value ? `حرف اول: ${selectedLetter.value}` : 'حروف اول';
+        });
         
         const getPosterUrl = (filePath, width = 600) => {
             if (!filePath) return 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=600';
@@ -1078,7 +1091,7 @@ watch(designerQuery, (newValue) => {
         const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = film => film;
 
-        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, minYear, maxYear, selectedYearSlider, updateSelectedYear  };
+        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, minYear, maxYear, selectedYearSlider, updateSelectedYear, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel  };
     }
 }).mount('#app');
     </script>
