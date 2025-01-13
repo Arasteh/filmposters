@@ -467,6 +467,11 @@
         .designer-item:hover, .director-item:hover, .year-item:hover, .letter-item:hover {
             background-color: light-dark(#b77, #b77);
         }
+
+        .year-slider {
+            width: 100%;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 
@@ -578,6 +583,15 @@
                         <button class="collapse-button">{{ isCollapsed.years ? '▼' : '▲' }}</button>
                     </div>
                     <div class="sidebar-section-body" v-if="!isCollapsed.years">
+                                <!-- اسلایدر برای انتخاب سال -->
+                        <input 
+                            type="range" 
+                            :min="minYear" 
+                            :max="maxYear" 
+                            v-model="selectedYearSlider" 
+                            @input="updateSelectedYear" 
+                            class="year-slider"
+                        />
                         <div class="year-grid">
                             <div v-for="[year, count] in filteredYearsInModal" :key="year" @click="selectYearFromModal(year)" class="year-item">
                                 {{ year }} ({{ count }})
@@ -829,6 +843,23 @@ createApp({
                 .sort()
                 .map(year => [year, groups[year].length.toLocaleString('fa')]);
         });
+
+        const minYear = computed(() => {
+            const years = filteredYearsInModal.value.map(([year]) => parseInt(year));
+            return Math.min(...years);
+        });
+        
+        const maxYear = computed(() => {
+            const years = filteredYearsInModal.value.map(([year]) => parseInt(year));
+            return Math.max(...years);
+        });
+        
+        const selectedYearSlider = ref(minYear.value);
+        
+        const updateSelectedYear = () => {
+            selectedYear.value = selectedYearSlider.value.toString();
+        };
+
         
         const filteredLettersInModal = computed(() => {
             const groups = Object.groupBy(filteredItems.value, item => item.filmLabel.charAt(0));
@@ -1047,7 +1078,7 @@ watch(designerQuery, (newValue) => {
         const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = film => film;
 
-        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse  };
+        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, minYear, maxYear, selectedYearSlider, updateSelectedYear  };
     }
 }).mount('#app');
     </script>
