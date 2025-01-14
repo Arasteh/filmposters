@@ -1,4 +1,4 @@
-name: Check latest items
+name: Update
 
 on:
   workflow_dispatch:
