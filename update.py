@@ -1,7 +1,10 @@
+#!/usr/bin/env python3
+
 import requests
 import itertools
 import time
 import json
+import sys
 
 queryResult = requests.post('https://query.wikidata.org/bigdata/namespace/wdq/sparql', '''
 SELECT DISTINCT ?qid
@@ -17,9 +20,9 @@ def wikidata_items(ids):
             'https://www.wikidata.org/w/api.php',
             {'action': 'wbgetentities', 'format': 'json', 'ids': '|'.join(batch)}
         ).json()['entities'].values()
-        print('fetched 50 items, sleep for 2s')
+        print('fetched 50 items, sleep for 2s', file=sys.stderr)
         time.sleep(2)
-    print('finished')
+    print('finished', file=sys.stderr)
 
 ids = [x['qid']['value'].split('entity/')[1] for x in queryResult.json()['results']['bindings']]
 
