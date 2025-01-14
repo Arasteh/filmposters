@@ -717,7 +717,7 @@ window.addEventListener("scroll", () => {
     lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
 });
         
-const { createApp, ref, computed, watch } = Vue;
+const { createApp, ref, computed, watch, onMounted } = Vue;
 
 Object.groupBy = function (array, keyGetter) {
     return array.reduce((result, item) => {
