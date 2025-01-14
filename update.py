@@ -24,7 +24,7 @@ def wikidata_items(ids):
         time.sleep(2)
     print('finished', file=sys.stderr)
 
-ids = [x['qid']['value'].split('entity/')[1] for x in queryResult.json()['results']['bindings']]
+ids = list(sorted((x['qid']['value'].split('entity/')[1] for x in queryResult.json()['results']['bindings']), key=lambda x: int(x[1:])))
 
 result = []
 for item in wikidata_items(ids):
@@ -58,4 +58,4 @@ posters = [
     for poster in item['poster']
 ]
 
-print(json.dumps(posters, indent=2, ensure_ascii=False))
+print(json.dumps(posters, indent=2, ensure_ascii=False, sort_keys=True))
