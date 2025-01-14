@@ -1,0 +1,29 @@
+name: Check latest items
+
+on:
+  workflow_dispatch: # manual trig button
+  #schedule:
+  #  - cron: '*/10 * * * *' # every ten minutes
+
+jobs:
+  build:
+    name: Check latest update
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.13'
+          cache: 'pip'
+
+      - run: pip install requests
+
+      - run: ./update.py > db.json
+
+      - name: Add and commit the report
+        uses: EndBug/add-and-commit@50e9817f158f0e2a915d93970456b8998db76a37
+        with:
+          default_author: github_actions
+          message: 'Update'
+          add: db.json
