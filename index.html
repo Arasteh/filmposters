@@ -390,6 +390,7 @@
             overflow-y: auto;
             z-index: 1000;
             transition: transform 0.3s ease-in-out;
+            resize: none;
         }
         
         .sidebar-content {
@@ -403,7 +404,18 @@
         .mobile-only {
             display: none;
         }
-        
+                
+        .sidebar-resize-handle {
+            position: absolute;
+            top: 0;
+            left: -5px;
+            width: 10px;
+            height: 100%;
+            cursor: ew-resize;
+            background-color: transparent;
+            z-index: 1001;
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 display: none;
@@ -586,6 +598,7 @@
             </div>
         </div>
          <div id="sidebar" class="sidebar">
+            <div class="sidebar-resize-handle"></div>
             <div class="sidebar-content">
                 <!-- بخش سال‌ها -->
                 <div class="sidebar-section" :class="getSectionClass('years')">
@@ -1098,6 +1111,34 @@ watch(designerQuery, (newValue) => {
         const filteredLetterLabel = computed(() => {
             return selectedLetter.value ? `حرف اول: ${selectedLetter.value}` : 'حروف اول';
         });
+
+        const sidebarWidth = ref(400); // عرض پیش‌فرض سایدبار
+        const minSidebarWidth = 300; // حداقل عرض سایدبار
+        const maxSidebarWidth = 600; // حداکثر عرض سایدبار
+
+        const startResize = (e) => {
+            e.preventDefault();
+            document.addEventListener('mousemove', resize);
+            document.addEventListener('mouseup', stopResize);
+        };
+
+        const resize = (e) => {
+            const newWidth = window.innerWidth - e.clientX;
+            if (newWidth >= minSidebarWidth && newWidth <= maxSidebarWidth) {
+                sidebarWidth.value = newWidth;
+            }
+        };
+
+        const stopResize = () => {
+            document.removeEventListener('mousemove', resize);
+            document.removeEventListener('mouseup', stopResize);
+        };
+
+        onMounted(() => {
+            const resizeHandle = document.querySelector('.sidebar-resize-handle');
+            resizeHandle.addEventListener('mousedown', startResize);
+        });
+
         
         const getPosterUrl = (filePath, width = 600) => {
             if (!filePath) return 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=600';
@@ -1114,7 +1155,7 @@ watch(designerQuery, (newValue) => {
         const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
         const getWikidataLink = film => film;
 
-        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, minYear, maxYear, selectedYearSlider, updateSelectedYear, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery  };
+        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, minYear, maxYear, selectedYearSlider, updateSelectedYear, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth  };
     }
 }).mount('#app');
     </script>
