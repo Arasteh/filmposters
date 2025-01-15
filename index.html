@@ -928,8 +928,8 @@ async function getAllItems() {
                 item.designerLabel = data.people[poster.designer[0]].labels.fa;
             }
             if (film.directors.length) {
-                item.directors = data.people[film.directors[0]].labels.fa;
-                item.directorsLabel = data.people[film.directors[0]].labels.fa;
+                item.director = film.directors[0];
+                item.directorLabel = data.people[film.directors[0]].labels.fa;
             }
             if (film.imdb.length) {
                 item.imdbID = film.imdb[0];
