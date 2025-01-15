@@ -859,12 +859,12 @@
                         class="item-image" /></a>
                 <div class="item-title">{{ getItemTitleWithYear(item) }}</div>
                 <div v-if="item.designer && item.designerLabel" class="item-designer">
-                طراح: <a href="#" @click.prevent="selectDesigner(item.designerLabel)">{{ item.designerLabel }}</a> (<a :href="'https://www.wikidata.org/wiki/' + item.designer" target="_blank">Q</a>)
+                طراح: <a href="#" @click.prevent="selectDesigner(item.designerLabel)">{{ item.designerLabel }}</a> (<a :href="'https://www.wikidata.org/wiki/' + item.designer" target="_blank">Q</a><template v-if="item.designerFaWikipediaLink">&nbsp;<a :href="'https://fa.wikipedia.org/wiki/' + item.designerFaWikipediaLink.replaceAll(' ', '_')" target="_blank">W</a></template>)
                 </div>
                 <div class="item-links">
                     <a :href="'https://www.imdb.com/title/' + item.imdbID" target="_blank">T</a>
                     <a :href="'https://www.wikidata.org/wiki/' + item.film" target="_blank">Q</a>
-                    <a :href="'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink" target="_blank">W</a>
+                    <a :href="'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink?.replaceAll(' ', '_')" target="_blank">W</a>
                 </div>
             </div>
         </div>
@@ -928,6 +928,8 @@ async function getAllItems() {
             if (poster.designer.length) {
                 item.designer = poster.designer[0];
                 item.designerLabel = data.people[poster.designer[0]].labels.fa;
+                const fawiki = data.people[poster.designer[0]].sitelinks.fawiki;
+                if (fawiki) item.designerFaWikipediaLink = fawiki;
             }
             if (film.directors.length) {
                 item.director = film.directors[0];
