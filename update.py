@@ -15,7 +15,7 @@ WHERE {
 ''', headers={'Content-Type': 'application/sparql-query', 'Accept': 'application/json'})
 
 def wikidata_items(ids):
-    for batch in itertools.batched(ids, 50):
+    for batch in itertools.batched(sorted(ids, key=lambda x: int(x[1:])), 50):
         yield from requests.post(
             'https://www.wikidata.org/w/api.php',
             {'action': 'wbgetentities',
@@ -52,11 +52,8 @@ films = {
                  for x in item['claims'].get('P154', [])],
     }
     for item in wikidata_items(
-        sorted(
-            (x['qid']['value'].split('entity/')[1]
-             for x in queryResult.json()['results']['bindings']),
-            key=lambda x: int(x[1:])
-        )
+        x['qid']['value'].split('entity/')[1]
+        for x in queryResult.json()['results']['bindings']
     )
 }
 
