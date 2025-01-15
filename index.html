@@ -213,6 +213,7 @@
         .autocomplete-items div:hover {
             background-color: light-dark(#ddd, #444);
         }
+        
         #designerquery {
             width: auto;
         }
@@ -255,6 +256,25 @@
             transition: transform 0.3s;
         }
         
+        .toggle-switch.active {
+            background-color: light-dark(#b77, #b77);
+        }
+        
+        .toggle-slider {
+            width: 21px;
+            height: 21px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+        }
+        
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(25px);
+        }
+        
         .toggle-switch[data-mode="poster"]::before {
             transform: translateX(56px);
         }
@@ -287,7 +307,7 @@
             text-align: center;
             padding: 8px 16px;
             border-radius: 30px;
-            color: light-dark(#fff, #fff);
+            color: light-dark(#888, #888);
             transition: background-color 0.3s, color 0.3s;
             cursor: pointer;
         }
@@ -299,6 +319,18 @@
         
         .toggle-option:hover {
             background-color: light-dark(#ddd, #444);
+        }
+        
+        .similar-chars-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* فاصله بین عنوان و سوییچ */
+            margin-bottom: 10px; /* فاصله از عناصر دیگر */
+        }
+        
+        .similar-chars-toggle label {
+            font-size: 1em;
+            color: light-dark(#000, #fff); /* رنگ متن بر اساس تم */
         }
         
         .tooltip {
@@ -577,7 +609,16 @@
                         </option>
                     </select>
                 </label>
-                
+                <div class="similar-chars-toggle">
+                    <label>حروف مشابه:</label>
+                    <div 
+                        class="toggle-switch" 
+                        :class="{ active: combineSimilarChars }" 
+                        @click="combineSimilarChars = !combineSimilarChars"
+                    >
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
                 <label>
                     ترتیب:
                     <select v-model="sortOrder">
