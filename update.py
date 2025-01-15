@@ -48,8 +48,11 @@ films = {
             'designer': [x['datavalue']['value']['id']
                          for x in poster.get('qualifiers', {}).get('P170', {})],
         } for poster in item['claims'].get('P3383', [])],
-        'logo': [x['mainsnak']['datavalue']['value']
-                 for x in item['claims'].get('P154', [])],
+        'logo': [{
+            'image': poster['mainsnak']['datavalue']['value'],
+            'designer': [x['datavalue']['value']['id']
+                         for x in poster.get('qualifiers', {}).get('P170', {})],
+        } for poster in item['claims'].get('P154', [])],
     }
     for item in wikidata_items(
         x['qid']['value'].split('entity/')[1]
