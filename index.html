@@ -1129,7 +1129,6 @@ watch(designerQuery, (newValue) => {
 
         const resize = (e) => {
             const newWidth = window.innerWidth - e.clientX;
-            console.log('New Width:', newWidth); // برای دیباگ
             if (newWidth >= minSidebarWidth.value && newWidth <= maxSidebarWidth.value) {
                 sidebarWidth.value = newWidth;
             }
