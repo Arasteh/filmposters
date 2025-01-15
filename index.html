@@ -916,7 +916,7 @@ Object.groupBy = function (array, keyGetter) {
 async function getAllItems() {
     const data = await fetch('db.json').then(x => x.json());
     return Object.values(data.films).flatMap(film => {
-        return film.posters.map(poster => {
+        return film.posters.map((poster, i) => {
             const item = {};
             item.film = 'http://www.wikidata.org/wiki/' + film.id;
             item.filmLabel = film.labels.fa;
@@ -935,8 +935,8 @@ async function getAllItems() {
                 item.imdbID = film.imdb[0];
             }
             item.faWikipediaLink = 'https://fa.wikipedia.org/wiki/' + film.sitelinks.fawiki;
-            if (film.logos.length) {
-                item.logo = film.logos[0].image;
+            if (film.logos.length > i) {
+                item.logo = film.logos[i].image;
             }
             return item;
         });
