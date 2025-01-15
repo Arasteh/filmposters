@@ -259,6 +259,18 @@
             transform: translateX(56px);
         }
         
+        .sort-order-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .sort-order-container label {
+            font-size: 1em;
+            color: light-dark(#000, #fff);
+        }
+        
         .triple-toggle-switch {
             display: flex;
             align-items: center;
@@ -268,7 +280,6 @@
             cursor: pointer;
             user-select: none;
             width: fit-content;
-            margin: 10px 0;
         }
         
         .toggle-option {
@@ -571,33 +582,37 @@
                     ترتیب:
                     <select v-model="sortOrder">
                         <option value="alphabetical">الفبایی</option>
-                        <option value="year">سال تولید</option>
+                        <option value="year">سال</option>
                         <option value="random">تصادفی</option>
                     </select>
                 </label>
-                <div class="triple-toggle-switch">
-                    <div 
-                        class="toggle-option" 
-                        :class="{ active: sortOrder === 'alphabetical' }" 
-                        @click="sortOrder = 'alphabetical'"
-                    >
-                        الفبایی
-                    </div>
-                    <div 
-                        class="toggle-option" 
-                        :class="{ active: sortOrder === 'year' }" 
-                        @click="sortOrder = 'year'"
-                    >
-                        سال تولید
-                    </div>
-                    <div 
-                        class="toggle-option" 
-                        :class="{ active: sortOrder === 'random' }" 
-                        @click="sortOrder = 'random'"
-                    >
-                        تصادفی
+                <div class="sort-order-container">
+                    <label>ترتیب:</label>
+                    <div class="triple-toggle-switch">
+                        <div 
+                            class="toggle-option" 
+                            :class="{ active: sortOrder === 'alphabetical' }" 
+                            @click="sortOrder = 'alphabetical'"
+                        >
+                            الفبایی
+                        </div>
+                        <div 
+                            class="toggle-option" 
+                            :class="{ active: sortOrder === 'year' }" 
+                            @click="sortOrder = 'year'"
+                        >
+                            سال
+                        </div>
+                        <div 
+                            class="toggle-option" 
+                            :class="{ active: sortOrder === 'random' }" 
+                            @click="sortOrder = 'random'"
+                        >
+                            تصادفی
+                        </div>
                     </div>
                 </div>
+
                 <label class="mobile-only">
                     سال:
                     <select v-model="selectedYear">
