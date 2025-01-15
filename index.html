@@ -633,6 +633,12 @@
             width: 100%;
             margin-bottom: 10px;
         }
+
+            .count {
+                color: #b77;
+                font-size: 0.9em;
+            }
+
     </style>
 </head>
 
@@ -795,7 +801,7 @@
                         /> -->
                         <div class="year-grid">
                             <div v-for="[year, count] in filteredYearsInModal" :key="year" @click="selectYearFromModal(year)" class="year-item">
-                                {{ year }} ({{ count }})
+                                {{ year }} <span class="count">({{ count }})</span>
                             </div>
                         </div>
                     </div>
@@ -810,7 +816,7 @@
                         <input type="text" v-model="designerSearchQuery" placeholder="جستجوی طراح…" />
                         <div class="designer-grid">
                             <div v-for="[designer, count] in filteredDesignersInModal" :key="designer" @click="selectDesignerFromModal(designer)" class="designer-item">
-                                {{ designer }} ({{ count }})
+                                {{ designer }} <span class="count">({{ count }})</span>
                             </div>
                         </div>
                     </div>
@@ -825,7 +831,7 @@
                          <input type="text" v-model="directorSearchQuery" placeholder="جستجوی کارگردان…" />
                         <div class="director-grid">
                             <div v-for="[director, count] in filteredDirectorsInModal" :key="director" @click="selectDirectorFromModal(director)" class="director-item">
-                                {{ director }} ({{ count }})
+                                {{ director }} <span class="count">({{ count }})</span>
                             </div>
                         </div>
                     </div>
@@ -839,7 +845,7 @@
                     <div class="sidebar-section-body" v-if="!isCollapsed.letters">
                         <div class="letter-grid">
                             <div v-for="[letter, count] in filteredLettersInModal" :key="letter" @click="selectLetterFromModal(letter)" class="letter-item">
-                                {{ letter }} ({{ count }})
+                                {{ letter }} <span class="count">({{ count }})</span>
                             </div>
                         </div>
                     </div>
