@@ -60,7 +60,8 @@
             width: 90%;
             padding: 8px;
             border: 1px solid #ccc;
-            border-radius: 16px;
+            border-radius: 50%;
+            margin-bottom: 8px;
         }
 
         .options {
@@ -69,7 +70,7 @@
             column-gap: 20px;
             row-gap: 10px;
             justify-content: space-around;
-            margin-bottom: 10px;
+            margin: 2px 0 10px;
             border: none;
             align-items: center;
         }
@@ -222,7 +223,7 @@
             display: flex;
             align-items: center;
             background-color: light-dark(#e0e0e0, #333);
-            border-radius: 40px;
+            border-radius: 50%;
             padding: 4px;
             cursor: pointer;
             user-select: none;
@@ -252,7 +253,7 @@
             width: 64px;
             height: calc(100% - 8px);
             background-color: light-dark(#b77, #b77);
-            border-radius: 30px;
+            border-radius: 50%;
             transition: transform 0.3s;
         }
         
@@ -385,12 +386,12 @@
         .similar-chars-toggle {
             display: flex;
             align-items: center;
-            gap: 10px; /* فاصله بین عنوان و سوییچ */
+            gap: 10px;
         }
         
         .similar-chars-toggle label {
             font-size: 1em;
-            color: light-dark(#000, #fff); /* رنگ متن بر اساس تم */
+            color: light-dark(#000, #fff);
         }
         
         .tooltip {
@@ -546,13 +547,13 @@
             width: 10px;
             height: 100%;
             cursor: ew-resize;
-            background-color: rgba(0, 0, 0, 0.1); /* رنگ پس‌زمینه برای دیده شدن بهتر */
+            background-color: rgba(0, 0, 0, 0.1);
             z-index: 1001;
             transition: background-color 0.3s;
         }
         
         .sidebar-resize-handle:hover {
-            background-color: rgba(0, 0, 0, 0.3); /* تغییر رنگ هنگام hover */
+            background-color: rgba(0, 0, 0, 0.3);
         }
 
         @media (max-width: 768px) {
@@ -636,7 +637,6 @@
 
             .count {
                 color: light-dark(#bbb, #555);
-                /* font-size: 0.9em; */
             }
 
     </style>
