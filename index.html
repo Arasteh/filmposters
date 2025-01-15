@@ -914,47 +914,33 @@ Object.groupBy = function (array, keyGetter) {
 };
 
 async function getAllItems() {
-    const response = await fetch(
-        'https://query.wikidata.org/bigdata/namespace/wdq/sparql',
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/sparql-query',
-                'Accept': 'application/json'
-            },
-            body: `
-SELECT DISTINCT ?film ?filmLabel (GROUP_CONCAT(DISTINCT ?alias; separator=", ") AS ?aliases) (MIN(?publicationDate) AS ?date) ?imdbID ?poster ?logo ?designer ?designerLabel ?director ?directorLabel ?faWikipediaLink
-WHERE {
-  VALUES ?type { wd:Q11424 wd:Q24862 wd:Q5398426 wd:Q7777570 wd:Q17517379 }
-  ?film wdt:P31 ?type; wdt:P495 wd:Q794.
-
-  ?film p:P3383 ?imageStatement.
-  ?imageStatement ps:P3383 ?poster.
-  OPTIONAL { ?imageStatement pq:P170 ?designer. }
-
-  OPTIONAL { ?film p:P154 ?logoStatement.
-             ?logoStatement ps:P154 ?logo. }
-
-  OPTIONAL { ?film wdt:P577 ?publicationDate. }
-  OPTIONAL { ?film wdt:P57 ?director. }
-  OPTIONAL { ?film wdt:P345 ?imdbID. }
-
-  OPTIONAL { ?film skos:altLabel ?alias.
-             FILTER(LANG(?alias) = "fa") }
-
-  OPTIONAL { ?wikipedia schema:about ?film;
-                        schema:isPartOf <https://fa.wikipedia.org/>.
-    BIND(STR(?wikipedia) AS ?faWikipediaLink) }
-
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "fa". }
-}
-GROUP BY ?film ?filmLabel ?imdbID ?poster ?designer ?designerLabel ?logo ?director ?directorLabel ?faWikipediaLink
-ORDER BY ?publicationDate
-`
-        }
-    );
-    const data = await response.json();
-    return data.results.bindings.map(x => Object.fromEntries(Object.entries(x).map(x => [x[0], x[1].value])));
+    const data = await fetch('db.json').then(x => x.json());
+    return Object.values(data.films).flatMap(film => {
+        return film.posters.map(poster => {
+            const item = {};
+            item.film = 'http://www.wikidata.org/wiki/' + film.id;
+            item.filmLabel = film.labels.fa;
+            item.aliases = film.aliases?.fa?.join(',') ?? '';
+            item.date = film.date.map(x => x).sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0];
+            item.poster = poster.image;
+            if (poster.designer.length) {
+                item.designer = poster.designer[0];
+                item.designerLabel = data.people[poster.designer[0]].labels.fa;
+            }
+            if (film.directors.length) {
+                item.directors = data.people[film.directors[0]].labels.fa;
+                item.directorsLabel = data.people[film.directors[0]].labels.fa;
+            }
+            if (film.imdb.length) {
+                item.imdbID = film.imdb[0];
+            }
+            item.faWikipediaLink = 'https://fa.wikipedia.org/wiki/' + film.sitelinks.fawiki;
+            if (film.logos.length) {
+                item.logo = film.logos[0].image;
+            }
+            return item;
+        });
+    });
 }
 
 createApp({
@@ -1331,7 +1317,7 @@ watch(designerQuery, (newValue) => {
             if (!filePath) return 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=600';
 
             const url = new URL('https://commons.wikimedia.org/w/thumb.php');
-            url.searchParams.append('f', decodeURIComponent(filePath.replace('http://commons.wikimedia.org/wiki/Special:FilePath/', '')));
+            url.searchParams.append('f', decodeURIComponent(filePath));
             url.searchParams.append('w', '600');
             return url.toString();
         };

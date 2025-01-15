@@ -10,6 +10,14 @@
         "en": "Once Upon a Time, Cinema",
         "fa": "ناصرالدین‌شاه آکتور سینما"
       },
+      "aliases": {
+        "en": [
+          "Naser al-din Shah, The Actor of Cinema"
+        ],
+        "fa": [
+          "روزی روزگاری، سینما"
+        ]
+      },
       "directors": [
         "Q55211"
       ],
@@ -47,6 +55,14 @@
       "labels": {
         "en": "And Then There Were None",
         "fa": "ده بومی کوچک"
+      },
+      "aliases": {
+        "en": [
+          "Ten Little Indians"
+        ],
+        "fa": [
+          "سپس هیچ‌کدام باقی نماندند"
+        ]
       },
       "directors": [
         "Q976248"
@@ -90,6 +106,16 @@
         "en": "Close-Up",
         "fa": "کلوزآپ"
       },
+      "aliases": {
+        "en": [
+          "Nema-Ye Nazdik",
+          "Namaye nazdik"
+        ],
+        "fa": [
+          "کلوزاپ",
+          "نمای نزدیک"
+        ]
+      },
       "directors": [
         "Q55210"
       ],
@@ -120,6 +146,11 @@
       "labels": {
         "en": "The Cow",
         "fa": "گاو"
+      },
+      "aliases": {
+        "en": [
+          "Cow"
+        ]
       },
       "directors": [
         "Q1166019"
@@ -165,6 +196,12 @@
         "en": "Life, and Nothing More...",
         "fa": "زندگی و دیگر هیچ"
       },
+      "aliases": {
+        "en": [
+          "And Life Goes On",
+          "And Life Goes On..."
+        ]
+      },
       "directors": [
         "Q55210"
       ],
@@ -199,6 +236,7 @@
         "en": "Ganj-e Qarun",
         "fa": "گنج قارون"
       },
+      "aliases": {},
       "directors": [
         "Q5943061"
       ],
@@ -227,6 +265,12 @@
       "labels": {
         "en": "F for Fake",
         "fa": "ت مثل تقلب"
+      },
+      "aliases": {
+        "en": [
+          "Vérités et Mensonges",
+          "Verites et Mensonges"
+        ]
       },
       "directors": [
         "Q24829"
@@ -257,6 +301,14 @@
       "labels": {
         "en": "Where is the Friend's Home?",
         "fa": "خانه دوست کجاست؟"
+      },
+      "aliases": {
+        "en": [
+          "Where is the Friend's House?"
+        ],
+        "fa": [
+          "خانهٔ دوست کجاست؟"
+        ]
       },
       "directors": [
         "Q55210"
@@ -296,6 +348,11 @@
         "en": "The White Balloon",
         "fa": "بادکنک سفید"
       },
+      "aliases": {
+        "en": [
+          "White Balloon"
+        ]
+      },
       "directors": [
         "Q31637"
       ],
@@ -331,6 +388,7 @@
         "en": "Through the Olive Trees",
         "fa": "زیر درختان زیتون"
       },
+      "aliases": {},
       "directors": [
         "Q55210"
       ],
@@ -363,6 +421,7 @@
         "en": "So Can I",
         "fa": "منم می‌تونم"
       },
+      "aliases": {},
       "directors": [
         "Q55210"
       ],
@@ -389,6 +448,14 @@
       "labels": {
         "en": "Rang-ha",
         "fa": "رنگها"
+      },
+      "aliases": {
+        "en": [
+          "The Colours"
+        ],
+        "fa": [
+          "رنگ‌ها"
+        ]
       },
       "directors": [
         "Q55210"
@@ -418,6 +485,11 @@
       "labels": {
         "en": "Ballad of Tara",
         "fa": "چریکه‌ی تارا"
+      },
+      "aliases": {
+        "fa": [
+          "چریکه تارا"
+        ]
       },
       "directors": [
         "Q803646"
@@ -453,6 +525,14 @@
       "labels": {
         "en": "Del Shodegan",
         "fa": "دلشدگان"
+      },
+      "aliases": {
+        "en": [
+          "Love-stricken"
+        ],
+        "fa": [
+          "دل‌شدگان"
+        ]
       },
       "directors": [
         "Q250608"
@@ -501,6 +581,11 @@
       "labels": {
         "fa": "دو فیلم با یک بلیط"
       },
+      "aliases": {
+        "fa": [
+          "دو فیلم با یک بلیت"
+        ]
+      },
       "directors": [
         "Q3016194"
       ],
@@ -530,6 +615,11 @@
         "en": "Kamalolmolk",
         "fa": "کمال‌الملک"
       },
+      "aliases": {
+        "fa": [
+          "کمال الملک"
+        ]
+      },
       "directors": [
         "Q250608"
       ],
@@ -558,6 +648,18 @@
       "labels": {
         "en": "Lor Girl",
         "fa": "دختر لر"
+      },
+      "aliases": {
+        "en": [
+          "Dukhtar-e-Lur",
+          "Dokhtare Lor ya irane druz va emruz",
+          "Dochtar Lor",
+          "The Iran of Yesterday and the Iran of Today",
+          "Iran of Yesterday and Today"
+        ],
+        "fa": [
+          "دختر لُر"
+        ]
       },
       "directors": [
         "Q639084"
@@ -592,6 +694,16 @@
       "labels": {
         "en": "Ejareh-Nesheenha",
         "fa": "اجاره‌نشین‌ها"
+      },
+      "aliases": {
+        "en": [
+          "The Tennants"
+        ],
+        "fa": [
+          "اجاره نشینها",
+          "اجاره نشین ها",
+          "اجاره‌نشینها"
+        ]
       },
       "directors": [
         "Q1166019"
@@ -643,6 +755,15 @@
         "en": "The Cyclist",
         "fa": "بایسیکل‌ران"
       },
+      "aliases": {
+        "en": [
+          "Cyclist"
+        ],
+        "fa": [
+          "بایسیکل ران",
+          "بای‌سیکل‌ران"
+        ]
+      },
       "directors": [
         "Q55211"
       ],
@@ -689,6 +810,11 @@
         "en": "The Experience",
         "fa": "تجربه"
       },
+      "aliases": {
+        "en": [
+          "Experience"
+        ]
+      },
       "directors": [
         "Q55210"
       ],
@@ -727,6 +853,11 @@
         "en": "The Traveller",
         "fa": "مسافر"
       },
+      "aliases": {
+        "en": [
+          "Traveller"
+        ]
+      },
       "directors": [
         "Q55210"
       ],
@@ -758,6 +889,11 @@
         "en": "The Report",
         "fa": "گزارش"
       },
+      "aliases": {
+        "en": [
+          "Report"
+        ]
+      },
       "directors": [
         "Q55210"
       ],
@@ -786,6 +922,14 @@
       "labels": {
         "en": "The Runner",
         "fa": "دونده"
+      },
+      "aliases": {
+        "en": [
+          "Runner"
+        ],
+        "fa": [
+          "دو نده"
+        ]
       },
       "directors": [
         "Q2717537"
@@ -831,6 +975,7 @@
         "en": "Hajji Washington",
         "fa": "حاجی واشنگتن"
       },
+      "aliases": {},
       "directors": [
         "Q250608"
       ],
@@ -866,6 +1011,14 @@
         "en": "Hezardastan",
         "fa": "هزاردستان"
       },
+      "aliases": {
+        "en": [
+          "Hezar Dastan"
+        ],
+        "fa": [
+          "هزاردستان (مجموعهٔ تلویزیونی)"
+        ]
+      },
       "directors": [
         "Q250608"
       ],
@@ -892,6 +1045,11 @@
       "labels": {
         "en": "Kelid",
         "fa": "کلید"
+      },
+      "aliases": {
+        "en": [
+          "The Key"
+        ]
       },
       "directors": [
         "Q3046872"
@@ -922,6 +1080,7 @@
         "en": "Khomreh",
         "fa": "خمره (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q3046872"
       ],
@@ -956,6 +1115,11 @@
       "labels": {
         "en": "The Marriage of the Blessed",
         "fa": "عروسی خوبان"
+      },
+      "aliases": {
+        "en": [
+          "Marriage of the Blessed"
+        ]
       },
       "directors": [
         "Q55211"
@@ -997,6 +1161,12 @@
         "en": "Layla and Majnun",
         "fa": "لیلی و مجنون"
       },
+      "aliases": {
+        "en": [
+          "Leyli o Majnun",
+          "Layla and Majnun (1937 film)"
+        ]
+      },
       "directors": [
         "Q2821328"
       ],
@@ -1029,6 +1199,15 @@
         "en": "Night of the Hunchback",
         "fa": "شب قوزی"
       },
+      "aliases": {
+        "en": [
+          "Night of the Goose",
+          "Shab Ghozi",
+          "Night of the Hunchback film",
+          "Shabe Quzi",
+          "Shab-e Quzi"
+        ]
+      },
       "directors": [
         "Q3067013"
       ],
@@ -1060,6 +1239,7 @@
         "en": "Pari",
         "fa": "پری"
       },
+      "aliases": {},
       "directors": [
         "Q1166019"
       ],
@@ -1095,6 +1275,7 @@
         "en": "Sara",
         "fa": "سارا"
       },
+      "aliases": {},
       "directors": [
         "Q1166019"
       ],
@@ -1128,6 +1309,7 @@
         "en": "Shirin and Farhad",
         "fa": "شیرین و فرهاد"
       },
+      "aliases": {},
       "directors": [
         "Q2821328"
       ],
@@ -1162,6 +1344,7 @@
         "en": "Tangsir",
         "fa": "تنگسیر"
       },
+      "aliases": {},
       "directors": [
         "Q2717537"
       ],
@@ -1189,6 +1372,7 @@
         "en": "Dar Emtedade Shab",
         "fa": "در امتداد شب"
       },
+      "aliases": {},
       "directors": [
         "Q3367084"
       ],
@@ -1221,6 +1405,14 @@
         "en": "A Party in Hell",
         "fa": "شب‌نشینی در جهنم"
       },
+      "aliases": {
+        "en": [
+          "Party in Hell"
+        ],
+        "fa": [
+          "شب نشینی در جهنم"
+        ]
+      },
       "directors": [
         "Q4980507",
         "Q6941249"
@@ -1251,6 +1443,12 @@
         "en": "Qeysar",
         "fa": "قیصر"
       },
+      "aliases": {
+        "en": [
+          "Qaiser",
+          "Gheisar"
+        ]
+      },
       "directors": [
         "Q3101208"
       ],
@@ -1280,6 +1478,7 @@
         "en": "Baduk",
         "fa": "بدوک"
       },
+      "aliases": {},
       "directors": [
         "Q81770"
       ],
@@ -1307,6 +1506,7 @@
         "en": "Boycott",
         "fa": "بایکوت"
       },
+      "aliases": {},
       "directors": [
         "Q55211"
       ],
@@ -1342,6 +1542,7 @@
         "en": "Broken Spell",
         "fa": "طلسم شکسته"
       },
+      "aliases": {},
       "directors": [
         "Q5943061"
       ],
@@ -1377,6 +1578,7 @@
         "en": "Far from Home",
         "fa": "در غربت"
       },
+      "aliases": {},
       "directors": [
         "Q507555"
       ],
@@ -1414,6 +1616,14 @@
         "en": "The Deer",
         "fa": "گوزنها"
       },
+      "aliases": {
+        "en": [
+          "Gavaznha"
+        ],
+        "fa": [
+          "گوزن‌ها"
+        ]
+      },
       "directors": [
         "Q3101208"
       ],
@@ -1446,6 +1656,7 @@
         "en": "Marsieh",
         "fa": "مرثیه"
       },
+      "aliases": {},
       "directors": [
         "Q2717537"
       ],
@@ -1472,6 +1683,7 @@
         "en": "Sakhte Iran",
         "fa": "ساخت ایران"
       },
+      "aliases": {},
       "directors": [
         "Q2717537"
       ],
@@ -1497,6 +1709,12 @@
       "labels": {
         "en": "Taraj",
         "fa": "تاراج"
+      },
+      "aliases": {
+        "en": [
+          "Plunder",
+          "Invasion"
+        ]
       },
       "directors": [
         "Q1672346"
@@ -1531,6 +1749,7 @@
       "labels": {
         "fa": "آبشار طلا"
       },
+      "aliases": {},
       "directors": [
         "Q5943061"
       ],
@@ -1563,6 +1782,7 @@
       "labels": {
         "fa": "توبه نصوح"
       },
+      "aliases": {},
       "directors": [
         "Q55211"
       ],
@@ -1589,6 +1809,11 @@
         "en": "Saz Dahani",
         "fa": "ساز دهنی"
       },
+      "aliases": {
+        "en": [
+          "Harmonica"
+        ]
+      },
       "directors": [
         "Q2717537"
       ],
@@ -1614,6 +1839,7 @@
       "labels": {
         "fa": "زرد قناری (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q2440957"
       ],
@@ -1637,6 +1863,7 @@
       "labels": {
         "fa": "تجارت (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q3101208"
       ],
@@ -1664,6 +1891,7 @@
       "labels": {
         "fa": "چکمه (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q5955198"
       ],
@@ -1689,6 +1917,7 @@
       "labels": {
         "fa": "آن‌سوی آتش"
       },
+      "aliases": {},
       "directors": [
         "Q3200884"
       ],
@@ -1718,6 +1947,7 @@
       "labels": {
         "fa": "مغول‌ها"
       },
+      "aliases": {},
       "directors": [
         "Q3367080"
       ],
@@ -1745,6 +1975,11 @@
       "labels": {
         "en": "The Thief of Dolls",
         "fa": "دزد عروسک‌ها"
+      },
+      "aliases": {
+        "en": [
+          "Dozde Aroosakha"
+        ]
       },
       "directors": [
         "Q3318954"
@@ -1780,6 +2015,7 @@
       "labels": {
         "fa": "استعاذه"
       },
+      "aliases": {},
       "directors": [
         "Q55211"
       ],
@@ -1805,6 +2041,11 @@
       "labels": {
         "en": "Berehne ta zohr ba sorat",
         "fa": "برهنه تا ظهر با سرعت"
+      },
+      "aliases": {
+        "en": [
+          "Speeding Naked till High Noon"
+        ]
       },
       "directors": [
         "Q5961777"
@@ -1836,6 +2077,7 @@
       "labels": {
         "fa": "پرونده (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q5948292"
       ],
@@ -1862,6 +2104,7 @@
         "en": "The Violet Diamond",
         "fa": "الماس بنفش"
       },
+      "aliases": {},
       "directors": [
         "Q16053118"
       ],
@@ -1887,6 +2130,7 @@
       "labels": {
         "fa": "تیک تاک"
       },
+      "aliases": {},
       "directors": [
         "Q5955198"
       ],
@@ -1912,6 +2156,7 @@
       "labels": {
         "fa": "دادا (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q1672346"
       ],
@@ -1940,6 +2185,7 @@
         "en": "Barahoot",
         "fa": "برهوت"
       },
+      "aliases": {},
       "directors": [
         "Q5955198"
       ],
@@ -1968,6 +2214,7 @@
         "en": "Tall Shadows of the Wind",
         "fa": "سایه‌های بلند باد"
       },
+      "aliases": {},
       "directors": [
         "Q2749785"
       ],
@@ -1993,6 +2240,7 @@
       "labels": {
         "fa": "پناهنده (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q7295166"
       ],
@@ -2024,6 +2272,7 @@
       "labels": {
         "fa": "ترن (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q5940415"
       ],
@@ -2061,6 +2310,7 @@
       "labels": {
         "fa": "نیاز"
       },
+      "aliases": {},
       "directors": [
         "Q2837122"
       ],
@@ -2088,6 +2338,7 @@
       "labels": {
         "fa": "بحران"
       },
+      "aliases": {},
       "directors": [
         "Q56365165"
       ],
@@ -2114,6 +2365,11 @@
         "en": "Red Hair",
         "fa": "موسرخه"
       },
+      "aliases": {
+        "en": [
+          "Mu-sorkhe"
+        ]
+      },
       "directors": [
         "Q61063097"
       ],
@@ -2139,6 +2395,7 @@
       "labels": {
         "fa": "ناخدا با خدا"
       },
+      "aliases": {},
       "directors": [
         "Q5955454"
       ],
@@ -2168,6 +2425,7 @@
         "en": "Land of Lovers",
         "fa": "دیار عاشقان"
       },
+      "aliases": {},
       "directors": [
         "Q16073630"
       ],
@@ -2195,6 +2453,7 @@
         "en": "Ghazal",
         "fa": "غزل"
       },
+      "aliases": {},
       "directors": [
         "Q3101208"
       ],
@@ -2228,6 +2487,11 @@
         "en": "Bi Ta",
         "fa": "بی‌تا"
       },
+      "aliases": {
+        "fa": [
+          "بی تا"
+        ]
+      },
       "directors": [
         "Q5640012"
       ],
@@ -2260,6 +2524,11 @@
         "en": "The Dagger",
         "fa": "دشنه"
       },
+      "aliases": {
+        "en": [
+          "Dagger"
+        ]
+      },
       "directors": [
         "Q5444095"
       ],
@@ -2291,6 +2560,7 @@
         "en": "Zabih",
         "fa": "ذبیح"
       },
+      "aliases": {},
       "directors": [
         "Q5948781"
       ],
@@ -2318,6 +2588,7 @@
       "labels": {
         "fa": "به خاطر هانیه"
       },
+      "aliases": {},
       "directors": [
         "Q3197643"
       ],
@@ -2341,6 +2612,11 @@
       "labels": {
         "en": "Do kalle-shagh",
         "fa": "دو کله‌شق"
+      },
+      "aliases": {
+        "fa": [
+          "دو کله شق"
+        ]
       },
       "directors": [
         "Q1672346"
@@ -2374,6 +2650,7 @@
       "labels": {
         "fa": "تیغ و ابریشم"
       },
+      "aliases": {},
       "directors": [
         "Q3101208"
       ],
@@ -2401,6 +2678,7 @@
         "en": "Sattar Khan",
         "fa": "ستارخان"
       },
+      "aliases": {},
       "directors": [
         "Q250608"
       ],
@@ -2446,6 +2724,7 @@
         "en": "Mamal Amricayi",
         "fa": "ممل آمریکائی"
       },
+      "aliases": {},
       "directors": [
         "Q5947357"
       ],
@@ -2473,6 +2752,7 @@
       "labels": {
         "fa": "حامی"
       },
+      "aliases": {},
       "directors": [
         "Q5942165"
       ],
@@ -2498,6 +2778,11 @@
       "labels": {
         "en": "The Suitor",
         "fa": "خواستگار"
+      },
+      "aliases": {
+        "en": [
+          "Khastegar"
+        ]
       },
       "directors": [
         "Q250608"
@@ -2526,6 +2811,7 @@
       "labels": {
         "fa": "انسان پرنده"
       },
+      "aliases": {},
       "directors": [
         "Q5951543"
       ],
@@ -2556,6 +2842,7 @@
       "labels": {
         "fa": "شاباجی خانم"
       },
+      "aliases": {},
       "directors": [
         "Q5956461"
       ],
@@ -2582,6 +2869,12 @@
       "labels": {
         "en": "The Peddler",
         "fa": "دستفروش"
+      },
+      "aliases": {
+        "en": [
+          "The Pedlar",
+          "Peddler"
+        ]
       },
       "directors": [
         "Q55211"
@@ -2611,6 +2904,7 @@
       "labels": {
         "fa": "اعدامی"
       },
+      "aliases": {},
       "directors": [
         "Q16074448"
       ],
@@ -2636,6 +2930,11 @@
       "labels": {
         "en": "Adamak",
         "fa": "آدمک"
+      },
+      "aliases": {
+        "fa": [
+          "آدمک"
+        ]
       },
       "directors": [
         "Q5961777"
@@ -2667,6 +2966,7 @@
       "labels": {
         "fa": "پرواز را به خاطر بسپار"
       },
+      "aliases": {},
       "directors": [
         "Q5947718"
       ],
@@ -2692,6 +2992,14 @@
       "labels": {
         "en": "The Mandrake",
         "fa": "مهرگیاه"
+      },
+      "aliases": {
+        "en": [
+          "Mandrake"
+        ],
+        "fa": [
+          "مهر گیاه"
+        ]
       },
       "directors": [
         "Q5444095"
@@ -2720,6 +3028,7 @@
       "labels": {
         "fa": "رابطه (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q3400565"
       ],
@@ -2747,6 +3056,7 @@
         "en": "Snake Fang",
         "fa": "دندان مار"
       },
+      "aliases": {},
       "directors": [
         "Q3101208"
       ],
@@ -2779,6 +3089,7 @@
         "en": "The Lover",
         "fa": "خاطرخواه"
       },
+      "aliases": {},
       "directors": [
         "Q4746635"
       ],
@@ -2818,6 +3129,11 @@
         "en": "Dancer of City",
         "fa": "رقاصه شهر"
       },
+      "aliases": {
+        "en": [
+          "Raghaseye shahr"
+        ]
+      },
       "directors": [
         "Q5947357"
       ],
@@ -2845,6 +3161,7 @@
       "labels": {
         "fa": "بازرس ویژه"
       },
+      "aliases": {},
       "directors": [
         "Q5939313"
       ],
@@ -2873,6 +3190,7 @@
         "en": "Ghalandar",
         "fa": "قلندر"
       },
+      "aliases": {},
       "directors": [
         "Q250608"
       ],
@@ -2900,6 +3218,7 @@
       "labels": {
         "fa": "دست شیطان"
       },
+      "aliases": {},
       "directors": [
         "Q16050981"
       ],
@@ -2927,6 +3246,7 @@
       "labels": {
         "fa": "پرتگاه"
       },
+      "aliases": {},
       "directors": [
         "Q25424145"
       ],
@@ -2961,6 +3281,11 @@
         "en": "Negligence",
         "fa": "غفلت"
       },
+      "aliases": {
+        "en": [
+          "Gheflat"
+        ]
+      },
       "directors": [
         "Q5959026"
       ],
@@ -2987,6 +3312,7 @@
         "en": "Autumn",
         "fa": "پاییزان"
       },
+      "aliases": {},
       "directors": [
         "Q7295337"
       ],
@@ -3014,6 +3340,7 @@
       "labels": {
         "fa": "افعی"
       },
+      "aliases": {},
       "directors": [
         "Q5933908"
       ],
@@ -3037,6 +3364,7 @@
       "labels": {
         "fa": "برنج سرخ"
       },
+      "aliases": {},
       "directors": [
         "Q5940415"
       ],
@@ -3063,6 +3391,7 @@
         "en": "Tranquility in the Presence of Others",
         "fa": "آرامش در حضور دیگران"
       },
+      "aliases": {},
       "directors": [
         "Q2817346"
       ],
@@ -3089,6 +3418,11 @@
       "labels": {
         "en": "The Chess Game of the Wind",
         "fa": "شطرنج باد"
+      },
+      "aliases": {
+        "en": [
+          "Chess of the Wind"
+        ]
       },
       "directors": [
         "Q5964329"
@@ -3121,6 +3455,7 @@
         "en": "Justification",
         "fa": "توجیه"
       },
+      "aliases": {},
       "directors": [
         "Q16074649"
       ],
@@ -3146,6 +3481,12 @@
       "labels": {
         "en": "Baluch",
         "fa": "بلوچ"
+      },
+      "aliases": {
+        "en": [
+          "Balouch",
+          "Balooch"
+        ]
       },
       "directors": [
         "Q3101208"
@@ -3186,6 +3527,7 @@
         "en": "Avaz-e Tehran",
         "fa": "آواز تهران"
       },
+      "aliases": {},
       "directors": [
         "Q6359591"
       ],
@@ -3215,6 +3557,13 @@
         "en": "The Beehive",
         "fa": "کندو"
       },
+      "aliases": {
+        "en": [
+          "Beehive",
+          "Kandoo",
+          "Kandu"
+        ]
+      },
       "directors": [
         "Q5444095"
       ],
@@ -3243,6 +3592,11 @@
         "en": "The Raven",
         "fa": "کلاغ"
       },
+      "aliases": {
+        "en": [
+          "Kalagh"
+        ]
+      },
       "directors": [
         "Q803646"
       ],
@@ -3270,6 +3624,7 @@
         "en": "Abi and Rabi",
         "fa": "آبی و رابی"
       },
+      "aliases": {},
       "directors": [
         "Q7113240"
       ],
@@ -3302,6 +3657,7 @@
         "en": "Return",
         "fa": "بازگشت"
       },
+      "aliases": {},
       "directors": [
         "Q4980507"
       ],
@@ -3333,6 +3689,11 @@
       },
       "labels": {
         "fa": "به دادم برس رفیق"
+      },
+      "aliases": {
+        "fa": [
+          "بدادم برس رفیق"
+        ]
       },
       "directors": [
         "Q5960451"
@@ -3367,6 +3728,12 @@
         "en": "My Husband Has Fallen in Love",
         "fa": "شوهرجونم عاشق شده"
       },
+      "aliases": {
+        "en": [
+          "Shohar joonam ashegh shode",
+          "My Hubby Has Fallen in Love"
+        ]
+      },
       "directors": [
         "Q5955454"
       ],
@@ -3394,6 +3761,7 @@
       "labels": {
         "fa": "خط قرمز (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q3101208"
       ],
@@ -3419,6 +3787,11 @@
       "labels": {
         "en": "Presents",
         "fa": "تحفه‌ها"
+      },
+      "aliases": {
+        "en": [
+          "Tohfeha"
+        ]
       },
       "directors": [
         "Q5937901"
@@ -3448,6 +3821,7 @@
         "en": "Gypsy's Wrath",
         "fa": "خشم کولی"
       },
+      "aliases": {},
       "directors": [
         "Q5940906"
       ],
@@ -3478,6 +3852,7 @@
       "labels": {
         "fa": "دختری از شیراز"
       },
+      "aliases": {},
       "directors": [
         "Q4980507"
       ],
@@ -3506,6 +3881,7 @@
       "labels": {
         "fa": "مردها و نامردها"
       },
+      "aliases": {},
       "directors": [
         "Q16052744"
       ],
@@ -3531,6 +3907,11 @@
       "labels": {
         "en": "Two Companions",
         "fa": "دو همسفر"
+      },
+      "aliases": {
+        "en": [
+          "Do Hamsafar"
+        ]
       },
       "directors": [
         "Q5940401"
@@ -3559,6 +3940,11 @@
       "labels": {
         "en": "Two and a Half Poeple",
         "fa": "دو نفر و نصفی"
+      },
+      "aliases": {
+        "en": [
+          "Do Nafar O Nesfi"
+        ]
       },
       "directors": [
         "Q5956193"
@@ -3593,6 +3979,7 @@
       "labels": {
         "fa": "بچه‌های طلاق"
       },
+      "aliases": {},
       "directors": [
         "Q3513928"
       ],
@@ -3624,6 +4011,11 @@
       "labels": {
         "en": "Ey Iran",
         "fa": "ای ایران"
+      },
+      "aliases": {
+        "en": [
+          "O Iran"
+        ]
       },
       "directors": [
         "Q2817346"
@@ -3659,6 +4051,7 @@
         "en": "Nemat Nafti",
         "fa": "نعمت نفتی"
       },
+      "aliases": {},
       "directors": [
         "Q16052744"
       ],
@@ -3684,6 +4077,7 @@
       "labels": {
         "fa": "خانه عنکبوت (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q2837122"
       ],
@@ -3710,6 +4104,7 @@
         "en": "Dalahoo",
         "fa": "دالاهو"
       },
+      "aliases": {},
       "directors": [
         "Q5943061"
       ],
@@ -3735,6 +4130,7 @@
       "labels": {
         "fa": "درد مشترک"
       },
+      "aliases": {},
       "directors": [
         "Q8049870"
       ],
@@ -3766,6 +4162,7 @@
       "labels": {
         "fa": "بلندی‌های صفر"
       },
+      "aliases": {},
       "directors": [
         "Q5714700"
       ],
@@ -3799,6 +4196,7 @@
         "en": "The Flight in the Night",
         "fa": "پرواز در شب"
       },
+      "aliases": {},
       "directors": [
         "Q7295166"
       ],
@@ -3826,6 +4224,11 @@
       "labels": {
         "fa": "رابطه پنهانی (فیلم)"
       },
+      "aliases": {
+        "fa": [
+          "رابطه پنهانی"
+        ]
+      },
       "directors": [
         "Q5774389"
       ],
@@ -3851,6 +4254,7 @@
       "labels": {
         "fa": "خط پایان (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q5955198"
       ],
@@ -3888,6 +4292,7 @@
       "labels": {
         "fa": "رشید"
       },
+      "aliases": {},
       "directors": [
         "Q7141366"
       ],
@@ -3915,6 +4320,7 @@
       "labels": {
         "fa": "دل و دشنه"
       },
+      "aliases": {},
       "directors": [
         "Q6783877"
       ],
@@ -3942,6 +4348,11 @@
       "labels": {
         "en": "The Wolf's Trail",
         "fa": "ردپای گرگ"
+      },
+      "aliases": {
+        "en": [
+          "Radd-e-pay-e-gorg"
+        ]
       },
       "directors": [
         "Q3101208"
@@ -3971,6 +4382,7 @@
         "en": "Curse",
         "fa": "نفرین"
       },
+      "aliases": {},
       "directors": [
         "Q2817346"
       ],
@@ -3996,6 +4408,7 @@
         "en": "Nikah Halala",
         "fa": "محلل"
       },
+      "aliases": {},
       "directors": [
         "Q3344360"
       ],
@@ -4023,6 +4436,7 @@
       "labels": {
         "fa": "روسپی"
       },
+      "aliases": {},
       "directors": [
         "Q5950406"
       ],
@@ -4051,6 +4465,7 @@
         "en": "Waiting",
         "fa": "انتظار"
       },
+      "aliases": {},
       "directors": [
         "Q2717537"
       ],
@@ -4085,6 +4500,7 @@
       "labels": {
         "fa": "دو روی سکه (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q5948781"
       ],
@@ -4111,6 +4527,11 @@
       "labels": {
         "en": "Dead End",
         "fa": "بن‌بست"
+      },
+      "aliases": {
+        "fa": [
+          "بن بست"
+        ]
       },
       "directors": [
         "Q3367084"
@@ -4145,6 +4566,12 @@
         "en": "The Legend of a Sigh",
         "fa": "افسانه آه"
       },
+      "aliases": {
+        "en": [
+          "Afsane-ye-ah",
+          "The Legend of Sight"
+        ]
+      },
       "directors": [
         "Q3513928"
       ],
@@ -4173,6 +4600,7 @@
         "en": "Shazdeh Ehtejab",
         "fa": "شازده احتجاب"
       },
+      "aliases": {},
       "directors": [
         "Q2749785"
       ],
@@ -4205,6 +4633,7 @@
       "labels": {
         "fa": "جنگ نفت‌کش‌ها"
       },
+      "aliases": {},
       "directors": [
         "Q5710320"
       ],
@@ -4231,6 +4660,7 @@
         "en": "Behtarin baba-ye donya",
         "fa": "بهترین بابای دنیا"
       },
+      "aliases": {},
       "directors": [
         "Q3016194"
       ],
@@ -4259,6 +4689,11 @@
       "labels": {
         "en": "From Karkheh to Rhein",
         "fa": "از کرخه تا راین"
+      },
+      "aliases": {
+        "en": [
+          "Az Karkheh ta Rhein"
+        ]
       },
       "directors": [
         "Q3046874"
@@ -4292,6 +4727,13 @@
         "en": "Hello Hello My Soul",
         "fa": "الو الو من جوجوام"
       },
+      "aliases": {
+        "en": [
+          "Aloo Aloo Man Jojoom",
+          "Hello! Hello! This Is Juju",
+          "Alo! Alo! Man joojoo-am"
+        ]
+      },
       "directors": [
         "Q5947066"
       ],
@@ -4320,6 +4762,7 @@
         "en": "Postman (film)",
         "fa": "پستچی"
       },
+      "aliases": {},
       "directors": [
         "Q1166019"
       ],
@@ -4353,6 +4796,11 @@
         "en": "Diamond 33",
         "fa": "الماس ۳۳"
       },
+      "aliases": {
+        "en": [
+          "Almaas 33"
+        ]
+      },
       "directors": [
         "Q1166019"
       ],
@@ -4383,6 +4831,7 @@
       "labels": {
         "fa": "دت یعنی دختر"
       },
+      "aliases": {},
       "directors": [
         "Q2821694"
       ],
@@ -4406,6 +4855,14 @@
       "labels": {
         "en": "The final act",
         "fa": "پرده آخر"
+      },
+      "aliases": {
+        "en": [
+          "Pardehe Akhar"
+        ],
+        "fa": [
+          "پرده آخر (فیلم)"
+        ]
       },
       "directors": [
         "Q6582692"
@@ -4442,6 +4899,7 @@
         "en": "Dash Akol",
         "fa": "داش‌آکل"
       },
+      "aliases": {},
       "directors": [
         "Q3101208"
       ],
@@ -4467,6 +4925,12 @@
       "labels": {
         "en": "Samad in the Way of Dragon",
         "fa": "صمد در راه اژدها"
+      },
+      "aliases": {
+        "en": [
+          "Samad dar rah ejdeha",
+          "Samad On the Path of Dragon"
+        ]
       },
       "directors": [
         "Q3367084"
@@ -4498,6 +4962,7 @@
       "labels": {
         "fa": "خانه کنار دریا"
       },
+      "aliases": {},
       "directors": [
         "Q5964395"
       ],
@@ -4530,6 +4995,7 @@
         "en": "Wood Pigeon",
         "fa": "طوقی"
       },
+      "aliases": {},
       "directors": [
         "Q250608"
       ],
@@ -4557,6 +5023,7 @@
       "labels": {
         "fa": "بانو"
       },
+      "aliases": {},
       "directors": [
         "Q1166019"
       ],
@@ -4591,6 +5058,7 @@
         "en": "Knucklebones",
         "fa": "سه قاپ"
       },
+      "aliases": {},
       "directors": [
         "Q5944820"
       ],
@@ -4618,6 +5086,7 @@
         "en": "Reza Motorcyclist",
         "fa": "رضا موتوری"
       },
+      "aliases": {},
       "directors": [
         "Q3101208"
       ],
@@ -4651,6 +5120,7 @@
       "labels": {
         "fa": "صادق کرده"
       },
+      "aliases": {},
       "directors": [
         "Q2817346"
       ],
@@ -4676,6 +5146,7 @@
       "labels": {
         "fa": "خانه خلوت"
       },
+      "aliases": {},
       "directors": [
         "Q5948292"
       ],
@@ -4711,6 +5182,7 @@
       "labels": {
         "fa": "رقص خاک"
       },
+      "aliases": {},
       "directors": [
         "Q2821694"
       ],
@@ -4735,6 +5207,11 @@
       "labels": {
         "en": "The Soil",
         "fa": "خاک"
+      },
+      "aliases": {
+        "en": [
+          "Soil"
+        ]
       },
       "directors": [
         "Q3101208"
@@ -4769,6 +5246,7 @@
         "en": "Seventeen Days to Execution",
         "fa": "هفده روز به اعدام"
       },
+      "aliases": {},
       "directors": [
         "Q5964395"
       ],
@@ -4794,6 +5272,12 @@
       "labels": {
         "en": "Avicenna",
         "fa": "بوعلی سینا"
+      },
+      "aliases": {
+        "en": [
+          "Bu-Ali Sina",
+          "Avicenna (television series)"
+        ]
       },
       "directors": [
         "Q5936427"
@@ -4821,6 +5305,7 @@
         "en": "Patal and Small Wishes",
         "fa": "پاتال و آرزوهای کوچک"
       },
+      "aliases": {},
       "directors": [
         "Q5942181"
       ],
@@ -4860,6 +5345,11 @@
         "en": "The Survivor",
         "fa": "بازمانده"
       },
+      "aliases": {
+        "en": [
+          "Survivor"
+        ]
+      },
       "directors": [
         "Q5948031"
       ],
@@ -4889,6 +5379,7 @@
         "en": "Ferdowsi",
         "fa": "فردوسی"
       },
+      "aliases": {},
       "directors": [
         "Q2821328"
       ],
@@ -4923,6 +5414,7 @@
         "en": "Mr. Naive",
         "fa": "آقای هالو"
       },
+      "aliases": {},
       "directors": [
         "Q1166019"
       ],
@@ -4957,6 +5449,11 @@
         "en": "The Window",
         "fa": "پنجره"
       },
+      "aliases": {
+        "en": [
+          "Window"
+        ]
+      },
       "directors": [
         "Q5943861"
       ],
@@ -4984,6 +5481,7 @@
         "en": "Malkoçoğlu Cem Sultan",
         "fa": "سرزمین دلاوران"
       },
+      "aliases": {},
       "directors": [
         "Q7312282"
       ],
@@ -5012,6 +5510,11 @@
       "labels": {
         "en": "Still Life",
         "fa": "طبیعت بی‌جان"
+      },
+      "aliases": {
+        "fa": [
+          "طبیعت بیجان"
+        ]
       },
       "directors": [
         "Q507555"
@@ -5048,6 +5551,11 @@
         "en": "Tangna",
         "fa": "تنگنا"
       },
+      "aliases": {
+        "en": [
+          "Strait"
+        ]
+      },
       "directors": [
         "Q2717537"
       ],
@@ -5079,6 +5587,14 @@
       "labels": {
         "en": "The Cycle",
         "fa": "دایره مینا"
+      },
+      "aliases": {
+        "en": [
+          "Cycle"
+        ],
+        "fa": [
+          "دایرهٔ مینا"
+        ]
       },
       "directors": [
         "Q1166019"
@@ -5115,6 +5631,11 @@
         "en": "Subah-o-Shyam",
         "fa": "همای سعادت"
       },
+      "aliases": {
+        "en": [
+          "Homaye saadet"
+        ]
+      },
       "directors": [
         "Q7684598"
       ],
@@ -5145,6 +5666,7 @@
         "en": "The Path of Glory",
         "fa": "راه افتخار"
       },
+      "aliases": {},
       "directors": [
         "Q3016194"
       ],
@@ -5174,6 +5696,11 @@
         "en": "Gorugo 13",
         "fa": "گلگو ۱۳"
       },
+      "aliases": {
+        "en": [
+          "Golgo 13"
+        ]
+      },
       "directors": [
         "Q6314417"
       ],
@@ -5200,6 +5727,7 @@
       "labels": {
         "fa": "حمله به اچ۳"
       },
+      "aliases": {},
       "directors": [
         "Q4117990"
       ],
@@ -5225,6 +5753,7 @@
       "labels": {
         "fa": "جایزه (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q2837122"
       ],
@@ -5253,6 +5782,11 @@
       "labels": {
         "en": "Khodahafez Rafigh",
         "fa": "خداحافظ رفیق"
+      },
+      "aliases": {
+        "en": [
+          "Goodbye Friend"
+        ]
       },
       "directors": [
         "Q2717537"
@@ -5288,6 +5822,11 @@
         "en": "The Great Scuffle",
         "fa": "جنجال بزرگ"
       },
+      "aliases": {
+        "en": [
+          "Janjal-e bozorg"
+        ]
+      },
       "directors": [
         "Q17992678"
       ],
@@ -5314,6 +5853,7 @@
         "en": "Reyhaneh",
         "fa": "ریحانه (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q16048762"
       ],
@@ -5342,6 +5882,7 @@
         "en": "The Indian Gift",
         "fa": "تحفه هند (فیلم ۱۳۷۴)"
       },
+      "aliases": {},
       "directors": [
         "Q16074331"
       ],
@@ -5376,6 +5917,11 @@
         "en": "The Grand Day",
         "fa": "روز باشکوه"
       },
+      "aliases": {
+        "en": [
+          "Rooz-e bashokooh"
+        ]
+      },
       "directors": [
         "Q3200884"
       ],
@@ -5404,6 +5950,7 @@
         "en": "Pickpocketers Don't Go to Heaven",
         "fa": "جیب‌برها به بهشت نمی‌روند"
       },
+      "aliases": {},
       "directors": [
         "Q2821693"
       ],
@@ -5438,6 +5985,7 @@
         "en": "Knights of Delgosha Alley",
         "fa": "دلاوران کوچه دلگشا"
       },
+      "aliases": {},
       "directors": [
         "Q5941972"
       ],
@@ -5472,6 +6020,11 @@
         "en": "Dear Wednesday",
         "fa": "چهارشنبه عزیز"
       },
+      "aliases": {
+        "en": [
+          "Chaharshanbe-ye aziz"
+        ]
+      },
       "directors": [
         "Q5644666"
       ],
@@ -5500,6 +6053,7 @@
         "en": "The Devil's Eye",
         "fa": "چشم شیطان"
       },
+      "aliases": {},
       "directors": [
         "Q5941972"
       ],
@@ -5529,6 +6083,7 @@
         "en": "Jadehay sard",
         "fa": "جاده‌های سرد"
       },
+      "aliases": {},
       "directors": [
         "Q6783877"
       ],
@@ -5568,6 +6123,11 @@
         "en": "Eye of the Hurricane",
         "fa": "در مسیر تندباد"
       },
+      "aliases": {
+        "en": [
+          "Dar Masir Tondbad"
+        ]
+      },
       "directors": [
         "Q6783877"
       ],
@@ -5599,6 +6159,12 @@
       "labels": {
         "en": "What's the New?",
         "fa": "دیگه چه خبر!؟"
+      },
+      "aliases": {
+        "en": [
+          "Dige Che Khabar",
+          "Dige Che Khabar?"
+        ]
       },
       "directors": [
         "Q3513928"
@@ -5634,6 +6200,16 @@
         "en": "Green Ashes",
         "fa": "خاکستر سبز"
       },
+      "aliases": {
+        "en": [
+          "خاکستر سبز",
+          "Khakestar-e sabz"
+        ],
+        "fa": [
+          "Khakestar-e sabz",
+          "Green Ashes"
+        ]
+      },
       "directors": [
         "Q3046874"
       ],
@@ -5663,6 +6239,7 @@
         "en": "The Scout",
         "fa": "دیده‌بان"
       },
+      "aliases": {},
       "directors": [
         "Q3046874"
       ],
@@ -5697,6 +6274,7 @@
         "en": "Baradarkoshi",
         "fa": "برادرکشی"
       },
+      "aliases": {},
       "directors": [
         "Q1672346"
       ],
@@ -5727,6 +6305,7 @@
       "labels": {
         "fa": "بت"
       },
+      "aliases": {},
       "directors": [
         "Q1672346"
       ],
@@ -5759,6 +6338,7 @@
       "labels": {
         "fa": "بیدار در شهر"
       },
+      "aliases": {},
       "directors": [
         "Q1672346"
       ],
@@ -5791,6 +6371,7 @@
       "labels": {
         "fa": "سینه‌چاک"
       },
+      "aliases": {},
       "directors": [
         "Q1672346"
       ],
@@ -5817,6 +6398,7 @@
         "en": "Rafigh",
         "fa": "رفیق"
       },
+      "aliases": {},
       "directors": [
         "Q1672346"
       ],
@@ -5844,6 +6426,7 @@
       "labels": {
         "fa": "هدف"
       },
+      "aliases": {},
       "directors": [
         "Q1672346"
       ],
@@ -5871,6 +6454,7 @@
       "labels": {
         "fa": "قفس"
       },
+      "aliases": {},
       "directors": [
         "Q1672346"
       ],
@@ -5896,6 +6480,11 @@
       "labels": {
         "en": "Up in the Sky",
         "fa": "بر فراز آسمان‌ها"
+      },
+      "aliases": {
+        "en": [
+          "Bar faraz-e asemanha"
+        ]
       },
       "directors": [
         "Q1370293"
@@ -5930,6 +6519,11 @@
         "en": "The Chivalrous",
         "fa": "جوانمرد"
       },
+      "aliases": {
+        "en": [
+          "Javanmard"
+        ]
+      },
       "directors": [
         "Q5923042"
       ],
@@ -5962,6 +6556,15 @@
       "labels": {
         "fa": "بی‌حجاب"
       },
+      "aliases": {
+        "en": [
+          "Bihejab",
+          "Bi Hejab"
+        ],
+        "fa": [
+          "بی حجاب"
+        ]
+      },
       "directors": [
         "Q1672346"
       ],
@@ -5989,6 +6592,7 @@
       "labels": {
         "fa": "میعادگاه خشم"
       },
+      "aliases": {},
       "directors": [
         "Q16050510"
       ],
@@ -6030,6 +6634,7 @@
         "en": "Shekast-napazir",
         "fa": "شکست‌ناپذیر"
       },
+      "aliases": {},
       "directors": [
         "Q16046589"
       ],
@@ -6056,6 +6661,7 @@
         "en": "Be Careful of Your Hat",
         "fa": "مواظب کلات باش"
       },
+      "aliases": {},
       "directors": [
         "Q16046589"
       ],
@@ -6089,6 +6695,7 @@
         "en": "Ayyoob",
         "fa": "ایوب"
       },
+      "aliases": {},
       "directors": [
         "Q5923042"
       ],
@@ -6122,6 +6729,7 @@
         "en": "Rebellion",
         "fa": "شورش"
       },
+      "aliases": {},
       "directors": [
         "Q16046589"
       ],
@@ -6148,6 +6756,7 @@
         "en": "Night of Strangers",
         "fa": "شب غریبان"
       },
+      "aliases": {},
       "directors": [
         "Q5938980"
       ],
@@ -6180,6 +6789,7 @@
       "labels": {
         "fa": "بوسه بر لب‌های خونین"
       },
+      "aliases": {},
       "directors": [
         "Q4980507"
       ],
@@ -6212,6 +6822,7 @@
       "labels": {
         "fa": "بت‌شکن"
       },
+      "aliases": {},
       "directors": [
         "Q5947357"
       ],
@@ -6245,6 +6856,7 @@
         "en": "Friendship",
         "fa": "رفاقت"
       },
+      "aliases": {},
       "directors": [
         "Q1672346"
       ],
@@ -6272,6 +6884,7 @@
       "labels": {
         "fa": "شاهرگ"
       },
+      "aliases": {},
       "directors": [
         "Q2837122"
       ],
@@ -6301,6 +6914,7 @@
         "en": "Heaven Is Never a Great Distance",
         "fa": "بهشت دور نیست"
       },
+      "aliases": {},
       "directors": [
         "Q5940906"
       ],
@@ -6335,6 +6949,12 @@
         "en": "The Crookes",
         "fa": "ناجورها"
       },
+      "aliases": {
+        "en": [
+          "Crookes",
+          "Najoorha"
+        ]
+      },
       "directors": [
         "Q16050510"
       ],
@@ -6368,6 +6988,12 @@
         "en": "The Thief in Black",
         "fa": "دزد سیاهپوش"
       },
+      "aliases": {
+        "en": [
+          "The Black Thief",
+          "Dozde Siyahpoush"
+        ]
+      },
       "directors": [
         "Q4746635"
       ],
@@ -6400,6 +7026,7 @@
       "labels": {
         "fa": "مردان خشن"
       },
+      "aliases": {},
       "directors": [
         "Q5950127"
       ],
@@ -6427,6 +7054,7 @@
       "labels": {
         "fa": "فاتحین صحرا"
       },
+      "aliases": {},
       "directors": [
         "Q16052006"
       ],
@@ -6452,6 +7080,12 @@
       "labels": {
         "en": "Anxiety",
         "fa": "دلهره"
+      },
+      "aliases": {
+        "en": [
+          "Frightened",
+          "Delhoreh"
+        ]
       },
       "directors": [
         "Q4980507"
@@ -6495,6 +7129,7 @@
       "labels": {
         "fa": "یک قدم تا مرگ"
       },
+      "aliases": {},
       "directors": [
         "Q4980507"
       ],
@@ -6533,6 +7168,11 @@
         "en": "Wishing to Get Married",
         "fa": "در آرزوی ازدواج"
       },
+      "aliases": {
+        "en": [
+          "The Dream of Marriage"
+        ]
+      },
       "directors": [
         "Q5940401"
       ],
@@ -6560,6 +7200,7 @@
       "labels": {
         "fa": "بی‌پناه"
       },
+      "aliases": {},
       "directors": [
         "Q2837122"
       ],
@@ -6586,6 +7227,7 @@
         "en": "Tears and Smiles",
         "fa": "اشک و لبخند"
       },
+      "aliases": {},
       "directors": [
         "Q5947357"
       ],
@@ -6611,6 +7253,7 @@
       "labels": {
         "fa": "افسانه دو خواهر"
       },
+      "aliases": {},
       "directors": [
         "Q3192352"
       ],
@@ -6636,6 +7279,7 @@
       "labels": {
         "fa": "بهشت پنهان"
       },
+      "aliases": {},
       "directors": [
         "Q6359591"
       ],
@@ -6667,6 +7311,7 @@
       "labels": {
         "fa": "بی‌قرار (فیلم ۱۳۷۳)"
       },
+      "aliases": {},
       "directors": [
         "Q16051252"
       ],
@@ -6690,6 +7335,7 @@
       "labels": {
         "fa": "حالا چه شود!"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+1994-00-00T00:00:00Z"
@@ -6711,6 +7357,7 @@
       "labels": {
         "fa": "خط آتش (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q26950773"
       ],
@@ -6736,6 +7383,7 @@
       "labels": {
         "fa": "در کمال خونسردی"
       },
+      "aliases": {},
       "directors": [
         "Q7506733"
       ],
@@ -6759,6 +7407,7 @@
       "labels": {
         "fa": "دیدار (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q3318954"
       ],
@@ -6792,6 +7441,7 @@
       "labels": {
         "fa": "دیوانه‌وار"
       },
+      "aliases": {},
       "directors": [
         "Q6359591"
       ],
@@ -6817,6 +7467,7 @@
       "labels": {
         "fa": "روزهای خوب زندگی"
       },
+      "aliases": {},
       "directors": [
         "Q5948292"
       ],
@@ -6848,6 +7499,7 @@
       "labels": {
         "fa": "ایوب پیامبر"
       },
+      "aliases": {},
       "directors": [
         "Q8215195"
       ],
@@ -6876,6 +7528,7 @@
         "en": "The Stuntman",
         "fa": "بدل"
       },
+      "aliases": {},
       "directors": [
         "Q5774389"
       ],
@@ -6904,6 +7557,11 @@
         "en": "Bluff",
         "fa": "بلوف"
       },
+      "aliases": {
+        "en": [
+          "Bolof"
+        ]
+      },
       "directors": [
         "Q4980507"
       ],
@@ -6931,6 +7589,7 @@
       "labels": {
         "fa": "بی‌تو هرگز"
       },
+      "aliases": {},
       "directors": [
         "Q16046094"
       ],
@@ -6957,6 +7616,7 @@
         "en": "The Antidote",
         "fa": "پادزهر"
       },
+      "aliases": {},
       "directors": [
         "Q25424389"
       ],
@@ -6984,6 +7644,7 @@
       "labels": {
         "fa": "پرواز از اردوگاه"
       },
+      "aliases": {},
       "directors": [
         "Q16073630"
       ],
@@ -7017,6 +7678,7 @@
       "labels": {
         "fa": "پنجاه روز التهاب"
       },
+      "aliases": {},
       "directors": [
         "Q21694161"
       ],
@@ -7042,6 +7704,7 @@
       "labels": {
         "fa": "تاواریش"
       },
+      "aliases": {},
       "directors": [
         "Q5960451"
       ],
@@ -7067,6 +7730,7 @@
       "labels": {
         "fa": "ترانزیت (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q4725177"
       ],
@@ -7094,6 +7758,7 @@
       "labels": {
         "fa": "جاده عشق"
       },
+      "aliases": {},
       "directors": [
         "Q5906563"
       ],
@@ -7119,6 +7784,7 @@
       "labels": {
         "fa": "دمرل"
       },
+      "aliases": {},
       "directors": [
         "Q5956193"
       ],
@@ -7153,6 +7819,7 @@
         "en": "The Secret of the Night Scented Stock",
         "fa": "راز گل شب بو"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+1993-00-00T00:00:00Z"
@@ -7178,6 +7845,7 @@
       "labels": {
         "fa": "راننده سفیر"
       },
+      "aliases": {},
       "directors": [
         "Q31070097"
       ],
@@ -7205,6 +7873,11 @@
         "en": "The Abadanis",
         "fa": "آبادانی‌ها"
       },
+      "aliases": {
+        "fa": [
+          "آبادانیها"
+        ]
+      },
       "directors": [
         "Q3200884"
       ],
@@ -7230,6 +7903,7 @@
       "labels": {
         "fa": "آذرخش"
       },
+      "aliases": {},
       "directors": [
         "Q2827453"
       ],
@@ -7253,6 +7927,7 @@
       "labels": {
         "fa": "از بلور خون"
       },
+      "aliases": {},
       "directors": [
         "Q5901521"
       ],
@@ -7278,6 +7953,7 @@
       "labels": {
         "fa": "باز باران"
       },
+      "aliases": {},
       "directors": [
         "Q5941418"
       ],
@@ -7301,6 +7977,7 @@
       "labels": {
         "fa": "بازیچه"
       },
+      "aliases": {},
       "directors": [
         "Q11941480"
       ],
@@ -7332,6 +8009,7 @@
       "labels": {
         "fa": "بر بال فرشتگان"
       },
+      "aliases": {},
       "directors": [
         "Q6165109"
       ],
@@ -7357,6 +8035,7 @@
       "labels": {
         "fa": "بندر مه‌آلود"
       },
+      "aliases": {},
       "directors": [
         "Q5940415"
       ],
@@ -7384,6 +8063,7 @@
       "labels": {
         "fa": "بیا با من"
       },
+      "aliases": {},
       "directors": [
         "Q56365936"
       ],
@@ -7407,6 +8087,7 @@
       "labels": {
         "fa": "تماس شیطانی"
       },
+      "aliases": {},
       "directors": [
         "Q16050623"
       ],
@@ -7434,6 +8115,7 @@
       "labels": {
         "fa": "تونل (فیلم ۱۳۷۱)"
       },
+      "aliases": {},
       "directors": [
         "Q5962350"
       ],
@@ -7459,6 +8141,7 @@
       "labels": {
         "fa": "چشمهایم برای تو"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+1992-00-00T00:00:00Z"
@@ -7482,6 +8165,7 @@
       "labels": {
         "fa": "حماسه مجنون"
       },
+      "aliases": {},
       "directors": [
         "Q6414650"
       ],
@@ -7509,6 +8193,7 @@
         "en": "The Eclipse (Iranian film)",
         "fa": "خسوف (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q7295166"
       ],
@@ -7537,6 +8222,7 @@
         "en": "Dayan Bakh",
         "fa": "دایان باخ"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+1993-00-00T00:00:00Z"
@@ -7562,6 +8248,7 @@
       "labels": {
         "fa": "اتل متل توتوله"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+1992-00-00T00:00:00Z"
@@ -7585,6 +8272,7 @@
       "labels": {
         "fa": "افسانه مه‌پلنگ"
       },
+      "aliases": {},
       "directors": [
         "Q1942648"
       ],
@@ -7610,6 +8298,7 @@
       "labels": {
         "fa": "امید"
       },
+      "aliases": {},
       "directors": [
         "Q26253478"
       ],
@@ -7636,6 +8325,7 @@
         "en": "Enfejar Dar Otaghe Amal",
         "fa": "انفجار در اتاق عمل"
       },
+      "aliases": {},
       "directors": [
         "Q16053118"
       ],
@@ -7664,6 +8354,7 @@
         "en": "Avinar",
         "fa": "اوینار"
       },
+      "aliases": {},
       "directors": [
         "Q5939074"
       ],
@@ -7695,6 +8386,7 @@
       "labels": {
         "fa": "برخورد"
       },
+      "aliases": {},
       "directors": [
         "Q7530685"
       ],
@@ -7720,6 +8412,7 @@
       "labels": {
         "fa": "پرنده آهنین"
       },
+      "aliases": {},
       "directors": [
         "Q5694316"
       ],
@@ -7747,6 +8440,7 @@
       "labels": {
         "fa": "پوتین (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q16051254"
       ],
@@ -7772,6 +8466,7 @@
       "labels": {
         "fa": "تبعیدی‌ها (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q5774389"
       ],
@@ -7797,6 +8492,7 @@
       "labels": {
         "fa": "دادستان (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q31070232"
       ],
@@ -7822,6 +8518,7 @@
       "labels": {
         "fa": "دره شاپرک‌ها"
       },
+      "aliases": {},
       "directors": [
         "Q5445616"
       ],
@@ -7847,6 +8544,7 @@
       "labels": {
         "fa": "دو نیمه سیب"
       },
+      "aliases": {},
       "directors": [
         "Q3200884"
       ],
@@ -7872,6 +8570,7 @@
       "labels": {
         "fa": "راز چشمه سرخ"
       },
+      "aliases": {},
       "directors": [
         "Q4725177"
       ],
@@ -7897,6 +8596,7 @@
       "labels": {
         "fa": "راه و بیراه"
       },
+      "aliases": {},
       "directors": [
         "Q7506733"
       ],
@@ -7922,6 +8622,7 @@
       "labels": {
         "fa": "آتش در خرمن"
       },
+      "aliases": {},
       "directors": [
         "Q16050429"
       ],
@@ -7947,6 +8648,7 @@
       "labels": {
         "fa": "ابلیس"
       },
+      "aliases": {},
       "directors": [
         "Q2827453"
       ],
@@ -7972,6 +8674,7 @@
       "labels": {
         "fa": "بازگشت قهرمان"
       },
+      "aliases": {},
       "directors": [
         "Q5947357"
       ],
@@ -8003,6 +8706,7 @@
       "labels": {
         "fa": "بازی بزرگان"
       },
+      "aliases": {},
       "directors": [
         "Q3192352"
       ],
@@ -8027,6 +8731,11 @@
       },
       "labels": {
         "fa": "به خاطر همه چیز"
+      },
+      "aliases": {
+        "fa": [
+          "بخاطر همه چیز"
+        ]
       },
       "directors": [
         "Q5906563"
@@ -8059,6 +8768,7 @@
       "labels": {
         "fa": "پرواز در نهایت"
       },
+      "aliases": {},
       "directors": [
         "Q5934425"
       ],
@@ -8083,6 +8793,11 @@
       },
       "labels": {
         "fa": "تعقیب سایه‌ها"
+      },
+      "aliases": {
+        "en": [
+          "Ta'ghib-e sayeha"
+        ]
       },
       "directors": [
         "Q5694316"
@@ -8111,6 +8826,7 @@
       "labels": {
         "fa": "تیغ آفتاب"
       },
+      "aliases": {},
       "directors": [
         "Q25424524"
       ],
@@ -8138,6 +8854,7 @@
       "labels": {
         "fa": "جستجو در جزیره"
       },
+      "aliases": {},
       "directors": [
         "Q5948292"
       ],
@@ -8163,6 +8880,7 @@
       "labels": {
         "fa": "چاووش (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q4980507"
       ],
@@ -8188,6 +8906,7 @@
       "labels": {
         "fa": "چون ابر در بهاران"
       },
+      "aliases": {},
       "directors": [
         "Q16050404"
       ],
@@ -8213,6 +8932,7 @@
       "labels": {
         "fa": "حکایت آن مرد خوشبخت"
       },
+      "aliases": {},
       "directors": [
         "Q61061914"
       ],
@@ -8236,6 +8956,7 @@
       "labels": {
         "fa": "خون‌بس (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q42902696"
       ],
@@ -8262,6 +8983,11 @@
       "labels": {
         "en": "In the Alleys of Love",
         "fa": "در کوچه‌های عشق"
+      },
+      "aliases": {
+        "en": [
+          "Dar kouchehay-e eshq"
+        ]
       },
       "directors": [
         "Q923365"
@@ -8290,6 +9016,7 @@
       "labels": {
         "fa": "راز خنجر"
       },
+      "aliases": {},
       "directors": [
         "Q109551290"
       ],
@@ -8315,6 +9042,7 @@
       "labels": {
         "fa": "بازی تمام شد"
       },
+      "aliases": {},
       "directors": [
         "Q5948292"
       ],
@@ -8338,6 +9066,7 @@
       "labels": {
         "fa": "باغ سید"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+1989-01-01T00:00:00Z"
@@ -8362,6 +9091,7 @@
         "en": "Parvaz-e panjome Juin",
         "fa": "پرواز پنجم ژوئن"
       },
+      "aliases": {},
       "directors": [
         "Q20110457"
       ],
@@ -8395,6 +9125,7 @@
       "labels": {
         "fa": "پول خارجی"
       },
+      "aliases": {},
       "directors": [
         "Q2440957"
       ],
@@ -8420,6 +9151,7 @@
       "labels": {
         "fa": "تابستان ۵۸"
       },
+      "aliases": {},
       "directors": [
         "Q5962350"
       ],
@@ -8445,6 +9177,7 @@
       "labels": {
         "fa": "تماس (فیلم ۱۳۶۸)"
       },
+      "aliases": {},
       "directors": [
         "Q16045729"
       ],
@@ -8474,6 +9207,7 @@
       "labels": {
         "fa": "جستجوگر (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q5948781"
       ],
@@ -8500,6 +9234,7 @@
         "en": "The Girl Next To The Swamp",
         "fa": "دخترک کنار مرداب"
       },
+      "aliases": {},
       "directors": [
         "Q16052677"
       ],
@@ -8532,6 +9267,7 @@
         "en": "Wage",
         "fa": "دستمزد (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q25424524"
       ],
@@ -8563,6 +9299,7 @@
       "labels": {
         "fa": "دل نمک"
       },
+      "aliases": {},
       "directors": [
         "Q5940415"
       ],
@@ -8592,6 +9329,7 @@
       "labels": {
         "fa": "دو سرنوشت"
       },
+      "aliases": {},
       "directors": [
         "Q31070095"
       ],
@@ -8617,6 +9355,7 @@
       "labels": {
         "fa": "راز کوکب"
       },
+      "aliases": {},
       "directors": [
         "Q5702338"
       ],
@@ -8642,6 +9381,7 @@
       "labels": {
         "fa": "رانده شده (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q5774389"
       ],
@@ -8673,6 +9413,7 @@
       "labels": {
         "fa": "زمان از دست رفته"
       },
+      "aliases": {},
       "directors": [
         "Q3400565"
       ],
@@ -8698,6 +9439,7 @@
       "labels": {
         "fa": "ارثیه"
       },
+      "aliases": {},
       "directors": [
         "Q25426723"
       ],
@@ -8723,6 +9465,7 @@
       "labels": {
         "fa": "افسون"
       },
+      "aliases": {},
       "directors": [
         "Q21515252"
       ],
@@ -8750,6 +9493,7 @@
         "en": "Horizon",
         "fa": "افق"
       },
+      "aliases": {},
       "directors": [
         "Q7295166"
       ],
@@ -8777,6 +9521,7 @@
         "en": "Man and Weapon",
         "fa": "انسان و اسلحه"
       },
+      "aliases": {},
       "directors": [
         "Q5962350"
       ],
@@ -8804,6 +9549,7 @@
       "labels": {
         "fa": "پنجره (فیلم ۱۳۶۷)"
       },
+      "aliases": {},
       "directors": [
         "Q31070142"
       ],
@@ -8829,6 +9575,7 @@
       "labels": {
         "fa": "تا غروب"
       },
+      "aliases": {},
       "directors": [
         "Q16052202"
       ],
@@ -8858,6 +9605,7 @@
       "labels": {
         "fa": "چون باد"
       },
+      "aliases": {},
       "directors": [
         "Q1942648"
       ],
@@ -8887,6 +9635,7 @@
       "labels": {
         "fa": "در جستجوی قهرمان"
       },
+      "aliases": {},
       "directors": [
         "Q25425949"
       ],
@@ -8918,6 +9667,7 @@
       "labels": {
         "fa": "دلار (فیلم ۱۳۶۷)"
       },
+      "aliases": {},
       "directors": [
         "Q5939684"
       ],
@@ -8943,6 +9693,11 @@
       "labels": {
         "en": "Lead Age",
         "fa": "دوران سربی"
+      },
+      "aliases": {
+        "en": [
+          "Doran-e Sorbi"
+        ]
       },
       "directors": [
         "Q16045725"
@@ -8971,6 +9726,7 @@
       "labels": {
         "fa": "روزنه (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q6414650"
       ],
@@ -8996,6 +9752,11 @@
       "labels": {
         "en": "Pomegranate and Cane",
         "fa": "نار و نی"
+      },
+      "aliases": {
+        "en": [
+          "Nar-o-nay"
+        ]
       },
       "directors": [
         "Q16050385"
@@ -9025,6 +9786,7 @@
         "en": "The Station",
         "fa": "ایستگاه"
       },
+      "aliases": {},
       "directors": [
         "Q5956193"
       ],
@@ -9052,6 +9814,7 @@
       "labels": {
         "fa": "بهار در پاییز"
       },
+      "aliases": {},
       "directors": [
         "Q5960451"
       ],
@@ -9081,6 +9844,7 @@
       "labels": {
         "fa": "پرستار شب"
       },
+      "aliases": {},
       "directors": [
         "Q10858149"
       ],
@@ -9108,6 +9872,7 @@
         "en": "Little Bird of Happiness (1988 film)",
         "fa": "پرنده کوچک خوشبختی"
       },
+      "aliases": {},
       "directors": [
         "Q3400565"
       ],
@@ -9135,6 +9900,7 @@
       "labels": {
         "fa": "جعفرخان از فرنگ برگشته (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q250608"
       ],
@@ -9161,6 +9927,7 @@
         "en": "Jamil",
         "fa": "جمیل"
       },
+      "aliases": {},
       "directors": [
         "Q31070088"
       ],
@@ -9194,6 +9961,7 @@
       "labels": {
         "fa": "جنگل‌بان"
       },
+      "aliases": {},
       "directors": [
         "Q56367876"
       ],
@@ -9219,6 +9987,7 @@
       "labels": {
         "fa": "جهیزیه‌ای برای رباب"
       },
+      "aliases": {},
       "directors": [
         "Q7506733"
       ],
@@ -9244,6 +10013,7 @@
       "labels": {
         "fa": "خارج از محدوده"
       },
+      "aliases": {},
       "directors": [
         "Q2440957"
       ],
@@ -9275,6 +10045,7 @@
       "labels": {
         "fa": "خانه‌ای مثل شهر"
       },
+      "aliases": {},
       "directors": [
         "Q18545260"
       ],
@@ -9300,6 +10071,7 @@
       "labels": {
         "fa": "خبرچین (فیلم)"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+1987-01-01T00:00:00Z"
@@ -9323,6 +10095,7 @@
       "labels": {
         "fa": "در انتظار شیطان"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+1987-01-01T00:00:00Z"
@@ -9346,6 +10119,7 @@
       "labels": {
         "fa": "ردپایی بر شن"
       },
+      "aliases": {},
       "directors": [
         "Q3318954"
       ],
@@ -9373,6 +10147,13 @@
       "labels": {
         "en": "Fish (film)",
         "fa": "ماهی"
+      },
+      "aliases": {
+        "en": [
+          "Fish",
+          "Mahi",
+          "The Fish"
+        ]
       },
       "directors": [
         "Q3192352"
@@ -9402,6 +10183,15 @@
         "en": "Room One",
         "fa": "اتاق یک"
       },
+      "aliases": {
+        "en": [
+          "Otagh-e yek",
+          "Room One (film)"
+        ],
+        "fa": [
+          "اطاق یک"
+        ]
+      },
       "directors": [
         "Q16053118"
       ],
@@ -9429,6 +10219,7 @@
       "labels": {
         "fa": "بگذار زندگی کنم"
       },
+      "aliases": {},
       "directors": [
         "Q5947357"
       ],
@@ -9458,6 +10249,7 @@
       "labels": {
         "fa": "ترنج (فیلم ۱۳۶۵)"
       },
+      "aliases": {},
       "directors": [
         "Q5933908"
       ],
@@ -9490,6 +10282,7 @@
         "en": "The Organization",
         "fa": "تشکیلات (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q56364127"
       ],
@@ -9517,6 +10310,7 @@
       "labels": {
         "fa": "تصویر آخر"
       },
+      "aliases": {},
       "directors": [
         "Q5948292"
       ],
@@ -9542,6 +10336,7 @@
       "labels": {
         "fa": "تیرباران (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q56365165"
       ],
@@ -9573,6 +10368,7 @@
       "labels": {
         "fa": "جدال در تاسوکی"
       },
+      "aliases": {},
       "directors": [
         "Q5434809"
       ],
@@ -9598,6 +10394,7 @@
       "labels": {
         "fa": "چمدان (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q5943861"
       ],
@@ -9623,6 +10420,7 @@
       "labels": {
         "fa": "خانه ابری"
       },
+      "aliases": {},
       "directors": [
         "Q16047134"
       ],
@@ -9649,6 +10447,7 @@
         "en": "The Manuscripts",
         "fa": "دست نوشته‌ها"
       },
+      "aliases": {},
       "directors": [
         "Q16074629"
       ],
@@ -9678,6 +10477,7 @@
         "en": "Days of Waiting",
         "fa": "روزهای انتظار"
       },
+      "aliases": {},
       "directors": [
         "Q5940401"
       ],
@@ -9712,6 +10512,11 @@
         "en": "The Other Side of The Fog",
         "fa": "آن سوی مه"
       },
+      "aliases": {
+        "fa": [
+          "آنسوی مه"
+        ]
+      },
       "directors": [
         "Q56367115"
       ],
@@ -9736,6 +10541,7 @@
         "en": "Otoboos",
         "fa": "اتوبوس"
       },
+      "aliases": {},
       "directors": [
         "Q5956193"
       ],
@@ -9777,6 +10583,7 @@
         "en": "A Boat to the Beach (Iranian film)",
         "fa": "بلمی به سوی ساحل"
       },
+      "aliases": {},
       "directors": [
         "Q7295166"
       ],
@@ -9804,6 +10611,7 @@
       "labels": {
         "fa": "پدربزرگ (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q16051252"
       ],
@@ -9829,6 +10637,7 @@
       "labels": {
         "fa": "پلاک (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q16046275"
       ],
@@ -9862,6 +10671,7 @@
       "labels": {
         "fa": "تشریفات"
       },
+      "aliases": {},
       "directors": [
         "Q5960451"
       ],
@@ -9895,6 +10705,7 @@
       "labels": {
         "fa": "تفنگ شکسته"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+1985-01-01T00:00:00Z"
@@ -9930,6 +10741,7 @@
       "labels": {
         "fa": "تنوره دیو (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q3200884"
       ],
@@ -9961,6 +10773,7 @@
       "labels": {
         "fa": "جدال (فیلم ۱۳۶۴)"
       },
+      "aliases": {},
       "directors": [
         "Q1942648"
       ],
@@ -9992,6 +10805,7 @@
       "labels": {
         "fa": "جستجو در شهر"
       },
+      "aliases": {},
       "directors": [
         "Q18545260"
       ],
@@ -10021,6 +10835,7 @@
       "labels": {
         "fa": "برگ و باد"
       },
+      "aliases": {},
       "directors": [
         "Q5939313"
       ],
@@ -10053,6 +10868,11 @@
         "en": "Bibi Chelcheleh",
         "fa": "بی‌بی چلچله"
       },
+      "aliases": {
+        "fa": [
+          "بی بی چلچله"
+        ]
+      },
       "directors": [
         "Q3197643"
       ],
@@ -10082,6 +10902,7 @@
         "en": "A Military Base in Hell",
         "fa": "پایگاه جهنمی"
       },
+      "aliases": {},
       "directors": [
         "Q16051959"
       ],
@@ -10111,6 +10932,7 @@
         "en": "The Flag Bearer (1984 film)",
         "fa": "پرچم‌دار"
       },
+      "aliases": {},
       "directors": [
         "Q4117990"
       ],
@@ -10134,6 +10956,7 @@
       "labels": {
         "fa": "پیراک"
       },
+      "aliases": {},
       "directors": [
         "Q16053311"
       ],
@@ -10173,6 +10996,7 @@
       "labels": {
         "fa": "تاتوره (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q3197643"
       ],
@@ -10204,6 +11028,7 @@
       "labels": {
         "fa": "در اسارت"
       },
+      "aliases": {},
       "directors": [
         "Q31070069"
       ],
@@ -10229,6 +11054,7 @@
       "labels": {
         "fa": "ریشه در خون"
       },
+      "aliases": {},
       "directors": [
         "Q7530685"
       ],
@@ -10260,6 +11086,11 @@
       "labels": {
         "fa": "بازجویی یک جنایت"
       },
+      "aliases": {
+        "fa": [
+          "بازجوئی یک جنایت"
+        ]
+      },
       "directors": [
         "Q1942648"
       ],
@@ -10289,6 +11120,7 @@
       "labels": {
         "fa": "بالاش"
       },
+      "aliases": {},
       "directors": [
         "Q16051959"
       ],
@@ -10314,6 +11146,7 @@
       "labels": {
         "fa": "پیک جنگل"
       },
+      "aliases": {},
       "directors": [
         "Q5941972"
       ],
@@ -10340,6 +11173,7 @@
         "en": "The Musketeer",
         "fa": "تفنگدار"
       },
+      "aliases": {},
       "directors": [
         "Q10883956"
       ],
@@ -10369,6 +11203,7 @@
         "en": "Hesar",
         "fa": "حصار (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q28713669"
       ],
@@ -10396,6 +11231,7 @@
       "labels": {
         "fa": "خاک و خون"
       },
+      "aliases": {},
       "directors": [
         "Q6359591"
       ],
@@ -10429,6 +11265,7 @@
         "en": "Daadshah",
         "fa": "دادشاه (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q26253478"
       ],
@@ -10460,6 +11297,7 @@
       "labels": {
         "fa": "زخمه (فیلم)"
       },
+      "aliases": {},
       "directors": [
         "Q16045729"
       ],
@@ -10485,6 +11323,7 @@
       "labels": {
         "fa": "خانه آقای حقدوست"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+1980-00-00T00:00:00Z"
@@ -10511,6 +11350,7 @@
       "labels": {
         "fa": "خون‌بارش"
       },
+      "aliases": {},
       "directors": [
         "Q5940415"
       ],
@@ -10538,6 +11378,7 @@
       "labels": {
         "fa": "مدرسه‌ای که می‌رفتیم"
       },
+      "aliases": {},
       "directors": [
         "Q1166019"
       ],
@@ -10563,6 +11404,7 @@
       "labels": {
         "fa": "جنگ اطهر"
       },
+      "aliases": {},
       "directors": [
         "Q10858149"
       ],
@@ -10586,6 +11428,11 @@
       "labels": {
         "en": "Zende Bad",
         "fa": "زنده باد…"
+      },
+      "aliases": {
+        "en": [
+          "Long Live"
+        ]
       },
       "directors": [
         "Q923365"
@@ -10615,6 +11462,7 @@
         "en": "To the Last Breath",
         "fa": "تا آخرین نفس"
       },
+      "aliases": {},
       "directors": [
         "Q6359591"
       ],
@@ -10645,6 +11493,7 @@
       "labels": {
         "fa": "حق و ناحق"
       },
+      "aliases": {},
       "directors": [
         "Q16051603"
       ],
@@ -10676,6 +11525,7 @@
         "en": "Zakhm-e khanjar-e rafigh",
         "fa": "زخم خنجر رفیق"
       },
+      "aliases": {},
       "directors": [
         "Q5953196"
       ],
@@ -10703,6 +11553,11 @@
       "labels": {
         "fa": "زرخرید"
       },
+      "aliases": {
+        "fa": [
+          "زر خرید"
+        ]
+      },
       "directors": [
         "Q16046480"
       ],
@@ -10729,6 +11584,11 @@
         "en": "Samad Becomes Homeless",
         "fa": "صمد دربه‌در می‌شود"
       },
+      "aliases": {
+        "en": [
+          "Samad dar-be-dar mishavad"
+        ]
+      },
       "directors": [
         "Q3367084"
       ],
@@ -10754,6 +11614,7 @@
       "labels": {
         "fa": "عبور از مرز شب"
       },
+      "aliases": {},
       "directors": [
         "Q16074448"
       ],
@@ -10779,6 +11640,7 @@
       "labels": {
         "fa": "ماجراهای علاءالدین و چراغ جادو"
       },
+      "aliases": {},
       "directors": [
         "Q7141366"
       ],
@@ -10802,6 +11664,14 @@
       "labels": {
         "en": "Breathtaking",
         "fa": "نفس‌گیر"
+      },
+      "aliases": {
+        "en": [
+          "Nafas-gir"
+        ],
+        "fa": [
+          "نفس گیر"
+        ]
       },
       "directors": [
         "Q14898684"
@@ -10833,6 +11703,11 @@
       "labels": {
         "fa": "آقای لر به شهر می‌رود"
       },
+      "aliases": {
+        "fa": [
+          "آقای لر بشهر میرود"
+        ]
+      },
       "directors": [
         "Q4746635"
       ],
@@ -10861,6 +11736,7 @@
       "labels": {
         "fa": "اشک رقاصه"
       },
+      "aliases": {},
       "directors": [
         "Q5949461"
       ],
@@ -10888,6 +11764,7 @@
       "labels": {
         "fa": "تازه عروس"
       },
+      "aliases": {},
       "directors": [
         "Q5949461"
       ],
@@ -10918,6 +11795,7 @@
       "labels": {
         "fa": "تلافی"
       },
+      "aliases": {},
       "directors": [
         "Q10859302"
       ],
@@ -10946,6 +11824,7 @@
         "en": "Johnny va topol",
         "fa": "جانی و تپل"
       },
+      "aliases": {},
       "directors": [
         "Q31070069"
       ],
@@ -10979,6 +11858,7 @@
         "en": "Grey",
         "fa": "خاکستری"
       },
+      "aliases": {},
       "directors": [
         "Q18342998"
       ],
@@ -11011,6 +11891,7 @@
       "labels": {
         "fa": "خان نایب"
       },
+      "aliases": {},
       "directors": [
         "Q5951687"
       ],
@@ -11044,6 +11925,12 @@
         "en": "Khoda ghovvat",
         "fa": "خدا قوت"
       },
+      "aliases": {
+        "en": [
+          "Godspeed",
+          "خدا قوت"
+        ]
+      },
       "directors": [
         "Q16052744"
       ],
@@ -11072,6 +11959,7 @@
         "en": "Dar shahr khabari nist",
         "fa": "در شهر خبری نیست"
       },
+      "aliases": {},
       "directors": [
         "Q5960451"
       ],
@@ -11105,6 +11993,11 @@
         "en": "Unaware Days",
         "fa": "روزهای بی‌خبری"
       },
+      "aliases": {
+        "en": [
+          "Roozha-ye bikhabari"
+        ]
+      },
       "directors": [
         "Q4746635"
       ],
@@ -11131,6 +12024,7 @@
         "en": "Charlotte be bazarche miayad",
         "fa": "شارلوت به بازارچه می‌آید"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+1977-01-01T00:00:00Z"
@@ -11156,6 +12050,7 @@
       "labels": {
         "fa": "شب آفتابی"
       },
+      "aliases": {},
       "directors": [
         "Q7530685"
       ],
@@ -11187,6 +12082,7 @@
         "en": "Toghyangar",
         "fa": "طغیانگر"
       },
+      "aliases": {},
       "directors": [
         "Q14898684"
       ],
@@ -11215,6 +12111,11 @@
         "en": "Feri Dast Ghashang",
         "fa": "فری دست قشنگ"
       },
+      "aliases": {
+        "en": [
+          "Free Hand"
+        ]
+      },
       "directors": [
         "Q5960451"
       ],
@@ -11242,6 +12143,7 @@
       "labels": {
         "fa": "فریاد عشق"
       },
+      "aliases": {},
       "directors": [
         "Q16051137"
       ],
@@ -11268,6 +12170,7 @@
         "en": "Only Mr. Mahdi Can",
         "fa": "فقط آقا مهدی می تونه"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -11296,6 +12199,7 @@
         "en": "Man of God",
         "fa": "مرد خدا"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -11323,6 +12227,14 @@
       "labels": {
         "en": "Yeki khosh seda, yeki khosh dast",
         "fa": "یکی خوش‌صدا، یکی خوش‌دست"
+      },
+      "aliases": {
+        "en": [
+          "Yeki khosh seda yeki khosh dast"
+        ],
+        "fa": [
+          "یکی خوش صدا یکی خوش دست"
+        ]
       },
       "directors": [
         "Q16046480"
@@ -11352,6 +12264,7 @@
         "en": "South Fire",
         "fa": "آتش جنوب"
       },
+      "aliases": {},
       "directors": [
         "Q17991458"
       ],
@@ -11384,6 +12297,7 @@
       "labels": {
         "fa": "بابا گلی به جمالت"
       },
+      "aliases": {},
       "directors": [
         "Q4746635"
       ],
@@ -11414,6 +12328,7 @@
       "labels": {
         "fa": "بی‌گناه"
       },
+      "aliases": {},
       "directors": [
         "Q5946699"
       ],
@@ -11447,6 +12362,7 @@
         "en": "Bi-Neshan",
         "fa": "بی‌نشان"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+1976-00-00T00:00:00Z"
@@ -11478,6 +12394,15 @@
         "en": "Pak Bakhteh",
         "fa": "پاک‌باخته"
       },
+      "aliases": {
+        "en": [
+          "Pak‌bakhteh"
+        ],
+        "fa": [
+          "پاکباخته",
+          "پاک باخته"
+        ]
+      },
       "directors": [
         "Q16046589"
       ],
@@ -11508,6 +12433,12 @@
       "labels": {
         "en": "The Kid",
         "fa": "پسرک"
+      },
+      "aliases": {
+        "en": [
+          "Pesarak",
+          "The Boy"
+        ]
       },
       "directors": [
         "Q5958448"
@@ -11541,6 +12472,7 @@
       "labels": {
         "fa": "تنها حامی"
       },
+      "aliases": {},
       "directors": [
         "Q5923042"
       ],
@@ -11573,6 +12505,7 @@
       "labels": {
         "fa": "جاهل و رقاصه"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -11603,6 +12536,7 @@
       "labels": {
         "fa": "جدال"
       },
+      "aliases": {},
       "directors": [
         "Q5953196"
       ],
@@ -11633,6 +12567,7 @@
       "labels": {
         "fa": "چلچراغ"
       },
+      "aliases": {},
       "directors": [
         "Q5958448"
       ],
@@ -11660,6 +12595,7 @@
       "labels": {
         "fa": "دلقک"
       },
+      "aliases": {},
       "directors": [
         "Q16048089"
       ],
@@ -11693,6 +12629,7 @@
         "en": "Rameshgar",
         "fa": "رامشگر"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -11721,6 +12658,7 @@
         "en": "Kader Yolcuları",
         "fa": "راننده سربلند"
       },
+      "aliases": {},
       "directors": [
         "Q6022799"
       ],
@@ -11748,6 +12686,7 @@
       "labels": {
         "fa": "ستیز"
       },
+      "aliases": {},
       "directors": [
         "Q5953196"
       ],
@@ -11775,6 +12714,15 @@
       "labels": {
         "en": "Joys of Our Life",
         "fa": "شادی‌های زندگی ما"
+      },
+      "aliases": {
+        "en": [
+          "Shadi-haye zendegi",
+          "The Joys of Our Lives"
+        ],
+        "fa": [
+          "شادیهای زندگی"
+        ]
       },
       "directors": [
         "Q14898684"
@@ -11808,6 +12756,7 @@
       "labels": {
         "fa": "شام آخر"
       },
+      "aliases": {},
       "directors": [
         "Q7462345"
       ],
@@ -11835,6 +12784,7 @@
       "labels": {
         "fa": "شهر شراب"
       },
+      "aliases": {},
       "directors": [
         "Q5506127"
       ],
@@ -11857,6 +12807,11 @@
       },
       "labels": {
         "fa": "علف‌های هرز"
+      },
+      "aliases": {
+        "fa": [
+          "علفهای هرز"
+        ]
       },
       "directors": [
         "Q5938980"
@@ -11883,6 +12838,7 @@
       "labels": {
         "fa": "عنتر و منتر"
       },
+      "aliases": {},
       "directors": [
         "Q4746635"
       ],
@@ -11908,6 +12864,7 @@
       "labels": {
         "fa": "غرور و تعصب"
       },
+      "aliases": {},
       "directors": [
         "Q16052744"
       ],
@@ -11935,6 +12892,7 @@
       "labels": {
         "fa": "قادر"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -11960,6 +12918,7 @@
       "labels": {
         "fa": "قاصدک"
       },
+      "aliases": {},
       "directors": [
         "Q56365950"
       ],
@@ -11985,6 +12944,7 @@
       "labels": {
         "fa": "گل خشخاش"
       },
+      "aliases": {},
       "directors": [
         "Q17993377"
       ],
@@ -12010,6 +12970,7 @@
       "labels": {
         "fa": "ماه عسل"
       },
+      "aliases": {},
       "directors": [
         "Q5444095"
       ],
@@ -12036,6 +12997,7 @@
         "en": "Mard dar atash",
         "fa": "مردی در آتش"
       },
+      "aliases": {},
       "directors": [
         "Q16051525"
       ],
@@ -12064,6 +13026,7 @@
         "en": "The Legacy",
         "fa": "میراث"
       },
+      "aliases": {},
       "directors": [
         "Q61063097"
       ],
@@ -12096,6 +13059,7 @@
       "labels": {
         "fa": "مهمان"
       },
+      "aliases": {},
       "directors": [
         "Q6359591"
       ],
@@ -12121,6 +13085,7 @@
       "labels": {
         "fa": "نقص فنی"
       },
+      "aliases": {},
       "directors": [
         "Q5955454"
       ],
@@ -12144,6 +13109,7 @@
       "labels": {
         "fa": "هیولا"
       },
+      "aliases": {},
       "directors": [
         "Q5943061"
       ],
@@ -12171,6 +13137,7 @@
       "labels": {
         "fa": "والده آقا مصطفی"
       },
+      "aliases": {},
       "directors": [
         "Q10859302"
       ],
@@ -12196,6 +13163,11 @@
       "labels": {
         "en": "Unclean",
         "fa": "آلوده"
+      },
+      "aliases": {
+        "en": [
+          "Aloodeh"
+        ]
       },
       "directors": [
         "Q5949461"
@@ -12225,6 +13197,7 @@
         "en": "Don't Frown Officer",
         "fa": "اخم نکن سرکار"
       },
+      "aliases": {},
       "directors": [
         "Q4746635"
       ],
@@ -12258,6 +13231,11 @@
         "en": "Ezterab",
         "fa": "اضطراب"
       },
+      "aliases": {
+        "en": [
+          "Anxiety"
+        ]
+      },
       "directors": [
         "Q4980507"
       ],
@@ -12285,6 +13263,7 @@
       "labels": {
         "fa": "انگشت‌نما"
       },
+      "aliases": {},
       "directors": [
         "Q5949461"
       ],
@@ -12318,6 +13297,7 @@
         "en": "Pashne Tala",
         "fa": "پاشنه طلا"
       },
+      "aliases": {},
       "directors": [
         "Q16074680"
       ],
@@ -12345,6 +13325,7 @@
       "labels": {
         "fa": "پلنگ در شب"
       },
+      "aliases": {},
       "directors": [
         "Q16050510"
       ],
@@ -12371,6 +13352,7 @@
         "en": "The Shooter",
         "fa": "تیرانداز"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -12403,6 +13385,7 @@
       "labels": {
         "fa": "چشم انتظار"
       },
+      "aliases": {},
       "directors": [
         "Q5923042"
       ],
@@ -12431,6 +13414,7 @@
         "en": "Hasrat",
         "fa": "حسرت"
       },
+      "aliases": {},
       "directors": [
         "Q16074680"
       ],
@@ -12464,6 +13448,11 @@
         "en": "Khane-kharab",
         "fa": "خانه خراب"
       },
+      "aliases": {
+        "fa": [
+          "خانه‌خراب"
+        ]
+      },
       "directors": [
         "Q3344360"
       ],
@@ -12496,6 +13485,7 @@
       "labels": {
         "fa": "دختر نگو، بلا بگو"
       },
+      "aliases": {},
       "directors": [
         "Q5962858"
       ],
@@ -12522,6 +13512,7 @@
         "en": "The Third Thief",
         "fa": "دزد سوم"
       },
+      "aliases": {},
       "directors": [
         "Q5950406"
       ],
@@ -12554,6 +13545,7 @@
       "labels": {
         "fa": "شبگرد"
       },
+      "aliases": {},
       "directors": [
         "Q5926784"
       ],
@@ -12581,6 +13573,7 @@
       "labels": {
         "fa": "شرف"
       },
+      "aliases": {},
       "directors": [
         "Q5953196"
       ],
@@ -12606,6 +13599,7 @@
       "labels": {
         "fa": "صدای صحرا"
       },
+      "aliases": {},
       "directors": [
         "Q6957553"
       ],
@@ -12631,6 +13625,13 @@
       "labels": {
         "en": "Samad Becomes Lucky",
         "fa": "صمد خوشبخت می‌شود"
+      },
+      "aliases": {
+        "en": [
+          "Samad khoshbakht mishavad",
+          "Samad Becomes Fortunate",
+          "Samad Becomes Prosperous"
+        ]
       },
       "directors": [
         "Q3367084"
@@ -12662,6 +13663,7 @@
       "labels": {
         "fa": "عبور از مرز زندگی"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -12685,6 +13687,7 @@
       "labels": {
         "fa": "فاصله"
       },
+      "aliases": {},
       "directors": [
         "Q5946699"
       ],
@@ -12711,6 +13714,7 @@
         "en": "The Big Appointment",
         "fa": "قرار بزرگ"
       },
+      "aliases": {},
       "directors": [
         "Q1370293"
       ],
@@ -12741,6 +13745,7 @@
         "en": "Ghasam",
         "fa": "قسم"
       },
+      "aliases": {},
       "directors": [
         "Q4746635"
       ],
@@ -12768,6 +13773,7 @@
       "labels": {
         "fa": "کمین"
       },
+      "aliases": {},
       "directors": [
         "Q6359591"
       ],
@@ -12793,6 +13799,7 @@
       "labels": {
         "fa": "کینه"
       },
+      "aliases": {},
       "directors": [
         "Q16052744"
       ],
@@ -12818,6 +13825,7 @@
       "labels": {
         "fa": "مرد شرقی و زن فرنگی"
       },
+      "aliases": {},
       "directors": [
         "Q5947357"
       ],
@@ -12842,6 +13850,7 @@
         "en": "Nazanin",
         "fa": "نازنین"
       },
+      "aliases": {},
       "directors": [
         "Q2837122"
       ],
@@ -12869,6 +13878,7 @@
       "labels": {
         "fa": "هم‌خون"
       },
+      "aliases": {},
       "directors": [
         "Q6359591"
       ],
@@ -12893,6 +13903,11 @@
       },
       "labels": {
         "fa": "هم‌قسم"
+      },
+      "aliases": {
+        "fa": [
+          "همقسم"
+        ]
       },
       "directors": [
         "Q16049015"
@@ -12922,6 +13937,11 @@
         "en": "No One Can be My Dad",
         "fa": "هیچکی بابا نمیشه"
       },
+      "aliases": {
+        "fa": [
+          "هیچکی بابا نمی‌شه"
+        ]
+      },
       "directors": [
         "Q17993377"
       ],
@@ -12949,6 +13969,7 @@
       "labels": {
         "fa": "آب توبه"
       },
+      "aliases": {},
       "directors": [
         "Q1742078"
       ],
@@ -12981,6 +14002,7 @@
       "labels": {
         "fa": "آقا رضای گل"
       },
+      "aliases": {},
       "directors": [
         "Q16049015"
       ],
@@ -13008,6 +14030,7 @@
       "labels": {
         "fa": "آقا مهدی وارد می‌شود"
       },
+      "aliases": {},
       "directors": [
         "Q5923042"
       ],
@@ -13039,6 +14062,7 @@
         "en": "Abarmard",
         "fa": "ابرمرد"
       },
+      "aliases": {},
       "directors": [
         "Q31070069"
       ],
@@ -13072,6 +14096,7 @@
         "en": "Oosta-Karim Nokaretim",
         "fa": "اوستا کریم نوکرتیم"
       },
+      "aliases": {},
       "directors": [
         "Q14898684"
       ],
@@ -13105,6 +14130,7 @@
         "en": "In dast kaje",
         "fa": "این دست کجه"
       },
+      "aliases": {},
       "directors": [
         "Q16049015"
       ],
@@ -13136,6 +14162,7 @@
         "en": "Bezan Berim Dozdi",
         "fa": "بزن بریم دزدی"
       },
+      "aliases": {},
       "directors": [
         "Q17993377"
       ],
@@ -13168,6 +14195,7 @@
       "labels": {
         "fa": "پری خوشگله"
       },
+      "aliases": {},
       "directors": [
         "Q5943061"
       ],
@@ -13198,6 +14226,7 @@
         "en": "Torkaman",
         "fa": "ترکمن"
       },
+      "aliases": {},
       "directors": [
         "Q4746635"
       ],
@@ -13231,6 +14260,7 @@
         "en": "Teshne-ha",
         "fa": "تشنه‌ها"
       },
+      "aliases": {},
       "directors": [
         "Q14898684"
       ],
@@ -13264,6 +14294,7 @@
         "en": "Baby Dandy",
         "fa": "جوجه فکلی"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -13296,6 +14327,7 @@
       "labels": {
         "fa": "حسین آژدان"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -13326,6 +14358,11 @@
       "labels": {
         "en": "Khoshgela Avazi Gereftin",
         "fa": "خوشگلا عوضی گرفتین"
+      },
+      "aliases": {
+        "en": [
+          "Hey Pretties, You Confuse Me With Somebody Else"
+        ]
       },
       "directors": [
         "Q5958448"
@@ -13359,6 +14396,7 @@
       "labels": {
         "fa": "دختران بلا، مردان ناقلا"
       },
+      "aliases": {},
       "directors": [
         "Q16074680"
       ],
@@ -13384,6 +14422,7 @@
       "labels": {
         "fa": "دروغگوی کوچولو"
       },
+      "aliases": {},
       "directors": [
         "Q16074680"
       ],
@@ -13415,6 +14454,7 @@
         "en": "Salam bar Eshgh",
         "fa": "سلام بر عشق"
       },
+      "aliases": {},
       "directors": [
         "Q5953196"
       ],
@@ -13440,6 +14480,7 @@
       "labels": {
         "fa": "عروس پابرهنه"
       },
+      "aliases": {},
       "directors": [
         "Q5943061"
       ],
@@ -13471,6 +14512,11 @@
       "labels": {
         "en": "Stranger and the Fog",
         "fa": "غریبه و مه"
+      },
+      "aliases": {
+        "en": [
+          "Gharibeh Va Meh"
+        ]
       },
       "directors": [
         "Q803646"
@@ -13504,6 +14550,7 @@
       "labels": {
         "fa": "کنیز"
       },
+      "aliases": {},
       "directors": [
         "Q6359591"
       ],
@@ -13531,6 +14578,7 @@
       "labels": {
         "fa": "کوثر"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+1974-01-01T00:00:00Z"
@@ -13557,6 +14605,7 @@
         "en": "Golpari Joon",
         "fa": "گل پری جون"
       },
+      "aliases": {},
       "directors": [
         "Q5953196"
       ],
@@ -13584,6 +14633,11 @@
       "labels": {
         "fa": "گلنسا در پاریس"
       },
+      "aliases": {
+        "fa": [
+          "گل‌نسا در پاریس"
+        ]
+      },
       "directors": [
         "Q16046480"
       ],
@@ -13609,6 +14663,7 @@
       "labels": {
         "fa": "ماجراجویان خشن"
       },
+      "aliases": {},
       "directors": [
         "Q16049015"
       ],
@@ -13636,6 +14691,7 @@
         "en": "Mashti Mamdali's Car",
         "fa": "ماشین مشتی ممدلی"
       },
+      "aliases": {},
       "directors": [
         "Q1742078"
       ],
@@ -13669,6 +14725,7 @@
         "en": "The Electrician Morad and Seven Girls",
         "fa": "مراد برقی و هفت دخترون"
       },
+      "aliases": {},
       "directors": [
         "Q5951402"
       ],
@@ -13696,6 +14753,7 @@
       "labels": {
         "fa": "مرد شب"
       },
+      "aliases": {},
       "directors": [
         "Q5949461"
       ],
@@ -13720,6 +14778,7 @@
         "en": "Morgh-e-Hamsayeh",
         "fa": "مرغ همسایه"
       },
+      "aliases": {},
       "directors": [
         "Q14898684"
       ],
@@ -13748,6 +14807,7 @@
         "en": "Marg dar baran",
         "fa": "مرگ در باران"
       },
+      "aliases": {},
       "directors": [
         "Q4980507"
       ],
@@ -13775,6 +14835,7 @@
       "labels": {
         "fa": "مهدی فرنگی"
       },
+      "aliases": {},
       "directors": [
         "Q1742078"
       ],
@@ -13799,6 +14860,11 @@
       },
       "labels": {
         "fa": "می‌رم بابا بخرم"
+      },
+      "aliases": {
+        "fa": [
+          "میرم بابا بخرم"
+        ]
       },
       "directors": [
         "Q5926784"
@@ -13830,6 +14896,7 @@
       "labels": {
         "fa": "هرجایی"
       },
+      "aliases": {},
       "directors": [
         "Q5923042"
       ],
@@ -13858,6 +14925,7 @@
         "en": "Hayahoo",
         "fa": "هیاهو"
       },
+      "aliases": {},
       "directors": [
         "Q56365950"
       ],
@@ -13885,6 +14953,7 @@
       "labels": {
         "fa": "یاور"
       },
+      "aliases": {},
       "directors": [
         "Q16052744"
       ],
@@ -13911,6 +14980,7 @@
         "en": "Agha Mehdi kalle-paz",
         "fa": "آقا مهدی کله‌پز"
       },
+      "aliases": {},
       "directors": [
         "Q16048746"
       ],
@@ -13942,6 +15012,7 @@
         "en": "Mr. Jahel",
         "fa": "آقای جاهل"
       },
+      "aliases": {},
       "directors": [
         "Q16046589"
       ],
@@ -13970,6 +15041,7 @@
         "en": "Bajenagh",
         "fa": "باجناق"
       },
+      "aliases": {},
       "directors": [
         "Q16051137"
       ],
@@ -14000,6 +15072,11 @@
       "labels": {
         "fa": "بلندپرواز"
       },
+      "aliases": {
+        "fa": [
+          "بلند پرواز"
+        ]
+      },
       "directors": [],
       "date": [
         "+1973-01-01T00:00:00Z"
@@ -14029,6 +15106,7 @@
         "en": "Bandari",
         "fa": "بندری"
       },
+      "aliases": {},
       "directors": [
         "Q6359591"
       ],
@@ -14061,6 +15139,7 @@
       "labels": {
         "fa": "بیگانه"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -14091,6 +15170,7 @@
       "labels": {
         "fa": "پاپوش"
       },
+      "aliases": {},
       "directors": [
         "Q5949461"
       ],
@@ -14115,6 +15195,12 @@
       },
       "labels": {
         "fa": "پری‌زاد"
+      },
+      "aliases": {
+        "fa": [
+          "پریزاد",
+          "پری زاد"
+        ]
       },
       "directors": [
         "Q5943061"
@@ -14146,6 +15232,7 @@
       "labels": {
         "fa": "پسرخوانده"
       },
+      "aliases": {},
       "directors": [
         "Q5962858"
       ],
@@ -14178,6 +15265,7 @@
       "labels": {
         "fa": "جبار سرجوخه فراری"
       },
+      "aliases": {},
       "directors": [
         "Q5926784"
       ],
@@ -14210,6 +15298,7 @@
       "labels": {
         "fa": "جنگجویان کوچولو"
       },
+      "aliases": {},
       "directors": [
         "Q14898619"
       ],
@@ -14240,6 +15329,7 @@
       "labels": {
         "fa": "حریص"
       },
+      "aliases": {},
       "directors": [
         "Q16049105"
       ],
@@ -14270,6 +15360,7 @@
       "labels": {
         "fa": "خروس"
       },
+      "aliases": {},
       "directors": [
         "Q5947357"
       ],
@@ -14302,6 +15393,7 @@
       "labels": {
         "fa": "خورشید در مرداب"
       },
+      "aliases": {},
       "directors": [
         "Q56365950"
       ],
@@ -14333,6 +15425,7 @@
         "en": "Have Fun",
         "fa": "خوشگذران"
       },
+      "aliases": {},
       "directors": [
         "Q5955454"
       ],
@@ -14363,6 +15456,7 @@
       "labels": {
         "fa": "در آخرین لحظه"
       },
+      "aliases": {},
       "directors": [
         "Q10859302"
       ],
@@ -14388,6 +15482,7 @@
       "labels": {
         "fa": "دشمن"
       },
+      "aliases": {},
       "directors": [
         "Q5958448"
       ],
@@ -14418,6 +15513,14 @@
       "labels": {
         "en": "Roosiah",
         "fa": "روسیاه"
+      },
+      "aliases": {
+        "en": [
+          "Disgraced"
+        ],
+        "fa": [
+          "رو سیاه"
+        ]
       },
       "directors": [
         "Q5949461"
@@ -14451,6 +15554,7 @@
       "labels": {
         "fa": "زن باکره"
       },
+      "aliases": {},
       "directors": [
         "Q5944820"
       ],
@@ -14478,6 +15582,7 @@
       "labels": {
         "fa": "سالومه"
       },
+      "aliases": {},
       "directors": [
         "Q5923042"
       ],
@@ -14505,6 +15610,7 @@
       "labels": {
         "fa": "شرور"
       },
+      "aliases": {},
       "directors": [
         "Q10859302"
       ],
@@ -14532,6 +15638,7 @@
       "labels": {
         "fa": "شیخ صالح"
       },
+      "aliases": {},
       "directors": [
         "Q5926784"
       ],
@@ -14560,6 +15667,7 @@
         "en": "Sakhreye Siah",
         "fa": "صخره سیاه"
       },
+      "aliases": {},
       "directors": [
         "Q16074493"
       ],
@@ -14587,6 +15695,15 @@
       "labels": {
         "en": "Samad Goes to School",
         "fa": "صمد به مدرسه می‌رود"
+      },
+      "aliases": {
+        "en": [
+          "Samad Goes to the School",
+          "Samad be madreseh miravad"
+        ],
+        "fa": [
+          "صمد به مدرسه میرود"
+        ]
       },
       "directors": [
         "Q3367084"
@@ -14616,6 +15733,7 @@
         "en": "Taher",
         "fa": "طاهر"
       },
+      "aliases": {},
       "directors": [
         "Q16048104"
       ],
@@ -14642,6 +15760,7 @@
         "en": "Ali Konkouri",
         "fa": "علی کنکوری"
       },
+      "aliases": {},
       "directors": [
         "Q5949851"
       ],
@@ -14668,6 +15787,7 @@
         "en": "Ghoul",
         "fa": "غول"
       },
+      "aliases": {},
       "directors": [
         "Q31070069"
       ],
@@ -14697,6 +15817,12 @@
         "en": "The Nameless Knight",
         "fa": "فرزند شمشیر"
       },
+      "aliases": {
+        "en": [
+          "Nameless Knight",
+          "Adsız Cengaver"
+        ]
+      },
       "directors": [
         "Q2237841"
       ],
@@ -14724,6 +15850,7 @@
       "labels": {
         "fa": "قربون هرچی خوشگله"
       },
+      "aliases": {},
       "directors": [
         "Q16074680"
       ],
@@ -14750,6 +15877,7 @@
         "en": "The night story",
         "fa": "قصه شب"
       },
+      "aliases": {},
       "directors": [
         "Q1370293"
       ],
@@ -14784,6 +15912,7 @@
         "en": "Resurrection of Love",
         "fa": "قیامت عشق"
       },
+      "aliases": {},
       "directors": [
         "Q17992055"
       ],
@@ -14809,6 +15938,11 @@
       "labels": {
         "en": "Kaj Kola Khan",
         "fa": "کج کلاخان"
+      },
+      "aliases": {
+        "en": [
+          "Kajkolakhan"
+        ]
       },
       "directors": [
         "Q5950127"
@@ -14836,6 +15970,7 @@
         "en": "Jane Bond 008: Operation Karachi",
         "fa": "مأمور ما در کراچی"
       },
+      "aliases": {},
       "directors": [
         "Q1742078"
       ],
@@ -14864,6 +15999,7 @@
       "labels": {
         "fa": "مترس"
       },
+      "aliases": {},
       "directors": [
         "Q5953196"
       ],
@@ -14890,6 +16026,7 @@
         "en": "The Captain",
         "fa": "ناخدا"
       },
+      "aliases": {},
       "directors": [
         "Q4746635"
       ],
@@ -14922,6 +16059,7 @@
       "labels": {
         "fa": "نامحرم"
       },
+      "aliases": {},
       "directors": [
         "Q5953196"
       ],
@@ -14950,6 +16088,11 @@
         "en": "Holoo-ye poost-kande",
         "fa": "هلوی پوست کنده"
       },
+      "aliases": {
+        "fa": [
+          "هلوی پوست‌کنده"
+        ]
+      },
       "directors": [
         "Q124375048"
       ],
@@ -14975,6 +16118,7 @@
       "labels": {
         "fa": "آب نبات چوبی"
       },
+      "aliases": {},
       "directors": [
         "Q5926784"
       ],
@@ -15007,6 +16151,7 @@
       "labels": {
         "fa": "احمد چوپان"
       },
+      "aliases": {},
       "directors": [
         "Q16052744"
       ],
@@ -15031,6 +16176,7 @@
         "en": "Iki Esir",
         "fa": "اسیر"
       },
+      "aliases": {},
       "directors": [
         "Q6062039",
         "Q14898619"
@@ -15064,6 +16210,7 @@
       "labels": {
         "fa": "اعجوبه‌ها"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -15092,6 +16239,7 @@
       "labels": {
         "fa": "بابا نان داد"
       },
+      "aliases": {},
       "directors": [
         "Q5926784"
       ],
@@ -15120,6 +16268,7 @@
       "labels": {
         "fa": "پدر که ناخلف افتد"
       },
+      "aliases": {},
       "directors": [
         "Q31070225"
       ],
@@ -15145,6 +16294,7 @@
         "en": "Topoli",
         "fa": "تپلی"
       },
+      "aliases": {},
       "directors": [
         "Q16046589"
       ],
@@ -15177,6 +16327,7 @@
       "labels": {
         "fa": "تنها مرد محله"
       },
+      "aliases": {},
       "directors": [
         "Q31070069"
       ],
@@ -15207,6 +16358,7 @@
       "labels": {
         "fa": "توبه"
       },
+      "aliases": {},
       "directors": [
         "Q5949461"
       ],
@@ -15239,6 +16391,7 @@
       "labels": {
         "fa": "تولدت مبارک"
       },
+      "aliases": {},
       "directors": [
         "Q5955454"
       ],
@@ -15270,6 +16423,7 @@
         "en": "Hell + Me",
         "fa": "جهنم + من"
       },
+      "aliases": {},
       "directors": [
         "Q1370293"
       ],
@@ -15303,6 +16457,7 @@
         "en": "Hasan siah",
         "fa": "حسن سیاه"
       },
+      "aliases": {},
       "directors": [
         "Q31070075"
       ],
@@ -15333,6 +16488,7 @@
       "labels": {
         "fa": "خانوم خانوما"
       },
+      "aliases": {},
       "directors": [
         "Q5506127"
       ],
@@ -15363,6 +16519,7 @@
       "labels": {
         "fa": "رضا هفت‌خط"
       },
+      "aliases": {},
       "directors": [
         "Q5937171"
       ],
@@ -15390,6 +16547,11 @@
       "labels": {
         "fa": "سرگروهبان"
       },
+      "aliases": {
+        "fa": [
+          "سر گروهبان"
+        ]
+      },
       "directors": [
         "Q16050510"
       ],
@@ -15416,6 +16578,7 @@
         "en": "City of Sunlight",
         "fa": "شهر آفتاب"
       },
+      "aliases": {},
       "directors": [
         "Q16052006"
       ],
@@ -15443,6 +16606,7 @@
       "labels": {
         "fa": "شیربها"
       },
+      "aliases": {},
       "directors": [
         "Q6411011"
       ],
@@ -15468,6 +16632,11 @@
       "labels": {
         "en": "The Morning of the Fourth Day",
         "fa": "صبح روز چهارم"
+      },
+      "aliases": {
+        "en": [
+          "Sobh-e rooz-e chaharom"
+        ]
       },
       "directors": [
         "Q6359628"
@@ -15503,6 +16672,7 @@
         "en": "Selahattin Eyyubi",
         "fa": "صلاح‌الدین ایوبی"
       },
+      "aliases": {},
       "directors": [
         "Q6074254"
       ],
@@ -15528,6 +16698,14 @@
       "labels": {
         "en": "Samad and the Steel Armored Ogre",
         "fa": "صمد و فولاد زره دیو"
+      },
+      "aliases": {
+        "en": [
+          "Samad and the Steel Armor of the Demon",
+          "Samad and Foolad Zereh, the ogre",
+          "Samad and Fooladzereh, the Monster",
+          "Samad va fulad zereh div"
+        ]
       },
       "directors": [
         "Q5943861"
@@ -15557,6 +16735,7 @@
         "en": "Zafar",
         "fa": "ظفر"
       },
+      "aliases": {},
       "directors": [
         "Q5950127"
       ],
@@ -15584,6 +16763,7 @@
       "labels": {
         "fa": "عباسه و جعفر برمکی"
       },
+      "aliases": {},
       "directors": [
         "Q4746635"
       ],
@@ -15609,6 +16789,7 @@
       "labels": {
         "fa": "عطش"
       },
+      "aliases": {},
       "directors": [
         "Q1672346"
       ],
@@ -15634,6 +16815,7 @@
       "labels": {
         "fa": "علی سورچی"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -15659,6 +16841,7 @@
       "labels": {
         "fa": "فدایی"
       },
+      "aliases": {},
       "directors": [
         "Q552707"
       ],
@@ -15682,6 +16865,7 @@
       "labels": {
         "fa": "فرشته نجات"
       },
+      "aliases": {},
       "directors": [
         "Q16045853"
       ],
@@ -15707,6 +16891,7 @@
       "labels": {
         "fa": "قایقرانان"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -15732,6 +16917,7 @@
       "labels": {
         "fa": "کافر"
       },
+      "aliases": {},
       "directors": [
         "Q5444095"
       ],
@@ -15762,6 +16948,11 @@
       "labels": {
         "fa": "کاکل‌زری"
       },
+      "aliases": {
+        "fa": [
+          "کاکل زری"
+        ]
+      },
       "directors": [
         "Q16074680"
       ],
@@ -15788,6 +16979,7 @@
         "en": "Gozare Akbar",
         "fa": "گذر اکبر"
       },
+      "aliases": {},
       "directors": [
         "Q28974095"
       ],
@@ -15815,6 +17007,7 @@
       "labels": {
         "fa": "مرد"
       },
+      "aliases": {},
       "directors": [
         "Q5923042"
       ],
@@ -15838,6 +17031,7 @@
       "labels": {
         "fa": "مرد اجاره‌ای"
       },
+      "aliases": {},
       "directors": [
         "Q5958448"
       ],
@@ -15863,6 +17057,7 @@
       "labels": {
         "fa": "مردان خلیج"
       },
+      "aliases": {},
       "directors": [
         "Q16074680"
       ],
@@ -15886,6 +17081,7 @@
       "labels": {
         "fa": "مردی در طوفان"
       },
+      "aliases": {},
       "directors": [
         "Q5958448"
       ],
@@ -15911,6 +17107,7 @@
       "labels": {
         "fa": "مرغ تخم‌طلا"
       },
+      "aliases": {},
       "directors": [
         "Q16049015"
       ],
@@ -15939,6 +17136,7 @@
         "en": "Motreb",
         "fa": "مطرب"
       },
+      "aliases": {},
       "directors": [
         "Q5964366"
       ],
@@ -15972,6 +17170,14 @@
         "en": "Mehdi in Black and Hot Mini Pants",
         "fa": "مهدی مشکی و شلوارک داغ"
       },
+      "aliases": {
+        "en": [
+          "Mehdi meshki va shalvarak-e dagh"
+        ],
+        "fa": [
+          "مهدی مشگی و شلوارک داغ"
+        ]
+      },
       "directors": [
         "Q16074680"
       ],
@@ -15999,6 +17205,7 @@
       "labels": {
         "fa": "میخک سفید"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -16024,6 +17231,7 @@
       "labels": {
         "fa": "نواب"
       },
+      "aliases": {},
       "directors": [
         "Q56360218"
       ],
@@ -16048,6 +17256,11 @@
       },
       "labels": {
         "fa": "همیشه قهرمان"
+      },
+      "aliases": {
+        "en": [
+          "Always Hero"
+        ]
       },
       "directors": [
         "Q5953196"
@@ -16074,6 +17287,7 @@
       "labels": {
         "fa": "یک اصفهانی در نیویورک"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+1972-00-00T00:00:00Z"
@@ -16097,6 +17311,7 @@
       "labels": {
         "fa": "آتشپاره شهر"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -16130,6 +17345,7 @@
         "en": "Ehsas-e dagh",
         "fa": "احساس داغ"
       },
+      "aliases": {},
       "directors": [
         "Q5936339"
       ],
@@ -16156,6 +17372,7 @@
         "en": "Eyvallah",
         "fa": "ایوالله"
       },
+      "aliases": {},
       "directors": [
         "Q5956791"
       ],
@@ -16188,6 +17405,7 @@
       "labels": {
         "fa": "بده در راه خدا"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -16210,6 +17428,11 @@
       },
       "labels": {
         "fa": "برای که قلب‌ها می‌تپد"
+      },
+      "aliases": {
+        "fa": [
+          "برای که قلبها میطپد"
+        ]
       },
       "directors": [
         "Q1672346"
@@ -16240,6 +17463,11 @@
       },
       "labels": {
         "fa": "جان‌سخت"
+      },
+      "aliases": {
+        "fa": [
+          "جان سخت"
+        ]
       },
       "directors": [
         "Q1672346"
@@ -16273,6 +17501,7 @@
       "labels": {
         "fa": "حیدر"
       },
+      "aliases": {},
       "directors": [
         "Q5923042"
       ],
@@ -16305,6 +17534,11 @@
       "labels": {
         "en": "Beauty on the Block",
         "fa": "خوشگل محله"
+      },
+      "aliases": {
+        "en": [
+          "Khoshgele Mahaleh"
+        ]
       },
       "directors": [
         "Q16047635"
@@ -16339,6 +17573,7 @@
         "en": "Isportaci kiz",
         "fa": "دختر فراری"
       },
+      "aliases": {},
       "directors": [
         "Q12812309"
       ],
@@ -16363,6 +17598,11 @@
       },
       "labels": {
         "fa": "درخت‌ها ایستاده می‌میرند"
+      },
+      "aliases": {
+        "fa": [
+          "درختها ایستاده میمیرند"
+        ]
       },
       "directors": [
         "Q4746635"
@@ -16394,6 +17634,7 @@
       "labels": {
         "fa": "دل‌های بی‌آرام"
       },
+      "aliases": {},
       "directors": [
         "Q5940906"
       ],
@@ -16426,6 +17667,11 @@
       "labels": {
         "fa": "دلقک‌ها"
       },
+      "aliases": {
+        "fa": [
+          "دلقکها"
+        ]
+      },
       "directors": [
         "Q16049015"
       ],
@@ -16456,6 +17702,11 @@
       "labels": {
         "en": "The World Is Mine",
         "fa": "دنیا مال منه"
+      },
+      "aliases": {
+        "en": [
+          "Donya Male Mane"
+        ]
       },
       "directors": [
         "Q5958448"
@@ -16489,6 +17740,7 @@
       "labels": {
         "fa": "دیوار شیشه‌ای"
       },
+      "aliases": {},
       "directors": [
         "Q4980507"
       ],
@@ -16522,6 +17774,7 @@
         "en": "Scandal of Love",
         "fa": "رسوای عشق"
       },
+      "aliases": {},
       "directors": [
         "Q16047351"
       ],
@@ -16549,6 +17802,7 @@
       "labels": {
         "fa": "رضا چلچله"
       },
+      "aliases": {},
       "directors": [
         "Q16074476"
       ],
@@ -16574,6 +17828,7 @@
       "labels": {
         "fa": "زیر بازارچه"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -16601,6 +17856,7 @@
       "labels": {
         "fa": "سه تا جاهل"
       },
+      "aliases": {},
       "directors": [
         "Q7141366"
       ],
@@ -16632,6 +17888,7 @@
         "en": "Se delavar",
         "fa": "سه دلاور بی‌باک"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+1971-00-00T00:00:00Z"
@@ -16657,6 +17914,7 @@
       "labels": {
         "fa": "شب عروسی"
       },
+      "aliases": {},
       "directors": [
         "Q16052951"
       ],
@@ -16685,6 +17943,7 @@
       "labels": {
         "fa": "شکار انسان"
       },
+      "aliases": {},
       "directors": [
         "Q10859302"
       ],
@@ -16711,6 +17970,7 @@
         "en": "Güzel Şoför",
         "fa": "شوفر خوشگله"
       },
+      "aliases": {},
       "directors": [
         "Q14898684",
         "Q109271507"
@@ -16738,6 +17998,7 @@
         "en": "Shohare Pastorize",
         "fa": "شوهر پاستوریزه"
       },
+      "aliases": {},
       "directors": [
         "Q5955454"
       ],
@@ -16765,6 +18026,7 @@
       "labels": {
         "fa": "عزیز قرقی"
       },
+      "aliases": {},
       "directors": [
         "Q56360218"
       ],
@@ -16795,6 +18057,7 @@
       "labels": {
         "fa": "غلام ژاندارم"
       },
+      "aliases": {},
       "directors": [
         "Q5926784"
       ],
@@ -16822,6 +18085,7 @@
         "en": "Fleeing the Trap",
         "fa": "فرار از تله"
       },
+      "aliases": {},
       "directors": [
         "Q5943861"
       ],
@@ -16848,6 +18112,7 @@
         "en": "Retaliation",
         "fa": "قصاص"
       },
+      "aliases": {},
       "directors": [
         "Q16074680"
       ],
@@ -16875,6 +18140,7 @@
       "labels": {
         "fa": "کاکو"
       },
+      "aliases": {},
       "directors": [
         "Q5947357"
       ],
@@ -16902,6 +18168,7 @@
       "labels": {
         "fa": "کلبه‌ای آن‌سوی رودخانه"
       },
+      "aliases": {},
       "directors": [
         "Q16047219"
       ],
@@ -16930,6 +18197,7 @@
       "labels": {
         "fa": "لوطی"
       },
+      "aliases": {},
       "directors": [
         "Q5958448"
       ],
@@ -16961,6 +18229,7 @@
       "labels": {
         "fa": "مرد هزار لبخند"
       },
+      "aliases": {},
       "directors": [
         "Q5943061"
       ],
@@ -16984,6 +18253,7 @@
       "labels": {
         "fa": "مردان سحر"
       },
+      "aliases": {},
       "directors": [
         "Q5964366"
       ],
@@ -17007,6 +18277,7 @@
       "labels": {
         "fa": "ملا ممد جان"
       },
+      "aliases": {},
       "directors": [
         "Q5962858"
       ],
@@ -17034,6 +18305,11 @@
       "labels": {
         "fa": "نقره‌داغ"
       },
+      "aliases": {
+        "fa": [
+          "نقره داغ"
+        ]
+      },
       "directors": [
         "Q1672346"
       ],
@@ -17060,6 +18336,7 @@
         "en": "A Man and a City",
         "fa": "یک مرد و یک شهر"
       },
+      "aliases": {},
       "directors": [
         "Q4746635"
       ],
@@ -17085,6 +18362,7 @@
       "labels": {
         "fa": "آدم و حوا"
       },
+      "aliases": {},
       "directors": [
         "Q4746635"
       ],
@@ -17110,6 +18388,7 @@
       "labels": {
         "fa": "اجل معلق"
       },
+      "aliases": {},
       "directors": [
         "Q5955454"
       ],
@@ -17140,6 +18419,12 @@
       "labels": {
         "en": "Büyük Yemin",
         "fa": "اسیر خشم"
+      },
+      "aliases": {
+        "en": [
+          "The Great Oath",
+          "Asir khashm"
+        ]
       },
       "directors": [
         "Q6815170"
@@ -17173,6 +18458,7 @@
       "labels": {
         "fa": "پسر زاینده‌رود"
       },
+      "aliases": {},
       "directors": [
         "Q16051181"
       ],
@@ -17216,6 +18502,7 @@
       "labels": {
         "fa": "تاکسی عشق"
       },
+      "aliases": {},
       "directors": [
         "Q5955454"
       ],
@@ -17241,6 +18528,7 @@
       "labels": {
         "fa": "تجاوز"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+1969-01-01T00:00:00Z"
@@ -17270,6 +18558,7 @@
         "en": "Jafar va Golnar",
         "fa": "جعفر و گلنار"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+1969-01-01T00:00:00Z"
@@ -17300,6 +18589,7 @@
       "labels": {
         "fa": "جنجال عروسی"
       },
+      "aliases": {},
       "directors": [
         "Q16047351"
       ],
@@ -17330,6 +18620,7 @@
       "labels": {
         "fa": "حسن فرفره"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -17357,6 +18648,11 @@
       },
       "labels": {
         "fa": "خشم عقاب‌ها"
+      },
+      "aliases": {
+        "fa": [
+          "خشم عقابها"
+        ]
       },
       "directors": [
         "Q1672346"
@@ -17387,6 +18683,7 @@
         "en": "Dokhtar-e zalem-bala",
         "fa": "دختر ظالم بلا"
       },
+      "aliases": {},
       "directors": [
         "Q5953196"
       ],
@@ -17415,6 +18712,7 @@
         "en": "Dozd va paseban",
         "fa": "دزد و پاسبان"
       },
+      "aliases": {},
       "directors": [
         "Q14898684"
       ],
@@ -17446,6 +18744,7 @@
         "en": "Ram Karadane Marde Vahshi",
         "fa": "رام کردن مرد وحشی"
       },
+      "aliases": {},
       "directors": [
         "Q131694822"
       ],
@@ -17473,6 +18772,7 @@
       "labels": {
         "fa": "رسوایی"
       },
+      "aliases": {},
       "directors": [
         "Q5949461"
       ],
@@ -17504,6 +18804,7 @@
       "labels": {
         "fa": "سکه شانس"
       },
+      "aliases": {},
       "directors": [
         "Q1672346"
       ],
@@ -17529,6 +18830,7 @@
       "labels": {
         "fa": "سوگلی"
       },
+      "aliases": {},
       "directors": [
         "Q5923042"
       ],
@@ -17556,6 +18858,7 @@
       "labels": {
         "fa": "شب اعدام"
       },
+      "aliases": {},
       "directors": [
         "Q26207301"
       ],
@@ -17581,6 +18884,7 @@
       "labels": {
         "fa": "شهر گناه"
       },
+      "aliases": {},
       "directors": [
         "Q28974095"
       ],
@@ -17607,6 +18911,7 @@
         "en": "Shahr-e hert",
         "fa": "شهر هرت"
       },
+      "aliases": {},
       "directors": [
         "Q16048746"
       ],
@@ -17635,6 +18940,11 @@
         "en": "Shirin va Farhad",
         "fa": "شیرین و فرهاد"
       },
+      "aliases": {
+        "en": [
+          "Ferhat ile Şirin"
+        ]
+      },
       "directors": [
         "Q14898619"
       ],
@@ -17662,6 +18972,7 @@
       "labels": {
         "fa": "عروس بیانکا"
       },
+      "aliases": {},
       "directors": [
         "Q5947357"
       ],
@@ -17695,6 +19006,11 @@
         "en": "Golden Eagle",
         "fa": "عقاب طلایی"
       },
+      "aliases": {
+        "en": [
+          "Oghab Talaee"
+        ]
+      },
       "directors": [
         "Q131694822"
       ],
@@ -17721,6 +19037,7 @@
         "en": "Ali Bi Gham",
         "fa": "علی بی‌غم"
       },
+      "aliases": {},
       "directors": [
         "Q16052744"
       ],
@@ -17749,6 +19066,7 @@
         "en": "Yalda Night Story",
         "fa": "قصه شب یلدا"
       },
+      "aliases": {},
       "directors": [
         "Q4980507"
       ],
@@ -17776,6 +19094,7 @@
       "labels": {
         "fa": "قهرمانان نمی‌میرند"
       },
+      "aliases": {},
       "directors": [
         "Q16046099"
       ],
@@ -17802,6 +19121,7 @@
         "en": "Leyli and Majnoon",
         "fa": "لیلی و مجنون"
       },
+      "aliases": {},
       "directors": [
         "Q5943061"
       ],
@@ -17829,6 +19149,7 @@
       "labels": {
         "fa": "مردی از جنوب شهر"
       },
+      "aliases": {},
       "directors": [
         "Q5950127"
       ],
@@ -17854,6 +19175,7 @@
       "labels": {
         "fa": "نامادری"
       },
+      "aliases": {},
       "directors": [
         "Q16052744"
       ],
@@ -17887,6 +19209,14 @@
         "en": "Three Ruby Eyes",
         "fa": "یاقوت سه چشم"
       },
+      "aliases": {
+        "en": [
+          "Yahgoot-e Se Cheshm"
+        ],
+        "fa": [
+          "یاقوت سه‌چشم"
+        ]
+      },
       "directors": [
         "Q5937857"
       ],
@@ -17914,6 +19244,11 @@
       "labels": {
         "en": "A Girl Is Going to Die Tonight",
         "fa": "امشب دختری می‌میرد"
+      },
+      "aliases": {
+        "fa": [
+          "امشب دختری میمیرد"
+        ]
       },
       "directors": [
         "Q16074417"
@@ -17947,6 +19282,7 @@
       "labels": {
         "fa": "بابا کوهی"
       },
+      "aliases": {},
       "directors": [
         "Q26207301"
       ],
@@ -17978,6 +19314,7 @@
         "en": "Tatilat-e dash esmal",
         "fa": "تعطیلات داش اسمال"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -18011,6 +19348,11 @@
         "en": "Separation",
         "fa": "جدایی"
       },
+      "aliases": {
+        "fa": [
+          "جدائی"
+        ]
+      },
       "directors": [
         "Q16046480"
       ],
@@ -18041,6 +19383,11 @@
       "labels": {
         "en": "Handsome Pickpocket",
         "fa": "جیب‌بر خوشگله"
+      },
+      "aliases": {
+        "en": [
+          "Jib-Bor Khoshgeleh"
+        ]
       },
       "directors": [
         "Q12812309"
@@ -18075,6 +19422,7 @@
         "en": "Donya-ye abi",
         "fa": "دنیای آبی"
       },
+      "aliases": {},
       "directors": [
         "Q5950127"
       ],
@@ -18105,6 +19453,7 @@
       "labels": {
         "fa": "دنیای پرامید"
       },
+      "aliases": {},
       "directors": [
         "Q16047219"
       ],
@@ -18137,6 +19486,7 @@
       "labels": {
         "fa": "زن وحشی وحشی"
       },
+      "aliases": {},
       "directors": [
         "Q5953196"
       ],
@@ -18164,6 +19514,11 @@
         "en": "Shining Star",
         "fa": "ستاره فروزان"
       },
+      "aliases": {
+        "en": [
+          "Setare-ye Foroozan"
+        ]
+      },
       "directors": [],
       "date": [
         "+1969-00-00T00:00:00Z"
@@ -18188,6 +19543,7 @@
         "en": "Three Escapees",
         "fa": "سه فراری"
       },
+      "aliases": {},
       "directors": [
         "Q5937857"
       ],
@@ -18216,6 +19572,7 @@
         "en": "Shokooh-e ghahraman",
         "fa": "شکوه قهرمان"
       },
+      "aliases": {},
       "directors": [
         "Q16052006"
       ],
@@ -18249,6 +19606,7 @@
         "en": "Shahr Ashoob",
         "fa": "شهر آشوب"
       },
+      "aliases": {},
       "directors": [
         "Q5923042"
       ],
@@ -18276,6 +19634,7 @@
       "labels": {
         "fa": "ضرب شست"
       },
+      "aliases": {},
       "directors": [
         "Q16050193"
       ],
@@ -18303,6 +19662,7 @@
       "labels": {
         "fa": "عشق کولی"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -18329,6 +19689,7 @@
         "en": "Desert Ghoul",
         "fa": "غول بیابانی"
       },
+      "aliases": {},
       "directors": [
         "Q16051603"
       ],
@@ -18354,6 +19715,7 @@
       "labels": {
         "fa": "قصر زرین"
       },
+      "aliases": {},
       "directors": [
         "Q1370293"
       ],
@@ -18381,6 +19743,7 @@
       "labels": {
         "fa": "قلب‌های طلایی"
       },
+      "aliases": {},
       "directors": [
         "Q5949461"
       ],
@@ -18408,6 +19771,7 @@
       "labels": {
         "fa": "قهوه‌خانه قنبر"
       },
+      "aliases": {},
       "directors": [
         "Q16048746"
       ],
@@ -18431,6 +19795,7 @@
       "labels": {
         "fa": "کاسب‌های محل"
       },
+      "aliases": {},
       "directors": [
         "Q124375048"
       ],
@@ -18460,6 +19825,7 @@
       "labels": {
         "fa": "گربه کور"
       },
+      "aliases": {},
       "directors": [
         "Q14916698"
       ],
@@ -18485,6 +19851,11 @@
       "labels": {
         "en": "The Owner of Hell",
         "fa": "مالک دوزخ"
+      },
+      "aliases": {
+        "en": [
+          "Malek-e Doozakh"
+        ]
       },
       "directors": [
         "Q4746635"
@@ -18513,6 +19884,7 @@
       "labels": {
         "fa": "مردان روزگار"
       },
+      "aliases": {},
       "directors": [
         "Q6798542"
       ],
@@ -18541,6 +19913,7 @@
         "en": "Mojeze-ye ghalbha",
         "fa": "معجزه قلب‌ها"
       },
+      "aliases": {},
       "directors": [
         "Q5958448"
       ],
@@ -18566,6 +19939,7 @@
       "labels": {
         "fa": "آواره‌های تهران"
       },
+      "aliases": {},
       "directors": [
         "Q5953196"
       ],
@@ -18597,6 +19971,7 @@
         "en": "Luebat Alhaz",
         "fa": "بازی شانس"
       },
+      "aliases": {},
       "directors": [
         "Q1442859"
       ],
@@ -18640,6 +20015,12 @@
         "en": "The Tiger from Mazandaran",
         "fa": "ببر مازندران"
       },
+      "aliases": {
+        "en": [
+          "Mazandaran Tiger",
+          "Babre Mazandaran"
+        ]
+      },
       "directors": [
         "Q4980507"
       ],
@@ -18673,6 +20054,7 @@
         "en": "So Long",
         "fa": "به امید دیدار"
       },
+      "aliases": {},
       "directors": [
         "Q16048746"
       ],
@@ -18704,6 +20086,7 @@
         "en": "Barefoot",
         "fa": "پابرهنه‌ها"
       },
+      "aliases": {},
       "directors": [
         "Q16045853"
       ],
@@ -18736,6 +20119,7 @@
       "labels": {
         "fa": "تحفه هند"
       },
+      "aliases": {},
       "directors": [
         "Q5923042"
       ],
@@ -18768,6 +20152,7 @@
       "labels": {
         "fa": "تنگه اژدها"
       },
+      "aliases": {},
       "directors": [
         "Q5943061"
       ],
@@ -18800,6 +20185,7 @@
       "labels": {
         "fa": "تونل"
       },
+      "aliases": {},
       "directors": [
         "Q16051525"
       ],
@@ -18830,6 +20216,7 @@
       "labels": {
         "fa": "جهنم سفید"
       },
+      "aliases": {},
       "directors": [
         "Q4980507"
       ],
@@ -18860,6 +20247,7 @@
       "labels": {
         "fa": "چاکر شما کوچولو"
       },
+      "aliases": {},
       "directors": [
         "Q16045853"
       ],
@@ -18886,6 +20274,7 @@
         "en": "Charkh-E-Bazigar",
         "fa": "چرخ بازیگر"
       },
+      "aliases": {},
       "directors": [
         "Q16048929"
       ],
@@ -18918,6 +20307,7 @@
       "labels": {
         "fa": "چهار درویش"
       },
+      "aliases": {},
       "directors": [
         "Q16045297"
       ],
@@ -18945,6 +20335,11 @@
       "labels": {
         "fa": "دختر شاه پریان"
       },
+      "aliases": {
+        "fa": [
+          "دختر شاه پریون"
+        ]
+      },
       "directors": [
         "Q5947357"
       ],
@@ -18970,6 +20365,7 @@
       "labels": {
         "fa": "دختر عشوه‌گر"
       },
+      "aliases": {},
       "directors": [
         "Q5923042"
       ],
@@ -18995,6 +20391,7 @@
       "labels": {
         "fa": "دلاور دوران"
       },
+      "aliases": {},
       "directors": [
         "Q16046180"
       ],
@@ -19023,6 +20420,7 @@
       "labels": {
         "fa": "ریکاردو"
       },
+      "aliases": {},
       "directors": [
         "Q16045297"
       ],
@@ -19046,6 +20444,7 @@
       "labels": {
         "fa": "سکه دورو"
       },
+      "aliases": {},
       "directors": [
         "Q5958448"
       ],
@@ -19069,6 +20468,7 @@
       "labels": {
         "fa": "سنگ صبور"
       },
+      "aliases": {},
       "directors": [
         "Q16052744"
       ],
@@ -19094,6 +20494,7 @@
       "labels": {
         "fa": "شکار شوهر"
       },
+      "aliases": {},
       "directors": [
         "Q5955454"
       ],
@@ -19125,6 +20526,7 @@
       "labels": {
         "fa": "عشق قارون"
       },
+      "aliases": {},
       "directors": [
         "Q16046180"
       ],
@@ -19156,6 +20558,11 @@
         "en": "Ghoroube Botparastan",
         "fa": "غروب بت‌پرستان"
       },
+      "aliases": {
+        "fa": [
+          "غروب بت پرستان"
+        ]
+      },
       "directors": [
         "Q14898619"
       ],
@@ -19181,6 +20588,11 @@
       "labels": {
         "en": "The Power of Love",
         "fa": "قدرت عشق"
+      },
+      "aliases": {
+        "en": [
+          "Ghodrate-eshgh"
+        ]
       },
       "directors": [
         "Q16050200",
@@ -19210,6 +20622,7 @@
       "labels": {
         "fa": "کشتی نوح"
       },
+      "aliases": {},
       "directors": [
         "Q5958448"
       ],
@@ -19244,6 +20657,11 @@
         "en": "Mard-e hanjare talael",
         "fa": "مرد حنجره طلایی"
       },
+      "aliases": {
+        "fa": [
+          "مرد حنجره طلائی"
+        ]
+      },
       "directors": [
         "Q5944034"
       ],
@@ -19272,6 +20690,7 @@
         "en": "Mard-e-rouz",
         "fa": "مرد روز"
       },
+      "aliases": {},
       "directors": [
         "Q16050193"
       ],
@@ -19303,6 +20722,7 @@
       "labels": {
         "fa": "مرد صحرا"
       },
+      "aliases": {},
       "directors": [
         "Q16046099"
       ],
@@ -19328,6 +20748,7 @@
       "labels": {
         "fa": "من هم گریه کردم"
       },
+      "aliases": {},
       "directors": [
         "Q4980507"
       ],
@@ -19356,6 +20777,12 @@
         "en": "Yousof va Zolaykha",
         "fa": "یوسف و زلیخا"
       },
+      "aliases": {
+        "en": [
+          "Hazreti Yusuf",
+          "Yusuf ile Züleyha"
+        ]
+      },
       "directors": [
         "Q16049015"
       ],
@@ -19382,6 +20809,7 @@
         "en": "Iman",
         "fa": "ایمان"
       },
+      "aliases": {},
       "directors": [
         "Q16049015"
       ],
@@ -19409,6 +20837,7 @@
       "labels": {
         "fa": "پسران علاءالدین"
       },
+      "aliases": {},
       "directors": [
         "Q16045297"
       ],
@@ -19439,6 +20868,7 @@
       "labels": {
         "fa": "جاده زرین سمرقند"
       },
+      "aliases": {},
       "directors": [
         "Q6566774"
       ],
@@ -19479,6 +20909,7 @@
       "labels": {
         "fa": "چهار خواهر"
       },
+      "aliases": {},
       "directors": [
         "Q16047351"
       ],
@@ -19504,6 +20935,7 @@
       "labels": {
         "fa": "خوشگل و قهرمان"
       },
+      "aliases": {},
       "directors": [
         "Q5923042"
       ],
@@ -19534,6 +20966,7 @@
       "labels": {
         "fa": "داش احمد"
       },
+      "aliases": {},
       "directors": [
         "Q16048746"
       ],
@@ -19559,6 +20992,11 @@
       "labels": {
         "en": "In Search of Criminals",
         "fa": "در جستجوی تبهکاران"
+      },
+      "aliases": {
+        "en": [
+          "Dar jostejoo-ye tabahkaran"
+        ]
       },
       "directors": [],
       "date": [
@@ -19589,6 +21027,7 @@
         "en": "A Woman Called Sharab",
         "fa": "زنی به نام شراب"
       },
+      "aliases": {},
       "directors": [
         "Q4746635"
       ],
@@ -19615,6 +21054,7 @@
         "en": "Sarnevesht",
         "fa": "سرنوشت"
       },
+      "aliases": {},
       "directors": [
         "Q19609649"
       ],
@@ -19648,6 +21088,7 @@
       "labels": {
         "fa": "شکوه جوانمردی"
       },
+      "aliases": {},
       "directors": [
         "Q5940906"
       ],
@@ -19673,6 +21114,7 @@
       "labels": {
         "fa": "شهر فرنگ"
       },
+      "aliases": {},
       "directors": [
         "Q31070075"
       ],
@@ -19698,6 +21140,7 @@
       "labels": {
         "fa": "طوفان نوح"
       },
+      "aliases": {},
       "directors": [
         "Q5943061"
       ],
@@ -19726,6 +21169,7 @@
         "en": "Alibaba",
         "fa": "علی‌بابا و چهل دزد"
       },
+      "aliases": {},
       "directors": [
         "Q16045297"
       ],
@@ -19751,6 +21195,12 @@
       "labels": {
         "en": "A Glorious Tomorrow",
         "fa": "فردای باشکوه"
+      },
+      "aliases": {
+        "en": [
+          "Fardaye ba shokoh",
+          "The Magnificent Tomorrow"
+        ]
       },
       "directors": [
         "Q16049879"
@@ -19780,6 +21230,7 @@
         "en": "Ghahreman-ye shahre-ma",
         "fa": "قهرمان شهر ما"
       },
+      "aliases": {},
       "directors": [
         "Q1742078"
       ],
@@ -19808,6 +21259,7 @@
         "en": "Kooh Zad",
         "fa": "کوه‌زاد"
       },
+      "aliases": {},
       "directors": [
         "Q16046180"
       ],
@@ -19835,6 +21287,11 @@
       "labels": {
         "en": "The Luminescent Jewel",
         "fa": "گوهر شب‌چراغ"
+      },
+      "aliases": {
+        "en": [
+          "Gohar-e Shab-Cheragh"
+        ]
       },
       "directors": [
         "Q14898619"
@@ -19870,6 +21327,7 @@
         "en": "A Starless Man",
         "fa": "مرد بی‌ستاره"
       },
+      "aliases": {},
       "directors": [
         "Q5953196"
       ],
@@ -19902,6 +21360,7 @@
       "labels": {
         "fa": "مرد دو چهره"
       },
+      "aliases": {},
       "directors": [
         "Q4808641"
       ],
@@ -19933,6 +21392,7 @@
       "labels": {
         "fa": "معجزه"
       },
+      "aliases": {},
       "directors": [
         "Q16074476"
       ],
@@ -19958,6 +21418,7 @@
       "labels": {
         "fa": "هفت شهر عشق"
       },
+      "aliases": {},
       "directors": [
         "Q10844779"
       ],
@@ -19985,6 +21446,7 @@
       "labels": {
         "fa": "آقا موچول"
       },
+      "aliases": {},
       "directors": [
         "Q16048929"
       ],
@@ -20010,6 +21472,7 @@
       "labels": {
         "fa": "امیر ارسلان نامدار"
       },
+      "aliases": {},
       "directors": [
         "Q14898619"
       ],
@@ -20045,6 +21508,11 @@
       },
       "labels": {
         "fa": "بازو طلایی"
+      },
+      "aliases": {
+        "fa": [
+          "بازو طلائی"
+        ]
       },
       "directors": [
         "Q6411011"
@@ -20094,6 +21562,11 @@
       "labels": {
         "fa": "حاتم طائی"
       },
+      "aliases": {
+        "fa": [
+          "حاتم طایی"
+        ]
+      },
       "directors": [
         "Q1370293"
       ],
@@ -20125,6 +21598,7 @@
         "en": "Hossein Kord Shabestari",
         "fa": "حسین کرد"
       },
+      "aliases": {},
       "directors": [
         "Q14898619"
       ],
@@ -20159,6 +21633,7 @@
         "en": "Khodahafez Tehran",
         "fa": "خداحافظ تهران"
       },
+      "aliases": {},
       "directors": [
         "Q4980507"
       ],
@@ -20186,6 +21661,7 @@
       "labels": {
         "fa": "دختر کدخدا"
       },
+      "aliases": {},
       "directors": [
         "Q16049015"
       ],
@@ -20211,6 +21687,7 @@
       "labels": {
         "fa": "رانندگان جهنم"
       },
+      "aliases": {},
       "directors": [
         "Q1742078"
       ],
@@ -20236,6 +21713,7 @@
       "labels": {
         "fa": "سه قهرمان"
       },
+      "aliases": {},
       "directors": [
         "Q16045297"
       ],
@@ -20268,6 +21746,7 @@
         "en": "Se Naghola dar Japon",
         "fa": "سه ناقلا در ژاپن"
       },
+      "aliases": {},
       "directors": [
         "Q5948781"
       ],
@@ -20296,6 +21775,7 @@
         "en": "Shookhi Nakon Delkhor Misham",
         "fa": "شوخی نکن دلخور می‌شم"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -20323,6 +21803,7 @@
       "labels": {
         "fa": "فرار از حقیقت"
       },
+      "aliases": {},
       "directors": [
         "Q6566774"
       ],
@@ -20351,6 +21832,7 @@
         "en": "Elephant and Teacup",
         "fa": "فیل و فنجون"
       },
+      "aliases": {},
       "directors": [
         "Q16045853"
       ],
@@ -20377,6 +21859,11 @@
       },
       "labels": {
         "fa": "قفس طلائی"
+      },
+      "aliases": {
+        "fa": [
+          "قفس طلایی"
+        ]
       },
       "directors": [
         "Q16046480"
@@ -20407,6 +21894,7 @@
       "labels": {
         "fa": "کلاه نمدی"
       },
+      "aliases": {},
       "directors": [
         "Q16048746"
       ],
@@ -20432,6 +21920,7 @@
       "labels": {
         "fa": "گدایان تهران"
       },
+      "aliases": {},
       "directors": [
         "Q1370293"
       ],
@@ -20459,6 +21948,7 @@
       "labels": {
         "fa": "گنجینه سلیمان"
       },
+      "aliases": {},
       "directors": [
         "Q16051603"
       ],
@@ -20484,6 +21974,7 @@
       "labels": {
         "fa": "مأمور ۱۱۴"
       },
+      "aliases": {},
       "directors": [
         "Q5949461"
       ],
@@ -20509,6 +22000,7 @@
       "labels": {
         "fa": "مقصر پدرم بود"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -20534,6 +22026,7 @@
       "labels": {
         "fa": "میلیونر فراری"
       },
+      "aliases": {},
       "directors": [
         "Q6566774"
       ],
@@ -20571,6 +22064,7 @@
       "labels": {
         "fa": "یک قدم تا بهشت"
       },
+      "aliases": {},
       "directors": [
         "Q5955454"
       ],
@@ -20596,6 +22090,12 @@
       "labels": {
         "en": "The Bright Horizon",
         "fa": "افق روشن"
+      },
+      "aliases": {
+        "en": [
+          "Ofoghe rowshan",
+          "Bright Horizon"
+        ]
       },
       "directors": [
         "Q16048929"
@@ -20631,6 +22131,11 @@
         "en": "Hot Shame",
         "fa": "داغ ننگ"
       },
+      "aliases": {
+        "en": [
+          "Dagh-e Nang"
+        ]
+      },
       "directors": [
         "Q1672346"
       ],
@@ -20661,6 +22166,7 @@
       "labels": {
         "fa": "دزد بانک"
       },
+      "aliases": {},
       "directors": [
         "Q14898619"
       ],
@@ -20691,6 +22197,7 @@
       "labels": {
         "fa": "دنیای پول"
       },
+      "aliases": {},
       "directors": [
         "Q16048089"
       ],
@@ -20723,6 +22230,7 @@
       "labels": {
         "fa": "ده سایه خطرناک"
       },
+      "aliases": {},
       "directors": [
         "Q16045297"
       ],
@@ -20765,6 +22273,7 @@
       "labels": {
         "fa": "زمزمه محبت"
       },
+      "aliases": {},
       "directors": [
         "Q4746635"
       ],
@@ -20789,6 +22298,7 @@
         "en": "Seh Ta Bezan Bahador",
         "fa": "سه تا بزن بهادر"
       },
+      "aliases": {},
       "directors": [
         "Q16051181"
       ],
@@ -20814,6 +22324,7 @@
       "labels": {
         "fa": "سه تا نخاله"
       },
+      "aliases": {},
       "directors": [
         "Q5950127"
       ],
@@ -20845,6 +22356,7 @@
       "labels": {
         "fa": "سه کارآگاه خصوصی"
       },
+      "aliases": {},
       "directors": [
         "Q5948781"
       ],
@@ -20870,6 +22382,7 @@
       "labels": {
         "fa": "شیرمرد"
       },
+      "aliases": {},
       "directors": [
         "Q16046180"
       ],
@@ -20895,6 +22408,7 @@
       "labels": {
         "fa": "عشق و انتقام"
       },
+      "aliases": {},
       "directors": [
         "Q1370293"
       ],
@@ -20926,6 +22440,7 @@
         "en": "Qahremane Qahremanan",
         "fa": "قهرمان قهرمانان"
       },
+      "aliases": {},
       "directors": [
         "Q5943061"
       ],
@@ -20953,6 +22468,7 @@
       "labels": {
         "fa": "مراد و لاله"
       },
+      "aliases": {},
       "directors": [
         "Q5950127"
       ],
@@ -20978,6 +22494,7 @@
       "labels": {
         "fa": "مرخصی اجباری"
       },
+      "aliases": {},
       "directors": [
         "Q5879744"
       ],
@@ -21004,6 +22521,7 @@
         "en": "A Man in the Cage",
         "fa": "مردی در قفس"
       },
+      "aliases": {},
       "directors": [
         "Q5955454"
       ],
@@ -21032,6 +22550,7 @@
         "en": "I Am a Mother",
         "fa": "من مادرم"
       },
+      "aliases": {},
       "directors": [
         "Q31070222"
       ],
@@ -21057,6 +22576,11 @@
       "labels": {
         "en": "Mootalaie shahre ma",
         "fa": "موطلایی شهر ما"
+      },
+      "aliases": {
+        "fa": [
+          "موطلائی شهر ما"
+        ]
       },
       "directors": [
         "Q5950406"
@@ -21085,6 +22609,11 @@
       "labels": {
         "fa": "نبرد غول‌ها"
       },
+      "aliases": {
+        "fa": [
+          "نبرد غولها"
+        ]
+      },
       "directors": [
         "Q4808641"
       ],
@@ -21108,6 +22637,7 @@
       "labels": {
         "fa": "همه سر حریف"
       },
+      "aliases": {},
       "directors": [
         "Q1742078"
       ],
@@ -21133,6 +22663,7 @@
       "labels": {
         "fa": "یک پارچه آقا"
       },
+      "aliases": {},
       "directors": [
         "Q6566774"
       ],
@@ -21158,6 +22689,7 @@
       "labels": {
         "fa": "آقای قرن بیستم"
       },
+      "aliases": {},
       "directors": [
         "Q5943061"
       ],
@@ -21186,6 +22718,7 @@
       "labels": {
         "fa": "اشک یتیم"
       },
+      "aliases": {},
       "directors": [
         "Q16051603"
       ],
@@ -21211,6 +22744,11 @@
       "labels": {
         "en": "The Humans",
         "fa": "انسانها"
+      },
+      "aliases": {
+        "fa": [
+          "انسان‌ها"
+        ]
       },
       "directors": [
         "Q5944034"
@@ -21245,6 +22783,15 @@
         "en": "Dead End",
         "fa": "بن‌بست"
       },
+      "aliases": {
+        "en": [
+          "Bonbast",
+          "Dead End"
+        ],
+        "fa": [
+          "بن بست"
+        ]
+      },
       "directors": [
         "Q16074476"
       ],
@@ -21277,6 +22824,7 @@
       "labels": {
         "fa": "تعقیب خطرناک"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -21307,6 +22855,7 @@
       "labels": {
         "fa": "جهنم زیر پای من"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -21337,6 +22886,7 @@
       "labels": {
         "fa": "دزد شهر"
       },
+      "aliases": {},
       "directors": [
         "Q16051181"
       ],
@@ -21367,6 +22917,7 @@
       "labels": {
         "fa": "دهکده طلایی"
       },
+      "aliases": {},
       "directors": [
         "Q16074680"
       ],
@@ -21407,6 +22958,7 @@
       "labels": {
         "fa": "شکوفه‌های امید"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -21432,6 +22984,7 @@
       "labels": {
         "fa": "شیطان در می‌زند"
       },
+      "aliases": {},
       "directors": [
         "Q5940906"
       ],
@@ -21459,6 +23012,7 @@
       "labels": {
         "fa": "ضربت"
       },
+      "aliases": {},
       "directors": [
         "Q4980507"
       ],
@@ -21486,6 +23040,13 @@
       "labels": {
         "en": "The Bride",
         "fa": "عروس فرنگی"
+      },
+      "aliases": {
+        "en": [
+          "Arouse farangi",
+          "The bride",
+          "The Foreign Bride"
+        ]
       },
       "directors": [
         "Q5955454"
@@ -21519,6 +23080,7 @@
       "labels": {
         "fa": "کمینگاه شیطان"
       },
+      "aliases": {},
       "directors": [
         "Q16074680"
       ],
@@ -21544,6 +23106,7 @@
       "labels": {
         "fa": "گردن کلفت"
       },
+      "aliases": {},
       "directors": [
         "Q17993256"
       ],
@@ -21569,6 +23132,12 @@
       "labels": {
         "en": "The Pleasures of Sin",
         "fa": "لذت گناه"
+      },
+      "aliases": {
+        "en": [
+          "The pleasure of Sin",
+          "Lezzate gonah"
+        ]
       },
       "directors": [
         "Q5943061"
@@ -21601,6 +23170,7 @@
       "labels": {
         "fa": "مسیر رودخانه"
       },
+      "aliases": {},
       "directors": [
         "Q5950127"
       ],
@@ -21632,6 +23202,7 @@
       "labels": {
         "fa": "آراس خان"
       },
+      "aliases": {},
       "directors": [
         "Q6566774"
       ],
@@ -21656,6 +23227,11 @@
       },
       "labels": {
         "fa": "اشک‌ها و خنده‌ها"
+      },
+      "aliases": {
+        "fa": [
+          "اشگها و خنده‌ها"
+        ]
       },
       "directors": [
         "Q14898619"
@@ -21685,6 +23261,7 @@
       "labels": {
         "fa": "پرتگاه مخوف"
       },
+      "aliases": {},
       "directors": [
         "Q16046480"
       ],
@@ -21715,6 +23292,11 @@
       "labels": {
         "fa": "پرستوها به لانه برمی‌گردند"
       },
+      "aliases": {
+        "fa": [
+          "پرستوها بلانه برمیگردند"
+        ]
+      },
       "directors": [
         "Q5942472"
       ],
@@ -21743,6 +23325,7 @@
       "labels": {
         "fa": "ترس و تاریکی"
       },
+      "aliases": {},
       "directors": [
         "Q5948781"
       ],
@@ -21772,6 +23355,11 @@
       },
       "labels": {
         "fa": "زن‌ها فرشته‌اند"
+      },
+      "aliases": {
+        "fa": [
+          "زنها فرشته‌اند"
+        ]
       },
       "directors": [
         "Q5949461"
@@ -21803,6 +23391,7 @@
       "labels": {
         "fa": "ساحل انتظار"
       },
+      "aliases": {},
       "directors": [
         "Q5943061"
       ],
@@ -21828,6 +23417,7 @@
       "labels": {
         "fa": "قربانی هوس"
       },
+      "aliases": {},
       "directors": [
         "Q16048089"
       ],
@@ -21864,6 +23454,7 @@
       "labels": {
         "fa": "مردها و جاده‌ها"
       },
+      "aliases": {},
       "directors": [
         "Q6566774"
       ],
@@ -21889,6 +23480,7 @@
       "labels": {
         "fa": "مسافری از بهشت"
       },
+      "aliases": {},
       "directors": [
         "Q5955454"
       ],
@@ -21914,6 +23506,7 @@
       "labels": {
         "fa": "آخرین گذرگاه"
       },
+      "aliases": {},
       "directors": [
         "Q5958448"
       ],
@@ -21943,6 +23536,7 @@
         "en": "The Spirit's Vengeance",
         "fa": "انتقام روح"
       },
+      "aliases": {},
       "directors": [
         "Q14898619"
       ],
@@ -21977,6 +23571,12 @@
         "en": "Pretty Foe",
         "fa": "اهریمن زیبا"
       },
+      "aliases": {
+        "en": [
+          "Ahriman Ziba",
+          "Ahrimane ziba"
+        ]
+      },
       "directors": [
         "Q14898619"
       ],
@@ -22007,6 +23607,7 @@
       "labels": {
         "fa": "دخترها اینطور دوست دارند"
       },
+      "aliases": {},
       "directors": [
         "Q5949461"
       ],
@@ -22030,6 +23631,7 @@
       "labels": {
         "fa": "در انتهای ظلمت"
       },
+      "aliases": {},
       "directors": [
         "Q16046695"
       ],
@@ -22058,6 +23660,7 @@
       "labels": {
         "fa": "زمین تلخ"
       },
+      "aliases": {},
       "directors": [
         "Q5958448"
       ],
@@ -22083,6 +23686,7 @@
       "labels": {
         "fa": "سوداگران مرگ"
       },
+      "aliases": {},
       "directors": [
         "Q6566774"
       ],
@@ -22108,6 +23712,7 @@
       "labels": {
         "fa": "عروس دهکده"
       },
+      "aliases": {},
       "directors": [
         "Q6566774"
       ],
@@ -22136,6 +23741,7 @@
       "labels": {
         "fa": "گربه وحشی"
       },
+      "aliases": {},
       "directors": [
         "Q5951543"
       ],
@@ -22159,6 +23765,7 @@
       "labels": {
         "fa": "نصیب و قسمت"
       },
+      "aliases": {},
       "directors": [
         "Q16046180"
       ],
@@ -22184,6 +23791,12 @@
       "labels": {
         "en": "The Skint",
         "fa": "آس و پاس"
+      },
+      "aliases": {
+        "en": [
+          "As o pas",
+          "Ace and Pass"
+        ]
       },
       "directors": [
         "Q5943061"
@@ -22212,6 +23825,7 @@
       "labels": {
         "fa": "دختران حوا"
       },
+      "aliases": {},
       "directors": [
         "Q16050528"
       ],
@@ -22237,6 +23851,7 @@
       "labels": {
         "fa": "عسل تلخ"
       },
+      "aliases": {},
       "directors": [
         "Q16051181"
       ],
@@ -22260,6 +23875,7 @@
       "labels": {
         "fa": "علی واکسی"
       },
+      "aliases": {},
       "directors": [
         "Q14916698"
       ],
@@ -22285,6 +23901,7 @@
       "labels": {
         "fa": "عمو نوروز"
       },
+      "aliases": {},
       "directors": [
         "Q5943061"
       ],
@@ -22310,6 +23927,7 @@
       "labels": {
         "fa": "مرغابی سرخ‌کرده"
       },
+      "aliases": {},
       "directors": [
         "Q5955454"
       ],
@@ -22336,6 +23954,7 @@
         "en": "Calm Before the Storm",
         "fa": "آرامش قبل از طوفان"
       },
+      "aliases": {},
       "directors": [
         "Q5958448"
       ],
@@ -22359,6 +23978,7 @@
       "labels": {
         "fa": "اول هیکل"
       },
+      "aliases": {},
       "directors": [
         "Q5943061"
       ],
@@ -22382,6 +24002,7 @@
       "labels": {
         "fa": "بچه‌های محل"
       },
+      "aliases": {},
       "directors": [
         "Q5937857"
       ],
@@ -22416,6 +24037,7 @@
       "labels": {
         "fa": "صفرعلی"
       },
+      "aliases": {},
       "directors": [
         "Q16050528"
       ],
@@ -22439,6 +24061,12 @@
       "labels": {
         "en": "The Runaway Angel",
         "fa": "فرشته فراری"
+      },
+      "aliases": {
+        "en": [
+          "Fereshteh farari",
+          "Runaway Angel"
+        ]
       },
       "directors": [
         "Q6878368"
@@ -22474,6 +24102,7 @@
       "labels": {
         "fa": "آقا جنی شده"
       },
+      "aliases": {},
       "directors": [
         "Q16045297"
       ],
@@ -22497,6 +24126,7 @@
       "labels": {
         "fa": "اینم یه جورشه"
       },
+      "aliases": {},
       "directors": [
         "Q16051603"
       ],
@@ -22527,6 +24157,7 @@
       "labels": {
         "fa": "بی‌ستاره‌ها"
       },
+      "aliases": {},
       "directors": [
         "Q5958448"
       ],
@@ -22557,6 +24188,7 @@
       "labels": {
         "fa": "چشمه آب حیات"
       },
+      "aliases": {},
       "directors": [
         "Q5943061"
       ],
@@ -22590,6 +24222,7 @@
       "labels": {
         "fa": "دوقلوها"
       },
+      "aliases": {},
       "directors": [
         "Q16047361"
       ],
@@ -22618,6 +24251,7 @@
       "labels": {
         "fa": "شانس و عشق و تصادف"
       },
+      "aliases": {},
       "directors": [
         "Q16051181"
       ],
@@ -22641,6 +24275,7 @@
       "labels": {
         "fa": "بیژن و منیژه"
       },
+      "aliases": {},
       "directors": [
         "Q20111168"
       ],
@@ -22671,6 +24306,7 @@
       "labels": {
         "fa": "قاصد بهشت"
       },
+      "aliases": {},
       "directors": [
         "Q4980507"
       ],
@@ -22698,6 +24334,7 @@
       "labels": {
         "fa": "لات جوانمرد"
       },
+      "aliases": {},
       "directors": [
         "Q5942472"
       ],
@@ -22723,6 +24360,12 @@
       "labels": {
         "en": "The Happy Naked One",
         "fa": "برهنه خوشحال"
+      },
+      "aliases": {
+        "en": [
+          "Berahneh khoshhal",
+          "Happy Naked"
+        ]
       },
       "directors": [
         "Q16051603"
@@ -22755,6 +24398,7 @@
         "en": "Bolbole mazraeh",
         "fa": "بلبل مزرعه"
       },
+      "aliases": {},
       "directors": [
         "Q5942472"
       ],
@@ -22788,6 +24432,7 @@
         "en": "Rostam va Sohrab",
         "fa": "رستم و سهراب"
       },
+      "aliases": {},
       "directors": [
         "Q16049015"
       ],
@@ -22811,6 +24456,7 @@
       "labels": {
         "fa": "ظالم بلا"
       },
+      "aliases": {},
       "directors": [
         "Q5943061"
       ],
@@ -22834,6 +24480,7 @@
       "labels": {
         "fa": "قزل ارسلان"
       },
+      "aliases": {},
       "directors": [
         "Q16047361"
       ],
@@ -22858,6 +24505,7 @@
         "en": "Accusation",
         "fa": "اتهام"
       },
+      "aliases": {},
       "directors": [
         "Q16047361"
       ],
@@ -22888,6 +24536,13 @@
       "labels": {
         "en": "Crossroad of Events",
         "fa": "چهارراه حوادث"
+      },
+      "aliases": {
+        "en": [
+          "Chahar Rahe-e Havades",
+          "Chahar-rahe havades",
+          "The Crossroads of Events"
+        ]
       },
       "directors": [
         "Q4980507"
@@ -22921,6 +24576,7 @@
       "labels": {
         "fa": "خون و شرف"
       },
+      "aliases": {},
       "directors": [
         "Q4980507"
       ],
@@ -22953,6 +24609,11 @@
       "labels": {
         "en": "Renault Tehran 29",
         "fa": "رنو تهران - ۲۹"
+      },
+      "aliases": {
+        "en": [
+          "Renault Tehran – 29"
+        ]
       },
       "directors": [
         "Q7506733"
@@ -22991,6 +24652,7 @@
         "en": "Hostage",
         "fa": "گروگان"
       },
+      "aliases": {},
       "directors": [
         "Q16047219"
       ],
@@ -23025,6 +24687,11 @@
         "en": "The Upside-down Triangle",
         "fa": "مثلث واژگون"
       },
+      "aliases": {
+        "en": [
+          "Upside-down Triangle"
+        ]
+      },
       "directors": [
         "Q23868336"
       ],
@@ -23049,6 +24716,7 @@
         "en": "Mah-pishooni",
         "fa": "ماه پیشونی"
       },
+      "aliases": {},
       "directors": [
         "Q14898619"
       ],
@@ -23074,6 +24742,7 @@
       "labels": {
         "fa": "تیغ آفتاب"
       },
+      "aliases": {},
       "directors": [
         "Q4746635"
       ],
@@ -23106,6 +24775,12 @@
         "en": "The Familiar Face",
         "fa": "چهره آشنا"
       },
+      "aliases": {
+        "en": [
+          "Chehrehe ashna",
+          "Familiar Face"
+        ]
+      },
       "directors": [],
       "date": [
         "+1953-04-29T00:00:00Z"
@@ -23132,6 +24807,12 @@
       "labels": {
         "en": "The Nights of Tehran",
         "fa": "شب‌های تهران"
+      },
+      "aliases": {
+        "en": [
+          "Shabhaye Tehran",
+          "Nights of Tehran"
+        ]
       },
       "directors": [
         "Q5943061"
@@ -23160,6 +24841,7 @@
         "en": "Drunk with Love",
         "fa": "مستی عشق"
       },
+      "aliases": {},
       "directors": [
         "Q14898619"
       ],
@@ -23185,6 +24867,7 @@
       "labels": {
         "fa": "عروس فراری"
       },
+      "aliases": {},
       "directors": [
         "Q14898619"
       ],
@@ -23216,6 +24899,7 @@
         "en": "The Bridge to Freedom",
         "fa": "پل آزادی"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+1982-00-00T00:00:00Z"
@@ -23243,6 +24927,7 @@
         "en": "Creation between Two Surfaces",
         "fa": "آفرینش بین دو سطح"
       },
+      "aliases": {},
       "directors": [
         "Q23868336"
       ],
@@ -23269,6 +24954,7 @@
         "en": "The Spring",
         "fa": "بهار"
       },
+      "aliases": {},
       "directors": [
         "Q2821694"
       ],
@@ -23295,6 +24981,14 @@
       "labels": {
         "en": "Once Upon a Time in Iran",
         "fa": "خاتون"
+      },
+      "aliases": {
+        "en": [
+          "Khatoon"
+        ],
+        "fa": [
+          "روزی روزگاری در ایران"
+        ]
       },
       "directors": [
         "Q16047956"
@@ -23325,6 +25019,11 @@
         "en": "The Untouchable",
         "fa": "به من دست نزن"
       },
+      "aliases": {
+        "en": [
+          "Untouchable, The"
+        ]
+      },
       "directors": [
         "Q108329920"
       ],
@@ -23349,6 +25048,7 @@
         "en": "Khoshnam",
         "fa": "خوشنام"
       },
+      "aliases": {},
       "directors": [
         "Q111959148"
       ],
@@ -23378,6 +25078,7 @@
         "en": "Laj o lajbazi",
         "fa": "لج و لج‌بازی"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+1972-00-00T00:00:00Z"
@@ -23402,6 +25103,7 @@
         "en": "Deltangi",
         "fa": "دلتنگی"
       },
+      "aliases": {},
       "directors": [
         "Q121080301"
       ],
@@ -23428,6 +25130,18 @@
         "en": "The Unicorn",
         "fa": "شاخ‌دار"
       },
+      "aliases": {
+        "en": [
+          "Shakhdar"
+        ],
+        "fa": [
+          "شاخدار",
+          "شاخ دار",
+          "shakhdar",
+          "shaakhdaar",
+          "shakh dar"
+        ]
+      },
       "directors": [],
       "date": [
         "+2024-00-00T00:00:00Z"
@@ -23450,6 +25164,7 @@
         "en": "Covetousness",
         "fa": "طمع"
       },
+      "aliases": {},
       "directors": [
         "Q121080301"
       ],
@@ -23474,6 +25189,11 @@
       },
       "labels": {
         "fa": "رانده‌شده"
+      },
+      "aliases": {
+        "fa": [
+          "رانده شده"
+        ]
       },
       "directors": [
         "Q5943061"
@@ -23503,6 +25223,11 @@
         "en": "The Cockroach",
         "fa": "سوسک"
       },
+      "aliases": {
+        "fa": [
+          "Soosk"
+        ]
+      },
       "directors": [],
       "date": [
         "+2022-00-00T00:00:00Z"
@@ -23527,6 +25252,7 @@
         "en": "The Road",
         "fa": "جاده"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+1972-00-00T00:00:00Z"
@@ -23553,6 +25279,11 @@
       "labels": {
         "en": "Wind of Jinn",
         "fa": "باد جن"
+      },
+      "aliases": {
+        "fa": [
+          "بادجن"
+        ]
       },
       "directors": [
         "Q2817346"
@@ -23584,6 +25315,7 @@
       "labels": {
         "fa": "یوسف و زلیخا"
       },
+      "aliases": {},
       "directors": [
         "Q5943061"
       ],
@@ -23607,6 +25339,7 @@
       "labels": {
         "fa": "نقلی و بلورهای برف"
       },
+      "aliases": {},
       "directors": [
         "Q85974567"
       ],
@@ -23628,6 +25361,7 @@
       "labels": {
         "fa": "آزاده و منوچهر"
       },
+      "aliases": {},
       "directors": [
         "Q5949461"
       ],
@@ -23648,6 +25382,7 @@
         "en": "Liberty, American Style",
         "fa": "آزادی امریکائی"
       },
+      "aliases": {},
       "directors": [
         "Q5959066"
       ],
@@ -23672,6 +25407,7 @@
         "en": "Atal Matal",
         "fa": "اتل متل"
       },
+      "aliases": {},
       "directors": [
         "Q3344879"
       ],
@@ -23698,6 +25434,7 @@
         "en": "The Government Inspector",
         "fa": "بازرس"
       },
+      "aliases": {},
       "directors": [
         "Q360665"
       ],
@@ -23727,6 +25464,11 @@
         "en": "Avare Aşık",
         "fa": "به خاطر دخترم"
       },
+      "aliases": {
+        "fa": [
+          "بخاطر دخترم"
+        ]
+      },
       "directors": [
         "Q6101954"
       ],
@@ -23754,6 +25496,7 @@
         "en": "Line-up",
         "fa": "به ترتیب قد"
       },
+      "aliases": {},
       "directors": [
         "Q3197643"
       ],
@@ -23780,6 +25523,7 @@
       "labels": {
         "fa": "تداعی"
       },
+      "aliases": {},
       "directors": [
         "Q3344879"
       ],
@@ -23815,6 +25559,11 @@
         "en": "Ashes of Love",
         "fa": "خاکستر عشق"
       },
+      "aliases": {
+        "en": [
+          "Khakestar-e Eshgh"
+        ]
+      },
       "directors": [
         "Q17992953"
       ],
@@ -23845,6 +25594,7 @@
       "labels": {
         "fa": "حسنی"
       },
+      "aliases": {},
       "directors": [
         "Q5947357"
       ],
@@ -23873,6 +25623,7 @@
       "labels": {
         "fa": "دار"
       },
+      "aliases": {},
       "directors": [
         "Q552707"
       ],
@@ -23902,6 +25653,7 @@
         "en": "The Circle",
         "fa": "دایره"
       },
+      "aliases": {},
       "directors": [
         "Q131468707"
       ],
@@ -23928,6 +25680,7 @@
         "en": "The Rook",
         "fa": "رخ"
       },
+      "aliases": {},
       "directors": [
         "Q4724601"
       ],
@@ -23955,6 +25708,7 @@
       "labels": {
         "fa": "راهبه‌ها"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+1972-03-00T00:00:00Z"
@@ -23977,6 +25731,7 @@
         "en": "The Coin",
         "fa": "سکه"
       },
+      "aliases": {},
       "directors": [
         "Q5920654"
       ],
@@ -24005,6 +25760,7 @@
         "en": "The Bird of Doom",
         "fa": "سیاه پرنده"
       },
+      "aliases": {},
       "directors": [
         "Q10294036"
       ],
@@ -24030,6 +25786,7 @@
       "labels": {
         "fa": "گردش در یک روز خوش آفتابی"
       },
+      "aliases": {},
       "directors": [
         "Q5963617"
       ],
@@ -24057,6 +25814,7 @@
       "labels": {
         "fa": "کوره‌پزخانه"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+1980-00-00T00:00:00Z"
@@ -24076,6 +25834,7 @@
       "labels": {
         "fa": "کودک و استثمار"
       },
+      "aliases": {},
       "directors": [
         "Q5964329"
       ],
@@ -24099,6 +25858,7 @@
       "labels": {
         "fa": "شرح حال"
       },
+      "aliases": {},
       "directors": [
         "Q923365"
       ],
@@ -24120,6 +25880,7 @@
       "labels": {
         "fa": "شیطان"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+1980-00-00T00:00:00Z"
@@ -24144,6 +25905,7 @@
         "en": "The Purple Crayon",
         "fa": "مداد بنفش"
       },
+      "aliases": {},
       "directors": [
         "Q16052553"
       ],
@@ -24171,6 +25933,7 @@
       "labels": {
         "fa": "مرد جنگل"
       },
+      "aliases": {},
       "directors": [
         "Q131694822"
       ],
@@ -24194,6 +25957,7 @@
       "labels": {
         "fa": "مرد نامرئی"
       },
+      "aliases": {},
       "directors": [
         "Q14898619"
       ],
@@ -24220,6 +25984,7 @@
         "en": "The Tenant",
         "fa": "مستآجر"
       },
+      "aliases": {},
       "directors": [
         "Q5957136"
       ],
@@ -24246,6 +26011,7 @@
         "en": "Malek Khorshid",
         "fa": "ملک خورشید"
       },
+      "aliases": {},
       "directors": [
         "Q4724601"
       ],
@@ -24276,6 +26042,7 @@
         "en": "Black Scarf",
         "fa": "شال سیاه"
       },
+      "aliases": {},
       "directors": [],
       "date": [
         "+2024-00-00T00:00:00Z"

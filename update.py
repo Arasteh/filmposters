@@ -29,16 +29,21 @@ def wikidata_items(ids):
 films = {
     item['id']: {
         'id': item['id'],
-        'sitelinks': dict(sorted({
+        'sitelinks': {
             site: link['title']
-            for site, link in item['sitelinks'].items()
+            for site, link in sorted(item['sitelinks'].items())
             if site == 'fawiki' or site == 'enwiki'
-        }.items())),
-        'labels': dict(sorted({
+        },
+        'labels': {
             lang: label['value']
-            for lang, label in item['labels'].items()
+            for lang, label in sorted(item['labels'].items())
             if lang == 'fa' or lang == 'en'
-        }.items())),
+        },
+        'aliases': {
+            lang: [x['value'] for x in alias]
+            for lang, alias in sorted(item['aliases'].items())
+            if lang == 'fa' or lang == 'en'
+        },
         'directors': [x['mainsnak']['datavalue']['value']['id']
                       for x in item['claims'].get('P57', [])],
         'date': [x['mainsnak']['datavalue']['value']['time']
@@ -66,16 +71,16 @@ films = {
 people = {
     item['id']: {
         'id': item['id'],
-        'sitelinks': dict(sorted({
+        'sitelinks': {
             site: link['title']
-            for site, link in item['sitelinks'].items()
+            for site, link in sorted(item['sitelinks'].items())
             if site == 'fawiki' or site == 'enwiki'
-        }.items())),
-        'labels': dict(sorted({
+        },
+        'labels': {
             lang: label['value']
-            for lang, label in item['labels'].items()
+            for lang, label in sorted(item['labels'].items())
             if lang == 'fa' or lang == 'en'
-        }.items())),
+        },
     }
     for item in wikidata_items(
         {designer
