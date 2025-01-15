@@ -859,12 +859,12 @@
                         class="item-image" /></a>
                 <div class="item-title">{{ getItemTitleWithYear(item) }}</div>
                 <div v-if="item.designer && item.designerLabel" class="item-designer">
-                طراح: <a href="#" @click.prevent="selectDesigner(item.designerLabel)">{{ item.designerLabel }}</a> (<a :href="item.designer" target="_blank">Q</a>)
+                طراح: <a href="#" @click.prevent="selectDesigner(item.designerLabel)">{{ item.designerLabel }}</a> (<a :href="'https://www.wikidata.org/wiki/' + item.designer" target="_blank">Q</a>)
                 </div>
                 <div class="item-links">
-                    <a :href="getImdbLink(item.imdbID)" target="_blank">T</a>
-                    <a :href="getWikidataLink(item.film)" target="_blank">Q</a>
-                    <a :href="item.faWikipediaLink" target="_blank">W</a>
+                    <a :href="'https://www.imdb.com/title/' + item.imdbID" target="_blank">T</a>
+                    <a :href="'https://www.wikidata.org/wiki/' + item.film" target="_blank">Q</a>
+                    <a :href="'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink" target="_blank">W</a>
                 </div>
             </div>
         </div>
@@ -918,7 +918,7 @@ async function getAllItems() {
     return Object.values(data.films).flatMap(film => {
         return film.posters.map((poster, i) => {
             const item = {};
-            item.film = 'https://www.wikidata.org/wiki/' + film.id;
+            item.film = film.id;
             item.filmLabel = film.labels.fa;
             item.aliases = film.aliases?.fa?.join(',') ?? '';
             item.date = film.date.map(x => x).sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0];
@@ -934,7 +934,7 @@ async function getAllItems() {
             if (film.imdb.length) {
                 item.imdbID = film.imdb[0];
             }
-            item.faWikipediaLink = 'https://fa.wikipedia.org/wiki/' + film.sitelinks.fawiki;
+            item.faWikipediaLink = film.sitelinks.fawiki;
             if (film.logos.length > i) {
                 item.logo = film.logos[i].image;
             }
@@ -1325,10 +1325,8 @@ watch(designerQuery, (newValue) => {
         const getLogoUrl = item => item.logo ? getPosterUrl(item.logo) : 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=600';
         const getImageUrl = item => posterMode.value ? getPosterUrl(item.poster) : getLogoUrl(item);
         const getImageLink = item => posterMode.value ? item.poster : item.logo;
-        const getImdbLink = imdbID => `https://www.imdb.com/title/${imdbID}`;
-        const getWikidataLink = film => film;
 
-        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getImdbLink, getWikidataLink, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, minYear, maxYear, selectedYearSlider, updateSelectedYear, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth  };
+        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, minYear, maxYear, selectedYearSlider, updateSelectedYear, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth  };
     }
 }).mount('#app');
     </script>
