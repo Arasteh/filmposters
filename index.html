@@ -921,7 +921,9 @@ async function getAllItems() {
             item.film = film.id;
             item.filmLabel = film.labels.fa;
             item.aliases = film.aliases?.fa?.join(',') ?? '';
-            item.date = film.date.map(x => x).sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0];
+            item.date = film.date
+                .map(x => x.replace('-01-01T00:00:00Z', '-03-30T00:00:00Z').replace('-00-00T00:00:00Z', '-03-30T00:00:00Z'))
+                .sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0];
             item.poster = poster.image;
             if (poster.designer.length) {
                 item.designer = poster.designer[0];
