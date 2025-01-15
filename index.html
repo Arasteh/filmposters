@@ -602,7 +602,7 @@
                 {{ filteredItems.length.toLocaleString('fa') }} از {{ items.length.toLocaleString('fa') }}
             </div>
         </div>
-         <div id="sidebar" class="sidebar">
+         <div id="sidebar" class="sidebar" :style="{ width: sidebarWidth + 'px' }">
             <div class="sidebar-resize-handle"></div>
             <div class="sidebar-content">
                 <!-- بخش سال‌ها -->
@@ -1129,6 +1129,7 @@ watch(designerQuery, (newValue) => {
 
         const resize = (e) => {
             const newWidth = window.innerWidth - e.clientX;
+            console.log('New Width:', newWidth); // برای دیباگ
             if (newWidth >= minSidebarWidth.value && newWidth <= maxSidebarWidth.value) {
                 sidebarWidth.value = newWidth;
             }
