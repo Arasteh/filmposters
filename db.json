@@ -21043,378 +21043,15 @@
     }
   },
   "designers": {
-    "Q131690452": {
-      "id": "Q131690452",
-      "sitelinks": {},
-      "label": {
-        "en": "Farideh Foroutan",
-        "fa": "فریده فروتن"
-      }
-    },
-    "Q131700589": {
-      "id": "Q131700589",
-      "sitelinks": {},
-      "label": {
-        "en": "Hossein Fadavi",
-        "fa": "حسین فدوی"
-      }
-    },
-    "Q131689799": {
-      "id": "Q131689799",
-      "sitelinks": {},
-      "label": {
-        "en": "Ali Khosravi",
-        "fa": "علی خسروی"
-      }
-    },
-    "Q11902682": {
-      "id": "Q11902682",
+    "Q55210": {
+      "id": "Q55210",
       "sitelinks": {
-        "enwiki": "Aziz Saati",
-        "fawiki": "عزیز ساعتی"
+        "enwiki": "Abbas Kiarostami",
+        "fawiki": "عباس کیارستمی"
       },
       "label": {
-        "en": "Aziz Saati",
-        "fa": "عزیز ساعتی"
-      }
-    },
-    "Q131377955": {
-      "id": "Q131377955",
-      "sitelinks": {},
-      "label": {
-        "en": "Ahang",
-        "fa": "آهنگ"
-      }
-    },
-    "Q5768261": {
-      "id": "Q5768261",
-      "sitelinks": {
-        "fawiki": "ابراهیم حقیقی"
-      },
-      "label": {
-        "en": "Ebrahim Haghighi",
-        "fa": "ابراهیم حقیقی"
-      }
-    },
-    "Q65199084": {
-      "id": "Q65199084",
-      "sitelinks": {
-        "fawiki": "آرمان استپانیان"
-      },
-      "label": {
-        "en": "Arman Stepanian",
-        "fa": "آرمان استپانیان"
-      }
-    },
-    "Q131755367": {
-      "id": "Q131755367",
-      "sitelinks": {},
-      "label": {
-        "en": "Felor Shakiba",
-        "fa": "فلور شکیبا"
-      }
-    },
-    "Q131727756": {
-      "id": "Q131727756",
-      "sitelinks": {},
-      "label": {
-        "en": "Keyvan",
-        "fa": "کیوان"
-      }
-    },
-    "Q131377965": {
-      "id": "Q131377965",
-      "sitelinks": {},
-      "label": {
-        "en": "Hatef Alizadeh",
-        "fa": "هاتف علیزاده"
-      }
-    },
-    "Q131410382": {
-      "id": "Q131410382",
-      "sitelinks": {},
-      "label": {
-        "en": "Chanda Warker",
-        "fa": "چاندا وارکر"
-      }
-    },
-    "Q131706401": {
-      "id": "Q131706401",
-      "sitelinks": {},
-      "label": {
-        "en": "Amir-Soleimani",
-        "fa": "امیرسلیمانی"
-      }
-    },
-    "Q131377848": {
-      "id": "Q131377848",
-      "sitelinks": {},
-      "label": {
-        "en": "Louzani",
-        "fa": "لوزانی"
-      }
-    },
-    "Q131377961": {
-      "id": "Q131377961",
-      "sitelinks": {},
-      "label": {
-        "en": "Majid Akhavan",
-        "fa": "مجید اخوان"
-      }
-    },
-    "Q65196302": {
-      "id": "Q65196302",
-      "sitelinks": {
-        "fawiki": "مسعود دشتبان"
-      },
-      "label": {
-        "en": "Masoud Dashtban",
-        "fa": "مسعود دشتبان"
-      }
-    },
-    "Q131701220": {
-      "id": "Q131701220",
-      "sitelinks": {},
-      "label": {
-        "en": "Mohajer",
-        "fa": "مهاجر"
-      }
-    },
-    "Q131745214": {
-      "id": "Q131745214",
-      "sitelinks": {},
-      "label": {
-        "en": "Laleh Soltan-Mohammadi",
-        "fa": "لاله سلطان‌محمدی"
-      }
-    },
-    "Q131545722": {
-      "id": "Q131545722",
-      "sitelinks": {},
-      "label": {
-        "en": "Shirin Rokni",
-        "fa": "شیرین رکنی"
-      }
-    },
-    "Q5674381": {
-      "id": "Q5674381",
-      "sitelinks": {
-        "fawiki": "حسین خسروجردی"
-      },
-      "label": {
-        "en": "Hossein Khosrojerdi",
-        "fa": "حسین خسروجردی"
-      }
-    },
-    "Q131377764": {
-      "id": "Q131377764",
-      "sitelinks": {},
-      "label": {
-        "en": "The Advertising House of Iran",
-        "fa": "خانهٔ آگهی ایران"
-      }
-    },
-    "Q131605807": {
-      "id": "Q131605807",
-      "sitelinks": {},
-      "label": {
-        "en": "Shiva",
-        "fa": "شیوا"
-      }
-    },
-    "Q131605637": {
-      "id": "Q131605637",
-      "sitelinks": {},
-      "label": {
-        "en": "Abolfazl Hemmati Ahooei",
-        "fa": "ابوالفضل همتی آهویی"
-      }
-    },
-    "Q131387096": {
-      "id": "Q131387096",
-      "sitelinks": {},
-      "label": {
-        "en": "Kama Agency",
-        "fa": "سازمان کاما"
-      }
-    },
-    "Q131377992": {
-      "id": "Q131377992",
-      "sitelinks": {},
-      "label": {
-        "en": "Mohammad Reza Dadgar",
-        "fa": "محمدرضا دادگر"
-      }
-    },
-    "Q10294201": {
-      "id": "Q10294201",
-      "sitelinks": {
-        "enwiki": "Ghobad Shiva",
-        "fawiki": "قباد شیوا"
-      },
-      "label": {
-        "en": "Ghobad Shiva",
-        "fa": "قباد شیوا"
-      }
-    },
-    "Q131745186": {
-      "id": "Q131745186",
-      "sitelinks": {},
-      "label": {
-        "en": "Heidarzadeh",
-        "fa": "حیدرزاده"
-      }
-    },
-    "Q131377869": {
-      "id": "Q131377869",
-      "sitelinks": {},
-      "label": {
-        "en": "Ali Mazaheri",
-        "fa": "علی مظاهری"
-      }
-    },
-    "Q20109479": {
-      "id": "Q20109479",
-      "sitelinks": {
-        "fawiki": "هایک اجاقیان"
-      },
-      "label": {
-        "en": "Haik Ojaghian",
-        "fa": "هایک اجاقیان"
-      }
-    },
-    "Q122686095": {
-      "id": "Q122686095",
-      "sitelinks": {},
-      "label": {
-        "en": "Farid Barari",
-        "fa": "فرید براری"
-      }
-    },
-    "Q131755404": {
-      "id": "Q131755404",
-      "sitelinks": {},
-      "label": {
-        "en": "Diako",
-        "fa": "دیاکو"
-      }
-    },
-    "Q131377841": {
-      "id": "Q131377841",
-      "sitelinks": {},
-      "label": {
-        "en": "Ahmad Masoudi",
-        "fa": "احمد مسعودی"
-      }
-    },
-    "Q131599249": {
-      "id": "Q131599249",
-      "sitelinks": {},
-      "label": {
-        "en": "Massoud Taraghi Jah",
-        "fa": "مسعود ترقی‌جاه"
-      }
-    },
-    "Q131755394": {
-      "id": "Q131755394",
-      "sitelinks": {},
-      "label": {
-        "en": "Ali Haddadi",
-        "fa": "علی حدادی"
-      }
-    },
-    "Q131700605": {
-      "id": "Q131700605",
-      "sitelinks": {},
-      "label": {
-        "en": "Heidar Rezaei",
-        "fa": "حیدر رضایی"
-      }
-    },
-    "Q131587564": {
-      "id": "Q131587564",
-      "sitelinks": {},
-      "label": {
-        "en": "Farrokhi Atelier",
-        "fa": "آتلیه فرخی"
-      }
-    },
-    "Q131701162": {
-      "id": "Q131701162",
-      "sitelinks": {},
-      "label": {
-        "en": "Bahram Monadi",
-        "fa": "بهرام منادی"
-      }
-    },
-    "Q131522309": {
-      "id": "Q131522309",
-      "sitelinks": {},
-      "label": {
-        "en": "Houshang Mohammadian",
-        "fa": "هوشنگ محمدیان"
-      }
-    },
-    "Q131377949": {
-      "id": "Q131377949",
-      "sitelinks": {},
-      "label": {
-        "en": "Karlou",
-        "fa": "کارلو"
-      }
-    },
-    "Q131377907": {
-      "id": "Q131377907",
-      "sitelinks": {},
-      "label": {
-        "en": "Tasouji",
-        "fa": "طسوجی"
-      }
-    },
-    "Q131522866": {
-      "id": "Q131522866",
-      "sitelinks": {},
-      "label": {
-        "en": "Sirous Shaghaghi",
-        "fa": "سیروس شقاقی"
-      }
-    },
-    "Q61060515": {
-      "id": "Q61060515",
-      "sitelinks": {
-        "fawiki": "محمدعلی باطنی"
-      },
-      "label": {
-        "en": "Mohammad Ali Bateni",
-        "fa": "محمدعلی باطنی"
-      }
-    },
-    "Q131720853": {
-      "id": "Q131720853",
-      "sitelinks": {},
-      "label": {
-        "en": "Kamal Kamelia",
-        "fa": "کمال کاملیا"
-      }
-    },
-    "Q17992269": {
-      "id": "Q17992269",
-      "sitelinks": {
-        "fawiki": "منوچهر درفشه"
-      },
-      "label": {
-        "en": "Manouchehr Darafsheh",
-        "fa": "منوچهر درفشه"
-      }
-    },
-    "Q61994167": {
-      "id": "Q61994167",
-      "sitelinks": {
-        "fawiki": "حسن فارسی"
-      },
-      "label": {
-        "en": "Hasan Farsi",
-        "fa": "حسن فارسی"
+        "en": "Abbas Kiarostami",
+        "fa": "عباس کیارستمی"
       }
     },
     "Q361697": {
@@ -21428,104 +21065,69 @@
         "fa": "فرشید مثقالی"
       }
     },
-    "Q131377887": {
-      "id": "Q131377887",
-      "sitelinks": {},
-      "label": {
-        "en": "Masoud Behnam",
-        "fa": "مسعود بهنام"
-      }
-    },
-    "Q131553231": {
-      "id": "Q131553231",
-      "sitelinks": {},
-      "label": {
-        "en": "Ghazizadeh",
-        "fa": "قاضی‌زاده"
-      }
-    },
-    "Q131389268": {
-      "id": "Q131389268",
-      "sitelinks": {},
-      "label": {
-        "en": "Sadeghpoor Atelier",
-        "fa": "آتلیه صادق‌پور"
-      }
-    },
-    "Q131700555": {
-      "id": "Q131700555",
-      "sitelinks": {},
-      "label": {
-        "en": "Vahid Mosafer Haghighi",
-        "fa": "وحید مسافر حقیقی"
-      }
-    },
-    "Q131389170": {
-      "id": "Q131389170",
-      "sitelinks": {},
-      "label": {
-        "en": "Pateh Agency",
-        "fa": "پاته آژانس"
-      }
-    },
-    "Q131706427": {
-      "id": "Q131706427",
-      "sitelinks": {},
-      "label": {
-        "en": "Reza Mohajer",
-        "fa": "رضا مهاجر"
-      }
-    },
-    "Q16048596": {
-      "id": "Q16048596",
+    "Q766732": {
+      "id": "Q766732",
       "sitelinks": {
-        "fawiki": "علی وزیریان"
+        "enwiki": "Reza Abedini",
+        "fawiki": "رضا عابدینی"
       },
       "label": {
-        "en": "Ali Vazirian",
-        "fa": "علی وزیریان"
+        "en": "Reza Abedini",
+        "fa": "رضا عابدینی"
       }
     },
-    "Q131755456": {
-      "id": "Q131755456",
-      "sitelinks": {},
-      "label": {
-        "en": "Behzad Khorshidi",
-        "fa": "بهزاد خورشیدی"
-      }
-    },
-    "Q131755343": {
-      "id": "Q131755343",
-      "sitelinks": {},
-      "label": {
-        "en": "Hamid Koreyli",
-        "fa": "حمید کریلی"
-      }
-    },
-    "Q131701113": {
-      "id": "Q131701113",
-      "sitelinks": {},
-      "label": {
-        "en": "House of Art",
-        "fa": "خانه هنر"
-      }
-    },
-    "Q131377852": {
-      "id": "Q131377852",
-      "sitelinks": {},
-      "label": {
-        "en": "Parviz Mahallati",
-        "fa": "پرویز محلاتی"
-      }
-    },
-    "Q25423900": {
-      "id": "Q25423900",
+    "Q3318983": {
+      "id": "Q3318983",
       "sitelinks": {
-        "fawiki": "میشا گیراگوسیان"
+        "enwiki": "Mohammad-Reza Sharifinia",
+        "fawiki": "محمدرضا شریفی‌نیا"
       },
       "label": {
-        "en": "Misha Geragosian",
-        "fa": "میشا گیراگوسیان"
+        "en": "Mohammad-Reza Sharifinia",
+        "fa": "محمدرضا شریفی‌نیا"
+      }
+    },
+    "Q3344879": {
+      "id": "Q3344879",
+      "sitelinks": {
+        "enwiki": "Noureddin Zarrinkelk",
+        "fawiki": "نورالدین زرین‌کلک"
+      },
+      "label": {
+        "en": "Noureddin Zarrinkelk",
+        "fa": "نورالدین زرین‌کلک"
+      }
+    },
+    "Q3944029": {
+      "id": "Q3944029",
+      "sitelinks": {
+        "enwiki": "Aydin Aghdashloo",
+        "fawiki": "آیدین آغداشلو"
+      },
+      "label": {
+        "en": "Aydin Aghdashloo",
+        "fa": "آیدین آغداشلو"
+      }
+    },
+    "Q4724601": {
+      "id": "Q4724601",
+      "sitelinks": {
+        "enwiki": "Ali Akbar Sadeghi",
+        "fawiki": "علی‌اکبر صادقی"
+      },
+      "label": {
+        "en": "Ali Akbar Sadeghi",
+        "fa": "علی اکبر صادقی"
+      }
+    },
+    "Q5674381": {
+      "id": "Q5674381",
+      "sitelinks": {
+        "fawiki": "حسین خسروجردی"
+      },
+      "label": {
+        "en": "Hossein Khosrojerdi",
+        "fa": "حسین خسروجردی"
       }
     },
     "Q5717256": {
@@ -21539,54 +21141,24 @@
         "fa": "فرح اصولی"
       }
     },
-    "Q131701088": {
-      "id": "Q131701088",
-      "sitelinks": {},
-      "label": {
-        "en": "Abbas Yaraqchi",
-        "fa": "عباس یراقچی"
-      }
-    },
-    "Q131377902": {
-      "id": "Q131377902",
-      "sitelinks": {},
-      "label": {
-        "en": "Rahim Beheshti",
-        "fa": "رحیم بهشتی"
-      }
-    },
-    "Q131377947": {
-      "id": "Q131377947",
-      "sitelinks": {},
-      "label": {
-        "en": "Jarchi Advertising",
-        "fa": "تبلیغات جارچی"
-      }
-    },
-    "Q131738388": {
-      "id": "Q131738388",
-      "sitelinks": {},
-      "label": {
-        "en": "Bozork Khazraei",
-        "fa": "بزرگ خضرایی"
-      }
-    },
-    "Q28354563": {
-      "id": "Q28354563",
+    "Q5768261": {
+      "id": "Q5768261",
       "sitelinks": {
-        "fawiki": "فوزی حسن‌تهرانی"
+        "fawiki": "ابراهیم حقیقی"
       },
       "label": {
-        "en": "Fowzi Tehrani",
-        "fa": "فوزی حسن‌تهرانی"
+        "en": "Ebrahim Haghighi",
+        "fa": "ابراهیم حقیقی"
       }
     },
-    "Q131706320": {
-      "id": "Q131706320",
-      "sitelinks": {},
+    "Q5941972": {
+      "id": "Q5941972",
+      "sitelinks": {
+        "fawiki": "حسن هدایت"
+      },
       "label": {
-        "en": "Manouchehr Abdollah-Zadeh",
-        "fa": "منوچهر عبدالله‌زاده"
+        "en": "Hassan Hedayat",
+        "fa": "حسن هدایت"
       }
     },
     "Q10294036": {
@@ -21600,6 +21172,175 @@
         "fa": "مرتضی ممیز"
       }
     },
+    "Q10294201": {
+      "id": "Q10294201",
+      "sitelinks": {
+        "enwiki": "Ghobad Shiva",
+        "fawiki": "قباد شیوا"
+      },
+      "label": {
+        "en": "Ghobad Shiva",
+        "fa": "قباد شیوا"
+      }
+    },
+    "Q11902682": {
+      "id": "Q11902682",
+      "sitelinks": {
+        "enwiki": "Aziz Saati",
+        "fawiki": "عزیز ساعتی"
+      },
+      "label": {
+        "en": "Aziz Saati",
+        "fa": "عزیز ساعتی"
+      }
+    },
+    "Q16048596": {
+      "id": "Q16048596",
+      "sitelinks": {
+        "fawiki": "علی وزیریان"
+      },
+      "label": {
+        "en": "Ali Vazirian",
+        "fa": "علی وزیریان"
+      }
+    },
+    "Q16051488": {
+      "id": "Q16051488",
+      "sitelinks": {
+        "fawiki": "محسن دولو"
+      },
+      "label": {
+        "en": "Mohsen Davallou",
+        "fa": "محسن دولو"
+      }
+    },
+    "Q16074980": {
+      "id": "Q16074980",
+      "sitelinks": {
+        "fawiki": "کریم نصر"
+      },
+      "label": {
+        "en": "Karim Nasr",
+        "fa": "کریم نصر"
+      }
+    },
+    "Q16151780": {
+      "id": "Q16151780",
+      "sitelinks": {
+        "enwiki": "Bijan Jenab",
+        "fawiki": "بیژن جناب"
+      },
+      "label": {
+        "en": "Bijan Jenab",
+        "fa": "بیژن جناب"
+      }
+    },
+    "Q17992269": {
+      "id": "Q17992269",
+      "sitelinks": {
+        "fawiki": "منوچهر درفشه"
+      },
+      "label": {
+        "en": "Manouchehr Darafsheh",
+        "fa": "منوچهر درفشه"
+      }
+    },
+    "Q20109479": {
+      "id": "Q20109479",
+      "sitelinks": {
+        "fawiki": "هایک اجاقیان"
+      },
+      "label": {
+        "en": "Haik Ojaghian",
+        "fa": "هایک اجاقیان"
+      }
+    },
+    "Q25423900": {
+      "id": "Q25423900",
+      "sitelinks": {
+        "fawiki": "میشا گیراگوسیان"
+      },
+      "label": {
+        "en": "Misha Geragosian",
+        "fa": "میشا گیراگوسیان"
+      }
+    },
+    "Q25424766": {
+      "id": "Q25424766",
+      "sitelinks": {
+        "fawiki": "امیر اثباتی"
+      },
+      "label": {
+        "en": "Amir Esbati",
+        "fa": "امیر اثباتی"
+      }
+    },
+    "Q28354563": {
+      "id": "Q28354563",
+      "sitelinks": {
+        "fawiki": "فوزی حسن‌تهرانی"
+      },
+      "label": {
+        "en": "Fowzi Tehrani",
+        "fa": "فوزی حسن‌تهرانی"
+      }
+    },
+    "Q61060515": {
+      "id": "Q61060515",
+      "sitelinks": {
+        "fawiki": "محمدعلی باطنی"
+      },
+      "label": {
+        "en": "Mohammad Ali Bateni",
+        "fa": "محمدعلی باطنی"
+      }
+    },
+    "Q61994167": {
+      "id": "Q61994167",
+      "sitelinks": {
+        "fawiki": "حسن فارسی"
+      },
+      "label": {
+        "en": "Hasan Farsi",
+        "fa": "حسن فارسی"
+      }
+    },
+    "Q65196302": {
+      "id": "Q65196302",
+      "sitelinks": {
+        "fawiki": "مسعود دشتبان"
+      },
+      "label": {
+        "en": "Masoud Dashtban",
+        "fa": "مسعود دشتبان"
+      }
+    },
+    "Q65199084": {
+      "id": "Q65199084",
+      "sitelinks": {
+        "fawiki": "آرمان استپانیان"
+      },
+      "label": {
+        "en": "Arman Stepanian",
+        "fa": "آرمان استپانیان"
+      }
+    },
+    "Q122686095": {
+      "id": "Q122686095",
+      "sitelinks": {},
+      "label": {
+        "en": "Farid Barari",
+        "fa": "فرید براری"
+      }
+    },
+    "Q131377764": {
+      "id": "Q131377764",
+      "sitelinks": {},
+      "label": {
+        "en": "The Advertising House of Iran",
+        "fa": "خانهٔ آگهی ایران"
+      }
+    },
     "Q131377834": {
       "id": "Q131377834",
       "sitelinks": {
@@ -21608,6 +21349,262 @@
       "label": {
         "en": "Mohammad Ali Heddat",
         "fa": "محمدعلی حدت"
+      }
+    },
+    "Q131377841": {
+      "id": "Q131377841",
+      "sitelinks": {},
+      "label": {
+        "en": "Ahmad Masoudi",
+        "fa": "احمد مسعودی"
+      }
+    },
+    "Q131377848": {
+      "id": "Q131377848",
+      "sitelinks": {},
+      "label": {
+        "en": "Louzani",
+        "fa": "لوزانی"
+      }
+    },
+    "Q131377852": {
+      "id": "Q131377852",
+      "sitelinks": {},
+      "label": {
+        "en": "Parviz Mahallati",
+        "fa": "پرویز محلاتی"
+      }
+    },
+    "Q131377869": {
+      "id": "Q131377869",
+      "sitelinks": {},
+      "label": {
+        "en": "Ali Mazaheri",
+        "fa": "علی مظاهری"
+      }
+    },
+    "Q131377887": {
+      "id": "Q131377887",
+      "sitelinks": {},
+      "label": {
+        "en": "Masoud Behnam",
+        "fa": "مسعود بهنام"
+      }
+    },
+    "Q131377902": {
+      "id": "Q131377902",
+      "sitelinks": {},
+      "label": {
+        "en": "Rahim Beheshti",
+        "fa": "رحیم بهشتی"
+      }
+    },
+    "Q131377907": {
+      "id": "Q131377907",
+      "sitelinks": {},
+      "label": {
+        "en": "Tasouji",
+        "fa": "طسوجی"
+      }
+    },
+    "Q131377910": {
+      "id": "Q131377910",
+      "sitelinks": {},
+      "label": {
+        "en": "Soroush",
+        "fa": "سروش"
+      }
+    },
+    "Q131377947": {
+      "id": "Q131377947",
+      "sitelinks": {},
+      "label": {
+        "en": "Jarchi Advertising",
+        "fa": "تبلیغات جارچی"
+      }
+    },
+    "Q131377949": {
+      "id": "Q131377949",
+      "sitelinks": {},
+      "label": {
+        "en": "Karlou",
+        "fa": "کارلو"
+      }
+    },
+    "Q131377955": {
+      "id": "Q131377955",
+      "sitelinks": {},
+      "label": {
+        "en": "Ahang",
+        "fa": "آهنگ"
+      }
+    },
+    "Q131377961": {
+      "id": "Q131377961",
+      "sitelinks": {},
+      "label": {
+        "en": "Majid Akhavan",
+        "fa": "مجید اخوان"
+      }
+    },
+    "Q131377965": {
+      "id": "Q131377965",
+      "sitelinks": {},
+      "label": {
+        "en": "Hatef Alizadeh",
+        "fa": "هاتف علیزاده"
+      }
+    },
+    "Q131377977": {
+      "id": "Q131377977",
+      "sitelinks": {},
+      "label": {
+        "en": "BAT Atelier",
+        "fa": "آتلیه بات"
+      }
+    },
+    "Q131377984": {
+      "id": "Q131377984",
+      "sitelinks": {},
+      "label": {
+        "en": "Jamaleddin Khorraminejad",
+        "fa": "جمال‌الدین خرمی‌نژاد"
+      }
+    },
+    "Q131377992": {
+      "id": "Q131377992",
+      "sitelinks": {},
+      "label": {
+        "en": "Mohammad Reza Dadgar",
+        "fa": "محمدرضا دادگر"
+      }
+    },
+    "Q131377994": {
+      "id": "Q131377994",
+      "sitelinks": {},
+      "label": {
+        "en": "Cinema Agahi",
+        "fa": "سینما آگهی"
+      }
+    },
+    "Q131386459": {
+      "id": "Q131386459",
+      "sitelinks": {},
+      "label": {
+        "en": "Sadeghi Atelier",
+        "fa": "آتلیهٔ صادقی"
+      }
+    },
+    "Q131387096": {
+      "id": "Q131387096",
+      "sitelinks": {},
+      "label": {
+        "en": "Kama Agency",
+        "fa": "سازمان کاما"
+      }
+    },
+    "Q131388935": {
+      "id": "Q131388935",
+      "sitelinks": {},
+      "label": {
+        "en": "Yaghoub",
+        "fa": "یعقوب"
+      }
+    },
+    "Q131389170": {
+      "id": "Q131389170",
+      "sitelinks": {},
+      "label": {
+        "en": "Pateh Agency",
+        "fa": "پاته آژانس"
+      }
+    },
+    "Q131389268": {
+      "id": "Q131389268",
+      "sitelinks": {},
+      "label": {
+        "en": "Sadeghpoor Atelier",
+        "fa": "آتلیه صادق‌پور"
+      }
+    },
+    "Q131410382": {
+      "id": "Q131410382",
+      "sitelinks": {},
+      "label": {
+        "en": "Chanda Warker",
+        "fa": "چاندا وارکر"
+      }
+    },
+    "Q131455295": {
+      "id": "Q131455295",
+      "sitelinks": {},
+      "label": {
+        "en": "Negareh Organization",
+        "fa": "سازمان نگاره"
+      }
+    },
+    "Q131455352": {
+      "id": "Q131455352",
+      "sitelinks": {},
+      "label": {
+        "en": "Afrang",
+        "fa": "افرنگ"
+      }
+    },
+    "Q131470568": {
+      "id": "Q131470568",
+      "sitelinks": {},
+      "label": {
+        "en": "ARM",
+        "fa": "آرم"
+      }
+    },
+    "Q131522309": {
+      "id": "Q131522309",
+      "sitelinks": {},
+      "label": {
+        "en": "Houshang Mohammadian",
+        "fa": "هوشنگ محمدیان"
+      }
+    },
+    "Q131522866": {
+      "id": "Q131522866",
+      "sitelinks": {},
+      "label": {
+        "en": "Sirous Shaghaghi",
+        "fa": "سیروس شقاقی"
+      }
+    },
+    "Q131545722": {
+      "id": "Q131545722",
+      "sitelinks": {},
+      "label": {
+        "en": "Shirin Rokni",
+        "fa": "شیرین رکنی"
+      }
+    },
+    "Q131553231": {
+      "id": "Q131553231",
+      "sitelinks": {},
+      "label": {
+        "en": "Ghazizadeh",
+        "fa": "قاضی‌زاده"
+      }
+    },
+    "Q131587564": {
+      "id": "Q131587564",
+      "sitelinks": {},
+      "label": {
+        "en": "Farrokhi Atelier",
+        "fa": "آتلیه فرخی"
+      }
+    },
+    "Q131599249": {
+      "id": "Q131599249",
+      "sitelinks": {},
+      "label": {
+        "en": "Massoud Taraghi Jah",
+        "fa": "مسعود ترقی‌جاه"
       }
     },
     "Q131604482": {
@@ -21626,14 +21623,36 @@
         "fa": "جمال"
       }
     },
-    "Q25424766": {
-      "id": "Q25424766",
-      "sitelinks": {
-        "fawiki": "امیر اثباتی"
-      },
+    "Q131604625": {
+      "id": "Q131604625",
+      "sitelinks": {},
       "label": {
-        "en": "Amir Esbati",
-        "fa": "امیر اثباتی"
+        "en": "CineSilk",
+        "fa": "سینه‌سیلک"
+      }
+    },
+    "Q131605637": {
+      "id": "Q131605637",
+      "sitelinks": {},
+      "label": {
+        "en": "Abolfazl Hemmati Ahooei",
+        "fa": "ابوالفضل همتی آهویی"
+      }
+    },
+    "Q131605807": {
+      "id": "Q131605807",
+      "sitelinks": {},
+      "label": {
+        "en": "Shiva",
+        "fa": "شیوا"
+      }
+    },
+    "Q131689799": {
+      "id": "Q131689799",
+      "sitelinks": {},
+      "label": {
+        "en": "Ali Khosravi",
+        "fa": "علی خسروی"
       }
     },
     "Q131690256": {
@@ -21644,129 +21663,36 @@
         "fa": "سعید بطحائی"
       }
     },
-    "Q3944029": {
-      "id": "Q3944029",
-      "sitelinks": {
-        "enwiki": "Aydin Aghdashloo",
-        "fawiki": "آیدین آغداشلو"
-      },
-      "label": {
-        "en": "Aydin Aghdashloo",
-        "fa": "آیدین آغداشلو"
-      }
-    },
-    "Q131377910": {
-      "id": "Q131377910",
+    "Q131690452": {
+      "id": "Q131690452",
       "sitelinks": {},
       "label": {
-        "en": "Soroush",
-        "fa": "سروش"
+        "en": "Farideh Foroutan",
+        "fa": "فریده فروتن"
       }
     },
-    "Q16151780": {
-      "id": "Q16151780",
-      "sitelinks": {
-        "enwiki": "Bijan Jenab",
-        "fawiki": "بیژن جناب"
-      },
-      "label": {
-        "en": "Bijan Jenab",
-        "fa": "بیژن جناب"
-      }
-    },
-    "Q131388935": {
-      "id": "Q131388935",
+    "Q131700555": {
+      "id": "Q131700555",
       "sitelinks": {},
       "label": {
-        "en": "Yaghoub",
-        "fa": "یعقوب"
+        "en": "Vahid Mosafer Haghighi",
+        "fa": "وحید مسافر حقیقی"
       }
     },
-    "Q131738499": {
-      "id": "Q131738499",
+    "Q131700589": {
+      "id": "Q131700589",
       "sitelinks": {},
       "label": {
-        "en": "Rahmatollah Alizadeh",
-        "fa": "رحمت‌الله علیزاده"
+        "en": "Hossein Fadavi",
+        "fa": "حسین فدوی"
       }
     },
-    "Q5941972": {
-      "id": "Q5941972",
-      "sitelinks": {
-        "fawiki": "حسن هدایت"
-      },
-      "label": {
-        "en": "Hassan Hedayat",
-        "fa": "حسن هدایت"
-      }
-    },
-    "Q131455352": {
-      "id": "Q131455352",
+    "Q131700605": {
+      "id": "Q131700605",
       "sitelinks": {},
       "label": {
-        "en": "Afrang",
-        "fa": "افرنگ"
-      }
-    },
-    "Q131738408": {
-      "id": "Q131738408",
-      "sitelinks": {},
-      "label": {
-        "en": "Saeed Atelier",
-        "fa": "آتلیه سعید"
-      }
-    },
-    "Q16074980": {
-      "id": "Q16074980",
-      "sitelinks": {
-        "fawiki": "کریم نصر"
-      },
-      "label": {
-        "en": "Karim Nasr",
-        "fa": "کریم نصر"
-      }
-    },
-    "Q131455295": {
-      "id": "Q131455295",
-      "sitelinks": {},
-      "label": {
-        "en": "Negareh Organization",
-        "fa": "سازمان نگاره"
-      }
-    },
-    "Q131701097": {
-      "id": "Q131701097",
-      "sitelinks": {},
-      "label": {
-        "en": "Maryam Safari",
-        "fa": "مریم صفری"
-      }
-    },
-    "Q766732": {
-      "id": "Q766732",
-      "sitelinks": {
-        "enwiki": "Reza Abedini",
-        "fawiki": "رضا عابدینی"
-      },
-      "label": {
-        "en": "Reza Abedini",
-        "fa": "رضا عابدینی"
-      }
-    },
-    "Q131386459": {
-      "id": "Q131386459",
-      "sitelinks": {},
-      "label": {
-        "en": "Sadeghi Atelier",
-        "fa": "آتلیهٔ صادقی"
-      }
-    },
-    "Q131377977": {
-      "id": "Q131377977",
-      "sitelinks": {},
-      "label": {
-        "en": "BAT Atelier",
-        "fa": "آتلیه بات"
+        "en": "Heidar Rezaei",
+        "fa": "حیدر رضایی"
       }
     },
     "Q131701077": {
@@ -21777,53 +21703,76 @@
         "fa": "علی‌اکبر شیرافکن"
       }
     },
-    "Q3318983": {
-      "id": "Q3318983",
-      "sitelinks": {
-        "enwiki": "Mohammad-Reza Sharifinia",
-        "fawiki": "محمدرضا شریفی‌نیا"
-      },
-      "label": {
-        "en": "Mohammad-Reza Sharifinia",
-        "fa": "محمدرضا شریفی‌نیا"
-      }
-    },
-    "Q4724601": {
-      "id": "Q4724601",
-      "sitelinks": {
-        "enwiki": "Ali Akbar Sadeghi",
-        "fawiki": "علی‌اکبر صادقی"
-      },
-      "label": {
-        "en": "Ali Akbar Sadeghi",
-        "fa": "علی اکبر صادقی"
-      }
-    },
-    "Q131604625": {
-      "id": "Q131604625",
+    "Q131701088": {
+      "id": "Q131701088",
       "sitelinks": {},
       "label": {
-        "en": "CineSilk",
-        "fa": "سینه‌سیلک"
+        "en": "Abbas Yaraqchi",
+        "fa": "عباس یراقچی"
       }
     },
-    "Q131377984": {
-      "id": "Q131377984",
+    "Q131701097": {
+      "id": "Q131701097",
       "sitelinks": {},
       "label": {
-        "en": "Jamaleddin Khorraminejad",
-        "fa": "جمال‌الدین خرمی‌نژاد"
+        "en": "Maryam Safari",
+        "fa": "مریم صفری"
       }
     },
-    "Q55210": {
-      "id": "Q55210",
-      "sitelinks": {
-        "enwiki": "Abbas Kiarostami",
-        "fawiki": "عباس کیارستمی"
-      },
+    "Q131701113": {
+      "id": "Q131701113",
+      "sitelinks": {},
       "label": {
-        "en": "Abbas Kiarostami",
-        "fa": "عباس کیارستمی"
+        "en": "House of Art",
+        "fa": "خانه هنر"
+      }
+    },
+    "Q131701162": {
+      "id": "Q131701162",
+      "sitelinks": {},
+      "label": {
+        "en": "Bahram Monadi",
+        "fa": "بهرام منادی"
+      }
+    },
+    "Q131701220": {
+      "id": "Q131701220",
+      "sitelinks": {},
+      "label": {
+        "en": "Mohajer",
+        "fa": "مهاجر"
+      }
+    },
+    "Q131706320": {
+      "id": "Q131706320",
+      "sitelinks": {},
+      "label": {
+        "en": "Manouchehr Abdollah-Zadeh",
+        "fa": "منوچهر عبدالله‌زاده"
+      }
+    },
+    "Q131706401": {
+      "id": "Q131706401",
+      "sitelinks": {},
+      "label": {
+        "en": "Amir-Soleimani",
+        "fa": "امیرسلیمانی"
+      }
+    },
+    "Q131706427": {
+      "id": "Q131706427",
+      "sitelinks": {},
+      "label": {
+        "en": "Reza Mohajer",
+        "fa": "رضا مهاجر"
+      }
+    },
+    "Q131720853": {
+      "id": "Q131720853",
+      "sitelinks": {},
+      "label": {
+        "en": "Kamal Kamelia",
+        "fa": "کمال کاملیا"
       }
     },
     "Q131727714": {
@@ -21834,41 +21783,92 @@
         "fa": "آتلیه سفید"
       }
     },
-    "Q3344879": {
-      "id": "Q3344879",
-      "sitelinks": {
-        "enwiki": "Noureddin Zarrinkelk",
-        "fawiki": "نورالدین زرین‌کلک"
-      },
-      "label": {
-        "en": "Noureddin Zarrinkelk",
-        "fa": "نورالدین زرین‌کلک"
-      }
-    },
-    "Q131470568": {
-      "id": "Q131470568",
+    "Q131727756": {
+      "id": "Q131727756",
       "sitelinks": {},
       "label": {
-        "en": "ARM",
-        "fa": "آرم"
+        "en": "Keyvan",
+        "fa": "کیوان"
       }
     },
-    "Q131377994": {
-      "id": "Q131377994",
+    "Q131738388": {
+      "id": "Q131738388",
       "sitelinks": {},
       "label": {
-        "en": "Cinema Agahi",
-        "fa": "سینما آگهی"
+        "en": "Bozork Khazraei",
+        "fa": "بزرگ خضرایی"
       }
     },
-    "Q16051488": {
-      "id": "Q16051488",
-      "sitelinks": {
-        "fawiki": "محسن دولو"
-      },
+    "Q131738408": {
+      "id": "Q131738408",
+      "sitelinks": {},
       "label": {
-        "en": "Mohsen Davallou",
-        "fa": "محسن دولو"
+        "en": "Saeed Atelier",
+        "fa": "آتلیه سعید"
+      }
+    },
+    "Q131738499": {
+      "id": "Q131738499",
+      "sitelinks": {},
+      "label": {
+        "en": "Rahmatollah Alizadeh",
+        "fa": "رحمت‌الله علیزاده"
+      }
+    },
+    "Q131745186": {
+      "id": "Q131745186",
+      "sitelinks": {},
+      "label": {
+        "en": "Heidarzadeh",
+        "fa": "حیدرزاده"
+      }
+    },
+    "Q131745214": {
+      "id": "Q131745214",
+      "sitelinks": {},
+      "label": {
+        "en": "Laleh Soltan-Mohammadi",
+        "fa": "لاله سلطان‌محمدی"
+      }
+    },
+    "Q131755343": {
+      "id": "Q131755343",
+      "sitelinks": {},
+      "label": {
+        "en": "Hamid Koreyli",
+        "fa": "حمید کریلی"
+      }
+    },
+    "Q131755367": {
+      "id": "Q131755367",
+      "sitelinks": {},
+      "label": {
+        "en": "Felor Shakiba",
+        "fa": "فلور شکیبا"
+      }
+    },
+    "Q131755394": {
+      "id": "Q131755394",
+      "sitelinks": {},
+      "label": {
+        "en": "Ali Haddadi",
+        "fa": "علی حدادی"
+      }
+    },
+    "Q131755404": {
+      "id": "Q131755404",
+      "sitelinks": {},
+      "label": {
+        "en": "Diako",
+        "fa": "دیاکو"
+      }
+    },
+    "Q131755456": {
+      "id": "Q131755456",
+      "sitelinks": {},
+      "label": {
+        "en": "Behzad Khorshidi",
+        "fa": "بهزاد خورشیدی"
       }
     }
   }
