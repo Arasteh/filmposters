@@ -918,7 +918,7 @@ async function getAllItems() {
     return Object.values(data.films).flatMap(film => {
         return film.posters.map((poster, i) => {
             const item = {};
-            item.film = 'http://www.wikidata.org/wiki/' + film.id;
+            item.film = 'https://www.wikidata.org/wiki/' + film.id;
             item.filmLabel = film.labels.fa;
             item.aliases = film.aliases?.fa?.join(',') ?? '';
             item.date = film.date.map(x => x).sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0];
