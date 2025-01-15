@@ -29,16 +29,16 @@ def wikidata_items(ids):
 films = {
     item['id']: {
         'id': item['id'],
-        'sitelinks': sorted({
+        'sitelinks': dict(sorted({
             site: link['title']
             for site, link in item['sitelinks'].items()
             if site == 'fawiki' or site == 'enwiki'
-        }.items()),
-        'labels': sorted({
+        }.items())),
+        'labels': dict(sorted({
             lang: label['value']
             for lang, label in item['labels'].items()
             if lang == 'fa' or lang == 'en'
-        }.items()),
+        }.items())),
         'date': [x['mainsnak']['datavalue']['value']['time']
                  for x in item['claims'].get('P577', [])],
         'imdb': [x['mainsnak']['datavalue']['value']
@@ -63,16 +63,16 @@ films = {
 designers = {
     item['id']: {
         'id': item['id'],
-        'sitelinks': sorted({
+        'sitelinks': dict(sorted({
             site: link['title']
             for site, link in item['sitelinks'].items()
             if site == 'fawiki' or site == 'enwiki'
-        }.items()),
-        'label': sorted({
+        }.items())),
+        'label': dict(sorted({
             lang: label['value']
             for lang, label in item['labels'].items()
             if lang == 'fa' or lang == 'en'
-        }.items()),
+        }.items())),
     }
     for item in wikidata_items(
         {designer
