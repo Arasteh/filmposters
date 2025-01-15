@@ -862,9 +862,9 @@
                 طراح: <a href="#" @click.prevent="selectDesigner(item.designerLabel)">{{ item.designerLabel }}</a> (<a :href="'https://www.wikidata.org/wiki/' + item.designer" target="_blank">Q</a><template v-if="item.designerFaWikipediaLink">&nbsp;<a :href="'https://fa.wikipedia.org/wiki/' + item.designerFaWikipediaLink.replaceAll(' ', '_')" target="_blank">W</a></template>)
                 </div>
                 <div class="item-links">
-                    <a :href="'https://www.imdb.com/title/' + item.imdbID" target="_blank">T</a>
-                    <a :href="'https://www.wikidata.org/wiki/' + item.film" target="_blank">Q</a>
-                    <a :href="'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink?.replaceAll(' ', '_')" target="_blank">W</a>
+                    <a v-if="item.imdbID" :href="'https://www.imdb.com/title/' + item.imdbID" target="_blank">T</a>
+                    <a v-if="item.film" :href="'https://www.wikidata.org/wiki/' + item.film" target="_blank">Q</a>
+                    <a v-if="item.faWikipediaLink" :href="'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_')" target="_blank">W</a>
                 </div>
             </div>
         </div>
