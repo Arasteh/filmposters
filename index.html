@@ -653,12 +653,6 @@
                     <span :class="{ active: !posterMode }">پوستر</span>
                     <span :class="{ active: posterMode }">لوگو</span>
                 </div>
-                <label>
-                    <input type="checkbox" v-model="combineSimilarChars" />
-                    <div class="tooltip">حروف مشابه
-                      <span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود:  مانند س، ش</span>
-                    </div>
-                </label>
                 <label class="mobile-only">
                     حرف اول:
                     <select v-model="selectedLetter">
@@ -672,22 +666,23 @@
                     </select>
                 </label>
                 <div class="similar-chars-toggle">
-                    <label>حروف مشابه:</label>
+                    <label>
+                        <div class="tooltip">حروف مشابه
+                          <span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود:  مانند س، ش</span>
+                        </div>
+                    </label>
                     <label class="switch">
                         <input type="checkbox" v-model="combineSimilarChars">
                         <span class="slider round"></span>
                     </label>
                 </div>
-                <!-- <div class="similar-chars-toggle">
-                    <label>حروف مشابه:</label>
-                    <div 
-                        class="toggle-switch" 
-                        :class="{ active: combineSimilarChars }" 
-                        @click="combineSimilarChars = !combineSimilarChars"
-                    >
-                        <div class="toggle-slider"></div>
+                <!--
+                <label>
+                    <input type="checkbox" v-model="combineSimilarChars" />
+                    <div class="tooltip">حروف مشابه
+                      <span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود:  مانند س، ش</span>
                     </div>
-                </div>
+                </label>
                 <label>
                     ترتیب:
                     <select v-model="sortOrder">
