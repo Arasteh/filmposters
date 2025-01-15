@@ -670,13 +670,13 @@
                     </select>
                 </label>
                 <div class="similar-chars-toggle">
-                    <label>
+                    <label for="similarCharsSwitch">
                         <div class="tooltip">حروف مشابه
-                          <span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود:  مانند س، ش</span>
+                            <span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود: مانند س، ش</span>
                         </div>
                     </label>
                     <label class="switch">
-                        <input type="checkbox" v-model="combineSimilarChars">
+                        <input id="similarCharsSwitch" type="checkbox" v-model="combineSimilarChars">
                         <span class="slider round"></span>
                     </label>
                 </div>
