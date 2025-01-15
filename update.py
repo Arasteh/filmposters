@@ -76,7 +76,7 @@ designers = {
     }
     for item in wikidata_items(
         {designer
-         for item in films
+         for item in films.values()
          for poster in item['poster']
          for designer in poster['designer']}
     )
