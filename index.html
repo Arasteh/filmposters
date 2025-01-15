@@ -258,7 +258,38 @@
         .toggle-switch[data-mode="poster"]::before {
             transform: translateX(56px);
         }
-
+        
+        .triple-toggle-switch {
+            display: flex;
+            align-items: center;
+            background-color: light-dark(#e0e0e0, #333);
+            border-radius: 30px;
+            padding: 4px;
+            cursor: pointer;
+            user-select: none;
+            width: fit-content;
+            margin: 10px 0;
+        }
+        
+        .toggle-option {
+            flex: 1;
+            text-align: center;
+            padding: 8px 16px;
+            border-radius: 30px;
+            color: light-dark(#fff, #fff);
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+        }
+        
+        .toggle-option.active {
+            background-color: light-dark(#b77, #b77);
+            color: light-dark(#fff, #fff);
+        }
+        
+        .toggle-option:hover {
+            background-color: light-dark(#ddd, #444);
+        }
+        
         .tooltip {
           position: relative;
           display: inline-block;
@@ -544,6 +575,29 @@
                         <option value="random">تصادفی</option>
                     </select>
                 </label>
+                <div class="triple-toggle-switch">
+                    <div 
+                        class="toggle-option" 
+                        :class="{ active: sortOrder === 'alphabetical' }" 
+                        @click="sortOrder = 'alphabetical'"
+                    >
+                        الفبایی
+                    </div>
+                    <div 
+                        class="toggle-option" 
+                        :class="{ active: sortOrder === 'year' }" 
+                        @click="sortOrder = 'year'"
+                    >
+                        سال تولید
+                    </div>
+                    <div 
+                        class="toggle-option" 
+                        :class="{ active: sortOrder === 'random' }" 
+                        @click="sortOrder = 'random'"
+                    >
+                        تصادفی
+                    </div>
+                </div>
                 <label class="mobile-only">
                     سال:
                     <select v-model="selectedYear">
