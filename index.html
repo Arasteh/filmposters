@@ -855,7 +855,7 @@
         <div v-if="filteredItems.length > 0" class="results-grid">
             <div class="item-card" v-for="(item, index) in (isShowMore ? filteredItems : filteredItems.slice(0, 30))"
                 :key="index">
-                <a :href="'https://commons.wikimedia.org/wiki/File:' + getImageLink(item).replaceAll(' ', '_')" target="_blank"><img :src="getImageUrl(item)" :key="item" :alt="item.filmLabel"
+                <a :href="'https://commons.wikimedia.org/wiki/File:' + getImageLink(item)?.replaceAll(' ', '_')" target="_blank"><img :src="getImageUrl(item)" :key="getImageUrl(item)" :alt="item.filmLabel"
                         class="item-image" /></a>
                 <div class="item-title">{{ getItemTitleWithYear(item) }}</div>
                 <div v-if="item.designer && item.designerLabel" class="item-designer">
