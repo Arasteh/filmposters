@@ -639,6 +639,16 @@
                 color: light-dark(#bbb, #555);
             }
 
+        .remove-filter {
+            margin-right: 5px;
+            cursor: pointer;
+            color: #b77;
+            font-size: 1.2em;
+        }
+        
+        .remove-filter:hover {
+            color: #ff0000;
+        }
     </style>
 </head>
 
@@ -802,6 +812,7 @@
                         <div class="year-grid">
                             <div v-for="[year, count] in filteredYearsInModal" :key="year" @click="selectYearFromModal(year)" class="year-item">
                                 {{ year }} <span class="count">({{ count }})</span>
+                                <span v-if="selectedYear === year" class="remove-filter" @click.stop="removeYearFilter">×</span>
                             </div>
                         </div>
                     </div>
@@ -817,6 +828,7 @@
                         <div class="designer-grid">
                             <div v-for="[designer, count] in filteredDesignersInModal" :key="designer" @click="selectDesignerFromModal(designer)" class="designer-item">
                                 {{ designer }} <span class="count">({{ count }})</span>
+                                <span v-if="selectedDesigner === designer" class="remove-filter" @click.stop="removeDesignerFilter">×</span>
                             </div>
                         </div>
                     </div>
@@ -832,6 +844,7 @@
                         <div class="director-grid">
                             <div v-for="[director, count] in filteredDirectorsInModal" :key="director" @click="selectDirectorFromModal(director)" class="director-item">
                                 {{ director }} <span class="count">({{ count }})</span>
+                                <span v-if="selectedDirector === director" class="remove-filter" @click.stop="removeDirectorFilter">×</span>
                             </div>
                         </div>
                     </div>
@@ -846,6 +859,7 @@
                         <div class="letter-grid">
                             <div v-for="[letter, count] in filteredLettersInModal" :key="letter" @click="selectLetterFromModal(letter)" class="letter-item">
                                 {{ letter }} <span class="count">({{ count }})</span>
+                                <span v-if="selectedLetter === letter" class="remove-filter" @click.stop="removeLetterFilter">×</span>
                             </div>
                         </div>
                     </div>
@@ -1320,6 +1334,21 @@ watch(designerQuery, (newValue) => {
             }
         });
 
+        const removeYearFilter = () => {
+            selectedYear.value = '';
+        };
+        
+        const removeDesignerFilter = () => {
+            selectedDesigner.value = '';
+        };
+        
+        const removeDirectorFilter = () => {
+            selectedDirector.value = '';
+        };
+        
+        const removeLetterFilter = () => {
+            selectedLetter.value = '';
+        };
         
         const getPosterUrl = (filePath, width = 600) => {
             if (!filePath) return 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=600';
