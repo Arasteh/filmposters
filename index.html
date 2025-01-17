@@ -1303,9 +1303,12 @@ watch(designerQuery, (newValue) => {
 
         const filteredLettersInModal = computed(() => {
             const groups = Object.groupBy(filteredItems.value, item => item.filmLabel.charAt(0));
-            return Object.keys(groups)
-                .sort()
+            
+            const letters = persianAlphabet
+                .filter(letter => groups[letter])
                 .map(letter => [letter, groups[letter].length.toLocaleString('fa')]);
+        
+            return letters;
         });
 
         const filteredYearLabel = computed(() => {
