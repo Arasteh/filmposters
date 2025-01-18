@@ -677,6 +677,7 @@
 
 <body>
     <div id="app">
+        <div  id="main-content">
         <button onclick="topFunction()" id="toTop">↑</button>
         <button @click="showSidebar" id="showSidebarButton" class="mobile-only" style="position: fixed; bottom: 20px; left: 20px; z-index: 1000; padding: 10px; background-color: gray; color: white; border: none; border-radius: 10px;">
             نمایش سایدبار
@@ -835,7 +836,7 @@
         <p style="text-align: center" v-else>نتیجه‌ای برای نمایش وجود ندارد.</p>
         <div v-if="!isShowMore && filteredItems.length > 30" style="text-align: center; padding-top: 1em;">
             <button @click="showMore">نمایش بیشتر</button>
-        </div>
+        </div> </div>
         
         <div id="sidebar" class="sidebar" :style="{ width: sidebarWidth + 'px' }">
             <div class="sidebar-resize-handle"></div>
