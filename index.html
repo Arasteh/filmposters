@@ -24,12 +24,18 @@
         }
 
         #app {
+            display: flex;
             flex: 1;
-            margin-right: 400px;
+            width: 100%;
             padding: 20px;
             background-color: light-dark(#fff, #1e1e1e);
             border-radius: 20px;
             transition: background-color 0.3s, color 0.3s;
+        }
+
+        #main-content {
+            flex: 1;
+            margin-right: 20px; /* فاصله بین محتوای اصلی و سایدبار */
         }
 
         .search-container {
@@ -525,11 +531,7 @@
         }
 
         .sidebar {
-            position: fixed;
-            top: 0;
-            right: 0;
             width: 400px;
-            height: 100vh;
             background-color: light-dark(#fff, #1e1e1e);
             border-left: 1px solid light-dark(#ddd, #444);
             overflow-y: auto;
@@ -568,12 +570,13 @@
 
         @media (max-width: 768px) {
             .sidebar {
-                display: block;
+                display: none;
                 transform: translateX(100%);
                 transition: transform 0.3s ease-in-out;
             }
             
             .sidebar.visible {
+                display: block;
                 transform: translateX(0);
             }
             .mobile-only {
@@ -813,7 +816,28 @@
                 {{ filteredItems.length.toLocaleString('fa') }} از {{ items.length.toLocaleString('fa') }}
             </div>
         </div>
-         <div id="sidebar" class="sidebar" :style="{ width: sidebarWidth + 'px' }">
+        <div v-if="filteredItems.length > 0" class="results-grid">
+            <div class="item-card" v-for="(item, index) in (isShowMore ? filteredItems : filteredItems.slice(0, 30))"
+                :key="index">
+                <a :href="'https://commons.wikimedia.org/wiki/File:' + getImageLink(item)?.replaceAll(' ', '_')" target="_blank"><img :src="getImageUrl(item)" :key="getImageUrl(item)" :alt="item.filmLabel"
+                        class="item-image" /></a>
+                <div class="item-title">{{ getItemTitleWithYear(item) }}</div>
+                <div v-if="item.designer && item.designerLabel" class="item-designer">
+                طراح: <a href="#" @click.prevent="selectDesigner(item.designerLabel)">{{ item.designerLabel }}</a> (<a :href="'https://www.wikidata.org/wiki/' + item.designer" target="_blank">Q</a><template v-if="item.designerFaWikipediaLink">&nbsp;<a :href="'https://fa.wikipedia.org/wiki/' + item.designerFaWikipediaLink.replaceAll(' ', '_')" target="_blank">W</a></template>)
+                </div>
+                <div class="item-links">
+                    <a v-if="item.imdbID" :href="'https://www.imdb.com/title/' + item.imdbID" target="_blank">T</a>
+                    <a v-if="item.film" :href="'https://www.wikidata.org/wiki/' + item.film" target="_blank">Q</a>
+                    <a v-if="item.faWikipediaLink" :href="'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_')" target="_blank">W</a>
+                </div>
+            </div>
+        </div>
+        <p style="text-align: center" v-else>نتیجه‌ای برای نمایش وجود ندارد.</p>
+        <div v-if="!isShowMore && filteredItems.length > 30" style="text-align: center; padding-top: 1em;">
+            <button @click="showMore">نمایش بیشتر</button>
+        </div>
+        
+        <div id="sidebar" class="sidebar" :style="{ width: sidebarWidth + 'px' }">
             <div class="sidebar-resize-handle"></div>
             <div class="sidebar-content">
                 <button @click="hideSidebar" id="hideSidebarButton" class="mobile-only" style="margin-bottom: 10px; padding: 8px; background-color: gray; color: white; border: none; border-radius: 10px;">
@@ -908,26 +932,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div v-if="filteredItems.length > 0" class="results-grid">
-            <div class="item-card" v-for="(item, index) in (isShowMore ? filteredItems : filteredItems.slice(0, 30))"
-                :key="index">
-                <a :href="'https://commons.wikimedia.org/wiki/File:' + getImageLink(item)?.replaceAll(' ', '_')" target="_blank"><img :src="getImageUrl(item)" :key="getImageUrl(item)" :alt="item.filmLabel"
-                        class="item-image" /></a>
-                <div class="item-title">{{ getItemTitleWithYear(item) }}</div>
-                <div v-if="item.designer && item.designerLabel" class="item-designer">
-                طراح: <a href="#" @click.prevent="selectDesigner(item.designerLabel)">{{ item.designerLabel }}</a> (<a :href="'https://www.wikidata.org/wiki/' + item.designer" target="_blank">Q</a><template v-if="item.designerFaWikipediaLink">&nbsp;<a :href="'https://fa.wikipedia.org/wiki/' + item.designerFaWikipediaLink.replaceAll(' ', '_')" target="_blank">W</a></template>)
-                </div>
-                <div class="item-links">
-                    <a v-if="item.imdbID" :href="'https://www.imdb.com/title/' + item.imdbID" target="_blank">T</a>
-                    <a v-if="item.film" :href="'https://www.wikidata.org/wiki/' + item.film" target="_blank">Q</a>
-                    <a v-if="item.faWikipediaLink" :href="'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_')" target="_blank">W</a>
-                </div>
-            </div>
-        </div>
-        <p style="text-align: center" v-else>نتیجه‌ای برای نمایش وجود ندارد.</p>
-        <div v-if="!isShowMore && filteredItems.length > 30" style="text-align: center; padding-top: 1em;">
-            <button @click="showMore">نمایش بیشتر</button>
         </div>
     </div>
 
