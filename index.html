@@ -677,6 +677,103 @@
 
 <body>
     <div id="app">
+        <div id="sidebar" class="sidebar" :style="{ width: sidebarWidth + 'px' }">
+            <div class="sidebar-resize-handle"></div>
+            <div class="sidebar-content">
+                <button @click="hideSidebar" id="hideSidebarButton" class="mobile-only" style="margin-bottom: 10px; padding: 8px; background-color: gray; color: white; border: none; border-radius: 10px;">
+                    مخفی کردن سایدبار
+                </button>
+                <!-- بخش سال‌ها -->
+                <div class="sidebar-section" :class="getSectionClass('years')">
+                    <div class="sidebar-section-header" @click="toggleCollapse('years')">
+                        <span>{{ filteredYearLabel }}</span>
+                        <button class="collapse-button">{{ isCollapsed.years ? '▼' : '▲' }}</button>
+                    </div>
+                    <div class="sidebar-section-body" v-if="!isCollapsed.years">
+                        <!-- اسلایدر برای انتخاب سال
+                        <input 
+                            type="range" 
+                            :min="minYear" 
+                            :max="maxYear" 
+                            v-model="selectedYearSlider" 
+                            @input="updateSelectedYear" 
+                            class="year-slider"
+                        /> -->
+                        <div class="year-grid">
+                                <div v-for="[year, count] in filteredYearsInModal" :key="year" 
+                                     @click="selectYearFromModal(year)" 
+                                     @mouseenter="hoveredItem = year" 
+                                     @mouseleave="hoveredItem = null" 
+                                     :class="{ 'hovered': hoveredItem === year }" 
+                                     class="year-item">
+                                    {{ year }} <span class="count">({{ count }})</span>
+                                    <span v-if="selectedYear === year" class="remove-filter" @click.stop="removeYearFilter">×</span>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section" :class="getSectionClass('designers')">
+                    <div class="sidebar-section-header" @click="toggleCollapse('designers')">
+                        <span>{{ filteredDesignerLabel }}</span>
+                        <button class="collapse-button">{{ isCollapsed.designers ? '▼' : '▲' }}</button>
+                    </div>
+                    <div class="sidebar-section-body" v-if="!isCollapsed.designers">
+                        <input type="text" v-model="designerSearchQuery" placeholder="جستجوی طراح…" />
+                        <div class="designer-grid">
+                            <div v-for="[designer, count] in filteredDesignersInModal" :key="designer" @click="selectDesignerFromModal(designer)" 
+                                 @mouseenter="hoveredItem = designer" 
+                                 @mouseleave="hoveredItem = null" 
+                                 :class="{ 'hovered': hoveredItem === designer }" 
+                                class="designer-item">
+                                {{ designer }} <span class="count">({{ count }})</span>
+                                <span v-if="selectedDesigner === designer" class="remove-filter" @click.stop="removeDesignerFilter">×</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section" :class="getSectionClass('directors')">
+                    <div class="sidebar-section-header" @click="toggleCollapse('directors')">
+                        <span>{{ filteredDirectorLabel }}</span>
+                        <button class="collapse-button">{{ isCollapsed.directors ? '▼' : '▲' }}</button>
+                    </div>
+                    <div class="sidebar-section-body" v-if="!isCollapsed.directors">
+                         <input type="text" v-model="directorSearchQuery" placeholder="جستجوی کارگردان…" />
+                        <div class="director-grid">
+                            <div v-for="[director, count] in filteredDirectorsInModal" :key="director" @click="selectDirectorFromModal(director)" 
+                                     @mouseenter="hoveredItem = director" 
+                                     @mouseleave="hoveredItem = null" 
+                                     :class="{ 'hovered': hoveredItem === director }" 
+                                class="director-item">
+                                {{ director }} <span class="count">({{ count }})</span>
+                                <span v-if="selectedDirector === director" class="remove-filter" @click.stop="removeDirectorFilter">×</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section" :class="getSectionClass('letters')">
+                    <div class="sidebar-section-header" @click="toggleCollapse('letters')">
+                        <span>{{ filteredLetterLabel }}</span>
+                        <button class="collapse-button">{{ isCollapsed.letters ? '▼' : '▲' }}</button>
+                    </div>
+                    <div class="sidebar-section-body" v-if="!isCollapsed.letters">
+                        <div class="letter-grid">
+                            <div v-for="[letter, count] in filteredLettersInModal" :key="letter" @click="selectLetterFromModal(letter)"
+                                     @mouseenter="hoveredItem = letter" 
+                                     @mouseleave="hoveredItem = null" 
+                                     :class="{ 'hovered': hoveredItem === letter }" 
+                                 class="letter-item">
+                                {{ letter }} <span class="count">({{ count }})</span>
+                                <span v-if="selectedLetter === letter" class="remove-filter" @click.stop="removeLetterFilter">×</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div  id="main-content">
         <button onclick="topFunction()" id="toTop">↑</button>
         <button @click="showSidebar" id="showSidebarButton" class="mobile-only" style="position: fixed; bottom: 20px; left: 20px; z-index: 1000; padding: 10px; background-color: gray; color: white; border: none; border-radius: 10px;">
@@ -837,103 +934,6 @@
         <div v-if="!isShowMore && filteredItems.length > 30" style="text-align: center; padding-top: 1em;">
             <button @click="showMore">نمایش بیشتر</button>
         </div> </div>
-        
-        <div id="sidebar" class="sidebar" :style="{ width: sidebarWidth + 'px' }">
-            <div class="sidebar-resize-handle"></div>
-            <div class="sidebar-content">
-                <button @click="hideSidebar" id="hideSidebarButton" class="mobile-only" style="margin-bottom: 10px; padding: 8px; background-color: gray; color: white; border: none; border-radius: 10px;">
-                    مخفی کردن سایدبار
-                </button>
-                <!-- بخش سال‌ها -->
-                <div class="sidebar-section" :class="getSectionClass('years')">
-                    <div class="sidebar-section-header" @click="toggleCollapse('years')">
-                        <span>{{ filteredYearLabel }}</span>
-                        <button class="collapse-button">{{ isCollapsed.years ? '▼' : '▲' }}</button>
-                    </div>
-                    <div class="sidebar-section-body" v-if="!isCollapsed.years">
-                        <!-- اسلایدر برای انتخاب سال
-                        <input 
-                            type="range" 
-                            :min="minYear" 
-                            :max="maxYear" 
-                            v-model="selectedYearSlider" 
-                            @input="updateSelectedYear" 
-                            class="year-slider"
-                        /> -->
-                        <div class="year-grid">
-                                <div v-for="[year, count] in filteredYearsInModal" :key="year" 
-                                     @click="selectYearFromModal(year)" 
-                                     @mouseenter="hoveredItem = year" 
-                                     @mouseleave="hoveredItem = null" 
-                                     :class="{ 'hovered': hoveredItem === year }" 
-                                     class="year-item">
-                                    {{ year }} <span class="count">({{ count }})</span>
-                                    <span v-if="selectedYear === year" class="remove-filter" @click.stop="removeYearFilter">×</span>
-                                </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="sidebar-section" :class="getSectionClass('designers')">
-                    <div class="sidebar-section-header" @click="toggleCollapse('designers')">
-                        <span>{{ filteredDesignerLabel }}</span>
-                        <button class="collapse-button">{{ isCollapsed.designers ? '▼' : '▲' }}</button>
-                    </div>
-                    <div class="sidebar-section-body" v-if="!isCollapsed.designers">
-                        <input type="text" v-model="designerSearchQuery" placeholder="جستجوی طراح…" />
-                        <div class="designer-grid">
-                            <div v-for="[designer, count] in filteredDesignersInModal" :key="designer" @click="selectDesignerFromModal(designer)" 
-                                 @mouseenter="hoveredItem = designer" 
-                                 @mouseleave="hoveredItem = null" 
-                                 :class="{ 'hovered': hoveredItem === designer }" 
-                                class="designer-item">
-                                {{ designer }} <span class="count">({{ count }})</span>
-                                <span v-if="selectedDesigner === designer" class="remove-filter" @click.stop="removeDesignerFilter">×</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="sidebar-section" :class="getSectionClass('directors')">
-                    <div class="sidebar-section-header" @click="toggleCollapse('directors')">
-                        <span>{{ filteredDirectorLabel }}</span>
-                        <button class="collapse-button">{{ isCollapsed.directors ? '▼' : '▲' }}</button>
-                    </div>
-                    <div class="sidebar-section-body" v-if="!isCollapsed.directors">
-                         <input type="text" v-model="directorSearchQuery" placeholder="جستجوی کارگردان…" />
-                        <div class="director-grid">
-                            <div v-for="[director, count] in filteredDirectorsInModal" :key="director" @click="selectDirectorFromModal(director)" 
-                                     @mouseenter="hoveredItem = director" 
-                                     @mouseleave="hoveredItem = null" 
-                                     :class="{ 'hovered': hoveredItem === director }" 
-                                class="director-item">
-                                {{ director }} <span class="count">({{ count }})</span>
-                                <span v-if="selectedDirector === director" class="remove-filter" @click.stop="removeDirectorFilter">×</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="sidebar-section" :class="getSectionClass('letters')">
-                    <div class="sidebar-section-header" @click="toggleCollapse('letters')">
-                        <span>{{ filteredLetterLabel }}</span>
-                        <button class="collapse-button">{{ isCollapsed.letters ? '▼' : '▲' }}</button>
-                    </div>
-                    <div class="sidebar-section-body" v-if="!isCollapsed.letters">
-                        <div class="letter-grid">
-                            <div v-for="[letter, count] in filteredLettersInModal" :key="letter" @click="selectLetterFromModal(letter)"
-                                     @mouseenter="hoveredItem = letter" 
-                                     @mouseleave="hoveredItem = null" 
-                                     :class="{ 'hovered': hoveredItem === letter }" 
-                                 class="letter-item">
-                                {{ letter }} <span class="count">({{ count }})</span>
-                                <span v-if="selectedLetter === letter" class="remove-filter" @click.stop="removeLetterFilter">×</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script>
