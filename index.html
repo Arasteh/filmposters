@@ -622,8 +622,18 @@
             flex: 1;
             padding: 10px;
             overflow-y: auto;    
-            min-height: 0; /* اضافه شده */
+            min-height: 0;
             background-color: light-dark(#e5e5e5, #222);
+            transition: opacity 0.3s ease, height 0.3s ease;
+            opacity: 1;
+            height: auto;
+        }
+
+        .sidebar-section.collapsed .sidebar-section-body {
+            opacity: 0;
+            height: 0;
+            padding: 0;
+            overflow: hidden;
         }
         
         .sidebar-section.collapsed {
