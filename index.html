@@ -418,6 +418,14 @@
             color: light-dark(#000, #fff);
         }
         
+        .similar-chars-toggle .slider.round:before {
+            transform: translateX(26px);
+        }
+        
+        .similar-chars-toggle input:checked + .slider.round:before {
+            transform: translateX(0);
+        }
+        
         .tooltip {
           position: relative;
           display: inline-block;
