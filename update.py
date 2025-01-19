@@ -9,8 +9,15 @@ import sys
 queryResult = requests.post('https://query.wikidata.org/bigdata/namespace/wdq/sparql', '''
 SELECT DISTINCT ?qid
 WHERE {
-  ?qid wdt:P495 wd:Q794. # Iran (Q794) is country of origin (P495)
-  ?qid wdt:P3383 ?x.     # Item has a film poster (P3383)
+  VALUES ?type {
+    wd:Q11424    # film
+    wd:Q24862    # short film
+    wd:Q5398426  # television series
+    wd:Q7777570  # theatrical production
+    wd:Q17517379 # aniamted short film
+  }
+  ?qid wdt:P31 ?type;    # Item is instance (P31) of above types
+       wdt:P495 wd:Q794. # Iran (Q794) is country of origin (P495)
 }
 ''', headers={'Content-Type': 'application/sparql-query', 'Accept': 'application/json'})
 
@@ -61,7 +68,8 @@ films = {
             if lang == 'fa' or lang == 'en'
         },
         'directors': [x['mainsnak']['datavalue']['value']['id']
-                      for x in item['claims'].get('P57', [])],
+                      for x in item['claims'].get('P57', [])
+                      if 'datavalue' in x['mainsnak']],
         'date': [x['mainsnak']['datavalue']['value']['time']
                  for x in item['claims'].get('P577', [])],
         'imdb': [x['mainsnak']['datavalue']['value']
