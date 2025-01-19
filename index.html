@@ -1083,7 +1083,7 @@ async function getAllItems() {
             item.poster = poster.image;
             if (poster.designers?.length ?? 0) {
                 item.designer = poster.designers[0];
-                item.nsfw = poster.characteristics[0];
+                // item.nsfw = poster.characteristics;
                 item.designerLabel = data.secondary[poster.designers[0]].labels.fa;
                 const fawiki = data.secondary[poster.designers[0]].sitelinks.fawiki;
                 if (fawiki) item.designerFaWikipediaLink = fawiki;
