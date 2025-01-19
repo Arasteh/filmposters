@@ -84,75 +84,6 @@
             align-items: center;
         }
 
-        @media (max-width: 768px) {
-
-            .options {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-                align-items: center;
-            }
-
-            .options label {
-                width: 100%;
-            }
-            
-            #showSidebarButton {
-                display: inline-block;
-            }
-        
-            #hideSidebarButton {
-                display: inline-block;
-            }
-
-            .sidebar {
-                position: fixed;
-                top: 0;
-                right: -100%; /* سایدبار خارج از صفحه باشد */
-                width: 80%; /* عرض سایدبار در موبایل */
-                height: 100vh;
-                background-color: light-dark(#fff, #1e1e1e);
-                transition: right 0.3s ease-in-out;
-                z-index: 1000;
-            }
-        
-            .sidebar.visible {
-                right: 0; /* سایدبار به داخل صفحه بیاید */
-            }
-        
-            .sidebar-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5);
-                z-index: 999;
-                display: none;
-            }
-        
-            .sidebar-overlay.visible {
-                display: block; /* نمایش اورلی */
-            }
-            
-            .sidebar.visible {
-                display: block;
-                transform: translateX(0);
-            }
-            .mobile-only {
-                display: inline-block;
-            }
-
-            .collapse-button {
-                display: inline-block;
-            }
-        
-            .options.collapsed {
-                display: none;
-            }
-
-        }
-
         .results-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -720,6 +651,75 @@
         
         .remove-filter:hover {
             color: #b00;
+        }
+
+        @media (max-width: 768px) {
+
+            .options {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                align-items: center;
+            }
+
+            .options label {
+                width: 100%;
+            }
+            
+            #showSidebarButton {
+                display: inline-block;
+            }
+        
+            #hideSidebarButton {
+                display: inline-block;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                right: -100%; /* سایدبار خارج از صفحه باشد */
+                width: 80%; /* عرض سایدبار در موبایل */
+                height: 100vh;
+                background-color: light-dark(#fff, #1e1e1e);
+                transition: right 0.3s ease-in-out;
+                z-index: 1000;
+            }
+        
+            .sidebar.visible {
+                right: 0; /* سایدبار به داخل صفحه بیاید */
+            }
+        
+            .sidebar-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+                display: none;
+            }
+        
+            .sidebar-overlay.visible {
+                display: block; /* نمایش اورلی */
+            }
+            
+            .sidebar.visible {
+                display: block;
+                transform: translateX(0);
+            }
+            .mobile-only {
+                display: inline-block;
+            }
+
+            .collapse-button {
+                display: inline-block;
+            }
+        
+            .options.collapsed {
+                display: none;
+            }
+
         }
     </style>
 </head>
