@@ -1338,6 +1338,12 @@ watch(designerQuery, (newValue) => {
                 selectedYearSlider.value = parseInt(newValue); // به‌روزرسانی اسلایدر بر اساس selectedYear
             }
         });
+
+        watch(filteredItems, (newValue) => {
+            if (newValue.length > 100) {
+                isShowMore.value = false;
+            }
+        });
         
         const directorSearchQuery = ref(''); // فیلد جستجو برای کارگردان‌ها
 
