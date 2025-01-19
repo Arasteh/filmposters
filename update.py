@@ -26,6 +26,22 @@ def wikidata_items(ids):
         time.sleep(2)
     print('finished', file=sys.stderr)
 
+image_qualifiers = {
+    'designers': 'P170',
+    'colors': 'P462',
+    'characteristics': 'P1552',
+}
+
+def image_summary(claim):
+    result = {'image': claim['mainsnak']['datavalue']['value']}
+    for name, property in image_qualifiers.items():
+        qualifier = [
+            x['datavalue']['value']['id']
+            for x in claim.get('qualifiers', {}).get(property, {})
+        ]
+        if qualifier: result[name] = qualifier
+    return result
+
 films = {
     item['id']: {
         'id': item['id'],
@@ -50,18 +66,8 @@ films = {
                  for x in item['claims'].get('P577', [])],
         'imdb': [x['mainsnak']['datavalue']['value']
                  for x in item['claims'].get('P345', [])],
-        'posters': [{
-            'image': poster['mainsnak']['datavalue']['value'],
-            'designer': [x['datavalue']['value']['id']
-                         for x in poster.get('qualifiers', {}).get('P170', {})],
-            'characteristics': [x['datavalue']['value']['id']
-                                for x in poster.get('qualifiers', {}).get('P1552', {})],
-        } for poster in item['claims'].get('P3383', [])],
-        'logos': [{
-            'image': logo['mainsnak']['datavalue']['value'],
-            'designer': [x['datavalue']['value']['id']
-                         for x in logo.get('qualifiers', {}).get('P170', {})],
-        } for logo in item['claims'].get('P154', [])],
+        'posters': [image_summary(poster) for poster in item['claims'].get('P3383', [])],
+        'logos': [image_summary(logo) for logo in item['claims'].get('P154', [])],
     }
     for item in wikidata_items(
         x['qid']['value'].split('entity/')[1]
@@ -70,7 +76,7 @@ films = {
 }
 
 # designers and directors
-people = {
+secondary = {
     item['id']: {
         'id': item['id'],
         'sitelinks': {
@@ -85,14 +91,16 @@ people = {
         },
     }
     for item in wikidata_items(
-        {designer
+        {item
          for film in films.values()
          for poster in film['posters'] + film['logos']
-         for designer in poster['designer']} |
+         for name, value in poster.items()
+         if name in image_qualifiers
+         for item in value} |
         {director
          for film in films.values()
          for director in film['directors']}
     )
 }
 
-print(json.dumps({'films': films, 'people': people}, indent=2, ensure_ascii=False))
+print(json.dumps({'films': films, 'secondary': secondary}, indent=2, ensure_ascii=False))

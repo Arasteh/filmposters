@@ -1018,15 +1018,15 @@ async function getAllItems() {
                 )
                 .sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0];
             item.poster = poster.image;
-            if (poster.designer.length) {
-                item.designer = poster.designer[0];
-                item.designerLabel = data.people[poster.designer[0]].labels.fa;
-                const fawiki = data.people[poster.designer[0]].sitelinks.fawiki;
+            if (poster.designers?.length ?? 0) {
+                item.designer = poster.designers[0];
+                item.designerLabel = data.secondary[poster.designers[0]].labels.fa;
+                const fawiki = data.secondary[poster.designers[0]].sitelinks.fawiki;
                 if (fawiki) item.designerFaWikipediaLink = fawiki;
             }
             if (film.directors.length) {
                 item.director = film.directors[0];
-                item.directorLabel = data.people[film.directors[0]].labels.fa;
+                item.directorLabel = data.secondary[film.directors[0]].labels.fa;
             }
             if (film.imdb.length) {
                 item.imdbID = film.imdb[0];
