@@ -104,6 +104,53 @@
             #hideSidebarButton {
                 display: inline-block;
             }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                right: -100%; /* سایدبار خارج از صفحه باشد */
+                width: 80%; /* عرض سایدبار در موبایل */
+                height: 100vh;
+                background-color: light-dark(#fff, #1e1e1e);
+                transition: right 0.3s ease-in-out;
+                z-index: 1000;
+            }
+        
+            .sidebar.visible {
+                right: 0; /* سایدبار به داخل صفحه بیاید */
+            }
+        
+            .sidebar-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+                display: none;
+            }
+        
+            .sidebar-overlay.visible {
+                display: block; /* نمایش اورلی */
+            }
+            
+            .sidebar.visible {
+                display: block;
+                transform: translateX(0);
+            }
+            .mobile-only {
+                display: inline-block;
+            }
+
+            .collapse-button {
+                display: inline-block;
+            }
+        
+            .options.collapsed {
+                display: none;
+            }
+
         }
 
         .results-grid {
@@ -484,16 +531,6 @@
         .rotate-down {
             transform: rotate(180deg);
         }
-
-        @media (max-width: 768px) {
-            .collapse-button {
-                display: inline-block;
-            }
-        
-            .options.collapsed {
-                display: none;
-            }
-        }
         
         .modal-overlay {
             position: fixed;
@@ -582,22 +619,6 @@
         
         .sidebar-resize-handle:hover {
             background-color: rgba(128, 128, 128, 0.3);
-        }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                display: none;
-                transform: translateX(100%);
-                transition: transform 0.3s ease-in-out;
-            }
-            
-            .sidebar.visible {
-                display: block;
-                transform: translateX(0);
-            }
-            .mobile-only {
-                display: inline-block;
-            }
         }
 
          .sidebar-section {
@@ -705,11 +726,12 @@
 
 <body>
     <div id="app">
+        <div id="sidebarOverlay" class="sidebar-overlay" :class="{ visible: sidebarVisible }" @click="hideSidebar"></div>
         <div id="sidebar" class="sidebar" :style="{ width: sidebarWidth + 'px' }">
             <div class="sidebar-resize-handle"></div>
             <div class="sidebar-content">
                 <button @click="hideSidebar" id="hideSidebarButton" class="mobile-only" style="margin-bottom: 10px; padding: 8px; background-color: gray; color: white; border: none; border-radius: 10px;">
-                    مخفی کردن سایدبار
+                × بستن
                 </button>
                 <!-- بخش سال‌ها -->
                 <div class="sidebar-section" :class="getSectionClass('years')">
@@ -804,12 +826,12 @@
 
         <div  id="main-content">
         <button onclick="topFunction()" id="toTop">↑</button>
-        <button @click="showSidebar" id="showSidebarButton" class="mobile-only" style="position: fixed; bottom: 20px; left: 20px; z-index: 1000; padding: 10px; background-color: gray; color: white; border: none; border-radius: 10px;">
-            نمایش سایدبار
-        </button>
 
         <div id="searchBar" class="search-bar">
             <div class="search-container">
+                <button @click="toggleSidebar" id="toggleSidebarButton" class="mobile-only" style="background: none; border: none; cursor: pointer; font-size: 24px;">
+                    ☰
+                </button>
                 <input type="text" v-model="searchTerm" placeholder="جستجو…" />
                 <button @click="resetFilters" id="resetSearch">↻</button>
                 <button @click="toggleOptions" id="collapseButton" class="collapse-button mobile-only" :class="collapseIconClass">▲</button>
@@ -1450,9 +1472,8 @@ watch(designerQuery, (newValue) => {
 
         const sidebarVisible = ref(false);
 
-        const showSidebar = () => {
-            sidebarVisible.value = true;
-            document.getElementById('sidebar').classList.add('visible');
+        const toggleSidebar = () => {
+            sidebarVisible.value = !sidebarVisible.value;
         };
         
         const hideSidebar = () => {
@@ -1473,7 +1494,7 @@ watch(designerQuery, (newValue) => {
         const getImageUrl = item => posterMode.value ? getPosterUrl(item.poster) : getLogoUrl(item);
         const getImageLink = item => posterMode.value ? item.poster : item.logo;
 
-        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, minYear, maxYear, selectedYearSlider, updateSelectedYear, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, showSidebar, hideSidebar, sidebarVisible, uniqueFilmCount  };
+        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, minYear, maxYear, selectedYearSlider, updateSelectedYear, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar, sidebarVisible, uniqueFilmCount, toggleSidebar  };
     }
 }).mount('#app');
     </script>
