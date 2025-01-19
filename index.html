@@ -683,6 +683,7 @@
                 background-color: light-dark(#fff, #1e1e1e);
                 transition: right 0.3s ease-in-out;
                 z-index: 1000;
+                display: block; /* یا هر مقدار مناسب دیگر */
             }
         
             .sidebar.visible {
@@ -1471,14 +1472,13 @@ watch(designerQuery, (newValue) => {
         };
 
         const sidebarVisible = ref(false);
-
+        
         const toggleSidebar = () => {
             sidebarVisible.value = !sidebarVisible.value;
         };
         
         const hideSidebar = () => {
             sidebarVisible.value = false;
-            document.getElementById('sidebar').classList.remove('visible');
         };
         
         const getPosterUrl = (filePath, width = 600) => {
