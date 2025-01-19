@@ -54,6 +54,8 @@ films = {
             'image': poster['mainsnak']['datavalue']['value'],
             'designer': [x['datavalue']['value']['id']
                          for x in poster.get('qualifiers', {}).get('P170', {})],
+            'characteristics': [x['datavalue']['value']['id']
+                                for x in poster.get('qualifiers', {}).get('P1552', {})],
         } for poster in item['claims'].get('P3383', [])],
         'logos': [{
             'image': logo['mainsnak']['datavalue']['value'],
