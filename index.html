@@ -1464,7 +1464,7 @@ watch(designerQuery, (newValue) => {
             if (!filePath) return 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=600';
 
             const url = new URL('https://commons.wikimedia.org/w/thumb.php');
-            url.searchParams.append('f', decodeURIComponent(filePath));
+            url.searchParams.append('f', decodeURIComponent(filePath.replace('http://commons.wikimedia.org/wiki/Special:FilePath/', '')));
             url.searchParams.append('w', '600');
             return url.toString();
         };
