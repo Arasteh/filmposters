@@ -9,6 +9,7 @@
     <style>
         * {
             font-family: system-ui;
+            box-sizing: border-box;
         }
 
         body {
@@ -20,7 +21,9 @@
             color: light-dark(black, #e0e0e0);
             margin: 0;
             direction: rtl;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.3s, color 0.3s;    
+            overflow-x: hidden;
+
         }
 
         #app {
@@ -40,6 +43,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            max-width: 100%;
+            overflow-x: hidden;
         }
 
         .search-container {
@@ -653,8 +658,19 @@
             color: #b00;
         }
 
-        @media (max-width: 768px) {
-
+        @media (max-width: 768px) {            
+            .search-bar {
+                width: 100%;
+                max-width: 100%;
+                padding: 10px;
+            }
+        
+            .results-grid {
+                width: 100%;
+                max-width: 100%;
+                padding: 0 10px; /* اضافه کردن پدینگ به چپ و راست */
+            }
+            
             .options {
                 flex-direction: column;
                 align-items: flex-start;
@@ -717,6 +733,22 @@
         
             .options.collapsed {
                 display: none;
+            }
+            
+            #main-content {
+                margin-right: 0;
+                padding: 10px;
+                flex-direction: column;
+            }
+        
+            .search-bar {
+                padding: 10px;
+            }
+        
+            .item-card {
+                padding: 8px;
+                width: 100%;
+                max-width: 100%;
             }
 
         }
