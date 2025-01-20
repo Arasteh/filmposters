@@ -732,6 +732,10 @@
                 z-index: 999;
                 display: none;
             }
+
+            .sidebar-content {
+                padding: 15px;            
+            }
         
             .sidebar-overlay.visible {
                 display: block; /* نمایش اورلی */
@@ -890,6 +894,7 @@
                     <span :class="{ active: !posterMode }">پوستر</span>
                     <span :class="{ active: posterMode }">لوگو</span>
                 </div>
+                <!--
                 <label class="mobile-only">
                     حرف اول:
                     <select v-model="selectedLetter">
@@ -902,59 +907,6 @@
                         </option>
                     </select>
                 </label>
-                <div class="similar-chars-toggle">
-                    <label for="similarCharsSwitch">
-                        <div class="tooltip">حروف مشابه
-                            <span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود: مانند س، ش</span>
-                        </div>
-                    </label>
-                    <label class="switch">
-                        <input id="similarCharsSwitch" type="checkbox" v-model="combineSimilarChars">
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-                <!--
-                <label>
-                    <input type="checkbox" v-model="combineSimilarChars" />
-                    <div class="tooltip">حروف مشابه
-                      <span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود:  مانند س، ش</span>
-                    </div>
-                </label>
-                <label>
-                    ترتیب:
-                    <select v-model="sortOrder">
-                        <option value="alphabetical">الفبایی</option>
-                        <option value="year">سال</option>
-                        <option value="random">تصادفی</option>
-                    </select>
-                </label> -->
-                <div class="sort-order-container">
-                    <label>ترتیب:</label>
-                    <div class="triple-toggle-switch">
-                        <div 
-                            class="toggle-option" 
-                            :class="{ active: sortOrder === 'alphabetical' }" 
-                            @click="sortOrder = 'alphabetical'"
-                        >
-                            الفبایی
-                        </div>
-                        <div 
-                            class="toggle-option" 
-                            :class="{ active: sortOrder === 'year' }" 
-                            @click="sortOrder = 'year'"
-                        >
-                            سال
-                        </div>
-                        <div 
-                            class="toggle-option" 
-                            :class="{ active: sortOrder === 'random' }" 
-                            @click="sortOrder = 'random'"
-                        >
-                            تصادفی
-                        </div>
-                    </div>
-                </div>
-
                 <label class="mobile-only">
                     سال:
                     <select v-model="selectedYear">
@@ -969,10 +921,7 @@
                         <option v-for="[designer, count] in filteredDesigners" :key="designer" :value="designer">{{ designer }} ({{ count }})</option>
                     </select>
                 </label>
-                <!-- دکمه برای باز کردن Modal -->
                 <button @click="openDesignerModal" id="openDesignerModalButton" class="mobile-only">انتخاب طراح</button>
-                
-                <!-- Modal برای نمایش لیست طراح‌ها -->
                 <div v-if="isDesignerModalOpen" class="modal-overlay">
                     <div class="modal-content" ref="modalContent">
                         <div class="modal-header">
@@ -1008,6 +957,58 @@
                         <option v-for="[director, count] in filteredDirectors" :key="director" :value="director">{{ director }} ({{ count }})</option>
                     </select>
                 </label> 
+                                <label>
+                    <input type="checkbox" v-model="combineSimilarChars" />
+                    <div class="tooltip">حروف مشابه
+                      <span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود:  مانند س، ش</span>
+                    </div>
+                </label>
+                <label>
+                    ترتیب:
+                    <select v-model="sortOrder">
+                        <option value="alphabetical">الفبایی</option>
+                        <option value="year">سال</option>
+                        <option value="random">تصادفی</option>
+                    </select>
+                </label>
+                -->
+                <div class="similar-chars-toggle">
+                    <label for="similarCharsSwitch">
+                        <div class="tooltip">حروف مشابه
+                            <span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود: مانند س، ش</span>
+                        </div>
+                    </label>
+                    <label class="switch">
+                        <input id="similarCharsSwitch" type="checkbox" v-model="combineSimilarChars">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="sort-order-container">
+                    <label>ترتیب:</label>
+                    <div class="triple-toggle-switch">
+                        <div 
+                            class="toggle-option" 
+                            :class="{ active: sortOrder === 'alphabetical' }" 
+                            @click="sortOrder = 'alphabetical'"
+                        >
+                            الفبایی
+                        </div>
+                        <div 
+                            class="toggle-option" 
+                            :class="{ active: sortOrder === 'year' }" 
+                            @click="sortOrder = 'year'"
+                        >
+                            سال
+                        </div>
+                        <div 
+                            class="toggle-option" 
+                            :class="{ active: sortOrder === 'random' }" 
+                            @click="sortOrder = 'random'"
+                        >
+                            تصادفی
+                        </div>
+                    </div>
+                </div>
             </div>
             <div v-if="filteredItems.length > 0" style="text-align: center; padding-bottom: .5em;">
                 {{ filteredItems.length.toLocaleString('fa') }} از {{ items.length.toLocaleString('fa') }} پوستر ({{ uniqueFilmCount.toLocaleString('fa') }} فیلم)
