@@ -574,7 +574,7 @@
             padding: 5px 10px;
             background-color: light-dark(#ddd, #333);
             border-radius: 10px;
-            transition: border-radius 0.3s ease;
+            transition: border-radius 0.3s ease, background-color 0.3s ease;
         }
         
         .sidebar-section-body {
@@ -583,10 +583,9 @@
             overflow-y: auto;    
             min-height: 0;
             background-color: light-dark(#fff, #222);
-            transition: opacity 0.3s ease, height 0.3s ease;
+            transition: opacity 0.3s ease, height 0.3s ease, max-height 0.3s ease;
             opacity: 1;
-            height: auto;
-            /*border-top: 1px light-dark(#ddd, #222) solid;*/
+            max-height: 500px;
             margin-bottom: 20px;
             border-radius: 0 0 10px 10px;
         }
@@ -598,8 +597,8 @@
         
         .sidebar-section.collapsed .sidebar-section-body {
             opacity: 0;
-            height: 0;
             padding: 0;
+            max-height: 0;
             overflow: hidden;
         }
         
