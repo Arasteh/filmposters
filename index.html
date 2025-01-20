@@ -799,15 +799,6 @@
                         <button class="collapse-button">{{ isCollapsed.years ? '▼' : '▲' }}</button>
                     </div>
                     <div class="sidebar-section-body" v-if="!isCollapsed.years">
-                        <!-- اسلایدر برای انتخاب سال
-                        <input 
-                            type="range" 
-                            :min="minYear" 
-                            :max="maxYear" 
-                            v-model="selectedYearSlider" 
-                            @input="updateSelectedYear" 
-                            class="year-slider"
-                        /> -->
                         <div class="year-grid">
                                 <div v-for="[year, count] in filteredYearsInModal" :key="year" 
                                      @click="selectYearFromModal(year)" 
@@ -911,6 +902,17 @@
                         <span class="slider round"></span>
                     </label>
                 </div>
+                <div class="similar-chars-toggle">
+                    <label for="pixelatedSwitch">
+                        <div class="tooltip">سانسور
+                            <span class="tooltiptext">تار کردن تصاویری که ممکن است مناسب نباشند</span>
+                        </div>
+                    </label>
+                    <label class="switch">
+                        <input id="pixelatedSwitch" type="checkbox" v-model="pixelatedEffect">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
                 <div class="sort-order-container">
                     <label>ترتیب:</label>
                     <div class="triple-toggle-switch">
@@ -946,7 +948,7 @@
             <div class="item-card" v-for="(item, index) in (isShowMore ? filteredItems : filteredItems.slice(0, 30))"
                 :key="index">
                 <a :href="'https://commons.wikimedia.org/wiki/File:' + getImageLink(item)?.replaceAll(' ', '_')" target="_blank"><img :src="getImageUrl(item)" :key="getImageUrl(item)" :alt="item.filmLabel"
-                        class="item-image" :class="{ pixelated: item.isNsfw && posterMode }" /></a>
+                        class="item-image" :class="{ pixelated: (item.isNsfw && posterMode) || pixelatedEffect }" /></a>
                 <div class="item-title">{{ getItemTitleWithYear(item) }}</div>
                 <div v-if="item.designer && item.designerLabel" class="item-designer">
                 طراح: <a href="#" @click.prevent="selectDesigner(item.designerLabel)">{{ item.designerLabel }}</a> (<a :href="'https://www.wikidata.org/wiki/' + item.designer" target="_blank">Q</a><template v-if="item.designerFaWikipediaLink">&nbsp;<a :href="'https://fa.wikipedia.org/wiki/' + item.designerFaWikipediaLink.replaceAll(' ', '_')" target="_blank">W</a></template>)
@@ -1460,6 +1462,8 @@ watch(designerQuery, (newValue) => {
         const hideSidebar = () => {
             sidebarVisible.value = false;
         };
+
+        const pixelatedEffect = ref(false);
         
         const getPosterUrl = (filePath, width = 600) => {
             if (!filePath) return 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=600';
@@ -1474,7 +1478,7 @@ watch(designerQuery, (newValue) => {
         const getImageUrl = item => posterMode.value ? getPosterUrl(item.poster) : getLogoUrl(item);
         const getImageLink = item => posterMode.value ? item.poster : item.logo;
 
-        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, minYear, maxYear, selectedYearSlider, updateSelectedYear, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar, sidebarVisible, uniqueFilmCount, toggleSidebar  };
+        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, minYear, maxYear, selectedYearSlider, updateSelectedYear, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar, sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect  };
     }
 }).mount('#app');
     </script>
