@@ -1405,9 +1405,9 @@ watch(designerQuery, (newValue) => {
         };
 
         const resize = (e) => {
-            const newWidth = window.innerWidth - e.clientX;
+            const newWidth = startWidth + (startX - e.clientX);
             if (newWidth >= minSidebarWidth.value && newWidth <= maxSidebarWidth.value) {
-                sidebarWidth.value = newWidth;
+                sidebar.style.transform = `translateX(${newWidth}px)`;
             }
         };
 
