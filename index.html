@@ -946,7 +946,7 @@
             <div class="item-card" v-for="(item, index) in (isShowMore ? filteredItems : filteredItems.slice(0, 30))"
                 :key="index">
                 <a :href="'https://commons.wikimedia.org/wiki/File:' + getImageLink(item)?.replaceAll(' ', '_')" target="_blank"><img :src="getImageUrl(item)" :key="getImageUrl(item)" :alt="item.filmLabel"
-                        class="item-image" :class="{ pixelated: item.isNsfw }" /></a>
+                        class="item-image" :class="{ pixelated: item.isNsfw && posterMode }" /></a>
                 <div class="item-title">{{ getItemTitleWithYear(item) }}</div>
                 <div v-if="item.designer && item.designerLabel" class="item-designer">
                 طراح: <a href="#" @click.prevent="selectDesigner(item.designerLabel)">{{ item.designerLabel }}</a> (<a :href="'https://www.wikidata.org/wiki/' + item.designer" target="_blank">Q</a><template v-if="item.designerFaWikipediaLink">&nbsp;<a :href="'https://fa.wikipedia.org/wiki/' + item.designerFaWikipediaLink.replaceAll(' ', '_')" target="_blank">W</a></template>)
