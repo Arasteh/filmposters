@@ -903,18 +903,26 @@
                         <span class="slider round"></span>
                     </label>
                 </div>
-                <div class="similar-chars-toggle">
-                    <label for="pixelatedSwitch">
-                        <div class="tooltip">سانسور
-                            <span class="tooltiptext">تار کردن تصاویری که ممکن است مناسب نباشند</span>
-                        </div>
-                    </label>
-                    <label class="switch">
-                        <input id="pixelatedSwitch" type="checkbox" v-model="pixelatedEffect">
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-                <div class="sort-order-container">
+                <div class="similar-chars-toggle" v-if="posterMode">
+                        <label for="pixelatedSwitch">
+                            <div class="tooltip">سانسور
+                                <span class="tooltiptext">تار کردن تصاویری که ممکن است مناسب نباشند</span>
+                            </div>
+                        </label>
+                        <label class="switch">
+                            <input id="pixelatedSwitch" type="checkbox" v-model="pixelatedEffect">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="similar-chars-toggle" v-else>
+                        <label for="pixelatedSwitch" style="opacity: 0.5;">
+                            <div class="tooltip">سانسور</div>
+                        </label>
+                        <label class="switch" style="opacity: 0.5;">
+                            <input id="pixelatedSwitch" type="checkbox" v-model="pixelatedEffect" disabled>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>                <div class="sort-order-container">
                     <label>ترتیب:</label>
                     <div class="triple-toggle-switch">
                         <div 
