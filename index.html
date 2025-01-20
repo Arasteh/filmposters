@@ -1394,28 +1394,30 @@ watch(designerQuery, (newValue) => {
             return uniqueFilms.size;
         });
 
-        const sidebarWidth = ref(400); // عرض پیش‌فرض سایدبار
-        const minSidebarWidth = ref(300); // حداقل عرض سایدبار
-        const maxSidebarWidth = ref(600); // حداکثر عرض سایدبار
+        const sidebarWidth = ref(400);
+        const minSidebarWidth = ref(300);
+        const maxSidebarWidth = ref(600);
 
         const startResize = (e) => {
             e.preventDefault();
+            startX = e.clientX;
+            startWidth = sidebarWidth.value;
             document.addEventListener('mousemove', resize);
             document.addEventListener('mouseup', stopResize);
         };
-
+        
         const resize = (e) => {
             const newWidth = startWidth + (startX - e.clientX);
             if (newWidth >= minSidebarWidth.value && newWidth <= maxSidebarWidth.value) {
-                sidebar.style.transform = `translateX(${newWidth}px)`;
+                sidebarWidth.value = newWidth;
             }
         };
-
+        
         const stopResize = () => {
             document.removeEventListener('mousemove', resize);
             document.removeEventListener('mouseup', stopResize);
         };
-
+        
         onMounted(() => {
             const resizeHandle = document.querySelector('.sidebar-resize-handle');
             if (resizeHandle) {
@@ -1424,9 +1426,8 @@ watch(designerQuery, (newValue) => {
                 console.error('عنصر دستگیره تغییر اندازه یافت نشد!');
             }
         });
-
+        
         const hoveredItem = ref(null);
-
 
         const removeYearFilter = () => {
             selectedYear.value = '';
