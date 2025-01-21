@@ -816,7 +816,6 @@
                     </div>
                     <div class="sidebar-section-body" v-if="!isCollapsed.years">
                         <canvas id="yearChart"></canvas>
-                        <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
                         <div class="year-grid">
                                 <div v-for="[year, count] in filteredYearsInModal" :key="year" 
                                      @click="selectYearFromModal(year)" 
@@ -1573,35 +1572,6 @@ createApp({
             yearChart.value.data.datasets[0].data = counts;
             yearChart.value.update();
         });
-        
-        /*
-        var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
-        var yValues = [55, 49, 44, 24, 15];
-        var barColors = ["blue"];
-        
-        
-            new Chart("myChart", {
-              type: "bar",
-              data: {
-                labels: xValues,
-                datasets: [{
-                  backgroundColor: barColors,
-                  data: yValues
-                }]
-              },
-              options: {
-                legend: {display: false},
-                scales: {
-                  yAxes: [{
-                    ticks: {
-                      beginAtZero: true
-                    }
-                  }],
-                }
-              }
-            });
-        });
-        */
         
         const getPosterUrl = (filePath, width = 600) => {
             if (!filePath) return 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=600';
