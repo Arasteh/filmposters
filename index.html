@@ -1504,7 +1504,10 @@ createApp({
                 }
         
                 const years = newYears.map(([year]) => year);
-                const counts = newYears.map(([_, count]) => parseInt(count.replace(/,/g, '')));
+                const counts = newYears.map(([_, count]) => parseInt(count.replace(/,/g, ''), 10)); // تبدیل به عدد
+        
+                console.log('Years:', years); // بررسی داده‌های years
+                console.log('Counts:', counts); // بررسی داده‌های counts
         
                 if (years.length === 0 || counts.length === 0) {
                     console.error('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
@@ -1517,14 +1520,14 @@ createApp({
                         labels: years,
                         datasets: [{
                             label: 'تعداد پوسترها',
-                            data: counts,
+                            data: counts, // استفاده از counts
                             backgroundColor: 'rgba(183, 119, 119, 0.5)',
                             borderColor: 'rgba(183, 119, 119, 1)',
                             borderWidth: 1
                         }]
                     },
                     options: {
-                        indexAxis: 'y',
+                        indexAxis: 'y', // نمایش سال‌ها روی محور y
                         responsive: true,
                         maintainAspectRatio: false,
                         scales: {
@@ -1561,7 +1564,7 @@ createApp({
             }
         
             const years = newYears.map(([year]) => year);
-            const counts = newYears.map(([_, count]) => parseInt(count.replace(/,/g, '')));
+            const counts = newYears.map(([_, count]) => parseInt(count.replace(/,/g, ''), 10)); // تبدیل به عدد
         
             if (years.length === 0 || counts.length === 0) {
                 console.error('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
