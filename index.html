@@ -577,7 +577,6 @@
             padding: 5px 10px;
             background-color: light-dark(#ddd, #333);
             border-radius: 10px;
-            /*transition: border-radius 0.3s ease, background-color 0.3s ease;*/
         }
         
         .sidebar-section-body {
@@ -586,7 +585,6 @@
             overflow-y: auto;    
             min-height: 0;
             background-color: light-dark(#fff, #222);
-            /*transition: opacity 0.3s ease, height 0.3s ease, max-height 0.3s ease;*/
             opacity: 1;
             max-height: 500px;
             margin-bottom: 20px;
@@ -690,7 +688,7 @@
             .results-grid {
                 width: 100%;
                 max-width: 100%;
-                padding: 0 10px; /* اضافه کردن پدینگ به چپ و راست */
+                padding: 0 10px;
             }
             
             .options {
@@ -711,17 +709,17 @@
             .sidebar {
                 position: fixed;
                 top: 0;
-                right: -110%; /* سایدبار خارج از صفحه باشد */
-                width: 80%; /* عرض سایدبار در موبایل */
+                right: -105%;
+                width: 80%;
                 height: 100vh;
-                background-color: light-dark(#fff, #1e1e1e);
+                background-color: light-dark(#f5f5f5, #121212);
                 transition: right 0.3s ease-in-out;
                 z-index: 1000;
-                display: block; /* یا هر مقدار مناسب دیگر */
+                display: block;
             }
         
             .sidebar.visible {
-                right: 0; /* سایدبار به داخل صفحه بیاید */
+                right: 0;
                 display: block;
                 transform: translateX(0);
             }
@@ -781,7 +779,6 @@
                 width: 100%;
                 max-width: 100%;
             }
-
         }
     </style>
 </head>
@@ -908,7 +905,7 @@
                 <div class="similar-chars-toggle" v-if="posterMode">
                         <label for="pixelatedSwitch">
                             <div class="tooltip">سانسور
-                                <span class="tooltiptext">تار کردن تصاویری که ممکن است مناسب نباشند</span>
+                                <span class="tooltiptext">تار کردن تصاویری که ممکن است نامناسب باشند</span>
                             </div>
                         </label>
                         <label class="switch">
@@ -1075,13 +1072,13 @@ createApp({
         const designerQuery = ref("");
         const selectedDesigner = ref('');
         const selectedDirector = ref('');
-        const isDesignerDropdownOpen = ref(false); // وضعیت باز بودن لیست
+        const isDesignerDropdownOpen = ref(false);
         const topDesigners = computed(() => availableDesigners.value.slice(0, 10));
         const selectedLetter = ref('');
-        const isOptionsCollapsed = ref(false); // وضعیت collapse
-        const isDesignerModalOpen = ref(false); // وضعیت باز بودن Modal
-        const designerSearchQuery = ref(''); // فیلد جستجو در Modal
-        const modalContent = ref(null); // Ref برای دسترسی به محتوای Modal
+        const isOptionsCollapsed = ref(false);
+        const isDesignerModalOpen = ref(false);
+        const designerSearchQuery = ref('');
+        const modalContent = ref(null);
 
         const filteredDesignersInDropdown = computed(() => {
             if (!designerQuery.value) {
@@ -1094,18 +1091,15 @@ createApp({
         
         const openDesignerModal = () => {
             isDesignerModalOpen.value = true;
-            // اضافه کردن event listener برای تشخیص کلیک خارج از Modal
             document.addEventListener('click', handleClickOutside);
         };
         
         const closeDesignerModal = () => {
             isDesignerModalOpen.value = false;
-            // حذف event listener هنگام بسته شدن Modal
             document.removeEventListener('click', handleClickOutside);
         };
         
         const handleClickOutside = (event) => {
-            // اگر کلیک خارج از Modal بود، Modal بسته شود
             if (modalContent.value && !modalContent.value.contains(event.target)) {
                 closeDesignerModal();
             }
@@ -1143,7 +1137,7 @@ createApp({
         };
         
         const toggleOptions = () => {
-            isOptionsCollapsed.value = !isOptionsCollapsed.value; // تغییر وضعیت collapse
+            isOptionsCollapsed.value = !isOptionsCollapsed.value;
         };
 
         const collapseIconClass = computed(() => {
@@ -1159,12 +1153,11 @@ createApp({
             );
         });
 
-        // وقتی طراح انتخاب شد
         function selectDesigner(designer) {
-            selectedDesigner.value = designer; // ذخیره طراح انتخاب‌شده
-            designerQuery.value = designer; // مقدار فیلد جستجو را تنظیم کن
-            isDesignerDropdownOpen.value = false; // بستن لیست پیشنهادها
-            applyFilters(); // فراخوانی فیلتر نتایج
+            selectedDesigner.value = designer;
+            designerQuery.value = designer;
+            isDesignerDropdownOpen.value = false;
+            applyFilters();
         }
 
         function applyFilters() {
@@ -1281,11 +1274,11 @@ createApp({
             return results;
         });
 
-watch(designerQuery, (newValue) => {
-    if (!newValue) {
-        selectedDesigner.value = '';
-    }
-});
+        watch(designerQuery, (newValue) => {
+            if (!newValue) {
+                selectedDesigner.value = '';
+            }
+        });
         
         const filteredYears = computed(() => {
             const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
@@ -1309,7 +1302,6 @@ watch(designerQuery, (newValue) => {
                 .sort((a, b) => b[1] - a[1])
                 .map(([director, count]) => [director, count.toLocaleString('fa')]);
         });
-
 
         const filteredDesignersInModal = computed(() => {
             const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
@@ -1339,8 +1331,8 @@ watch(designerQuery, (newValue) => {
                 .map(year => [year, groups[year].length.toLocaleString('fa')]);
         });
 
-        const minYear = ref(1309); // حداقل سال
-        const maxYear = ref(1403); // حداکثر سال
+        const minYear = ref(1309);
+        const maxYear = ref(1403);
         
         const selectedYearSlider = ref(minYear.value);
         
@@ -1350,7 +1342,7 @@ watch(designerQuery, (newValue) => {
         
         watch(selectedYear, (newValue) => {
             if (newValue) {
-                selectedYearSlider.value = parseInt(newValue); // به‌روزرسانی اسلایدر بر اساس selectedYear
+                selectedYearSlider.value = parseInt(newValue);
             }
         });
 
@@ -1360,7 +1352,7 @@ watch(designerQuery, (newValue) => {
             }
         });
         
-        const directorSearchQuery = ref(''); // فیلد جستجو برای کارگردان‌ها
+        const directorSearchQuery = ref('');
 
         const filteredDirectorsInModal = computed(() => {
             const groups = Object.groupBy(filteredItems.value.filter(x => x.directorLabel), item => item.directorLabel);
