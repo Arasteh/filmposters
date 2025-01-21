@@ -1539,7 +1539,7 @@ createApp({
                         }]
                     },
                     options: {
-                        indexAxis: 'y', // نمایش سال‌ها روی محور y
+                        indexAxis: 'y', // نمایش نمودار به صورت افقی
                         responsive: true,
                         maintainAspectRatio: false,
                         scales: {
@@ -1551,6 +1551,7 @@ createApp({
                                 }
                             },
                             y: {
+                                reverse: true, // تغییر جهت محور y (سال‌ها از راست به چپ)
                                 title: {
                                     display: true,
                                     text: 'سال'
@@ -1561,7 +1562,8 @@ createApp({
                             if (elements.length > 0) {
                                 const index = elements[0].index;
                                 const selectedYear = years[index];
-                                selectedYear.value = selectedYear;
+                                selectedYear.value = selectedYear; // به‌روزرسانی selectedYear
+                                applyFilters(); // اعمال فیلترها
                             }
                         }
                     }
