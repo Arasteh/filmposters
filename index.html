@@ -1006,6 +1006,7 @@ function topFunction() {
 }
 
 let lastScrollTop = 0;
+let yearChart = null;
 
 window.addEventListener("scroll", () => {
     const searchBar = document.getElementById("searchBar");
@@ -1498,6 +1499,11 @@ createApp({
             const years = availableYears.value.map(([year]) => year);
             const counts = availableYears.value.map(([_, count]) => parseInt(count.replace(/,/g, '')));
         
+            if (years.length === 0 || counts.length === 0) {
+                console.error('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
+                return;
+            }
+            
             const yearChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -1548,6 +1554,8 @@ createApp({
                 yearChart.data.labels = years;
                 yearChart.data.datasets[0].data = counts;
                 yearChart.update();
+            } else {
+                console.error('نمودار سال‌ها تعریف نشده است!');
             }
         });
         
