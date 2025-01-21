@@ -6,7 +6,7 @@
     <meta name="color-scheme" content="light dark">
     <title>آرشیو پوسترهای سینمای ایران</title>
     <script src="vue.global.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <style>
         * {
             font-family: system-ui;
@@ -816,6 +816,7 @@
                     </div>
                     <div class="sidebar-section-body" v-if="!isCollapsed.years">
                         <canvas id="yearChart"></canvas>
+                        <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
                         <div class="year-grid">
                                 <div v-for="[year, count] in filteredYearsInModal" :key="year" 
                                      @click="selectYearFromModal(year)" 
@@ -1568,6 +1569,33 @@ createApp({
             yearChart.data.datasets[0].data = counts;
             yearChart.update();
         });
+        
+        //TEMP FROM HERE
+        var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+        var yValues = [55, 49, 44, 24, 15];
+        var barColors = ["blue"];
+        
+        new Chart("myChart", {
+          type: "bar",
+          data: {
+            labels: xValues,
+            datasets: [{
+              backgroundColor: barColors,
+              data: yValues
+            }]
+          },
+          options: {
+            legend: {display: false},
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }],
+            }
+          }
+        });
+        // TO HERE
         
         const getPosterUrl = (filePath, width = 600) => {
             if (!filePath) return 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=600';
