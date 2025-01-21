@@ -1494,21 +1494,21 @@ createApp({
             searchTerm.value = '';
         };
 
+        const ctx = document.getElementById('yearChart').getContext('2d');
+        if (!ctx) {
+            console.error('عنصر canvas برای نمودار یافت نشد!');
+            return;
+        }
+    
+        const years = availableYears.value.map(([year]) => year);
+        const counts = availableYears.value.map(([_, count]) => parseInt(count.replace(/,/g, '')));
+    
+        if (years.length === 0 || counts.length === 0) {
+            console.error('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
+            return;
+        }
+
         onMounted(() => {
-            const ctx = document.getElementById('yearChart').getContext('2d');
-            if (!ctx) {
-                console.error('عنصر canvas برای نمودار یافت نشد!');
-                return;
-            }
-        
-            const years = availableYears.value.map(([year]) => year);
-            const counts = availableYears.value.map(([_, count]) => parseInt(count.replace(/,/g, '')));
-        
-            if (years.length === 0 || counts.length === 0) {
-                console.error('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
-                return;
-            }
-            
             document.addEventListener("DOMContentLoaded", function() {
             const yearChart = new Chart(ctx, {
                 type: 'bar',
