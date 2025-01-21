@@ -1509,6 +1509,7 @@ createApp({
                 return;
             }
             
+            document.addEventListener("DOMContentLoaded", function() {
             const yearChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -1549,6 +1550,7 @@ createApp({
                     }
                 }
             });
+                 });
         });
 
         watch(filteredYears, (newYears) => {
@@ -1570,12 +1572,12 @@ createApp({
             yearChart.update();
         });
         
-        //TEMP FROM HERE
+        /*
         var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
         var yValues = [55, 49, 44, 24, 15];
         var barColors = ["blue"];
         
-        document.addEventListener("DOMContentLoaded", function() {
+        
             new Chart("myChart", {
               type: "bar",
               data: {
@@ -1597,7 +1599,7 @@ createApp({
               }
             });
         });
-        // TO HERE
+        */
         
         const getPosterUrl = (filePath, width = 600) => {
             if (!filePath) return 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=600';
