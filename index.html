@@ -1527,6 +1527,11 @@ createApp({
                     return;
                 }
         
+                // تعریف آرایه‌ی رنگ‌ها
+                const backgroundColors = years.map(year => 
+                    year === selectedYear.value ? 'rgba(119, 183, 119, 0.8)' : 'rgba(183, 119, 119, 0.5)'
+                );
+        
                 yearChart.value = new Chart(ctx, {
                     type: 'bar',
                     data: {
@@ -1534,7 +1539,7 @@ createApp({
                         datasets: [{
                             label: 'تعداد پوسترها',
                             data: counts, // استفاده از counts
-                            backgroundColor: 'rgba(183, 119, 119, 0.5)',
+                            backgroundColor: backgroundColors, // استفاده از آرایه‌ی رنگ‌ها
                             borderColor: 'rgba(183, 119, 119, 1)',
                             borderWidth: 1
                         }]
@@ -1562,9 +1567,16 @@ createApp({
                         onClick: (event, elements) => {
                             if (elements.length > 0) {
                                 const index = elements[0].index;
-                                const selectedYear = years[index];
-                                selectedYear.value = selectedYear; // به‌روزرسانی selectedYear
+                                const selectedYearValue = years[index];
+                                selectedYear.value = selectedYearValue; // به‌روزرسانی selectedYear
                                 applyFilters(); // اعمال فیلترها
+        
+                                // به‌روزرسانی رنگ‌ها
+                                const updatedColors = years.map(year => 
+                                    year === selectedYearValue ? 'rgba(119, 183, 119, 0.8)' : 'rgba(183, 119, 119, 0.5)'
+                                );
+                                yearChart.value.data.datasets[0].backgroundColor = updatedColors;
+                                yearChart.value.update(); // به‌روزرسانی نمودار
                             }
                         }
                     }
