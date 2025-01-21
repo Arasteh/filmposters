@@ -1494,85 +1494,84 @@ createApp({
             searchTerm.value = '';
         };
 
-        onMounted(() => {
-            console.log('onMounted executed'); // بررسی اجرای onMounted
-            const ctx = document.getElementById('yearChart').getContext('2d');
-            if (!ctx) {
-                console.error('عنصر canvas برای نمودار یافت نشد!');
-                return;
-            }
+        const yearChart = ref(null); 
         
-            const years = availableYears.value.map(([year]) => year);
-            const counts = availableYears.value.map(([_, count]) => parseInt(count.replace(/,/g, '')));
+        watch(availableYears, (newYears) => {
+            if (newYears.length > 0) {
+                const ctx = document.getElementById('yearChart').getContext('2d');
+                if (!ctx) {
+                    console.error('عنصر canvas برای نمودار یافت نشد!');
+                    return;
+                }
         
-            console.log('Years:', years); // بررسی داده‌های years
-            console.log('Counts:', counts); // بررسی داده‌های counts
+                const years = newYears.map(([year]) => year);
+                const counts = newYears.map(([_, count]) => parseInt(count.replace(/,/g, '')));
         
-            if (years.length === 0 || counts.length === 0) {
-                console.error('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
-                return;
-            }
+                if (years.length === 0 || counts.length === 0) {
+                    console.error('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
+                    return;
+                }
         
-            yearChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: years,
-                    datasets: [{
-                        label: 'تعداد پوسترها',
-                        data: counts,
-                        backgroundColor: 'rgba(183, 119, 119, 0.5)',
-                        borderColor: 'rgba(183, 119, 119, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    indexAxis: 'y',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'تعداد پوسترها'
+                yearChart.value = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: years,
+                        datasets: [{
+                            label: 'تعداد پوسترها',
+                            data: counts,
+                            backgroundColor: 'rgba(183, 119, 119, 0.5)',
+                            borderColor: 'rgba(183, 119, 119, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'تعداد پوسترها'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'سال'
+                                }
                             }
                         },
-                        y: {
-                            title: {
-                                display: true,
-                                text: 'سال'
+                        onClick: (event, elements) => {
+                            if (elements.length > 0) {
+                                const index = elements[0].index;
+                                const selectedYear = years[index];
+                                selectedYear.value = selectedYear;
                             }
                         }
-                    },
-                    onClick: (event, elements) => {
-                        if (elements.length > 0) {
-                            const index = elements[0].index;
-                            const selectedYear = years[index];
-                            selectedYear.value = selectedYear;
-                        }
                     }
-                }
-            });
-        });
+                });
+            }
+        }, { immediate: true });
         
         watch(filteredYears, (newYears) => {
-            console.log('Filtered Years:', newYears); // بررسی داده‌های جدید در watch
-            const years = newYears.map(([year]) => year);
-            const counts = newYears.map(([_, count]) => parseInt(count.replace(/,/g, '')));
-        
-            if (!yearChart) {
+            if (!yearChart.value) {
                 console.error('نمودار سال‌ها تعریف نشده است!');
                 return;
             }
         
+            const years = newYears.map(([year]) => year);
+            const counts = newYears.map(([_, count]) => parseInt(count.replace(/,/g, '')));
+        
             if (years.length === 0 || counts.length === 0) {
                 console.error('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
                 return;
             }
         
-            yearChart.data.labels = years;
-            yearChart.data.datasets[0].data = counts;
-            yearChart.update();
+            yearChart.value.data.labels = years;
+            yearChart.value.data.datasets[0].data = counts;
+            yearChart.value.update();
         });
         
         /*
