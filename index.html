@@ -1493,6 +1493,15 @@ createApp({
             searchTerm.value = '';
         };
 
+        function convertPersianToEnglishNumbers(str) {
+            const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+            return str.split('').map(char => {
+                const index = persianNumbers.indexOf(char);
+                return index !== -1 ? englishNumbers[index] : char;
+            }).join('');
+        }
+
         const yearChart = ref(null); 
         
         watch(availableYears, (newYears) => {
@@ -1504,7 +1513,10 @@ createApp({
                 }
         
                 const years = newYears.map(([year]) => year);
-                const counts = newYears.map(([_, count]) => parseInt(count.replace(/,/g, ''), 10)); // تبدیل به عدد
+                const counts = newYears.map(([_, count]) => {
+                    const englishCount = convertPersianToEnglishNumbers(count.replace(/,/g, ''));
+                    return parseInt(englishCount, 10);
+                });
         
                 console.log('Years:', years); // بررسی داده‌های years
                 console.log('Counts:', counts); // بررسی داده‌های counts
@@ -1564,7 +1576,10 @@ createApp({
             }
         
             const years = newYears.map(([year]) => year);
-            const counts = newYears.map(([_, count]) => parseInt(count.replace(/,/g, ''), 10)); // تبدیل به عدد
+            const counts = newYears.map(([_, count]) => {
+                const englishCount = convertPersianToEnglishNumbers(count.replace(/,/g, ''));
+                return parseInt(englishCount, 10);
+            });
         
             if (years.length === 0 || counts.length === 0) {
                 console.error('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
@@ -1575,6 +1590,7 @@ createApp({
             yearChart.value.data.datasets[0].data = counts;
             yearChart.value.update();
         });
+
         
         const getPosterUrl = (filePath, width = 600) => {
             if (!filePath) return 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=600';
