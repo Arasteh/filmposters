@@ -2431,7 +2431,10 @@
       ],
       "posters": [
         {
-          "image": "موسرخه (پوستر).jpg"
+          "image": "موسرخه (پوستر).jpg",
+          "characteristics": [
+            "Q2716583"
+          ]
         }
       ],
       "logos": []
@@ -16138,7 +16141,10 @@
       ],
       "posters": [
         {
-          "image": "ماجراجویان خشن 2 (پوستر).jpg"
+          "image": "ماجراجویان خشن 2 (پوستر).jpg",
+          "characteristics": [
+            "Q2716583"
+          ]
         }
       ],
       "logos": []
@@ -17019,6 +17025,9 @@
           "image": "زن باکره (پوستر).jpg",
           "designers": [
             "Q131377955"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -17556,7 +17565,10 @@
       ],
       "posters": [
         {
-          "image": "هلوی پوست کنده (پوستر).jpg"
+          "image": "هلوی پوست کنده (پوستر).jpg",
+          "characteristics": [
+            "Q2716583"
+          ]
         }
       ],
       "logos": []
@@ -19657,7 +19669,10 @@
       "imdb": [],
       "posters": [
         {
-          "image": "مرد هزار لبخند (پوستر).jpg"
+          "image": "مرد هزار لبخند (پوستر).jpg",
+          "characteristics": [
+            "Q2716583"
+          ]
         }
       ],
       "logos": []
@@ -20273,7 +20288,10 @@
       ],
       "posters": [
         {
-          "image": "شب اعدام.jpg"
+          "image": "شب اعدام.jpg",
+          "characteristics": [
+            "Q2716583"
+          ]
         }
       ],
       "logos": []
@@ -20561,7 +20579,10 @@
       ],
       "posters": [
         {
-          "image": "مردی از جنوب شهر (پوستر).jpg"
+          "image": "مردی از جنوب شهر (پوستر).jpg",
+          "characteristics": [
+            "Q2716583"
+          ]
         }
       ],
       "logos": []
