@@ -6,6 +6,7 @@
     <meta name="color-scheme" content="light dark">
     <title>آرشیو پوسترهای سینمای ایران</title>
     <script src="vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * {
             font-family: system-ui;
@@ -684,6 +685,11 @@
             font-size: x-large;
         }
 
+        #yearChart {
+            width: 100% !important;
+            height: 300px !important;
+        }
+
         @media (max-width: 768px) {          
             #app {
                 padding: 0;
@@ -809,6 +815,7 @@
                         <button class="collapse-button" :class="{ 'rotate-down': isCollapsed.years }">▲</button>
                     </div>
                     <div class="sidebar-section-body" v-if="!isCollapsed.years">
+                        <canvas id="yearChart"></canvas>
                         <div class="year-grid">
                                 <div v-for="[year, count] in filteredYearsInModal" :key="year" 
                                      @click="selectYearFromModal(year)" 
@@ -1484,6 +1491,65 @@ createApp({
         const clearSearchTerm = () => {
             searchTerm.value = '';
         };
+
+        onMounted(() => {
+            const ctx = document.getElementById('yearChart').getContext('2d');
+        
+            const years = availableYears.value.map(([year]) => year);
+            const counts = availableYears.value.map(([_, count]) => parseInt(count.replace(/,/g, '')));
+        
+            const yearChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: years,
+                    datasets: [{
+                        label: 'تعداد پوسترها',
+                        data: counts,
+                        backgroundColor: 'rgba(183, 119, 119, 0.5)', // رنگ میله‌ها
+                        borderColor: 'rgba(183, 119, 119, 1)', // رنگ حاشیه میله‌ها
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y', // نمایش نمودار به صورت افقی (از راست به چپ)
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'تعداد پوسترها'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'سال'
+                            }
+                        }
+                    },
+                    onClick: (event, elements) => {
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            const selectedYear = years[index];
+                            selectedYear.value = selectedYear;
+                        }
+                    }
+                }
+            });
+        });
+
+        watch(filteredYears, (newYears) => {
+            const years = newYears.map(([year]) => year);
+            const counts = newYears.map(([_, count]) => parseInt(count.replace(/,/g, '')));
+        
+            if (yearChart) {
+                yearChart.data.labels = years;
+                yearChart.data.datasets[0].data = counts;
+                yearChart.update();
+            }
+        });
         
         const getPosterUrl = (filePath, width = 600) => {
             if (!filePath) return 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=600';
