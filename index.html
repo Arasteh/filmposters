@@ -1494,36 +1494,39 @@ createApp({
             searchTerm.value = '';
         };
 
-        const ctx = document.getElementById('yearChart').getContext('2d');
-        if (!ctx) {
-            console.error('عنصر canvas برای نمودار یافت نشد!');
-            return;
-        }
-    
-        const years = availableYears.value.map(([year]) => year);
-        const counts = availableYears.value.map(([_, count]) => parseInt(count.replace(/,/g, '')));
-    
-        if (years.length === 0 || counts.length === 0) {
-            console.error('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
-            return;
-        }
-
         onMounted(() => {
-            document.addEventListener("DOMContentLoaded", function() {
-            const yearChart = new Chart(ctx, {
+            console.log('onMounted executed'); // بررسی اجرای onMounted
+            const ctx = document.getElementById('yearChart').getContext('2d');
+            if (!ctx) {
+                console.error('عنصر canvas برای نمودار یافت نشد!');
+                return;
+            }
+        
+            const years = availableYears.value.map(([year]) => year);
+            const counts = availableYears.value.map(([_, count]) => parseInt(count.replace(/,/g, '')));
+        
+            console.log('Years:', years); // بررسی داده‌های years
+            console.log('Counts:', counts); // بررسی داده‌های counts
+        
+            if (years.length === 0 || counts.length === 0) {
+                console.error('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
+                return;
+            }
+        
+            yearChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: years,
                     datasets: [{
                         label: 'تعداد پوسترها',
                         data: counts,
-                        backgroundColor: 'rgba(183, 119, 119, 0.5)', // رنگ میله‌ها
-                        borderColor: 'rgba(183, 119, 119, 1)', // رنگ حاشیه میله‌ها
+                        backgroundColor: 'rgba(183, 119, 119, 0.5)',
+                        borderColor: 'rgba(183, 119, 119, 1)',
                         borderWidth: 1
                     }]
                 },
                 options: {
-                    indexAxis: 'y', // نمایش نمودار به صورت افقی (از راست به چپ)
+                    indexAxis: 'y',
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
@@ -1550,10 +1553,10 @@ createApp({
                     }
                 }
             });
-                 });
         });
-
+        
         watch(filteredYears, (newYears) => {
+            console.log('Filtered Years:', newYears); // بررسی داده‌های جدید در watch
             const years = newYears.map(([year]) => year);
             const counts = newYears.map(([_, count]) => parseInt(count.replace(/,/g, '')));
         
