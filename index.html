@@ -1495,6 +1495,10 @@ createApp({
 
         onMounted(() => {
             const ctx = document.getElementById('yearChart').getContext('2d');
+            if (!ctx) {
+                console.error('عنصر canvas برای نمودار یافت نشد!');
+                return;
+            }
         
             const years = availableYears.value.map(([year]) => year);
             const counts = availableYears.value.map(([_, count]) => parseInt(count.replace(/,/g, '')));
@@ -1550,13 +1554,19 @@ createApp({
             const years = newYears.map(([year]) => year);
             const counts = newYears.map(([_, count]) => parseInt(count.replace(/,/g, '')));
         
-            if (yearChart) {
-                yearChart.data.labels = years;
-                yearChart.data.datasets[0].data = counts;
-                yearChart.update();
-            } else {
+            if (!yearChart) {
                 console.error('نمودار سال‌ها تعریف نشده است!');
+                return;
             }
+        
+            if (years.length === 0 || counts.length === 0) {
+                console.error('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
+                return;
+            }
+        
+            yearChart.data.labels = years;
+            yearChart.data.datasets[0].data = counts;
+            yearChart.update();
         });
         
         const getPosterUrl = (filePath, width = 600) => {
