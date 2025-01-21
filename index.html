@@ -882,7 +882,10 @@
                 <button @click="toggleSidebar" id="toggleSidebarButton" class="mobile-only" style="background: none; border: none; cursor: pointer; font-size: 24px;">
                     ☰
                 </button>
-                <input type="text" v-model="searchTerm" placeholder="جستجو…" />
+                <div style="position: relative; width: 100%;">
+                    <input type="text" v-model="searchTerm" placeholder="جستجو…" />
+                    <span v-if="searchTerm" @click="clearSearchTerm" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #888;">×</span>
+                </div>
                 <button @click="resetFilters" id="resetSearch">↻</button>
                 <button @click="toggleOptions" id="collapseButton" class="collapse-button mobile-only" :class="collapseIconClass">▲</button>
             </div>
@@ -1467,6 +1470,10 @@ createApp({
         };
 
         const pixelatedEffect = ref(false);
+
+        const clearSearchTerm = () => {
+            searchTerm.value = '';
+        };
         
         const getPosterUrl = (filePath, width = 600) => {
             if (!filePath) return 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=600';
