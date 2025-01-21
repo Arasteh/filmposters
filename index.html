@@ -1493,59 +1493,61 @@ createApp({
             searchTerm.value = '';
         };
 
-        const ctx = document.getElementById('yearChart').getContext('2d');
-        if (!ctx) {
-            console.error('عنصر canvas برای نمودار یافت نشد!');
-            return;
-        }
-    
-        const years = availableYears.value.map(([year]) => year);
-        const counts = availableYears.value.map(([_, count]) => parseInt(count.replace(/,/g, '')));
-    
-        if (years.length === 0 || counts.length === 0) {
-            console.error('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
-            return;
-        }
+        onMounted(() => {
+            const ctx = document.getElementById('yearChart').getContext('2d');
+            if (!ctx) {
+                console.error('عنصر canvas برای نمودار یافت نشد!');
+                return;
+            }
         
-        const yearChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: years,
-                datasets: [{
-                    label: 'تعداد پوسترها',
-                    data: counts,
-                    backgroundColor: 'rgba(183, 119, 119, 0.5)', // رنگ میله‌ها
-                    borderColor: 'rgba(183, 119, 119, 1)', // رنگ حاشیه میله‌ها
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                indexAxis: 'y', // نمایش نمودار به صورت افقی (از راست به چپ)
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    x: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'تعداد پوسترها'
+            const years = availableYears.value.map(([year]) => year);
+            const counts = availableYears.value.map(([_, count]) => parseInt(count.replace(/,/g, '')));
+        
+            if (years.length === 0 || counts.length === 0) {
+                console.error('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
+                return;
+            }
+            
+            const yearChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: years,
+                    datasets: [{
+                        label: 'تعداد پوسترها',
+                        data: counts,
+                        backgroundColor: 'rgba(183, 119, 119, 0.5)', // رنگ میله‌ها
+                        borderColor: 'rgba(183, 119, 119, 1)', // رنگ حاشیه میله‌ها
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y', // نمایش نمودار به صورت افقی (از راست به چپ)
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'تعداد پوسترها'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'سال'
+                            }
                         }
                     },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'سال'
+                    onClick: (event, elements) => {
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            const selectedYear = years[index];
+                            selectedYear.value = selectedYear;
                         }
                     }
-                },
-                onClick: (event, elements) => {
-                    if (elements.length > 0) {
-                        const index = elements[0].index;
-                        const selectedYear = years[index];
-                        selectedYear.value = selectedYear;
-                    }
                 }
-            }
+            });
         });
 
         watch(filteredYears, (newYears) => {
