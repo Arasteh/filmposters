@@ -1527,6 +1527,10 @@ createApp({
                     return;
                 }
         
+                // تنظیم ارتفاع canvas
+                const canvas = document.getElementById('yearChart');
+                canvas.height = 150; // ارتفاع ۱۵۰ پیکسل
+        
                 // تعریف آرایه‌ی رنگ‌ها
                 const backgroundColors = years.map(year => 
                     year === selectedYear.value ? 'rgba(119, 183, 119, 0.8)' : 'rgba(183, 119, 119, 0.5)'
@@ -1547,7 +1551,7 @@ createApp({
                     options: {
                         indexAxis: 'y', // نمایش نمودار به صورت افقی
                         responsive: true,
-                        maintainAspectRatio: false,
+                        maintainAspectRatio: false, // عدم حفظ نسبت ابعاد
                         scales: {
                             x: {
                                 beginAtZero: true,
