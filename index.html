@@ -1539,7 +1539,7 @@ createApp({
                     data: {
                         labels: years,
                         datasets: [{
-                            label: 'شمار پوسترها',
+                            //label: 'شمار پوسترها',
                             data: counts,
                             backgroundColor: backgroundColors,
                             borderWidth: 0,
@@ -1554,6 +1554,7 @@ createApp({
                             xAxes: [{
                                 beginAtZero: true,
                                 ticks: {
+                                    reverse: true,
                                     display: false
                                 },
                                 title: {
@@ -1562,7 +1563,6 @@ createApp({
                             }],
                             yAxes: [{
                                 ticks: {
-                                    reverse: true,
                                     display: false
                                 },
                                 title: {
