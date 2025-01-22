@@ -687,7 +687,6 @@
 
         #yearChart {
             width: 100% !important;
-            height: 150px !important;
             margin: 10px 0;
         }
 
@@ -816,7 +815,7 @@
                         <button class="collapse-button" :class="{ 'rotate-down': isCollapsed.years }">▲</button>
                     </div>
                     <div class="sidebar-section-body" v-if="!isCollapsed.years">
-                        <canvas id="yearChart"></canvas>
+                        <canvas id="yearChart" height="150vw"></canvas>
                         <div class="year-grid">
                                 <div v-for="[year, count] in filteredYearsInModal" :key="year" 
                                      @click="selectYearFromModal(year)" 
