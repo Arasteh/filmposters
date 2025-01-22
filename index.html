@@ -1547,11 +1547,6 @@ createApp({
                         }]
                     },
                     options: {
-                        plugins: {
-                            legend: {
-                                display: false
-                            }
-                        },
                         indexAxis: 'y',
                         responsive: true,
                         maintainAspectRatio: false,
@@ -1575,6 +1570,12 @@ createApp({
                                 }
                             }]
                         },
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        }
+                    },
                         onClick: (event, elements) => {
                             if (elements.length > 0) {
                                 const index = elements[0].index;
