@@ -816,7 +816,7 @@
                         <button class="collapse-button" :class="{ 'rotate-down': isCollapsed.years }">▲</button>
                     </div>
                     <div class="sidebar-section-body" v-if="!isCollapsed.years">
-                        <canvas id="yearChart" height="150vw"></canvas>
+                        <canvas id="yearChart" height="150"></canvas>
                         <div class="year-grid">
                                 <div v-for="[year, count] in filteredYearsInModal" :key="year" 
                                      @click="selectYearFromModal(year)" 
@@ -1559,6 +1559,9 @@ createApp({
                                 },
                                 title: {
                                     display: false
+                                 },
+                                gridLines: {
+                                    display: false
                                 }
                             }],
                             yAxes: [{
@@ -1566,6 +1569,9 @@ createApp({
                                     display: false
                                 },
                                 title: {
+                                    display: false
+                                },
+                                gridLines: {
                                     display: false
                                 }
                             }]
