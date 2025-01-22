@@ -1529,11 +1529,11 @@ createApp({
         
                 const canvas = document.getElementById('yearChart');
                 canvas.height = 150;
-        
+        /*
                 const backgroundColors = years.map(year => 
                     year === selectedYear.value ? 'rgba(128,128,128, 0.8)' : 'rgba(128,128,128, 0.5)'
                 );
-        
+        */
                 yearChart.value = new Chart(ctx, {
                     type: 'bar',
                     data: {
@@ -1541,7 +1541,7 @@ createApp({
                         datasets: [{
                             label: 'شمار پوسترها',
                             data: counts,
-                            backgroundColor: backgroundColors,
+                            backgroundColor: "rgba(128,128,128,0.5)",
                             borderWidth: 0,
                             hoverBackgroundColor: "rgba(180,120,120,0.8)"
                         }]
@@ -1576,6 +1576,7 @@ createApp({
                             }
                         }
                     },
+                        /*
                         onClick: (event, elements) => {
                             if (elements.length > 0) {
                                 const index = elements[0].index;
@@ -1590,6 +1591,7 @@ createApp({
                                 yearChart.value.update();
                             }
                         }
+                        */
                 });
             }
         }, { immediate: true });
