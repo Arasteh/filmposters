@@ -1547,6 +1547,11 @@ createApp({
                         }]
                     },
                     options: {
+                        plugins: {
+                            datalabels: {
+                                display: false
+                            }
+                        },
                         indexAxis: 'y',
                         responsive: true,
                         maintainAspectRatio: false,
@@ -1569,11 +1574,6 @@ createApp({
                                     display: false
                                 }
                             }]
-                        },
-                        plugins: {
-                            datalabels: {
-                                display: false
-                            }
                         },
                         onClick: (event, elements) => {
                             if (elements.length > 0) {
