@@ -1542,45 +1542,53 @@ createApp({
                         labels: years,
                         datasets: [{
                             label: 'تعداد پوسترها',
-                            data: counts, // استفاده از counts
-                            backgroundColor: backgroundColors, // استفاده از آرایه‌ی رنگ‌ها
+                            data: counts,
+                            backgroundColor: backgroundColors,
                             borderColor: 'rgba(183, 119, 119, 1)',
                             borderWidth: 1
                         }]
                     },
                     options: {
-                        indexAxis: 'y', // نمایش نمودار به صورت افقی
+                        indexAxis: 'y',
                         responsive: true,
-                        maintainAspectRatio: false, // عدم حفظ نسبت ابعاد
+                        maintainAspectRatio: false,
                         scales: {
                             x: {
                                 beginAtZero: true,
+                                ticks: {
+                                    display: false // مخفی کردن لیبل‌های محور X
+                                },
                                 title: {
-                                    display: true,
-                                    text: 'تعداد پوسترها'
+                                    display: false // مخفی کردن عنوان محور X
                                 }
                             },
                             y: {
-                                reverse: true, // تغییر جهت محور y (سال‌ها از راست به چپ)
+                                reverse: true,
+                                ticks: {
+                                    display: false // مخفی کردن لیبل‌های محور Y
+                                },
                                 title: {
-                                    display: true,
-                                    text: 'سال'
+                                    display: false // مخفی کردن عنوان محور Y
                                 }
+                            }
+                        },
+                        plugins: {
+                            datalabels: {
+                                display: false // مخفی کردن لیبل‌های دیتاست
                             }
                         },
                         onClick: (event, elements) => {
                             if (elements.length > 0) {
                                 const index = elements[0].index;
                                 const selectedYearValue = years[index];
-                                selectedYear.value = selectedYearValue; // به‌روزرسانی selectedYear
-                                applyFilters(); // اعمال فیلترها
-        
-                                // به‌روزرسانی رنگ‌ها
+                                selectedYear.value = selectedYearValue;
+                                applyFilters();
+                
                                 const updatedColors = years.map(year => 
                                     year === selectedYearValue ? 'rgba(119, 183, 119, 0.8)' : 'rgba(183, 119, 119, 0.5)'
                                 );
                                 yearChart.value.data.datasets[0].backgroundColor = updatedColors;
-                                yearChart.value.update(); // به‌روزرسانی نمودار
+                                yearChart.value.update();
                             }
                         }
                     }
