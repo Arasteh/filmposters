@@ -1581,15 +1581,15 @@ createApp({
                             if (elements.length > 0) {
                                 const index = elements[0].index;
                                 const selectedYearValue = years[index];
-                                selectedYear.value = selectedYearValue;
-                                applyFilters();
+                                selectedYear.value = selectedYearValue; // ذخیره سال انتخاب شده
+                                applyFilters(); // اعمال فیلترها
         
-                                // به‌روزرسانی رنگ‌ها بدون حذف میله‌ها
+                                // به‌روزرسانی رنگ‌ها
                                 const updatedColors = years.map(year => 
                                     year === selectedYearValue ? 'rgba(119, 183, 119, 0.8)' : 'rgba(183, 119, 119, 0.5)'
                                 );
                                 yearChart.value.data.datasets[0].backgroundColor = updatedColors;
-                                yearChart.value.update();
+                                yearChart.value.update(); // به‌روزرسانی نمودار
                             }
                         }
                     }
