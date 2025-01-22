@@ -691,6 +691,12 @@
             margin: 10px 0;
         }
 
+        #canvasContainer {
+            width: 100%;
+            max-width: 400px;
+            height: 150px;
+        }
+
         @media (max-width: 768px) {          
             #app {
                 padding: 0;
@@ -816,7 +822,9 @@
                         <button class="collapse-button" :class="{ 'rotate-down': isCollapsed.years }">▲</button>
                     </div>
                     <div class="sidebar-section-body" v-if="!isCollapsed.years">
-                        <canvas id="yearChart" height="150"></canvas>
+                        <div id="canvasContainer">
+                            <canvas id="yearChart" height="150"></canvas>
+                        </div>
                         <div class="year-grid">
                                 <div v-for="[year, count] in filteredYearsInModal" :key="year" 
                                      @click="selectYearFromModal(year)" 
