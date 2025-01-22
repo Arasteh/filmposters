@@ -1533,7 +1533,7 @@ createApp({
         
                 // تعریف آرایه‌ی رنگ‌ها
                 const backgroundColors = years.map(year => 
-                    year === selectedYear.value ? 'rgba(119, 183, 119, 0.8)' : 'rgba(183, 119, 119, 0.5)'
+                    year === selectedYear.value ? 'rgba(128,128,128, 0.8)' : 'rgba(128,128,128, 0.5)'
                 );
         
                 yearChart.value = new Chart(ctx, {
@@ -1544,8 +1544,8 @@ createApp({
                             label: 'شمار پوسترها',
                             data: counts,
                             backgroundColor: backgroundColors,
-                            borderColor: 'rgba(128, 128, 128, 1)',
-                            borderWidth: 1
+                            borderWidth: 0,
+                            hoverBackgroundColor: "rgba(180,120,120,0.8)"
                         }]
                     },
                     options: {
