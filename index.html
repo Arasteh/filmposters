@@ -1583,7 +1583,8 @@ createApp({
                                 const selectedYearValue = years[index];
                                 selectedYear.value = selectedYearValue;
                                 applyFilters();
-                
+        
+                                // به‌روزرسانی رنگ‌ها بدون حذف میله‌ها
                                 const updatedColors = years.map(year => 
                                     year === selectedYearValue ? 'rgba(119, 183, 119, 0.8)' : 'rgba(183, 119, 119, 0.5)'
                                 );
