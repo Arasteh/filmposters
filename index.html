@@ -1519,19 +1519,17 @@ createApp({
                     return parseInt(englishCount, 10);
                 });
         
-                console.log('Years:', years); // بررسی داده‌های years
-                console.log('Counts:', counts); // بررسی داده‌های counts
+                console.log('Years:', years);
+                console.log('Counts:', counts);
         
                 if (years.length === 0 || counts.length === 0) {
                     console.error('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
                     return;
                 }
         
-                // تنظیم ارتفاع canvas
                 const canvas = document.getElementById('yearChart');
-                canvas.height = 150; // ارتفاع ۱۵۰ پیکسل
+                canvas.height = 150;
         
-                // تعریف آرایه‌ی رنگ‌ها
                 const backgroundColors = years.map(year => 
                     year === selectedYear.value ? 'rgba(128,128,128, 0.8)' : 'rgba(128,128,128, 0.5)'
                 );
@@ -1553,43 +1551,42 @@ createApp({
                         responsive: true,
                         maintainAspectRatio: false,
                         scales: {
-                            x: {
+                            xAxes: [{
                                 beginAtZero: true,
                                 ticks: {
-                                    display: false // مخفی کردن لیبل‌های محور X
+                                    display: false
                                 },
                                 title: {
-                                    display: false // مخفی کردن عنوان محور X
+                                    display: false
                                 }
-                            },
-                            y: {
+                            }],
+                            yAxes: [{
                                 ticks: {
                                     reverse: true,
-                                    display: false // مخفی کردن لیبل‌های محور Y
+                                    display: false
                                 },
                                 title: {
-                                    display: false // مخفی کردن عنوان محور Y
+                                    display: false
                                 }
-                            }
+                            }]
                         },
                         plugins: {
                             datalabels: {
-                                display: false // مخفی کردن لیبل‌های دیتاست
+                                display: false
                             }
                         },
                         onClick: (event, elements) => {
                             if (elements.length > 0) {
                                 const index = elements[0].index;
                                 const selectedYearValue = years[index];
-                                selectedYear.value = selectedYearValue; // ذخیره سال انتخاب شده
-                                applyFilters(); // اعمال فیلترها
+                                selectedYear.value = selectedYearValue;
+                                applyFilters();
         
-                                // به‌روزرسانی رنگ‌ها
                                 const updatedColors = years.map(year => 
                                     year === selectedYearValue ? 'rgba(119, 183, 119, 0.8)' : 'rgba(183, 119, 119, 0.5)'
                                 );
                                 yearChart.value.data.datasets[0].backgroundColor = updatedColors;
-                                yearChart.value.update(); // به‌روزرسانی نمودار
+                                yearChart.value.update();
                             }
                         }
                     }
