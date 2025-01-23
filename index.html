@@ -1677,7 +1677,7 @@ createApp({
         const lightboxImage = ref('');
         
         const openLightbox = (item) => {
-            lightboxImage.value = getPosterUrl(item.poster, 1200);
+            lightboxImage.value = posterMode.value ? getPosterUrl(item.poster, 1200) : getPosterUrl(item.logo, 1200);
             lightboxVisible.value = true;
         };
         
