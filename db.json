@@ -1343,7 +1343,10 @@
       ],
       "posters": [
         {
-          "image": "در امتداد شب (پوستر).jpg"
+          "image": "در امتداد شب (پوستر).jpg",
+          "characteristics": [
+            "Q2716583"
+          ]
         }
       ],
       "logos": [
@@ -3193,7 +3196,10 @@
       ],
       "posters": [
         {
-          "image": "آدمک.jpg"
+          "image": "آدمک.jpg",
+          "characteristics": [
+            "Q2716583"
+          ]
         }
       ],
       "logos": [
@@ -5466,6 +5472,9 @@
           "image": "خانه کنار دریا (پوستر).jpg",
           "designers": [
             "Q131455295"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -7542,6 +7551,9 @@
           "image": "سینه چاک.jpg",
           "designers": [
             "Q131377834"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -14014,7 +14026,10 @@
       "imdb": [],
       "posters": [
         {
-          "image": "پرچمدار (پوستر).jpg"
+          "image": "پرچمدار (پوستر).jpg",
+          "designers": [
+            "Q131377834"
+          ]
         }
       ],
       "logos": []
@@ -16237,6 +16252,9 @@
           "image": "قادر (پوستر).jpg",
           "designers": [
             "Q131377834"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -16860,6 +16878,9 @@
           "image": "دزد سوم (پوستر).jpg",
           "designers": [
             "Q61060515"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -17807,7 +17828,10 @@
       ],
       "posters": [
         {
-          "image": "عروس پابرهنه (پوستر).jpg"
+          "image": "عروس پابرهنه (پوستر).jpg",
+          "characteristics": [
+            "Q2716583"
+          ]
         }
       ],
       "logos": [
@@ -17877,6 +17901,9 @@
           "image": "کنیز (پوستر).jpg",
           "designers": [
             "Q131377848"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -18024,6 +18051,9 @@
           "image": "ماشین مشتی ممدلی (پوستر).jpg",
           "designers": [
             "Q61060515"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -18229,6 +18259,9 @@
           "image": "هرجایی (پوستر).jpg",
           "designers": [
             "Q131377887"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -18284,6 +18317,9 @@
           "image": "یاور (پوستر).jpg",
           "designers": [
             "Q131377887"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -18437,6 +18473,9 @@
           "image": "بندری.jpg",
           "designers": [
             "Q131377984"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -18467,6 +18506,9 @@
           "image": "بیگانه.jpg",
           "designers": [
             "Q131377887"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -18773,7 +18815,10 @@
       ],
       "posters": [
         {
-          "image": "آخرین لحظه.jpg"
+          "image": "آخرین لحظه.jpg",
+          "characteristics": [
+            "Q2716583"
+          ]
         }
       ],
       "logos": [
@@ -18803,6 +18848,9 @@
           "image": "دشمن (پوستر).jpg",
           "designers": [
             "Q61060515"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -18843,6 +18891,9 @@
           "image": "روسیاه (پوستر).jpg",
           "designers": [
             "Q131377955"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -18906,6 +18957,9 @@
           "image": "Salome movie poster.jpg",
           "designers": [
             "Q131377887"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -19324,6 +19378,9 @@
           "image": "مترس (پوستر).jpg",
           "designers": [
             "Q131377834"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -19533,7 +19590,10 @@
       "imdb": [],
       "posters": [
         {
-          "image": "اعجوبه ها.jpg"
+          "image": "اعجوبه ها.jpg",
+          "characteristics": [
+            "Q2716583"
+          ]
         }
       ],
       "logos": [
@@ -19587,7 +19647,10 @@
       "imdb": [],
       "posters": [
         {
-          "image": "پدر که ناخلف افتد.jpg"
+          "image": "پدر که ناخلف افتد.jpg",
+          "characteristics": [
+            "Q2716583"
+          ]
         }
       ],
       "logos": []
@@ -19708,6 +19771,9 @@
           "image": "تولدت مبارک (پوستر).jpg",
           "designers": [
             "Q131377887"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -19828,10 +19894,16 @@
       "imdb": [],
       "posters": [
         {
-          "image": "رضا هفت خط پوستر (پوستر).jpg"
+          "image": "رضا هفت خط پوستر (پوستر).jpg",
+          "characteristics": [
+            "Q2716583"
+          ]
         },
         {
-          "image": "رضا هفت خط سردر (پوستر).jpg"
+          "image": "رضا هفت خط سردر (پوستر).jpg",
+          "characteristics": [
+            "Q2716583"
+          ]
         }
       ],
       "logos": []
@@ -19861,6 +19933,9 @@
           "image": "سرگروهبان (پوستر).jpg",
           "designers": [
             "Q131377887"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -20150,7 +20225,10 @@
       "imdb": [],
       "posters": [
         {
-          "image": "فدایی (پوستر).jpg"
+          "image": "فدایی (پوستر).jpg",
+          "characteristics": [
+            "Q2716583"
+          ]
         }
       ],
       "logos": []
@@ -20392,6 +20470,9 @@
           "image": "مردی در طوفان (پوستر).jpg",
           "designers": [
             "Q61060515"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -21184,6 +21265,9 @@
           "image": "سه دلاور (پوستر).jpg",
           "designers": [
             "Q131377955"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -21657,6 +21741,9 @@
           "image": "ادم و حوا.jpg",
           "designers": [
             "Q131377955"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -22053,12 +22140,18 @@
           "image": "رسوایی 2 (پوستر).jpg",
           "designers": [
             "Q131377955"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         },
         {
           "image": "رسوایی (پوستر).jpg",
           "designers": [
             "Q131377955"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -27895,6 +27988,9 @@
           "image": "گروگان (پوستر).jpg",
           "designers": [
             "Q131377887"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
