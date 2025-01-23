@@ -1553,7 +1553,9 @@ createApp({
                         maintainAspectRatio: false,
                         scales: {
                             xAxes: [{
-                                ticks: {
+                                beginAtZero: true,
+                                ticks: {                                   
+                                    reverse: true,
                                     display: false
                                 },
                                 gridLines: {
@@ -1574,20 +1576,10 @@ createApp({
                                 display: false
                             }
                         },
-                        onClick: handleBarClick
                     }
                 });
             }
         }, { immediate: true });
-
-        function handleBarClick(event, activeElements) {
-            if (activeElements.length > 0) {
-                const elementIndex = activeElements[0].index;
-                const selectedYearValue = yearChart.value.data.labels[elementIndex];
-                selectedYear.value = selectedYearValue;
-                applyFilters();
-            }
-        }
         
         watch(filteredYears, (newYears) => {
             if (!yearChart.value) {
