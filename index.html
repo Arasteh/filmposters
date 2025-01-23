@@ -1626,6 +1626,11 @@ createApp({
                 console.error('عنصر canvas برای نمودار یافت نشد!');
                 return;
             }
+
+            if (yearChart.value) {
+                yearChart.value.destroy();
+            }
+
         
             const years = availableYears.value.map(([year]) => year);
             const counts = availableYears.value.map(([_, count]) => {
@@ -1694,6 +1699,8 @@ createApp({
         watch(() => isCollapsed.value.years, (newValue) => {
             if (!newValue) {
                 createYearChart();
+            } else if (yearChart.value) {
+                yearChart.value.destroy();
             }
         });
         
