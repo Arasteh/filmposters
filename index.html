@@ -1558,6 +1558,10 @@ createApp({
         };
         
         onMounted(() => {
+            if (!isCollapsed.value.years) {
+                createYearChart();
+            }
+        
             const resizeHandle = document.querySelector('.sidebar-resize-handle');
             if (resizeHandle) {
                 resizeHandle.addEventListener('mousedown', startResize);
@@ -1615,72 +1619,86 @@ createApp({
         }
 
         const yearChart = ref(null); 
+
+        watch(() => isCollapsed.value.years, (newValue) => {
+            if (!newValue) {
+                const canvas = document.getElementById('yearChart');
+                if (canvas) {
+                    createYearChart();
+                }
+            }
+        });
         
         watch(availableYears, (newYears) => {
+            if (!isCollapsed.value.years) {
+                createYearChart();
+            }
+
             if (newYears.length > 0) {
-                const ctx = document.getElementById('yearChart').getContext('2d');
-                if (!ctx) {
-                    console.error('عنصر canvas برای نمودار یافت نشد!');
-                    return;
-                }
-        
-                const years = newYears.map(([year]) => year);
-                const counts = newYears.map(([_, count]) => {
-                    const englishCount = convertPersianToEnglishNumbers(count.replace(/,/g, ''));
-                    return parseInt(englishCount, 10);
-                });
-        
-                if (years.length === 0 || counts.length === 0) {
-                    console.error('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
-                    return;
-                }
-        
-                const canvas = document.getElementById('yearChart');
-                canvas.height = 150;
-        
-                yearChart.value = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: years,
-                        datasets: [{
-                            //label: '',
-                            data: counts,
-                            backgroundColor: "rgba(128,128,128,0.5)",
-                            borderWidth: 0,
-                            hoverBackgroundColor: "rgba(180,120,120,0.8)"
-                        }]
-                    },
-                    options: {
-                        indexAxis: 'y',
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            xAxes: [{
-                                beginAtZero: true,
-                                ticks: {                                   
-                                    reverse: true,
-                                    display: false
-                                },
-                                gridLines: {
-                                    display: false
-                                }
-                            }],
-                            yAxes: [{
-                                ticks: {
-                                    display: false
-                                },
-                                gridLines: {
-                                    display: false
-                                }
+                const createYearChart = () => {
+                    const ctx = document.getElementById('yearChart')?.getContext('2d');
+                    if (!ctx) {
+                        console.error('عنصر canvas برای نمودار یافت نشد!');
+                        return;
+                    }
+                
+                    const years = availableYears.value.map(([year]) => year);
+                    const counts = availableYears.value.map(([_, count]) => {
+                        const englishCount = convertPersianToEnglishNumbers(count.replace(/,/g, ''));
+                        return parseInt(englishCount, 10);
+                    });
+                
+                    if (years.length === 0 || counts.length === 0) {
+                        console.error('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
+                        return;
+                    }
+                
+                    const canvas = document.getElementById('yearChart');
+                    canvas.height = 150;
+                
+                    yearChart.value = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: years,
+                            datasets: [{
+                                data: counts,
+                                backgroundColor: "rgba(128,128,128,0.5)",
+                                borderWidth: 0,
+                                hoverBackgroundColor: "rgba(180,120,120,0.8)"
                             }]
                         },
-                        plugins: {
-                            legend: {
-                                display: false
-                            }
-                        },
-                    }
-                });
+                        options: {
+                            indexAxis: 'y',
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                xAxes: [{
+                                    beginAtZero: true,
+                                    ticks: {                                   
+                                        reverse: true,
+                                        display: false
+                                    },
+                                    gridLines: {
+                                        display: false
+                                    }
+                                }],
+                                yAxes: [{
+                                    ticks: {
+                                        display: false
+                                    },
+                                    gridLines: {
+                                        display: false
+                                    }
+                                }]
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            },
+                        }
+                    });
+                };
             }
         }, { immediate: true });
         
