@@ -1667,7 +1667,7 @@ createApp({
                     scales: {
                         xAxes: [{
                             beginAtZero: true,
-                            ticks: {                                   
+                            ticks: {       
                                 reverse: true,
                                 display: false
                             },
@@ -1687,6 +1687,14 @@ createApp({
                     plugins: {
                         legend: {
                             display: false
+                        },
+                        tooltip: {
+                            bodyFont: {
+                                family: 'system-ui'
+                            },
+                            titleFont: {
+                                family: 'system-ui'
+                            }
                         }
                     },
                 }
