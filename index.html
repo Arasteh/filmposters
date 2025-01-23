@@ -1133,8 +1133,7 @@ window.addEventListener("scroll", () => {
     lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
 });
         
-const { createApp, ref, computed, watch, onMounted } = Vue;
-import { nextTick } from 'vue';
+const { createApp, ref, computed, watch, onMounted, nextTick } = Vue;
         
 Object.groupBy = function (array, keyGetter) {
     return array.reduce((result, item) => {
@@ -1746,7 +1745,7 @@ createApp({
         const toggleCollapse = (section) => {
             isCollapsed.value[section] = !isCollapsed.value[section];
             if (section === 'years' && !isCollapsed.value[section]) {
-                nextTick(() => {
+                Vue.nextTick(() => {
                     createYearChart();
                 });
             }
