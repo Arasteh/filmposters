@@ -1057,6 +1057,8 @@
                         ⬇
                     </button>
                 </div>
+                <button class="view-larger-btn" @click.stop="openLightbox(item)">نمایش بزرگتر</button>
+
 
                 <div class="item-title">{{ getItemTitleWithYear(item) }}</div>
                 <div v-if="item.designer && item.designerLabel" class="item-designer">
