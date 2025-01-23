@@ -1559,7 +1559,7 @@ createApp({
             if (resizeHandle) {
                 resizeHandle.addEventListener('mousedown', startResize);
             } else {
-                console.error('عنصر دستگیره تغییر اندازه یافت نشد!');
+                console.log('عنصر دستگیره تغییر اندازه یافت نشد!');
             }
         });
         
@@ -1616,13 +1616,13 @@ createApp({
         const createYearChart = () => {
             const canvasContainer = document.getElementById('canvasContainer');
             if (!canvasContainer) {
-                console.error('عنصر canvasContainer یافت نشد!');
+                console.log('عنصر canvasContainer یافت نشد!');
                 return;
             }
 
             const ctx = document.getElementById('yearChart')?.getContext('2d');
             if (!ctx) {
-                console.error('عنصر canvas برای نمودار یافت نشد!');
+                console.log('عنصر canvas برای نمودار یافت نشد!');
                 return;
             }
 
@@ -1638,7 +1638,7 @@ createApp({
             });
         
             if (years.length === 0 || counts.length === 0) {
-                console.error('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
+                console.log('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
                 return;
             }
         
@@ -1731,13 +1731,13 @@ createApp({
             if (resizeHandle) {
                 resizeHandle.addEventListener('mousedown', startResize);
             } else {
-                console.error('عنصر دستگیره تغییر اندازه یافت نشد!');
+                console.log('عنصر دستگیره تغییر اندازه یافت نشد!');
             }
         });
         
         watch(filteredYears, (newYears) => {
             if (!yearChart.value) {
-                console.error('نمودار سال‌ها تعریف نشده است!');
+                console.log('نمودار سال‌ها تعریف نشده است!');
                 return;
             }
         
@@ -1748,7 +1748,7 @@ createApp({
             });
         
             if (years.length === 0 || counts.length === 0) {
-                console.error('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
+                console.log('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
                 return;
             }
         
@@ -1807,7 +1807,7 @@ createApp({
             if (typeof window !== 'undefined') { // بررسی وجود window در محیط مرورگر
                 window.open(imageLink, '_blank');
             } else {
-                console.error('window is not defined. This function should run in a browser environment.');
+                console.log('window is not defined. This function should run in a browser environment.');
             }
         };
         
