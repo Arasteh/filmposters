@@ -1693,10 +1693,7 @@ createApp({
         
         watch(() => isCollapsed.value.years, (newValue) => {
             if (!newValue) {
-                const canvas = document.getElementById('yearChart');
-                if (canvas) {
-                    createYearChart();
-                }
+                createYearChart();
             }
         });
         
