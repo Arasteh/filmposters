@@ -1077,16 +1077,12 @@
             <div class="item-card" v-for="(item, index) in (isShowMore ? filteredItems : filteredItems.slice(0, 30))"
                 :key="index">
                 <div class="image-container">
-                    <div @click="openLightbox(item)" class="clickable-image">
+                    <div @click="handleImageClick(item)" class="clickable-image">
                         <img :src="getImageUrl(item)" :key="getImageUrl(item)" :alt="item.filmLabel"
                              class="item-image" :class="{ pixelated: pixelatedEffect && item.isNsfw && posterMode }" />
                     </div>
-                    
                     <button class="download-btn" @click.stop="openDownloadLink(item)">
                         ⬇
-                    </button>
-                    <button class="lightbox-btn" @click.stop="openLightbox(item)">
-                        🔍
                     </button>
                 </div>
 
@@ -1767,6 +1763,7 @@ createApp({
         const lightboxImage = ref('');
         
         const openLightbox = (item) => {
+            console.log('Clicked element:', event.target);
             console.log('Opening lightbox for item:', item);
             lightboxImage.value = posterMode.value ? getPosterUrl(item.poster, 1200) : getPosterUrl(item.logo, 1200);
             lightboxVisible.value = true;
@@ -1791,6 +1788,11 @@ createApp({
             if (lightbox && !lightbox.contains(event.target)) {
                 closeLightbox();
             }
+        };
+
+        const handleImageClick = (item) => {
+            console.log('Image clicked:', item);
+            openLightbox(item);
         };
 
         const openDownloadLink = (item) => {
