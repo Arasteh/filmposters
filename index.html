@@ -1527,9 +1527,6 @@ createApp({
                     return parseInt(englishCount, 10);
                 });
         
-                console.log('Years:', years);
-                console.log('Counts:', counts);
-        
                 if (years.length === 0 || counts.length === 0) {
                     console.error('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
                     return;
@@ -1537,17 +1534,13 @@ createApp({
         
                 const canvas = document.getElementById('yearChart');
                 canvas.height = 150;
-        /*
-                const backgroundColors = years.map(year => 
-                    year === selectedYear.value ? 'rgba(128,128,128, 0.8)' : 'rgba(128,128,128, 0.5)'
-                );
-        */
+        
                 yearChart.value = new Chart(ctx, {
                     type: 'bar',
                     data: {
                         labels: years,
                         datasets: [{
-                            label: 'شمار پوسترها',
+                            label: '',
                             data: counts,
                             backgroundColor: "rgba(128,128,128,0.5)",
                             borderWidth: 0,
@@ -1560,23 +1553,15 @@ createApp({
                         maintainAspectRatio: false,
                         scales: {
                             xAxes: [{
-                                beginAtZero: true,
                                 ticks: {
-                                    reverse: true,
                                     display: false
                                 },
-                                title: {
-                                    display: false
-                                 },
                                 gridLines: {
                                     display: false
                                 }
                             }],
                             yAxes: [{
                                 ticks: {
-                                    display: false
-                                },
-                                title: {
                                     display: false
                                 },
                                 gridLines: {
@@ -1588,27 +1573,21 @@ createApp({
                             legend: {
                                 display: false
                             }
-                        }
-                    },
-                        /*
-                        onClick: (event, elements) => {
-                            if (elements.length > 0) {
-                                const index = elements[0].index;
-                                const selectedYearValue = years[index];
-                                selectedYear.value = selectedYearValue;
-                                applyFilters();
-        
-                                const updatedColors = years.map(year => 
-                                    year === selectedYearValue ? 'rgba(119, 183, 119, 0.8)' : 'rgba(183, 119, 119, 0.5)'
-                                );
-                                yearChart.value.data.datasets[0].backgroundColor = updatedColors;
-                                yearChart.value.update();
-                            }
-                        }
-                        */
+                        },
+                        onClick: handleBarClick
+                    }
                 });
             }
         }, { immediate: true });
+
+        function handleBarClick(event, activeElements) {
+            if (activeElements.length > 0) {
+                const elementIndex = activeElements[0].index;
+                const selectedYearValue = yearChart.value.data.labels[elementIndex];
+                selectedYear.value = selectedYearValue;
+                applyFilters();
+            }
+        }
         
         watch(filteredYears, (newYears) => {
             if (!yearChart.value) {
