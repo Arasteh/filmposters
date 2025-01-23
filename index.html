@@ -1698,6 +1698,13 @@ createApp({
                     },
                 }
             });
+
+            canvas.onclick = e => {
+                const activePoints = yearChart.value.getElementAtEvent(e);
+                if (activePoints.length) {
+                    selectedYear.value = yearChart.value.data.labels[activePoints[0]._index];
+                }
+            }
         };
     
         watch(availableYears, (newYears) => {
