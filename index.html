@@ -1247,6 +1247,9 @@ createApp({
         
         const toggleCollapse = (section) => {
             isCollapsed.value[section] = !isCollapsed.value[section];
+            if (section === 'years' && !isCollapsed.value[section]) {
+                createYearChart();
+            }
         };
 
         const getSectionClass = (section) => {
@@ -1701,6 +1704,7 @@ createApp({
                 createYearChart();
             } else if (yearChart.value) {
                 yearChart.value.destroy();
+                yearChart.value = null;
             }
         });
         
