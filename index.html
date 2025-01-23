@@ -1134,7 +1134,8 @@ window.addEventListener("scroll", () => {
 });
         
 const { createApp, ref, computed, watch, onMounted } = Vue;
-
+import { nextTick } from 'vue';
+        
 Object.groupBy = function (array, keyGetter) {
     return array.reduce((result, item) => {
         const key = keyGetter(item);
@@ -1244,13 +1245,6 @@ createApp({
             years: false,
             letters: true
         });
-        
-        const toggleCollapse = (section) => {
-            isCollapsed.value[section] = !isCollapsed.value[section];
-            if (section === 'years' && !isCollapsed.value[section]) {
-                createYearChart();
-            }
-        };
 
         const getSectionClass = (section) => {
             return isCollapsed.value[section] ? 'collapsed' : 'expanded';
@@ -1624,6 +1618,12 @@ createApp({
         const yearChart = ref(null); 
 
         const createYearChart = () => {
+            const canvasContainer = document.getElementById('canvasContainer');
+            if (!canvasContainer) {
+                console.error('عنصر canvasContainer یافت نشد!');
+                return;
+            }
+
             const ctx = document.getElementById('yearChart')?.getContext('2d');
             if (!ctx) {
                 console.error('عنصر canvas برای نمودار یافت نشد!');
@@ -1742,7 +1742,16 @@ createApp({
             yearChart.value.data.datasets[0].data = counts;
             yearChart.value.update();
         });
-
+        
+        const toggleCollapse = (section) => {
+            isCollapsed.value[section] = !isCollapsed.value[section];
+            if (section === 'years' && !isCollapsed.value[section]) {
+                nextTick(() => {
+                    createYearChart();
+                });
+            }
+        };
+        
         const lightboxVisible = ref(false);
         const lightboxImage = ref('');
         
