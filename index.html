@@ -110,7 +110,8 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: background-color 0.3s, border-color 0.3s;
+            transition: background-color 0.3s, border-color 0.3s;    
+            position: relative;
         }
 
         .item-image {
@@ -146,6 +147,56 @@
             color: #007bff;
             text-decoration: none;
             margin: 0 5px;
+        }
+
+        .view-larger-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .item-card:hover .view-larger-btn {
+            opacity: 1;
+        }
+
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+        }
+        
+        .close-lightbox {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
         }
 
         #toTop {
@@ -899,6 +950,11 @@
                 </div>
             </div>
         </div>
+    
+        <div v-if="lightboxVisible" class="lightbox" @click="closeLightbox">
+            <img :src="lightboxImage" alt="Lightbox Image" />
+            <button class="close-lightbox" @click.stop="closeLightbox">× بستن</button>
+        </div>
 
         <div  id="main-content">
         <button onclick="topFunction()" id="toTop">↑</button>
@@ -950,7 +1006,8 @@
                             <input id="pixelatedSwitch" type="checkbox" v-model="pixelatedEffect" disabled>
                             <span class="slider round"></span>
                         </label>
-                    </div>                <div class="sort-order-container">
+                    </div>
+                <div class="sort-order-container">
                     <label>ترتیب:</label>
                     <div class="triple-toggle-switch">
                         <div 
@@ -985,7 +1042,9 @@
             <div class="item-card" v-for="(item, index) in (isShowMore ? filteredItems : filteredItems.slice(0, 30))"
                 :key="index">
                 <a :href="'http://commons.wikimedia.org/wiki/Special:FilePath/' + getImageLink(item)?.replaceAll(' ', '_')" target="_blank"><img :src="getImageUrl(item)" :key="getImageUrl(item)" :alt="item.filmLabel"
-                        class="item-image" :class="{ pixelated: pixelatedEffect && item.isNsfw && posterMode }" /></a>
+                        class="item-image" :class="{ pixelated: pixelatedEffect && item.isNsfw && posterMode }" />
+                <button class="view-larger-btn" @click.stop="openLightbox(item)">نمایش بزرگتر</button>
+                </a>
                 <div class="item-title">{{ getItemTitleWithYear(item) }}</div>
                 <div v-if="item.designer && item.designerLabel" class="item-designer">
                 طراح: <a href="#" @click.prevent="selectDesigner(item.designerLabel)">{{ item.designerLabel }}</a> (<a :href="'https://www.wikidata.org/wiki/' + item.designer" target="_blank">Q</a><template v-if="item.designerFaWikipediaLink">&nbsp;<a :href="'https://fa.wikipedia.org/wiki/' + item.designerFaWikipediaLink.replaceAll(' ', '_')" target="_blank">W</a></template>)
@@ -1603,6 +1662,33 @@ createApp({
             yearChart.value.update();
         });
 
+        const lightboxVisible = ref(false);
+        const lightboxImage = ref('');
+        
+        const openLightbox = (item) => {
+            lightboxImage.value = getImageUrl(item);
+            lightboxVisible.value = true;
+        };
+        
+        const closeLightbox = () => {
+            lightboxVisible.value = false;
+        };
+        
+        watch(lightboxVisible, (newValue) => {
+            if (newValue) {
+                document.addEventListener('click', handleClickOutsideLightbox);
+            } else {
+                document.removeEventListener('click', handleClickOutsideLightbox);
+            }
+        });
+        
+        const handleClickOutsideLightbox = (event) => {
+            const lightbox = document.querySelector('.lightbox');
+            if (lightbox && !lightbox.contains(event.target)) {
+                closeLightbox();
+            }
+        };
+
         
         const getPosterUrl = (filePath, width = 600) => {
             if (!filePath) return 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=600';
@@ -1617,7 +1703,7 @@ createApp({
         const getImageUrl = item => posterMode.value ? getPosterUrl(item.poster) : getLogoUrl(item);
         const getImageLink = item => posterMode.value ? item.poster : item.logo;
 
-        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, minYear, maxYear, selectedYearSlider, updateSelectedYear, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar, sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm  };
+        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, minYear, maxYear, selectedYearSlider, updateSelectedYear, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar, sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm ,lightboxVisible, lightboxImage, openLightbox, closeLightbox  };
     }
 }).mount('#app');
     </script>
