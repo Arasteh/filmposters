@@ -151,17 +151,17 @@
 
         .view-larger-btn {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            bottom: 10px;
+            right: 10px;
             background-color: rgba(0, 0, 0, 0.7);
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 8px 16px;
             border-radius: 5px;
             cursor: pointer;
             opacity: 0;
             transition: opacity 0.3s;
+            z-index: 10;
         }
         
         .item-card:hover .view-larger-btn {
@@ -1042,9 +1042,8 @@
             <div class="item-card" v-for="(item, index) in (isShowMore ? filteredItems : filteredItems.slice(0, 30))"
                 :key="index">
                 <a :href="'http://commons.wikimedia.org/wiki/Special:FilePath/' + getImageLink(item)?.replaceAll(' ', '_')" target="_blank"><img :src="getImageUrl(item)" :key="getImageUrl(item)" :alt="item.filmLabel"
-                        class="item-image" :class="{ pixelated: pixelatedEffect && item.isNsfw && posterMode }" />
+                        class="item-image" :class="{ pixelated: pixelatedEffect && item.isNsfw && posterMode }" /></a>
                 <button class="view-larger-btn" @click.stop="openLightbox(item)">نمایش بزرگتر</button>
-                </a>
                 <div class="item-title">{{ getItemTitleWithYear(item) }}</div>
                 <div v-if="item.designer && item.designerLabel" class="item-designer">
                 طراح: <a href="#" @click.prevent="selectDesigner(item.designerLabel)">{{ item.designerLabel }}</a> (<a :href="'https://www.wikidata.org/wiki/' + item.designer" target="_blank">Q</a><template v-if="item.designerFaWikipediaLink">&nbsp;<a :href="'https://fa.wikipedia.org/wiki/' + item.designerFaWikipediaLink.replaceAll(' ', '_')" target="_blank">W</a></template>)
