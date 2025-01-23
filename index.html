@@ -157,7 +157,7 @@
             align-items: center;
         }
         
-        .view-larger-btn {
+        .download-btn {
             position: absolute;
             bottom: 20px;
             right: 10px;
@@ -172,7 +172,7 @@
             z-index: 10;
         }        
         
-        .image-container:hover .view-larger-btn {
+        .image-container:hover .download-btn {
             opacity: 1;
         }
 
@@ -1062,7 +1062,7 @@
                              class="item-image" :class="{ pixelated: pixelatedEffect && item.isNsfw && posterMode }" />
                     </div>
                     
-                    <button class="view-larger-btn" @click.stop="openDownloadLink(item)">
+                    <button class="download-btn" @click.stop="openDownloadLink(item)">
                         ⬇
                     </button>
                 </div>
