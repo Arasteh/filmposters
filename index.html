@@ -1079,7 +1079,7 @@
                 <div class="image-container">
                     <div @click="handleImageClick(item)" class="clickable-image">
                         <img :src="getImageUrl(item)" :key="getImageUrl(item)" :alt="item.filmLabel"
-                             class="item-image" :class="{ pixelated: pixelatedEffect && item.isNsfw && posterMode }" />
+                             class="item-image" :class="{ pixelated: pixelatedEffect && !item.logo && item.isNsfw && posterMode }" />
                     </div>
                     <button class="download-btn" @click.stop="openDownloadLink(item)">
                         ⬇
@@ -1821,7 +1821,10 @@ createApp({
         };
 
         const getLogoUrl = item => item.logo ? getPosterUrl(item.logo, 600) : 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=600';
-        const getImageUrl = item => posterMode.value ? getPosterUrl(item.poster, 600) : getLogoUrl(item);
+        const getImageUrl = (item) => {
+            return posterMode.value && !(item.isNsfw && pixelatedEffect.value && item.logo)
+                ? getPosterUrl(item.poster, 600) : getLogoUrl(item);
+        }
         const getImageLink = item => posterMode.value ? item.poster : item.logo;
 
         return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, minYear, maxYear, selectedYearSlider, updateSelectedYear, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar, sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm ,lightboxVisible, lightboxImage, openLightbox, closeLightbox, openDownloadLink, createYearChart, handleImageClick  };
