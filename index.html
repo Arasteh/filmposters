@@ -1677,7 +1677,7 @@ createApp({
         const lightboxImage = ref('');
         
         const openLightbox = (item) => {
-            lightboxImage.value = getImageUrl(item);
+            lightboxImage.value = getPosterUrl(item.poster, 1200);
             lightboxVisible.value = true;
         };
         
@@ -1702,16 +1702,16 @@ createApp({
 
         
         const getPosterUrl = (filePath, width = 600) => {
-            if (!filePath) return 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=600';
-
+            if (!filePath) return 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=' + width;
+        
             const url = new URL('https://commons.wikimedia.org/w/thumb.php');
             url.searchParams.append('f', decodeURIComponent(filePath.replace('http://commons.wikimedia.org/wiki/Special:FilePath/', '')));
-            url.searchParams.append('w', '600');
+            url.searchParams.append('w', width.toString());
             return url.toString();
         };
 
-        const getLogoUrl = item => item.logo ? getPosterUrl(item.logo) : 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=600';
-        const getImageUrl = item => posterMode.value ? getPosterUrl(item.poster) : getLogoUrl(item);
+        const getLogoUrl = item => item.logo ? getPosterUrl(item.logo, 600) : 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=600';
+        const getImageUrl = item => posterMode.value ? getPosterUrl(item.poster, 600) : getLogoUrl(item);
         const getImageLink = item => posterMode.value ? item.poster : item.logo;
 
         return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, minYear, maxYear, selectedYearSlider, updateSelectedYear, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar, sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm ,lightboxVisible, lightboxImage, openLightbox, closeLightbox  };
