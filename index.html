@@ -986,9 +986,9 @@
             </div>
         </div>
     
-        <div v-if="lightboxVisible" class="lightbox" @click="closeLightbox">
+        <div v-if="lightboxVisible" class="lightbox">
             <img :src="lightboxImage" alt="Lightbox Image" />
-            <button class="close-lightbox" @click.stop="closeLightbox">× بستن</button>
+            <button @click="closeLightbox">× بستن</button>
         </div>
 
         <div  id="main-content">
@@ -1798,8 +1798,9 @@ createApp({
         };
 
         const handleImageClick = (item) => {
-            console.log('Image clicked:', item);
-            openLightbox(item);
+          console.log('Image clicked:', item);
+          event.stopPropagation(); // Prevent bubbling up the click event
+          openLightbox(item);
         };
 
         const openDownloadLink = (item) => {
