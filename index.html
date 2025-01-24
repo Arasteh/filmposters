@@ -986,9 +986,9 @@
             </div>
         </div>
     
-        <div v-if="lightboxVisible" class="lightbox">
+        <div v-if="lightboxVisible" class="lightbox" @click="closeLightbox">
             <img :src="lightboxImage" alt="Lightbox Image" />
-            <button @click="closeLightbox">× بستن</button>
+            <button class="close-lightbox" @click.stop="closeLightbox">× بستن</button>
         </div>
 
         <div  id="main-content">
