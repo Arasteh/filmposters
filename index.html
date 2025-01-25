@@ -7,6 +7,7 @@
     <title>آرشیو پوسترهای سینمای ایران</title>
     <script src="vue.global.js"></script>
     <script src="Chart.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=keyboard_arrow_up,download,close,menu,refresh,north" />
     <style>
         * {
             font-family: system-ui;
@@ -785,6 +786,14 @@
             height: 150px;
         }
 
+        .material-symbols-rounded {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+            
         @media (max-width: 768px) {          
             #app {
                 padding: 0;
@@ -913,7 +922,11 @@
                 <div class="sidebar-section" :class="getSectionClass('years')" :key="'years-section'">
                     <div class="sidebar-section-header" @click="toggleCollapse('years')">
                         <span>{{ filteredYearLabel }}</span>
-                        <button class="collapse-button" :class="{ 'rotate-down': isCollapsed.years }">▲</button>
+                        <button class="collapse-button" :class="{ 'rotate-down': isCollapsed.years }">
+                            <span class="material-symbols-rounded">
+                            keyboard_arrow_up
+                            </span>
+                        </button>
                     </div>
                     <div class="sidebar-section-body" v-if="!isCollapsed.years">
                         <div id="canvasContainer">
@@ -927,7 +940,11 @@
                                      :class="{ 'hovered': hoveredItem === year }" 
                                      class="year-item">
                                     {{ year }} <span class="count">({{ count }})</span>
-                                    <span v-if="selectedYear === year" class="remove-filter" @click.stop="removeYearFilter">×</span>
+                                    <span v-if="selectedYear === year" class="remove-filter" @click.stop="removeYearFilter">
+                                    <span class="material-symbols-rounded">
+                                    close
+                                    </span>                             
+                                    </span>
                                 </div>
                         </div>
                     </div>
@@ -936,11 +953,19 @@
                 <div class="sidebar-section" :class="getSectionClass('designers')">
                     <div class="sidebar-section-header" @click="toggleCollapse('designers')">
                         <span>{{ filteredDesignerLabel }}</span>
-                        <button class="collapse-button" :class="{ 'rotate-down': isCollapsed.designers }">▲</button>
+                        <button class="collapse-button" :class="{ 'rotate-down': isCollapsed.designers }">
+                            <span class="material-symbols-rounded">
+                            keyboard_arrow_up
+                            </span>                             
+                        </button>
                     </div>
                     <div class="sidebar-section-body" v-if="!isCollapsed.designers">
                         <input type="text" v-model="designerSearchQuery" placeholder="جستجوی طراح…" />
-                        <span v-if="designerSearchQuery" @click="clearDesignerSearchQuery" class="clearSearch">×</span>
+                        <span v-if="designerSearchQuery" @click="clearDesignerSearchQuery" class="clearSearch">
+                            <span class="material-symbols-rounded">
+                            close
+                            </span>                                 
+                        </span>
                         <div class="designer-grid">
                             <div v-for="[designer, count] in filteredDesignersInModal" :key="designer" @click="selectDesignerFromModal(designer)" 
                                  @mouseenter="hoveredItem = designer" 
@@ -957,11 +982,19 @@
                 <div class="sidebar-section" :class="getSectionClass('directors')">
                     <div class="sidebar-section-header" @click="toggleCollapse('directors')">
                         <span>{{ filteredDirectorLabel }}</span>
-                        <button class="collapse-button" :class="{ 'rotate-down': isCollapsed.directors }">▲</button>
+                        <button class="collapse-button" :class="{ 'rotate-down': isCollapsed.directors }">
+                            <span class="material-symbols-rounded">
+                            keyboard_arrow_up
+                            </span>                                 
+                        </button>
                     </div>
                     <div class="sidebar-section-body" v-if="!isCollapsed.directors">
                         <input type="text" v-model="directorSearchQuery" placeholder="جستجوی کارگردان…" />
-                        <span v-if="directorSearchQuery" @click="clearDirectorSearchQuery" class="clearSearch">×</span>
+                        <span v-if="directorSearchQuery" @click="clearDirectorSearchQuery" class="clearSearch">
+                            <span class="material-symbols-rounded">
+                            close
+                            </span>             
+                        </span>
                         <div class="director-grid">
                             <div v-for="[director, count] in filteredDirectorsInModal" :key="director" @click="selectDirectorFromModal(director)" 
                                      @mouseenter="hoveredItem = director" 
@@ -978,7 +1011,11 @@
                 <div class="sidebar-section" :class="getSectionClass('letters')">
                     <div class="sidebar-section-header" @click="toggleCollapse('letters')">
                         <span>{{ filteredLetterLabel }}</span>
-                        <button class="collapse-button" :class="{ 'rotate-down': isCollapsed.letters }">▲</button>
+                        <button class="collapse-button" :class="{ 'rotate-down': isCollapsed.letters }">    
+                            <span class="material-symbols-rounded">
+                            keyboard_arrow_up
+                            </span>             
+                        </button>
                     </div>
                     <div class="sidebar-section-body" v-if="!isCollapsed.letters">
                         <div class="letter-grid">
@@ -1002,18 +1039,28 @@
         </div>
 
         <div  id="main-content">
-        <button onclick="topFunction()" id="toTop">↑</button>
+        <button onclick="topFunction()" id="toTop">
+            <span class="material-symbols-rounded">
+            north
+            </span>
+        </button>
 
         <div id="searchBar" class="search-bar">
             <div class="search-container">
                 <button @click="toggleSidebar" id="toggleSidebarButton" class="mobile-only" style="background: none; border: none; cursor: pointer; font-size: 24px;">
-                    ☰
+                    <span class="material-symbols-rounded">
+                    menu
+                    </span>
                 </button>
                 <div style="position: relative; width: 100%;">
                     <input type="text" v-model="searchTerm" placeholder="جستجو…" />
                     <span v-if="searchTerm" @click="clearSearchTerm" class="clearSearch">×</span>
                 </div>
-                <button @click="resetFilters" id="resetSearch">↻</button>
+                <button @click="resetFilters" id="resetSearch">
+                    <span class="material-symbols-rounded">
+                    refresh
+                    </span>                 
+                </button>
                 <button @click="toggleOptions" id="collapseButton" class="collapse-button mobile-only" :class="collapseIconClass">▲</button>
             </div>
             <div class="options" :class="{ 'collapsed': isOptionsCollapsed }">
