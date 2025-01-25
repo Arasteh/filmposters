@@ -815,6 +815,12 @@
         
             #hideSidebarButton {
                 display: inline-block;
+                margin-bottom: 10px;
+                padding: 8px 14px;
+                border: none;
+                background: none;
+                font-size: x-large;
+                cursor: pointer;
             }
 
             .sidebar {
@@ -900,7 +906,7 @@
         <div id="sidebar" class="sidebar" :class="{ visible: sidebarVisible }" :style="{ width: sidebarWidth + 'px' }">
             <div class="sidebar-resize-handle"></div>
             <div class="sidebar-content">
-                <button @click="hideSidebar" id="hideSidebarButton" class="mobile-only" style="margin-bottom: 10px; padding: 8px; background-color: gray; color: white; border: none; border-radius: 10px;">
+                <button @click="hideSidebar" id="hideSidebarButton" class="mobile-only">
                 × بستن
                 </button>
                 <!-- بخش سال‌ها -->
