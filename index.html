@@ -345,7 +345,7 @@
             height: calc(100% - 8px);
             background-color: light-dark(#b77, #b77);
             border-radius: 50px;
-            transition: transform 0.3s;
+            transition: 0.4s cubic-bezier(1, 0, 0, 1);
         }
         
         .toggle-switch.active {
@@ -430,7 +430,7 @@
             left: 9px;
             bottom: 9px;
             background-color: #888;
-            transition: 0.4s;
+            transition: 0.4s cubic-bezier(1, 0, 0, 1);
         }
         
         .sort-order-container {
@@ -461,7 +461,7 @@
             padding: 8px 16px;
             border-radius: 30px;
             color: light-dark(#888, #888);
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.2s, color 0.2s;
             cursor: pointer;
         }
         
@@ -904,7 +904,7 @@
                 × بستن
                 </button>
                 <!-- بخش سال‌ها -->
-                <div class="sidebar-section" :class="getSectionClass('years')">
+                <div class="sidebar-section" :class="getSectionClass('years')" :key="'years-section'">
                     <div class="sidebar-section-header" @click="toggleCollapse('years')">
                         <span>{{ filteredYearLabel }}</span>
                         <button class="collapse-button" :class="{ 'rotate-down': isCollapsed.years }">▲</button>
