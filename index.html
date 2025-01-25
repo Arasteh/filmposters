@@ -425,11 +425,11 @@
         .slider:before {
             position: absolute;
             content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
+            height: 16px;
+            width: 16px;
+            left: 9px;
+            bottom: 9px;
+            background-color: #888;
             transition: 0.4s;
         }
         
@@ -496,6 +496,11 @@
         
         .similar-chars-toggle input:checked + .slider.round:before {
             transform: translateX(0);
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
         }
         
         .tooltip {
