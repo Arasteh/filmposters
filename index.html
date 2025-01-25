@@ -720,23 +720,20 @@
         
         .designer-item, .director-item, .year-item, .letter-item {
             padding: 5px 10px;
-            border: 1px solid light-dark(#ddd, #444);
             border-radius: 30px;
             cursor: pointer;
             transition: background-color 0.3s;
             white-space: nowrap;
             font-size: smaller;
-            background-color: light-dark(#fff, #282828);
+            background-color: light-dark(hsl(0 0% 85% / 1), hsl(0 0% 20% / 1));
         }
         
         .designer-item:hover, .director-item:hover, .year-item:hover, .letter-item:hover {
-            background-color: light-dark(#eee, #111);
-            border: 1px light-dark(#333, #ddd) solid;
+            background-color: light-dark(hsl(0 0% 70% / 1), hsl(0 0% 40% / 1));
         }
 
         .year-item.hovered, .designer-item.hovered, .director-item.hovered, .letter-item.hovered {
-            background-color: light-dark(#eee, #111);
-            border: 1px light-dark(#333, #ddd) solid;
+            background-color: light-dark(hsl(0 0% 70% / 1), hsl(0 0% 40% / 1));
         }
 
         .year-slider {
@@ -745,7 +742,7 @@
         }
 
         .count {
-        color: light-dark(#a8a8a8, #686868);
+        color: light-dark(hsl(0 0% 65% / 1), hsl(0 0% 50% / 1));
         }
 
         .remove-filter {
@@ -1030,7 +1027,7 @@
                 <div class="similar-chars-toggle" v-if="posterMode">
                         <label for="pixelatedSwitch">
                             <div class="tooltip">سانسور
-                                <span class="tooltiptext">تار کردن تصاویری که ممکن است نامناسب باشند</span>
+                                <span class="tooltiptext">مخفی کردن تصاویری که ممکن است نامناسب باشند</span>
                             </div>
                         </label>
                         <label class="switch">
