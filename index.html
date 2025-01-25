@@ -934,6 +934,7 @@
                     </div>
                     <div class="sidebar-section-body" v-if="!isCollapsed.designers">
                         <input type="text" v-model="designerSearchQuery" placeholder="جستجوی طراح…" />
+                        <span v-if="designerSearchQuery" @click="clearDesignerSearchQuery" class="clearSearch">×</span>
                         <div class="designer-grid">
                             <div v-for="[designer, count] in filteredDesignersInModal" :key="designer" @click="selectDesignerFromModal(designer)" 
                                  @mouseenter="hoveredItem = designer" 
@@ -953,7 +954,8 @@
                         <button class="collapse-button" :class="{ 'rotate-down': isCollapsed.directors }">▲</button>
                     </div>
                     <div class="sidebar-section-body" v-if="!isCollapsed.directors">
-                         <input type="text" v-model="directorSearchQuery" placeholder="جستجوی کارگردان…" />
+                        <input type="text" v-model="directorSearchQuery" placeholder="جستجوی کارگردان…" />
+                        <span v-if="directorSearchQuery" @click="clearDirectorSearchQuery" class="clearSearch">×</span>
                         <div class="director-grid">
                             <div v-for="[director, count] in filteredDirectorsInModal" :key="director" @click="selectDirectorFromModal(director)" 
                                      @mouseenter="hoveredItem = director" 
@@ -1604,6 +1606,15 @@ createApp({
             searchTerm.value = '';
         };
 
+        const clearDesignerSearchQuery = () => {
+            designerSearchQuery.value = '';
+        };
+        
+        const clearDirectorSearchQuery = () => {
+            directorSearchQuery.value = '';
+        };
+
+
         function convertPersianToEnglishNumbers(str) {
             const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
             const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
@@ -1830,7 +1841,7 @@ createApp({
         }
         const getImageLink = item => posterMode.value ? item.poster : item.logo;
 
-        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, minYear, maxYear, selectedYearSlider, updateSelectedYear, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar, sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm ,lightboxVisible, lightboxImage, openLightbox, closeLightbox, openDownloadLink, createYearChart, handleImageClick  };
+        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, minYear, maxYear, selectedYearSlider, updateSelectedYear, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar, sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm ,lightboxVisible, lightboxImage, openLightbox, closeLightbox, openDownloadLink, createYearChart, handleImageClick, clearDesignerSearchQuery, clearDirectorSearchQuery  };
     }
 }).mount('#app');
     </script>
