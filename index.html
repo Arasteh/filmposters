@@ -53,6 +53,7 @@
             display: flex;
             align-items: flex-start;
             gap: 10px;
+            margin-bottom: 8px;
         }
 
         .search-bar {
@@ -78,7 +79,6 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 50px;
-            margin-bottom: 8px;
         }
 
         .options {
@@ -261,7 +261,7 @@
         #resetSearch {
             border: none;
             color: white;
-            padding: 5px 10px;
+            padding: 7px 8px 4px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
@@ -270,7 +270,6 @@
             background-color: gray;
             opacity: 80%;
             transition-duration: 0.3s;
-            font-size: x-large;
         }
 
         #resetSearch:hover {
@@ -916,7 +915,9 @@
             <div class="sidebar-resize-handle"></div>
             <div class="sidebar-content">
                 <button @click="hideSidebar" id="hideSidebarButton" class="mobile-only">
-                × بستن
+                    <span class="material-symbols-rounded">
+                    close
+                    </span>
                 </button>
                 <!-- بخش سال‌ها -->
                 <div class="sidebar-section" :class="getSectionClass('years')" :key="'years-section'">
@@ -960,24 +961,26 @@
                         </button>
                     </div>
                     <div class="sidebar-section-body" v-if="!isCollapsed.designers">
+                    <div class="search-container">
                         <input type="text" v-model="designerSearchQuery" placeholder="جستجوی طراح…" />
                         <span v-if="designerSearchQuery" @click="clearDesignerSearchQuery" class="clearSearch">
                             <span class="material-symbols-rounded">
                             close
                             </span>                                 
                         </span>
-                        <div class="designer-grid">
-                            <div v-for="[designer, count] in filteredDesignersInModal" :key="designer" @click="selectDesignerFromModal(designer)" 
-                                 @mouseenter="hoveredItem = designer" 
-                                 @mouseleave="hoveredItem = null" 
-                                 :class="{ 'hovered': hoveredItem === designer }" 
-                                class="designer-item">
-                                {{ designer }} <span class="count">({{ count }})</span>
-                                <span v-if="selectedDesigner === designer" class="remove-filter" @click.stop="removeDesignerFilter">×</span>
-                            </div>
+                    </div>
+                    <div class="designer-grid">
+                        <div v-for="[designer, count] in filteredDesignersInModal" :key="designer" @click="selectDesignerFromModal(designer)" 
+                             @mouseenter="hoveredItem = designer" 
+                             @mouseleave="hoveredItem = null" 
+                             :class="{ 'hovered': hoveredItem === designer }" 
+                            class="designer-item">
+                            {{ designer }} <span class="count">({{ count }})</span>
+                            <span v-if="selectedDesigner === designer" class="remove-filter" @click.stop="removeDesignerFilter">×</span>
                         </div>
                     </div>
                 </div>
+            </div>
                 
                 <div class="sidebar-section" :class="getSectionClass('directors')">
                     <div class="sidebar-section-header" @click="toggleCollapse('directors')">
@@ -989,12 +992,14 @@
                         </button>
                     </div>
                     <div class="sidebar-section-body" v-if="!isCollapsed.directors">
-                        <input type="text" v-model="directorSearchQuery" placeholder="جستجوی کارگردان…" />
-                        <span v-if="directorSearchQuery" @click="clearDirectorSearchQuery" class="clearSearch">
-                            <span class="material-symbols-rounded">
-                            close
-                            </span>             
-                        </span>
+                        <div class="search-container">
+                            <input type="text" v-model="directorSearchQuery" placeholder="جستجوی کارگردان…" />
+                                <span v-if="directorSearchQuery" @click="clearDirectorSearchQuery" class="clearSearch">
+                                <span class="material-symbols-rounded">
+                                close
+                                </span>             
+                            </span>
+                        </div>
                         <div class="director-grid">
                             <div v-for="[director, count] in filteredDirectorsInModal" :key="director" @click="selectDirectorFromModal(director)" 
                                      @mouseenter="hoveredItem = director" 
@@ -1061,7 +1066,11 @@
                     refresh
                     </span>                 
                 </button>
-                <button @click="toggleOptions" id="collapseButton" class="collapse-button mobile-only" :class="collapseIconClass">▲</button>
+                <button @click="toggleOptions" id="collapseButton" class="collapse-button mobile-only" :class="collapseIconClass">
+                    <span class="material-symbols-rounded">
+                    keyboard_arrow_up
+                    </span>
+                </button>
             </div>
             <div class="options" :class="{ 'collapsed': isOptionsCollapsed }">
                 <div class="toggle-switch" @click="togglePosterMode" :data-mode="posterMode ? 'poster' : 'logo'">
