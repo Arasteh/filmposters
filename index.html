@@ -145,6 +145,7 @@ input[type="text"] {
 .item-designer a {
 	color: light-dark(#222, #ddd);
 	text-decoration: none;
+	margin-left: 4px;
 }
 
 .item-designer a:hover {
@@ -153,7 +154,7 @@ input[type="text"] {
 
 .item-links {
 	font-size: 0.8em;
-	margin-top: 5px;
+	margin-top: 8px;
 	}
 	
 .item-links a {
@@ -1185,7 +1186,7 @@ height: 95%;*/
 					طراح: <a href="#" @click.prevent="selectDesigner(item.designerLabel)">{{ item.designerLabel
 						}}</a>
 					<span class="item-links">
-							•<a :href="'https://www.wikidata.org/wiki/' + item.designer"
+							• <a :href="'https://www.wikidata.org/wiki/' + item.designer"
 						target="_blank">Q</a><template v-if="item.designerFaWikipediaLink">&nbsp;<a
 							:href="'https://fa.wikipedia.org/wiki/' + item.designerFaWikipediaLink.replaceAll(' ', '_')"
 							target="_blank">W</a></template>
