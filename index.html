@@ -1210,17 +1210,6 @@ window.addEventListener("scroll", () => {
 
 const { createApp, ref, computed, watch, onMounted, nextTick } = Vue;
 
-Object.groupBy = function (array, keyGetter) {
-	return array.reduce((result, item) => {
-		const key = keyGetter(item);
-		if (!result[key]) {
-			result[key] = [];
-		}
-		result[key].push(item);
-		return result;
-	}, {});
-};
-
 async function getAllItems() {
 	const data = await fetch('db.json').then(x => x.json());
 	return Object.values(data.films).flatMap(film => {
@@ -1847,9 +1836,7 @@ createApp({
 		const toggleCollapse = (section) => {
 			isCollapsed.value[section] = !isCollapsed.value[section];
 			if (section === 'years' && !isCollapsed.value[section]) {
-				Vue.nextTick(() => {
-					createYearChart();
-				});
+				nextTick(createYearChart);
 			}
 		};
 
