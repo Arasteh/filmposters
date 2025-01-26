@@ -7,1916 +7,1915 @@
 <script src="vue.global.js"></script>
 <script src="Chart.js"></script>
 <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=close,download,keyboard_arrow_up,menu,north,refresh" />
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=close,download,keyboard_arrow_up,menu,north,refresh" />
 <style>
 * {
-    font-family: system-ui;
-    box-sizing: border-box;
+	font-family: system-ui;
+	box-sizing: border-box;
 }
 
 body {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    min-height: 100vh;
-    background-color: light-dark(#f5f5f5, #121212);
-    color: light-dark(black, #e0e0e0);
-    margin: 0;
-    transition: background-color 0.3s, color 0.3s;
-    overflow-x: hidden;
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	min-height: 100vh;
+	background-color: light-dark(#f5f5f5, #121212);
+	color: light-dark(black, #e0e0e0);
+	margin: 0;
+	transition: background-color 0.3s, color 0.3s;
+	overflow-x: hidden;
 
 }
 
 #app {
-    display: flex;
-    flex: 1;
-    width: 100%;
-    padding: 20px;
-    /*background-color: light-dark(#fff, #1e1e1e);*/
-    border-radius: 20px;
-    transition: background-color 0.3s, color 0.3s;
+	display: flex;
+	flex: 1;
+	width: 100%;
+	padding: 20px;
+	/*background-color: light-dark(#fff, #1e1e1e);*/
+	border-radius: 20px;
+	transition: background-color 0.3s, color 0.3s;
 }
 
 #main-content {
-    flex: 1;
-    margin-right: 20px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 100%;
-    overflow-x: hidden;
+	flex: 1;
+	margin-right: 20px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	max-width: 100%;
+	overflow-x: hidden;
 }
 
 .search-container {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 8px;
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+	margin-bottom: 8px;
 }
 
 .search-bar {
-    position: sticky;
-    top: 0;
-    background-color: light-dark(#fff, #1e1e1e);
-    padding: 10px;
-    transition: transform 0.3s ease-in-out;
-    border: 1px solid light-dark(#ddd, #444);
-    border-radius: 20px;
-    margin-bottom: 10px;
-    max-width: 1000px;
-    width: 100%;
-    z-index: 100;
+	position: sticky;
+	top: 0;
+	background-color: light-dark(#fff, #1e1e1e);
+	padding: 10px;
+	transition: transform 0.3s ease-in-out;
+	border: 1px solid light-dark(#ddd, #444);
+	border-radius: 20px;
+	margin-bottom: 10px;
+	max-width: 1000px;
+	width: 100%;
+	z-index: 100;
 }
 
 .search-bar.hidden {
-    transform: translateY(-100%);
+	transform: translateY(-100%);
 }
 
 input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 50px;
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 50px;
 }
 
 .options {
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: 20px;
-    row-gap: 10px;
-    justify-content: space-around;
-    margin: 2px 0 10px;
-    border: none;
-    align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: 20px;
+	row-gap: 10px;
+	justify-content: space-around;
+	margin: 2px 0 10px;
+	border: none;
+	align-items: center;
 }
 
 .results-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 10px;
-    max-width: 1200px;
-    width: 100%;
-    z-index: 1;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 10px;
+	max-width: 1200px;
+	width: 100%;
+	z-index: 1;
 }
 
 .item-card {
-    text-align: center;
-    padding: 10px;
-    background: light-dark(#fff, #292929);
-    border-radius: 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s, border-color 0.3s;
-    position: relative;
-    box-shadow: 2px 2px 5px 0px light-dark(#0002, #fff2);
+	text-align: center;
+	padding: 10px;
+	background: light-dark(#fff, #292929);
+	border-radius: 16px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	transition: background-color 0.3s, border-color 0.3s;
+	position: relative;
+	box-shadow: 2px 2px 5px 0px light-dark(#0002, #fff2);
 }
 
 .item-image {
-    width: 100%;
-    object-fit: contain;
-    border-radius: 4px;
-    background-color: #f0f0f0;
-    margin-bottom: 10px;
-    transition: filter 0.3s;
+	width: 100%;
+	object-fit: contain;
+	border-radius: 4px;
+	background-color: #f0f0f0;
+	margin-bottom: 10px;
+	transition: filter 0.3s;
 }
 
 .item-title {
-    font-weight: bold;
+	font-weight: bold;
 }
 
 .item-designer {
-    font-size: 0.9em;
-    color: light-dark(#888, #888);
-    margin-top: 5px;
+	font-size: 0.9em;
+	color: light-dark(#888, #888);
+	margin-top: 5px;
 }
 
 .item-designer a {
-    color: #007bff;
-    text-decoration: none;
+	color: #007bff;
+	text-decoration: none;
 }
 
 .item-designer a:hover {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 
 .item-links a {
-    color: #007bff;
-    text-decoration: none;
-    margin: 0 5px;
+	color: #007bff;
+	text-decoration: none;
+	margin: 0 5px;
 }
 
 .image-container {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	position: relative;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .download-btn {
-    position: absolute;
-    bottom: 20px;
-    right: 10px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s;
-    z-index: 10;
+	position: absolute;
+	bottom: 20px;
+	right: 10px;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: white;
+	border: none;
+	padding: 8px 12px;
+	border-radius: 5px;
+	cursor: pointer;
+	opacity: 0;
+	transition: opacity 0.3s;
+	z-index: 10;
 }
 
 .image-container:hover .download-btn {
-    opacity: 1;
+	opacity: 1;
 }
 
 .lightbox-btn {
-    position: absolute;
-    bottom: 20px;
-    left: 10px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s;
-    z-index: 10;
+	position: absolute;
+	bottom: 20px;
+	left: 10px;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: white;
+	border: none;
+	padding: 8px 12px;
+	border-radius: 5px;
+	cursor: pointer;
+	opacity: 0;
+	transition: opacity 0.3s;
+	z-index: 10;
 }
 
 .image-container:hover .lightbox-btn {
-    opacity: 1;
+	opacity: 1;
 }
 
 .clickable-image {
-    cursor: pointer;
-    display: block;
-    width: 100%;
-    height: auto;
+	cursor: pointer;
+	display: block;
+	width: 100%;
+	height: auto;
 }
 
 .lightbox {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.8);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
 }
 
 .lightbox img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 10px;
+	max-width: 90%;
+	max-height: 90%;
+	border-radius: 10px;
 }
 
 .close-lightbox {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: none;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 36px;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	background: none;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 36px;
 }
 
 #toTop {
-    transition: bottom ease-in-out 350ms;
-    bottom: -100px;
-    width: 52px;
-    height: 52px;
-    position: fixed;
-    left: 30px;
-    z-index: 99;
-    font-size: 18px;
-    border: none;
-    outline: none;
-    background-color: gray;
-    color: white;
-    cursor: pointer;
-    padding: 15px;
-    border-radius: 10px;
+	transition: bottom ease-in-out 350ms;
+	bottom: -100px;
+	width: 52px;
+	height: 52px;
+	position: fixed;
+	left: 30px;
+	z-index: 99;
+	font-size: 18px;
+	border: none;
+	outline: none;
+	background-color: gray;
+	color: white;
+	cursor: pointer;
+	padding: 15px;
+	border-radius: 10px;
 }
 
 #toTop:hover {
-    opacity: 60%;
-    box-shadow: 0px 4px 10px gray;
-    transition-duration: 0.1s;
+	opacity: 60%;
+	box-shadow: 0px 4px 10px gray;
+	transition-duration: 0.1s;
 }
 
 #resetSearch {
-    border: none;
-    color: white;
-    padding: 7px 8px 4px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-    border-radius: 20px;
-    background-color: gray;
-    opacity: 80%;
-    transition-duration: 0.3s;
+	border: none;
+	color: white;
+	padding: 7px 8px 4px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	cursor: pointer;
+	border-radius: 20px;
+	background-color: gray;
+	opacity: 80%;
+	transition-duration: 0.3s;
 }
 
 #resetSearch:hover {
-    opacity: 100%;
-    background-color: #b77;
-    transition-duration: 0.3s;
+	opacity: 100%;
+	background-color: #b77;
+	transition-duration: 0.3s;
 }
 
 .autocomplete {
-    position: relative;
-    display: inline-block;
+	position: relative;
+	display: inline-block;
 }
 
 .autocomplete-items {
-    position: absolute;
-    color: light-dark(gray, gray);
-    border: 1px solid #d4d4d4;
-    background-color: light-dark(#fff, #222);
-    max-height: 400px;
-    overflow-y: auto;
-    z-index: 10;
-    left: 0;
-    right: 0;
-    border-radius: 16px;
-    margin-top: 5px;
+	position: absolute;
+	color: light-dark(gray, gray);
+	border: 1px solid #d4d4d4;
+	background-color: light-dark(#fff, #222);
+	max-height: 400px;
+	overflow-y: auto;
+	z-index: 10;
+	left: 0;
+	right: 0;
+	border-radius: 16px;
+	margin-top: 5px;
 }
 
 .autocomplete-items div {
-    padding: 8px;
-    cursor: pointer;
+	padding: 8px;
+	cursor: pointer;
 }
 
 .autocomplete-items div:hover {
-    background-color: light-dark(#ddd, #444);
+	background-color: light-dark(#ddd, #444);
 }
 
 #designerquery {
-    width: auto;
+	width: auto;
 }
 
 .toggle-switch {
-    display: flex;
-    align-items: center;
-    background-color: light-dark(#e0e0e0, #333);
-    border-radius: 50px;
-    padding: 4px;
-    cursor: pointer;
-    user-select: none;
-    width: 120px;
-    position: relative;
-    transition: background-color 0.3s;
+	display: flex;
+	align-items: center;
+	background-color: light-dark(#e0e0e0, #333);
+	border-radius: 50px;
+	padding: 4px;
+	cursor: pointer;
+	user-select: none;
+	width: 120px;
+	position: relative;
+	transition: background-color 0.3s;
 }
 
 .toggle-switch span {
-    flex: 1;
-    text-align: center;
-    padding: 8px;
-    color: light-dark(#fff, #fff);
-    z-index: 1;
-    transition: color 0.3s;
+	flex: 1;
+	text-align: center;
+	padding: 8px;
+	color: light-dark(#fff, #fff);
+	z-index: 1;
+	transition: color 0.3s;
 }
 
 .toggle-switch span.active {
-    color: light-dark(#888, #888);
+	color: light-dark(#888, #888);
 }
 
 .toggle-switch::before {
-    content: '';
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    width: 56px;
-    height: calc(100% - 8px);
-    background-color: light-dark(#b77, #b77);
-    border-radius: 50px;
-    transition: 0.4s cubic-bezier(1, 0, 0, 1);
+	content: '';
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	width: 56px;
+	height: calc(100% - 8px);
+	background-color: light-dark(#b77, #b77);
+	border-radius: 50px;
+	transition: 0.4s cubic-bezier(1, 0, 0, 1);
 }
 
 .toggle-switch.active {
-    background-color: light-dark(#b77, #b77);
+	background-color: light-dark(#b77, #b77);
 }
 
 .toggle-slider {
-    width: 21px;
-    height: 21px;
-    background-color: white;
-    border-radius: 50%;
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    transition: transform 0.3s;
+	width: 21px;
+	height: 21px;
+	background-color: white;
+	border-radius: 50%;
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	transition: transform 0.3s;
 }
 
 .toggle-switch.active .toggle-slider {
-    transform: translateX(25px);
+	transform: translateX(25px);
 }
 
 .toggle-switch[data-mode="poster"]::before {
-    transform: translateX(56px);
+	transform: translateX(56px);
 }
 
 .similar-chars-toggle {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
 }
 
 .similar-chars-toggle label {
-    font-size: 1em;
-    color: light-dark(#000, #fff);
+	font-size: 1em;
+	color: light-dark(#000, #fff);
 }
 
 .switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
+	position: relative;
+	display: inline-block;
+	width: 60px;
+	height: 34px;
 }
 
 .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
+	opacity: 0;
+	width: 0;
+	height: 0;
 }
 
 .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: light-dark(#e0e0e0, #333);
-    transition: 0.4s;
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: light-dark(#e0e0e0, #333);
+	transition: 0.4s;
 }
 
 .slider.round {
-    border-radius: 34px;
+	border-radius: 34px;
 }
 
 .slider.round:before {
-    border-radius: 50%;
+	border-radius: 50%;
 }
 
 input:checked+.slider {
-    background-color: #b77;
+	background-color: #b77;
 }
 
 input:checked+.slider:before {
-    transform: translateX(26px);
+	transform: translateX(26px);
 }
 
 .slider:before {
-    position: absolute;
-    content: "";
-    height: 16px;
-    width: 16px;
-    left: 9px;
-    bottom: 9px;
-    background-color: #888;
-    transition: 0.4s cubic-bezier(1, 0, 0, 1);
+	position: absolute;
+	content: "";
+	height: 16px;
+	width: 16px;
+	left: 9px;
+	bottom: 9px;
+	background-color: #888;
+	transition: 0.4s cubic-bezier(1, 0, 0, 1);
 }
 
 .sort-order-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
 }
 
 .sort-order-container label {
-    font-size: 1em;
-    color: light-dark(#000, #fff);
+	font-size: 1em;
+	color: light-dark(#000, #fff);
 }
 
 .triple-toggle-switch {
-    display: flex;
-    align-items: center;
-    background-color: light-dark(#e0e0e0, #333);
-    border-radius: 30px;
-    padding: 4px;
-    cursor: pointer;
-    user-select: none;
-    width: fit-content;
+	display: flex;
+	align-items: center;
+	background-color: light-dark(#e0e0e0, #333);
+	border-radius: 30px;
+	padding: 4px;
+	cursor: pointer;
+	user-select: none;
+	width: fit-content;
 }
 
 .toggle-option {
-    flex: 1;
-    text-align: center;
-    padding: 8px 16px;
-    border-radius: 30px;
-    color: light-dark(#888, #888);
-    transition: background-color 0.2s, color 0.2s;
-    cursor: pointer;
+	flex: 1;
+	text-align: center;
+	padding: 8px 16px;
+	border-radius: 30px;
+	color: light-dark(#888, #888);
+	transition: background-color 0.2s, color 0.2s;
+	cursor: pointer;
 }
 
 .toggle-option.active {
-    background-color: light-dark(#b77, #b77);
-    color: light-dark(#fff, #fff);
+	background-color: light-dark(#b77, #b77);
+	color: light-dark(#fff, #fff);
 }
 
 .toggle-option.active:hover {
-    background-color: light-dark(#b77, #b77);
+	background-color: light-dark(#b77, #b77);
 }
 
 
 .toggle-option:hover {
-    background-color: light-dark(#ddd, #444);
+	background-color: light-dark(#ddd, #444);
 }
 
 .similar-chars-toggle {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
 }
 
 .similar-chars-toggle label {
-    font-size: 1em;
-    color: light-dark(#000, #fff);
+	font-size: 1em;
+	color: light-dark(#000, #fff);
 }
 
 .similar-chars-toggle .slider.round:before {
-    transform: translateX(26px);
+	transform: translateX(26px);
 }
 
 .similar-chars-toggle input:checked+.slider.round:before {
-    transform: translateX(0);
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
+	transform: translateX(0);
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
 }
 
 .tooltip {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted gray;
+	position: relative;
+	display: inline-block;
+	border-bottom: 1px dotted gray;
 }
 
 .tooltip .tooltiptext {
-    visibility: hidden;
-    width: 150px;
-    background-color: #666;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px;
-    position: absolute;
-    z-index: 1;
-    top: 150%;
-    left: 50%;
-    margin-left: -80px;
+	visibility: hidden;
+	width: 150px;
+	background-color: #666;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px;
+	position: absolute;
+	z-index: 1;
+	top: 150%;
+	left: 50%;
+	margin-left: -80px;
 }
 
 .tooltip .tooltiptext::after {
-    content: "";
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    opacity: 1;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent #666 transparent;
-    transition: opacity 0.5s;
+	content: "";
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	opacity: 1;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent transparent #666 transparent;
+	transition: opacity 0.5s;
 }
 
 .tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 0.9;
-    transition-delay: 1s;
+	visibility: visible;
+	opacity: 0.9;
+	transition-delay: 1s;
 }
 
 .collapse-button {
-    padding: 8px;
-    border-radius: 20px;
-    background-color: gray;
-    color: white;
-    cursor: pointer;
-    width: 40px;
-    border: none;
-    transition: transform 150ms ease-in-out;
+	padding: 8px;
+	border-radius: 20px;
+	background-color: gray;
+	color: white;
+	cursor: pointer;
+	width: 40px;
+	border: none;
+	transition: transform 150ms ease-in-out;
 }
 
 .rotate-up {
-    transform: rotate(0deg);
+	transform: rotate(0deg);
 }
 
 .rotate-down {
-    transform: rotate(180deg) translateY(4px)
+	transform: rotate(180deg) translateY(4px)
 }
 
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
 }
 
 .modal-content {
-    background-color: light-dark(#fff, #1e1e1e);
-    border-radius: 20px;
-    padding: 20px;
-    width: 90%;
-    max-width: 600px;
-    max-height: 80vh;
-    overflow-y: auto;
+	background-color: light-dark(#fff, #1e1e1e);
+	border-radius: 20px;
+	padding: 20px;
+	width: 90%;
+	max-width: 600px;
+	max-height: 80vh;
+	overflow-y: auto;
 }
 
 .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 10px;
 }
 
 .modal-header input {
-    width: 80%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 16px;
+	width: 80%;
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 16px;
 }
 
 .close-modal-button {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: light-dark(#000, #fff);
+	background: none;
+	border: none;
+	font-size: 24px;
+	cursor: pointer;
+	color: light-dark(#000, #fff);
 }
 
 .modal-body {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 }
 
 .sidebar {
-    width: 400px;
-    overflow-y: auto;
-    z-index: 1000;
-    transition: transform 0.3s ease-in-out;
-    resize: none;
-    position: relative;
-    height: fit-content;
+	width: 400px;
+	overflow-y: auto;
+	z-index: 1000;
+	transition: transform 0.3s ease-in-out;
+	resize: none;
+	position: relative;
+	height: fit-content;
 }
 
 .sidebar-content {
-    padding: 0 0 0 15px;
-    /*display: flex;
-    flex-direction: column;    
-    gap: 15px;
-    height: 95%;*/
+	padding: 0 0 0 15px;
+	/*display: flex;
+flex-direction: column;    
+gap: 15px;
+height: 95%;*/
 }
 
 .mobile-only {
-    display: none;
+	display: none;
 }
 
 .sidebar-resize-handle {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 5px;
-    height: 100%;
-    cursor: ew-resize;
-    background-color: rgba(128, 128, 128, 0.1);
-    z-index: 1001;
-    transition: background-color 0.3s;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 5px;
+	height: 100%;
+	cursor: ew-resize;
+	background-color: rgba(128, 128, 128, 0.1);
+	z-index: 1001;
+	transition: background-color 0.3s;
 }
 
 .sidebar-resize-handle:hover {
-    background-color: rgba(128, 128, 128, 0.3);
+	background-color: rgba(128, 128, 128, 0.3);
 }
 
 .sidebar-section {
-    flex: 1;
-    /*border-bottom: 1px solid light-dark(#ddd, #444);*/
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-    transition: flex-grow 0.3s ease-in-out;
+	flex: 1;
+	/*border-bottom: 1px solid light-dark(#ddd, #444);*/
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+	transition: flex-grow 0.3s ease-in-out;
 }
 
 .sidebar-section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    padding: 5px 10px;
-    background-color: light-dark(#ddd, #333);
-    border-radius: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	cursor: pointer;
+	padding: 5px 10px;
+	background-color: light-dark(#ddd, #333);
+	border-radius: 10px;
 }
 
 .sidebar-section-body {
-    flex: 1;
-    padding: 10px;
-    overflow-y: auto;
-    min-height: 0;
-    background-color: light-dark(#fff, #222);
-    opacity: 1;
-    max-height: 500px;
-    margin-bottom: 20px;
-    border-radius: 0 0 10px 10px;
+	flex: 1;
+	padding: 10px;
+	overflow-y: auto;
+	min-height: 0;
+	background-color: light-dark(#fff, #222);
+	opacity: 1;
+	max-height: 500px;
+	margin-bottom: 20px;
+	border-radius: 0 0 10px 10px;
 }
 
 
 .sidebar-section.expanded .sidebar-section-header {
-    border-radius: 10px 10px 0 0;
+	border-radius: 10px 10px 0 0;
 }
 
 .sidebar-section.collapsed .sidebar-section-body {
-    opacity: 0;
-    padding: 0;
-    max-height: 0;
-    overflow: hidden;
+	opacity: 0;
+	padding: 0;
+	max-height: 0;
+	overflow: hidden;
 }
 
 .sidebar-section.collapsed {
-    flex-grow: 0;
-    margin-bottom: 20px;
-    border: none;
+	flex-grow: 0;
+	margin-bottom: 20px;
+	border: none;
 }
 
 .sidebar-section.expanded {
-    flex-grow: 1;
+	flex-grow: 1;
 }
 
 .collapse-button {
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    color: light-dark(#444, #ccc);
+	background: none;
+	border: none;
+	font-size: 18px;
+	cursor: pointer;
+	color: light-dark(#444, #ccc);
 }
 
 .designer-grid,
 .director-grid,
 .year-grid,
 .letter-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
 }
 
 .designer-item,
 .director-item,
 .year-item,
 .letter-item {
-    padding: 5px 10px;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    white-space: nowrap;
-    font-size: smaller;
-    background-color: light-dark(hsl(0 0% 93% / 1), hsl(0 0% 20% / 1));
+	padding: 5px 10px;
+	border-radius: 30px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	white-space: nowrap;
+	font-size: smaller;
+	background-color: light-dark(hsl(0 0% 93% / 1), hsl(0 0% 20% / 1));
 }
 
 .designer-item:hover,
 .director-item:hover,
 .year-item:hover,
 .letter-item:hover {
-    background-color: light-dark(hsl(0 0% 83% / 1), hsl(0 0% 40% / 1));
+	background-color: light-dark(hsl(0 0% 83% / 1), hsl(0 0% 40% / 1));
 }
 
 .year-item.hovered,
 .designer-item.hovered,
 .director-item.hovered,
 .letter-item.hovered {
-    background-color: light-dark(hsl(0 0% 83% / 1), hsl(0 0% 40% / 1));
+	background-color: light-dark(hsl(0 0% 83% / 1), hsl(0 0% 40% / 1));
 }
 
 .year-slider {
-    width: 100%;
-    margin-bottom: 10px;
+	width: 100%;
+	margin-bottom: 10px;
 }
 
 .count {
-    color: light-dark(hsl(0 0% 65% / 1), hsl(0 0% 50% / 1));
+	color: light-dark(hsl(0 0% 65% / 1), hsl(0 0% 50% / 1));
 }
 
 .remove-filter {
-    margin-right: 5px;
-    cursor: pointer;
-    color: light-dark(black, white);
-    font-size: 1.2em;
-    vertical-align: top;
+	margin-right: 5px;
+	cursor: pointer;
+	color: light-dark(black, white);
+	font-size: 1.2em;
+	vertical-align: top;
 }
 
 .remove-filter:hover {
-    color: #b00;
+	color: #b00;
 }
 
 .pixelated {
-    filter: blur(3px);
-    image-rendering: pixelated;
+	filter: blur(3px);
+	image-rendering: pixelated;
 }
 
 .clearSearch {
-    position: absolute;
-    left: 15px;
-    top: 38%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #888;
-    font-size: x-large;
+	position: absolute;
+	left: 15px;
+	top: 38%;
+	transform: translateY(-50%);
+	cursor: pointer;
+	color: #888;
+	font-size: x-large;
 }
 
 #yearChart {
-    width: 100% !important;
-    height: 150px !important;
-    margin: 10px 0;
-    font-family: system-ui;
+	width: 100% !important;
+	height: 150px !important;
+	margin: 10px 0;
+	font-family: system-ui;
 }
 
 #canvasContainer {
-    width: 100%;
-    max-width: 600px;
-    height: 150px;
+	width: 100%;
+	max-width: 600px;
+	height: 150px;
 }
 
 .material-symbols-rounded {
-    font-variation-settings:
-        'FILL' 0,
-        'wght' 400,
-        'GRAD' 0,
-        'opsz' 24
+	font-variation-settings:
+		'FILL' 0,
+		'wght' 400,
+		'GRAD' 0,
+		'opsz' 24
 }
 
 @media (max-width: 768px) {
-    #app {
-        padding: 0;
-    }
+	#app {
+		padding: 0;
+	}
 
-    .search-bar {
-        width: 100%;
-        max-width: 100%;
-        padding: 10px;
-    }
+	.search-bar {
+		width: 100%;
+		max-width: 100%;
+		padding: 10px;
+	}
 
-    .results-grid {
-        width: 100%;
-        max-width: 100%;
-        padding: 0 10px;
-    }
+	.results-grid {
+		width: 100%;
+		max-width: 100%;
+		padding: 0 10px;
+	}
 
-    .options {
-        /*flex-direction: column;
-        align-items: flex-start;*/
-        gap: 15px;
-        align-items: center;
-    }
+	.options {
+		/*flex-direction: column;
+	align-items: flex-start;*/
+		gap: 15px;
+		align-items: center;
+	}
 
-    #showSidebarButton {
-        display: inline-block;
-    }
+	#showSidebarButton {
+		display: inline-block;
+	}
 
-    #hideSidebarButton {
-        display: inline-block;
-        margin-bottom: 10px;
-        padding: 8px 14px;
-        border: none;
-        background: none;
-        font-size: x-large;
-        cursor: pointer;
-    }
+	#hideSidebarButton {
+		display: inline-block;
+		margin-bottom: 10px;
+		padding: 8px 14px;
+		border: none;
+		background: none;
+		font-size: x-large;
+		cursor: pointer;
+	}
 
-    .sidebar {
-        position: fixed;
-        top: 0;
-        right: -105%;
-        width: 80%;
-        height: 100vh;
-        background-color: light-dark(#f5f5f5, #121212);
-        transition: right 0.3s ease-in-out;
-        z-index: 1000;
-        display: block;
-    }
+	.sidebar {
+		position: fixed;
+		top: 0;
+		right: -105%;
+		width: 80%;
+		height: 100vh;
+		background-color: light-dark(#f5f5f5, #121212);
+		transition: right 0.3s ease-in-out;
+		z-index: 1000;
+		display: block;
+	}
 
-    .sidebar.visible {
-        right: 0;
-        display: block;
-        transform: translateX(0);
-    }
+	.sidebar.visible {
+		right: 0;
+		display: block;
+		transform: translateX(0);
+	}
 
-    .sidebar-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 999;
-        display: none;
-    }
+	.sidebar-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		z-index: 999;
+		display: none;
+	}
 
-    .sidebar-content {
-        padding: 15px;
-        background: light-dark(#f5f5f5, #121212);
-    }
+	.sidebar-content {
+		padding: 15px;
+		background: light-dark(#f5f5f5, #121212);
+	}
 
-    .sidebar-section-body {
-        max-height: fit-content;
-    }
+	.sidebar-section-body {
+		max-height: fit-content;
+	}
 
-    .sidebar-overlay.visible {
-        display: block;
-        /* نمایش اورلی */
-    }
+	.sidebar-overlay.visible {
+		display: block;
+		/* نمایش اورلی */
+	}
 
-    .mobile-only {
-        display: inline-block;
-    }
+	.mobile-only {
+		display: inline-block;
+	}
 
-    .collapse-button {
-        display: inline-block;
-    }
+	.collapse-button {
+		display: inline-block;
+	}
 
-    .sidebar-resize-handle {
-        display: none;
-    }
+	.sidebar-resize-handle {
+		display: none;
+	}
 
-    .options.collapsed {
-        display: none;
-    }
+	.options.collapsed {
+		display: none;
+	}
 
-    #main-content {
-        margin-right: 0;
-        padding: 10px;
-        flex-direction: column;
-    }
+	#main-content {
+		margin-right: 0;
+		padding: 10px;
+		flex-direction: column;
+	}
 
-    .search-bar {
-        padding: 10px;
-    }
+	.search-bar {
+		padding: 10px;
+	}
 
-    .item-card {
-        padding: 8px;
-        width: 100%;
-        max-width: 100%;
-    }
+	.item-card {
+		padding: 8px;
+		width: 100%;
+		max-width: 100%;
+	}
 }
 </style>
 <div id="app">
-    <div id="sidebarOverlay" class="sidebar-overlay" :class="{ visible: sidebarVisible }" @click="hideSidebar">
-    </div>
-    <div id="sidebar" class="sidebar" :class="{ visible: sidebarVisible }" :style="{ width: sidebarWidth + 'px' }">
-        <div class="sidebar-resize-handle"></div>
-        <div class="sidebar-content">
-            <button @click="hideSidebar" id="hideSidebarButton" class="mobile-only">
-                <span class="material-symbols-rounded">
-                    close
-                </span>
-            </button>
-            <!-- بخش سال‌ها -->
-            <div class="sidebar-section" :class="getSectionClass('years')" :key="'years-section'">
-                <div class="sidebar-section-header" @click="toggleCollapse('years')">
-                    <span>{{ filteredYearLabel }}</span>
-                    <button class="collapse-button" :class="{ 'rotate-down': isCollapsed.years }">
-                        <span class="material-symbols-rounded">
-                            keyboard_arrow_up
-                        </span>
-                    </button>
-                </div>
-                <div class="sidebar-section-body" v-if="!isCollapsed.years">
-                    <div id="canvasContainer">
-                        <canvas id="yearChart" height="150"></canvas>
-                    </div>
-                    <div class="year-grid">
-                        <div v-for="[year, count] in filteredYearsInModal" :key="year"
-                            @click="selectYearFromModal(year)" @mouseenter="hoveredItem = year"
-                            @mouseleave="hoveredItem = null" :class="{ 'hovered': hoveredItem === year }"
-                            class="year-item">
-                            {{ year }} <span class="count">({{ count }})</span>
-                            <span v-if="selectedYear === year" class="remove-filter" @click.stop="removeYearFilter">
-                                <span class="material-symbols-rounded">
-                                    close
-                                </span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+	<div id="sidebarOverlay" class="sidebar-overlay" :class="{ visible: sidebarVisible }" @click="hideSidebar">
+	</div>
+	<div id="sidebar" class="sidebar" :class="{ visible: sidebarVisible }" :style="{ width: sidebarWidth + 'px' }">
+		<div class="sidebar-resize-handle"></div>
+		<div class="sidebar-content">
+			<button @click="hideSidebar" id="hideSidebarButton" class="mobile-only">
+				<span class="material-symbols-rounded">
+					close
+				</span>
+			</button>
+			<!-- بخش سال‌ها -->
+			<div class="sidebar-section" :class="getSectionClass('years')" :key="'years-section'">
+				<div class="sidebar-section-header" @click="toggleCollapse('years')">
+					<span>{{ filteredYearLabel }}</span>
+					<button class="collapse-button" :class="{ 'rotate-down': isCollapsed.years }">
+						<span class="material-symbols-rounded">
+							keyboard_arrow_up
+						</span>
+					</button>
+				</div>
+				<div class="sidebar-section-body" v-if="!isCollapsed.years">
+					<div id="canvasContainer">
+						<canvas id="yearChart" height="150"></canvas>
+					</div>
+					<div class="year-grid">
+						<div v-for="[year, count] in filteredYearsInModal" :key="year"
+							@click="selectYearFromModal(year)" @mouseenter="hoveredItem = year"
+							@mouseleave="hoveredItem = null" :class="{ 'hovered': hoveredItem === year }"
+							class="year-item">
+							{{ year }} <span class="count">({{ count }})</span>
+							<span v-if="selectedYear === year" class="remove-filter" @click.stop="removeYearFilter">
+								<span class="material-symbols-rounded">
+									close
+								</span>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            <div class="sidebar-section" :class="getSectionClass('designers')">
-                <div class="sidebar-section-header" @click="toggleCollapse('designers')">
-                    <span>{{ filteredDesignerLabel }}</span>
-                    <button class="collapse-button" :class="{ 'rotate-down': isCollapsed.designers }">
-                        <span class="material-symbols-rounded">
-                            keyboard_arrow_up
-                        </span>
-                    </button>
-                </div>
-                <div class="sidebar-section-body" v-if="!isCollapsed.designers">
-                    <div class="search-container">
-                        <input type="text" v-model="designerSearchQuery" placeholder="جستجوی طراح…" />
-                        <span v-if="designerSearchQuery" @click="clearDesignerSearchQuery" class="clearSearch">
-                            <span class="material-symbols-rounded">
-                                close
-                            </span>
-                        </span>
-                    </div>
-                    <div class="designer-grid">
-                        <div v-for="[designer, count] in filteredDesignersInModal" :key="designer"
-                            @click="selectDesignerFromModal(designer)" @mouseenter="hoveredItem = designer"
-                            @mouseleave="hoveredItem = null" :class="{ 'hovered': hoveredItem === designer }"
-                            class="designer-item">
-                            {{ designer }} <span class="count">({{ count }})</span>
-                            <span v-if="selectedDesigner === designer" class="remove-filter"
-                                @click.stop="removeDesignerFilter">×</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+			<div class="sidebar-section" :class="getSectionClass('designers')">
+				<div class="sidebar-section-header" @click="toggleCollapse('designers')">
+					<span>{{ filteredDesignerLabel }}</span>
+					<button class="collapse-button" :class="{ 'rotate-down': isCollapsed.designers }">
+						<span class="material-symbols-rounded">
+							keyboard_arrow_up
+						</span>
+					</button>
+				</div>
+				<div class="sidebar-section-body" v-if="!isCollapsed.designers">
+					<div class="search-container">
+						<input type="text" v-model="designerSearchQuery" placeholder="جستجوی طراح…" />
+						<span v-if="designerSearchQuery" @click="clearDesignerSearchQuery" class="clearSearch">
+							<span class="material-symbols-rounded">
+								close
+							</span>
+						</span>
+					</div>
+					<div class="designer-grid">
+						<div v-for="[designer, count] in filteredDesignersInModal" :key="designer"
+							@click="selectDesignerFromModal(designer)" @mouseenter="hoveredItem = designer"
+							@mouseleave="hoveredItem = null" :class="{ 'hovered': hoveredItem === designer }"
+							class="designer-item">
+							{{ designer }} <span class="count">({{ count }})</span>
+							<span v-if="selectedDesigner === designer" class="remove-filter"
+								@click.stop="removeDesignerFilter">×</span>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            <div class="sidebar-section" :class="getSectionClass('directors')">
-                <div class="sidebar-section-header" @click="toggleCollapse('directors')">
-                    <span>{{ filteredDirectorLabel }}</span>
-                    <button class="collapse-button" :class="{ 'rotate-down': isCollapsed.directors }">
-                        <span class="material-symbols-rounded">
-                            keyboard_arrow_up
-                        </span>
-                    </button>
-                </div>
-                <div class="sidebar-section-body" v-if="!isCollapsed.directors">
-                    <div class="search-container">
-                        <input type="text" v-model="directorSearchQuery" placeholder="جستجوی کارگردان…" />
-                        <span v-if="directorSearchQuery" @click="clearDirectorSearchQuery" class="clearSearch">
-                            <span class="material-symbols-rounded">
-                                close
-                            </span>
-                        </span>
-                    </div>
-                    <div class="director-grid">
-                        <div v-for="[director, count] in filteredDirectorsInModal" :key="director"
-                            @click="selectDirectorFromModal(director)" @mouseenter="hoveredItem = director"
-                            @mouseleave="hoveredItem = null" :class="{ 'hovered': hoveredItem === director }"
-                            class="director-item">
-                            {{ director }} <span class="count">({{ count }})</span>
-                            <span v-if="selectedDirector === director" class="remove-filter"
-                                @click.stop="removeDirectorFilter">×</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+			<div class="sidebar-section" :class="getSectionClass('directors')">
+				<div class="sidebar-section-header" @click="toggleCollapse('directors')">
+					<span>{{ filteredDirectorLabel }}</span>
+					<button class="collapse-button" :class="{ 'rotate-down': isCollapsed.directors }">
+						<span class="material-symbols-rounded">
+							keyboard_arrow_up
+						</span>
+					</button>
+				</div>
+				<div class="sidebar-section-body" v-if="!isCollapsed.directors">
+					<div class="search-container">
+						<input type="text" v-model="directorSearchQuery" placeholder="جستجوی کارگردان…" />
+						<span v-if="directorSearchQuery" @click="clearDirectorSearchQuery" class="clearSearch">
+							<span class="material-symbols-rounded">
+								close
+							</span>
+						</span>
+					</div>
+					<div class="director-grid">
+						<div v-for="[director, count] in filteredDirectorsInModal" :key="director"
+							@click="selectDirectorFromModal(director)" @mouseenter="hoveredItem = director"
+							@mouseleave="hoveredItem = null" :class="{ 'hovered': hoveredItem === director }"
+							class="director-item">
+							{{ director }} <span class="count">({{ count }})</span>
+							<span v-if="selectedDirector === director" class="remove-filter"
+								@click.stop="removeDirectorFilter">×</span>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            <div class="sidebar-section" :class="getSectionClass('letters')">
-                <div class="sidebar-section-header" @click="toggleCollapse('letters')">
-                    <span>{{ filteredLetterLabel }}</span>
-                    <button class="collapse-button" :class="{ 'rotate-down': isCollapsed.letters }">
-                        <span class="material-symbols-rounded">
-                            keyboard_arrow_up
-                        </span>
-                    </button>
-                </div>
-                <div class="sidebar-section-body" v-if="!isCollapsed.letters">
-                    <div class="letter-grid">
-                        <div v-for="[letter, count] in filteredLettersInModal" :key="letter"
-                            @click="selectLetterFromModal(letter)" @mouseenter="hoveredItem = letter"
-                            @mouseleave="hoveredItem = null" :class="{ 'hovered': hoveredItem === letter }"
-                            class="letter-item">
-                            {{ letter }} <span class="count">({{ count }})</span>
-                            <span v-if="selectedLetter === letter" class="remove-filter"
-                                @click.stop="removeLetterFilter">×</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+			<div class="sidebar-section" :class="getSectionClass('letters')">
+				<div class="sidebar-section-header" @click="toggleCollapse('letters')">
+					<span>{{ filteredLetterLabel }}</span>
+					<button class="collapse-button" :class="{ 'rotate-down': isCollapsed.letters }">
+						<span class="material-symbols-rounded">
+							keyboard_arrow_up
+						</span>
+					</button>
+				</div>
+				<div class="sidebar-section-body" v-if="!isCollapsed.letters">
+					<div class="letter-grid">
+						<div v-for="[letter, count] in filteredLettersInModal" :key="letter"
+							@click="selectLetterFromModal(letter)" @mouseenter="hoveredItem = letter"
+							@mouseleave="hoveredItem = null" :class="{ 'hovered': hoveredItem === letter }"
+							class="letter-item">
+							{{ letter }} <span class="count">({{ count }})</span>
+							<span v-if="selectedLetter === letter" class="remove-filter"
+								@click.stop="removeLetterFilter">×</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <div v-if="lightboxVisible" class="lightbox" @click="closeLightbox">
-        <img :src="lightboxImage" alt="Lightbox Image" />
-        <button class="close-lightbox" @click.stop="closeLightbox">× بستن</button>
-    </div>
+	<div v-if="lightboxVisible" class="lightbox" @click="closeLightbox">
+		<img :src="lightboxImage" alt="Lightbox Image" />
+		<button class="close-lightbox" @click.stop="closeLightbox">× بستن</button>
+	</div>
 
-    <div id="main-content">
-        <button onclick="topFunction()" id="toTop">
-            <span class="material-symbols-rounded">
-                north
-            </span>
-        </button>
+	<div id="main-content">
+		<button onclick="topFunction()" id="toTop">
+			<span class="material-symbols-rounded">
+				north
+			</span>
+		</button>
 
-        <div id="searchBar" class="search-bar">
-            <div class="search-container">
-                <button @click="toggleSidebar" id="toggleSidebarButton" class="mobile-only"
-                    style="background: none; border: none; cursor: pointer; font-size: 24px;">
-                    <span class="material-symbols-rounded">
-                        menu
-                    </span>
-                </button>
-                <div style="position: relative; width: 100%;">
-                    <input type="text" v-model="searchTerm" placeholder="جستجو…" />
-                    <span v-if="searchTerm" @click="clearSearchTerm" class="clearSearch">×</span>
-                </div>
-                <button @click="resetFilters" id="resetSearch">
-                    <span class="material-symbols-rounded">
-                        refresh
-                    </span>
-                </button>
-                <button @click="toggleOptions" id="collapseButton" class="collapse-button mobile-only"
-                    :class="collapseIconClass">
-                    <span class="material-symbols-rounded">
-                        keyboard_arrow_up
-                    </span>
-                </button>
-            </div>
-            <div class="options" :class="{ 'collapsed': isOptionsCollapsed }">
-                <div class="toggle-switch" @click="togglePosterMode" :data-mode="posterMode ? 'poster' : 'logo'">
-                    <span :class="{ active: !posterMode }">پوستر</span>
-                    <span :class="{ active: posterMode }">لوگو</span>
-                </div>
-                <div class="similar-chars-toggle">
-                    <label for="similarCharsSwitch">
-                        <div class="tooltip">حروف مشابه
-                            <span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود: مانند س،
-                                ش</span>
-                        </div>
-                    </label>
-                    <label class="switch">
-                        <input id="similarCharsSwitch" type="checkbox" v-model="combineSimilarChars">
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-                <div class="similar-chars-toggle" v-if="posterMode">
-                    <label for="pixelatedSwitch">
-                        <div class="tooltip">سانسور
-                            <span class="tooltiptext">مخفی کردن تصاویری که ممکن است نامناسب باشند</span>
-                        </div>
-                    </label>
-                    <label class="switch">
-                        <input id="pixelatedSwitch" type="checkbox" v-model="pixelatedEffect">
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-                <div class="similar-chars-toggle" v-else>
-                    <label for="pixelatedSwitch" style="opacity: 0.5;">
-                        <div class="tooltip">سانسور</div>
-                    </label>
-                    <label class="switch" style="opacity: 0.5;">
-                        <input id="pixelatedSwitch" type="checkbox" v-model="pixelatedEffect" disabled>
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-                <div class="sort-order-container">
-                    <label>ترتیب:</label>
-                    <div class="triple-toggle-switch">
-                        <div class="toggle-option" :class="{ active: sortOrder === 'alphabetical' }"
-                            @click="sortOrder = 'alphabetical'">
-                            الفبایی
-                        </div>
-                        <div class="toggle-option" :class="{ active: sortOrder === 'year' }"
-                            @click="sortOrder = 'year'">
-                            سال
-                        </div>
-                        <div class="toggle-option" :class="{ active: sortOrder === 'random' }"
-                            @click="sortOrder = 'random'">
-                            تصادفی
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div v-if="filteredItems.length > 0" style="text-align: center; padding-bottom: .5em;">
-                {{ filteredItems.length.toLocaleString('fa') }} از {{ items.length.toLocaleString('fa') }} پوستر ({{
-                uniqueFilmCount.toLocaleString('fa') }} فیلم)
-            </div>
-        </div>
-        <div v-if="filteredItems.length > 0" class="results-grid">
-            <div class="item-card"
-                v-for="(item, index) in (isShowMore ? filteredItems : filteredItems.slice(0, 30))" :key="index">
-                <div class="image-container">
-                    <div @click="handleImageClick(item)" class="clickable-image">
-                        <img :src="getImageUrl(item)" :key="getImageUrl(item)" :alt="item.filmLabel"
-                            class="item-image"
-                            :class="{ pixelated: pixelatedEffect && !item.logo && item.isNsfw && posterMode }" />
-                    </div>
-                    <button class="download-btn" @click.stop="openDownloadLink(item)">
-                        <span class="material-symbols-rounded">
-                            download
-                        </span>
-                    </button>
-                </div>
+		<div id="searchBar" class="search-bar">
+			<div class="search-container">
+				<button @click="toggleSidebar" id="toggleSidebarButton" class="mobile-only"
+					style="background: none; border: none; cursor: pointer; font-size: 24px;">
+					<span class="material-symbols-rounded">
+						menu
+					</span>
+				</button>
+				<div style="position: relative; width: 100%;">
+					<input type="text" v-model="searchTerm" placeholder="جستجو…" />
+					<span v-if="searchTerm" @click="clearSearchTerm" class="clearSearch">×</span>
+				</div>
+				<button @click="resetFilters" id="resetSearch">
+					<span class="material-symbols-rounded">
+						refresh
+					</span>
+				</button>
+				<button @click="toggleOptions" id="collapseButton" class="collapse-button mobile-only"
+					:class="collapseIconClass">
+					<span class="material-symbols-rounded">
+						keyboard_arrow_up
+					</span>
+				</button>
+			</div>
+			<div class="options" :class="{ 'collapsed': isOptionsCollapsed }">
+				<div class="toggle-switch" @click="togglePosterMode" :data-mode="posterMode ? 'poster' : 'logo'">
+					<span :class="{ active: !posterMode }">پوستر</span>
+					<span :class="{ active: posterMode }">لوگو</span>
+				</div>
+				<div class="similar-chars-toggle">
+					<label for="similarCharsSwitch">
+						<div class="tooltip">حروف مشابه
+							<span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود: مانند س،
+								ش</span>
+						</div>
+					</label>
+					<label class="switch">
+						<input id="similarCharsSwitch" type="checkbox" v-model="combineSimilarChars">
+						<span class="slider round"></span>
+					</label>
+				</div>
+				<div class="similar-chars-toggle" v-if="posterMode">
+					<label for="pixelatedSwitch">
+						<div class="tooltip">سانسور
+							<span class="tooltiptext">مخفی کردن تصاویری که ممکن است نامناسب باشند</span>
+						</div>
+					</label>
+					<label class="switch">
+						<input id="pixelatedSwitch" type="checkbox" v-model="pixelatedEffect">
+						<span class="slider round"></span>
+					</label>
+				</div>
+				<div class="similar-chars-toggle" v-else>
+					<label for="pixelatedSwitch" style="opacity: 0.5;">
+						<div class="tooltip">سانسور</div>
+					</label>
+					<label class="switch" style="opacity: 0.5;">
+						<input id="pixelatedSwitch" type="checkbox" v-model="pixelatedEffect" disabled>
+						<span class="slider round"></span>
+					</label>
+				</div>
+				<div class="sort-order-container">
+					<label>ترتیب:</label>
+					<div class="triple-toggle-switch">
+						<div class="toggle-option" :class="{ active: sortOrder === 'alphabetical' }"
+							@click="sortOrder = 'alphabetical'">
+							الفبایی
+						</div>
+						<div class="toggle-option" :class="{ active: sortOrder === 'year' }"
+							@click="sortOrder = 'year'">
+							سال
+						</div>
+						<div class="toggle-option" :class="{ active: sortOrder === 'random' }"
+							@click="sortOrder = 'random'">
+							تصادفی
+						</div>
+					</div>
+				</div>
+			</div>
+			<div v-if="filteredItems.length > 0" style="text-align: center; padding-bottom: .5em;">
+				{{ filteredItems.length.toLocaleString('fa') }} از {{ items.length.toLocaleString('fa') }} پوستر ({{
+				uniqueFilmCount.toLocaleString('fa') }} فیلم)
+			</div>
+		</div>
+		<div v-if="filteredItems.length > 0" class="results-grid">
+			<div class="item-card" v-for="(item, index) in (isShowMore ? filteredItems : filteredItems.slice(0, 30))"
+				:key="index">
+				<div class="image-container">
+					<div @click="handleImageClick(item)" class="clickable-image">
+						<img :src="getImageUrl(item)" :key="getImageUrl(item)" :alt="item.filmLabel" class="item-image"
+							:class="{ pixelated: pixelatedEffect && !item.logo && item.isNsfw && posterMode }" />
+					</div>
+					<button class="download-btn" @click.stop="openDownloadLink(item)">
+						<span class="material-symbols-rounded">
+							download
+						</span>
+					</button>
+				</div>
 
-                <div class="item-title">{{ getItemTitleWithYear(item) }}</div>
-                <div v-if="item.designer && item.designerLabel" class="item-designer">
-                    طراح: <a href="#" @click.prevent="selectDesigner(item.designerLabel)">{{ item.designerLabel
-                        }}</a> (<a :href="'https://www.wikidata.org/wiki/' + item.designer"
-                        target="_blank">Q</a><template v-if="item.designerFaWikipediaLink">&nbsp;<a
-                            :href="'https://fa.wikipedia.org/wiki/' + item.designerFaWikipediaLink.replaceAll(' ', '_')"
-                            target="_blank">W</a></template>)
-                </div>
-                <div class="item-links">
-                    <a v-if="item.imdbID" :href="'https://www.imdb.com/title/' + item.imdbID" target="_blank">T</a>
-                    <a v-if="item.film" :href="'https://www.wikidata.org/wiki/' + item.film" target="_blank">Q</a>
-                    <a v-if="item.faWikipediaLink"
-                        :href="'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_')"
-                        target="_blank">W</a>
-                </div>
-            </div>
-        </div>
-        <p style="text-align: center" v-else>نتیجه‌ای برای نمایش وجود ندارد.</p>
-        <div v-if="!isShowMore && filteredItems.length > 30" style="text-align: center; padding-top: 1em;">
-            <button @click="showMore">نمایش بیشتر</button>
-        </div>
-    </div>
+				<div class="item-title">{{ getItemTitleWithYear(item) }}</div>
+				<div v-if="item.designer && item.designerLabel" class="item-designer">
+					طراح: <a href="#" @click.prevent="selectDesigner(item.designerLabel)">{{ item.designerLabel
+						}}</a> (<a :href="'https://www.wikidata.org/wiki/' + item.designer"
+						target="_blank">Q</a><template v-if="item.designerFaWikipediaLink">&nbsp;<a
+							:href="'https://fa.wikipedia.org/wiki/' + item.designerFaWikipediaLink.replaceAll(' ', '_')"
+							target="_blank">W</a></template>)
+				</div>
+				<div class="item-links">
+					<a v-if="item.imdbID" :href="'https://www.imdb.com/title/' + item.imdbID" target="_blank">T</a>
+					<a v-if="item.film" :href="'https://www.wikidata.org/wiki/' + item.film" target="_blank">Q</a>
+					<a v-if="item.faWikipediaLink"
+						:href="'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_')"
+						target="_blank">W</a>
+				</div>
+			</div>
+		</div>
+		<p style="text-align: center" v-else>نتیجه‌ای برای نمایش وجود ندارد.</p>
+		<div v-if="!isShowMore && filteredItems.length > 30" style="text-align: center; padding-top: 1em;">
+			<button @click="showMore">نمایش بیشتر</button>
+		</div>
+	</div>
 </div>
 
 <script>
 let toTop;
 window.onscroll = () => {
-    if (!toTop) toTop = document.getElementById("toTop");
-    toTop.style.bottom = document.documentElement.scrollTop > 20 ? '20px' : '-100px';
+	if (!toTop) toTop = document.getElementById("toTop");
+	toTop.style.bottom = document.documentElement.scrollTop > 20 ? '20px' : '-100px';
 }
 
 function topFunction() {
-    document.documentElement.scrollTop = 0;
+	document.documentElement.scrollTop = 0;
 }
 
 let lastScrollTop = 0;
 let yearChart = null;
 
 window.addEventListener("scroll", () => {
-    const searchBar = document.getElementById("searchBar");
-    const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+	const searchBar = document.getElementById("searchBar");
+	const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-    if (currentScrollTop > lastScrollTop) {
-        searchBar.classList.add("hidden");
-    } else {
-        searchBar.classList.remove("hidden");
-    }
+	if (currentScrollTop > lastScrollTop) {
+		searchBar.classList.add("hidden");
+	} else {
+		searchBar.classList.remove("hidden");
+	}
 
-    lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+	lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
 });
 
 const { createApp, ref, computed, watch, onMounted, nextTick } = Vue;
 
 Object.groupBy = function (array, keyGetter) {
-    return array.reduce((result, item) => {
-        const key = keyGetter(item);
-        if (!result[key]) {
-            result[key] = [];
-        }
-        result[key].push(item);
-        return result;
-    }, {});
+	return array.reduce((result, item) => {
+		const key = keyGetter(item);
+		if (!result[key]) {
+			result[key] = [];
+		}
+		result[key].push(item);
+		return result;
+	}, {});
 };
 
 async function getAllItems() {
-    const data = await fetch('db.json').then(x => x.json());
-    return Object.values(data.films).flatMap(film => {
-        return film.posters.map((poster, i) => {
-            const item = {};
-            item.film = film.id;
-            item.filmLabel = film.labels.fa;
-            item.aliases = film.aliases?.fa?.join(',') ?? '';
-            item.date = film.date
-                .map(x => x.replace(/^\+/, '')
-                    .replace('-01-01T00:00:00Z', '-03-30T00:00:00Z')
-                    .replace('-00-00T00:00:00Z', '-03-30T00:00:00Z')
-                    .replace('-00T', '-01T')
-                )
-                .sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0];
-            item.poster = poster.image;
-            item.isNsfw = poster.characteristics?.includes('Q2716583') ?? false;
-            if (poster.designers?.length ?? 0) {
-                item.designer = poster.designers[0];
-                item.characteristics = poster.characteristics;
-                item.designerLabel = data.secondary[poster.designers[0]].labels.fa;
-                const fawiki = data.secondary[poster.designers[0]].sitelinks.fawiki;
-                if (fawiki) item.designerFaWikipediaLink = fawiki;
-            }
-            if (film.directors.length) {
-                item.director = film.directors[0];
-                item.directorLabel = data.secondary[film.directors[0]].labels.fa;
-            }
-            if (film.imdb.length) {
-                item.imdbID = film.imdb[0];
-            }
-            item.faWikipediaLink = film.sitelinks.fawiki;
-            if (film.logos.length > i) {
-                item.logo = film.logos[i].image;
-            }
-            return item;
-        });
-    });
+	const data = await fetch('db.json').then(x => x.json());
+	return Object.values(data.films).flatMap(film => {
+		return film.posters.map((poster, i) => {
+			const item = {};
+			item.film = film.id;
+			item.filmLabel = film.labels.fa;
+			item.aliases = film.aliases?.fa?.join(',') ?? '';
+			item.date = film.date
+				.map(x => x.replace(/^\+/, '')
+					.replace('-01-01T00:00:00Z', '-03-30T00:00:00Z')
+					.replace('-00-00T00:00:00Z', '-03-30T00:00:00Z')
+					.replace('-00T', '-01T')
+				)
+				.sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0];
+			item.poster = poster.image;
+			item.isNsfw = poster.characteristics?.includes('Q2716583') ?? false;
+			if (poster.designers?.length ?? 0) {
+				item.designer = poster.designers[0];
+				item.characteristics = poster.characteristics;
+				item.designerLabel = data.secondary[poster.designers[0]].labels.fa;
+				const fawiki = data.secondary[poster.designers[0]].sitelinks.fawiki;
+				if (fawiki) item.designerFaWikipediaLink = fawiki;
+			}
+			if (film.directors.length) {
+				item.director = film.directors[0];
+				item.directorLabel = data.secondary[film.directors[0]].labels.fa;
+			}
+			if (film.imdb.length) {
+				item.imdbID = film.imdb[0];
+			}
+			item.faWikipediaLink = film.sitelinks.fawiki;
+			if (film.logos.length > i) {
+				item.logo = film.logos[i].image;
+			}
+			return item;
+		});
+	});
 }
 
 createApp({
-    setup() {
-        const darkMode = ref(false);
-        const toggleDarkMode = () => {
-            darkMode.value = !darkMode.value;
-        };
-        const isShowMore = ref(false);
-        const showMore = () => {
-            isShowMore.value = true;
-        };
-
-        const sortOrder = ref('random');
-        const searchTerm = ref('');
-        const combineSimilarChars = ref(false);
-        const posterMode = ref(true);
-        const selectedYear = ref('');
-        const designerQuery = ref("");
-        const selectedDesigner = ref('');
-        const selectedDirector = ref('');
-        const isDesignerDropdownOpen = ref(false);
-        const topDesigners = computed(() => availableDesigners.value.slice(0, 10));
-        const selectedLetter = ref('');
-        const isOptionsCollapsed = ref(false);
-        const isDesignerModalOpen = ref(false);
-        const designerSearchQuery = ref('');
-        const modalContent = ref(null);
-
-        const filteredDesignersInDropdown = computed(() => {
-            if (!designerQuery.value) {
-                return availableDesigners.value;
-            }
-            return availableDesigners.value.filter(([designer]) =>
-                designer.includes(designerQuery.value)
-            );
-        });
-
-        const openDesignerModal = () => {
-            isDesignerModalOpen.value = true;
-            document.addEventListener('click', handleClickOutside);
-        };
-
-        const closeDesignerModal = () => {
-            isDesignerModalOpen.value = false;
-            document.removeEventListener('click', handleClickOutside);
-        };
-
-        const handleClickOutside = (event) => {
-            if (modalContent.value && !modalContent.value.contains(event.target)) {
-                closeDesignerModal();
-            }
-        };
-
-        const isCollapsed = ref({
-            designers: false,
-            directors: true,
-            years: false,
-            letters: true
-        });
-
-        const getSectionClass = (section) => {
-            return isCollapsed.value[section] ? 'collapsed' : 'expanded';
-        };
-
-        const selectDirectorFromModal = (director) => {
-            selectedDirector.value = director;
-        };
-
-        const selectYearFromModal = (year) => {
-            selectedYear.value = year;
-        };
-
-        const selectLetterFromModal = (letter) => {
-            selectedLetter.value = letter;
-        };
-
-        const togglePosterMode = () => {
-            posterMode.value = !posterMode.value;
-        };
-
-        const toggleOptions = () => {
-            isOptionsCollapsed.value = !isOptionsCollapsed.value;
-        };
-
-        const collapseIconClass = computed(() => {
-            return isOptionsCollapsed.value ? 'rotate-down' : 'rotate-up';
-        });
-
-        const designerSuggestions = computed(() => {
-            if (!designerQuery.value) {
-                return topDesigners.value;
-            }
-            return availableDesigners.value.filter(([designer]) =>
-                designer.includes(designerQuery.value)
-            );
-        });
-
-        function selectDesigner(designer) {
-            selectedDesigner.value = designer;
-            designerQuery.value = designer;
-            isDesignerDropdownOpen.value = false;
-            applyFilters();
-        }
-
-        function applyFilters() {
-            results.value = items.value.filter(item => {
-                let matchesDesigner = true;
-                if (selectedDesigner.value) {
-                    matchesDesigner = item.designerLabel === selectedDesigner.value;
-                }
-                return matchesDesigner;
-            });
-        }
-
-        function resetFilters() {
-            searchTerm.value = '';
-            combineSimilarChars.value = false;
-            sortOrder.value = 'random';
-            selectedYear.value = '';
-            selectedDesigner.value = '';
-            selectedDirector.value = '';
-            selectedLetter.value = '';
-        }
-
-        const items = ref([]);
-        getAllItems().then(result => items.value = result);
-
-        const similarCharsMapping = {
-            'آ': '[آاأإ]', 'ا': '[آاأإ]', 'أ': '[آاأإ]', 'إ': '[آاأإ]', 'ط': '[طظ]', 'ظ': '[طظ]', 'ب': '[بپتثنی]', 'پ': '[بپتثنی]',
-            'ت': '[بپتثنی]', 'ث': '[بپتثنی]', 'ن': '[بپتثنی]', 'ی': '[بپتثنی]', 'ج': '[جچحخ]',
-            'چ': '[جچحخ]', 'ح': '[جچحخ]', 'خ': '[جچحخ]', 'د': '[دذ]',
-            'ذ': '[دذ]', 'ر': '[رزژ]', 'ز': '[رزژ]', 'ژ': '[رزژ]', 'س': '[سش]',
-            'ش': '[سش]', 'ص': '[صض]', 'ض': '[صض]', 'ع': '[عغ]',
-            'غ': '[عغ]', 'ف': '[فق]', 'ق': '[فق]', 'ک': '[کگ]',
-            'گ': '[کگ]'
-        };
-
-        const persianAlphabet = [
-            'آ', 'ا', 'ب', 'پ', 'ت', 'ث', 'ج', 'چ', 'ح', 'خ', 'د', 'ذ', 'ر', 'ز', 'ژ', 'س', 'ش', 'ص', 'ض', 'ط', 'ظ', 'ع', 'غ', 'ف', 'ق', 'ک', 'گ', 'ل', 'م', 'ن', 'و', 'ه', 'ی'
-        ];
-
-        const toPersianYear = date => {
-            const year = new Date(date).toLocaleDateString('fa').split('/')[0];
-            return year === 'Invalid Date' ? 'ناموجود' : year;
-        };
-
-        const availableYears = computed(() => {
-            const groups = Object.groupBy(items.value, item => toPersianYear(item.date));
-            return Object.keys(groups).sort().map(year => [year, groups[year].length.toLocaleString('fa')]);
-        });
-
-        const availableDesigners = computed(() => {
-            const groups = Object.groupBy(items.value.filter(x => x.designerLabel), item => item.designerLabel);
-            return Object.keys(groups)
-                .map(designer => [designer, groups[designer].length])
-                .sort((a, b) => b[1] - a[1])
-                .map(([designer, count]) => [designer, count.toLocaleString('fa')]);
-        });
-
-        const availableDirectors = computed(() => {
-            const groups = Object.groupBy(items.value.filter(x => x.directorLabel), item => item.directorLabel);
-            return Object.keys(groups)
-                .map(director => [director, groups[director].length])
-                .sort((a, b) => b[1] - a[1])
-                .map(([director, count]) => [director, count.toLocaleString('fa')]);
-        });
-
-        const getItemTitleWithYear = item => {
-            return item.filmLabel + (item.date ? ` (${toPersianYear(item.date)})` : '');
-        };
-
-        const letterCounts = computed(() => {
-            const counts = persianAlphabet.reduce((acc, letter) => {
-                acc[letter] = items.value.filter(item => item.filmLabel.startsWith(letter)).length;
-                return acc;
-            }, {});
-            return counts;
-        });
-
-        const filteredItems = computed(() => {
-            let results = items.value;
-
-            if (searchTerm.value.length) {
-                const modifiedSearchTerm = searchTerm.value
-                    .split('')
-                    .map(char => (combineSimilarChars.value ? (similarCharsMapping[char] || char) : char))
-                    .join('');
-                const regex = new RegExp(modifiedSearchTerm, 'i');
-                results = results.filter(item => regex.test(item.filmLabel) || regex.test(item.aliases || ''));
-            }
-
-            if (selectedYear.value) {
-                results = results.filter(item => toPersianYear(item.date) === selectedYear.value);
-            }
-
-            if (selectedDesigner.value) {
-                results = results.filter(item => item.designerLabel === selectedDesigner.value);
-            }
-
-            if (selectedDirector.value) {
-                results = results.filter(item => item.directorLabel === selectedDirector.value);
-            }
-
-            if (selectedLetter.value) {
-                results = results.filter(item => item.filmLabel.startsWith(selectedLetter.value));
-            }
-
-            if (sortOrder.value === 'alphabetical') {
-                results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, 'fa'));
-            } else if (sortOrder.value === 'year') {
-                results = results.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-            } else if (sortOrder.value === 'random') {
-                results = results.slice().sort(() => Math.random() - 0.5);
-            }
-
-            return results;
-        });
-
-        watch(designerQuery, (newValue) => {
-            if (!newValue) {
-                selectedDesigner.value = '';
-            }
-        });
-
-        const filteredYears = computed(() => {
-            const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
-            return Object.keys(groups)
-                .sort()
-                .map(year => [year, groups[year].length.toLocaleString('fa')]);
-        });
-
-        const filteredDesigners = computed(() => {
-            const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
-            return Object.keys(groups)
-                .map(designer => [designer, groups[designer].length])
-                .sort((a, b) => b[1] - a[1])
-                .map(([designer, count]) => [designer, count.toLocaleString('fa')]);
-        });
-
-        const filteredDirectors = computed(() => {
-            const groups = Object.groupBy(filteredItems.value.filter(x => x.directorLabel), item => item.directorLabel);
-            return Object.keys(groups)
-                .map(director => [director, groups[director].length])
-                .sort((a, b) => b[1] - a[1])
-                .map(([director, count]) => [director, count.toLocaleString('fa')]);
-        });
-
-        const filteredDesignersInModal = computed(() => {
-            const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
-            const designers = Object.keys(groups)
-                .map(designer => [designer, groups[designer].length])
-                .sort((a, b) => b[1] - a[1])
-                .map(([designer, count]) => [designer, count.toLocaleString('fa')]);
-
-            if (!designerSearchQuery.value) {
-                return designers;
-            }
-            return designers.filter(([designer]) =>
-                designer.includes(designerSearchQuery.value)
-            );
-        });
-
-        const selectDesignerFromModal = (designer) => {
-            selectedDesigner.value = designer;
-            designerQuery.value = designer; // مقدار فیلد جستجو را تنظیم کن
-            closeDesignerModal();
-        };
-
-        const filteredYearsInModal = computed(() => {
-            const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
-            return Object.keys(groups)
-                .sort()
-                .map(year => [year, groups[year].length.toLocaleString('fa')]);
-        });
-
-        const minYear = ref(1309);
-        const maxYear = ref(1403);
-
-        const selectedYearSlider = ref(minYear.value);
-
-        const updateSelectedYear = () => {
-            selectedYear.value = selectedYearSlider.value.toString();
-        };
-
-        watch(selectedYear, (newValue) => {
-            if (newValue) {
-                selectedYearSlider.value = parseInt(newValue);
-            }
-        });
-
-        watch(filteredItems, (newValue) => {
-            if (newValue.length > 100) {
-                isShowMore.value = false;
-            }
-        });
-
-        const directorSearchQuery = ref('');
-
-        const filteredDirectorsInModal = computed(() => {
-            const groups = Object.groupBy(filteredItems.value.filter(x => x.directorLabel), item => item.directorLabel);
-            const directors = Object.keys(groups)
-                .map(director => [director, groups[director].length])
-                .sort((a, b) => b[1] - a[1])
-                .map(([director, count]) => [director, count.toLocaleString('fa')]);
-
-            if (!directorSearchQuery.value) {
-                return directors;
-            }
-            return directors.filter(([director]) =>
-                director.includes(directorSearchQuery.value)
-            );
-        });
-
-        const filteredLettersInModal = computed(() => {
-            const groups = Object.groupBy(filteredItems.value, item => item.filmLabel.charAt(0));
-
-            const letters = persianAlphabet
-                .filter(letter => groups[letter])
-                .map(letter => [letter, groups[letter].length.toLocaleString('fa')]);
-
-            return letters;
-        });
-
-        const filteredYearLabel = computed(() => {
-            return selectedYear.value ? `سال: ${selectedYear.value}` : 'سال‌ها';
-        });
-
-        const filteredDesignerLabel = computed(() => {
-            return selectedDesigner.value ? `طراح: ${selectedDesigner.value}` : 'طراحان';
-        });
-
-        const filteredDirectorLabel = computed(() => {
-            return selectedDirector.value ? `کارگردان: ${selectedDirector.value}` : 'کارگردان‌ها';
-        });
-
-        const filteredLetterLabel = computed(() => {
-            return selectedLetter.value ? `حرف اول: ${selectedLetter.value}` : 'حروف اول';
-        });
-
-        const uniqueFilmCount = computed(() => {
-            const uniqueFilms = new Set(filteredItems.value.map(item => item.film));
-            return uniqueFilms.size;
-        });
-
-        const sidebarWidth = ref(400);
-        const minSidebarWidth = ref(300);
-        const maxSidebarWidth = ref(600);
-
-        const startResize = (e) => {
-            e.preventDefault();
-            startX = e.clientX;
-            startWidth = sidebarWidth.value;
-            document.addEventListener('mousemove', resize);
-            document.addEventListener('mouseup', stopResize);
-        };
-
-        const resize = (e) => {
-            const newWidth = startWidth + (startX - e.clientX);
-            if (newWidth >= minSidebarWidth.value && newWidth <= maxSidebarWidth.value) {
-                sidebarWidth.value = newWidth;
-            }
-        };
-
-        const stopResize = () => {
-            document.removeEventListener('mousemove', resize);
-            document.removeEventListener('mouseup', stopResize);
-        };
-
-        onMounted(() => {
-            if (!isCollapsed.value.years) {
-                createYearChart();
-            }
-
-            const resizeHandle = document.querySelector('.sidebar-resize-handle');
-            if (resizeHandle) {
-                resizeHandle.addEventListener('mousedown', startResize);
-            } else {
-                console.log('عنصر دستگیره تغییر اندازه یافت نشد!');
-            }
-        });
-
-        const hoveredItem = ref(null);
-
-        const removeYearFilter = () => {
-            selectedYear.value = '';
-            hoveredItem.value = null;
-
-        };
-
-        const removeDesignerFilter = () => {
-            selectedDesigner.value = '';
-            hoveredItem.value = null;
-        };
-
-        const removeDirectorFilter = () => {
-            selectedDirector.value = '';
-            hoveredItem.value = null;
-        };
-
-        const removeLetterFilter = () => {
-            selectedLetter.value = '';
-            hoveredItem.value = null;
-        };
-
-        const sidebarVisible = ref(false);
-
-        const toggleSidebar = () => {
-            sidebarVisible.value = !sidebarVisible.value;
-        };
-
-        const hideSidebar = () => {
-            sidebarVisible.value = false;
-        };
-
-        const pixelatedEffect = ref(true);
-
-        const clearSearchTerm = () => {
-            searchTerm.value = '';
-        };
-
-        const clearDesignerSearchQuery = () => {
-            designerSearchQuery.value = '';
-        };
-
-        const clearDirectorSearchQuery = () => {
-            directorSearchQuery.value = '';
-        };
-
-
-        function convertPersianToEnglishNumbers(str) {
-            const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-            const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-            return str.split('').map(char => {
-                const index = persianNumbers.indexOf(char);
-                return index !== -1 ? englishNumbers[index] : char;
-            }).join('');
-        }
-
-        const yearChart = ref(null);
-
-        const createYearChart = () => {
-            const canvasContainer = document.getElementById('canvasContainer');
-            if (!canvasContainer) {
-                console.log('عنصر canvasContainer یافت نشد!');
-                return;
-            }
-
-            const ctx = document.getElementById('yearChart')?.getContext('2d');
-            if (!ctx) {
-                console.log('عنصر canvas برای نمودار یافت نشد!');
-                return;
-            }
-
-            if (yearChart.value) {
-                yearChart.value.destroy();
-            }
-
-
-            const years = availableYears.value.map(([year]) => year);
-            const counts = availableYears.value.map(([_, count]) => {
-                const englishCount = convertPersianToEnglishNumbers(count.replace(/,/g, ''));
-                return parseInt(englishCount, 10);
-            });
-
-            if (years.length === 0 || counts.length === 0) {
-                console.log('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
-                return;
-            }
-
-            const canvas = document.getElementById('yearChart');
-            canvas.height = 150;
-
-            yearChart.value = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: years,
-                    datasets: [{
-                        data: counts,
-                        backgroundColor: "rgba(128,128,128,0.5)",
-                        borderWidth: 0,
-                        hoverBackgroundColor: "rgba(180,120,120,0.8)"
-                    }]
-                },
-                options: {
-                    indexAxis: 'y',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        xAxes: [{
-                            beginAtZero: true,
-                            ticks: {
-                                reverse: true,
-                                display: false
-                            },
-                            gridLines: {
-                                display: false
-                            }
-                        }],
-                        yAxes: [{
-                            ticks: {
-                                display: false
-                            },
-                            gridLines: {
-                                display: false
-                            }
-                        }]
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            bodyFont: {
-                                family: 'system-ui'
-                            },
-                            titleFont: {
-                                family: 'system-ui'
-                            }
-                        },
-                        title: {
-                            display: false
-                        }
-                    },
-                }
-            });
-
-            canvas.onclick = e => {
-                const activePoints = yearChart.value.getElementAtEvent(e);
-                if (activePoints.length) {
-                    selectedYear.value = yearChart.value.data.labels[activePoints[0]._index];
-                }
-            }
-        };
-
-        watch(availableYears, (newYears) => {
-            if (!isCollapsed.value.years) {
-                createYearChart();
-            }
-        }, { immediate: true });
-
-        watch(() => isCollapsed.value.years, (newValue) => {
-            if (!newValue) {
-                createYearChart();
-            } else if (yearChart.value) {
-                yearChart.value.destroy();
-                yearChart.value = null;
-            }
-        });
-
-        onMounted(() => {
-            if (!isCollapsed.value.years) {
-                createYearChart();
-            }
-
-            const resizeHandle = document.querySelector('.sidebar-resize-handle');
-            if (resizeHandle) {
-                resizeHandle.addEventListener('mousedown', startResize);
-            } else {
-                console.log('عنصر دستگیره تغییر اندازه یافت نشد!');
-            }
-        });
-
-        watch(filteredYears, (newYears) => {
-            if (!yearChart.value) {
-                console.log('نمودار سال‌ها تعریف نشده است!');
-                return;
-            }
-
-            const years = newYears.map(([year]) => year);
-            const counts = newYears.map(([_, count]) => {
-                const englishCount = convertPersianToEnglishNumbers(count.replace(/,/g, ''));
-                return parseInt(englishCount, 10);
-            });
-
-            if (years.length === 0 || counts.length === 0) {
-                console.log('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
-                return;
-            }
-
-            yearChart.value.data.labels = years;
-            yearChart.value.data.datasets[0].data = counts;
-            yearChart.value.update();
-        });
-
-        const toggleCollapse = (section) => {
-            isCollapsed.value[section] = !isCollapsed.value[section];
-            if (section === 'years' && !isCollapsed.value[section]) {
-                Vue.nextTick(() => {
-                    createYearChart();
-                });
-            }
-        };
-
-        const lightboxVisible = ref(false);
-        const lightboxImage = ref('');
-
-        const openLightbox = (item) => {
-            console.log('Clicked element:', event.target);
-            console.log('Opening lightbox for item:', item);
-            lightboxImage.value = posterMode.value ? getPosterUrl(item.poster, 1200) : getPosterUrl(item.logo, 1200);
-            lightboxVisible.value = true;
-            console.log('Lightbox image:', lightboxImage.value);
-            console.log('Lightbox visible:', lightboxVisible.value);
-        };
-
-        const closeLightbox = () => {
-            lightboxVisible.value = false;
-        };
-
-        watch(lightboxVisible, (newValue) => {
-            if (newValue) {
-                document.addEventListener('click', handleClickOutsideLightbox);
-            } else {
-                document.removeEventListener('click', handleClickOutsideLightbox);
-            }
-        });
-
-        const handleClickOutsideLightbox = (event) => {
-            const lightbox = document.querySelector('.lightbox');
-            if (lightbox && !lightbox.contains(event.target)) {
-                closeLightbox();
-            }
-        };
-
-        const handleImageClick = (item) => {
-            console.log('Image clicked:', item);
-            event.stopPropagation(); // Prevent bubbling up the click event
-            openLightbox(item);
-        };
-
-        const openDownloadLink = (item) => {
-            const imageLink = 'http://commons.wikimedia.org/wiki/Special:FilePath/' + getImageLink(item)?.replaceAll(' ', '_');
-            if (typeof window !== 'undefined') { // بررسی وجود window در محیط مرورگر
-                window.open(imageLink, '_blank');
-            } else {
-                console.log('window is not defined. This function should run in a browser environment.');
-            }
-        };
-
-        const getPosterUrl = (filePath, width = 600) => {
-            if (!filePath) return 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=' + width;
-
-            const url = new URL('https://commons.wikimedia.org/w/thumb.php');
-            url.searchParams.append('f', decodeURIComponent(filePath.replace('http://commons.wikimedia.org/wiki/Special:FilePath/', '')));
-            url.searchParams.append('w', width.toString());
-            return url.toString();
-        };
-
-        const getLogoUrl = item => item.logo ? getPosterUrl(item.logo, 600) : 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=600';
-        const getImageUrl = (item) => {
-            return posterMode.value && !(item.isNsfw && pixelatedEffect.value && item.logo)
-                ? getPosterUrl(item.poster, 600) : getLogoUrl(item);
-        }
-        const getImageLink = item => posterMode.value ? item.poster : item.logo;
-
-        return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, minYear, maxYear, selectedYearSlider, updateSelectedYear, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar, sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm, lightboxVisible, lightboxImage, openLightbox, closeLightbox, openDownloadLink, createYearChart, handleImageClick, clearDesignerSearchQuery, clearDirectorSearchQuery };
-    }
+	setup() {
+		const darkMode = ref(false);
+		const toggleDarkMode = () => {
+			darkMode.value = !darkMode.value;
+		};
+		const isShowMore = ref(false);
+		const showMore = () => {
+			isShowMore.value = true;
+		};
+
+		const sortOrder = ref('random');
+		const searchTerm = ref('');
+		const combineSimilarChars = ref(false);
+		const posterMode = ref(true);
+		const selectedYear = ref('');
+		const designerQuery = ref("");
+		const selectedDesigner = ref('');
+		const selectedDirector = ref('');
+		const isDesignerDropdownOpen = ref(false);
+		const topDesigners = computed(() => availableDesigners.value.slice(0, 10));
+		const selectedLetter = ref('');
+		const isOptionsCollapsed = ref(false);
+		const isDesignerModalOpen = ref(false);
+		const designerSearchQuery = ref('');
+		const modalContent = ref(null);
+
+		const filteredDesignersInDropdown = computed(() => {
+			if (!designerQuery.value) {
+				return availableDesigners.value;
+			}
+			return availableDesigners.value.filter(([designer]) =>
+				designer.includes(designerQuery.value)
+			);
+		});
+
+		const openDesignerModal = () => {
+			isDesignerModalOpen.value = true;
+			document.addEventListener('click', handleClickOutside);
+		};
+
+		const closeDesignerModal = () => {
+			isDesignerModalOpen.value = false;
+			document.removeEventListener('click', handleClickOutside);
+		};
+
+		const handleClickOutside = (event) => {
+			if (modalContent.value && !modalContent.value.contains(event.target)) {
+				closeDesignerModal();
+			}
+		};
+
+		const isCollapsed = ref({
+			designers: false,
+			directors: true,
+			years: false,
+			letters: true
+		});
+
+		const getSectionClass = (section) => {
+			return isCollapsed.value[section] ? 'collapsed' : 'expanded';
+		};
+
+		const selectDirectorFromModal = (director) => {
+			selectedDirector.value = director;
+		};
+
+		const selectYearFromModal = (year) => {
+			selectedYear.value = year;
+		};
+
+		const selectLetterFromModal = (letter) => {
+			selectedLetter.value = letter;
+		};
+
+		const togglePosterMode = () => {
+			posterMode.value = !posterMode.value;
+		};
+
+		const toggleOptions = () => {
+			isOptionsCollapsed.value = !isOptionsCollapsed.value;
+		};
+
+		const collapseIconClass = computed(() => {
+			return isOptionsCollapsed.value ? 'rotate-down' : 'rotate-up';
+		});
+
+		const designerSuggestions = computed(() => {
+			if (!designerQuery.value) {
+				return topDesigners.value;
+			}
+			return availableDesigners.value.filter(([designer]) =>
+				designer.includes(designerQuery.value)
+			);
+		});
+
+		function selectDesigner(designer) {
+			selectedDesigner.value = designer;
+			designerQuery.value = designer;
+			isDesignerDropdownOpen.value = false;
+			applyFilters();
+		}
+
+		function applyFilters() {
+			results.value = items.value.filter(item => {
+				let matchesDesigner = true;
+				if (selectedDesigner.value) {
+					matchesDesigner = item.designerLabel === selectedDesigner.value;
+				}
+				return matchesDesigner;
+			});
+		}
+
+		function resetFilters() {
+			searchTerm.value = '';
+			combineSimilarChars.value = false;
+			sortOrder.value = 'random';
+			selectedYear.value = '';
+			selectedDesigner.value = '';
+			selectedDirector.value = '';
+			selectedLetter.value = '';
+		}
+
+		const items = ref([]);
+		getAllItems().then(result => items.value = result);
+
+		const similarCharsMapping = {
+			'آ': '[آاأإ]', 'ا': '[آاأإ]', 'أ': '[آاأإ]', 'إ': '[آاأإ]', 'ط': '[طظ]', 'ظ': '[طظ]', 'ب': '[بپتثنی]', 'پ': '[بپتثنی]',
+			'ت': '[بپتثنی]', 'ث': '[بپتثنی]', 'ن': '[بپتثنی]', 'ی': '[بپتثنی]', 'ج': '[جچحخ]',
+			'چ': '[جچحخ]', 'ح': '[جچحخ]', 'خ': '[جچحخ]', 'د': '[دذ]',
+			'ذ': '[دذ]', 'ر': '[رزژ]', 'ز': '[رزژ]', 'ژ': '[رزژ]', 'س': '[سش]',
+			'ش': '[سش]', 'ص': '[صض]', 'ض': '[صض]', 'ع': '[عغ]',
+			'غ': '[عغ]', 'ف': '[فق]', 'ق': '[فق]', 'ک': '[کگ]',
+			'گ': '[کگ]'
+		};
+
+		const persianAlphabet = [
+			'آ', 'ا', 'ب', 'پ', 'ت', 'ث', 'ج', 'چ', 'ح', 'خ', 'د', 'ذ', 'ر', 'ز', 'ژ', 'س', 'ش', 'ص', 'ض', 'ط', 'ظ', 'ع', 'غ', 'ف', 'ق', 'ک', 'گ', 'ل', 'م', 'ن', 'و', 'ه', 'ی'
+		];
+
+		const toPersianYear = date => {
+			const year = new Date(date).toLocaleDateString('fa').split('/')[0];
+			return year === 'Invalid Date' ? 'ناموجود' : year;
+		};
+
+		const availableYears = computed(() => {
+			const groups = Object.groupBy(items.value, item => toPersianYear(item.date));
+			return Object.keys(groups).sort().map(year => [year, groups[year].length.toLocaleString('fa')]);
+		});
+
+		const availableDesigners = computed(() => {
+			const groups = Object.groupBy(items.value.filter(x => x.designerLabel), item => item.designerLabel);
+			return Object.keys(groups)
+				.map(designer => [designer, groups[designer].length])
+				.sort((a, b) => b[1] - a[1])
+				.map(([designer, count]) => [designer, count.toLocaleString('fa')]);
+		});
+
+		const availableDirectors = computed(() => {
+			const groups = Object.groupBy(items.value.filter(x => x.directorLabel), item => item.directorLabel);
+			return Object.keys(groups)
+				.map(director => [director, groups[director].length])
+				.sort((a, b) => b[1] - a[1])
+				.map(([director, count]) => [director, count.toLocaleString('fa')]);
+		});
+
+		const getItemTitleWithYear = item => {
+			return item.filmLabel + (item.date ? ` (${toPersianYear(item.date)})` : '');
+		};
+
+		const letterCounts = computed(() => {
+			const counts = persianAlphabet.reduce((acc, letter) => {
+				acc[letter] = items.value.filter(item => item.filmLabel.startsWith(letter)).length;
+				return acc;
+			}, {});
+			return counts;
+		});
+
+		const filteredItems = computed(() => {
+			let results = items.value;
+
+			if (searchTerm.value.length) {
+				const modifiedSearchTerm = searchTerm.value
+					.split('')
+					.map(char => (combineSimilarChars.value ? (similarCharsMapping[char] || char) : char))
+					.join('');
+				const regex = new RegExp(modifiedSearchTerm, 'i');
+				results = results.filter(item => regex.test(item.filmLabel) || regex.test(item.aliases || ''));
+			}
+
+			if (selectedYear.value) {
+				results = results.filter(item => toPersianYear(item.date) === selectedYear.value);
+			}
+
+			if (selectedDesigner.value) {
+				results = results.filter(item => item.designerLabel === selectedDesigner.value);
+			}
+
+			if (selectedDirector.value) {
+				results = results.filter(item => item.directorLabel === selectedDirector.value);
+			}
+
+			if (selectedLetter.value) {
+				results = results.filter(item => item.filmLabel.startsWith(selectedLetter.value));
+			}
+
+			if (sortOrder.value === 'alphabetical') {
+				results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, 'fa'));
+			} else if (sortOrder.value === 'year') {
+				results = results.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+			} else if (sortOrder.value === 'random') {
+				results = results.slice().sort(() => Math.random() - 0.5);
+			}
+
+			return results;
+		});
+
+		watch(designerQuery, (newValue) => {
+			if (!newValue) {
+				selectedDesigner.value = '';
+			}
+		});
+
+		const filteredYears = computed(() => {
+			const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
+			return Object.keys(groups)
+				.sort()
+				.map(year => [year, groups[year].length.toLocaleString('fa')]);
+		});
+
+		const filteredDesigners = computed(() => {
+			const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
+			return Object.keys(groups)
+				.map(designer => [designer, groups[designer].length])
+				.sort((a, b) => b[1] - a[1])
+				.map(([designer, count]) => [designer, count.toLocaleString('fa')]);
+		});
+
+		const filteredDirectors = computed(() => {
+			const groups = Object.groupBy(filteredItems.value.filter(x => x.directorLabel), item => item.directorLabel);
+			return Object.keys(groups)
+				.map(director => [director, groups[director].length])
+				.sort((a, b) => b[1] - a[1])
+				.map(([director, count]) => [director, count.toLocaleString('fa')]);
+		});
+
+		const filteredDesignersInModal = computed(() => {
+			const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
+			const designers = Object.keys(groups)
+				.map(designer => [designer, groups[designer].length])
+				.sort((a, b) => b[1] - a[1])
+				.map(([designer, count]) => [designer, count.toLocaleString('fa')]);
+
+			if (!designerSearchQuery.value) {
+				return designers;
+			}
+			return designers.filter(([designer]) =>
+				designer.includes(designerSearchQuery.value)
+			);
+		});
+
+		const selectDesignerFromModal = (designer) => {
+			selectedDesigner.value = designer;
+			designerQuery.value = designer; // مقدار فیلد جستجو را تنظیم کن
+			closeDesignerModal();
+		};
+
+		const filteredYearsInModal = computed(() => {
+			const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
+			return Object.keys(groups)
+				.sort()
+				.map(year => [year, groups[year].length.toLocaleString('fa')]);
+		});
+
+		const minYear = ref(1309);
+		const maxYear = ref(1403);
+
+		const selectedYearSlider = ref(minYear.value);
+
+		const updateSelectedYear = () => {
+			selectedYear.value = selectedYearSlider.value.toString();
+		};
+
+		watch(selectedYear, (newValue) => {
+			if (newValue) {
+				selectedYearSlider.value = parseInt(newValue);
+			}
+		});
+
+		watch(filteredItems, (newValue) => {
+			if (newValue.length > 100) {
+				isShowMore.value = false;
+			}
+		});
+
+		const directorSearchQuery = ref('');
+
+		const filteredDirectorsInModal = computed(() => {
+			const groups = Object.groupBy(filteredItems.value.filter(x => x.directorLabel), item => item.directorLabel);
+			const directors = Object.keys(groups)
+				.map(director => [director, groups[director].length])
+				.sort((a, b) => b[1] - a[1])
+				.map(([director, count]) => [director, count.toLocaleString('fa')]);
+
+			if (!directorSearchQuery.value) {
+				return directors;
+			}
+			return directors.filter(([director]) =>
+				director.includes(directorSearchQuery.value)
+			);
+		});
+
+		const filteredLettersInModal = computed(() => {
+			const groups = Object.groupBy(filteredItems.value, item => item.filmLabel.charAt(0));
+
+			const letters = persianAlphabet
+				.filter(letter => groups[letter])
+				.map(letter => [letter, groups[letter].length.toLocaleString('fa')]);
+
+			return letters;
+		});
+
+		const filteredYearLabel = computed(() => {
+			return selectedYear.value ? `سال: ${selectedYear.value}` : 'سال‌ها';
+		});
+
+		const filteredDesignerLabel = computed(() => {
+			return selectedDesigner.value ? `طراح: ${selectedDesigner.value}` : 'طراحان';
+		});
+
+		const filteredDirectorLabel = computed(() => {
+			return selectedDirector.value ? `کارگردان: ${selectedDirector.value}` : 'کارگردان‌ها';
+		});
+
+		const filteredLetterLabel = computed(() => {
+			return selectedLetter.value ? `حرف اول: ${selectedLetter.value}` : 'حروف اول';
+		});
+
+		const uniqueFilmCount = computed(() => {
+			const uniqueFilms = new Set(filteredItems.value.map(item => item.film));
+			return uniqueFilms.size;
+		});
+
+		const sidebarWidth = ref(400);
+		const minSidebarWidth = ref(300);
+		const maxSidebarWidth = ref(600);
+
+		const startResize = (e) => {
+			e.preventDefault();
+			startX = e.clientX;
+			startWidth = sidebarWidth.value;
+			document.addEventListener('mousemove', resize);
+			document.addEventListener('mouseup', stopResize);
+		};
+
+		const resize = (e) => {
+			const newWidth = startWidth + (startX - e.clientX);
+			if (newWidth >= minSidebarWidth.value && newWidth <= maxSidebarWidth.value) {
+				sidebarWidth.value = newWidth;
+			}
+		};
+
+		const stopResize = () => {
+			document.removeEventListener('mousemove', resize);
+			document.removeEventListener('mouseup', stopResize);
+		};
+
+		onMounted(() => {
+			if (!isCollapsed.value.years) {
+				createYearChart();
+			}
+
+			const resizeHandle = document.querySelector('.sidebar-resize-handle');
+			if (resizeHandle) {
+				resizeHandle.addEventListener('mousedown', startResize);
+			} else {
+				console.log('عنصر دستگیره تغییر اندازه یافت نشد!');
+			}
+		});
+
+		const hoveredItem = ref(null);
+
+		const removeYearFilter = () => {
+			selectedYear.value = '';
+			hoveredItem.value = null;
+
+		};
+
+		const removeDesignerFilter = () => {
+			selectedDesigner.value = '';
+			hoveredItem.value = null;
+		};
+
+		const removeDirectorFilter = () => {
+			selectedDirector.value = '';
+			hoveredItem.value = null;
+		};
+
+		const removeLetterFilter = () => {
+			selectedLetter.value = '';
+			hoveredItem.value = null;
+		};
+
+		const sidebarVisible = ref(false);
+
+		const toggleSidebar = () => {
+			sidebarVisible.value = !sidebarVisible.value;
+		};
+
+		const hideSidebar = () => {
+			sidebarVisible.value = false;
+		};
+
+		const pixelatedEffect = ref(true);
+
+		const clearSearchTerm = () => {
+			searchTerm.value = '';
+		};
+
+		const clearDesignerSearchQuery = () => {
+			designerSearchQuery.value = '';
+		};
+
+		const clearDirectorSearchQuery = () => {
+			directorSearchQuery.value = '';
+		};
+
+
+		function convertPersianToEnglishNumbers(str) {
+			const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+			const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+			return str.split('').map(char => {
+				const index = persianNumbers.indexOf(char);
+				return index !== -1 ? englishNumbers[index] : char;
+			}).join('');
+		}
+
+		const yearChart = ref(null);
+
+		const createYearChart = () => {
+			const canvasContainer = document.getElementById('canvasContainer');
+			if (!canvasContainer) {
+				console.log('عنصر canvasContainer یافت نشد!');
+				return;
+			}
+
+			const ctx = document.getElementById('yearChart')?.getContext('2d');
+			if (!ctx) {
+				console.log('عنصر canvas برای نمودار یافت نشد!');
+				return;
+			}
+
+			if (yearChart.value) {
+				yearChart.value.destroy();
+			}
+
+
+			const years = availableYears.value.map(([year]) => year);
+			const counts = availableYears.value.map(([_, count]) => {
+				const englishCount = convertPersianToEnglishNumbers(count.replace(/,/g, ''));
+				return parseInt(englishCount, 10);
+			});
+
+			if (years.length === 0 || counts.length === 0) {
+				console.log('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
+				return;
+			}
+
+			const canvas = document.getElementById('yearChart');
+			canvas.height = 150;
+
+			yearChart.value = new Chart(ctx, {
+				type: 'bar',
+				data: {
+					labels: years,
+					datasets: [{
+						data: counts,
+						backgroundColor: "rgba(128,128,128,0.5)",
+						borderWidth: 0,
+						hoverBackgroundColor: "rgba(180,120,120,0.8)"
+					}]
+				},
+				options: {
+					indexAxis: 'y',
+					responsive: true,
+					maintainAspectRatio: false,
+					scales: {
+						xAxes: [{
+							beginAtZero: true,
+							ticks: {
+								reverse: true,
+								display: false
+							},
+							gridLines: {
+								display: false
+							}
+						}],
+						yAxes: [{
+							ticks: {
+								display: false
+							},
+							gridLines: {
+								display: false
+							}
+						}]
+					},
+					plugins: {
+						legend: {
+							display: false
+						},
+						tooltip: {
+							bodyFont: {
+								family: 'system-ui'
+							},
+							titleFont: {
+								family: 'system-ui'
+							}
+						},
+						title: {
+							display: false
+						}
+					},
+				}
+			});
+
+			canvas.onclick = e => {
+				const activePoints = yearChart.value.getElementAtEvent(e);
+				if (activePoints.length) {
+					selectedYear.value = yearChart.value.data.labels[activePoints[0]._index];
+				}
+			}
+		};
+
+		watch(availableYears, (newYears) => {
+			if (!isCollapsed.value.years) {
+				createYearChart();
+			}
+		}, { immediate: true });
+
+		watch(() => isCollapsed.value.years, (newValue) => {
+			if (!newValue) {
+				createYearChart();
+			} else if (yearChart.value) {
+				yearChart.value.destroy();
+				yearChart.value = null;
+			}
+		});
+
+		onMounted(() => {
+			if (!isCollapsed.value.years) {
+				createYearChart();
+			}
+
+			const resizeHandle = document.querySelector('.sidebar-resize-handle');
+			if (resizeHandle) {
+				resizeHandle.addEventListener('mousedown', startResize);
+			} else {
+				console.log('عنصر دستگیره تغییر اندازه یافت نشد!');
+			}
+		});
+
+		watch(filteredYears, (newYears) => {
+			if (!yearChart.value) {
+				console.log('نمودار سال‌ها تعریف نشده است!');
+				return;
+			}
+
+			const years = newYears.map(([year]) => year);
+			const counts = newYears.map(([_, count]) => {
+				const englishCount = convertPersianToEnglishNumbers(count.replace(/,/g, ''));
+				return parseInt(englishCount, 10);
+			});
+
+			if (years.length === 0 || counts.length === 0) {
+				console.log('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
+				return;
+			}
+
+			yearChart.value.data.labels = years;
+			yearChart.value.data.datasets[0].data = counts;
+			yearChart.value.update();
+		});
+
+		const toggleCollapse = (section) => {
+			isCollapsed.value[section] = !isCollapsed.value[section];
+			if (section === 'years' && !isCollapsed.value[section]) {
+				Vue.nextTick(() => {
+					createYearChart();
+				});
+			}
+		};
+
+		const lightboxVisible = ref(false);
+		const lightboxImage = ref('');
+
+		const openLightbox = (item) => {
+			console.log('Clicked element:', event.target);
+			console.log('Opening lightbox for item:', item);
+			lightboxImage.value = posterMode.value ? getPosterUrl(item.poster, 1200) : getPosterUrl(item.logo, 1200);
+			lightboxVisible.value = true;
+			console.log('Lightbox image:', lightboxImage.value);
+			console.log('Lightbox visible:', lightboxVisible.value);
+		};
+
+		const closeLightbox = () => {
+			lightboxVisible.value = false;
+		};
+
+		watch(lightboxVisible, (newValue) => {
+			if (newValue) {
+				document.addEventListener('click', handleClickOutsideLightbox);
+			} else {
+				document.removeEventListener('click', handleClickOutsideLightbox);
+			}
+		});
+
+		const handleClickOutsideLightbox = (event) => {
+			const lightbox = document.querySelector('.lightbox');
+			if (lightbox && !lightbox.contains(event.target)) {
+				closeLightbox();
+			}
+		};
+
+		const handleImageClick = (item) => {
+			console.log('Image clicked:', item);
+			event.stopPropagation(); // Prevent bubbling up the click event
+			openLightbox(item);
+		};
+
+		const openDownloadLink = (item) => {
+			const imageLink = 'http://commons.wikimedia.org/wiki/Special:FilePath/' + getImageLink(item)?.replaceAll(' ', '_');
+			if (typeof window !== 'undefined') { // بررسی وجود window در محیط مرورگر
+				window.open(imageLink, '_blank');
+			} else {
+				console.log('window is not defined. This function should run in a browser environment.');
+			}
+		};
+
+		const getPosterUrl = (filePath, width = 600) => {
+			if (!filePath) return 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=' + width;
+
+			const url = new URL('https://commons.wikimedia.org/w/thumb.php');
+			url.searchParams.append('f', decodeURIComponent(filePath.replace('http://commons.wikimedia.org/wiki/Special:FilePath/', '')));
+			url.searchParams.append('w', width.toString());
+			return url.toString();
+		};
+
+		const getLogoUrl = item => item.logo ? getPosterUrl(item.logo, 600) : 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=600';
+		const getImageUrl = (item) => {
+			return posterMode.value && !(item.isNsfw && pixelatedEffect.value && item.logo)
+				? getPosterUrl(item.poster, 600) : getLogoUrl(item);
+		}
+		const getImageLink = item => posterMode.value ? item.poster : item.logo;
+
+		return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, minYear, maxYear, selectedYearSlider, updateSelectedYear, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar, sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm, lightboxVisible, lightboxImage, openLightbox, closeLightbox, openDownloadLink, createYearChart, handleImageClick, clearDesignerSearchQuery, clearDirectorSearchQuery };
+	}
 }).mount('#app');
 </script>
