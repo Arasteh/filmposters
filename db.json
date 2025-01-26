@@ -3417,7 +3417,10 @@
       ],
       "posters": [
         {
-          "image": "همه دختران من (پوستر).jpg"
+          "image": "همه دختران من (پوستر).jpg",
+          "designers": [
+            "Q131910349"
+          ]
         }
       ],
       "logos": []
@@ -10582,7 +10585,10 @@
       ],
       "posters": [
         {
-          "image": "آبادانیها (پوستر).jpg"
+          "image": "آبادانیها (پوستر).jpg",
+          "designers": [
+            "Q131910358"
+          ]
         }
       ],
       "logos": []
@@ -35238,8 +35244,8 @@
       "id": "Q131377869",
       "sitelinks": {},
       "labels": {
-        "en": "Ali Mazaheri",
-        "fa": "علی مظاهری"
+        "en": "Abbas Mazaheri",
+        "fa": "عباس مظاهری"
       }
     },
     "Q131377887": {
@@ -35914,6 +35920,22 @@
       "labels": {
         "en": "Siamak Valipour",
         "fa": "سیامک والی‌پور"
+      }
+    },
+    "Q131910349": {
+      "id": "Q131910349",
+      "sitelinks": {},
+      "labels": {
+        "en": "Hossein Farrokhi",
+        "fa": "حسین فرخی"
+      }
+    },
+    "Q131910358": {
+      "id": "Q131910358",
+      "sitelinks": {},
+      "labels": {
+        "en": "Fariba Eyvaz-Zadeh",
+        "fa": "فریبا عیوض‌زاده"
       }
     }
   }
