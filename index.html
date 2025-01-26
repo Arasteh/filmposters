@@ -32,7 +32,6 @@ body {
 	flex: 1;
 	width: 100%;
 	padding: 20px;
-	/*background-color: light-dark(#fff, #1e1e1e);*/
 	border-radius: 20px;
 	transition: background-color 0.3s, color 0.3s;
 }
@@ -58,15 +57,15 @@ body {
 .search-bar {
 	position: sticky;
 	top: 0;
-	background-color: light-dark(#fff, #1e1e1e);
+	background-color: light-dark(#fff, #222);
 	padding: 10px;
 	transition: transform 0.3s ease-in-out;
-	border: 1px solid light-dark(#ddd, #444);
 	border-radius: 20px;
 	margin-bottom: 10px;
 	max-width: 1200px;
 	width: 100%;
 	z-index: 100;
+	box-shadow: 2px 2px 5px 0px light-dark(#0002, #fff2);
 }
 
 .search-bar.hidden {
@@ -103,7 +102,7 @@ input[type="text"] {
 .item-card {
 	text-align: center;
 	padding: 10px;
-	background: light-dark(#fff, #292929);
+	background: light-dark(#fff, #222);
 	border-radius: 16px;
 	display: flex;
 	flex-direction: column;
@@ -118,7 +117,7 @@ input[type="text"] {
 	width: 100%;
 	object-fit: contain;
 	border-radius: 4px;
-	background-color: #f0f0f0;
+	background-color: #eee;
 	margin-bottom: 10px;
 	transition: filter 0.3s;
 }
@@ -129,12 +128,12 @@ input[type="text"] {
 
 .item-designer {
 	font-size: 0.9em;
-	color: light-dark(#888, #888);
-	margin-top: 5px;
+	color: light-dark(#777, #999);
+	margin: 5px 0 7px;
 }
 
 .item-designer a {
-	color: #007bff;
+	color: light-dark(#000, #fff);
 	text-decoration: none;
 }
 
@@ -142,9 +141,12 @@ input[type="text"] {
 	text-decoration: underline;
 }
 
-
+.item-links {
+	font-size: 0.8em;
+	}
+	
 .item-links a {
-	color: #007bff;
+	color: light-dark(#555, #bbb);
 	text-decoration: none;
 	margin: 0 5px;
 }
@@ -1160,10 +1162,13 @@ height: 95%;*/
 				<div class="item-title">{{ getItemTitleWithYear(item) }}</div>
 				<div v-if="item.designer && item.designerLabel" class="item-designer">
 					طراح: <a href="#" @click.prevent="selectDesigner(item.designerLabel)">{{ item.designerLabel
-						}}</a> (<a :href="'https://www.wikidata.org/wiki/' + item.designer"
+						}}</a>
+					<span class="item-links">
+							(<a :href="'https://www.wikidata.org/wiki/' + item.designer"
 						target="_blank">Q</a><template v-if="item.designerFaWikipediaLink">&nbsp;<a
 							:href="'https://fa.wikipedia.org/wiki/' + item.designerFaWikipediaLink.replaceAll(' ', '_')"
 							target="_blank">W</a></template>)
+					</span>
 				</div>
 				<div class="item-links">
 					<a v-if="item.imdbID" :href="'https://www.imdb.com/title/' + item.imdbID" target="_blank">T</a>
