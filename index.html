@@ -1148,7 +1148,9 @@
                              class="item-image" :class="{ pixelated: pixelatedEffect && !item.logo && item.isNsfw && posterMode }" />
                     </div>
                     <button class="download-btn" @click.stop="openDownloadLink(item)">
-                        ⬇
+                        <span class="material-symbols-rounded">
+                        download
+                        </span>
                     </button>
                 </div>
 
