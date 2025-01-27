@@ -1189,7 +1189,7 @@ height: 95%;*/
 				:key="index">
 				<div class="image-container">
 					<div @click="handleImageClick(item)" class="clickable-image">
-						<template v-if="posterMode && !item.logo">
+						<template v-if="!posterMode && !item.logo">
 							<div class="no-logo-placeholder">
 							(بدون لوگو)
 							</div>
@@ -1960,11 +1960,10 @@ createApp({
 
 		const getLogoUrl = item => item.logo ? getPosterUrl(item.logo, 600) : null;
 		const getImageUrl = (item) => {
-			if (posterMode.value && !item.logo) {
+			if (!posterMode.value && !item.logo) {
 				return null;
 			}
-			return posterMode.value && !(item.isNsfw && pixelatedEffect.value && item.logo)
-			? getPosterUrl(item.poster, 600) : getLogoUrl(item);
+			return posterMode.value ? getPosterUrl(item.poster, 600) : getPosterUrl(item.logo, 600);
 		}
 		const getImageLink = item => posterMode.value ? item.poster : item.logo;
 
