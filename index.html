@@ -1189,7 +1189,7 @@ height: 95%;*/
 				:key="index">
 				<div class="image-container">
 					<div @click="handleImageClick(item)" class="clickable-image">
-						<template v-if="!item.logo">
+						<template v-if="posterMode && !item.logo">
 							<div class="no-logo-placeholder">
 							(بدون لوگو)
 							</div>
