@@ -220,6 +220,19 @@ input[type="text"] {
 	height: auto;
 }
 
+.no-logo-placeholder {
+	width: 100%;
+	height: 200px;
+	background-color: light-dark(#f0f0f0, #333);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 4px;
+	color: light-dark(#777, #999);
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
 .lightbox {
 	position: fixed;
 	top: 0;
@@ -1065,8 +1078,19 @@ height: 95%;*/
 	</div>
 
 	<div v-if="lightboxVisible" class="lightbox" @click="closeLightbox">
-		<img :src="lightboxImage" alt="Lightbox Image" />
-		<button class="close-lightbox" @click.stop="closeLightbox">× بستن</button>
+		<template v-if="lightboxImage">
+			<img :src="lightboxImage" alt="Lightbox Image" />
+		</template>
+		<template v-else>
+			<div class="no-logo-placeholder">
+				(بدون لوگو)
+			</div>
+		</template>
+	<button class="close-lightbox" @click.stop="closeLightbox">
+		<span class="material-symbols-rounded">
+			close
+		</span>
+	</button>
 	</div>
 
 	<div id="main-content">
@@ -1165,8 +1189,14 @@ height: 95%;*/
 				:key="index">
 				<div class="image-container">
 					<div @click="handleImageClick(item)" class="clickable-image">
-						<img :src="getImageUrl(item)" :key="getImageUrl(item)" :alt="item.filmLabel" class="item-image"
-							:class="{ pixelated: pixelatedEffect && !item.logo && item.isNsfw && posterMode }" />
+						<template v-if="!item.logo">
+							<div class="no-logo-placeholder">
+							(بدون لوگو)
+							</div>
+						</template>
+						<template v-else>
+							<img :src="getImageUrl(item)" :key="getImageUrl(item)" :alt="item.filmLabel" class="item-image" :class="{ pixelated: pixelatedEffect && !item.logo && item.isNsfw && posterMode }" />
+						</template>
 					</div>
 					<button class="download-btn" @click.stop="openDownloadLink(item)">
 						<span class="material-symbols-rounded">
@@ -1872,12 +1902,13 @@ createApp({
 		const lightboxImage = ref('');
 
 		const openLightbox = (item) => {
-			console.log('Clicked element:', event.target);
-			console.log('Opening lightbox for item:', item);
+			if (!item.logo) {
+				lightboxImage.value = null;
+				lightboxVisible.value = true;
+			return;
+			}
 			lightboxImage.value = posterMode.value ? getPosterUrl(item.poster, 1200) : getPosterUrl(item.logo, 1200);
 			lightboxVisible.value = true;
-			console.log('Lightbox image:', lightboxImage.value);
-			console.log('Lightbox visible:', lightboxVisible.value);
 		};
 
 		const closeLightbox = () => {
@@ -1901,13 +1932,13 @@ createApp({
 
 		const handleImageClick = (item) => {
 			console.log('Image clicked:', item);
-			event.stopPropagation(); // Prevent bubbling up the click event
+			event.stopPropagation();
 			openLightbox(item);
 		};
 
 		const openDownloadLink = (item) => {
 			const imageLink = 'http://commons.wikimedia.org/wiki/Special:FilePath/' + getImageLink(item)?.replaceAll(' ', '_');
-			if (typeof window !== 'undefined') { // بررسی وجود window در محیط مرورگر
+			if (typeof window !== 'undefined') {
 				window.open(imageLink, '_blank');
 			} else {
 				console.log('window is not defined. This function should run in a browser environment.');
@@ -1927,10 +1958,13 @@ createApp({
 			return url.toString();
 		};
 
-		const getLogoUrl = item => item.logo ? getPosterUrl(item.logo, 600) : 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=600';
+		const getLogoUrl = item => item.logo ? getPosterUrl(item.logo, 600) : null;
 		const getImageUrl = (item) => {
+			if (posterMode.value && !item.logo) {
+				return null;
+			}
 			return posterMode.value && !(item.isNsfw && pixelatedEffect.value && item.logo)
-				? getPosterUrl(item.poster, 600) : getLogoUrl(item);
+			? getPosterUrl(item.poster, 600) : getLogoUrl(item);
 		}
 		const getImageLink = item => posterMode.value ? item.poster : item.logo;
 
