@@ -2067,6 +2067,12 @@
       "posters": [
         {
           "image": "زرد قناری (پوستر).jpg"
+        },
+        {
+          "image": "Canary Yellow movie poster (v1).jpg",
+          "designers": [
+            "Q131377834"
+          ]
         }
       ],
       "logos": []
@@ -2616,6 +2622,37 @@
           "designers": [
             "Q131700605"
           ]
+        }
+      ],
+      "logos": []
+    },
+    "Q5714491": {
+      "id": "Q5714491",
+      "sitelinks": {
+        "fawiki": "آخرین پرواز"
+      },
+      "labels": {
+        "fa": "آخرین پرواز"
+      },
+      "aliases": {},
+      "directors": [
+        "Q2827453"
+      ],
+      "date": [
+        "+1989-01-01T00:00:00Z"
+      ],
+      "imdb": [
+        "tt11620908"
+      ],
+      "posters": [
+        {
+          "image": "Last Flight movie poster (v1).jpg",
+          "designers": [
+            "Q5768261"
+          ]
+        },
+        {
+          "image": "Last Flight movie poster (v2).jpg"
         }
       ],
       "logos": []
@@ -3983,6 +4020,12 @@
           "designers": [
             "Q131522866"
           ]
+        },
+        {
+          "image": "Dast-e-sheitan.jpg",
+          "designers": [
+            "Q131553231"
+          ]
         }
       ],
       "logos": []
@@ -5100,6 +5143,37 @@
           "designers": [
             "Q131745214"
           ]
+        }
+      ],
+      "logos": []
+    },
+    "Q5932610": {
+      "id": "Q5932610",
+      "sitelinks": {
+        "enwiki": "Soltane Ghalbha",
+        "fawiki": "سلطان قلب‌ها"
+      },
+      "labels": {
+        "en": "King of Hearts",
+        "fa": "سلطان قلب‌ها"
+      },
+      "aliases": {
+        "en": [
+          "Soltane Ghalbha"
+        ]
+      },
+      "directors": [
+        "Q1370293"
+      ],
+      "date": [
+        "+1968-00-00T00:00:00Z"
+      ],
+      "imdb": [
+        "tt0293608"
+      ],
+      "posters": [
+        {
+          "image": "King of Hearts (1968 film).jpg"
         }
       ],
       "logos": []
@@ -6823,6 +6897,32 @@
       ],
       "logos": []
     },
+    "Q6479324": {
+      "id": "Q6479324",
+      "sitelinks": {
+        "fawiki": "خواستگاری (فیلم ۱۳۶۸)"
+      },
+      "labels": {
+        "fa": "خواستگاری (فیلم ایرانی)"
+      },
+      "aliases": {},
+      "directors": [
+        "Q5960451"
+      ],
+      "date": [
+        "+1989-01-01T00:00:00Z"
+      ],
+      "imdb": [],
+      "posters": [
+        {
+          "image": "Courtship movie poster.jpg",
+          "designers": [
+            "Q61060515"
+          ]
+        }
+      ],
+      "logos": []
+    },
     "Q6528220": {
       "id": "Q6528220",
       "sitelinks": {
@@ -7626,6 +7726,15 @@
           "designers": [
             "Q131377834"
           ]
+        },
+        {
+          "image": "The Assignment movie poster (02).jpg",
+          "designers": [
+            "Q131377834"
+          ]
+        },
+        {
+          "image": "The Assignment movie poster.jpg"
         }
       ],
       "logos": []
@@ -7861,6 +7970,33 @@
           "designers": [
             "Q131377834"
           ]
+        }
+      ],
+      "logos": []
+    },
+    "Q14755204": {
+      "id": "Q14755204",
+      "sitelinks": {
+        "enwiki": "Apartment No. 13",
+        "fawiki": "آپارتمان شماره ۱۳"
+      },
+      "labels": {
+        "en": "Apartment No.13",
+        "fa": "آپارتمان شماره ۱۳"
+      },
+      "aliases": {},
+      "directors": [
+        "Q5956193"
+      ],
+      "date": [
+        "+1991-06-05T00:00:00Z"
+      ],
+      "imdb": [
+        "tt5790588"
+      ],
+      "posters": [
+        {
+          "image": "Apartment Number 13 movie poster.jpg"
         }
       ],
       "logos": []
@@ -8120,8 +8256,11 @@
         {
           "image": "ستاره و الماس (پوستر).jpg",
           "designers": [
-            "Q61060515"
+            "Q131377834"
           ]
+        },
+        {
+          "image": "Star and Diamond movie poster.jpg"
         }
       ],
       "logos": []
@@ -9091,6 +9230,12 @@
           "designers": [
             "Q131377965"
           ]
+        },
+        {
+          "image": "Behesht door nist.jpg",
+          "designers": [
+            "Q131377902"
+          ]
         }
       ],
       "logos": [
@@ -9228,6 +9373,36 @@
       "posters": [
         {
           "image": "فاتحین صحرا (پوستر).jpg"
+        }
+      ],
+      "logos": []
+    },
+    "Q14755283": {
+      "id": "Q14755283",
+      "sitelinks": {
+        "fawiki": "فریاد نیمه‌شب"
+      },
+      "labels": {
+        "en": "Midnight Terror",
+        "fa": "فریاد نیمه شب"
+      },
+      "aliases": {
+        "en": [
+          "Faryad-e Nimeh Shab"
+        ]
+      },
+      "directors": [
+        "Q4980507"
+      ],
+      "date": [
+        "+1961-00-00T00:00:00Z"
+      ],
+      "imdb": [
+        "tt0319401"
+      ],
+      "posters": [
+        {
+          "image": "پوستر فیلم فریاد نیمه‌شب.jpg"
         }
       ],
       "logos": []
@@ -12190,6 +12365,12 @@
           "designers": [
             "Q131377834"
           ]
+        },
+        {
+          "image": "Chavosh movie poster (v1).jpg",
+          "designers": [
+            "Q131377834"
+          ]
         }
       ],
       "logos": []
@@ -12383,6 +12564,30 @@
           "image": "عشق و مرگ (پوستر).jpg",
           "designers": [
             "Q131377834"
+          ]
+        }
+      ],
+      "logos": []
+    },
+    "Q14756358": {
+      "id": "Q14756358",
+      "sitelinks": {
+        "fawiki": "فرماندار (فیلم)"
+      },
+      "labels": {
+        "fa": "فرماندار(فیلم)"
+      },
+      "aliases": {},
+      "directors": [],
+      "date": [
+        "+1990-00-00T00:00:00Z"
+      ],
+      "imdb": [],
+      "posters": [
+        {
+          "image": "Farmandar movie poster.jpg",
+          "designers": [
+            "Q61060515"
           ]
         }
       ],
@@ -12650,6 +12855,12 @@
           "image": "جستجوگر (پوستر).jpg",
           "designers": [
             "Q10294036"
+          ]
+        },
+        {
+          "image": "The Searcher movie poster.jpg",
+          "designers": [
+            "Q131377834"
           ]
         }
       ],
@@ -13194,6 +13405,12 @@
           "designers": [
             "Q131377834"
           ]
+        },
+        {
+          "image": "Spell movie poster.jpg",
+          "designers": [
+            "Q10294201"
+          ]
         }
       ],
       "logos": []
@@ -13221,6 +13438,12 @@
       "posters": [
         {
           "image": "افق (پوستر).jpg"
+        },
+        {
+          "image": "Horizon movie poster (v2).jpg",
+          "designers": [
+            "Q16048596"
+          ]
         }
       ],
       "logos": []
@@ -13299,7 +13522,10 @@
       "imdb": [],
       "posters": [
         {
-          "image": "تا غروب (پوستر).jpg"
+          "image": "تا غروب (پوستر).jpg",
+          "designers": [
+            "Q131755394"
+          ]
         },
         {
           "image": "تا غروب (پوستر ۲).jpg",
@@ -13503,6 +13729,30 @@
           "image": "سفر عشق (پوستر).jpg",
           "designers": [
             "Q5859656"
+          ]
+        }
+      ],
+      "logos": []
+    },
+    "Q14756423": {
+      "id": "Q14756423",
+      "sitelinks": {
+        "fawiki": "سلام سرزمین من"
+      },
+      "labels": {
+        "fa": "سلام سرزمین من"
+      },
+      "aliases": {},
+      "directors": [
+        "Q25423768"
+      ],
+      "date": [],
+      "imdb": [],
+      "posters": [
+        {
+          "image": "Hello My Country movie poster.jpg",
+          "designers": [
+            "Q61060515"
           ]
         }
       ],
@@ -13744,6 +13994,12 @@
           "designers": [
             "Q131377961"
           ]
+        },
+        {
+          "image": "The Station movie poster.jpg",
+          "designers": [
+            "Q131377961"
+          ]
         }
       ],
       "logos": []
@@ -13852,6 +14108,12 @@
       "posters": [
         {
           "image": "جعفر خان از فرنگ برگشته (پوستر).jpg",
+          "designers": [
+            "Q61060515"
+          ]
+        },
+        {
+          "image": "Jafar Khan has Returned from Abroad movie poster.jpg",
           "designers": [
             "Q61060515"
           ]
@@ -14285,6 +14547,12 @@
           "designers": [
             "Q61060515"
           ]
+        },
+        {
+          "image": "Splendor of Life movie poster.jpg",
+          "designers": [
+            "Q131377834"
+          ]
         }
       ],
       "logos": []
@@ -14353,6 +14621,29 @@
       ],
       "logos": []
     },
+    "Q14756464": {
+      "id": "Q14756464",
+      "sitelinks": {
+        "fawiki": "گرفتار (فیلم ۱۳۶۶)"
+      },
+      "labels": {
+        "fa": "گرفتار (فیلم ۱۳۶۶)"
+      },
+      "aliases": {},
+      "directors": [
+        "Q5939313"
+      ],
+      "date": [
+        "+1987-01-01T00:00:00Z"
+      ],
+      "imdb": [],
+      "posters": [
+        {
+          "image": "Caught movie poster.jpg"
+        }
+      ],
+      "logos": []
+    },
     "Q14756465": {
       "id": "Q14756465",
       "sitelinks": {
@@ -14372,6 +14663,12 @@
       "posters": [
         {
           "image": "گل مریم (پوستر).jpg",
+          "designers": [
+            "Q61060515"
+          ]
+        },
+        {
+          "image": "Tuberose movie poster.jpg",
           "designers": [
             "Q61060515"
           ]
@@ -14398,6 +14695,12 @@
       "posters": [
         {
           "image": "گمشدگان (پوستر).jpg",
+          "designers": [
+            "Q131377834"
+          ]
+        },
+        {
+          "image": "The Lost movie poster (v2).jpg",
           "designers": [
             "Q131377834"
           ]
@@ -14508,6 +14811,32 @@
       ],
       "logos": []
     },
+    "Q14756472": {
+      "id": "Q14756472",
+      "sitelinks": {
+        "fawiki": "محکومین"
+      },
+      "labels": {
+        "fa": "محکومین"
+      },
+      "aliases": {},
+      "directors": [
+        "Q10859302"
+      ],
+      "date": [
+        "+1987-01-01T00:00:00Z"
+      ],
+      "imdb": [],
+      "posters": [
+        {
+          "image": "The Convicts movie poster.jpg",
+          "designers": [
+            "Q61060515"
+          ]
+        }
+      ],
+      "logos": []
+    },
     "Q14756474": {
       "id": "Q14756474",
       "sitelinks": {
@@ -14537,6 +14866,9 @@
           "designers": [
             "Q131377834"
           ]
+        },
+        {
+          "image": "Cargo movie poster (v1).jpg"
         }
       ],
       "logos": []
@@ -14712,6 +15044,9 @@
         },
         {
           "image": "بگذار زندگی کنم (پوستر ۲).jpg"
+        },
+        {
+          "image": "Let Me Live movie poster.jpg"
         }
       ],
       "logos": []
@@ -14887,6 +15222,30 @@
       ],
       "logos": []
     },
+    "Q14756490": {
+      "id": "Q14756490",
+      "sitelinks": {
+        "fawiki": "حماسه دره شیلر"
+      },
+      "labels": {
+        "fa": "حماسه دره شیلر"
+      },
+      "aliases": {},
+      "directors": [],
+      "date": [
+        "+1986-01-01T00:00:00Z"
+      ],
+      "imdb": [],
+      "posters": [
+        {
+          "image": "Shiler Valley Saga movie poster.jpg",
+          "designers": [
+            "Q131377834"
+          ]
+        }
+      ],
+      "logos": []
+    },
     "Q14756491": {
       "id": "Q14756491",
       "sitelinks": {
@@ -14908,6 +15267,61 @@
           "image": "خانه ابری (پوستر).jpg",
           "designers": [
             "Q131377834"
+          ]
+        }
+      ],
+      "logos": []
+    },
+    "Q14756492": {
+      "id": "Q14756492",
+      "sitelinks": {
+        "fawiki": "دبیرستان (فیلم ۱۳۶۵)"
+      },
+      "labels": {
+        "fa": "دبیرستان (فیلم)"
+      },
+      "aliases": {},
+      "directors": [
+        "Q16051959"
+      ],
+      "date": [
+        "+1986-01-01T00:00:00Z"
+      ],
+      "imdb": [],
+      "posters": [
+        {
+          "image": "The Highschool movie poster (v1).jpg"
+        },
+        {
+          "image": "The Highschool movie poster (v2).jpg",
+          "designers": [
+            "Q25424766"
+          ]
+        }
+      ],
+      "logos": []
+    },
+    "Q14756493": {
+      "id": "Q14756493",
+      "sitelinks": {
+        "fawiki": "دزد و نویسنده"
+      },
+      "labels": {
+        "fa": "دزد و نویسنده"
+      },
+      "aliases": {},
+      "directors": [
+        "Q5702338"
+      ],
+      "date": [
+        "+1985-01-01T00:00:00Z"
+      ],
+      "imdb": [],
+      "posters": [
+        {
+          "image": "The Thief and the Writer movie poster.jpg",
+          "designers": [
+            "Q61060515"
           ]
         }
       ],
@@ -14938,6 +15352,9 @@
           "designers": [
             "Q131377852"
           ]
+        },
+        {
+          "image": "Manuscripts movie poster.jpg"
         }
       ],
       "logos": []
@@ -15008,6 +15425,9 @@
           "designers": [
             "Q131826338"
           ]
+        },
+        {
+          "image": "Spectre of Scorpion movie poster.jpg"
         }
       ],
       "logos": []
@@ -15069,6 +15489,38 @@
         },
         {
           "image": "معما (پوستر ۲).jpg",
+          "designers": [
+            "Q61060515"
+          ]
+        }
+      ],
+      "logos": []
+    },
+    "Q14756508": {
+      "id": "Q14756508",
+      "sitelinks": {
+        "fawiki": "مقاومت (فیلم ۱۳۶۵)"
+      },
+      "labels": {
+        "fa": "مقاومت (فیلم)"
+      },
+      "aliases": {},
+      "directors": [
+        "Q56358040"
+      ],
+      "date": [
+        "+1986-01-01T00:00:00Z"
+      ],
+      "imdb": [],
+      "posters": [
+        {
+          "image": "Resistance movie poster.jpg",
+          "designers": [
+            "Q61060515"
+          ]
+        },
+        {
+          "image": "Resistance movie poster (v2).jpg",
           "designers": [
             "Q61060515"
           ]
@@ -15726,6 +16178,12 @@
           "designers": [
             "Q131377834"
           ]
+        },
+        {
+          "image": "Flight from the City movie poster.jpg",
+          "designers": [
+            "Q131553231"
+          ]
         }
       ],
       "logos": []
@@ -16220,6 +16678,32 @@
       ],
       "logos": []
     },
+    "Q14756570": {
+      "id": "Q14756570",
+      "sitelinks": {
+        "fawiki": "شب مکافات"
+      },
+      "labels": {
+        "fa": "شب مکافات"
+      },
+      "aliases": {},
+      "directors": [
+        "Q31070080"
+      ],
+      "date": [
+        "+1984-01-01T00:00:00Z"
+      ],
+      "imdb": [],
+      "posters": [
+        {
+          "image": "Shab-e Mokafat movie poster.jpg",
+          "designers": [
+            "Q131377834"
+          ]
+        }
+      ],
+      "logos": []
+    },
     "Q14756572": {
       "id": "Q14756572",
       "sitelinks": {
@@ -16520,6 +17004,12 @@
           "designers": [
             "Q131377834"
           ]
+        },
+        {
+          "image": "The Rifleman movie poster.jpg",
+          "designers": [
+            "Q131377834"
+          ]
         }
       ],
       "logos": []
@@ -16749,6 +17239,12 @@
           "designers": [
             "Q131701077"
           ]
+        },
+        {
+          "image": "Mirza Koochak Khan movie poster.jpg",
+          "designers": [
+            "Q131701077"
+          ]
         }
       ],
       "logos": []
@@ -16830,6 +17326,34 @@
           "image": "یاد (پوستر).jpg",
           "designers": [
             "Q131377869"
+          ]
+        }
+      ],
+      "logos": []
+    },
+    "Q14756612": {
+      "id": "Q14756612",
+      "sitelinks": {
+        "enwiki": "Jan-bazan",
+        "fawiki": "جانبازان"
+      },
+      "labels": {
+        "en": "Jan-bazan",
+        "fa": "جانبازان"
+      },
+      "aliases": {},
+      "directors": [
+        "Q10859302"
+      ],
+      "date": [
+        "+1982-01-01T00:00:00Z"
+      ],
+      "imdb": [],
+      "posters": [
+        {
+          "image": "Veterans movie poster.jpg",
+          "designers": [
+            "Q131701077"
           ]
         }
       ],
@@ -17827,6 +18351,35 @@
           "image": "مرد خدا (پوستر).jpg",
           "designers": [
             "Q61060515"
+          ]
+        }
+      ],
+      "logos": []
+    },
+    "Q14756732": {
+      "id": "Q14756732",
+      "sitelinks": {
+        "fawiki": "واسطه‌ها"
+      },
+      "labels": {
+        "en": "Intermediaries",
+        "fa": "واسطه‌ها"
+      },
+      "aliases": {},
+      "directors": [
+        "Q28713669"
+      ],
+      "date": [
+        "+1977-01-01T00:00:00Z"
+      ],
+      "imdb": [
+        "tt1112768"
+      ],
+      "posters": [
+        {
+          "image": "Intermediaries movie poster.jpg",
+          "designers": [
+            "Q131377834"
           ]
         }
       ],
@@ -21648,6 +22201,39 @@
           "image": "مترس (لوگو).jpg"
         }
       ]
+    },
+    "Q14756968": {
+      "id": "Q14756968",
+      "sitelinks": {
+        "fawiki": "مغربی"
+      },
+      "labels": {
+        "en": "Maghrebi",
+        "fa": "مغربی"
+      },
+      "aliases": {
+        "en": [
+          "Maghribi"
+        ]
+      },
+      "directors": [
+        "Q1742078"
+      ],
+      "date": [
+        "+1973-01-01T00:00:00Z"
+      ],
+      "imdb": [
+        "tt11328418"
+      ],
+      "posters": [
+        {
+          "image": "Maghrebi movie poster.jpg",
+          "designers": [
+            "Q61060515"
+          ]
+        }
+      ],
+      "logos": []
     },
     "Q14756969": {
       "id": "Q14756969",
@@ -25633,6 +26219,32 @@
         }
       ]
     },
+    "Q14757220": {
+      "id": "Q14757220",
+      "sitelinks": {
+        "fawiki": "بازی عشق (فیلم ۱۳۴۷)"
+      },
+      "labels": {
+        "fa": "بازی عشق"
+      },
+      "aliases": {},
+      "directors": [
+        "Q1442859"
+      ],
+      "date": [],
+      "imdb": [
+        "tt1111282"
+      ],
+      "posters": [
+        {
+          "image": "The Love Game movie poster.jpg",
+          "designers": [
+            "Q16051488"
+          ]
+        }
+      ],
+      "logos": []
+    },
     "Q14757221": {
       "id": "Q14757221",
       "sitelinks": {
@@ -26254,6 +26866,27 @@
           "designers": [
             "Q16051488"
           ]
+        }
+      ],
+      "logos": []
+    },
+    "Q14757269": {
+      "id": "Q14757269",
+      "sitelinks": {
+        "fawiki": "لوطی قرن بیستم"
+      },
+      "labels": {
+        "fa": "لوطی قرن بیستم"
+      },
+      "aliases": {},
+      "directors": [
+        "Q16046480"
+      ],
+      "date": [],
+      "imdb": [],
+      "posters": [
+        {
+          "image": "20th Century Ruffian movie poster.jpg"
         }
       ],
       "logos": []
@@ -27157,6 +27790,30 @@
           "image": "بازو طلایی (لوگو ۳).jpg"
         }
       ]
+    },
+    "Q14757346": {
+      "id": "Q14757346",
+      "sitelinks": {
+        "fawiki": "جهان‌پهلوان (فیلم)"
+      },
+      "labels": {
+        "fa": "جهان پهلوان (فیلم)"
+      },
+      "aliases": {},
+      "directors": [
+        "Q5940906"
+      ],
+      "date": [],
+      "imdb": [],
+      "posters": [
+        {
+          "image": "World Champion movie poster.jpg",
+          "designers": [
+            "Q20109479"
+          ]
+        }
+      ],
+      "logos": []
     },
     "Q14757347": {
       "id": "Q14757347",
@@ -28363,6 +29020,12 @@
           "designers": [
             "Q16051488"
           ]
+        },
+        {
+          "image": "The Humans movie poster.jpg",
+          "designers": [
+            "Q16051488"
+          ]
         }
       ],
       "logos": [
@@ -28411,6 +29074,38 @@
           "image": "بن بست (۱۳۴۳) (لوگو).jpg"
         }
       ]
+    },
+    "Q14757430": {
+      "id": "Q14757430",
+      "sitelinks": {
+        "fawiki": "ترانه‌های روستائی"
+      },
+      "labels": {
+        "en": "Rural songs",
+        "fa": "ترانه‌های روستائی"
+      },
+      "aliases": {
+        "en": [
+          "Tarane-haye Roostaei",
+          "Taranehaye Roustaei"
+        ]
+      },
+      "directors": [
+        "Q5950127"
+      ],
+      "date": [
+        "+1964-00-00T00:00:00Z"
+      ],
+      "imdb": [],
+      "posters": [
+        {
+          "image": "Village Songs movie poster.jpg",
+          "designers": [
+            "Q16051488"
+          ]
+        }
+      ],
+      "logos": []
     },
     "Q14757431": {
       "id": "Q14757431",
@@ -29559,6 +30254,9 @@
       "posters": [
         {
           "image": "اول هیکل.jpg"
+        },
+        {
+          "image": "The Strong Man movie poster.jpg"
         }
       ],
       "logos": []
@@ -30080,6 +30778,89 @@
         }
       ]
     },
+    "Q14757618": {
+      "id": "Q14757618",
+      "sitelinks": {
+        "fawiki": "بوسه مادر"
+      },
+      "labels": {
+        "en": "Mother's Kiss",
+        "fa": "بوسه مادر"
+      },
+      "aliases": {
+        "en": [
+          "Booseh Madar",
+          "Mother's Kiss (film)"
+        ]
+      },
+      "directors": [
+        "Q17992480"
+      ],
+      "date": [],
+      "imdb": [
+        "tt0377532"
+      ],
+      "posters": [
+        {
+          "image": "Booseye Madar Poster.jpg",
+          "designers": [
+            "Q20109479"
+          ]
+        }
+      ],
+      "logos": []
+    },
+    "Q14757626": {
+      "id": "Q14757626",
+      "sitelinks": {
+        "enwiki": "Marjan (film)",
+        "fawiki": "مرجان (فیلم)"
+      },
+      "labels": {
+        "en": "Marjan",
+        "fa": "مرجان (فیلم)"
+      },
+      "aliases": {},
+      "directors": [
+        "Q7461818"
+      ],
+      "date": [
+        "+1956-00-00T00:00:00Z"
+      ],
+      "imdb": [
+        "tt0378329"
+      ],
+      "posters": [
+        {
+          "image": "پوستر فیلم مرجان.jpg"
+        }
+      ],
+      "logos": []
+    },
+    "Q14757628": {
+      "id": "Q14757628",
+      "sitelinks": {
+        "fawiki": "آخرین شب"
+      },
+      "labels": {
+        "fa": "آخرین شب"
+      },
+      "aliases": {},
+      "directors": [
+        "Q17992248"
+      ],
+      "date": [],
+      "imdb": [],
+      "posters": [
+        {
+          "image": "پوستر فیلم آخرین شب.jpg",
+          "designers": [
+            "Q20109479"
+          ]
+        }
+      ],
+      "logos": []
+    },
     "Q14757633": {
       "id": "Q14757633",
       "sitelinks": {
@@ -30483,6 +31264,18 @@
       "posters": [
         {
           "image": "کانی مانگا (پوستر).jpg"
+        },
+        {
+          "image": "Kani-Manga movie poster (v1).jpg",
+          "designers": [
+            "Q131377834"
+          ]
+        },
+        {
+          "image": "Kani-Manga movie poster (v2).jpg",
+          "designers": [
+            "Q131377834"
+          ]
         }
       ],
       "logos": []
@@ -30516,6 +31309,30 @@
           "image": "عروس فراری (لوگو).png"
         }
       ]
+    },
+    "Q56361415": {
+      "id": "Q56361415",
+      "sitelinks": {
+        "fawiki": "گرگ‌های گرسنه (فیلم ۱۳۴۱)"
+      },
+      "labels": {
+        "fa": "گرگ‌های گرسنه"
+      },
+      "aliases": {},
+      "directors": [
+        "Q1370293"
+      ],
+      "date": [],
+      "imdb": [],
+      "posters": [
+        {
+          "image": "The Hungry Wolves movie poster.jpg",
+          "designers": [
+            "Q16051488"
+          ]
+        }
+      ],
+      "logos": []
     },
     "Q61065440": {
       "id": "Q61065440",
@@ -33604,6 +34421,17 @@
         "fa": "رمزی آیدین جونتورک"
       }
     },
+    "Q7461818": {
+      "id": "Q7461818",
+      "sitelinks": {
+        "enwiki": "Shahla Riahi",
+        "fawiki": "شهلا ریاحی"
+      },
+      "labels": {
+        "en": "Shahla Riahi",
+        "fa": "شهلا ریاحی"
+      }
+    },
     "Q7462345": {
       "id": "Q7462345",
       "sitelinks": {
@@ -34542,6 +35370,16 @@
         "fa": "هوشنگ حسامی"
       }
     },
+    "Q17992248": {
+      "id": "Q17992248",
+      "sitelinks": {
+        "fawiki": "حسین دانشور"
+      },
+      "labels": {
+        "en": "Hossein Daneshavar",
+        "fa": "حسین دانشور"
+      }
+    },
     "Q17992269": {
       "id": "Q17992269",
       "sitelinks": {
@@ -34550,6 +35388,17 @@
       "labels": {
         "en": "Manouchehr Darafsheh",
         "fa": "منوچهر درفشه"
+      }
+    },
+    "Q17992480": {
+      "id": "Q17992480",
+      "sitelinks": {
+        "enwiki": "Ataollah Zahed",
+        "fawiki": "عطاءالله زاهد"
+      },
+      "labels": {
+        "en": "Ataollah Zahed",
+        "fa": "عطاءالله زاهد"
       }
     },
     "Q17992678": {
@@ -34711,6 +35560,16 @@
       "labels": {
         "en": "Hossein Rajabian",
         "fa": "حسین رجبیان"
+      }
+    },
+    "Q25423768": {
+      "id": "Q25423768",
+      "sitelinks": {
+        "fawiki": "اکبر خامین"
+      },
+      "labels": {
+        "en": "Akbar Khamin",
+        "fa": "اکبر خامین"
       }
     },
     "Q25423900": {
@@ -34881,6 +35740,16 @@
       "labels": {
         "en": "Parviz Osanlu",
         "fa": "پرویز اصانلو"
+      }
+    },
+    "Q31070080": {
+      "id": "Q31070080",
+      "sitelinks": {
+        "fawiki": "فرامرز باصری"
+      },
+      "labels": {
+        "en": "Faramarz Basseri",
+        "fa": "فرامرز باصری"
       }
     },
     "Q31070088": {
