@@ -1904,7 +1904,7 @@ createApp({
 		const lightboxImage = ref('');
 
 		const openLightbox = (item) => {
-			if (!item.logo) {
+			if (!posterMode && !item.logo) {
 				lightboxImage.value = null;
 				lightboxVisible.value = true;
 			return;
