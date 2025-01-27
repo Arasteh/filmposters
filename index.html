@@ -969,9 +969,9 @@ height: 95%;*/
 					</button>
 				</div>
 				<div class="sidebar-section-body" v-if="!isCollapsed.years">
-					<div id="canvasContainer">
+					<!--<div id="canvasContainer">
 						<canvas id="yearChart" height="150"></canvas>
-					</div>
+					</div>-->
 					<div class="year-grid">
 						<div v-for="[year, count] in filteredYearsInModal" :key="year"
 							@click="selectYearFromModal(year)" @mouseenter="hoveredItem = year"
