@@ -570,9 +570,14 @@ input:checked+.slider:before {
 	opacity: 0.9;
 	transition-delay: 1s;
 }
-
+#toggleSidebarButton {
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 6px;
+}
 .collapse-button {
-	padding: 8px;
+	padding: 6px;
 	border-radius: 20px;
 	background-color: gray;
 	color: white;
@@ -1100,8 +1105,7 @@ height: 95%;*/
 
 		<div id="searchBar" class="search-bar">
 			<div class="search-container">
-				<button @click="toggleSidebar" id="toggleSidebarButton" class="mobile-only"
-					style="background: none; border: none; cursor: pointer; font-size: 24px;">
+				<button @click="toggleSidebar" id="toggleSidebarButton" class="mobile-only">
 					<span class="material-symbols-rounded">
 						menu
 					</span>
