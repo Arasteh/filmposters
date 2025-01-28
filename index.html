@@ -167,6 +167,13 @@ input[type="text"] {
 	text-decoration: underline;
 }
 
+#film-links {
+	background: light-dark(#222, #eee);
+	padding: 3px 8px;
+	border-radius: 40px;
+	font-weight: bold;
+}
+
 .image-container {
 	position: relative;
 	width: 100%;
@@ -1224,7 +1231,7 @@ height: 95%;*/
 							target="_blank">W</a></template>
 					</span>
 				</div>
-				<div class="item-links">
+				<div id="film-links" class="item-links">
 					<a v-if="item.imdbID" :href="'https://www.imdb.com/title/' + item.imdbID" target="_blank">T</a>
 					<a v-if="item.film" :href="'https://www.wikidata.org/wiki/' + item.film" target="_blank">Q</a>
 					<a v-if="item.faWikipediaLink"
