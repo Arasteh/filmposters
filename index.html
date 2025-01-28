@@ -130,6 +130,8 @@ input[type="text"] {
 	color: light-dark(#777, #999);
 	cursor: pointer;
 	text-decoration: none;
+	margin-right: 3px;
+	font-weight: normal;
 }
 
 .year-link:hover {
@@ -795,6 +797,7 @@ height: 95%;*/
 
 .count {
 	color: light-dark(hsl(0 0% 65% / 1), hsl(0 0% 50% / 1));
+	margin-right: 3px;
 }
 
 .remove-filter {
@@ -1500,7 +1503,7 @@ createApp({
 
 		const toPersianYear = date => {
 			const year = new Date(date).toLocaleDateString('fa').split('/')[0];
-			return year === 'Invalid Date' ? 'ناموجود' : year;
+			return year === 'Invalid Date' ? 'نامشخص' : year;
 		};
 
 		const availableYears = computed(() => {
