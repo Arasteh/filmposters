@@ -1320,22 +1320,26 @@ createApp({
 			isShowMore.value = true;
 		};
 
-		const sortOrder = ref('random');
-		const searchTerm = ref('');
-		const combineSimilarChars = ref(false);
-		const posterMode = ref(true);
-		const selectedYear = ref('');
 		const designerQuery = ref("");
-		const selectedDesigner = ref('');
-		const selectedDirector = ref('');
 		const isDesignerDropdownOpen = ref(false);
 		const topDesigners = computed(() => availableDesigners.value.slice(0, 10));
-		const selectedLetter = ref('');
 		const isOptionsCollapsed = ref(false);
 		const isDesignerModalOpen = ref(false);
 		const designerSearchQuery = ref('');
 		const modalContent = ref(null);
 
+		const urlParams = new URLSearchParams(window.location.search);
+		
+		const searchTerm = ref(urlParams.get('q') || '');
+		const selectedYear = ref(urlParams.get('y') || '');
+		const selectedDesigner = ref(urlParams.get('designer') || '');
+		const selectedDirector = ref(urlParams.get('director') || '');
+		const selectedLetter = ref(urlParams.get('letter') || '');
+		const posterMode = ref(urlParams.get('mode') !== 'logo');
+		const combineSimilarChars = ref(urlParams.get('similar') === 'true');
+		const pixelatedEffect = ref(urlParams.get('censor') === 'true');
+		const sortOrder = ref(urlParams.get('sort') || 'random');
+		
 		const filteredDesignersInDropdown = computed(() => {
 			if (!designerQuery.value) {
 				return availableDesigners.value;
@@ -1344,6 +1348,43 @@ createApp({
 				designer.includes(designerQuery.value)
 			);
 		});
+
+		watch([searchTerm, selectedYear, selectedDesigner, selectedDirector, selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder], () => {
+		updateURL();
+		});
+		
+		function updateURL() {
+			const params = new URLSearchParams();
+			if (searchTerm.value) params.set('q', searchTerm.value);
+			if (selectedYear.value) params.set('y', selectedYear.value);
+			if (selectedDesigner.value) params.set('designer', selectedDesigner.value);
+			if (selectedDirector.value) params.set('director', selectedDirector.value);
+			if (selectedLetter.value) params.set('letter', selectedLetter.value);
+			params.set('mode', posterMode.value ? 'poster' : 'logo');
+			params.set('similar', combineSimilarChars.value ? 'true' : 'false');
+			params.set('censor', pixelatedEffect.value ? 'true' : 'false');
+			params.set('sort', sortOrder.value);
+			
+			const newUrl = `${window.location.pathname}?${params.toString()}`;
+			window.history.pushState({}, '', newUrl);
+		}
+
+		onMounted(() => {
+		applyInitialFilters();
+		});
+		
+		function applyInitialFilters() {
+			const urlParams = new URLSearchParams(window.location.search);
+			searchTerm.value = urlParams.get('q') || '';
+			selectedYear.value = urlParams.get('y') || '';
+			selectedDesigner.value = urlParams.get('designer') || '';
+			selectedDirector.value = urlParams.get('director') || '';
+			selectedLetter.value = urlParams.get('letter') || '';
+			posterMode.value = urlParams.get('mode') !== 'logo';
+			combineSimilarChars.value = urlParams.get('similar') === 'true';
+			pixelatedEffect.value = urlParams.get('censor') === 'true';
+			sortOrder.value = urlParams.get('sort') || 'random';
+		}
 
 		const openDesignerModal = () => {
 			isDesignerModalOpen.value = true;
@@ -1722,7 +1763,6 @@ createApp({
 			sidebarVisible.value = false;
 		};
 
-		const pixelatedEffect = ref(true);
 
 		const clearSearchTerm = () => {
 			searchTerm.value = '';
