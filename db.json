@@ -5173,7 +5173,10 @@
       ],
       "posters": [
         {
-          "image": "King of Hearts (1968 film).jpg"
+          "image": "King of Hearts (1968 film).jpg",
+          "designers": [
+            "Q131377955"
+          ]
         }
       ],
       "logos": []
@@ -11187,6 +11190,9 @@
           "designers": [
             "Q61060515"
           ]
+        },
+        {
+          "image": "پوستر فیلم طعمه.jpg"
         }
       ],
       "logos": []
@@ -15287,7 +15293,9 @@
       "date": [
         "+1986-01-01T00:00:00Z"
       ],
-      "imdb": [],
+      "imdb": [
+        "tt1090310"
+      ],
       "posters": [
         {
           "image": "The Highschool movie poster (v1).jpg"
@@ -17184,6 +17192,12 @@
           "designers": [
             "Q61060515"
           ]
+        },
+        {
+          "image": "Margesefid.jpg",
+          "designers": [
+            "Q131522866"
+          ]
         }
       ],
       "logos": []
@@ -18474,7 +18488,10 @@
       ],
       "posters": [
         {
-          "image": "بابا گلی به جمالت.jpg"
+          "image": "بابا گلی به جمالت.jpg",
+          "designers": [
+            "Q131377834"
+          ]
         }
       ],
       "logos": [
@@ -19499,6 +19516,9 @@
       "posters": [
         {
           "image": "پلنگ (پوستر).jpg",
+          "designers": [
+            "Q131377834"
+          ],
           "characteristics": [
             "Q2716583"
           ]
@@ -19658,6 +19678,9 @@
           "image": "دختر نگو بلابگو (پوستر).jpg",
           "designers": [
             "Q131377834"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -22893,6 +22916,9 @@
           "image": "صبح روز چهارم 2 (پوستر).jpg",
           "designers": [
             "Q131377764"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
