@@ -1200,23 +1200,30 @@ input:checked+.slider:before {
 					</label>
 				</div>
 				<div class="similar-chars-toggle">
+					<input type="checkbox" id="similarCharsSwitch" v-model="combineSimilarChars">
 					<label for="similarCharsSwitch">
+						حروف مشابه
+					</label>
+					<label>
 						<span class="material-symbols-rounded tooltip">
 						info
 						<span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود: مانند س، ش</span>
 						</span>
 					</label>
-					<input type="checkbox" id="similarCharsSwitch" v-model="combineSimilarChars">
 				</div>
 					
 				<div class="similar-chars-toggle" v-if="posterMode">
+					<input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect">
 					<label for="pixelatedSwitch">
+						سانسور
+					</label>
+					<label>
 						<span class="material-symbols-rounded tooltip">
 						info
 							<span class="tooltiptext">مخفی کردن تصاویری که ممکن است نامناسب باشند</span>
 						</span>
 					</label>
-					<input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect">
+
 				</div>
 					
 				<div class="similar-chars-toggle" v-else>
