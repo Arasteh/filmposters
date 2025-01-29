@@ -519,7 +519,7 @@ input:checked+.slider:before {
 .similar-chars-toggle {
 	display: flex;
 	align-items: center;
-	gap: 10px;
+	gap: 5px;
 }
 
 .similar-chars-toggle label {
@@ -545,8 +545,8 @@ input:checked+.slider:before {
 }
 
 .similar-chars-toggle input[type="checkbox"] {
-	width: 20px;
-	height: 20px;
+	width: 15px;
+	height: 15px;
 	cursor: pointer;
 }
 	
@@ -580,7 +580,6 @@ input:checked+.slider:before {
 .tooltip {
 	position: relative;
 	display: inline-block;
-	border-bottom: 1px dotted gray;
 }
 
 .tooltip .tooltiptext {
@@ -1167,7 +1166,7 @@ input:checked+.slider:before {
 					<span :class="{ active: !posterMode }">پوستر</span>
 					<span :class="{ active: posterMode }">لوگو</span>
 				</div>
-				<div class="similar-chars-toggle">
+				<!--<div class="similar-chars-toggle">
 					<label for="similarCharsSwitch">
 						<div class="tooltip">حروف مشابه
 							<span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود: مانند س،
@@ -1198,7 +1197,7 @@ input:checked+.slider:before {
 						<input id="pixelatedSwitch" type="checkbox" v-model="pixelatedEffect" disabled>
 						<span class="slider round"></span>
 					</label>
-				</div>
+				</div>-->
 				<div class="similar-chars-toggle">
 					<input type="checkbox" id="similarCharsSwitch" v-model="combineSimilarChars">
 					<label for="similarCharsSwitch">
