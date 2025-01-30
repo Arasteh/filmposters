@@ -759,6 +759,7 @@ input:checked+.slider:before {
 	max-height: 350px;
 	margin-bottom: 20px;
 	border-radius: 0 0 10px 10px;
+	border: 1px light-dark(#ddd, #222) solid;
 }
 
 
@@ -932,7 +933,7 @@ input:checked+.slider:before {
 		right: -105%;
 		width: 80%;
 		height: 100vh;
-		background-color: light-dark(#f5f5f5, #121212);
+		background-color: light-dark(#fff, #121212);
 		transition: right 0.3s ease-in-out;
 		z-index: 1000;
 		display: block;
@@ -957,7 +958,7 @@ input:checked+.slider:before {
 
 	.sidebar-content {
 		padding: 15px 15px 60px 15px;
-		background: light-dark(#f5f5f5, #121212);
+		background: light-dark(#fff, #121212);
 	}
 
 	.sidebar-section-body {
@@ -1022,7 +1023,7 @@ input:checked+.slider:before {
 							class="year-item">
 							{{ year }} <span class="count">({{ count }})</span>
 							<span v-if="selectedYear === year" class="remove-filter" @click.stop="removeYearFilter">
-								<span class="material-symbols-rounded">
+								<span class="material-symbols-rounded" style="font-size: inherit;">
 									close
 								</span>
 							</span>
