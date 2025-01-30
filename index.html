@@ -7,7 +7,7 @@
 <script src="vue.global.js"></script>
 <script src="Chart.js"></script>
 <link rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=brush,close,download,info,keyboard_arrow_up,menu,north,refresh" />
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=close,download,info,keyboard_arrow_up,menu,north,person_edit,refresh" />
 <style>
 * {
 	font-family: system-ui;
@@ -1277,7 +1277,7 @@ input:checked+.slider:before {
 
 				<div v-if="item.designer && item.designerLabel" class="item-designer">
 					<span class="mobile-only">
-						<span class="material-symbols-rounded">brush</span>
+						<span class="material-symbols-rounded" style="margin-left: 5px; top: 8px; position: relative;">person_edit</span>
 					</span>
 					<span class="desktop-only">طراح:</span><a href="#" @click.prevent="selectDesigner(item.designerLabel)">{{ item.designerLabel
 						}}</a>
