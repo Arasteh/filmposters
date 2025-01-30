@@ -1403,7 +1403,7 @@ createApp({
 		const selectedLetter = ref(urlParams.get('letter') || '');
 		const posterMode = ref(urlParams.get('mode') !== 'logo');
 		const combineSimilarChars = ref(urlParams.get('similar') === 'true');
-		const pixelatedEffect = ref(urlParams.get('censor') === 'true');
+		const pixelatedEffect = ref(urlParams.get('censor') === 'true' || true);
 		const sortOrder = ref(urlParams.get('sort') || 'random');
 		
 		const filteredDesignersInDropdown = computed(() => {
@@ -1448,7 +1448,7 @@ createApp({
 			selectedLetter.value = urlParams.get('letter') || '';
 			posterMode.value = urlParams.get('mode') !== 'logo';
 			combineSimilarChars.value = urlParams.get('similar') === 'true';
-			pixelatedEffect.value = urlParams.get('censor') === 'true';
+			pixelatedEffect.value = urlParams.get('censor') === 'true' || true;
 			sortOrder.value = urlParams.get('sort') || 'random';
 		}
 
