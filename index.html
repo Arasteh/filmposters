@@ -227,6 +227,7 @@ input[type="text"] {
 	display: block;
 	width: 100%;
 	height: auto;
+	z-index: 2;
 }
 
 .no-logo-placeholder {
@@ -263,7 +264,7 @@ input[type="text"] {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	z-index: 1001;
+	z-index: 1;
 }
 .close-lightbox {
 	position: absolute;
@@ -1129,13 +1130,6 @@ input:checked+.slider:before {
 				(بدون لوگو)
 			</div>
 		</template>
-		<div class="loading-spinner" v-if="isLoading">
-			<svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-				<circle cx="25" cy="25" r="20" stroke="#ccc" stroke-width="5" fill="none" stroke-dasharray="31.415, 31.415">
-					<animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="1s" repeatCount="indefinite"/>
-				</circle>
-			</svg>
-		</div>
 	<button class="close-lightbox" @click.stop="closeLightbox">
 		<span class="material-symbols-rounded">
 			close
@@ -1274,6 +1268,13 @@ input:checked+.slider:before {
 			<div class="item-card" v-for="(item, index) in (isShowMore ? filteredItems : filteredItems.slice(0, 30))"
 				:key="index">
 				<div class="image-container">
+					<div class="loading-spinner" v-if="isLoading">
+						<svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+							<circle cx="25" cy="25" r="20" stroke="#ccc" stroke-width="5" fill="none" stroke-dasharray="31.415, 31.415">
+								<animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="1s" repeatCount="indefinite"/>
+							</circle>
+						</svg>
+					</div>
 					<div @click="handleImageClick(item)" class="clickable-image">
 						<template v-if="!posterMode && !item.logo">
 							<div class="no-logo-placeholder">
@@ -2038,11 +2039,12 @@ createApp({
 			lightboxImage.value = posterMode.value ? getPosterUrl(item.poster, 1200) : getPosterUrl(item.logo, 1200);
 			lightboxVisible.value = true;
 			
-			setTimeout(() => {
+			const img = new Image();
+			img.src = lightboxImage.value;
+			img.onload = () => {
 				isLoading.value = false;
-			}, 1000);
+			};
 		};
-
 
 		const closeLightbox = () => {
 			lightboxVisible.value = false;
