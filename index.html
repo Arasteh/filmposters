@@ -279,6 +279,18 @@ input[type="text"] {
 	font-size: 36px;
 }
 
+.lightbox-download {
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+	background: none;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 36px;
+}
+	
 #toTop {
 	transition: bottom ease-in-out 350ms;
 	bottom: -100px;
@@ -1148,6 +1160,11 @@ input:checked+.slider:before {
 	<button class="close-lightbox" @click.stop="closeLightbox">
 		<span class="material-symbols-rounded">
 			close
+		</span>
+	</button>
+	<button class="lightbox-download" @click.stop="openDownloadLink(item)">
+		<span class="material-symbols-rounded">
+			download
 		</span>
 	</button>
 	</div>
