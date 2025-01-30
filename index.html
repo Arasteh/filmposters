@@ -1320,7 +1320,7 @@ window.addEventListener("scroll", () => {
 	lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
 });
 
-const { createApp, ref, computed, watch, onMounted, nextTick } = Vue;
+const { createApp, ref, computed, watch, onMounted, nextTick, onUnmounted } = Vue;
 
 async function getAllItems() {
 	const data = await fetch('db.json').then(x => x.json());
