@@ -576,7 +576,7 @@ input:checked+.slider:before {
 	height: calc(100% - 8px);
 	background-color: light-dark(#b77, #b77);
 	border-radius: 30px;
-	transition: transform 0.4s cubic-bezier(1, 0, 0, 1);
+	transition: 0.4s cubic-bezier(1, 0, 0, 1);
 }
 
 .triple-switch[data-sort="alphabetical"]::before {
@@ -1298,24 +1298,6 @@ input:checked+.slider:before {
 							<span class="tooltiptext">سانسور</span>
 						</span>
 					</label>
-				</div>
-
-				<div class="sort-order-container">
-					<label>ترتیب:</label>
-					<div class="triple-toggle-switch">
-						<div class="toggle-option" :class="{ active: sortOrder === 'alphabetical' }"
-							@click="sortOrder = 'alphabetical'">
-							الفبایی
-						</div>
-						<div class="toggle-option" :class="{ active: sortOrder === 'year' }"
-							@click="sortOrder = 'year'">
-							سال
-						</div>
-						<div class="toggle-option" :class="{ active: sortOrder === 'random' }"
-							@click="sortOrder = 'random'">
-							تصادفی
-						</div>
-					</div>
 				</div>
 				<div class="sort-order-container">
 					<label>ترتیب:</label>
