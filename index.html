@@ -7,7 +7,7 @@
 <script src="vue.global.js"></script>
 <script src="Chart.js"></script>
 <link rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=close,download,info,keyboard_arrow_up,menu,north,person_edit,refresh" />
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=close,download,info,keyboard_arrow_up,menu,north,person_edit,refresh,swap_vert" />
 <link rel="icon" href="favicon.svg">
 <style>
 * {
@@ -1307,7 +1307,11 @@ input:checked+.slider:before {
 					</label>
 				</div>
 				<div class="sort-order-container">
-					<label>ترتیب:</label>
+					<label>
+						<span class="material-symbols-rounded">
+							swap_vert
+						</span>
+					</label>
 					<div class="triple-switch" :data-sort="sortOrder">
 						<span :class="{ active: sortOrder === 'alphabetical' }" @click="sortOrder = 'alphabetical'">الفبایی</span>
 						<span :class="{ active: sortOrder === 'year' }" @click="sortOrder = 'year'">سال</span>
