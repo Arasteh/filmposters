@@ -699,7 +699,6 @@ input:checked+.slider:before {
 	padding: 6px;
 }
 .collapse-button {
-	padding: 6px;
 	border-radius: 20px;
 	background-color: gray;
 	color: white;
@@ -710,11 +709,11 @@ input:checked+.slider:before {
 }
 
 .rotate-up {
-	transform: rotate(0deg);
+	transform: rotate(0deg) translateY(2px);
 }
 
 .rotate-down {
-	transform: rotate(180deg) translateY(4px)
+	transform: rotate(180deg) translateY(2px);
 }
 
 .modal-overlay {
@@ -1085,7 +1084,7 @@ input:checked+.slider:before {
 			<div class="sidebar-section" :class="getSectionClass('years')" :key="'years-section'">
 				<div class="sidebar-section-header" @click="toggleCollapse('years')">
 					<span>{{ filteredYearLabel }}</span>
-					<button class="collapse-button" :class="{ 'rotate-down': isCollapsed.years }">
+					<button class="collapse-button" :class="collapseIconClass(isCollapsed.years)">
 						<span class="material-symbols-rounded">
 							keyboard_arrow_up
 						</span>
@@ -1115,7 +1114,7 @@ input:checked+.slider:before {
 			<div class="sidebar-section" :class="getSectionClass('designers')">
 				<div class="sidebar-section-header" @click="toggleCollapse('designers')">
 					<span>{{ filteredDesignerLabel }}</span>
-					<button class="collapse-button" :class="{ 'rotate-down': isCollapsed.designers }">
+					<button class="collapse-button" :class="collapseIconClass(isCollapsed.designers)">
 						<span class="material-symbols-rounded">
 							keyboard_arrow_up
 						</span>
@@ -1147,7 +1146,7 @@ input:checked+.slider:before {
 			<div class="sidebar-section" :class="getSectionClass('directors')">
 				<div class="sidebar-section-header" @click="toggleCollapse('directors')">
 					<span>{{ filteredDirectorLabel }}</span>
-					<button class="collapse-button" :class="{ 'rotate-down': isCollapsed.directors }">
+					<button class="collapse-button" :class="collapseIconClass(isCollapsed.directors)">
 						<span class="material-symbols-rounded">
 							keyboard_arrow_up
 						</span>
@@ -1179,7 +1178,7 @@ input:checked+.slider:before {
 			<div class="sidebar-section" :class="getSectionClass('letters')">
 				<div class="sidebar-section-header" @click="toggleCollapse('letters')">
 					<span>{{ filteredLetterLabel }}</span>
-					<button class="collapse-button" :class="{ 'rotate-down': isCollapsed.letters }">
+					<button class="collapse-button" :class="collapseIconClass(isCollapsed.letters)">
 						<span class="material-symbols-rounded">
 							keyboard_arrow_up
 						</span>
@@ -1257,7 +1256,7 @@ input:checked+.slider:before {
 					</span>
 				</button>
 				<button @click="toggleOptions" id="collapseButton" class="collapse-button mobile-only"
-					:class="collapseIconClass">
+					:class="collapseIconClass(isOptionsCollapsed)">
 					<span class="material-symbols-rounded">
 						keyboard_arrow_up
 					</span>
@@ -1570,9 +1569,9 @@ createApp({
 			isOptionsCollapsed.value = !isOptionsCollapsed.value;
 		};
 
-		const collapseIconClass = computed(() => {
-			return isOptionsCollapsed.value ? 'rotate-down' : 'rotate-up';
-		});
+		const collapseIconClass = (value) => {
+			return value ? 'rotate-down' : 'rotate-up';
+		};
 
 		const designerSuggestions = computed(() => {
 			if (!designerQuery.value) {
