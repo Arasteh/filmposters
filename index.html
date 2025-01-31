@@ -811,6 +811,7 @@ input:checked+.slider:before {
 	flex-direction: column;
 	min-height: 0;
 	transition: flex-grow 0.3s ease-in-out;
+	padding-bottom: 10px;
 }
 
 .sidebar-section-header {
@@ -825,13 +826,12 @@ input:checked+.slider:before {
 
 .sidebar-section-body {
 	flex: 1;
-	padding: 10px;
+	margin: 10px 10px 0 10px;
 	overflow-y: auto;
 	min-height: 0;
 	background-color: light-dark(#fff, #121212);
 	opacity: 1;
 	max-height: 350px;
-	margin-bottom: 20px;
 	border-radius: 0 0 10px 10px;
 	border: 1px light-dark(#ddd, #222) solid;
 	transition: 0.4s cubic-bezier(1, 0, 0, 1);
@@ -850,7 +850,6 @@ input:checked+.slider:before {
 
 .sidebar-section.collapsed {
 	flex-grow: 0;
-	margin-bottom: 20px;
 	border: none;
 }
 
