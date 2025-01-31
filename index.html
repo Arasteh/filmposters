@@ -826,7 +826,7 @@ input:checked+.slider:before {
 
 .sidebar-section-body {
 	flex: 1;
-	margin: 10px 10px 0 10px;
+	padding: 0 10px;
 	overflow-y: auto;
 	min-height: 0;
 	background-color: light-dark(#fff, #121212);
@@ -1089,6 +1089,7 @@ input:checked+.slider:before {
 					</button>
 				</div>
 				<div class="sidebar-section-body">
+					<div style="height: 10px"></div>
 					<!--<div id="canvasContainer">
 						<canvas id="yearChart" height="150"></canvas>
 					</div>-->
@@ -1118,6 +1119,7 @@ input:checked+.slider:before {
 					</button>
 				</div>
 				<div class="sidebar-section-body">
+					<div style="height: 10px"></div>
 					<div class="search-container">
 						<input type="text" v-model="designerSearchQuery" placeholder="جستجوی طراح…" />
 						<span v-if="designerSearchQuery" @click="clearDesignerSearchQuery" class="clearSearch">
@@ -1149,6 +1151,7 @@ input:checked+.slider:before {
 					</button>
 				</div>
 				<div class="sidebar-section-body">
+					<div style="height: 10px"></div>
 					<div class="search-container">
 						<input type="text" v-model="directorSearchQuery" placeholder="جستجوی کارگردان…" />
 						<span v-if="directorSearchQuery" @click="clearDirectorSearchQuery" class="clearSearch">
@@ -1180,6 +1183,7 @@ input:checked+.slider:before {
 					</button>
 				</div>
 				<div class="sidebar-section-body">
+					<div style="height: 10px"></div>
 					<div class="letter-grid">
 						<div v-for="[letter, count] in filteredLettersInModal" :key="letter"
 							@click="selectLetterFromModal(letter)" @mouseenter="hoveredItem = letter"
