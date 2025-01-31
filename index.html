@@ -833,6 +833,8 @@ input:checked+.slider:before {
 	margin-bottom: 20px;
 	border-radius: 0 0 10px 10px;
 	border: 1px light-dark(#ddd, #222) solid;
+	transition: ease-in-out 350ms;
+	transition-property: opacity, max-height;
 }
 
 
@@ -842,9 +844,7 @@ input:checked+.slider:before {
 
 .sidebar-section.collapsed .sidebar-section-body {
 	opacity: 0;
-	padding: 0;
 	max-height: 0;
-	overflow: hidden;
 }
 
 .sidebar-section.collapsed {
@@ -1088,7 +1088,7 @@ input:checked+.slider:before {
 						</span>
 					</button>
 				</div>
-				<div class="sidebar-section-body" v-if="!isCollapsed.years">
+				<div class="sidebar-section-body">
 					<!--<div id="canvasContainer">
 						<canvas id="yearChart" height="150"></canvas>
 					</div>-->
@@ -1117,7 +1117,7 @@ input:checked+.slider:before {
 						</span>
 					</button>
 				</div>
-				<div class="sidebar-section-body" v-if="!isCollapsed.designers">
+				<div class="sidebar-section-body">
 					<div class="search-container">
 						<input type="text" v-model="designerSearchQuery" placeholder="جستجوی طراح…" />
 						<span v-if="designerSearchQuery" @click="clearDesignerSearchQuery" class="clearSearch">
@@ -1148,7 +1148,7 @@ input:checked+.slider:before {
 						</span>
 					</button>
 				</div>
-				<div class="sidebar-section-body" v-if="!isCollapsed.directors">
+				<div class="sidebar-section-body">
 					<div class="search-container">
 						<input type="text" v-model="directorSearchQuery" placeholder="جستجوی کارگردان…" />
 						<span v-if="directorSearchQuery" @click="clearDirectorSearchQuery" class="clearSearch">
@@ -1179,7 +1179,7 @@ input:checked+.slider:before {
 						</span>
 					</button>
 				</div>
-				<div class="sidebar-section-body" v-if="!isCollapsed.letters">
+				<div class="sidebar-section-body">
 					<div class="letter-grid">
 						<div v-for="[letter, count] in filteredLettersInModal" :key="letter"
 							@click="selectLetterFromModal(letter)" @mouseenter="hoveredItem = letter"
