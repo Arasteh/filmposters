@@ -577,6 +577,7 @@ input:checked+.slider:before {
 	background-color: light-dark(#b77, #b77);
 	border-radius: 30px;
 	transition: 0.4s cubic-bezier(1, 0, 0, 1);
+	transition-property: transform, width;
 }
 
 .triple-switch[data-sort="alphabetical"]::before {
@@ -833,7 +834,7 @@ input:checked+.slider:before {
 	margin-bottom: 20px;
 	border-radius: 0 0 10px 10px;
 	border: 1px light-dark(#ddd, #222) solid;
-	transition: ease-in-out 350ms;
+	transition: 0.4s cubic-bezier(1, 0, 0, 1);
 	transition-property: opacity, max-height;
 }
 
