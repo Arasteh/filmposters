@@ -378,7 +378,7 @@ input[type="text"] {
 	padding: 4px;
 	cursor: pointer;
 	user-select: none;
-	width: 120px;
+	width: fit-content;
 	position: relative;
 	transition: background-color 0.3s;
 }
@@ -386,10 +386,12 @@ input[type="text"] {
 .toggle-switch span {
 	flex: 1;
 	text-align: center;
-	padding: 8px;
-	color: light-dark(#fff, #fff);
+	padding: 8px 16px;
+	border-radius: 30px;
+	color: light-dark(#888, #888);
+	transition: background-color 0.2s, color 0.2s;
+	cursor: pointer;
 	z-index: 1;
-	transition: color 0.3s;
 }
 
 .toggle-switch span.active {
@@ -401,15 +403,27 @@ input[type="text"] {
 	position: absolute;
 	top: 4px;
 	left: 4px;
-	width: 56px;
+	width: calc(33.33% - 8px);
 	height: calc(100% - 8px);
 	background-color: light-dark(#b77, #b77);
-	border-radius: 50px;
+	border-radius: 30px;
 	transition: 0.4s cubic-bezier(1, 0, 0, 1);
 }
 
 .toggle-switch.active {
 	background-color: light-dark(#b77, #b77);
+}
+
+.toggle-switch[data-sort="alphabetical"]::before {
+	transform: translateX(0);
+}
+
+.toggle-switch[data-sort="year"]::before {
+	transform: translateX(100%);
+}
+
+.toggle-switch[data-sort="random"]::before {
+	transform: translateX(200%);
 }
 
 .toggle-slider {
@@ -1263,6 +1277,14 @@ input:checked+.slider:before {
 						</div>
 					</div>
 				</div>
+				<div class="sort-order-container">
+				<label>ترتیب:</label>
+					<div class="toggle-switch" @click="toggleSortOrder">
+						<span :class="{ active: sortOrder === 'alphabetical' }">الفبایی</span>
+						<span :class="{ active: sortOrder === 'year' }">سال</span>
+						<span :class="{ active: sortOrder === 'random' }">تصادفی</span>
+					</div>
+				</div>
 			</div>
 			<div v-if="filteredItems.length > 0" style="text-align: center; padding-bottom: .5em;">
 				{{ filteredItems.length.toLocaleString('fa') }} از {{ items.length.toLocaleString('fa') }} پوستر ({{
@@ -2103,6 +2125,16 @@ createApp({
 		const selectYearFromTitle = (year) => {
 			selectedYear.value = year;
 		};
+
+		const toggleSortOrder = () => {
+			if (sortOrder.value === 'alphabetical') {
+				sortOrder.value = 'year';
+			} else if (sortOrder.value === 'year') {
+				sortOrder.value = 'random';
+			} else {
+				sortOrder.value = 'alphabetical';
+			}
+		};
 		
 		const getPosterUrl = (filePath, width = 600) => {
 			if (!filePath) return 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=' + width;
@@ -2122,7 +2154,7 @@ createApp({
 		}
 		const getImageLink = item => posterMode.value ? item.poster : item.logo;
 
-		return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, minYear, maxYear, selectedYearSlider, updateSelectedYear, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar, sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm, lightboxVisible, lightboxImage, openLightbox, closeLightbox, openDownloadLink, createYearChart, handleImageClick, clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading, handlePopState };
+		return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, topDesigners, designerSuggestions, isDesignerDropdownOpen, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, isDesignerModalOpen, openDesignerModal, closeDesignerModal, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDesignersInDropdown, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, minYear, maxYear, selectedYearSlider, updateSelectedYear, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar, sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm, lightboxVisible, lightboxImage, openLightbox, closeLightbox, openDownloadLink, createYearChart, handleImageClick, clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading, handlePopState, toggleSortOrder };
 	}
 }).mount('#app');
 </script>
