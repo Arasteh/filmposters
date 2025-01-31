@@ -1008,7 +1008,7 @@
     "Q3107471": {
       "id": "Q3107471",
       "sitelinks": {
-        "enwiki": "The Runner (1985 film)",
+        "enwiki": "The Runner (1984 film)",
         "fawiki": "دونده (فیلم ۱۳۶۳)"
       },
       "labels": {
@@ -1136,9 +1136,6 @@
       "aliases": {
         "en": [
           "Hezar Dastan"
-        ],
-        "fa": [
-          "هزاردستان (مجموعهٔ تلویزیونی)"
         ]
       },
       "directors": [
@@ -2078,6 +2075,38 @@
           "image": "Canary Yellow movie poster (v1).jpg",
           "designers": [
             "Q131377834"
+          ]
+        }
+      ],
+      "logos": []
+    },
+    "Q5701843": {
+      "id": "Q5701843",
+      "sitelinks": {
+        "fawiki": "اوکی مستر"
+      },
+      "labels": {
+        "fa": "اوکی مستر (فیلم)"
+      },
+      "aliases": {
+        "fa": [
+          "اکی مستر"
+        ]
+      },
+      "directors": [
+        "Q3367080"
+      ],
+      "date": [
+        "+1978-01-01T00:00:00Z"
+      ],
+      "imdb": [
+        "tt0336939"
+      ],
+      "posters": [
+        {
+          "image": "اکی میستر (پوستر).jpg",
+          "designers": [
+            "Q19667006"
           ]
         }
       ],
@@ -4494,6 +4523,12 @@
       "posters": [
         {
           "image": "آواز تهران (پوستر).jpg",
+          "designers": [
+            "Q131377834"
+          ]
+        },
+        {
+          "image": "آواز تهران (پوستر ۲).jpg",
           "designers": [
             "Q131377834"
           ]
@@ -15223,6 +15258,12 @@
           "designers": [
             "Q10294201"
           ]
+        },
+        {
+          "image": "یار در خانه (پوستر ۲).jpg",
+          "designers": [
+            "Q5717256"
+          ]
         }
       ],
       "logos": []
@@ -21558,7 +21599,9 @@
       "date": [
         "+1974-01-01T00:00:00Z"
       ],
-      "imdb": [],
+      "imdb": [
+        "tt11342248"
+      ],
       "posters": [
         {
           "image": "مهدی فرنگی (پوستر).jpg",
@@ -28342,6 +28385,35 @@
           "image": "Seven Cities of Love movie poster.png",
           "designers": [
             "Q16051488"
+          ]
+        }
+      ],
+      "logos": []
+    },
+    "Q14757331": {
+      "id": "Q14757331",
+      "sitelinks": {
+        "fawiki": "وسوسه شیطان"
+      },
+      "labels": {
+        "en": "Vasvaseye sheitan",
+        "fa": "وسوسه شیطان"
+      },
+      "aliases": {},
+      "directors": [
+        "Q16052006"
+      ],
+      "date": [
+        "+1967-00-00T00:00:00Z"
+      ],
+      "imdb": [
+        "tt0320712"
+      ],
+      "posters": [
+        {
+          "image": "وسوسه شیطان (پوستر).jpg",
+          "designers": [
+            "Q55210"
           ]
         }
       ],
@@ -36224,6 +36296,17 @@
       "labels": {
         "en": "Howard Avedis",
         "fa": "حکمت آقانیکیان"
+      }
+    },
+    "Q19667006": {
+      "id": "Q19667006",
+      "sitelinks": {
+        "enwiki": "Nicky Nodjoumi",
+        "fawiki": "نیکزاد نجومی"
+      },
+      "labels": {
+        "en": "Nicky Nodjoumi",
+        "fa": "نیکزاد نجومی"
       }
     },
     "Q20109479": {
