@@ -572,7 +572,7 @@ input:checked+.slider:before {
 	position: absolute;
 	top: 4px;
 	left: 4px;
-	width: calc(33.33% - 8px);
+	width: calc(37%);
 	height: calc(100% - 8px);
 	background-color: light-dark(#b77, #b77);
 	border-radius: 30px;
@@ -580,15 +580,17 @@ input:checked+.slider:before {
 }
 
 .triple-switch[data-sort="alphabetical"]::before {
-	transform: translateX(0);
+	transform: translateX(191%);
+	width: calc(33%);
 }
 
 .triple-switch[data-sort="year"]::before {
-	transform: translateX(100%);
+	transform: translateX(128%);
+	width: calc(28%);
 }
 
 .triple-switch[data-sort="random"]::before {
-	transform: translateX(200%);
+	transform: translateX(0%);
 }
 	
 .similar-chars-toggle {
