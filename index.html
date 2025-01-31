@@ -827,7 +827,8 @@ input:checked+.slider:before {
 
 .sidebar-section-body {
 	flex: 1;
-	padding: 0 10px 0 10px;
+	padding-top: 10px;
+	padding-inline: 10px;
 	overflow-y: auto;
 	min-height: 0;
 	background-color: light-dark(#fff, #000);
@@ -836,7 +837,7 @@ input:checked+.slider:before {
 	border-radius: 0 0 10px 10px;
 	border: 1px light-dark(#ddd, #333) solid;
 	transition: 0.4s cubic-bezier(1, 0, 0, 1);
-	transition-property: opacity, max-height;
+	transition-property: opacity, max-height, padding-top;
 }
 
 
@@ -845,6 +846,7 @@ input:checked+.slider:before {
 }
 
 .sidebar-section.collapsed .sidebar-section-body {
+	padding-top: 0;
 	opacity: 0;
 	max-height: 0;
 }
@@ -1093,7 +1095,6 @@ input:checked+.slider:before {
 					</button>
 				</div>
 				<div class="sidebar-section-body">
-					<div style="height: 10px"></div>
 					<!--<div id="canvasContainer">
 						<canvas id="yearChart" height="150"></canvas>
 					</div>-->
@@ -1123,7 +1124,6 @@ input:checked+.slider:before {
 					</button>
 				</div>
 				<div class="sidebar-section-body">
-					<div style="height: 10px"></div>
 					<div class="search-container">
 						<input type="text" v-model="designerSearchQuery" placeholder="جستجوی طراح…" />
 						<span v-if="designerSearchQuery" @click="clearDesignerSearchQuery" class="clearSearch">
@@ -1155,7 +1155,6 @@ input:checked+.slider:before {
 					</button>
 				</div>
 				<div class="sidebar-section-body">
-					<div style="height: 10px"></div>
 					<div class="search-container">
 						<input type="text" v-model="directorSearchQuery" placeholder="جستجوی کارگردان…" />
 						<span v-if="directorSearchQuery" @click="clearDirectorSearchQuery" class="clearSearch">
@@ -1187,7 +1186,6 @@ input:checked+.slider:before {
 					</button>
 				</div>
 				<div class="sidebar-section-body">
-					<div style="height: 10px"></div>
 					<div class="letter-grid">
 						<div v-for="[letter, count] in filteredLettersInModal" :key="letter"
 							@click="selectLetterFromModal(letter)" @mouseenter="hoveredItem = letter"
