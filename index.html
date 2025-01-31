@@ -378,7 +378,7 @@ input[type="text"] {
 	padding: 4px;
 	cursor: pointer;
 	user-select: none;
-	width: fit-content;
+	width: 120px;
 	position: relative;
 	transition: background-color 0.3s;
 }
@@ -386,12 +386,10 @@ input[type="text"] {
 .toggle-switch span {
 	flex: 1;
 	text-align: center;
-	padding: 8px 16px;
-	border-radius: 30px;
-	color: light-dark(#888, #888);
-	transition: background-color 0.2s, color 0.2s;
-	cursor: pointer;
+	padding: 8px;
+	color: light-dark(#fff, #fff);
 	z-index: 1;
+	transition: color 0.3s;
 }
 
 .toggle-switch span.active {
@@ -403,27 +401,15 @@ input[type="text"] {
 	position: absolute;
 	top: 4px;
 	left: 4px;
-	width: calc(33.33% - 8px);
+	width: 56px;
 	height: calc(100% - 8px);
 	background-color: light-dark(#b77, #b77);
-	border-radius: 30px;
+	border-radius: 50px;
 	transition: 0.4s cubic-bezier(1, 0, 0, 1);
 }
 
 .toggle-switch.active {
 	background-color: light-dark(#b77, #b77);
-}
-
-.toggle-switch[data-sort="alphabetical"]::before {
-	transform: translateX(0);
-}
-
-.toggle-switch[data-sort="year"]::before {
-	transform: translateX(100%);
-}
-
-.toggle-switch[data-sort="random"]::before {
-	transform: translateX(200%);
 }
 
 .toggle-slider {
@@ -553,6 +539,58 @@ input:checked+.slider:before {
 	background-color: light-dark(#ddd, #444);
 }
 
+.triple-switch {
+	display: flex;
+	align-items: center;
+	background-color: light-dark(#e0e0e0, #333);
+	border-radius: 50px;
+	padding: 4px;
+	cursor: pointer;
+	user-select: none;
+	width: fit-content;
+	position: relative;
+	transition: background-color 0.3s;
+}
+
+.triple-switch span {
+	flex: 1;
+	text-align: center;
+	padding: 8px 16px;
+	border-radius: 30px;
+	color: light-dark(#888, #888);
+	transition: background-color 0.2s, color 0.2s;
+	cursor: pointer;
+	z-index: 1;
+}
+
+.triple-switch span.active {
+	color: light-dark(#fff, #fff);
+}
+
+.triple-switch::before {
+	content: '';
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	width: calc(33.33% - 8px);
+	height: calc(100% - 8px);
+	background-color: light-dark(#b77, #b77);
+	border-radius: 30px;
+	transition: transform 0.4s cubic-bezier(1, 0, 0, 1);
+}
+
+.triple-switch[data-sort="alphabetical"]::before {
+	transform: translateX(0);
+}
+
+.triple-switch[data-sort="year"]::before {
+	transform: translateX(100%);
+}
+
+.triple-switch[data-sort="random"]::before {
+	transform: translateX(200%);
+}
+	
 .similar-chars-toggle {
 	display: flex;
 	align-items: center;
@@ -1278,8 +1316,8 @@ input:checked+.slider:before {
 					</div>
 				</div>
 				<div class="sort-order-container">
-				<label>ترتیب:</label>
-					<div class="toggle-switch" @click="toggleSortOrder">
+					<label>ترتیب:</label>
+					<div class="triple-switch" @click="toggleSortOrder">
 						<span :class="{ active: sortOrder === 'alphabetical' }">الفبایی</span>
 						<span :class="{ active: sortOrder === 'year' }">سال</span>
 						<span :class="{ active: sortOrder === 'random' }">تصادفی</span>
