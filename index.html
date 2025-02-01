@@ -1047,11 +1047,13 @@ input[type="text"] {
 				close
 			</span>
 		</button>
-		<button class="lightbox-button" @click.stop="openDownloadLink(item)" style="bottom: 20px">
-			<span class="material-symbols-rounded">
-				download
-			</span>
-		</button>
+		<a :href="downloadLink(item)" download target="_blank">
+			<button class="lightbox-button" style="bottom: 20px">
+				<span class="material-symbols-rounded">
+					download
+				</span>
+			</button>
+		</a>
 	</div>
 
 	<div id="main-content">
@@ -1171,11 +1173,13 @@ input[type="text"] {
 								:class="{ pixelated: pixelatedEffect && !item.logo && item.isNsfw && posterMode }" />
 						</template>
 					</div>
-					<button class="download-btn" @click.stop="openDownloadLink(item)">
-						<span class="material-symbols-rounded">
-							download
-						</span>
-					</button>
+					<a :href="downloadLink(item)" download target="_blank">
+						<button class="download-btn">
+							<span class="material-symbols-rounded">
+								download
+							</span>
+						</button>
+					</a>
 				</div>
 
 				<div class="item-title">
@@ -1923,13 +1927,8 @@ createApp({
 			openLightbox(item);
 		};
 
-		const openDownloadLink = (item) => {
-			const imageLink = 'http://commons.wikimedia.org/wiki/Special:FilePath/' + getImageLink(item)?.replaceAll(' ', '_');
-			if (typeof window !== 'undefined') {
-				window.open(imageLink, '_blank');
-			} else {
-				console.log('window is not defined. This function should run in a browser environment.');
-			}
+		const downloadLink = (item) => {
+			return 'http://commons.wikimedia.org/wiki/Special:FilePath/' + getImageLink(item)?.replaceAll(' ', '_') + '?download';
 		};
 
 		const selectYearFromTitle = (year) => {
@@ -1990,7 +1989,7 @@ createApp({
 		const getImageLink = item => posterMode.value ? item.poster : item.logo;
 
 		return {
-			showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar, sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm, lightboxVisible, lightboxImage, openLightbox, closeLightbox, openDownloadLink, createYearChart, handleImageClick, clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading, handlePopState, activeFilters, removeFilter,
+			showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar, sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm, lightboxVisible, lightboxImage, openLightbox, closeLightbox, downloadLink, createYearChart, handleImageClick, clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading, handlePopState, activeFilters, removeFilter,
 		};
 	}
 }).mount('#app');
