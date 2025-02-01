@@ -1938,7 +1938,7 @@ const setup = () => {
 	});
 
 
-	const getPosterUrl = (name, hash, width = 600) => {
+	const getPosterUrl = (name, hash, width) => {
 		if (!name) return 'https://upload.wikimedia.org/wikipedia/commons/8/82/NoImageEn.svg';
 		return `https://upload.wikimedia.org/wikipedia/commons/thumb/${hash[0]}/${hash}/${name}/600px-${name}`;
 	};
