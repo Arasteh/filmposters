@@ -626,7 +626,8 @@ input[type="text"] {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	padding-inline: 10px;
-	overflow-y: auto;
+	overflow-y: scroll;
+	interpolate-size: allow-keywords;
 	min-height: 0;
 	background-color: light-dark(#fff, #000);
 	opacity: 1;
@@ -646,6 +647,7 @@ input[type="text"] {
 	padding-bottom: 0;
 	opacity: 0;
 	max-height: 0;
+	overflow-y: hidden;
 }
 
 .sidebar-section.collapsed {
