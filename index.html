@@ -727,18 +727,48 @@ input[type="text"] {
 	margin-right: 3px;
 }
 
-.remove-filter {
-	margin-right: 5px;
+.filters-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	padding: 10px;
+	margin-bottom: 15px;
+	background-color: light-dark(#fff, #222);
+	border-radius: 16px;
+	max-width: 1200px;
+	width: 100%;
+}
+
+.filter-item {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	padding: 5px 10px;
+	background-color: light-dark(#eee, #333);
+	border-radius: 20px;
+	font-size: 0.9em;
 	cursor: pointer;
-	color: light-dark(black, white);
-	font-size: 1.2em;
-	vertical-align: top;
+	transition: background-color 0.3s;
+}
+
+.filter-item:hover {
+	background-color: light-dark(#ddd, #444);
+}
+
+.remove-filter {
+	background: none;
+	border: none;
+	color: light-dark(#555, #bbb);
+	cursor: pointer;
+	padding: 0;
+	display: flex;
+	align-items: center;
 }
 
 .remove-filter:hover {
 	color: #b00;
 }
-
+	
 .pixelated {
 	filter: blur(3px);
 	image-rendering: pixelated;
@@ -753,6 +783,8 @@ input[type="text"] {
 	color: #888;
 	font-size: x-large;
 }
+
+	
 
 #yearChart {
 	width: 100% !important;
@@ -1132,6 +1164,14 @@ input[type="text"] {
 			<div v-if="filteredItems.length > 0" style="text-align: center; padding-bottom: .5em;">
 				{{ filteredItems.length.toLocaleString('fa') }} از {{ items.length.toLocaleString('fa') }} پوستر ({{
 				uniqueFilmCount.toLocaleString('fa') }} فیلم)
+			</div>
+		</div>
+		<div id="filters" class="filters-container" v-if="activeFilters.length > 0">
+			<div v-for="(filter, index) in activeFilters" :key="index" class="filter-item">
+				<span>{{ filter.label }}: {{ filter.value }}</span>
+				<button @click="removeFilter(filter.type, filter.value)" class="remove-filter">
+					<span class="material-symbols-rounded">close</span>
+				</button>
 			</div>
 		</div>
 		<div v-if="filteredItems.length > 0" class="results-grid">
@@ -1917,6 +1957,41 @@ createApp({
 		const selectYearFromTitle = (year) => {
 			selectedYear.value = year;
 		};
+
+		const activeFilters = computed(() => {
+			const filters = [];
+			if (selectedYear.value) {
+				filters.push({ type: 'year', label: 'سال', value: selectedYear.value });
+			}
+			if (selectedDesigner.value) {
+				filters.push({ type: 'designer', label: 'طراح', value: selectedDesigner.value });
+			}
+			if (selectedDirector.value) {
+				filters.push({ type: 'director', label: 'کارگردان', value: selectedDirector.value });
+			}
+			if (selectedLetter.value) {
+				filters.push({ type: 'letter', label: 'حرف اول', value: selectedLetter.value });
+			}
+			return filters;
+		});
+		
+		const removeFilter = (type, value) => {
+			switch (type) {
+				case 'year':
+					selectedYear.value = '';
+					break;
+				case 'designer':
+					selectedDesigner.value = '';
+					break;
+				case 'director':
+					selectedDirector.value = '';
+					break;
+				case 'letter':
+					selectedLetter.value = '';
+					break;
+			}
+		};
+
 		
 		const getPosterUrl = (filePath, width = 600) => {
 			if (!filePath) return 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=' + width;
@@ -1936,7 +2011,8 @@ createApp({
 		}
 		const getImageLink = item => posterMode.value ? item.poster : item.logo;
 
-		return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar, sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm, lightboxVisible, lightboxImage, openLightbox, closeLightbox, openDownloadLink, createYearChart, handleImageClick, clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading, handlePopState };
+		return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar, sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm, lightboxVisible, lightboxImage, openLightbox, closeLightbox, openDownloadLink, createYearChart, handleImageClick, clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading, handlePopState, activeFilters, removeFilter,
+ };
 	}
 }).mount('#app');
 </script>
