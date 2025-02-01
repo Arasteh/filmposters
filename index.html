@@ -713,6 +713,8 @@ input[type="text"] {
 	white-space: nowrap;
 	font-size: smaller;
 	border: 1px solid light-dark(#000, #666);
+	display: flex;
+	gap: 5px;
 }
 
 .designer-item:hover,
@@ -724,7 +726,6 @@ input[type="text"] {
 
 .count {
 	color: light-dark(hsl(0 0% 55%), hsl(0 0% 50%));
-	margin-right: 3px;
 }
 
 .filters-container {
@@ -1364,12 +1365,6 @@ createApp({
 			sortOrder.value = urlParams.get('sort') || 'random';
 		}
 
-		const handleClickOutside = (event) => {
-			if (modalContent.value && !modalContent.value.contains(event.target)) {
-				closeDesignerModal();
-			}
-		};
-
 		const isCollapsed = ref({
 			designers: false,
 			directors: true,
@@ -1571,8 +1566,7 @@ createApp({
 
 		const selectDesignerFromModal = (designer) => {
 			selectedDesigner.value = designer;
-			designerQuery.value = designer; // مقدار فیلد جستجو را تنظیم کن
-			closeDesignerModal();
+			designerQuery.value = designer;
 		};
 
 		const filteredYearsInModal = computed(() => {
@@ -2011,7 +2005,7 @@ createApp({
 		}
 		const getImageLink = item => posterMode.value ? item.poster : item.logo;
 
-		return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, handleClickOutside, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar, sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm, lightboxVisible, lightboxImage, openLightbox, closeLightbox, openDownloadLink, createYearChart, handleImageClick, clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading, handlePopState, activeFilters, removeFilter,
+		return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar, sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm, lightboxVisible, lightboxImage, openLightbox, closeLightbox, openDownloadLink, createYearChart, handleImageClick, clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading, handlePopState, activeFilters, removeFilter,
  };
 	}
 }).mount('#app');
