@@ -704,6 +704,13 @@ input[type="text"] {
 	color: light-dark(hsl(0 0% 55%), hsl(0 0% 50%));
 }
 
+.no-results {
+	text-align: center;
+	color: light-dark(#777, #999);
+	padding: 10px;
+	font-size: 0.9em;
+}
+
 .filters-container {
 	display: flex;
 	flex-wrap: wrap;
@@ -919,7 +926,10 @@ input[type="text"] {
 						<canvas id="yearChart" height="150"></canvas>
 					</div>-->
 					<div class="year-grid">
-						<div v-for="[year, count] in filteredYearsInModal" :key="year"
+						<div v-if="filteredYearsInModal.length === 0" class="no-results">
+							نتیجه‌ای وجود ندارد
+						</div>
+						<div v-else v-for="[year, count] in filteredYearsInModal" :key="year"
 							@click="selectYearFromModal(year)" @mouseenter="hoveredItem = year"
 							@mouseleave="hoveredItem = null" :class="{ 'hovered': hoveredItem === year }"
 							class="year-item">
@@ -944,7 +954,7 @@ input[type="text"] {
 					</button>
 				</div>
 				<div class="sidebar-section-body">
-					<div class="search-container" v-if="filteredDesignersInModal.length">
+					<div class="search-container">
 						<input type="text" v-model="designerSearchQuery" placeholder="جستجوی طراح…" />
 						<span v-if="designerSearchQuery" @click="clearDesignerSearchQuery" class="clearSearch">
 							<span class="material-symbols-rounded">
@@ -952,8 +962,10 @@ input[type="text"] {
 							</span>
 						</span>
 					</div>
-					<div class="designer-grid">
-						<div v-for="[designer, count] in filteredDesignersInModal" :key="designer"
+					       <div v-if="filteredDesignersInModal.length === 0" class="no-results">
+							نتیجه‌ای وجود ندارد
+						</div>
+						<div v-else v-for="[designer, count] in filteredDesignersInModal" :key="designer"
 							@click="selectDesignerFromModal(designer)" @mouseenter="hoveredItem = designer"
 							@mouseleave="hoveredItem = null" :class="{ 'hovered': hoveredItem === designer }"
 							class="designer-item">
@@ -975,7 +987,7 @@ input[type="text"] {
 					</button>
 				</div>
 				<div class="sidebar-section-body">
-					<div class="search-container" v-if="filteredDirectorsInModal.length">
+					<div class="search-container">
 						<input type="text" v-model="directorSearchQuery" placeholder="جستجوی کارگردان…" />
 						<span v-if="directorSearchQuery" @click="clearDirectorSearchQuery" class="clearSearch">
 							<span class="material-symbols-rounded">
@@ -984,7 +996,10 @@ input[type="text"] {
 						</span>
 					</div>
 					<div class="director-grid">
-						<div v-for="[director, count] in filteredDirectorsInModal" :key="director"
+						<div v-if="filteredDirectorsInModal.length === 0" class="no-results">
+							نتیجه‌ای وجود ندارد
+						</div>
+						<div v-else v-for="[director, count] in filteredDirectorsInModal" :key="director"
 							@click="selectDirectorFromModal(director)" @mouseenter="hoveredItem = director"
 							@mouseleave="hoveredItem = null" :class="{ 'hovered': hoveredItem === director }"
 							class="director-item">
@@ -1007,7 +1022,10 @@ input[type="text"] {
 				</div>
 				<div class="sidebar-section-body">
 					<div class="letter-grid">
-						<div v-for="[letter, count] in filteredLettersInModal" :key="letter"
+						<div v-if="filteredLettersInModal.length === 0" class="no-results">
+							نتیجه‌ای وجود ندارد
+						</div>
+						<div v-else v-for="[letter, count] in filteredLettersInModal" :key="letter"
 							@click="selectLetterFromModal(letter)" @mouseenter="hoveredItem = letter"
 							@mouseleave="hoveredItem = null" :class="{ 'hovered': hoveredItem === letter }"
 							class="letter-item">
