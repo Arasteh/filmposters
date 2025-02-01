@@ -660,7 +660,7 @@ input[type="text"] {
 	border-radius: 0 0 10px 10px;
 	border: 1px light-dark(#ddd, #333) solid;
 	transition: 0.4s cubic-bezier(1, 0, 0, 1);
-	transition-property: opacity, max-height, padding-top;
+	transition-property: opacity, max-height, padding-top, padding-bottom;
 }
 
 .sidebar-section.expanded .sidebar-section-header {
@@ -669,6 +669,7 @@ input[type="text"] {
 
 .sidebar-section.collapsed .sidebar-section-body {
 	padding-top: 0;
+	padding-bottom: 0;
 	opacity: 0;
 	max-height: 0;
 }
