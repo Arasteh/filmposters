@@ -1259,48 +1259,6 @@ window.addEventListener("scroll", () => {
 
 const { createApp, ref, computed, watch, onMounted, nextTick, onUnmounted } = Vue;
 
-async function getAllItems() {
-	const data = await fetch('db.json').then(x => x.json());
-	return Object.values(data.films).flatMap(film => {
-		return film.posters.map((poster, i) => {
-			const item = {};
-			item.film = film.id;
-			item.filmLabel = film.labels.fa;
-			item.aliases = film.aliases?.fa?.join(',') ?? '';
-			item.date = film.date
-				.map(x => x.replace(/^\+/, '')
-					.replace('-01-01T00:00:00Z', '-03-30T00:00:00Z')
-					.replace('-00-00T00:00:00Z', '-03-30T00:00:00Z')
-					.replace('-00T', '-01T')
-				)
-				.sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0];
-			item.poster = poster.image;
-			item.posterHash = poster.hash;
-			item.isNsfw = poster.characteristics?.includes('Q2716583') ?? false;
-			if (poster.designers?.length ?? 0) {
-				item.designer = poster.designers[0];
-				item.characteristics = poster.characteristics;
-				item.designerLabel = data.secondary[poster.designers[0]].labels.fa;
-				const fawiki = data.secondary[poster.designers[0]].sitelinks.fawiki;
-				if (fawiki) item.designerFaWikipediaLink = fawiki;
-			}
-			if (film.directors.length) {
-				item.director = film.directors[0];
-				item.directorLabel = data.secondary[film.directors[0]].labels.fa;
-			}
-			if (film.imdb.length) {
-				item.imdbID = film.imdb[0];
-			}
-			item.faWikipediaLink = film.sitelinks.fawiki;
-			if (film.logos.length > i) {
-				item.logo = film.logos[i].image;
-				item.logoHash = film.logos[i].hash;
-			}
-			return item;
-		});
-	});
-}
-
 createApp({
 	setup() {
 		const darkMode = ref(false);
@@ -1315,6 +1273,7 @@ createApp({
 		const designerQuery = ref("");
 		const isOptionsCollapsed = ref(true);
 		const designerSearchQuery = ref('');
+		const uniqueFilmCount = ref(0);
 
 		const searchTerm = ref('');
 		const selectedYear = ref('');
@@ -1425,7 +1384,49 @@ createApp({
 		}
 
 		const items = ref([]);
-		getAllItems().then(result => items.value = result);
+		(async () => {
+			const data = await fetch('db.json').then(x => x.json());
+			const films = Object.values(data.films);
+			uniqueFilmCount.value = films.length;
+			items.value = films.flatMap(film => {
+				return film.posters.map((poster, i) => {
+					const item = {};
+					item.film = film.id;
+					item.filmLabel = film.labels.fa;
+					item.aliases = film.aliases?.fa?.join(',') ?? '';
+					item.date = film.date
+						.map(x => x.replace(/^\+/, '')
+							.replace('-01-01T00:00:00Z', '-03-30T00:00:00Z')
+							.replace('-00-00T00:00:00Z', '-03-30T00:00:00Z')
+							.replace('-00T', '-01T')
+						)
+						.sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0];
+					item.poster = poster.image;
+					item.posterHash = poster.hash;
+					item.isNsfw = poster.characteristics?.includes('Q2716583') ?? false;
+					if (poster.designers?.length ?? 0) {
+						item.designer = poster.designers[0];
+						item.characteristics = poster.characteristics;
+						item.designerLabel = data.secondary[poster.designers[0]].labels.fa;
+						const fawiki = data.secondary[poster.designers[0]].sitelinks.fawiki;
+						if (fawiki) item.designerFaWikipediaLink = fawiki;
+					}
+					if (film.directors.length) {
+						item.director = film.directors[0];
+						item.directorLabel = data.secondary[film.directors[0]].labels.fa;
+					}
+					if (film.imdb.length) {
+						item.imdbID = film.imdb[0];
+					}
+					item.faWikipediaLink = film.sitelinks.fawiki;
+					if (film.logos.length > i) {
+						item.logo = film.logos[i].image;
+						item.logoHash = film.logos[i].hash;
+					}
+					return item;
+				});
+			});
+		})();
 
 		const similarCharsMapping = {
 			'آ': '[آاأإ]', 'ا': '[آاأإ]', 'أ': '[آاأإ]', 'إ': '[آاأإ]', 'ط': '[طظ]', 'ظ': '[طظ]', 'ب': '[بپتثنی]', 'پ': '[بپتثنی]',
@@ -1621,11 +1622,6 @@ createApp({
 
 		const filteredLetterLabel = computed(() => {
 			return selectedLetter.value ? `حرف اول: ${selectedLetter.value}` : 'حروف اول';
-		});
-
-		const uniqueFilmCount = computed(() => {
-			const uniqueFilms = new Set(filteredItems.value.map(item => item.film));
-			return uniqueFilms.size;
 		});
 
 		const sidebarWidth = ref(440);
