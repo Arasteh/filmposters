@@ -1576,21 +1576,10 @@ const setup = () => {
 		return letters;
 	});
 
-	const filteredYearLabel = computed(() => {
-		return selectedYear.value ? `سال: ${selectedYear.value}` : 'سال‌ها';
-	});
-
-	const filteredDesignerLabel = computed(() => {
-		return selectedDesigner.value ? `طراح: ${selectedDesigner.value}` : 'طراحان';
-	});
-
-	const filteredDirectorLabel = computed(() => {
-		return selectedDirector.value ? `کارگردان: ${selectedDirector.value}` : 'کارگردان‌ها';
-	});
-
-	const filteredLetterLabel = computed(() => {
-		return selectedLetter.value ? `حرف اول: ${selectedLetter.value}` : 'حروف اول';
-	});
+	const filteredYearLabel = computed(() => selectedYear.value ? `سال: ${selectedYear.value}` : 'سال‌ها');
+	const filteredDesignerLabel = computed(() => selectedDesigner.value ? `طراح: ${selectedDesigner.value}` : 'طراحان');
+	const filteredDirectorLabel = computed(() => selectedDirector.value ? `کارگردان: ${selectedDirector.value}` : 'کارگردان‌ها');
+	const filteredLetterLabel = computed(() => selectedLetter.value ? `حرف اول: ${selectedLetter.value}` : 'حروف اول');
 
 	const sidebarWidth = ref(440);
 	const minSidebarWidth = ref(300);
