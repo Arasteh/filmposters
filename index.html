@@ -90,18 +90,7 @@ input[type="text"] {
 	margin: 2px 0 10px;
 	border: none;
 	align-items: center;
-	transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-	max-height: 200px;
-	opacity: 1;
-	overflow: hidden;
 }
-.options.collapsed {
-	max-height: 0;
-	opacity: 0;
-	margin: 0;
-	padding: 0;
-}
-
 .results-grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -821,7 +810,17 @@ input[type="text"] {
 
 	.options {
 		gap: 15px;
-		align-items: center;
+		align-items: center;	
+		transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+		max-height: 200px;
+		opacity: 1;
+		overflow: hidden;
+	}
+	.options.collapsed {
+		max-height: 0;
+		opacity: 0;
+		margin: 0;
+		padding: 0;
 	}
 
 	#showSidebarButton {
