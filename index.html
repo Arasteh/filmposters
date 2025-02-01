@@ -1379,8 +1379,7 @@ function setup() {
 	}
 
 	const items = ref([]);
-	(async () => {
-		const data = await fetch('db.json').then(x => x.json());
+	fetch('db.json').then(x => x.json()).then(function (data) {
 		const films = Object.values(data.films);
 		uniqueFilmCount.value = films.length;
 		items.value = films.flatMap(film => {
@@ -1421,7 +1420,7 @@ function setup() {
 				return item;
 			});
 		});
-	})();
+	});
 
 	const similarCharsMapping = {
 		'آ': '[آاأإ]', 'ا': '[آاأإ]', 'أ': '[آاأإ]', 'إ': '[آاأإ]', 'ط': '[طظ]', 'ظ': '[طظ]', 'ب': '[بپتثنی]', 'پ': '[بپتثنی]',
