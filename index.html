@@ -937,7 +937,7 @@ input[type="text"] {
 					</button>
 				</div>
 				<div class="sidebar-section-body">
-					<div class="search-container">
+					<div class="search-container" v-if="filteredDesignersInModal.length">
 						<input type="text" v-model="designerSearchQuery" placeholder="جستجوی طراح…" />
 						<span v-if="designerSearchQuery" @click="clearDesignerSearchQuery" class="clearSearch">
 							<span class="material-symbols-rounded">
@@ -968,7 +968,7 @@ input[type="text"] {
 					</button>
 				</div>
 				<div class="sidebar-section-body">
-					<div class="search-container">
+					<div class="search-container" v-if="filteredDirectorsInModal.length">
 						<input type="text" v-model="directorSearchQuery" placeholder="جستجوی کارگردان…" />
 						<span v-if="directorSearchQuery" @click="clearDirectorSearchQuery" class="clearSearch">
 							<span class="material-symbols-rounded">
