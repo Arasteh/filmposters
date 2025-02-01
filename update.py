@@ -5,6 +5,7 @@ import itertools
 import time
 import json
 import sys
+import hashlib
 
 queryResult = requests.post('https://query.wikidata.org/bigdata/namespace/wdq/sparql', '''
 SELECT DISTINCT ?qid
@@ -33,7 +34,9 @@ image_qualifiers = {
 }
 
 def image_summary(claim):
-    result = {'image': claim['mainsnak']['datavalue']['value']}
+    name = claim['mainsnak']['datavalue']['value'].replace(' ', '_')
+    hash = hashlib.md5(name.encode('utf-8')).hexdigest()[:2]
+    result = {'image': name, 'hash': hash}
     for name, property in image_qualifiers.items():
         qualifier = [
             x['datavalue']['value']['id']

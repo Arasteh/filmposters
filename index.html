@@ -1272,6 +1272,7 @@ async function getAllItems() {
 				)
 				.sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0];
 			item.poster = poster.image;
+			item.posterHash = poster.hash;
 			item.isNsfw = poster.characteristics?.includes('Q2716583') ?? false;
 			if (poster.designers?.length ?? 0) {
 				item.designer = poster.designers[0];
@@ -1290,6 +1291,7 @@ async function getAllItems() {
 			item.faWikipediaLink = film.sitelinks.fawiki;
 			if (film.logos.length > i) {
 				item.logo = film.logos[i].image;
+				item.logoHash = film.logos[i].hash;
 			}
 			return item;
 		});
@@ -1933,9 +1935,9 @@ createApp({
 		};
 
 		const downloadLink = item => {
-			const fileName = (getImageLink(item) ?? '').replace(/ /g, '_');
-			const hash = md5(fileName);
-			return `https://upload.wikimedia.org/wikipedia/commons/${hash[0]}/${hash.slice(0, 2)}/${fileName}?download`;
+			const fileName = posterMode.value ? item.poster : item.logo;
+			const hash = posterMode.value ? item.posterHash : item.logoHash;
+			return `https://upload.wikimedia.org/wikipedia/commons/${hash[0]}/${hash}/${fileName}?download`;
 		};
 
 		const selectYearFromTitle = (year) => {
