@@ -68,6 +68,7 @@ body {
 	z-index: 100;
 	box-shadow: 2px 2px 5px 0px light-dark(#0002, #fff2);
 }
+
 /*
 .search-bar.hidden {
 	transform: translateY(-100%);
@@ -138,7 +139,7 @@ input[type="text"] {
 .year-link:hover {
 	text-decoration: underline;
 }
-	
+
 .item-designer {
 	font-size: 0.9em;
 	color: light-dark(#777, #999);
@@ -158,8 +159,8 @@ input[type="text"] {
 .item-links {
 	font-size: 0.8em;
 	margin-top: 8px;
-	}
-	
+}
+
 .item-links a {
 	color: light-dark(#555, #bbb);
 	text-decoration: none;
@@ -242,6 +243,7 @@ input[type="text"] {
 	border-radius: 10px;
 	z-index: 2;
 }
+
 .loading-spinner {
 	position: absolute;
 	top: 50%;
@@ -261,7 +263,7 @@ input[type="text"] {
 	z-index: 1000;
 	color: light-dark(#fff, #fff)
 }
-	
+
 #toTop {
 	transition: bottom ease-in-out 350ms;
 	bottom: -100px;
@@ -486,7 +488,7 @@ input[type="text"] {
 	height: 15px;
 	cursor: pointer;
 }
-	
+
 .similar-chars-toggle .tooltip {
 	position: relative;
 	display: inline-block;
@@ -534,12 +536,14 @@ input[type="text"] {
 	opacity: 0.9;
 	transition-delay: 0.3s;
 }
+
 #toggleSidebarButton {
 	background: none;
 	border: none;
 	cursor: pointer;
 	padding: 6px;
 }
+
 .collapse-button {
 	border-radius: 20px;
 	background-color: gray;
@@ -579,6 +583,7 @@ input[type="text"] {
 .desktop-only {
 	display: inline;
 }
+
 .sidebar-resize-handle {
 	position: absolute;
 	top: 0;
@@ -738,7 +743,7 @@ input[type="text"] {
 .remove-filter:hover {
 	color: #b00;
 }
-	
+
 .pixelated {
 	filter: blur(3px);
 	image-rendering: pixelated;
@@ -754,7 +759,7 @@ input[type="text"] {
 	font-size: x-large;
 }
 
-	
+
 
 #yearChart {
 	width: 100% !important;
@@ -867,7 +872,7 @@ input[type="text"] {
 	.desktop-only {
 		display: none;
 	}
-	
+
 	.collapse-button {
 		display: inline-block;
 	}
@@ -1011,7 +1016,8 @@ input[type="text"] {
 					</div>
 				</div>
 			</div>
-			<a href="https://t.me/arastehnasab" class="mobile-only" style="color: gray; font-weight: normal; text-decoration: none;">
+			<a href="https://t.me/arastehnasab" class="mobile-only"
+				style="color: gray; font-weight: normal; text-decoration: none;">
 				پیشنهادی دارید؟
 			</a>
 		</div>
@@ -1028,21 +1034,23 @@ input[type="text"] {
 		</template>
 		<div class="loading-spinner" v-if="isLoading">
 			<svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-				<circle cx="25" cy="25" r="20" stroke="#ccc" stroke-width="5" fill="none" stroke-dasharray="31.415, 31.415">
-					<animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="1s" repeatCount="indefinite"/>
+				<circle cx="25" cy="25" r="20" stroke="#ccc" stroke-width="5" fill="none"
+					stroke-dasharray="31.415, 31.415">
+					<animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="1s"
+						repeatCount="indefinite" />
 				</circle>
 			</svg>
 		</div>
-	<button class="lightbox-button" @click.stop="closeLightbox" style="top: 20px">
-		<span class="material-symbols-rounded">
-			close
-		</span>
-	</button>
-	<button class="lightbox-button" @click.stop="openDownloadLink(item)" style="bottom: 20px">
-		<span class="material-symbols-rounded">
-			download
-		</span>
-	</button>
+		<button class="lightbox-button" @click.stop="closeLightbox" style="top: 20px">
+			<span class="material-symbols-rounded">
+				close
+			</span>
+		</button>
+		<button class="lightbox-button" @click.stop="openDownloadLink(item)" style="bottom: 20px">
+			<span class="material-symbols-rounded">
+				download
+			</span>
+		</button>
 	</div>
 
 	<div id="main-content">
@@ -1092,7 +1100,7 @@ input[type="text"] {
 						</span>
 					</label>
 				</div>
-					
+
 				<div class="similar-chars-toggle" v-if="posterMode">
 					<label for="pixelatedSwitch" style="cursor: pointer;">
 						<input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect">
@@ -1105,7 +1113,7 @@ input[type="text"] {
 						</span>
 					</label>
 				</div>
-					
+
 				<div class="similar-chars-toggle" v-else>
 					<label for="pixelatedSwitch" style="cursor: pointer; opacity: 0.5;">
 						<input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect" disabled>
@@ -1125,7 +1133,8 @@ input[type="text"] {
 						</span>
 					</label>
 					<div class="triple-switch" :data-sort="sortOrder">
-						<span :class="{ active: sortOrder === 'alphabetical' }" @click="sortOrder = 'alphabetical'">الفبایی</span>
+						<span :class="{ active: sortOrder === 'alphabetical' }"
+							@click="sortOrder = 'alphabetical'">الفبایی</span>
 						<span :class="{ active: sortOrder === 'year' }" @click="sortOrder = 'year'">سال</span>
 						<span :class="{ active: sortOrder === 'random' }" @click="sortOrder = 'random'">تصادفی</span>
 					</div>
@@ -1137,7 +1146,8 @@ input[type="text"] {
 			</div>
 		</div>
 		<div id="filters" class="filters-container" v-if="activeFilters.length > 0">
-			<div v-for="(filter, index) in activeFilters" :key="index" @click="removeFilter(filter.type, filter.value)" class="filter-item">
+			<div v-for="(filter, index) in activeFilters" :key="index" @click="removeFilter(filter.type, filter.value)"
+				class="filter-item">
 				<span>{{ filter.label }}: {{ filter.value }}</span>
 				<button class="remove-filter">
 					<span class="material-symbols-rounded">close</span>
@@ -1151,11 +1161,13 @@ input[type="text"] {
 					<div @click="handleImageClick(item)" class="clickable-image">
 						<template v-if="!posterMode && !item.logo">
 							<div class="no-logo-placeholder">
-							(بدون لوگو)
+								(بدون لوگو)
 							</div>
 						</template>
 						<template v-else>
-							<img :src="getImageUrl(item)" :key="getImageUrl(item)" :alt="item.filmLabel" class="item-image" :class="{ pixelated: pixelatedEffect && !item.logo && item.isNsfw && posterMode }" />
+							<img :src="getImageUrl(item)" :key="getImageUrl(item)" :alt="item.filmLabel"
+								class="item-image"
+								:class="{ pixelated: pixelatedEffect && !item.logo && item.isNsfw && posterMode }" />
 						</template>
 					</div>
 					<button class="download-btn" @click.stop="openDownloadLink(item)">
@@ -1166,23 +1178,25 @@ input[type="text"] {
 				</div>
 
 				<div class="item-title">
-					{{ item.filmLabel }} 
+					{{ item.filmLabel }}
 					<span class="year-link" @click="selectYearFromTitle(toPersianYear(item.date))">
-					({{ toPersianYear(item.date) }})
+						({{ toPersianYear(item.date) }})
 					</span>
 				</div>
 
 				<div v-if="item.designer && item.designerLabel" class="item-designer">
 					<span class="mobile-only">
-						<span class="material-symbols-rounded" style="margin-left: 5px; top: 8px; position: relative;">person_edit</span>
+						<span class="material-symbols-rounded"
+							style="margin-left: 5px; top: 8px; position: relative;">person_edit</span>
 					</span>
-					<span class="desktop-only">طراح: </span><a href="#" @click.prevent="selectDesigner(item.designerLabel)">{{ item.designerLabel
+					<span class="desktop-only">طراح: </span><a href="#"
+						@click.prevent="selectDesigner(item.designerLabel)">{{ item.designerLabel
 						}}</a>
 					<span class="item-links">
-							• <a :href="'https://www.wikidata.org/wiki/' + item.designer"
-						target="_blank">Q</a><template v-if="item.designerFaWikipediaLink">&nbsp;<a
-							:href="'https://fa.wikipedia.org/wiki/' + item.designerFaWikipediaLink.replaceAll(' ', '_')"
-							target="_blank">W</a></template>
+						• <a :href="'https://www.wikidata.org/wiki/' + item.designer" target="_blank">Q</a><template
+							v-if="item.designerFaWikipediaLink">&nbsp;<a
+								:href="'https://fa.wikipedia.org/wiki/' + item.designerFaWikipediaLink.replaceAll(' ', '_')"
+								target="_blank">W</a></template>
 					</span>
 				</div>
 				<div id="film-links" class="item-links">
@@ -1286,7 +1300,7 @@ createApp({
 		const designerSearchQuery = ref('');
 
 		const urlParams = new URLSearchParams(window.location.search);
-		
+
 		const searchTerm = ref(urlParams.get('q') || '');
 		const selectedYear = ref(urlParams.get('y') || '');
 		const selectedDesigner = ref(urlParams.get('designer') || '');
@@ -1298,9 +1312,9 @@ createApp({
 		const sortOrder = ref(urlParams.get('sort') || 'random');
 
 		watch([searchTerm, selectedYear, selectedDesigner, selectedDirector, selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder], () => {
-		updateURL();
+			updateURL();
 		});
-		
+
 		function updateURL() {
 			const params = new URLSearchParams();
 			if (searchTerm.value) params.set('q', searchTerm.value);
@@ -1312,15 +1326,15 @@ createApp({
 			params.set('similar', combineSimilarChars.value ? 'true' : 'false');
 			params.set('censor', pixelatedEffect.value ? 'true' : 'false');
 			params.set('sort', sortOrder.value);
-			
+
 			const newUrl = `${window.location.pathname}?${params.toString()}`;
 			window.history.pushState({}, '', newUrl);
 		}
 
 		onMounted(() => {
-		applyInitialFilters();
+			applyInitialFilters();
 		});
-		
+
 		function applyInitialFilters() {
 			const urlParams = new URLSearchParams(window.location.search);
 			searchTerm.value = urlParams.get('q') || '';
@@ -1675,11 +1689,11 @@ createApp({
 		onMounted(() => {
 			window.addEventListener('popstate', handlePopState);
 		});
-		
+
 		onUnmounted(() => {
 			window.removeEventListener('popstate', handlePopState);
 		});
-		
+
 		const handlePopState = (event) => {
 			if (sidebarVisible.value) {
 				hideSidebar();
@@ -1876,7 +1890,7 @@ createApp({
 			isLoading.value = true;
 			lightboxImage.value = posterMode.value ? getPosterUrl(item.poster, 1200) : getPosterUrl(item.logo, 1200);
 			lightboxVisible.value = true;
-			
+
 			setTimeout(() => {
 				isLoading.value = false;
 			}, 1000);
@@ -1937,7 +1951,7 @@ createApp({
 			}
 			return filters;
 		});
-		
+
 		const removeFilter = (type, value) => {
 			switch (type) {
 				case 'year':
@@ -1955,7 +1969,7 @@ createApp({
 			}
 		};
 
-		
+
 		const getPosterUrl = (filePath, width = 600) => {
 			if (!filePath) return 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=' + width;
 
@@ -1974,8 +1988,9 @@ createApp({
 		}
 		const getImageLink = item => posterMode.value ? item.poster : item.logo;
 
-		return { showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar, sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm, lightboxVisible, lightboxImage, openLightbox, closeLightbox, openDownloadLink, createYearChart, handleImageClick, clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading, handlePopState, activeFilters, removeFilter,
- };
+		return {
+			showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar, sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm, lightboxVisible, lightboxImage, openLightbox, closeLightbox, openDownloadLink, createYearChart, handleImageClick, clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading, handlePopState, activeFilters, removeFilter,
+		};
 	}
 }).mount('#app');
 </script>
