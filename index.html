@@ -1104,28 +1104,16 @@ input[type="text"] {
 					</label>
 				</div>
 
-				<div class="similar-chars-toggle" v-if="posterMode">
+				<div class="similar-chars-toggle">
 					<label for="pixelatedSwitch" style="cursor: pointer;">
-						<input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect">
+						<input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect" v-if="posterMode">
+						<input type="checkbox" id="pixelatedSwitch" v-else disabled>
 						سانسور
 					</label>
 					<label>
 						<span class="material-symbols-rounded tooltip">
 							info
-							<span class="tooltiptext">مخفی کردن تصاویری که ممکن است نامناسب باشند</span>
-						</span>
-					</label>
-				</div>
-
-				<div class="similar-chars-toggle" v-else>
-					<label for="pixelatedSwitch" style="cursor: pointer; opacity: 0.5;">
-						<input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect" disabled>
-						سانسور
-					</label>
-					<label>
-						<span class="material-symbols-rounded tooltip">
-							info
-							<span class="tooltiptext">سانسور</span>
+							<span class="tooltiptext" v-if="posterMode">مخفی کردن تصاویری که ممکن است نامناسب باشند</span>
 						</span>
 					</label>
 				</div>
@@ -1313,7 +1301,7 @@ createApp({
 		const selectedLetter = ref(urlParams.get('letter') || '');
 		const posterMode = ref(urlParams.get('mode') !== 'logo');
 		const combineSimilarChars = ref(urlParams.get('similar') === 'true');
-		const pixelatedEffect = ref(urlParams.get('censor') === 'true' || true);
+		const pixelatedEffect = ref(urlParams.get('censor') === 'true' || location.hostname === 'filmposters.ir');
 		const sortOrder = ref(urlParams.get('sort') || 'random');
 
 		watch([searchTerm, selectedYear, selectedDesigner, selectedDirector, selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder], () => {
