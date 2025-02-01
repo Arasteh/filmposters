@@ -1237,9 +1237,7 @@ window.onscroll = () => {
 	toTop.style.bottom = document.documentElement.scrollTop > 20 ? '20px' : '-100px';
 }
 
-function topFunction() {
-	document.documentElement.scrollTop = 0;
-}
+const topFunction = () => document.documentElement.scrollTop = 0;
 
 let lastScrollTop = 0;
 let yearChart = null;
@@ -1257,19 +1255,15 @@ window.addEventListener("scroll", () => {
 	lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
 });
 
-function setup() {
+const setup = () => {
 	const { ref, computed, watch, onMounted, nextTick, onUnmounted } = Vue;
 
 	const darkMode = ref(false);
-	const toggleDarkMode = () => {
-		darkMode.value = !darkMode.value;
-	};
+	const toggleDarkMode = () => darkMode.value = !darkMode.value;
 	const isShowMore = ref(false);
-	const showMore = () => {
-		isShowMore.value = true;
-	};
+	const showMore = () => isShowMore.value = true;
 
-	const designerQuery = ref("");
+	const designerQuery = ref('');
 	const isOptionsCollapsed = ref(true);
 	const designerSearchQuery = ref('');
 	const uniqueFilmCount = ref(0);
@@ -1283,7 +1277,7 @@ function setup() {
 	const combineSimilarChars = ref(false);
 	const pixelatedEffect = ref(false);
 	const sortOrder = ref('random');
-	function applyInitialFilters() {
+	const applyInitialFilters = () => {
 		const urlParams = new URLSearchParams(window.location.search);
 		searchTerm.value = urlParams.get('q') || '';
 		selectedYear.value = urlParams.get('y') || '';
@@ -1294,10 +1288,10 @@ function setup() {
 		combineSimilarChars.value = urlParams.get('similar') === 'true';
 		pixelatedEffect.value = urlParams.get('censor') === 'true' || location.hostname === 'filmposters.ir';
 		sortOrder.value = urlParams.get('sort') || 'random';
-	}
+	};
 	applyInitialFilters();
 
-	function updateURL() {
+	const updateURL = () => {
 		const params = new URLSearchParams();
 		if (searchTerm.value) params.set('q', searchTerm.value);
 		if (selectedYear.value) params.set('y', selectedYear.value);
@@ -1311,7 +1305,7 @@ function setup() {
 
 		const newUrl = `${window.location.pathname}?${params.toString()}`;
 		window.history.pushState({}, '', newUrl);
-	}
+	};
 	watch([
 		searchTerm, selectedYear, selectedDesigner, selectedDirector,
 		selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder
@@ -1324,41 +1318,21 @@ function setup() {
 		letters: true
 	});
 
-	const getSectionClass = (section) => {
-		return isCollapsed.value[section] ? 'collapsed' : 'expanded';
-	};
+	const getSectionClass = section => isCollapsed.value[section] ? 'collapsed' : 'expanded';
+	const selectDirectorFromModal = director => selectedDirector.value = director;
+	const selectYearFromModal = year => selectedYear.value = year;
+	const selectLetterFromModal = letter => selectedLetter.value = letter;
+	const togglePosterMode = () => posterMode.value = !posterMode.value;
+	const toggleOptions = () => isOptionsCollapsed.value = !isOptionsCollapsed.value;
+	const collapseIconClass = value => value ? 'rotate-down' : 'rotate-up';
 
-	const selectDirectorFromModal = (director) => {
-		selectedDirector.value = director;
-	};
-
-	const selectYearFromModal = (year) => {
-		selectedYear.value = year;
-	};
-
-	const selectLetterFromModal = (letter) => {
-		selectedLetter.value = letter;
-	};
-
-	const togglePosterMode = () => {
-		posterMode.value = !posterMode.value;
-	};
-
-	const toggleOptions = () => {
-		isOptionsCollapsed.value = !isOptionsCollapsed.value;
-	};
-
-	const collapseIconClass = (value) => {
-		return value ? 'rotate-down' : 'rotate-up';
-	};
-
-	function selectDesigner(designer) {
+	const selectDesigner = designer => {
 		selectedDesigner.value = designer;
 		designerQuery.value = designer;
 		applyFilters();
-	}
+	};
 
-	function applyFilters() {
+	const applyFilters = () => {
 		results.value = items.value.filter(item => {
 			let matchesDesigner = true;
 			if (selectedDesigner.value) {
@@ -1366,9 +1340,9 @@ function setup() {
 			}
 			return matchesDesigner;
 		});
-	}
+	};
 
-	function resetFilters() {
+	const resetFilters = () => {
 		searchTerm.value = '';
 		combineSimilarChars.value = false;
 		sortOrder.value = 'random';
@@ -1376,10 +1350,10 @@ function setup() {
 		selectedDesigner.value = '';
 		selectedDirector.value = '';
 		selectedLetter.value = '';
-	}
+	};
 
 	const items = ref([]);
-	fetch('db.json').then(x => x.json()).then(function (data) {
+	fetch('db.json').then(x => x.json()).then(data => {
 		const films = Object.values(data.films);
 		uniqueFilmCount.value = films.length;
 		items.value = films.flatMap(film => {
@@ -1557,7 +1531,7 @@ function setup() {
 		);
 	});
 
-	const selectDesignerFromModal = (designer) => {
+	const selectDesignerFromModal = designer => {
 		selectedDesigner.value = designer;
 		designerQuery.value = designer;
 	};
@@ -1569,7 +1543,7 @@ function setup() {
 			.map(year => [year, groups[year].length.toLocaleString('fa')]);
 	});
 
-	watch(filteredItems, (newValue) => {
+	watch(filteredItems, newValue => {
 		if (newValue.length > 100) {
 			isShowMore.value = false;
 		}
@@ -1622,7 +1596,7 @@ function setup() {
 	const minSidebarWidth = ref(300);
 	const maxSidebarWidth = ref(600);
 
-	const startResize = (e) => {
+	const startResize = e => {
 		e.preventDefault();
 		startX = e.clientX;
 		startWidth = sidebarWidth.value;
@@ -1630,7 +1604,7 @@ function setup() {
 		document.addEventListener('mouseup', stopResize);
 	};
 
-	const resize = (e) => {
+	const resize = e => {
 		const newWidth = startWidth + (startX - e.clientX);
 		if (newWidth >= minSidebarWidth.value && newWidth <= maxSidebarWidth.value) {
 			sidebarWidth.value = newWidth;
@@ -1691,35 +1665,22 @@ function setup() {
 		sidebarVisible.value = false;
 	};
 
-	onMounted(() => {
-		window.addEventListener('popstate', handlePopState);
-	});
+	onMounted(() => window.addEventListener('popstate', handlePopState));
 
-	onUnmounted(() => {
-		window.removeEventListener('popstate', handlePopState);
-	});
+	onUnmounted(() => window.removeEventListener('popstate', handlePopState));
 
-	const handlePopState = (event) => {
+	const handlePopState = e => {
 		if (sidebarVisible.value) {
 			hideSidebar();
-			event.preventDefault();
+			e.preventDefault();
 			window.history.pushState(null, '', window.location.pathname);
 		}
 	};
 
-	const clearSearchTerm = () => {
-		searchTerm.value = '';
-	};
-
-	const clearDesignerSearchQuery = () => {
-		designerSearchQuery.value = '';
-	};
-
-	const clearDirectorSearchQuery = () => {
-		directorSearchQuery.value = '';
-	};
-
-	function convertPersianToEnglishNumbers(str) {
+	const clearSearchTerm = () => searchTerm.value = '';
+	const clearDesignerSearchQuery = () => designerSearchQuery.value = '';
+	const clearDirectorSearchQuery = () => directorSearchQuery.value = '';
+	const convertPersianToEnglishNumbers = str => {
 		const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
 		const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 		return str.split('').map(char => {
@@ -1825,13 +1786,13 @@ function setup() {
 		}
 	};
 
-	watch(availableYears, (newYears) => {
+	watch(availableYears, newYears => {
 		if (!isCollapsed.value.years) {
 			createYearChart();
 		}
 	}, { immediate: true });
 
-	watch(() => isCollapsed.value.years, (newValue) => {
+	watch(() => isCollapsed.value.years, newValue => {
 		if (!newValue) {
 			createYearChart();
 		} else if (yearChart.value) {
@@ -1853,7 +1814,7 @@ function setup() {
 		}
 	});
 
-	watch(filteredYears, (newYears) => {
+	watch(filteredYears, newYears => {
 		if (!yearChart.value) {
 			console.log('نمودار سال‌ها تعریف نشده است!');
 			return;
@@ -1875,7 +1836,7 @@ function setup() {
 		yearChart.value.update();
 	});
 
-	const toggleCollapse = (section) => {
+	const toggleCollapse = section => {
 		isCollapsed.value[section] = !isCollapsed.value[section];
 		if (section === 'years' && !isCollapsed.value[section]) {
 			nextTick(createYearChart);
@@ -1886,7 +1847,7 @@ function setup() {
 	const lightboxImage = ref(undefined);
 	const isLoading = ref(false);
 
-	const openLightbox = (item) => {
+	const openLightbox = item => {
 		if (!posterMode && !item.logo) {
 			lightboxImage.value = undefined;
 			lightboxItem.value = undefined;
@@ -1906,7 +1867,7 @@ function setup() {
 		isLoading.value = false;
 	};
 
-	watch(lightboxItem, (newValue) => {
+	watch(lightboxItem, newValue => {
 		if (newValue) {
 			document.addEventListener('click', handleClickOutsideLightbox);
 		} else {
@@ -1914,14 +1875,14 @@ function setup() {
 		}
 	});
 
-	const handleClickOutsideLightbox = (event) => {
+	const handleClickOutsideLightbox = event => {
 		const lightbox = document.querySelector('.lightbox');
 		if (lightbox && !lightbox.contains(event.target)) {
 			closeLightbox();
 		}
 	};
 
-	const handleImageClick = (item) => {
+	const handleImageClick = item => {
 		console.log('Image clicked:', item);
 		event.stopPropagation();
 		openLightbox(item);
@@ -1934,9 +1895,7 @@ function setup() {
 		return `https://upload.wikimedia.org/wikipedia/commons/${hash[0]}/${hash}/${name}?download`;
 	};
 
-	const selectYearFromTitle = (year) => {
-		selectedYear.value = year;
-	};
+	const selectYearFromTitle = year => selectedYear.value = year;
 
 	const activeFilters = computed(() => {
 		const filters = [];
@@ -1972,7 +1931,6 @@ function setup() {
 		}
 	};
 
-
 	const getPosterUrl = (name, hash, width = 600) => {
 		if (!name) return 'https://upload.wikimedia.org/wikipedia/commons/8/82/NoImageEn.svg';
 		return `https://upload.wikimedia.org/wikipedia/commons/thumb/${hash[0]}/${hash}/${name}/600px-${name}`;
@@ -1980,9 +1938,7 @@ function setup() {
 
 	const getLogoUrl = item => item.logo ? getPosterUrl(item.logo, item.logoHash, 600) : null;
 	const getImageUrl = (item) => {
-		if (!posterMode.value && !item.logo) {
-			return null;
-		}
+		if (!posterMode.value && !item.logo) return null;
 		return posterMode.value ? getPosterUrl(item.poster, item.posterHash, 600) : getPosterUrl(item.logo, item.logoHash, 600);
 	}
 	const getImageLink = item => posterMode.value ? item.poster : item.logo;
