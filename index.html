@@ -1233,7 +1233,7 @@ input[type="text"] {
 <script>
 let toTop;
 window.onscroll = () => {
-	if (!toTop) toTop = document.getElementById("toTop");
+	if (!toTop) toTop = document.getElementById('toTop');
 	toTop.style.bottom = document.documentElement.scrollTop > 20 ? '20px' : '-100px';
 }
 
@@ -1242,14 +1242,14 @@ const topFunction = () => document.documentElement.scrollTop = 0;
 let lastScrollTop = 0;
 let yearChart = null;
 
-window.addEventListener("scroll", () => {
-	const searchBar = document.getElementById("searchBar");
+window.addEventListener('scroll', () => {
+	const searchBar = document.getElementById('searchBar');
 	const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
 	if (currentScrollTop > lastScrollTop) {
-		searchBar.classList.add("hidden");
+		searchBar.classList.add('hidden');
 	} else {
-		searchBar.classList.remove("hidden");
+		searchBar.classList.remove('hidden');
 	}
 
 	lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
@@ -1718,9 +1718,9 @@ const setup = () => {
 				labels: years,
 				datasets: [{
 					data: counts,
-					backgroundColor: "rgba(128,128,128,0.5)",
+					backgroundColor: 'rgba(128,128,128,0.5)',
 					borderWidth: 0,
-					hoverBackgroundColor: "rgba(180,120,120,0.8)"
+					hoverBackgroundColor: 'rgba(180,120,120,0.8)'
 				}]
 			},
 			options: {
