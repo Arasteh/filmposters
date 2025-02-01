@@ -1047,7 +1047,7 @@ input[type="text"] {
 				close
 			</span>
 		</button>
-		<a :href="downloadLink(lightboxItem)" download target="_blank">
+		<a :href="downloadLink(lightboxItem)" target="_blank">
 			<button class="lightbox-button" style="bottom: 20px">
 				<span class="material-symbols-rounded">
 					download
@@ -1161,7 +1161,7 @@ input[type="text"] {
 								:class="{ pixelated: pixelatedEffect && !item.logo && item.isNsfw && posterMode }" />
 						</template>
 					</div>
-					<a :href="downloadLink(item)" download target="_blank">
+					<a :href="downloadLink(item)" target="_blank">
 						<button class="download-btn">
 							<span class="material-symbols-rounded">
 								download
@@ -1272,7 +1272,7 @@ async function getAllItems() {
 			item.faWikipediaLink = film.sitelinks.fawiki;
 			if (film.logos.length > i) {
 				item.logo = film.logos[i].image;
-				item.hash = film.logos[i].hash;
+				item.logoHash = film.logos[i].hash;
 			}
 			return item;
 		});
@@ -1881,7 +1881,7 @@ createApp({
 				return;
 			}
 			isLoading.value = true;
-			lightboxImage.value = posterMode.value ? getPosterUrl(item.poster, 1200) : getPosterUrl(item.logo, 1200);
+			lightboxImage.value = posterMode.value ? getPosterUrl(item.poster, item.posterHash, 1200) : getPosterUrl(item.logo, item.logoHash, 1200);
 			lightboxItem.value = item;
 
 			setTimeout(() => {
@@ -1917,6 +1917,7 @@ createApp({
 
 		const downloadLink = item => {
 			const name = posterMode.value ? item.poster : item.logo;
+			if (!name) return 'https://upload.wikimedia.org/wikipedia/commons/8/82/NoImageEn.svg';
 			const hash = posterMode.value ? item.posterHash : item.logoHash;
 			return `https://upload.wikimedia.org/wikipedia/commons/${hash[0]}/${hash}/${name}?download`;
 		};
@@ -1960,21 +1961,17 @@ createApp({
 		};
 
 
-		const getPosterUrl = (filePath, width = 600) => {
-			if (!filePath) return 'https://commons.wikimedia.org/w/thumb.php?f=NoImageEn.svg&w=' + width;
-
-			const url = new URL('https://commons.wikimedia.org/w/thumb.php');
-			url.searchParams.append('f', decodeURIComponent(filePath.replace('http://commons.wikimedia.org/wiki/Special:FilePath/', '')));
-			url.searchParams.append('w', width.toString());
-			return url.toString();
+		const getPosterUrl = (name, hash, width = 600) => {
+			if (!name) return 'https://upload.wikimedia.org/wikipedia/commons/8/82/NoImageEn.svg';
+			return `https://upload.wikimedia.org/wikipedia/commons/thumb/${hash[0]}/${hash}/${name}/600px-${name}`;
 		};
 
-		const getLogoUrl = item => item.logo ? getPosterUrl(item.logo, 600) : null;
+		const getLogoUrl = item => item.logo ? getPosterUrl(item.logo, item.logoHash, 600) : null;
 		const getImageUrl = (item) => {
 			if (!posterMode.value && !item.logo) {
 				return null;
 			}
-			return posterMode.value ? getPosterUrl(item.poster, 600) : getPosterUrl(item.logo, 600);
+			return posterMode.value ? getPosterUrl(item.poster, item.posterHash, 600) : getPosterUrl(item.logo, item.logoHash, 600);
 		}
 		const getImageLink = item => posterMode.value ? item.poster : item.logo;
 
