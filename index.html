@@ -1292,17 +1292,28 @@ createApp({
 		const isOptionsCollapsed = ref(true);
 		const designerSearchQuery = ref('');
 
-		const urlParams = new URLSearchParams(window.location.search);
-
-		const searchTerm = ref(urlParams.get('q') || '');
-		const selectedYear = ref(urlParams.get('y') || '');
-		const selectedDesigner = ref(urlParams.get('designer') || '');
-		const selectedDirector = ref(urlParams.get('director') || '');
-		const selectedLetter = ref(urlParams.get('letter') || '');
-		const posterMode = ref(urlParams.get('mode') !== 'logo');
-		const combineSimilarChars = ref(urlParams.get('similar') === 'true');
-		const pixelatedEffect = ref(urlParams.get('censor') === 'true' || location.hostname === 'filmposters.ir');
-		const sortOrder = ref(urlParams.get('sort') || 'random');
+		const searchTerm = ref('');
+		const selectedYear = ref('');
+		const selectedDesigner = ref('');
+		const selectedDirector = ref('');
+		const selectedLetter = ref('');
+		const posterMode = ref(true);
+		const combineSimilarChars = ref(false);
+		const pixelatedEffect = ref(false);
+		const sortOrder = ref('random');
+		function applyInitialFilters() {
+			const urlParams = new URLSearchParams(window.location.search);
+			searchTerm.value = urlParams.get('q') || '';
+			selectedYear.value = urlParams.get('y') || '';
+			selectedDesigner.value = urlParams.get('designer') || '';
+			selectedDirector.value = urlParams.get('director') || '';
+			selectedLetter.value = urlParams.get('letter') || '';
+			posterMode.value = urlParams.get('mode') !== 'logo';
+			combineSimilarChars.value = urlParams.get('similar') === 'true';
+			pixelatedEffect.value = urlParams.get('censor') === 'true' || location.hostname === 'filmposters.ir';
+			sortOrder.value = urlParams.get('sort') || 'random';
+		}
+		applyInitialFilters();
 
 		watch([searchTerm, selectedYear, selectedDesigner, selectedDirector, selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder], () => {
 			updateURL();
@@ -1327,19 +1338,6 @@ createApp({
 		onMounted(() => {
 			applyInitialFilters();
 		});
-
-		function applyInitialFilters() {
-			const urlParams = new URLSearchParams(window.location.search);
-			searchTerm.value = urlParams.get('q') || '';
-			selectedYear.value = urlParams.get('y') || '';
-			selectedDesigner.value = urlParams.get('designer') || '';
-			selectedDirector.value = urlParams.get('director') || '';
-			selectedLetter.value = urlParams.get('letter') || '';
-			posterMode.value = urlParams.get('mode') !== 'logo';
-			combineSimilarChars.value = urlParams.get('similar') === 'true';
-			pixelatedEffect.value = urlParams.get('censor') === 'true' || true;
-			sortOrder.value = urlParams.get('sort') || 'random';
-		}
 
 		const isCollapsed = ref({
 			designers: false,
