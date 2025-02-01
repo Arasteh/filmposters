@@ -6,6 +6,7 @@
 <title>آرشیو پوسترهای سینمای ایران</title>
 <script src="vue.global.js"></script>
 <script src="Chart.js"></script>
+<script src="md5.min.js"></script>
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=close,download,info,keyboard_arrow_up,menu,north,person_edit,refresh,swap_vert" />
 <link rel="icon" href="favicon.svg">
@@ -1913,8 +1914,10 @@ createApp({
 			openLightbox(item);
 		};
 
-		const downloadLink = (item) => {
-			return 'http://commons.wikimedia.org/wiki/Special:FilePath/' + getImageLink(item)?.replaceAll(' ', '_') + '?download';
+		const downloadLink = item => {
+			const fileName = (getImageLink(item) ?? '').replace(/ /g, '_');
+			const hash = md5(fileName);
+			return `https://upload.wikimedia.org/wikipedia/commons/${hash[0]}/${hash.slice(0, 2)}/${fileName}?download`;
 		};
 
 		const selectYearFromTitle = (year) => {
