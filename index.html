@@ -1940,7 +1940,7 @@ const setup = () => {
 
 	const getPosterUrl = (name, hash, width) => {
 		if (!name) return 'https://upload.wikimedia.org/wikipedia/commons/8/82/NoImageEn.svg';
-		return `https://upload.wikimedia.org/wikipedia/commons/thumb/${hash[0]}/${hash}/${name}/600px-${name}`;
+		return `https://upload.wikimedia.org/wikipedia/commons/thumb/${hash[0]}/${hash}/${name}/${width}px-${name}`;
 	};
 
 	const getLogoUrl = item => item.logo ? getPosterUrl(item.logo, item.logoHash, 600) : null;
