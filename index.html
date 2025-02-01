@@ -1152,8 +1152,8 @@ input[type="text"] {
 		</div>
 		<div id="filters" class="filters-container" v-if="activeFilters.length > 0">
 			<div v-for="(filter, index) in activeFilters" :key="index" @click="removeFilter(filter.type, filter.value)"
-				class="filter-item">
-				<span>{{ filter.label }}: {{ filter.value }}</span>
+				class="designer-item">
+				<span style="align-content: center;">{{ filter.label }}: {{ filter.value }}</span>
 				<button class="remove-filter">
 					<span class="material-symbols-rounded">close</span>
 				</button>
