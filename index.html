@@ -90,6 +90,16 @@ input[type="text"] {
 	margin: 2px 0 10px;
 	border: none;
 	align-items: center;
+	transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+	max-height: 200px;
+	opacity: 1;
+	overflow: hidden;
+}
+.options.collapsed {
+	max-height: 0;
+	opacity: 0;
+	margin: 0;
+	padding: 0;
 }
 
 .results-grid {
@@ -1156,8 +1166,7 @@ input[type="text"] {
 				</div>
 			</div>
 			<div v-if="filteredItems.length > 0" style="text-align: center; padding-bottom: .5em;">
-				{{ filteredItems.length.toLocaleString('fa') }} از {{ items.length.toLocaleString('fa') }} پوستر ({{
-				uniqueFilmCount.toLocaleString('fa') }} فیلم)
+				{{ filteredItemsLength }} از {{ itemsLength }} پوستر ({{ uniqueFilmCount }} فیلم)
 			</div>
 		</div>
 		<div id="filters" class="filters-container" v-if="activeFilters.length > 0">
@@ -1268,8 +1277,6 @@ const setup = () => {
 	const designerQuery = ref('');
 	const isOptionsCollapsed = ref(true);
 	const designerSearchQuery = ref('');
-	const uniqueFilmCount = ref(0);
-
 	const searchTerm = ref('');
 	const selectedYear = ref('');
 	const selectedDesigner = ref('');
@@ -1922,6 +1929,20 @@ const setup = () => {
 		}
 	};
 
+	const filteredItemsLength = computed(() => {
+		return filteredItems.value.length.toLocaleString('fa', { useGrouping: false });
+	});
+	
+	const itemsLength = computed(() => {
+		return items.value.length.toLocaleString('fa', { useGrouping: false });
+	});
+	
+	const uniqueFilmCount = computed(() => {
+		const uniqueFilms = new Set(filteredItems.value.map(item => item.film));
+		return uniqueFilms.size.toLocaleString('fa', { useGrouping: false });
+	});
+
+
 	const getPosterUrl = (name, hash, width = 600) => {
 		if (!name) return 'https://upload.wikimedia.org/wikipedia/commons/8/82/NoImageEn.svg';
 		return `https://upload.wikimedia.org/wikipedia/commons/thumb/${hash[0]}/${hash}/${name}/600px-${name}`;
@@ -1949,7 +1970,7 @@ const setup = () => {
 		sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm, lightboxItem,
 		lightboxImage, openLightbox, closeLightbox, downloadLink, createYearChart, handleImageClick,
 		clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading,
-		handlePopState, activeFilters, removeFilter,
+		handlePopState, activeFilters, removeFilter, filteredItemsLength
 	};
 }
 
