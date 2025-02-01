@@ -1297,10 +1297,6 @@ function setup() {
 	}
 	applyInitialFilters();
 
-	watch([searchTerm, selectedYear, selectedDesigner, selectedDirector, selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder], () => {
-		updateURL();
-	});
-
 	function updateURL() {
 		const params = new URLSearchParams();
 		if (searchTerm.value) params.set('q', searchTerm.value);
@@ -1316,10 +1312,10 @@ function setup() {
 		const newUrl = `${window.location.pathname}?${params.toString()}`;
 		window.history.pushState({}, '', newUrl);
 	}
-
-	onMounted(() => {
-		applyInitialFilters();
-	});
+	watch([
+		searchTerm, selectedYear, selectedDesigner, selectedDirector,
+		selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder
+	], updateURL);
 
 	const isCollapsed = ref({
 		designers: false,
