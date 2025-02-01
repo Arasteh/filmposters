@@ -924,8 +924,10 @@ input[type="text"] {
 							نتیجه‌ای وجود ندارد
 						</div>
 						<div v-else v-for="[year, count] in filteredYearsInModal" :key="year"
-							@click="selectYearFromModal(year)" @mouseenter="hoveredItem = year"
-							@mouseleave="hoveredItem = null" :class="{ 'hovered': hoveredItem === year }"
+							@click="selectedYear === year ? removeYearFilter() : selectYearFromModal(year)"
+							@mouseenter="hoveredItem = year"
+							@mouseleave="hoveredItem = null"
+							:class="{ 'hovered': hoveredItem === year }"
 							class="year-item">
 							{{ year }} <span class="count">({{ count }})</span>
 							<span v-if="selectedYear === year" class="remove-filter" @click.stop="removeYearFilter">
@@ -961,8 +963,10 @@ input[type="text"] {
 							نتیجه‌ای وجود ندارد
 						</div>
 						<div v-else v-for="[designer, count] in filteredDesignersInModal" :key="designer"
-							@click="selectDesignerFromModal(designer)" @mouseenter="hoveredItem = designer"
-							@mouseleave="hoveredItem = null" :class="{ 'hovered': hoveredItem === designer }"
+							@click="selectedDesigner === designer ? removeDesignerFilter() : selectDesignerFromModal(designer)"
+							@mouseenter="hoveredItem = designer"
+							@mouseleave="hoveredItem = null"
+							:class="{ 'hovered': hoveredItem === designer }"
 							class="designer-item">
 							{{ designer }} <span class="count">({{ count }})</span>
 							<span v-if="selectedDesigner === designer" class="remove-filter"
@@ -995,8 +999,10 @@ input[type="text"] {
 							نتیجه‌ای وجود ندارد
 						</div>
 						<div v-else v-for="[director, count] in filteredDirectorsInModal" :key="director"
-							@click="selectDirectorFromModal(director)" @mouseenter="hoveredItem = director"
-							@mouseleave="hoveredItem = null" :class="{ 'hovered': hoveredItem === director }"
+							@click="selectedDirector === director ? removeDirectorFilter() : selectDirectorFromModal(director)"
+							@mouseenter="hoveredItem = director"
+							@mouseleave="hoveredItem = null"
+							:class="{ 'hovered': hoveredItem === director }"
 							class="director-item">
 							{{ director }} <span class="count">({{ count }})</span>
 							<span v-if="selectedDirector === director" class="remove-filter"
@@ -1021,8 +1027,10 @@ input[type="text"] {
 							نتیجه‌ای وجود ندارد
 						</div>
 						<div v-else v-for="[letter, count] in filteredLettersInModal" :key="letter"
-							@click="selectLetterFromModal(letter)" @mouseenter="hoveredItem = letter"
-							@mouseleave="hoveredItem = null" :class="{ 'hovered': hoveredItem === letter }"
+							 @click="selectedLetter === letter ? removeLetterFilter() : selectLetterFromModal(letter)"
+							@mouseenter="hoveredItem = letter"
+							@mouseleave="hoveredItem = null"
+							:class="{ 'hovered': hoveredItem === letter }"
 							class="letter-item">
 							{{ letter }} <span class="count">({{ count }})</span>
 							<span v-if="selectedLetter === letter" class="remove-filter"
