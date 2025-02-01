@@ -1024,7 +1024,7 @@ input[type="text"] {
 		</div>
 	</div>
 
-	<div v-if="lightboxVisible" class="lightbox" @click="closeLightbox">
+	<div v-if="lightboxItem" class="lightbox" @click="closeLightbox">
 		<template v-if="lightboxImage">
 			<img :src="lightboxImage" alt="Lightbox Image" />
 		</template>
@@ -1047,7 +1047,7 @@ input[type="text"] {
 				close
 			</span>
 		</button>
-		<a :href="downloadLink(item)" download target="_blank">
+		<a :href="downloadLink(lightboxItem)" download target="_blank">
 			<button class="lightbox-button" style="bottom: 20px">
 				<span class="material-symbols-rounded">
 					download
@@ -1868,19 +1868,19 @@ createApp({
 			}
 		};
 
-		const lightboxVisible = ref(false);
-		const lightboxImage = ref('');
+		const lightboxItem = ref(undefined);
+		const lightboxImage = ref(undefined);
 		const isLoading = ref(false);
 
 		const openLightbox = (item) => {
 			if (!posterMode && !item.logo) {
-				lightboxImage.value = null;
-				lightboxVisible.value = true;
+				lightboxImage.value = undefined;
+				lightboxItem.value = undefined;
 				return;
 			}
 			isLoading.value = true;
 			lightboxImage.value = posterMode.value ? getPosterUrl(item.poster, 1200) : getPosterUrl(item.logo, 1200);
-			lightboxVisible.value = true;
+			lightboxItem.value = item;
 
 			setTimeout(() => {
 				isLoading.value = false;
@@ -1888,11 +1888,11 @@ createApp({
 		};
 
 		const closeLightbox = () => {
-			lightboxVisible.value = false;
+			lightboxItem.value = undefined;
 			isLoading.value = false;
 		};
 
-		watch(lightboxVisible, (newValue) => {
+		watch(lightboxItem, (newValue) => {
 			if (newValue) {
 				document.addEventListener('click', handleClickOutsideLightbox);
 			} else {
@@ -1975,7 +1975,7 @@ createApp({
 		const getImageLink = item => posterMode.value ? item.poster : item.logo;
 
 		return {
-			showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar, sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm, lightboxVisible, lightboxImage, openLightbox, closeLightbox, downloadLink, createYearChart, handleImageClick, clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading, handlePopState, activeFilters, removeFilter,
+			showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items, getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear, availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears, filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors, selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleOptions, isOptionsCollapsed, collapseIconClass, filteredDesignersInModal, designerSearchQuery, selectDesignerFromModal, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal, selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse, filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass, directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter, removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar, sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm, lightboxItem, lightboxImage, openLightbox, closeLightbox, downloadLink, createYearChart, handleImageClick, clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading, handlePopState, activeFilters, removeFilter,
 		};
 	}
 }).mount('#app');
