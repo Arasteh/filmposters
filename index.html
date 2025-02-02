@@ -1476,32 +1476,34 @@ const setup = () => {
 
 	const filteredItems = computed(() => {
 		let results = items.value;
-
+		
 		if (searchTerm.value.length) {
 			const modifiedSearchTerm = searchTerm.value
-				.split('')
-				.map(char => (combineSimilarChars.value ? (similarCharsMapping[char] || char) : char))
-				.join('');
+			.split('')
+			.map(char => (combineSimilarChars.value ? (similarCharsMapping[char] || char) : char))
+			.join('');
 			const regex = new RegExp(modifiedSearchTerm, 'i');
 			results = results.filter(item => regex.test(item.filmLabel) || regex.test(item.aliases || ''));
 		}
-
+		
 		if (selectedYear.value) {
 			results = results.filter(item => toPersianYear(item.date) === selectedYear.value);
 		}
-
+		
 		if (selectedDesigner.value) {
-			results = results.filter(item => item.designerLabel === selectedDesigner.value);
+			results = results.filter(item => 
+			item.designers && item.designers.some(designer => designer.label === selectedDesigner.value)
+			);
 		}
-
+		
 		if (selectedDirector.value) {
 			results = results.filter(item => item.directorLabel === selectedDirector.value);
 		}
-
+		
 		if (selectedLetter.value) {
 			results = results.filter(item => item.filmLabel.startsWith(selectedLetter.value));
 		}
-
+		
 		if (sortOrder.value === 'alphabetical') {
 			results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, 'fa'));
 		} else if (sortOrder.value === 'year') {
@@ -1509,7 +1511,7 @@ const setup = () => {
 		} else if (sortOrder.value === 'random') {
 			results = results.slice().sort(() => Math.random() - 0.5);
 		}
-
+		
 		return results;
 	});
 
