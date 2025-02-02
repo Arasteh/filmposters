@@ -6440,7 +6440,10 @@
       "posters": [
         {
           "image": "الماس_33.jpg",
-          "hash": "a2"
+          "hash": "a2",
+          "characteristics": [
+            "Q2716583"
+          ]
         }
       ],
       "logos": [
