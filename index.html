@@ -759,8 +759,10 @@ input[type="text"] {
 
 .clearSearch {
 	position: absolute;
-	left: 35px;
-	transform: translateY(20%);
+	top: 50%;
+	transform: translateY(-50%);
+	display: flex;
+	inset-inline-end: 12px;
 	cursor: pointer;
 	color: #888;
 	font-size: x-large;
@@ -890,6 +892,7 @@ input[type="text"] {
 
 	.collapse-button {
 		display: inline-block;
+		padding: 0;
 	}
 
 	.sidebar-resize-handle {
@@ -1125,7 +1128,7 @@ input[type="text"] {
 				</button>
 				<button @click="toggleOptions" id="collapseButton" class="collapse-button mobile-only"
 					:class="collapseIconClass(isOptionsCollapsed)">
-					<span class="material-symbols-rounded">
+					<span class="material-symbols-rounded" style="font-size: xx-large;">
 						keyboard_arrow_up
 					</span>
 				</button>
