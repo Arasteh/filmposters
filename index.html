@@ -977,7 +977,11 @@ input[type="text"] {
 							class="designer-item">
 							{{ designer }} <span class="count">({{ count }})</span>
 							<span v-if="selectedDesigner === designer" class="remove-filter"
-								@click.stop="removeDesignerFilter">×</span>
+								@click.stop="removeDesignerFilter">
+								<span class="material-symbols-rounded">
+									close
+								</span>
+							</span>
 						</div>
 					</div>
 				</div>
@@ -1013,7 +1017,10 @@ input[type="text"] {
 							class="director-item">
 							{{ director }} <span class="count">({{ count }})</span>
 							<span v-if="selectedDirector === director" class="remove-filter"
-								@click.stop="removeDirectorFilter">×</span>
+								@click.stop="removeDirectorFilter">
+								<span class="material-symbols-rounded">
+									close
+								</span></span>
 						</div>
 					</div>
 				</div>
@@ -1041,7 +1048,10 @@ input[type="text"] {
 							class="letter-item">
 							{{ letter }} <span class="count">({{ count }})</span>
 							<span v-if="selectedLetter === letter" class="remove-filter"
-								@click.stop="removeLetterFilter">×</span>
+								@click.stop="removeLetterFilter">
+								<span class="material-symbols-rounded">
+									close
+								</span></span>
 						</div>
 					</div>
 				</div>
@@ -1101,7 +1111,11 @@ input[type="text"] {
 				</button>
 				<div style="position: relative; width: 100%;">
 					<input type="text" v-model="searchTerm" placeholder="جستجو…" />
-					<span v-if="searchTerm" @click="clearSearchTerm" class="clearSearch">×</span>
+					<span v-if="searchTerm" @click="clearSearchTerm" class="clearSearch">
+						<span class="material-symbols-rounded">
+							close
+						</span>
+					</span>
 				</div>
 				<button @click="resetFilters" id="resetSearch">
 					<span class="material-symbols-rounded">
