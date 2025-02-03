@@ -907,92 +907,6 @@ input[type="text"] {
 	}
 }
 </style>
-	<div id="stickyBar" style="
-	position: sticky;
-	top: 0;
-	width: 100%;
-	background-color: light-dark(#fff, #222);
-	padding: 10px;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-	z-index: 1001;">
-		<div id="searchBar" class="search-bar">
-			<div class="search-container">
-				<button @click="toggleSidebar" id="toggleSidebarButton" class="mobile-only">
-					<span class="material-symbols-rounded">
-						menu
-					</span>
-				</button>
-				<div style="position: relative; width: 100%;">
-					<input type="text" v-model="searchTerm" placeholder="جستجو…" />
-					<span v-if="searchTerm" @click="clearSearchTerm" class="clearSearch">
-						<span class="material-symbols-rounded">
-							close
-						</span>
-					</span>
-				</div>
-				<button @click="resetFilters" id="resetSearch">
-					<span class="material-symbols-rounded">
-						refresh
-					</span>
-				</button>
-				<button @click="toggleOptions" id="collapseButton" class="collapse-button mobile-only"
-					:class="collapseIconClass(isOptionsCollapsed)">
-					<span class="material-symbols-rounded" style="font-size: xx-large;">
-						keyboard_arrow_up
-					</span>
-				</button>
-			</div>
-			<div class="options" :class="{ 'collapsed': isOptionsCollapsed }">
-				<div class="toggle-switch" @click="togglePosterMode" :data-mode="posterMode ? 'poster' : 'logo'">
-					<span :class="{ active: !posterMode }">پوستر</span>
-					<span :class="{ active: posterMode }">لوگو</span>
-				</div>
-				<div class="similar-chars-toggle">
-					<label for="similarCharsSwitch" style="cursor: pointer;">
-						<input type="checkbox" id="similarCharsSwitch" v-model="combineSimilarChars">
-						حروف مشابه
-					</label>
-					<label>
-						<span class="material-symbols-rounded tooltip">
-							info
-							<span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود: مانند س، ش</span>
-						</span>
-					</label>
-				</div>
-
-				<div class="similar-chars-toggle">
-					<label for="pixelatedSwitch" style="cursor: pointer;">
-						<input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect" v-if="posterMode">
-						<input type="checkbox" id="pixelatedSwitch" v-else disabled>
-						سانسور
-					</label>
-					<label>
-						<span class="material-symbols-rounded tooltip">
-							info
-							<span class="tooltiptext" v-if="posterMode">مخفی کردن تصاویری که ممکن است نامناسب باشند</span>
-						</span>
-					</label>
-				</div>
-				<div class="sort-order-container">
-					<label>
-						<span class="material-symbols-rounded">
-							swap_vert
-						</span>
-					</label>
-					<div class="triple-switch" :data-sort="sortOrder">
-						<span :class="{ active: sortOrder === 'alphabetical' }"
-							@click="sortOrder = 'alphabetical'">الفبایی</span>
-						<span :class="{ active: sortOrder === 'year' }" @click="sortOrder = 'year'">سال</span>
-						<span :class="{ active: sortOrder === 'random' }" @click="sortOrder = 'random'">تصادفی</span>
-					</div>
-				</div>
-			</div>
-			<div v-if="filteredItems.length > 0" style="margin-top: 15px; text-align: center; padding-bottom: 5px;">
-				{{ filteredItemsLength }} از {{ itemsLength }} پوستر ({{ uniqueFilmCount }} فیلم)
-			</div>
-		</div>
-		
-	</div>
 <div id="app">
 	<div id="sidebarOverlay" class="sidebar-overlay" :class="{ visible: sidebarVisible }" @click="hideSidebar">
 	</div>
@@ -1193,6 +1107,82 @@ input[type="text"] {
 			</span>
 		</button>
 
+		<div id="searchBar" class="search-bar">
+			<div class="search-container">
+				<button @click="toggleSidebar" id="toggleSidebarButton" class="mobile-only">
+					<span class="material-symbols-rounded">
+						menu
+					</span>
+				</button>
+				<div style="position: relative; width: 100%;">
+					<input type="text" v-model="searchTerm" placeholder="جستجو…" />
+					<span v-if="searchTerm" @click="clearSearchTerm" class="clearSearch">
+						<span class="material-symbols-rounded">
+							close
+						</span>
+					</span>
+				</div>
+				<button @click="resetFilters" id="resetSearch">
+					<span class="material-symbols-rounded">
+						refresh
+					</span>
+				</button>
+				<button @click="toggleOptions" id="collapseButton" class="collapse-button mobile-only"
+					:class="collapseIconClass(isOptionsCollapsed)">
+					<span class="material-symbols-rounded" style="font-size: xx-large;">
+						keyboard_arrow_up
+					</span>
+				</button>
+			</div>
+			<div class="options" :class="{ 'collapsed': isOptionsCollapsed }">
+				<div class="toggle-switch" @click="togglePosterMode" :data-mode="posterMode ? 'poster' : 'logo'">
+					<span :class="{ active: !posterMode }">پوستر</span>
+					<span :class="{ active: posterMode }">لوگو</span>
+				</div>
+				<div class="similar-chars-toggle">
+					<label for="similarCharsSwitch" style="cursor: pointer;">
+						<input type="checkbox" id="similarCharsSwitch" v-model="combineSimilarChars">
+						حروف مشابه
+					</label>
+					<label>
+						<span class="material-symbols-rounded tooltip">
+							info
+							<span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود: مانند س، ش</span>
+						</span>
+					</label>
+				</div>
+
+				<div class="similar-chars-toggle">
+					<label for="pixelatedSwitch" style="cursor: pointer;">
+						<input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect" v-if="posterMode">
+						<input type="checkbox" id="pixelatedSwitch" v-else disabled>
+						سانسور
+					</label>
+					<label>
+						<span class="material-symbols-rounded tooltip">
+							info
+							<span class="tooltiptext" v-if="posterMode">مخفی کردن تصاویری که ممکن است نامناسب باشند</span>
+						</span>
+					</label>
+				</div>
+				<div class="sort-order-container">
+					<label>
+						<span class="material-symbols-rounded">
+							swap_vert
+						</span>
+					</label>
+					<div class="triple-switch" :data-sort="sortOrder">
+						<span :class="{ active: sortOrder === 'alphabetical' }"
+							@click="sortOrder = 'alphabetical'">الفبایی</span>
+						<span :class="{ active: sortOrder === 'year' }" @click="sortOrder = 'year'">سال</span>
+						<span :class="{ active: sortOrder === 'random' }" @click="sortOrder = 'random'">تصادفی</span>
+					</div>
+				</div>
+			</div>
+			<div v-if="filteredItems.length > 0" style="margin-top: 15px; text-align: center; padding-bottom: 5px;">
+				{{ filteredItemsLength }} از {{ itemsLength }} پوستر ({{ uniqueFilmCount }} فیلم)
+			</div>
+		</div>
 		<div id="filters" class="filters-container" v-if="activeFilters.length > 0">
 			<div v-for="(filter, index) in activeFilters" :key="index" @click="removeFilter(filter.type, filter.value)"
 				class="designer-item">
