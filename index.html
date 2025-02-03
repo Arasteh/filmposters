@@ -254,11 +254,15 @@ input[type="text"] {
 	right: 20px;
 	background: none;
 	border: none;
-	padding: 10px 20px;
+	padding: 28px 30px;
 	cursor: pointer;
-	font-size: 36px;
 	z-index: 1000;
-	color: light-dark(#fff, #fff)
+	color: light-dark(#fff, #fff);
+	border-radius: 60px;
+}
+
+.lightbox-button:hover {
+	background: #fff4;
 }
 
 #toTop {
@@ -1083,13 +1087,13 @@ input[type="text"] {
 			</svg>
 		</div>
 		<button class="lightbox-button" @click.stop="closeLightbox" style="top: 20px">
-			<span class="material-symbols-rounded">
+			<span class="material-symbols-rounded" style="font-size: xx-large;">
 				close
 			</span>
 		</button>
 		<a :href="downloadLink(lightboxItem)" target="_blank">
 			<button class="lightbox-button" style="bottom: 20px">
-				<span class="material-symbols-rounded">
+				<span class="material-symbols-rounded" style="font-size: xx-large;">
 					download
 				</span>
 			</button>
