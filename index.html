@@ -30,21 +30,17 @@ body {
 
 #app {
 	display: flex;
-	flex: 1;
-	width: 100%;
+	flex-direction: column;
+	min-height: 100vh;
 	padding: 20px;
 	transition: background-color 0.3s, color 0.3s;
 }
 
 #main-content {
 	flex: 1;
-	margin-right: 20px;
-	width: 100%;
 	display: flex;
-	flex-direction: column;
-	align-items: center;
-	max-width: 100%;
-	overflow-x: hidden;
+	flex-direction: row;
+	margin-top: 60px;
 }
 
 .search-container {
@@ -65,7 +61,8 @@ body {
 	margin-bottom: 15px;
 	max-width: 1200px;
 	width: 100%;
-	z-index: 100;
+	z-index: 1000;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /*
@@ -91,12 +88,11 @@ input[type="text"] {
 	align-items: center;
 }
 .results-grid {
+	flex: 1;
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 	gap: 15px;
-	max-width: 1200px;
-	width: 100%;
-	z-index: 1;
+	max-width: 100%;
 }
 
 .item-card {
@@ -563,6 +559,12 @@ input[type="text"] {
 	transform: rotate(180deg) translateY(0px);
 }
 
+#sidebar {
+	width: 440px;
+	margin-left: 20px;
+	overflow-y: auto;
+}
+
 .sidebar {
 	width: 440px;
 	overflow-y: auto;
@@ -796,8 +798,6 @@ input[type="text"] {
 	}
 
 	#main-content {
-		margin-right: 0;
-		padding: 15px;
 		flex-direction: column;
 	}
 
@@ -841,6 +841,11 @@ input[type="text"] {
 		cursor: pointer;
 	}
 
+	#sidebar {
+		width: 100%;
+		margin-left: 0;
+	}
+	
 	.sidebar {
 		position: fixed;
 		top: 0;
@@ -908,6 +913,165 @@ input[type="text"] {
 }
 </style>
 <div id="app">
+
+	<div id="searchBar" class="search-bar">
+		<div class="search-container">
+			<button @click="toggleSidebar" id="toggleSidebarButton" class="mobile-only">
+				<span class="material-symbols-rounded">
+					menu
+				</span>
+			</button>
+			<div style="position: relative; width: 100%;">
+				<input type="text" v-model="searchTerm" placeholder="جستجو…" />
+				<span v-if="searchTerm" @click="clearSearchTerm" class="clearSearch">
+					<span class="material-symbols-rounded">
+						close
+					</span>
+				</span>
+			</div>
+			<button @click="resetFilters" id="resetSearch">
+				<span class="material-symbols-rounded">
+					refresh
+				</span>
+			</button>
+			<button @click="toggleOptions" id="collapseButton" class="collapse-button mobile-only"
+				:class="collapseIconClass(isOptionsCollapsed)">
+				<span class="material-symbols-rounded" style="font-size: xx-large;">
+					keyboard_arrow_up
+				</span>
+			</button>
+		</div>
+		<div class="options" :class="{ 'collapsed': isOptionsCollapsed }">
+			<div class="toggle-switch" @click="togglePosterMode" :data-mode="posterMode ? 'poster' : 'logo'">
+				<span :class="{ active: !posterMode }">پوستر</span>
+				<span :class="{ active: posterMode }">لوگو</span>
+			</div>
+			<div class="similar-chars-toggle">
+				<label for="similarCharsSwitch" style="cursor: pointer;">
+					<input type="checkbox" id="similarCharsSwitch" v-model="combineSimilarChars">
+					حروف مشابه
+				</label>
+				<label>
+					<span class="material-symbols-rounded tooltip">
+						info
+						<span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود: مانند س، ش</span>
+					</span>
+				</label>
+			</div>
+
+			<div class="similar-chars-toggle">
+				<label for="pixelatedSwitch" style="cursor: pointer;">
+					<input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect" v-if="posterMode">
+					<input type="checkbox" id="pixelatedSwitch" v-else disabled>
+					سانسور
+				</label>
+				<label>
+					<span class="material-symbols-rounded tooltip">
+						info
+						<span class="tooltiptext" v-if="posterMode">مخفی کردن تصاویری که ممکن است نامناسب باشند</span>
+					</span>
+				</label>
+			</div>
+			<div class="sort-order-container">
+				<label>
+					<span class="material-symbols-rounded">
+						swap_vert
+					</span>
+				</label>
+				<div class="triple-switch" :data-sort="sortOrder">
+					<span :class="{ active: sortOrder === 'alphabetical' }"
+						@click="sortOrder = 'alphabetical'">الفبایی</span>
+					<span :class="{ active: sortOrder === 'year' }" @click="sortOrder = 'year'">سال</span>
+					<span :class="{ active: sortOrder === 'random' }" @click="sortOrder = 'random'">تصادفی</span>
+				</div>
+			</div>
+		</div>
+		<div v-if="filteredItems.length > 0" style="margin-top: 15px; text-align: center; padding-bottom: 5px;">
+			{{ filteredItemsLength }} از {{ itemsLength }} پوستر ({{ uniqueFilmCount }} فیلم)
+		</div>
+	</div>
+	<div id="filters" class="filters-container" v-if="activeFilters.length > 0">
+		<div v-for="(filter, index) in activeFilters" :key="index" @click="removeFilter(filter.type, filter.value)"
+			class="designer-item">
+			<span style="align-content: center;">{{ filter.label }}: {{ filter.value }}</span>
+			<button class="remove-filter">
+				<span class="material-symbols-rounded">close</span>
+			</button>
+		</div>
+	</div>
+
+	<div id="main-content">
+		<button onclick="topFunction()" id="toTop">
+			<span class="material-symbols-rounded">
+				north
+			</span>
+		</button>
+
+		
+		<div v-if="filteredItems.length > 0" class="results-grid">
+			<div class="item-card" v-for="(item, index) in (isShowMore ? filteredItems : filteredItems.slice(0, 30))"
+				:key="index">
+				<div class="image-container">
+					<div @click="handleImageClick(item)" class="clickable-image">
+						<template v-if="!posterMode && !item.logo">
+							<div class="no-logo-placeholder">
+								(بدون لوگو)
+							</div>
+						</template>
+						<template v-else>
+							<img :src="getImageUrl(item)" :key="getImageUrl(item)" :alt="item.filmLabel"
+								class="item-image"
+								:class="{ pixelated: pixelatedEffect && !item.logo && item.isNsfw && posterMode }" />
+						</template>
+					</div>
+					<a :href="downloadLink(item)" target="_blank">
+						<button class="download-btn">
+							<span class="material-symbols-rounded">
+								download
+							</span>
+						</button>
+					</a>
+				</div>
+
+				<div class="item-title">
+					{{ item.filmLabel }}
+					<span class="year-link" @click="selectYearFromTitle(toPersianYear(item.date))">
+						({{ toPersianYear(item.date) }})
+					</span>
+				</div>
+
+				<div v-if="item.designers && item.designers.length > 0" class="item-designer">
+					<span class="mobile-only">
+						<span class="material-symbols-rounded" style="margin-left: 5px; top: 8px; position: relative;">person_edit</span>
+					</span>
+					<span class="desktop-only">{{ item.designers.length === 1 ? 'طراح: ' : 'طراحان: ' }}</span>
+					<span v-for="(designer, index) in item.designers" :key="index">
+						<a href="#" @click.prevent="selectDesigner(designer.label)">{{ designer.label }}</a>
+						<span class="item-links">
+							• <a :href="'https://www.wikidata.org/wiki/' + designer.id" target="_blank">Q</a>
+							<template v-if="designer.faWikipediaLink">
+							&nbsp;<a :href="'https://fa.wikipedia.org/wiki/' + designer.faWikipediaLink.replaceAll(' ', '_')" target="_blank">W</a>
+							</template>
+						</span>
+						<br v-if="index < item.designers.length - 1">
+					</span>
+				</div>
+				<div id="film-links" class="item-links">
+					<a v-if="item.imdbID" :href="'https://www.imdb.com/title/' + item.imdbID" target="_blank">T</a>
+					<a v-if="item.film" :href="'https://www.wikidata.org/wiki/' + item.film" target="_blank">Q</a>
+					<a v-if="item.faWikipediaLink"
+						:href="'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_')"
+						target="_blank">W</a>
+				</div>
+			</div>
+		</div>
+		<p style="text-align: center" v-else>نتیجه‌ای برای نمایش وجود ندارد.</p>
+		<div v-if="!isShowMore && filteredItems.length > 30" style="text-align: center; padding-top: 1em;">
+			<button @click="showMore">نمایش بیشتر</button>
+		</div>
+	</div>
+	
+	
 	<div id="sidebarOverlay" class="sidebar-overlay" :class="{ visible: sidebarVisible }" @click="hideSidebar">
 	</div>
 	<div id="sidebar" class="sidebar" :class="{ visible: sidebarVisible }" :style="{ width: sidebarWidth + 'px' }">
@@ -1068,6 +1232,8 @@ input[type="text"] {
 		</div>
 	</div>
 
+
+	
 	<div v-if="lightboxItem" class="lightbox" @click="closeLightbox">
 		<template v-if="lightboxImage">
 			<img :src="lightboxImage" alt="Lightbox Image" />
@@ -1100,160 +1266,6 @@ input[type="text"] {
 		</a>
 	</div>
 
-	<div id="main-content">
-		<button onclick="topFunction()" id="toTop">
-			<span class="material-symbols-rounded">
-				north
-			</span>
-		</button>
-
-		<div id="searchBar" class="search-bar">
-			<div class="search-container">
-				<button @click="toggleSidebar" id="toggleSidebarButton" class="mobile-only">
-					<span class="material-symbols-rounded">
-						menu
-					</span>
-				</button>
-				<div style="position: relative; width: 100%;">
-					<input type="text" v-model="searchTerm" placeholder="جستجو…" />
-					<span v-if="searchTerm" @click="clearSearchTerm" class="clearSearch">
-						<span class="material-symbols-rounded">
-							close
-						</span>
-					</span>
-				</div>
-				<button @click="resetFilters" id="resetSearch">
-					<span class="material-symbols-rounded">
-						refresh
-					</span>
-				</button>
-				<button @click="toggleOptions" id="collapseButton" class="collapse-button mobile-only"
-					:class="collapseIconClass(isOptionsCollapsed)">
-					<span class="material-symbols-rounded" style="font-size: xx-large;">
-						keyboard_arrow_up
-					</span>
-				</button>
-			</div>
-			<div class="options" :class="{ 'collapsed': isOptionsCollapsed }">
-				<div class="toggle-switch" @click="togglePosterMode" :data-mode="posterMode ? 'poster' : 'logo'">
-					<span :class="{ active: !posterMode }">پوستر</span>
-					<span :class="{ active: posterMode }">لوگو</span>
-				</div>
-				<div class="similar-chars-toggle">
-					<label for="similarCharsSwitch" style="cursor: pointer;">
-						<input type="checkbox" id="similarCharsSwitch" v-model="combineSimilarChars">
-						حروف مشابه
-					</label>
-					<label>
-						<span class="material-symbols-rounded tooltip">
-							info
-							<span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود: مانند س، ش</span>
-						</span>
-					</label>
-				</div>
-
-				<div class="similar-chars-toggle">
-					<label for="pixelatedSwitch" style="cursor: pointer;">
-						<input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect" v-if="posterMode">
-						<input type="checkbox" id="pixelatedSwitch" v-else disabled>
-						سانسور
-					</label>
-					<label>
-						<span class="material-symbols-rounded tooltip">
-							info
-							<span class="tooltiptext" v-if="posterMode">مخفی کردن تصاویری که ممکن است نامناسب باشند</span>
-						</span>
-					</label>
-				</div>
-				<div class="sort-order-container">
-					<label>
-						<span class="material-symbols-rounded">
-							swap_vert
-						</span>
-					</label>
-					<div class="triple-switch" :data-sort="sortOrder">
-						<span :class="{ active: sortOrder === 'alphabetical' }"
-							@click="sortOrder = 'alphabetical'">الفبایی</span>
-						<span :class="{ active: sortOrder === 'year' }" @click="sortOrder = 'year'">سال</span>
-						<span :class="{ active: sortOrder === 'random' }" @click="sortOrder = 'random'">تصادفی</span>
-					</div>
-				</div>
-			</div>
-			<div v-if="filteredItems.length > 0" style="margin-top: 15px; text-align: center; padding-bottom: 5px;">
-				{{ filteredItemsLength }} از {{ itemsLength }} پوستر ({{ uniqueFilmCount }} فیلم)
-			</div>
-		</div>
-		<div id="filters" class="filters-container" v-if="activeFilters.length > 0">
-			<div v-for="(filter, index) in activeFilters" :key="index" @click="removeFilter(filter.type, filter.value)"
-				class="designer-item">
-				<span style="align-content: center;">{{ filter.label }}: {{ filter.value }}</span>
-				<button class="remove-filter">
-					<span class="material-symbols-rounded">close</span>
-				</button>
-			</div>
-		</div>
-		<div v-if="filteredItems.length > 0" class="results-grid">
-			<div class="item-card" v-for="(item, index) in (isShowMore ? filteredItems : filteredItems.slice(0, 30))"
-				:key="index">
-				<div class="image-container">
-					<div @click="handleImageClick(item)" class="clickable-image">
-						<template v-if="!posterMode && !item.logo">
-							<div class="no-logo-placeholder">
-								(بدون لوگو)
-							</div>
-						</template>
-						<template v-else>
-							<img :src="getImageUrl(item)" :key="getImageUrl(item)" :alt="item.filmLabel"
-								class="item-image"
-								:class="{ pixelated: pixelatedEffect && !item.logo && item.isNsfw && posterMode }" />
-						</template>
-					</div>
-					<a :href="downloadLink(item)" target="_blank">
-						<button class="download-btn">
-							<span class="material-symbols-rounded">
-								download
-							</span>
-						</button>
-					</a>
-				</div>
-
-				<div class="item-title">
-					{{ item.filmLabel }}
-					<span class="year-link" @click="selectYearFromTitle(toPersianYear(item.date))">
-						({{ toPersianYear(item.date) }})
-					</span>
-				</div>
-
-				<div v-if="item.designers && item.designers.length > 0" class="item-designer">
-					<span class="mobile-only">
-						<span class="material-symbols-rounded" style="margin-left: 5px; top: 8px; position: relative;">person_edit</span>
-					</span>
-					<span class="desktop-only">{{ item.designers.length === 1 ? 'طراح: ' : 'طراحان: ' }}</span>
-					<span v-for="(designer, index) in item.designers" :key="index">
-						<a href="#" @click.prevent="selectDesigner(designer.label)">{{ designer.label }}</a>
-						<span class="item-links">
-							• <a :href="'https://www.wikidata.org/wiki/' + designer.id" target="_blank">Q</a>
-							<template v-if="designer.faWikipediaLink">
-							&nbsp;<a :href="'https://fa.wikipedia.org/wiki/' + designer.faWikipediaLink.replaceAll(' ', '_')" target="_blank">W</a>
-							</template>
-						</span>
-						<br v-if="index < item.designers.length - 1">
-					</span>
-				</div>
-				<div id="film-links" class="item-links">
-					<a v-if="item.imdbID" :href="'https://www.imdb.com/title/' + item.imdbID" target="_blank">T</a>
-					<a v-if="item.film" :href="'https://www.wikidata.org/wiki/' + item.film" target="_blank">Q</a>
-					<a v-if="item.faWikipediaLink"
-						:href="'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_')"
-						target="_blank">W</a>
-				</div>
-			</div>
-		</div>
-		<p style="text-align: center" v-else>نتیجه‌ای برای نمایش وجود ندارد.</p>
-		<div v-if="!isShowMore && filteredItems.length > 30" style="text-align: center; padding-top: 1em;">
-			<button @click="showMore">نمایش بیشتر</button>
-		</div>
-	</div>
 </div>
 
 <script>
