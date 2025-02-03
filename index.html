@@ -176,7 +176,11 @@ input[type="text"] {
 }
 
 .linkIcon {
+	opacity: 0.7;
 	height: 14px;
+}
+.linkIcon:hover {
+	opacity: 1;
 }
 
 .image-container {
@@ -1240,7 +1244,7 @@ input[type="text"] {
 								<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg" class="linkIcon">
 							</a>
 							<template v-if="designer.faWikipediaLink">
-							&nbsp;<a :href="'https://fa.wikipedia.org/wiki/' + designer.faWikipediaLink.replaceAll(' ', '_')" target="_blank">
+							<a :href="'https://fa.wikipedia.org/wiki/' + designer.faWikipediaLink.replaceAll(' ', '_')" target="_blank">
 								<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikipedia_%22W%22_Roundel_White.svg" class="linkIcon">
 							</a>
 							</template>
