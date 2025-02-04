@@ -123,7 +123,7 @@ input[type="text"] {
 	border-radius: 12px;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: flex-end;
 	align-items: center;
 	transition: background-color 0.3s, border-color 0.3s;
 	position: relative;
@@ -1136,59 +1136,61 @@ input[type="text"] {
 		<div v-if="filteredItems.length > 0" class="results-grid">
 			<div class="item-card" v-for="(item, index) in (isShowMore ? filteredItems : filteredItems.slice(0, 30))"
 				:key="index">
-				<div class="image-container">
-					<div @click="handleImageClick(item)" class="clickable-image">
-						<template v-if="!posterMode && !item.logo">
-							<div class="no-logo-placeholder">
-								(بدون لوگو)
-							</div>
-						</template>
-						<template v-else>
-							<img :src="getItemUrl(item, posterMode, pixelatedEffect)"
-								:key="getItemUrl(item, posterMode, pixelatedEffect)" :alt="item.filmLabel"
-								class="item-image"
-								:class="{ pixelated: pixelatedEffect && !item.logo && item.isNsfw && posterMode }" />
-						</template>
+				<div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
+					<div class="image-container">
+						<div @click="handleImageClick(item)" class="clickable-image">
+							<template v-if="!posterMode && !item.logo">
+								<div class="no-logo-placeholder">
+									(بدون لوگو)
+								</div>
+							</template>
+							<template v-else>
+								<img :src="getItemUrl(item, posterMode, pixelatedEffect)"
+									:key="getItemUrl(item, posterMode, pixelatedEffect)" :alt="item.filmLabel"
+									class="item-image"
+									:class="{ pixelated: pixelatedEffect && !item.logo && item.isNsfw && posterMode }" />
+							</template>
+						</div>
+						<a :href="downloadLink(item)" target="_blank">
+							<button class="download-btn">
+								<span class="material-symbols-rounded">
+									download
+								</span>
+							</button>
+						</a>
 					</div>
-					<a :href="downloadLink(item)" target="_blank">
-						<button class="download-btn">
-							<span class="material-symbols-rounded">
-								download
-							</span>
-						</button>
-					</a>
-				</div>
-
-				<div class="item-title">
-					{{ item.filmLabel }}
-					<span class="year-link" @click="selectYearFromTitle(toPersianYear(item.date))">
-						({{ toPersianYear(item.date) }})
-					</span>
-				</div>
-
-				<div v-if="item.designers && item.designers.length > 0" class="item-designer">
-					<span class="mobile-only">
-						<span class="material-symbols-rounded"
-							style="margin-left: 5px; top: 8px; position: relative;">person_edit</span>
-					</span>
-					<span class="desktop-only">{{ item.designers.length === 1 ? 'طراح: ' : 'طراحان: ' }}</span>
-					<span v-for="(designer, index) in item.designers" :key="index">
-						<a href="#" @click.prevent="selectDesigner(designer.label)">{{ designer.label }}</a>
-						<span class="item-links">
-							<a :href="'https://www.wikidata.org/wiki/' + designer.id" target="_blank">
-								<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg"
-									class="linkIcon">
-							</a>
-							<template v-if="designer.faWikipediaLink">
-								<a :href="'https://fa.wikipedia.org/wiki/' + designer.faWikipediaLink.replaceAll(' ', '_')"
-									target="_blank">
-									<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg"
+	
+					<div class="item-title">
+						{{ item.filmLabel }}
+						<span class="year-link" @click="selectYearFromTitle(toPersianYear(item.date))">
+							({{ toPersianYear(item.date) }})
+						</span>
+					</div>
+	
+					<div v-if="item.designers && item.designers.length > 0" class="item-designer">
+						<span class="mobile-only">
+							<span class="material-symbols-rounded"
+								style="margin-left: 5px; top: 8px; position: relative;">person_edit</span>
+						</span>
+						<span class="desktop-only">{{ item.designers.length === 1 ? 'طراح: ' : 'طراحان: ' }}</span>
+						<span v-for="(designer, index) in item.designers" :key="index">
+							<a href="#" @click.prevent="selectDesigner(designer.label)">{{ designer.label }}</a>
+							<span class="item-links">
+								<a :href="'https://www.wikidata.org/wiki/' + designer.id" target="_blank">
+									<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg"
 										class="linkIcon">
 								</a>
-							</template>
+								<template v-if="designer.faWikipediaLink">
+									<a :href="'https://fa.wikipedia.org/wiki/' + designer.faWikipediaLink.replaceAll(' ', '_')"
+										target="_blank">
+										<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg"
+											class="linkIcon">
+									</a>
+								</template>
+							</span>
+							<br v-if="index < item.designers.length - 1">
 						</span>
-						<br v-if="index < item.designers.length - 1">
-					</span>
+					</div>
 				</div>
 				<div id="film-links" class="item-links">
 					<a v-if="item.imdbID" :href="'https://www.imdb.com/title/' + item.imdbID" target="_blank">
