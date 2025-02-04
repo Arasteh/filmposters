@@ -19370,6 +19370,9 @@
           "hash": "17",
           "designers": [
             "Q131377887"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -21165,6 +21168,9 @@
           "hash": "12",
           "designers": [
             "Q61060515"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -21730,6 +21736,9 @@
           "hash": "fa",
           "designers": [
             "Q131377834"
+          ],
+          "characteristics": [
+            "Q2716583"
           ]
         }
       ],
@@ -21846,7 +21855,10 @@
       "posters": [
         {
           "image": "نیزار_(پوستر).jpg",
-          "hash": "11"
+          "hash": "11",
+          "characteristics": [
+            "Q2716583"
+          ]
         }
       ],
       "logos": []
@@ -21971,7 +21983,10 @@
       "posters": [
         {
           "image": "آب_(پوستر).jpg",
-          "hash": "21"
+          "hash": "21",
+          "characteristics": [
+            "Q2716583"
+          ]
         }
       ],
       "logos": []
