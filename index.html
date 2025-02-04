@@ -1831,6 +1831,7 @@ const setup = () => {
 	const getLogoUrl = item => item.logo ? getPosterUrl(item.logo, item.logoHash, 600) : null;
 	const getImageUrl = (item) => {
 		if (!posterMode.value && !item.logo) return null;
+		if (posterMode.value && item.isNsfw && item.logo) return getPosterUrl(item.logo, item.logoHash, 600);
 		return posterMode.value ? getPosterUrl(item.poster, item.posterHash, 600) : getPosterUrl(item.logo, item.logoHash, 600);
 	}
 	const getImageLink = item => posterMode.value ? item.poster : item.logo;
