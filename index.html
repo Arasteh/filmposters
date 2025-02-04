@@ -5,7 +5,6 @@
 <meta name="color-scheme" content="light dark">
 <title>آرشیو پوسترهای سینمای ایران</title>
 <script src="vue.global.js"></script>
-<script src="Chart.js"></script>
 <!-- <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=close,download,info,keyboard_arrow_up,menu,north,person_edit,refresh,swap_vert" /> -->
 <link rel="icon" href="favicon.svg">
@@ -800,13 +799,6 @@ input[type="text"] {
 	font-size: x-large;
 }
 
-#yearChart {
-	width: 100% !important;
-	height: 150px !important;
-	margin: 10px 0;
-	font-family: system-ui;
-}
-
 #canvasContainer {
 	width: 100%;
 	max-width: 600px;
@@ -959,9 +951,6 @@ input[type="text"] {
 					</button>
 				</div>
 				<div class="sidebar-section-body">
-					<!--<div id="canvasContainer">
-						<canvas id="yearChart" height="150"></canvas>
-					</div>-->
 					<div class="year-grid">
 						<div v-if="filteredYearsInModal.length === 0" class="no-results">
 							نتیجه‌ای وجود ندارد
@@ -1307,7 +1296,6 @@ window.onscroll = () => {
 const topFunction = () => document.documentElement.scrollTop = 0;
 
 let lastScrollTop = 0;
-let yearChart = null;
 
 window.addEventListener('scroll', () => {
 	const searchBar = document.getElementById('searchBar');
@@ -1680,10 +1668,6 @@ const setup = () => {
 	};
 
 	onMounted(() => {
-		if (!isCollapsed.value.years) {
-			createYearChart();
-		}
-
 		const resizeHandle = document.querySelector('.sidebar-resize-handle');
 		if (resizeHandle) {
 			resizeHandle.addEventListener('mousedown', startResize);
@@ -1752,158 +1736,8 @@ const setup = () => {
 		}).join('');
 	}
 
-	const yearChart = ref(null);
-
-	const createYearChart = () => {
-		const canvasContainer = document.getElementById('canvasContainer');
-		if (!canvasContainer) {
-			console.log('عنصر canvasContainer یافت نشد!');
-			return;
-		}
-
-		const ctx = document.getElementById('yearChart')?.getContext('2d');
-		if (!ctx) {
-			console.log('عنصر canvas برای نمودار یافت نشد!');
-			return;
-		}
-
-		if (yearChart.value) {
-			yearChart.value.destroy();
-		}
-
-
-		const years = availableYears.value.map(([year]) => year);
-		const counts = availableYears.value.map(([_, count]) => {
-			const englishCount = convertPersianToEnglishNumbers(count.replace(/,/g, ''));
-			return parseInt(englishCount, 10);
-		});
-
-		if (years.length === 0 || counts.length === 0) {
-			console.log('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
-			return;
-		}
-
-		const canvas = document.getElementById('yearChart');
-		canvas.height = 150;
-
-		yearChart.value = new Chart(ctx, {
-			type: 'bar',
-			data: {
-				labels: years,
-				datasets: [{
-					data: counts,
-					backgroundColor: 'rgba(128,128,128,0.5)',
-					borderWidth: 0,
-					hoverBackgroundColor: 'rgba(180,120,120,0.8)'
-				}]
-			},
-			options: {
-				animation: false,
-				indexAxis: 'y',
-				responsive: true,
-				maintainAspectRatio: false,
-				scales: {
-					xAxes: [{
-						beginAtZero: true,
-						ticks: {
-							reverse: true,
-							display: false
-						},
-						gridLines: {
-							display: false
-						}
-					}],
-					yAxes: [{
-						ticks: {
-							display: false
-						},
-						gridLines: {
-							display: false
-						}
-					}]
-				},
-				plugins: {
-					legend: {
-						display: false
-					},
-					tooltip: {
-						bodyFont: {
-							family: 'system-ui'
-						},
-						titleFont: {
-							family: 'system-ui'
-						}
-					},
-					title: {
-						display: false
-					}
-				},
-			}
-		});
-
-		canvas.onclick = e => {
-			const activePoints = yearChart.value.getElementAtEvent(e);
-			if (activePoints.length) {
-				selectedYear.value = yearChart.value.data.labels[activePoints[0]._index];
-			}
-		}
-	};
-
-	watch(availableYears, newYears => {
-		if (!isCollapsed.value.years) {
-			createYearChart();
-		}
-	}, { immediate: true });
-
-	watch(() => isCollapsed.value.years, newValue => {
-		if (!newValue) {
-			createYearChart();
-		} else if (yearChart.value) {
-			yearChart.value.destroy();
-			yearChart.value = null;
-		}
-	});
-
-	onMounted(() => {
-		if (!isCollapsed.value.years) {
-			createYearChart();
-		}
-
-		const resizeHandle = document.querySelector('.sidebar-resize-handle');
-		if (resizeHandle) {
-			resizeHandle.addEventListener('mousedown', startResize);
-		} else {
-			console.log('عنصر دستگیره تغییر اندازه یافت نشد!');
-		}
-	});
-
-	watch(filteredYears, newYears => {
-		if (!yearChart.value) {
-			console.log('نمودار سال‌ها تعریف نشده است!');
-			return;
-		}
-
-		const years = newYears.map(([year]) => year);
-		const counts = newYears.map(([_, count]) => {
-			const englishCount = convertPersianToEnglishNumbers(count.replace(/,/g, ''));
-			return parseInt(englishCount, 10);
-		});
-
-		if (years.length === 0 || counts.length === 0) {
-			console.log('داده‌های سال‌ها یا تعداد پوسترها وجود ندارد!');
-			return;
-		}
-
-		yearChart.value.data.labels = years;
-		yearChart.value.data.datasets[0].data = counts;
-		yearChart.value.update();
-	});
-
 	const toggleCollapse = section => {
 		isCollapsed.value[section] = !isCollapsed.value[section];
-		if (section === 'years' && !isCollapsed.value[section]) {
-			nextTick(createYearChart);
-		}
 	};
 
 	const lightboxItem = ref(undefined);
@@ -2033,7 +1867,7 @@ const setup = () => {
 		directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter,
 		removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar,
 		sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm, lightboxItem,
-		lightboxImage, openLightbox, closeLightbox, downloadLink, createYearChart, handleImageClick,
+		lightboxImage, openLightbox, closeLightbox, downloadLink, handleImageClick,
 		clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading,
 		handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength
 	};
