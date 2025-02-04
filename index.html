@@ -80,7 +80,7 @@ body {
 
 /*
 .search-bar.hidden {
-	transform: translateY(-100%);
+transform: translateY(-100%);
 }*/
 
 input[type="text"] {
@@ -100,6 +100,7 @@ input[type="text"] {
 	border: none;
 	align-items: center;
 }
+
 .results-grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -190,6 +191,7 @@ input[type="text"] {
 	height: 14px;
 	transition: 0.1s;
 }
+
 .linkIcon:hover {
 	opacity: 1;
 }
@@ -724,12 +726,14 @@ input[type="text"] {
 .count {
 	color: light-dark(hsl(0 0% 55%), hsl(0 0% 50%));
 }
+
 .no-results {
 	text-align: center;
 	color: light-dark(#777, #999);
 	padding: 5px 10px;
 	font-size: 0.9em;
 }
+
 .filters-container {
 	display: flex;
 	flex-wrap: wrap;
@@ -818,12 +822,13 @@ input[type="text"] {
 
 	.options {
 		gap: 15px;
-		align-items: center;	
+		align-items: center;
 		transition: 0.3s ease-in-out;
 		max-height: 200px;
 		opacity: 1;
 		overflow: hidden;
 	}
+
 	.options.collapsed {
 		max-height: 0;
 		opacity: 0;
@@ -938,10 +943,8 @@ input[type="text"] {
 						</div>
 						<div v-else v-for="[year, count] in filteredYearsInModal" :key="year"
 							@click="selectedYear === year ? removeYearFilter() : selectYearFromModal(year)"
-							@mouseenter="hoveredItem = year"
-							@mouseleave="hoveredItem = null"
-							:class="{ 'hovered': hoveredItem === year }"
-							class="year-item">
+							@mouseenter="hoveredItem = year" @mouseleave="hoveredItem = null"
+							:class="{ 'hovered': hoveredItem === year }" class="year-item">
 							{{ year }} <span class="count">({{ count }})</span>
 							<span v-if="selectedYear === year" class="remove-filter" @click.stop="removeYearFilter">
 								<span class="material-symbols-rounded" style="font-size: inherit;">
@@ -977,10 +980,8 @@ input[type="text"] {
 						</div>
 						<div v-else v-for="[designer, count] in filteredDesignersInModal" :key="designer"
 							@click="selectedDesigner === designer ? removeDesignerFilter() : selectDesignerFromModal(designer)"
-							@mouseenter="hoveredItem = designer"
-							@mouseleave="hoveredItem = null"
-							:class="{ 'hovered': hoveredItem === designer }"
-							class="designer-item">
+							@mouseenter="hoveredItem = designer" @mouseleave="hoveredItem = null"
+							:class="{ 'hovered': hoveredItem === designer }" class="designer-item">
 							{{ designer }} <span class="count">({{ count }})</span>
 							<span v-if="selectedDesigner === designer" class="remove-filter"
 								@click.stop="removeDesignerFilter">
@@ -1017,10 +1018,8 @@ input[type="text"] {
 						</div>
 						<div v-else v-for="[director, count] in filteredDirectorsInModal" :key="director"
 							@click="selectedDirector === director ? removeDirectorFilter() : selectDirectorFromModal(director)"
-							@mouseenter="hoveredItem = director"
-							@mouseleave="hoveredItem = null"
-							:class="{ 'hovered': hoveredItem === director }"
-							class="director-item">
+							@mouseenter="hoveredItem = director" @mouseleave="hoveredItem = null"
+							:class="{ 'hovered': hoveredItem === director }" class="director-item">
 							{{ director }} <span class="count">({{ count }})</span>
 							<span v-if="selectedDirector === director" class="remove-filter"
 								@click.stop="removeDirectorFilter">
@@ -1047,11 +1046,9 @@ input[type="text"] {
 							نتیجه‌ای وجود ندارد
 						</div>
 						<div v-else v-for="[letter, count] in filteredLettersInModal" :key="letter"
-							 @click="selectedLetter === letter ? removeLetterFilter() : selectLetterFromModal(letter)"
-							@mouseenter="hoveredItem = letter"
-							@mouseleave="hoveredItem = null"
-							:class="{ 'hovered': hoveredItem === letter }"
-							class="letter-item">
+							@click="selectedLetter === letter ? removeLetterFilter() : selectLetterFromModal(letter)"
+							@mouseenter="hoveredItem = letter" @mouseleave="hoveredItem = null"
+							:class="{ 'hovered': hoveredItem === letter }" class="letter-item">
 							{{ letter }} <span class="count">({{ count }})</span>
 							<span v-if="selectedLetter === letter" class="remove-filter"
 								@click.stop="removeLetterFilter">
@@ -1162,7 +1159,8 @@ input[type="text"] {
 					<label>
 						<span class="material-symbols-rounded tooltip">
 							info
-							<span class="tooltiptext" v-if="posterMode">مخفی کردن تصاویری که ممکن است نامناسب باشند</span>
+							<span class="tooltiptext" v-if="posterMode">مخفی کردن تصاویری که ممکن است نامناسب
+								باشند</span>
 						</span>
 					</label>
 				</div>
@@ -1205,8 +1203,8 @@ input[type="text"] {
 						</template>
 						<template v-else>
 							<img :src="getItemUrl(item, posterMode, pixelatedEffect)"
-								:key="getItemUrl(item, posterMode, pixelatedEffect)"
-								:alt="item.filmLabel" class="item-image"
+								:key="getItemUrl(item, posterMode, pixelatedEffect)" :alt="item.filmLabel"
+								class="item-image"
 								:class="{ pixelated: pixelatedEffect && !item.logo && item.isNsfw && posterMode }" />
 						</template>
 					</div>
@@ -1228,19 +1226,23 @@ input[type="text"] {
 
 				<div v-if="item.designers && item.designers.length > 0" class="item-designer">
 					<span class="mobile-only">
-						<span class="material-symbols-rounded" style="margin-left: 5px; top: 8px; position: relative;">person_edit</span>
+						<span class="material-symbols-rounded"
+							style="margin-left: 5px; top: 8px; position: relative;">person_edit</span>
 					</span>
 					<span class="desktop-only">{{ item.designers.length === 1 ? 'طراح: ' : 'طراحان: ' }}</span>
 					<span v-for="(designer, index) in item.designers" :key="index">
 						<a href="#" @click.prevent="selectDesigner(designer.label)">{{ designer.label }}</a>
 						<span class="item-links">
 							<a :href="'https://www.wikidata.org/wiki/' + designer.id" target="_blank">
-								<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg" class="linkIcon">
+								<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg"
+									class="linkIcon">
 							</a>
 							<template v-if="designer.faWikipediaLink">
-							<a :href="'https://fa.wikipedia.org/wiki/' + designer.faWikipediaLink.replaceAll(' ', '_')" target="_blank">
-								<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" class="linkIcon">
-							</a>
+								<a :href="'https://fa.wikipedia.org/wiki/' + designer.faWikipediaLink.replaceAll(' ', '_')"
+									target="_blank">
+									<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg"
+										class="linkIcon">
+								</a>
 							</template>
 						</span>
 						<br v-if="index < item.designers.length - 1">
@@ -1248,7 +1250,8 @@ input[type="text"] {
 				</div>
 				<div id="film-links" class="item-links">
 					<a v-if="item.imdbID" :href="'https://www.imdb.com/title/' + item.imdbID" target="_blank">
-						<img src="https://upload.wikimedia.org/wikipedia/commons/5/53/IMDB_-_SuperTinyIcons.svg" class="linkIcon">
+						<img src="https://upload.wikimedia.org/wikipedia/commons/5/53/IMDB_-_SuperTinyIcons.svg"
+							class="linkIcon">
 					</a>
 					<a v-if="item.film" :href="'https://www.wikidata.org/wiki/' + item.film" target="_blank">
 						<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg" class="linkIcon">
@@ -1256,7 +1259,8 @@ input[type="text"] {
 					<a v-if="item.faWikipediaLink"
 						:href="'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_')"
 						target="_blank">
-						<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" class="linkIcon">
+						<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg"
+							class="linkIcon">
 					</a>
 				</div>
 			</div>
@@ -1492,34 +1496,34 @@ const setup = () => {
 
 	const filteredItems = computed(() => {
 		let results = items.value;
-		
+
 		if (searchTerm.value.length) {
 			const modifiedSearchTerm = searchTerm.value
-			.split('')
-			.map(char => (combineSimilarChars.value ? (similarCharsMapping[char] || char) : char))
-			.join('');
+				.split('')
+				.map(char => (combineSimilarChars.value ? (similarCharsMapping[char] || char) : char))
+				.join('');
 			const regex = new RegExp(modifiedSearchTerm, 'i');
 			results = results.filter(item => regex.test(item.filmLabel) || regex.test(item.aliases || ''));
 		}
-		
+
 		if (selectedYear.value) {
 			results = results.filter(item => toPersianYear(item.date) === selectedYear.value);
 		}
-		
+
 		if (selectedDesigner.value) {
-			results = results.filter(item => 
-			item.designers && item.designers.some(designer => designer.label === selectedDesigner.value)
+			results = results.filter(item =>
+				item.designers && item.designers.some(designer => designer.label === selectedDesigner.value)
 			);
 		}
-		
+
 		if (selectedDirector.value) {
 			results = results.filter(item => item.directorLabel === selectedDirector.value);
 		}
-		
+
 		if (selectedLetter.value) {
 			results = results.filter(item => item.filmLabel.startsWith(selectedLetter.value));
 		}
-		
+
 		if (sortOrder.value === 'alphabetical') {
 			results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, 'fa'));
 		} else if (sortOrder.value === 'year') {
@@ -1527,7 +1531,7 @@ const setup = () => {
 		} else if (sortOrder.value === 'random') {
 			results = results.slice().sort(() => Math.random() - 0.5);
 		}
-		
+
 		return results;
 	});
 
@@ -1663,7 +1667,6 @@ const setup = () => {
 	const removeYearFilter = () => {
 		selectedYear.value = '';
 		hoveredItem.value = null;
-
 	};
 
 	const removeDesignerFilter = () => {
@@ -1690,9 +1693,7 @@ const setup = () => {
 		}
 	};
 
-	const hideSidebar = () => {
-		sidebarVisible.value = false;
-	};
+	const hideSidebar = () => sidebarVisible.value = false;
 
 	onMounted(() => window.addEventListener('popstate', handlePopState));
 
@@ -1813,34 +1814,31 @@ const setup = () => {
 	const filteredItemsLength = computed(() => {
 		return filteredItems.value.length.toLocaleString('fa', { useGrouping: false });
 	});
-	
+
 	const itemsLength = computed(() => {
 		return items.value.length.toLocaleString('fa', { useGrouping: false });
 	});
-	
+
 	const uniqueFilmCount = computed(() => {
 		const uniqueFilms = new Set(filteredItems.value.map(item => item.film));
 		return uniqueFilms.size.toLocaleString('fa', { useGrouping: false });
 	});
-
 
 	const getPosterUrl = (name, hash, width) => {
 		if (!name) return 'https://upload.wikimedia.org/wikipedia/commons/8/82/NoImageEn.svg';
 		return `https://upload.wikimedia.org/wikipedia/commons/thumb/${hash[0]}/${hash}/${name}/${width}px-${name}`;
 	};
 
-	const getLogoUrl = item => item.logo ? getPosterUrl(item.logo, item.logoHash, 600) : null;
 	const getItemUrl = (item, posterMode, pixelatedEffect) => {
 		if (!posterMode && !item.logo) return null;
 		if (posterMode && pixelatedEffect && item.isNsfw && item.logo) return getPosterUrl(item.logo, item.logoHash, 600);
 		return posterMode ? getPosterUrl(item.poster, item.posterHash, 600) : getPosterUrl(item.logo, item.logoHash, 600);
 	}
-	const getImageLink = item => posterMode.value ? item.poster : item.logo;
 
 	return {
 		showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items,
 		getItemUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear,
-		availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears,
+		availableYears, availableDesigners, selectedDesigner, filteredYears,
 		filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors,
 		selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode,
 		toggleOptions, isOptionsCollapsed, collapseIconClass, filteredDesignersInModal, designerSearchQuery,
