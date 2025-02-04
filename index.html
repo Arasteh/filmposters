@@ -1204,8 +1204,9 @@ input[type="text"] {
 							</div>
 						</template>
 						<template v-else>
-							<img :src="getImageUrl(item)" :key="getImageUrl(item)" :alt="item.filmLabel"
-								class="item-image"
+							<img :src="getItemUrl(item, posterMode, pixelatedEffect)"
+								:key="getItemUrl(item, posterMode, pixelatedEffect)"
+								:alt="item.filmLabel" class="item-image"
 								:class="{ pixelated: pixelatedEffect && !item.logo && item.isNsfw && posterMode }" />
 						</template>
 					</div>
@@ -1829,16 +1830,16 @@ const setup = () => {
 	};
 
 	const getLogoUrl = item => item.logo ? getPosterUrl(item.logo, item.logoHash, 600) : null;
-	const getImageUrl = (item) => {
-		if (!posterMode.value && !item.logo) return null;
-		if (posterMode.value && item.isNsfw && item.logo) return getPosterUrl(item.logo, item.logoHash, 600);
-		return posterMode.value ? getPosterUrl(item.poster, item.posterHash, 600) : getPosterUrl(item.logo, item.logoHash, 600);
+	const getItemUrl = (item, posterMode, pixelatedEffect) => {
+		if (!posterMode && !item.logo) return null;
+		if (posterMode && pixelatedEffect && item.isNsfw && item.logo) return getPosterUrl(item.logo, item.logoHash, 600);
+		return posterMode ? getPosterUrl(item.poster, item.posterHash, 600) : getPosterUrl(item.logo, item.logoHash, 600);
 	}
 	const getImageLink = item => posterMode.value ? item.poster : item.logo;
 
 	return {
 		showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items,
-		getImageUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear,
+		getItemUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear,
 		availableYears, availableDesigners, selectedDesigner, getImageLink, filteredYears,
 		filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors,
 		selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode,
