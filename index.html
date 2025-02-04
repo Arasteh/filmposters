@@ -1535,7 +1535,7 @@ const setup = () => {
 		return results;
 	});
 
-	watch(designerQuery, (newValue) => {
+	watch(designerQuery, newValue => {
 		if (!newValue) {
 			selectedDesigner.value = '';
 		}
@@ -1710,18 +1710,8 @@ const setup = () => {
 	const clearSearchTerm = () => searchTerm.value = '';
 	const clearDesignerSearchQuery = () => designerSearchQuery.value = '';
 	const clearDirectorSearchQuery = () => directorSearchQuery.value = '';
-	const convertPersianToEnglishNumbers = str => {
-		const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-		const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-		return str.split('').map(char => {
-			const index = persianNumbers.indexOf(char);
-			return index !== -1 ? englishNumbers[index] : char;
-		}).join('');
-	}
 
-	const toggleCollapse = section => {
-		isCollapsed.value[section] = !isCollapsed.value[section];
-	};
+	const toggleCollapse = section => isCollapsed.value[section] = !isCollapsed.value[section];
 
 	const lightboxItem = ref(undefined);
 	const lightboxImage = ref(undefined);
