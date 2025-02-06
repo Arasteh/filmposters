@@ -1350,7 +1350,7 @@ const setup = () => {
 				if (!film.labels.fa) {
 					console.log(film.id + ' doesn\'t have Persian label!');
 				}
-				item.filmLabel = film.labels.fa || film.labels.en;
+				item.filmLabel = film.labels.fa || film.labels.en || '';
 				item.aliases = film.aliases?.fa?.join(',') ?? '';
 				item.date = film.date
 					.map(x => x.replace(/^\+/, '')
