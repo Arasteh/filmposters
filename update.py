@@ -74,8 +74,10 @@ films = {
         'logos': [image_summary(logo) for logo in item['claims'].get('P154', [])],
     }
     for item in wikidata_items(
-        x['qid']['value'].split('entity/')[1]
-        for x in queryResult.json()['results']['bindings']
+        [
+            x['qid']['value'].split('entity/')[1]
+            for x in (queryResult.json()['results']['bindings'])
+        ] + ['Q6054055', 'Q6082474', 'Q87193819', 'Q24905261', 'Q131455075', 'Q88384815']
     )
 }
 

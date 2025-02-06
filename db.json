@@ -3512,6 +3512,13 @@
           "designers": [
             "Q10294036"
           ]
+        },
+        {
+          "image": "ستارخان_4_(پوستر).jpg",
+          "hash": "58",
+          "designers": [
+            "Q10294036"
+          ]
         }
       ],
       "logos": [
@@ -7359,6 +7366,45 @@
       ],
       "logos": []
     },
+    "Q6054055": {
+      "id": "Q6054055",
+      "sitelinks": {},
+      "labels": {
+        "en": "Vatan ve Namık Kemal",
+        "fa": "وطن"
+      },
+      "aliases": {},
+      "directors": [
+        "Q6097847"
+      ],
+      "date": [
+        "+1969-00-00T00:00:00Z"
+      ],
+      "imdb": [
+        "tt0183961"
+      ],
+      "posters": [],
+      "logos": []
+    },
+    "Q6082474": {
+      "id": "Q6082474",
+      "sitelinks": {},
+      "labels": {
+        "en": "Koroğlu"
+      },
+      "aliases": {},
+      "directors": [
+        "Q758354"
+      ],
+      "date": [
+        "+1968-00-00T00:00:00Z"
+      ],
+      "imdb": [
+        "tt0183368"
+      ],
+      "posters": [],
+      "logos": []
+    },
     "Q6417083": {
       "id": "Q6417083",
       "sitelinks": {
@@ -10226,6 +10272,13 @@
         {
           "image": "یک_قدم_تا_مرگ_3_(پوستر).jpg",
           "hash": "9d",
+          "designers": [
+            "Q131377764"
+          ]
+        },
+        {
+          "image": "یک_قدم_تا_مرگ_4_(پوستر).jpg",
+          "hash": "7b",
           "designers": [
             "Q131377764"
           ]
@@ -27342,16 +27395,6 @@
           "characteristics": [
             "Q2716583"
           ]
-        },
-        {
-          "image": "رسوایی_(پوستر).jpg",
-          "hash": "fe",
-          "designers": [
-            "Q131377955"
-          ],
-          "characteristics": [
-            "Q2716583"
-          ]
         }
       ],
       "logos": [
@@ -29431,7 +29474,11 @@
       "labels": {
         "fa": "من هم گریه کردم"
       },
-      "aliases": {},
+      "aliases": {
+        "fa": [
+          "منهم گریه کردم"
+        ]
+      },
       "directors": [
         "Q4980507"
       ],
@@ -33924,6 +33971,33 @@
       ],
       "logos": []
     },
+    "Q24905261": {
+      "id": "Q24905261",
+      "sitelinks": {
+        "enwiki": "Naya Andaz"
+      },
+      "labels": {
+        "en": "Naya Andaz",
+        "fa": "دو دوست"
+      },
+      "aliases": {},
+      "directors": [
+        "Q19892283"
+      ],
+      "date": [
+        "+1956-00-00T00:00:00Z"
+      ],
+      "imdb": [
+        "tt0049545"
+      ],
+      "posters": [],
+      "logos": [
+        {
+          "image": "دو_دوست_(لوگو).jpg",
+          "hash": "8b"
+        }
+      ]
+    },
     "Q25432874": {
       "id": "Q25432874",
       "sitelinks": {
@@ -34258,6 +34332,58 @@
           "hash": "48"
         }
       ],
+      "logos": []
+    },
+    "Q87193819": {
+      "id": "Q87193819",
+      "sitelinks": {},
+      "labels": {
+        "en": "Malkoçoğlu Krallara Karşı"
+      },
+      "aliases": {},
+      "directors": [
+        "Q6074254",
+        "Q7312282"
+      ],
+      "date": [
+        "+1967-00-00T00:00:00Z"
+      ],
+      "imdb": [
+        "tt0289997"
+      ],
+      "posters": [
+        {
+          "image": "حمله_شجاعان_(پوستر).jpg",
+          "hash": "c5",
+          "designers": [
+            "Q131377955"
+          ]
+        }
+      ],
+      "logos": [
+        {
+          "image": "حمله_شجاعان_(لوگو).jpg",
+          "hash": "5b"
+        }
+      ]
+    },
+    "Q88384815": {
+      "id": "Q88384815",
+      "sitelinks": {},
+      "labels": {
+        "en": "Bir Çuval Para"
+      },
+      "aliases": {},
+      "directors": [
+        "Q61512310"
+      ],
+      "date": [
+        "+1970-00-00T00:00:00Z"
+      ],
+      "imdb": [
+        "tt0336049"
+      ],
+      "posters": [],
       "logos": []
     },
     "Q107740043": {
@@ -34671,7 +34797,11 @@
         "en": "Liberty, American Style",
         "fa": "آزادی امریکائی"
       },
-      "aliases": {},
+      "aliases": {
+        "fa": [
+          "آزادی آمریکایی"
+        ]
+      },
       "directors": [
         "Q5959066"
       ],
@@ -34909,6 +35039,31 @@
         {
           "image": "حسنی_(لوگو).jpg",
           "hash": "64"
+        }
+      ]
+    },
+    "Q131455075": {
+      "id": "Q131455075",
+      "sitelinks": {},
+      "labels": {
+        "en": "House on the Sand (1962 film)",
+        "fa": "خانه‌ای بر روی شن"
+      },
+      "aliases": {},
+      "directors": [
+        "Q16052006"
+      ],
+      "date": [
+        "+1962-06-00T00:00:00Z"
+      ],
+      "imdb": [
+        "tt0196624"
+      ],
+      "posters": [],
+      "logos": [
+        {
+          "image": "خانه_ای_بر_روی_شن_(لوگو).jpg",
+          "hash": "12"
         }
       ]
     },
@@ -35346,26 +35501,27 @@
       ],
       "logos": []
     },
-    "Q131626207": {
-      "id": "Q131626207",
+    "Q131606792": {
+      "id": "Q131606792",
       "sitelinks": {},
       "labels": {
-        "en": "Black Scarf",
-        "fa": "شال سیاه"
+        "en": "The Mouse & Cat",
+        "fa": "موش و گربه"
       },
       "aliases": {},
-      "directors": [],
-      "date": [
-        "+2024-00-00T00:00:00Z"
+      "directors": [
+        "Q131606809"
       ],
+      "date": [],
       "imdb": [],
       "posters": [
         {
-          "image": "Poster_for_short_film_Black_Scarf.jpg",
-          "hash": "b0",
-          "designers": [
-            "Q122686095"
-          ]
+          "image": "موش_و_گربه_(2)_(پوستر).jpg",
+          "hash": "18"
+        },
+        {
+          "image": "موش_و_گربه_(پوستر).jpg",
+          "hash": "cd"
         }
       ],
       "logos": []
@@ -35419,6 +35575,29 @@
           "hash": "e1",
           "designers": [
             "Q131905093"
+          ]
+        }
+      ],
+      "logos": []
+    },
+    "Q132154193": {
+      "id": "Q132154193",
+      "sitelinks": {},
+      "labels": {
+        "fa": "نقلی و گل‌های آفتابگردان"
+      },
+      "aliases": {},
+      "directors": [],
+      "date": [
+        "+1993-00-00T00:00:00Z"
+      ],
+      "imdb": [],
+      "posters": [
+        {
+          "image": "نقلی_و_گل_های_افتاب_گردان_(پوستر).jpg",
+          "hash": "a4",
+          "designers": [
+            "Q132154201"
           ]
         }
       ],
@@ -35567,6 +35746,17 @@
       "labels": {
         "en": "Ardeshir Irani",
         "fa": "اردشیر ایرانی"
+      }
+    },
+    "Q758354": {
+      "id": "Q758354",
+      "sitelinks": {
+        "enwiki": "Atıf Yılmaz",
+        "fawiki": "عاطیف ییلماز"
+      },
+      "labels": {
+        "en": "Atıf Yılmaz",
+        "fa": "عاطیف ییلماز"
       }
     },
     "Q766732": {
@@ -37074,6 +37264,13 @@
         "en": "Ertem Göreç"
       }
     },
+    "Q6097847": {
+      "id": "Q6097847",
+      "sitelinks": {},
+      "labels": {
+        "en": "Duygu Sağıroğlu"
+      }
+    },
     "Q6101954": {
       "id": "Q6101954",
       "sitelinks": {
@@ -38395,6 +38592,15 @@
         "fa": "نیکزاد نجومی"
       }
     },
+    "Q19892283": {
+      "id": "Q19892283",
+      "sitelinks": {
+        "enwiki": "K. Amarnath"
+      },
+      "labels": {
+        "en": "K. Amarnath"
+      }
+    },
     "Q20109479": {
       "id": "Q20109479",
       "sitelinks": {
@@ -38880,6 +39086,13 @@
         "fa": "عبدالله غیابی"
       }
     },
+    "Q61512310": {
+      "id": "Q61512310",
+      "sitelinks": {},
+      "labels": {
+        "en": "Yücel Uçanoglu"
+      }
+    },
     "Q61994167": {
       "id": "Q61994167",
       "sitelinks": {
@@ -38980,14 +39193,6 @@
       "labels": {
         "en": "Reza Nasirani",
         "fa": "رضا نصیرانی"
-      }
-    },
-    "Q122686095": {
-      "id": "Q122686095",
-      "sitelinks": {},
-      "labels": {
-        "en": "Farid Barari",
-        "fa": "فرید براری"
       }
     },
     "Q124375048": {
@@ -39338,6 +39543,14 @@
       "labels": {
         "en": "Shiva",
         "fa": "شیوا"
+      }
+    },
+    "Q131606809": {
+      "id": "Q131606809",
+      "sitelinks": {},
+      "labels": {
+        "en": "Vahik Martirosyan",
+        "fa": "واهیک مارتیروسیان"
       }
     },
     "Q131689799": {
@@ -39738,6 +39951,14 @@
       "labels": {
         "en": "Fariba Eyvaz-Zadeh",
         "fa": "فریبا عیوض‌زاده"
+      }
+    },
+    "Q132154201": {
+      "id": "Q132154201",
+      "sitelinks": {},
+      "labels": {
+        "en": "Simin Sepehri",
+        "fa": "سیمین سپهری"
       }
     }
   }
