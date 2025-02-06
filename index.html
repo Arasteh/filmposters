@@ -1347,7 +1347,10 @@ const setup = () => {
 			return film.posters.map((poster, i) => {
 				const item = {};
 				item.film = film.id;
-				item.filmLabel = film.labels.fa;
+				if (!film.labels.fa) {
+					console.log(film.id + ' does\'nt have Persian label!');
+				}
+				item.filmLabel = film.labels.fa || film.labels.en;
 				item.aliases = film.aliases?.fa?.join(',') ?? '';
 				item.date = film.date
 					.map(x => x.replace(/^\+/, '')
@@ -1563,7 +1566,7 @@ const setup = () => {
 	});
 
 	const filteredLettersInModal = computed(() => {
-		const groups = Object.groupBy(filteredItems.value, item => item.filmLabel.charAt(0));
+		const groups = Object.groupBy(filteredItems.value, item => item.filmLabel[0]);
 
 		const letters = persianAlphabet
 			.filter(letter => groups[letter])
