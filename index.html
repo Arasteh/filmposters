@@ -1776,8 +1776,8 @@ const setup = () => {
 
 	const getItemUrl = (item, posterMode, pixelatedEffect) => {
 		if (!posterMode && !item.logo) return null;
-		if (posterMode && pixelatedEffect && item.isNsfw && item.logo) return getPosterUrl(item.logo, item.logoHash, 600);
-		return posterMode ? getPosterUrl(item.poster, item.posterHash, 600) : getPosterUrl(item.logo, item.logoHash, 600);
+		if (posterMode && pixelatedEffect && item.isNsfw && item.logo) return getPosterUrl(item.logo, item.logoHash, 300);
+		return posterMode ? getPosterUrl(item.poster, item.posterHash, 300) : getPosterUrl(item.logo, item.logoHash, 300);
 	}
 
 	return {
