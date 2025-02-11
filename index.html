@@ -1186,13 +1186,13 @@ input[type="text"] {
 							<span class="item-links">
 								<a :href="'https://www.wikidata.org/wiki/' + designer.id" target="_blank">
 									<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg"
-										class="linkIcon">
+										alt="ویکی‌داده" class="linkIcon">
 								</a>
 								<template v-if="designer.faWikipediaLink">
 									<a :href="'https://fa.wikipedia.org/wiki/' + designer.faWikipediaLink.replaceAll(' ', '_')"
 										target="_blank">
 										<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg"
-											class="linkIcon">
+											alt="ویکی‌پدیا" class="linkIcon">
 									</a>
 								</template>
 							</span>
@@ -1203,16 +1203,16 @@ input[type="text"] {
 				<div id="film-links" class="item-links">
 					<a v-if="item.imdbID" :href="'https://www.imdb.com/title/' + item.imdbID" target="_blank">
 						<img src="https://upload.wikimedia.org/wikipedia/commons/5/53/IMDB_-_SuperTinyIcons.svg"
-							class="linkIcon">
+							alt="IMDb" class="linkIcon">
 					</a>
 					<a v-if="item.film" :href="'https://www.wikidata.org/wiki/' + item.film" target="_blank">
-						<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg" class="linkIcon">
+						<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg" alt="ویکی‌داده" class="linkIcon">
 					</a>
 					<a v-if="item.faWikipediaLink"
 						:href="'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_')"
 						target="_blank">
 						<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg"
-							class="linkIcon">
+							alt="ویکی‌پدیا" class="linkIcon">
 					</a>
 				</div>
 			</div>
