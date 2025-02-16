@@ -1045,6 +1045,14 @@ input[type="text"] {
 				</span>
 			</button>
 		</a>
+		<button class="lightbox-button" style="left: 20px; top: 50%; transform: translateY(-50%);" @click.stop="prevImage">
+			prevImage
+		</button>
+		<button class="lightbox-button" style="right: 20px; top: 50%; transform: translateY(-50%);" @click.stop="nextImage">
+			nextImage
+		</button>
+
+		
 	</div>
 
 	<div id="main-content">
@@ -1712,6 +1720,40 @@ const setup = () => {
 		openLightbox(item);
 	};
 
+	const prevImage = () => {
+		const currentIndex = filteredItems.value.findIndex(item => item === lightboxItem.value);
+		if (currentIndex > 0) {
+			lightboxItem.value = filteredItems.value[currentIndex - 1];
+			lightboxImage.value = posterMode.value ? getPosterUrl(lightboxItem.value.poster, lightboxItem.value.posterHash, 1200) : getPosterUrl(lightboxItem.value.logo, lightboxItem.value.logoHash, 1200);
+		}
+	};
+	
+	const nextImage = () => {
+		const currentIndex = filteredItems.value.findIndex(item => item === lightboxItem.value);
+		if (currentIndex < filteredItems.value.length - 1) {
+			lightboxItem.value = filteredItems.value[currentIndex + 1];
+			lightboxImage.value = posterMode.value ? getPosterUrl(lightboxItem.value.poster, lightboxItem.value.posterHash, 1200) : getPosterUrl(lightboxItem.value.logo, lightboxItem.value.logoHash, 1200);
+	}
+	};
+
+	onMounted(() => {
+		window.addEventListener('keydown', handleKeyDown);
+	});
+	
+	onUnmounted(() => {
+		window.removeEventListener('keydown', handleKeyDown);
+	});
+	
+	const handleKeyDown = (event) => {
+		if (lightboxItem.value) {
+			if (event.key === 'ArrowLeft') {
+				prevImage();
+			} else if (event.key === 'ArrowRight') {
+				nextImage();
+			}
+		}
+	};
+
 	const downloadLink = item => {
 		const name = posterMode.value ? item.poster : item.logo;
 		if (!name) return 'https://upload.wikimedia.org/wikipedia/commons/8/82/NoImageEn.svg';
@@ -1794,7 +1836,7 @@ const setup = () => {
 		sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm, lightboxItem,
 		lightboxImage, openLightbox, closeLightbox, downloadLink, handleImageClick,
 		clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading,
-		handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength
+		handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage
 	};
 }
 
