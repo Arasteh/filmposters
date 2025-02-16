@@ -283,7 +283,6 @@ input[type="text"] {
 
 .lightbox-button {
 	position: absolute;
-	right: 20px;
 	background: none;
 	border: none;
 	padding: 28px 30px;
@@ -1033,13 +1032,13 @@ input[type="text"] {
 				</circle>
 			</svg>
 		</div>
-		<button class="lightbox-button" @click.stop="closeLightbox" style="top: 20px">
+		<button class="lightbox-button" @click.stop="closeLightbox" style="top: 20px; right: 20px">
 			<span class="material-symbols-rounded" style="font-size: xx-large;">
 				close
 			</span>
 		</button>
 		<a :href="downloadLink(lightboxItem)" aria-label="دریافت پوستر" target="_blank">
-			<button class="lightbox-button" style="bottom: 20px">
+			<button class="lightbox-button" style="bottom: 20px; right: 20px">
 				<span class="material-symbols-rounded" style="font-size: xx-large;">
 					download
 				</span>
