@@ -1721,18 +1721,30 @@ const setup = () => {
 
 	const prevImage = () => {
 		const currentIndex = filteredItems.value.findIndex(item => item === lightboxItem.value);
-		if (currentIndex > 0) {
-			lightboxItem.value = filteredItems.value[currentIndex - 1];
-			lightboxImage.value = posterMode.value ? getPosterUrl(lightboxItem.value.poster, lightboxItem.value.posterHash, 1200) : getPosterUrl(lightboxItem.value.logo, lightboxItem.value.logoHash, 1200);
+		let newIndex;
+		if (currentIndex <= 0) {
+			newIndex = filteredItems.value.length - 1;
+		} else {
+			newIndex = currentIndex - 1;
 		}
+		lightboxItem.value = filteredItems.value[newIndex];
+		lightboxImage.value = posterMode.value 
+			? getPosterUrl(lightboxItem.value.poster, lightboxItem.value.posterHash, 1200) 
+			: getPosterUrl(lightboxItem.value.logo, lightboxItem.value.logoHash, 1200);
 	};
 	
 	const nextImage = () => {
 		const currentIndex = filteredItems.value.findIndex(item => item === lightboxItem.value);
-		if (currentIndex < filteredItems.value.length - 1) {
-			lightboxItem.value = filteredItems.value[currentIndex + 1];
-			lightboxImage.value = posterMode.value ? getPosterUrl(lightboxItem.value.poster, lightboxItem.value.posterHash, 1200) : getPosterUrl(lightboxItem.value.logo, lightboxItem.value.logoHash, 1200);
-	}
+		let newIndex;
+		if (currentIndex >= filteredItems.value.length - 1) {
+			newIndex = 0;
+		} else {
+			newIndex = currentIndex + 1;
+		}
+		lightboxItem.value = filteredItems.value[newIndex];
+		lightboxImage.value = posterMode.value 
+			? getPosterUrl(lightboxItem.value.poster, lightboxItem.value.posterHash, 1200) 
+			: getPosterUrl(lightboxItem.value.logo, lightboxItem.value.logoHash, 1200);
 	};
 
 	onMounted(() => {
