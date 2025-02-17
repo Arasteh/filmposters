@@ -1725,6 +1725,9 @@ const setup = () => {
 		lightboxImage.value = posterMode.value ? getPosterUrl(item.poster, item.posterHash, 1200) : getPosterUrl(item.logo, item.logoHash, 1200);
 		lightboxItem.value = item;
 
+		const currentIndex = filteredItems.value.findIndex(i => i === item);
+		preloadImages(currentIndex);
+
 		setTimeout(() => {
 			isLoading.value = false;
 		}, 1000);
@@ -1764,10 +1767,17 @@ const setup = () => {
 		} else {
 			newIndex = currentIndex - 1;
 		}
+		isLoading.value = true;
 		lightboxItem.value = filteredItems.value[newIndex];
 		lightboxImage.value = posterMode.value 
 			? getPosterUrl(lightboxItem.value.poster, lightboxItem.value.posterHash, 1200) 
 			: getPosterUrl(lightboxItem.value.logo, lightboxItem.value.logoHash, 1200);
+		
+		preloadImages(newIndex);
+		
+		setTimeout(() => {
+			isLoading.value = false;
+		}, 1000);
 	};
 	
 	const nextImage = () => {
@@ -1778,10 +1788,17 @@ const setup = () => {
 		} else {
 			newIndex = currentIndex + 1;
 		}
+		isLoading.value = true;
 		lightboxItem.value = filteredItems.value[newIndex];
 		lightboxImage.value = posterMode.value 
 			? getPosterUrl(lightboxItem.value.poster, lightboxItem.value.posterHash, 1200) 
 			: getPosterUrl(lightboxItem.value.logo, lightboxItem.value.logoHash, 1200);
+		
+		preloadImages(newIndex);
+		
+		setTimeout(() => {
+			isLoading.value = false;
+		}, 1000);
 	};
 
 	onMounted(() => {
@@ -1799,6 +1816,28 @@ const setup = () => {
 			} else if (event.key === 'ArrowRight') {
 				nextImage();
 			}
+		}
+	};
+
+	const preloadedImages = ref({});
+	const preloadNext = ref(null);
+	const preloadPrev = ref(null);
+	
+	const preloadImages = (currentIndex) => {
+		const nextIndex = currentIndex + 1 < filteredItems.value.length ? currentIndex + 1 : 0;
+		const prevIndex = currentIndex - 1 >= 0 ? currentIndex - 1 : filteredItems.value.length - 1;
+		
+		const nextItem = filteredItems.value[nextIndex];
+		const prevItem = filteredItems.value[prevIndex];
+		
+		if (nextItem) {
+			preloadNext.value = new Image();
+			preloadNext.value.src = posterMode.value ? getPosterUrl(nextItem.poster, nextItem.posterHash, 1200) : getPosterUrl(nextItem.logo, nextItem.logoHash, 1200);
+		}
+		
+		if (prevItem) {
+			preloadPrev.value = new Image();
+			preloadPrev.value.src = posterMode.value ? getPosterUrl(prevItem.poster, prevItem.posterHash, 1200) : getPosterUrl(prevItem.logo, prevItem.logoHash, 1200);
 		}
 	};
 
