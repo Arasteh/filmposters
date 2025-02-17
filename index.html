@@ -1045,7 +1045,7 @@ input[type="text"] {
 				(بدون لوگو)
 			</div>
 		</template>
-		<div class="lightbox-info" v-if="lightboxItem">
+		<div class="lightbox-info desktop-only" v-if="lightboxItem">
 			<h2>{{ lightboxItem.filmLabel }}</h2>
 			<p>سال تولید: {{ toPersianYear(lightboxItem.date) }}</p>
 			<p v-if="lightboxItem.directorLabel">کارگردان: {{ lightboxItem.directorLabel }}</p>
