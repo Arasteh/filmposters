@@ -5410,7 +5410,7 @@
       },
       "labels": {
         "en": "Mother",
-        "fa": "مادر (فیلم ۱۳۳۱)"
+        "fa": "مادر"
       },
       "aliases": {},
       "directors": [
@@ -8069,7 +8069,7 @@
       },
       "labels": {
         "en": "Scent of Wheat",
-        "fa": "بوی گندم (فیلم)"
+        "fa": "بوی گندم"
       },
       "aliases": {},
       "directors": [
@@ -33936,7 +33936,7 @@
       },
       "labels": {
         "en": "Awaited",
-        "fa": "چشم به راه (فیلم)"
+        "fa": "چشم‌به‌راه"
       },
       "aliases": {
         "en": [
@@ -33944,6 +33944,9 @@
           "Eyes to eyes",
           "Cheshm berah",
           "Kept Waiting"
+        ],
+        "fa": [
+          "چشم براه"
         ]
       },
       "directors": [
@@ -34055,11 +34058,14 @@
       },
       "labels": {
         "en": "Return to Life",
-        "fa": "بازگشت به زندگی (فیلم)"
+        "fa": "بازگشت به زندگی"
       },
       "aliases": {
         "en": [
           "Bazgasht be zendegi"
+        ],
+        "fa": [
+          "بازگشت بزندگی"
         ]
       },
       "directors": [
@@ -34160,7 +34166,7 @@
         "fawiki": "بهلول (فیلم)"
       },
       "labels": {
-        "fa": "بهلول (فیلم)"
+        "fa": "بهلول"
       },
       "aliases": {},
       "directors": [
@@ -34601,7 +34607,7 @@
       },
       "labels": {
         "en": "Murad",
-        "fa": "مراد (فیلم)"
+        "fa": "مراد"
       },
       "aliases": {
         "en": [
