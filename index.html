@@ -1920,6 +1920,8 @@ const setup = () => {
 		return 'https://commons.wikimedia.org/wiki/File:' + (posterMode ? item.poster : item.logo);
 	};
 
+	document.onkeydown = event => event.keyCode === 27 && closeLightbox();
+
 	return {
 		showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items,
 		getItemUrl, getCommonsUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear,
