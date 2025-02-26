@@ -1268,666 +1268,669 @@ input[type="text"] {
 </div>
 
 <script>
-const setup = () => {
-	const { ref, computed, watch, onMounted, nextTick, onUnmounted } = Vue;
+Vue.createApp({ setup: () => {
 
-	const darkMode = ref(false);
-	const toggleDarkMode = () => darkMode.value = !darkMode.value;
-	const isShowMore = ref(false);
-	const showMore = () => isShowMore.value = true;
 
-	const designerQuery = ref('');
-	const isOptionsCollapsed = ref(true);
-	const designerSearchQuery = ref('');
-	const searchTerm = ref('');
-	const selectedYear = ref('');
-	const selectedDesigner = ref('');
-	const selectedDirector = ref('');
-	const selectedLetter = ref('');
-	const posterMode = ref(true);
-	const combineSimilarChars = ref(false);
-	const pixelatedEffect = ref(false);
-	const sortOrder = ref('random');
-	const applyInitialFilters = () => {
-		const urlParams = new URLSearchParams(window.location.search);
-		searchTerm.value = urlParams.get('q') || '';
-		selectedYear.value = urlParams.get('y') || '';
-		selectedDesigner.value = urlParams.get('designer') || '';
-		selectedDirector.value = urlParams.get('director') || '';
-		selectedLetter.value = urlParams.get('letter') || '';
-		posterMode.value = urlParams.get('mode') !== 'logo';
-		combineSimilarChars.value = urlParams.get('similar') === 'true';
-		pixelatedEffect.value = urlParams.get('censor') === 'true' || location.hostname === 'filmposters.ir';
-		sortOrder.value = urlParams.get('sort') || 'random';
-	};
-	applyInitialFilters();
+const { ref, computed, watch, onMounted, nextTick, onUnmounted } = Vue;
 
-	const updateURL = () => {
-		const params = new URLSearchParams();
-		if (searchTerm.value) params.set('q', searchTerm.value);
-		if (selectedYear.value) params.set('y', selectedYear.value);
-		if (selectedDesigner.value) params.set('designer', selectedDesigner.value);
-		if (selectedDirector.value) params.set('director', selectedDirector.value);
-		if (selectedLetter.value) params.set('letter', selectedLetter.value);
-		params.set('mode', posterMode.value ? 'poster' : 'logo');
-		params.set('similar', combineSimilarChars.value ? 'true' : 'false');
-		params.set('censor', pixelatedEffect.value ? 'true' : 'false');
-		params.set('sort', sortOrder.value);
+const darkMode = ref(false);
+const toggleDarkMode = () => darkMode.value = !darkMode.value;
+const isShowMore = ref(false);
+const showMore = () => isShowMore.value = true;
 
-		const newUrl = `${window.location.pathname}?${params.toString()}`;
-		window.history.pushState({}, '', newUrl);
-	};
-	watch([
-		searchTerm, selectedYear, selectedDesigner, selectedDirector,
-		selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder
-	], updateURL);
+const designerQuery = ref('');
+const isOptionsCollapsed = ref(true);
+const designerSearchQuery = ref('');
+const searchTerm = ref('');
+const selectedYear = ref('');
+const selectedDesigner = ref('');
+const selectedDirector = ref('');
+const selectedLetter = ref('');
+const posterMode = ref(true);
+const combineSimilarChars = ref(false);
+const pixelatedEffect = ref(false);
+const sortOrder = ref('random');
+const applyInitialFilters = () => {
+	const urlParams = new URLSearchParams(window.location.search);
+	searchTerm.value = urlParams.get('q') || '';
+	selectedYear.value = urlParams.get('y') || '';
+	selectedDesigner.value = urlParams.get('designer') || '';
+	selectedDirector.value = urlParams.get('director') || '';
+	selectedLetter.value = urlParams.get('letter') || '';
+	posterMode.value = urlParams.get('mode') !== 'logo';
+	combineSimilarChars.value = urlParams.get('similar') === 'true';
+	pixelatedEffect.value = urlParams.get('censor') === 'true' || location.hostname === 'filmposters.ir';
+	sortOrder.value = urlParams.get('sort') || 'random';
+};
+applyInitialFilters();
 
-	const isCollapsed = ref({
-		designers: false,
-		directors: true,
-		years: false,
-		letters: true
-	});
+const updateURL = () => {
+	const params = new URLSearchParams();
+	if (searchTerm.value) params.set('q', searchTerm.value);
+	if (selectedYear.value) params.set('y', selectedYear.value);
+	if (selectedDesigner.value) params.set('designer', selectedDesigner.value);
+	if (selectedDirector.value) params.set('director', selectedDirector.value);
+	if (selectedLetter.value) params.set('letter', selectedLetter.value);
+	params.set('mode', posterMode.value ? 'poster' : 'logo');
+	params.set('similar', combineSimilarChars.value ? 'true' : 'false');
+	params.set('censor', pixelatedEffect.value ? 'true' : 'false');
+	params.set('sort', sortOrder.value);
 
-	const getSectionClass = section => isCollapsed.value[section] ? 'collapsed' : 'expanded';
-	const selectDirectorFromModal = director => selectedDirector.value = director;
-	const selectYearFromModal = year => selectedYear.value = year;
-	const selectLetterFromModal = letter => selectedLetter.value = letter;
-	const togglePosterMode = () => posterMode.value = !posterMode.value;
-	const toggleOptions = () => isOptionsCollapsed.value = !isOptionsCollapsed.value;
-	const collapseIconClass = value => value ? 'rotate-down' : 'rotate-up';
+	const newUrl = `${window.location.pathname}?${params.toString()}`;
+	window.history.pushState({}, '', newUrl);
+};
+watch([
+	searchTerm, selectedYear, selectedDesigner, selectedDirector,
+	selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder
+], updateURL);
 
-	const selectDesigner = designer => {
-		selectedDesigner.value = designer;
-		designerQuery.value = designer;
-		applyFilters();
-	};
+const isCollapsed = ref({
+	designers: false,
+	directors: true,
+	years: false,
+	letters: true
+});
 
-	const applyFilters = () => {
-		results.value = items.value.filter(item => {
-			let matchesDesigner = true;
-			if (selectedDesigner.value) {
-				matchesDesigner = item.designerLabel === selectedDesigner.value;
-			}
-			return matchesDesigner;
-		});
-	};
+const getSectionClass = section => isCollapsed.value[section] ? 'collapsed' : 'expanded';
+const selectDirectorFromModal = director => selectedDirector.value = director;
+const selectYearFromModal = year => selectedYear.value = year;
+const selectLetterFromModal = letter => selectedLetter.value = letter;
+const togglePosterMode = () => posterMode.value = !posterMode.value;
+const toggleOptions = () => isOptionsCollapsed.value = !isOptionsCollapsed.value;
+const collapseIconClass = value => value ? 'rotate-down' : 'rotate-up';
 
-	const resetFilters = () => {
-		searchTerm.value = '';
-		combineSimilarChars.value = false;
-		sortOrder.value = 'random';
-		selectedYear.value = '';
-		selectedDesigner.value = '';
-		selectedDirector.value = '';
-		selectedLetter.value = '';
-	};
+const selectDesigner = designer => {
+	selectedDesigner.value = designer;
+	designerQuery.value = designer;
+	applyFilters();
+};
 
-	const items = ref([]);
-	fetch('db.json').then(x => x.json()).then(data => {
-		const films = Object.values(data.films);
-		uniqueFilmCount.value = films.length;
-		items.value = films.flatMap(film => {
-			return film.posters.map((poster, i) => {
-				const item = {};
-				item.film = film.id;
-				if (!film.labels.fa) {
-					console.log(film.id + ' doesn\'t have Persian label!');
-				}
-				item.filmLabel = film.labels.fa || film.labels.en || '';
-				item.aliases = film.aliases?.fa?.join(',') ?? '';
-				item.date = film.date
-					.map(x => x.replace(/^\+/, '')
-						.replace('-01-01T00:00:00Z', '-03-30T00:00:00Z')
-						.replace('-00-00T00:00:00Z', '-03-30T00:00:00Z')
-						.replace('-00T', '-01T')
-					)
-					.sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0];
-				item.poster = poster.image;
-				item.posterHash = poster.hash;
-				item.isNsfw = poster.characteristics?.includes('Q2716583') ?? false;
-				if (poster.designers?.length ?? 0) {
-					item.designers = poster.designers.map(designerId => {
-						const designer = data.secondary[designerId];
-						return {
-							id: designerId,
-							label: designer.labels.fa,
-							faWikipediaLink: designer.sitelinks?.fawiki
-						};
-					});
-					item.characteristics = poster.characteristics;
-					item.designerLabel = data.secondary[poster.designers[0]].labels.fa;
-					const fawiki = data.secondary[poster.designers[0]].sitelinks.fawiki;
-					if (fawiki) item.designerFaWikipediaLink = fawiki;
-				}
-				if (film.directors.length) {
-					item.director = film.directors[0];
-					item.directorLabel = data.secondary[film.directors[0]].labels.fa;
-				}
-				if (film.imdb.length) {
-					item.imdbID = film.imdb[0];
-				}
-				item.faWikipediaLink = film.sitelinks.fawiki;
-				if (film.logos.length > i) {
-					item.logo = film.logos[i].image;
-					item.logoHash = film.logos[i].hash;
-				}
-				return item;
-			});
-		});
-	});
-
-	const similarCharsMapping = {
-		'آ': '[آاأإ]', 'ا': '[آاأإ]', 'أ': '[آاأإ]', 'إ': '[آاأإ]', 'ط': '[طظ]', 'ظ': '[طظ]', 'ب': '[بپتثنی]', 'پ': '[بپتثنی]',
-		'ت': '[بپتثنی]', 'ث': '[بپتثنی]', 'ن': '[بپتثنی]', 'ی': '[بپتثنی]', 'ج': '[جچحخ]',
-		'چ': '[جچحخ]', 'ح': '[جچحخ]', 'خ': '[جچحخ]', 'د': '[دذ]',
-		'ذ': '[دذ]', 'ر': '[رزژ]', 'ز': '[رزژ]', 'ژ': '[رزژ]', 'س': '[سش]',
-		'ش': '[سش]', 'ص': '[صض]', 'ض': '[صض]', 'ع': '[عغ]',
-		'غ': '[عغ]', 'ف': '[فق]', 'ق': '[فق]', 'ک': '[کگ]',
-		'گ': '[کگ]'
-	};
-
-	const persianAlphabet = [
-		'آ', 'ا', 'ب', 'پ', 'ت', 'ث', 'ج', 'چ', 'ح', 'خ', 'د', 'ذ', 'ر', 'ز', 'ژ', 'س', 'ش', 'ص', 'ض', 'ط', 'ظ', 'ع', 'غ', 'ف', 'ق', 'ک', 'گ', 'ل', 'م', 'ن', 'و', 'ه', 'ی'
-	];
-
-	const toPersianYear = date => {
-		const year = new Date(date).toLocaleDateString('fa').split('/')[0];
-		return year === 'Invalid Date' ? 'نامشخص' : year;
-	};
-
-	const availableYears = computed(() => {
-		const groups = Object.groupBy(items.value, item => toPersianYear(item.date));
-		return Object.keys(groups).sort().map(year => [year, groups[year].length.toLocaleString('fa')]);
-	});
-
-	const availableDesigners = computed(() => {
-		const groups = Object.groupBy(items.value.filter(x => x.designerLabel), item => item.designerLabel);
-		return Object.keys(groups)
-			.map(designer => [designer, groups[designer].length])
-			.sort((a, b) => b[1] - a[1])
-			.map(([designer, count]) => [designer, count.toLocaleString('fa')]);
-	});
-
-	const availableDirectors = computed(() => {
-		const groups = Object.groupBy(items.value.filter(x => x.directorLabel), item => item.directorLabel);
-		return Object.keys(groups)
-			.map(director => [director, groups[director].length])
-			.sort((a, b) => b[1] - a[1])
-			.map(([director, count]) => [director, count.toLocaleString('fa')]);
-	});
-
-	const getItemTitleWithYear = item => {
-		return item.filmLabel + (item.date ? ` (${toPersianYear(item.date)})` : '');
-	};
-
-	const letterCounts = computed(() => {
-		const counts = persianAlphabet.reduce((acc, letter) => {
-			acc[letter] = items.value.filter(item => item.filmLabel.startsWith(letter)).length;
-			return acc;
-		}, {});
-		return counts;
-	});
-
-	const filteredItems = computed(() => {
-		let results = items.value;
-
-		if (searchTerm.value.length) {
-			const modifiedSearchTerm = searchTerm.value
-				.split('')
-				.map(char => (combineSimilarChars.value ? (similarCharsMapping[char] || char) : char))
-				.join('');
-			const regex = new RegExp(modifiedSearchTerm, 'i');
-			results = results.filter(item => regex.test(item.filmLabel) || regex.test(item.aliases || ''));
-		}
-
-		if (selectedYear.value) {
-			results = results.filter(item => toPersianYear(item.date) === selectedYear.value);
-		}
-
+const applyFilters = () => {
+	results.value = items.value.filter(item => {
+		let matchesDesigner = true;
 		if (selectedDesigner.value) {
-			results = results.filter(item =>
-				item.designers && item.designers.some(designer => designer.label === selectedDesigner.value)
-			);
+			matchesDesigner = item.designerLabel === selectedDesigner.value;
 		}
-
-		if (selectedDirector.value) {
-			results = results.filter(item => item.directorLabel === selectedDirector.value);
-		}
-
-		if (selectedLetter.value) {
-			results = results.filter(item => item.filmLabel.startsWith(selectedLetter.value));
-		}
-
-		if (sortOrder.value === 'alphabetical') {
-			results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, 'fa'));
-		} else if (sortOrder.value === 'year') {
-			results = results.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-		} else if (sortOrder.value === 'random') {
-			results = results.slice().sort(() => Math.random() - 0.5);
-		}
-
-		return results;
+		return matchesDesigner;
 	});
+};
 
-	watch(designerQuery, newValue => {
-		if (!newValue) {
-			selectedDesigner.value = '';
-		}
+const resetFilters = () => {
+	searchTerm.value = '';
+	combineSimilarChars.value = false;
+	sortOrder.value = 'random';
+	selectedYear.value = '';
+	selectedDesigner.value = '';
+	selectedDirector.value = '';
+	selectedLetter.value = '';
+};
+
+const items = ref([]);
+fetch('db.json').then(x => x.json()).then(data => {
+	const films = Object.values(data.films);
+	uniqueFilmCount.value = films.length;
+	items.value = films.flatMap(film => {
+		return film.posters.map((poster, i) => {
+			const item = {};
+			item.film = film.id;
+			if (!film.labels.fa) {
+				console.log(film.id + ' doesn\'t have Persian label!');
+			}
+			item.filmLabel = film.labels.fa || film.labels.en || '';
+			item.aliases = film.aliases?.fa?.join(',') ?? '';
+			item.date = film.date
+				.map(x => x.replace(/^\+/, '')
+					.replace('-01-01T00:00:00Z', '-03-30T00:00:00Z')
+					.replace('-00-00T00:00:00Z', '-03-30T00:00:00Z')
+					.replace('-00T', '-01T')
+				)
+				.sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0];
+			item.poster = poster.image;
+			item.posterHash = poster.hash;
+			item.isNsfw = poster.characteristics?.includes('Q2716583') ?? false;
+			if (poster.designers?.length ?? 0) {
+				item.designers = poster.designers.map(designerId => {
+					const designer = data.secondary[designerId];
+					return {
+						id: designerId,
+						label: designer.labels.fa,
+						faWikipediaLink: designer.sitelinks?.fawiki
+					};
+				});
+				item.characteristics = poster.characteristics;
+				item.designerLabel = data.secondary[poster.designers[0]].labels.fa;
+				const fawiki = data.secondary[poster.designers[0]].sitelinks.fawiki;
+				if (fawiki) item.designerFaWikipediaLink = fawiki;
+			}
+			if (film.directors.length) {
+				item.director = film.directors[0];
+				item.directorLabel = data.secondary[film.directors[0]].labels.fa;
+			}
+			if (film.imdb.length) {
+				item.imdbID = film.imdb[0];
+			}
+			item.faWikipediaLink = film.sitelinks.fawiki;
+			if (film.logos.length > i) {
+				item.logo = film.logos[i].image;
+				item.logoHash = film.logos[i].hash;
+			}
+			return item;
+		});
 	});
+});
 
-	const filteredYears = computed(() => {
-		const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
-		return Object.keys(groups)
-			.sort()
-			.map(year => [year, groups[year].length.toLocaleString('fa')]);
-	});
+const similarCharsMapping = {
+	'آ': '[آاأإ]', 'ا': '[آاأإ]', 'أ': '[آاأإ]', 'إ': '[آاأإ]', 'ط': '[طظ]', 'ظ': '[طظ]', 'ب': '[بپتثنی]', 'پ': '[بپتثنی]',
+	'ت': '[بپتثنی]', 'ث': '[بپتثنی]', 'ن': '[بپتثنی]', 'ی': '[بپتثنی]', 'ج': '[جچحخ]',
+	'چ': '[جچحخ]', 'ح': '[جچحخ]', 'خ': '[جچحخ]', 'د': '[دذ]',
+	'ذ': '[دذ]', 'ر': '[رزژ]', 'ز': '[رزژ]', 'ژ': '[رزژ]', 'س': '[سش]',
+	'ش': '[سش]', 'ص': '[صض]', 'ض': '[صض]', 'ع': '[عغ]',
+	'غ': '[عغ]', 'ف': '[فق]', 'ق': '[فق]', 'ک': '[کگ]',
+	'گ': '[کگ]'
+};
 
-	const filteredDesigners = computed(() => {
-		const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
-		return Object.keys(groups)
-			.map(designer => [designer, groups[designer].length])
-			.sort((a, b) => b[1] - a[1])
-			.map(([designer, count]) => [designer, count.toLocaleString('fa')]);
-	});
+const persianAlphabet = [
+	'آ', 'ا', 'ب', 'پ', 'ت', 'ث', 'ج', 'چ', 'ح', 'خ', 'د', 'ذ', 'ر', 'ز', 'ژ', 'س', 'ش', 'ص', 'ض', 'ط', 'ظ', 'ع', 'غ', 'ف', 'ق', 'ک', 'گ', 'ل', 'م', 'ن', 'و', 'ه', 'ی'
+];
 
-	const filteredDirectors = computed(() => {
-		const groups = Object.groupBy(filteredItems.value.filter(x => x.directorLabel), item => item.directorLabel);
-		return Object.keys(groups)
-			.map(director => [director, groups[director].length])
-			.sort((a, b) => b[1] - a[1])
-			.map(([director, count]) => [director, count.toLocaleString('fa')]);
-	});
+const toPersianYear = date => {
+	const year = new Date(date).toLocaleDateString('fa').split('/')[0];
+	return year === 'Invalid Date' ? 'نامشخص' : year;
+};
 
-	const filteredDesignersInModal = computed(() => {
-		const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
-		const designers = Object.keys(groups)
-			.map(designer => [designer, groups[designer].length])
-			.sort((a, b) => b[1] - a[1])
-			.map(([designer, count]) => [designer, count.toLocaleString('fa')]);
+const availableYears = computed(() => {
+	const groups = Object.groupBy(items.value, item => toPersianYear(item.date));
+	return Object.keys(groups).sort().map(year => [year, groups[year].length.toLocaleString('fa')]);
+});
 
-		if (!designerSearchQuery.value) {
-			return designers;
-		}
-		return designers.filter(([designer]) =>
-			designer.includes(designerSearchQuery.value)
+const availableDesigners = computed(() => {
+	const groups = Object.groupBy(items.value.filter(x => x.designerLabel), item => item.designerLabel);
+	return Object.keys(groups)
+		.map(designer => [designer, groups[designer].length])
+		.sort((a, b) => b[1] - a[1])
+		.map(([designer, count]) => [designer, count.toLocaleString('fa')]);
+});
+
+const availableDirectors = computed(() => {
+	const groups = Object.groupBy(items.value.filter(x => x.directorLabel), item => item.directorLabel);
+	return Object.keys(groups)
+		.map(director => [director, groups[director].length])
+		.sort((a, b) => b[1] - a[1])
+		.map(([director, count]) => [director, count.toLocaleString('fa')]);
+});
+
+const getItemTitleWithYear = item => {
+	return item.filmLabel + (item.date ? ` (${toPersianYear(item.date)})` : '');
+};
+
+const letterCounts = computed(() => {
+	const counts = persianAlphabet.reduce((acc, letter) => {
+		acc[letter] = items.value.filter(item => item.filmLabel.startsWith(letter)).length;
+		return acc;
+	}, {});
+	return counts;
+});
+
+const filteredItems = computed(() => {
+	let results = items.value;
+
+	if (searchTerm.value.length) {
+		const modifiedSearchTerm = searchTerm.value
+			.split('')
+			.map(char => (combineSimilarChars.value ? (similarCharsMapping[char] || char) : char))
+			.join('');
+		const regex = new RegExp(modifiedSearchTerm, 'i');
+		results = results.filter(item => regex.test(item.filmLabel) || regex.test(item.aliases || ''));
+	}
+
+	if (selectedYear.value) {
+		results = results.filter(item => toPersianYear(item.date) === selectedYear.value);
+	}
+
+	if (selectedDesigner.value) {
+		results = results.filter(item =>
+			item.designers && item.designers.some(designer => designer.label === selectedDesigner.value)
 		);
-	});
+	}
 
-	const selectDesignerFromModal = designer => {
-		selectedDesigner.value = designer;
-		designerQuery.value = designer;
-	};
+	if (selectedDirector.value) {
+		results = results.filter(item => item.directorLabel === selectedDirector.value);
+	}
 
-	const filteredYearsInModal = computed(() => {
-		const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
-		return Object.keys(groups)
-			.sort()
-			.map(year => [year, groups[year].length.toLocaleString('fa')]);
-	});
+	if (selectedLetter.value) {
+		results = results.filter(item => item.filmLabel.startsWith(selectedLetter.value));
+	}
 
-	watch(filteredItems, newValue => {
-		if (newValue.length > 100) {
-			isShowMore.value = false;
-		}
-	});
+	if (sortOrder.value === 'alphabetical') {
+		results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, 'fa'));
+	} else if (sortOrder.value === 'year') {
+		results = results.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+	} else if (sortOrder.value === 'random') {
+		results = results.slice().sort(() => Math.random() - 0.5);
+	}
 
-	const directorSearchQuery = ref('');
+	return results;
+});
 
-	const filteredDirectorsInModal = computed(() => {
-		const groups = Object.groupBy(filteredItems.value.filter(x => x.directorLabel), item => item.directorLabel);
-		const directors = Object.keys(groups)
-			.map(director => [director, groups[director].length])
-			.sort((a, b) => b[1] - a[1])
-			.map(([director, count]) => [director, count.toLocaleString('fa')]);
+watch(designerQuery, newValue => {
+	if (!newValue) {
+		selectedDesigner.value = '';
+	}
+});
 
-		if (!directorSearchQuery.value) {
-			return directors;
-		}
-		return directors.filter(([director]) =>
-			director.includes(directorSearchQuery.value)
-		);
-	});
+const filteredYears = computed(() => {
+	const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
+	return Object.keys(groups)
+		.sort()
+		.map(year => [year, groups[year].length.toLocaleString('fa')]);
+});
 
-	const filteredLettersInModal = computed(() => {
-		const groups = Object.groupBy(filteredItems.value, item => item.filmLabel[0]);
+const filteredDesigners = computed(() => {
+	const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
+	return Object.keys(groups)
+		.map(designer => [designer, groups[designer].length])
+		.sort((a, b) => b[1] - a[1])
+		.map(([designer, count]) => [designer, count.toLocaleString('fa')]);
+});
 
-		const letters = persianAlphabet
-			.filter(letter => groups[letter])
-			.map(letter => [letter, groups[letter].length.toLocaleString('fa')]);
+const filteredDirectors = computed(() => {
+	const groups = Object.groupBy(filteredItems.value.filter(x => x.directorLabel), item => item.directorLabel);
+	return Object.keys(groups)
+		.map(director => [director, groups[director].length])
+		.sort((a, b) => b[1] - a[1])
+		.map(([director, count]) => [director, count.toLocaleString('fa')]);
+});
 
-		return letters;
-	});
+const filteredDesignersInModal = computed(() => {
+	const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
+	const designers = Object.keys(groups)
+		.map(designer => [designer, groups[designer].length])
+		.sort((a, b) => b[1] - a[1])
+		.map(([designer, count]) => [designer, count.toLocaleString('fa')]);
 
-	const filteredYearLabel = computed(() => selectedYear.value ? `سال: ${selectedYear.value}` : 'سال‌ها');
-	const filteredDesignerLabel = computed(() => selectedDesigner.value ? `طراح: ${selectedDesigner.value}` : 'طراحان');
-	const filteredDirectorLabel = computed(() => selectedDirector.value ? `کارگردان: ${selectedDirector.value}` : 'کارگردان‌ها');
-	const filteredLetterLabel = computed(() => selectedLetter.value ? `حرف اول: ${selectedLetter.value}` : 'حروف اول');
+	if (!designerSearchQuery.value) {
+		return designers;
+	}
+	return designers.filter(([designer]) =>
+		designer.includes(designerSearchQuery.value)
+	);
+});
 
-	const sidebarWidth = ref(440);
-	const minSidebarWidth = ref(300);
-	const maxSidebarWidth = ref(600);
+const selectDesignerFromModal = designer => {
+	selectedDesigner.value = designer;
+	designerQuery.value = designer;
+};
 
-	const startResize = e => {
+const filteredYearsInModal = computed(() => {
+	const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
+	return Object.keys(groups)
+		.sort()
+		.map(year => [year, groups[year].length.toLocaleString('fa')]);
+});
+
+watch(filteredItems, newValue => {
+	if (newValue.length > 100) {
+		isShowMore.value = false;
+	}
+});
+
+const directorSearchQuery = ref('');
+
+const filteredDirectorsInModal = computed(() => {
+	const groups = Object.groupBy(filteredItems.value.filter(x => x.directorLabel), item => item.directorLabel);
+	const directors = Object.keys(groups)
+		.map(director => [director, groups[director].length])
+		.sort((a, b) => b[1] - a[1])
+		.map(([director, count]) => [director, count.toLocaleString('fa')]);
+
+	if (!directorSearchQuery.value) {
+		return directors;
+	}
+	return directors.filter(([director]) =>
+		director.includes(directorSearchQuery.value)
+	);
+});
+
+const filteredLettersInModal = computed(() => {
+	const groups = Object.groupBy(filteredItems.value, item => item.filmLabel[0]);
+
+	const letters = persianAlphabet
+		.filter(letter => groups[letter])
+		.map(letter => [letter, groups[letter].length.toLocaleString('fa')]);
+
+	return letters;
+});
+
+const filteredYearLabel = computed(() => selectedYear.value ? `سال: ${selectedYear.value}` : 'سال‌ها');
+const filteredDesignerLabel = computed(() => selectedDesigner.value ? `طراح: ${selectedDesigner.value}` : 'طراحان');
+const filteredDirectorLabel = computed(() => selectedDirector.value ? `کارگردان: ${selectedDirector.value}` : 'کارگردان‌ها');
+const filteredLetterLabel = computed(() => selectedLetter.value ? `حرف اول: ${selectedLetter.value}` : 'حروف اول');
+
+const sidebarWidth = ref(440);
+const minSidebarWidth = ref(300);
+const maxSidebarWidth = ref(600);
+
+const startResize = e => {
+	e.preventDefault();
+	startX = e.clientX;
+	startWidth = sidebarWidth.value;
+	document.addEventListener('mousemove', resize);
+	document.addEventListener('mouseup', stopResize);
+};
+
+const resize = e => {
+	const newWidth = startWidth + (startX - e.clientX);
+	if (newWidth >= minSidebarWidth.value && newWidth <= maxSidebarWidth.value) {
+		sidebarWidth.value = newWidth;
+	}
+};
+
+const stopResize = () => {
+	document.removeEventListener('mousemove', resize);
+	document.removeEventListener('mouseup', stopResize);
+};
+
+onMounted(() => {
+	const resizeHandle = document.querySelector('.sidebar-resize-handle');
+	if (resizeHandle) {
+		resizeHandle.addEventListener('mousedown', startResize);
+	} else {
+		console.log('عنصر دستگیره تغییر اندازه یافت نشد!');
+	}
+});
+
+const hoveredItem = ref(null);
+
+const removeYearFilter = () => {
+	selectedYear.value = '';
+	hoveredItem.value = null;
+};
+
+const removeDesignerFilter = () => {
+	selectedDesigner.value = '';
+	hoveredItem.value = null;
+};
+
+const removeDirectorFilter = () => {
+	selectedDirector.value = '';
+	hoveredItem.value = null;
+};
+
+const removeLetterFilter = () => {
+	selectedLetter.value = '';
+	hoveredItem.value = null;
+};
+
+const sidebarVisible = ref(false);
+
+const toggleSidebar = () => {
+	sidebarVisible.value = !sidebarVisible.value;
+	if (sidebarVisible.value) {
+		window.history.pushState(null, '', window.location.pathname);
+	}
+};
+
+const hideSidebar = () => sidebarVisible.value = false;
+
+onMounted(() => window.addEventListener('popstate', handlePopState));
+
+onUnmounted(() => window.removeEventListener('popstate', handlePopState));
+
+const handlePopState = e => {
+	if (sidebarVisible.value) {
+		hideSidebar();
 		e.preventDefault();
-		startX = e.clientX;
-		startWidth = sidebarWidth.value;
-		document.addEventListener('mousemove', resize);
-		document.addEventListener('mouseup', stopResize);
-	};
+		window.history.pushState(null, '', window.location.pathname);
+	}
+};
 
-	const resize = e => {
-		const newWidth = startWidth + (startX - e.clientX);
-		if (newWidth >= minSidebarWidth.value && newWidth <= maxSidebarWidth.value) {
-			sidebarWidth.value = newWidth;
-		}
-	};
+const clearSearchTerm = () => searchTerm.value = '';
+const clearDesignerSearchQuery = () => designerSearchQuery.value = '';
+const clearDirectorSearchQuery = () => directorSearchQuery.value = '';
 
-	const stopResize = () => {
-		document.removeEventListener('mousemove', resize);
-		document.removeEventListener('mouseup', stopResize);
-	};
+const toggleCollapse = section => isCollapsed.value[section] = !isCollapsed.value[section];
 
-	onMounted(() => {
-		const resizeHandle = document.querySelector('.sidebar-resize-handle');
-		if (resizeHandle) {
-			resizeHandle.addEventListener('mousedown', startResize);
-		} else {
-			console.log('عنصر دستگیره تغییر اندازه یافت نشد!');
-		}
-	});
+const lightboxItem = ref(undefined);
+const lightboxImage = ref(undefined);
+const isLoading = ref(false);
 
-	const hoveredItem = ref(null);
-
-	const removeYearFilter = () => {
-		selectedYear.value = '';
-		hoveredItem.value = null;
-	};
-
-	const removeDesignerFilter = () => {
-		selectedDesigner.value = '';
-		hoveredItem.value = null;
-	};
-
-	const removeDirectorFilter = () => {
-		selectedDirector.value = '';
-		hoveredItem.value = null;
-	};
-
-	const removeLetterFilter = () => {
-		selectedLetter.value = '';
-		hoveredItem.value = null;
-	};
-
-	const sidebarVisible = ref(false);
-
-	const toggleSidebar = () => {
-		sidebarVisible.value = !sidebarVisible.value;
-		if (sidebarVisible.value) {
-			window.history.pushState(null, '', window.location.pathname);
-		}
-	};
-
-	const hideSidebar = () => sidebarVisible.value = false;
-
-	onMounted(() => window.addEventListener('popstate', handlePopState));
-
-	onUnmounted(() => window.removeEventListener('popstate', handlePopState));
-
-	const handlePopState = e => {
-		if (sidebarVisible.value) {
-			hideSidebar();
-			e.preventDefault();
-			window.history.pushState(null, '', window.location.pathname);
-		}
-	};
-
-	const clearSearchTerm = () => searchTerm.value = '';
-	const clearDesignerSearchQuery = () => designerSearchQuery.value = '';
-	const clearDirectorSearchQuery = () => directorSearchQuery.value = '';
-
-	const toggleCollapse = section => isCollapsed.value[section] = !isCollapsed.value[section];
-
-	const lightboxItem = ref(undefined);
-	const lightboxImage = ref(undefined);
-	const isLoading = ref(false);
-
-	const openLightbox = item => {
-		if (!posterMode && !item.logo) {
-			lightboxImage.value = undefined;
-			lightboxItem.value = undefined;
-			return;
-		}
-		isLoading.value = true;
-		lightboxImage.value = posterMode.value ? getPosterUrl(item.poster, item.posterHash, 1200) : getPosterUrl(item.logo, item.logoHash, 1200);
-		lightboxItem.value = item;
-
-		const currentIndex = filteredItems.value.findIndex(i => i === item);
-		preloadImages(currentIndex);
-
-		setTimeout(() => {
-			isLoading.value = false;
-		}, 1000);
-	};
-
-	const closeLightbox = () => {
+const openLightbox = item => {
+	if (!posterMode && !item.logo) {
+		lightboxImage.value = undefined;
 		lightboxItem.value = undefined;
+		return;
+	}
+	isLoading.value = true;
+	lightboxImage.value = posterMode.value ? getPosterUrl(item.poster, item.posterHash, 1200) : getPosterUrl(item.logo, item.logoHash, 1200);
+	lightboxItem.value = item;
+
+	const currentIndex = filteredItems.value.findIndex(i => i === item);
+	preloadImages(currentIndex);
+
+	setTimeout(() => {
 		isLoading.value = false;
-	};
+	}, 1000);
+};
 
-	watch(lightboxItem, newValue => {
-		if (newValue) {
-			document.addEventListener('click', handleClickOutsideLightbox);
-		} else {
-			document.removeEventListener('click', handleClickOutsideLightbox);
-		}
-	});
+const closeLightbox = () => {
+	lightboxItem.value = undefined;
+	isLoading.value = false;
+};
 
-	const handleClickOutsideLightbox = event => {
-		const lightbox = document.querySelector('.lightbox');
-		if (lightbox && !lightbox.contains(event.target)) {
-			closeLightbox();
-		}
-	};
+watch(lightboxItem, newValue => {
+	if (newValue) {
+		document.addEventListener('click', handleClickOutsideLightbox);
+	} else {
+		document.removeEventListener('click', handleClickOutsideLightbox);
+	}
+});
 
-	const handleImageClick = item => {
-		// Do not interfere with non-left clicks or if modifier keys are pressed.
-		if ((event.button !== 0 && event.which !== 1) ||
-			event.altKey || event.ctrlKey || event.shiftKey || event.metaKey) {
-			return true;
-		}
+const handleClickOutsideLightbox = event => {
+	const lightbox = document.querySelector('.lightbox');
+	if (lightbox && !lightbox.contains(event.target)) {
+		closeLightbox();
+	}
+};
 
-		console.log('Image clicked:', item);
-		event.preventDefault();
-		event.stopPropagation();
-		openLightbox(item);
-	};
+const handleImageClick = item => {
+	// Do not interfere with non-left clicks or if modifier keys are pressed.
+	if ((event.button !== 0 && event.which !== 1) ||
+		event.altKey || event.ctrlKey || event.shiftKey || event.metaKey) {
+		return true;
+	}
 
-	const prevImage = () => {
-		const currentIndex = filteredItems.value.findIndex(item => item === lightboxItem.value);
-		let newIndex;
-		if (currentIndex <= 0) {
-			newIndex = filteredItems.value.length - 1;
-		} else {
-			newIndex = currentIndex - 1;
-		}
-		isLoading.value = true;
-		lightboxItem.value = filteredItems.value[newIndex];
-		lightboxImage.value = posterMode.value 
-			? getPosterUrl(lightboxItem.value.poster, lightboxItem.value.posterHash, 1200) 
-			: getPosterUrl(lightboxItem.value.logo, lightboxItem.value.logoHash, 1200);
-		
-		preloadImages(newIndex);
-		
-		setTimeout(() => {
-			isLoading.value = false;
-		}, 1000);
-	};
+	console.log('Image clicked:', item);
+	event.preventDefault();
+	event.stopPropagation();
+	openLightbox(item);
+};
+
+const prevImage = () => {
+	const currentIndex = filteredItems.value.findIndex(item => item === lightboxItem.value);
+	let newIndex;
+	if (currentIndex <= 0) {
+		newIndex = filteredItems.value.length - 1;
+	} else {
+		newIndex = currentIndex - 1;
+	}
+	isLoading.value = true;
+	lightboxItem.value = filteredItems.value[newIndex];
+	lightboxImage.value = posterMode.value 
+		? getPosterUrl(lightboxItem.value.poster, lightboxItem.value.posterHash, 1200) 
+		: getPosterUrl(lightboxItem.value.logo, lightboxItem.value.logoHash, 1200);
 	
-	const nextImage = () => {
-		const currentIndex = filteredItems.value.findIndex(item => item === lightboxItem.value);
-		let newIndex;
-		if (currentIndex >= filteredItems.value.length - 1) {
-			newIndex = 0;
-		} else {
-			newIndex = currentIndex + 1;
-		}
-		isLoading.value = true;
-		lightboxItem.value = filteredItems.value[newIndex];
-		lightboxImage.value = posterMode.value 
-			? getPosterUrl(lightboxItem.value.poster, lightboxItem.value.posterHash, 1200) 
-			: getPosterUrl(lightboxItem.value.logo, lightboxItem.value.logoHash, 1200);
-		
-		preloadImages(newIndex);
-		
-		setTimeout(() => {
-			isLoading.value = false;
-		}, 1000);
-	};
-
-	onMounted(() => {
-		window.addEventListener('keydown', handleKeyDown);
-	});
+	preloadImages(newIndex);
 	
-	onUnmounted(() => {
-		window.removeEventListener('keydown', handleKeyDown);
-	});
+	setTimeout(() => {
+		isLoading.value = false;
+	}, 1000);
+};
+
+const nextImage = () => {
+	const currentIndex = filteredItems.value.findIndex(item => item === lightboxItem.value);
+	let newIndex;
+	if (currentIndex >= filteredItems.value.length - 1) {
+		newIndex = 0;
+	} else {
+		newIndex = currentIndex + 1;
+	}
+	isLoading.value = true;
+	lightboxItem.value = filteredItems.value[newIndex];
+	lightboxImage.value = posterMode.value 
+		? getPosterUrl(lightboxItem.value.poster, lightboxItem.value.posterHash, 1200) 
+		: getPosterUrl(lightboxItem.value.logo, lightboxItem.value.logoHash, 1200);
 	
-	const handleKeyDown = (event) => {
-		if (lightboxItem.value) {
-			if (event.key === 'ArrowLeft') {
-				prevImage();
-			} else if (event.key === 'ArrowRight') {
-				nextImage();
-			}
-		}
-	};
-
-	const preloadedImages = ref({});
-	const preloadNext = ref(null);
-	const preloadPrev = ref(null);
+	preloadImages(newIndex);
 	
-	const preloadImages = (currentIndex) => {
-		const nextIndex = currentIndex + 1 < filteredItems.value.length ? currentIndex + 1 : 0;
-		const prevIndex = currentIndex - 1 >= 0 ? currentIndex - 1 : filteredItems.value.length - 1;
-		
-		const nextItem = filteredItems.value[nextIndex];
-		const prevItem = filteredItems.value[prevIndex];
-		
-		if (nextItem) {
-			preloadNext.value = new Image();
-			preloadNext.value.src = posterMode.value ? getPosterUrl(nextItem.poster, nextItem.posterHash, 1200) : getPosterUrl(nextItem.logo, nextItem.logoHash, 1200);
+	setTimeout(() => {
+		isLoading.value = false;
+	}, 1000);
+};
+
+onMounted(() => {
+	window.addEventListener('keydown', handleKeyDown);
+});
+
+onUnmounted(() => {
+	window.removeEventListener('keydown', handleKeyDown);
+});
+
+const handleKeyDown = (event) => {
+	if (lightboxItem.value) {
+		if (event.key === 'ArrowLeft') {
+			prevImage();
+		} else if (event.key === 'ArrowRight') {
+			nextImage();
 		}
-		
-		if (prevItem) {
-			preloadPrev.value = new Image();
-			preloadPrev.value.src = posterMode.value ? getPosterUrl(prevItem.poster, prevItem.posterHash, 1200) : getPosterUrl(prevItem.logo, prevItem.logoHash, 1200);
-		}
-	};
+	}
+};
 
-	const downloadLink = item => {
-		const name = posterMode.value ? item.poster : item.logo;
-		if (!name) return 'https://upload.wikimedia.org/wikipedia/commons/8/82/NoImageEn.svg';
-		const hash = posterMode.value ? item.posterHash : item.logoHash;
-		return `https://upload.wikimedia.org/wikipedia/commons/${hash[0]}/${hash}/${name}?download`;
-	};
+const preloadedImages = ref({});
+const preloadNext = ref(null);
+const preloadPrev = ref(null);
 
-	const selectYearFromTitle = year => selectedYear.value = year;
+const preloadImages = (currentIndex) => {
+	const nextIndex = currentIndex + 1 < filteredItems.value.length ? currentIndex + 1 : 0;
+	const prevIndex = currentIndex - 1 >= 0 ? currentIndex - 1 : filteredItems.value.length - 1;
+	
+	const nextItem = filteredItems.value[nextIndex];
+	const prevItem = filteredItems.value[prevIndex];
+	
+	if (nextItem) {
+		preloadNext.value = new Image();
+		preloadNext.value.src = posterMode.value ? getPosterUrl(nextItem.poster, nextItem.posterHash, 1200) : getPosterUrl(nextItem.logo, nextItem.logoHash, 1200);
+	}
+	
+	if (prevItem) {
+		preloadPrev.value = new Image();
+		preloadPrev.value.src = posterMode.value ? getPosterUrl(prevItem.poster, prevItem.posterHash, 1200) : getPosterUrl(prevItem.logo, prevItem.logoHash, 1200);
+	}
+};
 
-	const activeFilters = computed(() => {
-		const filters = [];
-		if (selectedYear.value) {
-			filters.push({ type: 'year', label: 'سال', value: selectedYear.value });
-		}
-		if (selectedDesigner.value) {
-			filters.push({ type: 'designer', label: 'طراح', value: selectedDesigner.value });
-		}
-		if (selectedDirector.value) {
-			filters.push({ type: 'director', label: 'کارگردان', value: selectedDirector.value });
-		}
-		if (selectedLetter.value) {
-			filters.push({ type: 'letter', label: 'حرف اول', value: selectedLetter.value });
-		}
-		return filters;
-	});
+const downloadLink = item => {
+	const name = posterMode.value ? item.poster : item.logo;
+	if (!name) return 'https://upload.wikimedia.org/wikipedia/commons/8/82/NoImageEn.svg';
+	const hash = posterMode.value ? item.posterHash : item.logoHash;
+	return `https://upload.wikimedia.org/wikipedia/commons/${hash[0]}/${hash}/${name}?download`;
+};
 
-	const removeFilter = (type, value) => {
-		switch (type) {
-			case 'year':
-				selectedYear.value = '';
-				break;
-			case 'designer':
-				selectedDesigner.value = '';
-				break;
-			case 'director':
-				selectedDirector.value = '';
-				break;
-			case 'letter':
-				selectedLetter.value = '';
-				break;
-		}
-	};
+const selectYearFromTitle = year => selectedYear.value = year;
 
-	const filteredItemsLength = computed(() => {
-		return filteredItems.value.length.toLocaleString('fa', { useGrouping: false });
-	});
+const activeFilters = computed(() => {
+	const filters = [];
+	if (selectedYear.value) {
+		filters.push({ type: 'year', label: 'سال', value: selectedYear.value });
+	}
+	if (selectedDesigner.value) {
+		filters.push({ type: 'designer', label: 'طراح', value: selectedDesigner.value });
+	}
+	if (selectedDirector.value) {
+		filters.push({ type: 'director', label: 'کارگردان', value: selectedDirector.value });
+	}
+	if (selectedLetter.value) {
+		filters.push({ type: 'letter', label: 'حرف اول', value: selectedLetter.value });
+	}
+	return filters;
+});
 
-	const itemsLength = computed(() => {
-		return items.value.length.toLocaleString('fa', { useGrouping: false });
-	});
+const removeFilter = (type, value) => {
+	switch (type) {
+		case 'year':
+			selectedYear.value = '';
+			break;
+		case 'designer':
+			selectedDesigner.value = '';
+			break;
+		case 'director':
+			selectedDirector.value = '';
+			break;
+		case 'letter':
+			selectedLetter.value = '';
+			break;
+	}
+};
 
-	const uniqueFilmCount = computed(() => {
-		const uniqueFilms = new Set(filteredItems.value.map(item => item.film));
-		return uniqueFilms.size.toLocaleString('fa', { useGrouping: false });
-	});
+const filteredItemsLength = computed(() => {
+	return filteredItems.value.length.toLocaleString('fa', { useGrouping: false });
+});
 
-	const getPosterUrl = (name, hash, width) => {
-		if (!name) return 'https://upload.wikimedia.org/wikipedia/commons/8/82/NoImageEn.svg';
-		return `https://upload.wikimedia.org/wikipedia/commons/thumb/${hash[0]}/${hash}/${name}/${width}px-${name}`;
-	};
+const itemsLength = computed(() => {
+	return items.value.length.toLocaleString('fa', { useGrouping: false });
+});
 
-	const getItemUrl = (item, posterMode, pixelatedEffect) => {
-		if (!posterMode && !item.logo) return null;
-		if (posterMode && pixelatedEffect && item.isNsfw && item.logo) return getPosterUrl(item.logo, item.logoHash, 300);
-		return posterMode ? getPosterUrl(item.poster, item.posterHash, 300) : getPosterUrl(item.logo, item.logoHash, 300);
-	};
+const uniqueFilmCount = computed(() => {
+	const uniqueFilms = new Set(filteredItems.value.map(item => item.film));
+	return uniqueFilms.size.toLocaleString('fa', { useGrouping: false });
+});
 
-	const getCommonsUrl = (item, posterMode, pixelatedEffect) => {
-		if (!posterMode && !item.logo) return '#';
-		return 'https://commons.wikimedia.org/wiki/File:' + (posterMode ? item.poster : item.logo);
-	};
+const getPosterUrl = (name, hash, width) => {
+	if (!name) return 'https://upload.wikimedia.org/wikipedia/commons/8/82/NoImageEn.svg';
+	return `https://upload.wikimedia.org/wikipedia/commons/thumb/${hash[0]}/${hash}/${name}/${width}px-${name}`;
+};
 
-	const bringToTop = () => document.documentElement.scrollTop = 0;
-	const visibleBringToTop = ref(false);
+const getItemUrl = (item, posterMode, pixelatedEffect) => {
+	if (!posterMode && !item.logo) return null;
+	if (posterMode && pixelatedEffect && item.isNsfw && item.logo) return getPosterUrl(item.logo, item.logoHash, 300);
+	return posterMode ? getPosterUrl(item.poster, item.posterHash, 300) : getPosterUrl(item.logo, item.logoHash, 300);
+};
 
-	let lastScrollTop = 0;
+const getCommonsUrl = (item, posterMode, pixelatedEffect) => {
+	if (!posterMode && !item.logo) return '#';
+	return 'https://commons.wikimedia.org/wiki/File:' + (posterMode ? item.poster : item.logo);
+};
 
-	window.addEventListener('scroll', () => {
-		visibleBringToTop.value = document.documentElement.scrollTop > 20;
-	});
+const bringToTop = () => document.documentElement.scrollTop = 0;
+const visibleBringToTop = ref(false);
 
-	window.addEventListener('keydown', () => {
-		if (event.keyCode === 27) closeLightbox();
-	});
+let lastScrollTop = 0;
 
-	return {
-		showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items,
-		getItemUrl, getCommonsUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear,
-		availableYears, availableDesigners, selectedDesigner, filteredYears, bringToTop, visibleBringToTop,
-		filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors,
-		selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode,
-		toggleOptions, isOptionsCollapsed, collapseIconClass, filteredDesignersInModal, designerSearchQuery,
-		selectDesignerFromModal, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal,
-		selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse,
-		filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass,
-		directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter,
-		removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar,
-		sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm, lightboxItem,
-		lightboxImage, openLightbox, closeLightbox, downloadLink, handleImageClick,
-		clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading,
-		handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage
-	};
-}
+window.addEventListener('scroll', () => {
+	visibleBringToTop.value = document.documentElement.scrollTop > 20;
+});
 
-Vue.createApp({ setup }).mount('#app');
+window.addEventListener('keydown', () => {
+	if (event.keyCode === 27) closeLightbox();
+});
+
+return {
+	showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items,
+	getItemUrl, getCommonsUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear,
+	availableYears, availableDesigners, selectedDesigner, filteredYears, bringToTop, visibleBringToTop,
+	filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors,
+	selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode,
+	toggleOptions, isOptionsCollapsed, collapseIconClass, filteredDesignersInModal, designerSearchQuery,
+	selectDesignerFromModal, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal,
+	selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse,
+	filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass,
+	directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter,
+	removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar,
+	sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm, lightboxItem,
+	lightboxImage, openLightbox, closeLightbox, downloadLink, handleImageClick,
+	clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading,
+	handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage
+};
+
+
+
+} }).mount('#app');
 </script>
