@@ -1882,8 +1882,6 @@ const getCommonsUrl = (item, posterMode, pixelatedEffect) => {
 const bringToTop = () => document.documentElement.scrollTop = 0;
 const visibleBringToTop = ref(false);
 
-let lastScrollTop = 0;
-
 window.addEventListener('scroll', () => {
 	visibleBringToTop.value = document.documentElement.scrollTop > 20;
 });
