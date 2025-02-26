@@ -1745,14 +1745,7 @@ const handleImageClick = item => {
 	openLightbox(item);
 };
 
-const prevImage = () => {
-	const currentIndex = filteredItems.value.findIndex(item => item === lightboxItem.value);
-	let newIndex;
-	if (currentIndex <= 0) {
-		newIndex = filteredItems.value.length - 1;
-	} else {
-		newIndex = currentIndex - 1;
-	}
+const changeLightboxImage = (newIndex) => {
 	isLoading.value = true;
 	lightboxItem.value = filteredItems.value[newIndex];
 	lightboxImage.value = posterMode.value 
@@ -1761,30 +1754,17 @@ const prevImage = () => {
 	
 	preloadImages(newIndex);
 	
-	setTimeout(() => {
-		isLoading.value = false;
-	}, 1000);
+	setTimeout(() => isLoading.value = false, 1000);
+};
+
+const prevImage = () => {
+	const currentIndex = filteredItems.value.findIndex(item => item === lightboxItem.value);
+	changeLightboxImage(currentIndex <= 0 ? filteredItems.value.length - 1 : currentIndex - 1);
 };
 
 const nextImage = () => {
 	const currentIndex = filteredItems.value.findIndex(item => item === lightboxItem.value);
-	let newIndex;
-	if (currentIndex >= filteredItems.value.length - 1) {
-		newIndex = 0;
-	} else {
-		newIndex = currentIndex + 1;
-	}
-	isLoading.value = true;
-	lightboxItem.value = filteredItems.value[newIndex];
-	lightboxImage.value = posterMode.value 
-		? getPosterUrl(lightboxItem.value.poster, lightboxItem.value.posterHash, 1200) 
-		: getPosterUrl(lightboxItem.value.logo, lightboxItem.value.logoHash, 1200);
-	
-	preloadImages(newIndex);
-	
-	setTimeout(() => {
-		isLoading.value = false;
-	}, 1000);
+	changeLightboxImage(currentIndex >= filteredItems.value.length - 1 ? newIndex = 0 : currentIndex + 1);
 };
 
 onMounted(() => {
