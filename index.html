@@ -235,7 +235,6 @@ input[type="text"] {
 }
 
 .clickable-image {
-	cursor: pointer;
 	display: block;
 	width: 100%;
 	height: auto;
@@ -1189,7 +1188,8 @@ input[type="text"] {
 				:key="index">
 				<div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
 					<div class="image-container">
-						<div @click="handleImageClick(item)" class="clickable-image">
+						<a @click="handleImageClick(item)" :href="getCommonsUrl(item, posterMode, pixelatedEffect)"
+							class="clickable-image">
 							<template v-if="!posterMode && !item.logo">
 								<div class="no-logo-placeholder">
 									(بدون لوگو)
@@ -1201,7 +1201,7 @@ input[type="text"] {
 									class="item-image"
 									:class="{ pixelated: pixelatedEffect && !item.logo && item.isNsfw && posterMode }" />
 							</template>
-						</div>
+						</a>
 						<a :href="downloadLink(item)" aria-label="دریافت پوستر" target="_blank">
 							<button class="download-btn">
 								<span class="material-symbols-rounded">
@@ -1754,7 +1754,14 @@ const setup = () => {
 	};
 
 	const handleImageClick = item => {
+		// Do not interfere with non-left clicks or if modifier keys are pressed.
+		if ((event.button !== 0 && event.which !== 1) ||
+			event.altKey || event.ctrlKey || event.shiftKey || event.metaKey) {
+			return true;
+		}
+
 		console.log('Image clicked:', item);
+		event.preventDefault();
 		event.stopPropagation();
 		openLightbox(item);
 	};
@@ -1906,11 +1913,16 @@ const setup = () => {
 		if (!posterMode && !item.logo) return null;
 		if (posterMode && pixelatedEffect && item.isNsfw && item.logo) return getPosterUrl(item.logo, item.logoHash, 300);
 		return posterMode ? getPosterUrl(item.poster, item.posterHash, 300) : getPosterUrl(item.logo, item.logoHash, 300);
-	}
+	};
+
+	const getCommonsUrl = (item, posterMode, pixelatedEffect) => {
+		if (!posterMode && !item.logo) return '#';
+		return 'https://commons.wikimedia.org/wiki/File:' + (posterMode ? item.poster : item.logo);
+	};
 
 	return {
 		showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items,
-		getItemUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear,
+		getItemUrl, getCommonsUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear,
 		availableYears, availableDesigners, selectedDesigner, filteredYears,
 		filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors,
 		selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode,
