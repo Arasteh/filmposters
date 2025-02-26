@@ -1037,7 +1037,7 @@ input[type="text"] {
 
 	<div v-if="lightboxItem" class="lightbox" @click="closeLightbox">
 		<template v-if="lightboxImage">
-			<img :src="lightboxImage" alt="Lightbox Image" />
+			<img :src="lightboxImage" :key="lightboxImage" alt="Lightbox Image" />
 		</template>
 		<template v-else>
 			<div class="no-logo-placeholder">
