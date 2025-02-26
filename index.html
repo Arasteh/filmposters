@@ -1091,7 +1091,7 @@ input[type="text"] {
 	</div>
 
 	<div id="main-content">
-		<button onclick="topFunction()" id="toTop">
+		<button @click="bringToTop" id="toTop" :style="{ bottom: visibleBringToTop ? '20px' : '-100px' }">
 			<span class="material-symbols-rounded">
 				north
 			</span>
@@ -1268,29 +1268,6 @@ input[type="text"] {
 </div>
 
 <script>
-let toTop;
-window.onscroll = () => {
-	if (!toTop) toTop = document.getElementById('toTop');
-	toTop.style.bottom = document.documentElement.scrollTop > 20 ? '20px' : '-100px';
-}
-
-const topFunction = () => document.documentElement.scrollTop = 0;
-
-let lastScrollTop = 0;
-
-window.addEventListener('scroll', () => {
-	const searchBar = document.getElementById('searchBar');
-	const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-	if (currentScrollTop > lastScrollTop) {
-		searchBar.classList.add('hidden');
-	} else {
-		searchBar.classList.remove('hidden');
-	}
-
-	lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
-});
-
 const setup = () => {
 	const { ref, computed, watch, onMounted, nextTick, onUnmounted } = Vue;
 
@@ -1920,12 +1897,23 @@ const setup = () => {
 		return 'https://commons.wikimedia.org/wiki/File:' + (posterMode ? item.poster : item.logo);
 	};
 
-	document.onkeydown = event => event.keyCode === 27 && closeLightbox();
+	const bringToTop = () => document.documentElement.scrollTop = 0;
+	const visibleBringToTop = ref(false);
+
+	let lastScrollTop = 0;
+
+	window.addEventListener('scroll', () => {
+		visibleBringToTop.value = document.documentElement.scrollTop > 20;
+	});
+
+	window.addEventListener('keydown', () => {
+		if (event.keyCode === 27) closeLightbox();
+	});
 
 	return {
 		showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items,
 		getItemUrl, getCommonsUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear,
-		availableYears, availableDesigners, selectedDesigner, filteredYears,
+		availableYears, availableDesigners, selectedDesigner, filteredYears, bringToTop, visibleBringToTop,
 		filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors,
 		selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode,
 		toggleOptions, isOptionsCollapsed, collapseIconClass, filteredDesignersInModal, designerSearchQuery,
