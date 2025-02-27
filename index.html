@@ -1329,6 +1329,7 @@ const posterMode = ref(true);
 const combineSimilarChars = ref(false);
 const pixelatedEffect = ref(false);
 const sortOrder = ref('random');
+const yearRange = ref([1933, 2024]);
 const applyInitialFilters = () => {
 	const urlParams = new URLSearchParams(window.location.search);
 	searchTerm.value = urlParams.get('q') || '';
@@ -1935,8 +1936,6 @@ window.addEventListener('scroll', () => {
 window.addEventListener('keydown', () => {
 	if (event.keyCode === 27) closeLightbox();
 });
-
-const yearRange = ref([1970, 2023]); // بازه‌ی پیش‌فرض سال‌ها
 
 onMounted(() => {
 	const yearSlider = document.getElementById('year-range-slider');
