@@ -1459,9 +1459,7 @@ fetch('db.json').then(x => x.json()).then(data => {
 			return item;
 		});
 	});
-});
-
-const years = items.value.map(item => toPersianYear(item.date)).filter(year => year !== 'نامشخص');
+	const years = items.value.map(item => toPersianYear(item.date)).filter(year => year !== 'نامشخص');
 	minYear.value = Math.min(...years);
 	maxYear.value = Math.max(...years);
 });
