@@ -1330,6 +1330,8 @@ const combineSimilarChars = ref(false);
 const pixelatedEffect = ref(false);
 const sortOrder = ref('random');
 const yearRange = ref([1933, 2024]);
+const minYear = ref(1933);
+const maxYear = ref(2024);
 const applyInitialFilters = () => {
 	const urlParams = new URLSearchParams(window.location.search);
 	searchTerm.value = urlParams.get('q') || '';
@@ -1457,6 +1459,11 @@ fetch('db.json').then(x => x.json()).then(data => {
 			return item;
 		});
 	});
+});
+
+const years = items.value.map(item => toPersianYear(item.date)).filter(year => year !== 'نامشخص');
+	minYear.value = Math.min(...years);
+	maxYear.value = Math.max(...years);
 });
 
 const similarCharsMapping = {
@@ -1941,11 +1948,11 @@ onMounted(() => {
 	const yearSlider = document.getElementById('year-range-slider');
 	if (yearSlider) {
 		noUiSlider.create(yearSlider, {
-		start: [1970, 2023],
+		start: [minYear.value, maxYear.value],
 		connect: true,
 		range: {
-			'min': 1970,
-			'max': 2023
+			'min': minYear.value,
+			'max': maxYear.value
 		},
 		step: 1,
 		tooltips: true,
@@ -1966,12 +1973,24 @@ onMounted(() => {
 });
 
 const applyYearRangeFilter = () => {
-const startYear = document.getElementById('year-start').value;
-const endYear = document.getElementById('year-end').value;
-if (startYear && endYear) {
-yearRange.value = [parseInt(startYear), parseInt(endYear)];
-}
+	const startYear = document.getElementById('year-start').value;
+	const endYear = document.getElementById('year-end').value;
+	if (startYear && endYear) {
+		yearRange.value = [parseInt(startYear), parseInt(endYear)];
+	}
 };
+
+onMounted(() => {
+	const yearStartInput = document.getElementById('year-start');
+	const yearEndInput = document.getElementById('year-end');
+	if (yearStartInput && yearEndInput) {
+		yearStartInput.min = minYear.value;
+		yearStartInput.max = maxYear.value;
+		yearEndInput.min = minYear.value;
+		yearEndInput.max = maxYear.value;
+	}
+});
+
 
 
 return {
