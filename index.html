@@ -13,7 +13,8 @@
 <meta property="og:description" content="آرشیو پوستر فیلم‌های سینمایی ایرانی قبل و بعد از انقلاب؛ دربردارندهٔ آثار محمدعلی باطنی، محمدعلی حدت، محسن دولو، مسعود بهنام، مرتضی ممیز، ابراهیم حقیقی و دیگر طراحان گرافیک" />
 <title>آرشیو پوسترهای سینمای ایران</title>
 <script src="vue.global.prod.min.js"></script>
-<!-- <meta property="og:image" content="Link to your logo" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.js"></script>
 <link rel="icon" href="favicon.svg">
 <style>
 * {
@@ -767,6 +768,35 @@ input[type="text"] {
 	font-size: x-large;
 }
 
+#year-range-slider {
+	margin: 20px 0;
+}
+
+.noUi-connect {
+	background: #b77;
+}
+
+.noUi-handle {
+	background: #b77;
+	border: none;
+	box-shadow: none;
+}
+
+.noUi-tooltip {
+	background: #b77;
+	color: white;
+	border: none;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+input[type="number"] {
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	width: 80px;
+}
+
 @media (max-width: 768px) {
 	#app {
 		padding: 0;
@@ -906,6 +936,15 @@ input[type="text"] {
 					</button>
 				</div>
 				<div class="sidebar-section-body">
+					<div id="year-range-slider"></div>
+					 <div style="display: flex; gap: 10px; margin-top: 10px;">
+						<input type="number" id="year-start" placeholder="از سال" />
+						<input type="number" id="year-end" placeholder="تا سال" />
+						<button @click="applyYearRangeFilter" style="padding: 5px 10px; border-radius: 5px; background-color: #b77; color: white; border: none; cursor: pointer;">
+						اعمال
+						</button>
+					</div>
+
 					<div class="year-grid">
 						<div v-if="filteredYearsInModal.length === 0" class="no-results">
 							نتیجه‌ای وجود ندارد
@@ -1487,6 +1526,13 @@ const filteredItems = computed(() => {
 		results = results.filter(item => toPersianYear(item.date) === selectedYear.value);
 	}
 
+	if (yearRange.value) {
+		results = results.filter(item => {
+			const year = toPersianYear(item.date);
+			return year >= yearRange.value[0] && year <= yearRange.value[1];
+		});
+	}
+	
 	if (selectedDesigner.value) {
 		results = results.filter(item =>
 			item.designers && item.designers.some(designer => designer.label === selectedDesigner.value)
@@ -1890,6 +1936,45 @@ window.addEventListener('keydown', () => {
 	if (event.keyCode === 27) closeLightbox();
 });
 
+const yearRange = ref([1970, 2023]); // بازه‌ی پیش‌فرض سال‌ها
+
+onMounted(() => {
+	const yearSlider = document.getElementById('year-range-slider');
+	if (yearSlider) {
+		noUiSlider.create(yearSlider, {
+		start: [1970, 2023],
+		connect: true,
+		range: {
+			'min': 1970,
+			'max': 2023
+		},
+		step: 1,
+		tooltips: true,
+		format: {
+			to: function (value) {
+				return Math.round(value);
+			},
+			from: function (value) {
+				return Math.round(value);
+			}
+		}
+	});
+
+		yearSlider.noUiSlider.on('update', (values) => {
+			yearRange.value = values.map(Number);
+		});
+	}
+});
+
+const applyYearRangeFilter = () => {
+const startYear = document.getElementById('year-start').value;
+const endYear = document.getElementById('year-end').value;
+if (startYear && endYear) {
+yearRange.value = [parseInt(startYear), parseInt(endYear)];
+}
+};
+
+
 return {
 	showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items,
 	getItemUrl, getCommonsUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear,
@@ -1905,7 +1990,8 @@ return {
 	sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm, lightboxItem,
 	lightboxImage, openLightbox, closeLightbox, downloadLink, handleImageClick,
 	clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading,
-	handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage
+	handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage,
+	yearRange, applyYearRangeFilter
 };
 
 
