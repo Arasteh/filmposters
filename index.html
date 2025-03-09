@@ -86,7 +86,7 @@ body {
 	transition: transform 0.3s ease-in-out;
 	border-radius: 16px;
 	margin-bottom: 15px;
-	max-width: 1200px;
+	max-width: 960px;
 	width: 100%;
 	z-index: 100;
 }
@@ -118,7 +118,7 @@ input[type="text"] {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 	gap: 15px;
-	max-width: 1200px;
+	max-width: 960px;
 	width: 100%;
 	z-index: 1;
 }
@@ -717,7 +717,7 @@ input[type="text"] {
 	margin-bottom: 15px;
 	background-color: light-dark(#fff, #222);
 	border-radius: 16px;
-	max-width: 1200px;
+	max-width: 960px;
 	width: 100%;
 }
 
@@ -1701,7 +1701,7 @@ const openLightbox = item => {
 		return;
 	}
 	isLoading.value = true;
-	lightboxImage.value = posterMode.value ? getPosterUrl(item.poster, item.posterHash, 1200) : getPosterUrl(item.logo, item.logoHash, 1200);
+	lightboxImage.value = posterMode.value ? getPosterUrl(item.poster, item.posterHash, 960) : getPosterUrl(item.logo, item.logoHash, 960);
 	lightboxItem.value = item;
 
 	const currentIndex = filteredItems.value.findIndex(i => i === item);
@@ -1749,8 +1749,8 @@ const changeLightboxImage = (newIndex) => {
 	isLoading.value = true;
 	lightboxItem.value = filteredItems.value[newIndex];
 	lightboxImage.value = posterMode.value 
-		? getPosterUrl(lightboxItem.value.poster, lightboxItem.value.posterHash, 1200) 
-		: getPosterUrl(lightboxItem.value.logo, lightboxItem.value.logoHash, 1200);
+		? getPosterUrl(lightboxItem.value.poster, lightboxItem.value.posterHash, 960) 
+		: getPosterUrl(lightboxItem.value.logo, lightboxItem.value.logoHash, 960);
 	
 	preloadImages(newIndex);
 	
@@ -1798,12 +1798,12 @@ const preloadImages = (currentIndex) => {
 	
 	if (nextItem) {
 		preloadNext.value = new Image();
-		preloadNext.value.src = posterMode.value ? getPosterUrl(nextItem.poster, nextItem.posterHash, 1200) : getPosterUrl(nextItem.logo, nextItem.logoHash, 1200);
+		preloadNext.value.src = posterMode.value ? getPosterUrl(nextItem.poster, nextItem.posterHash, 960) : getPosterUrl(nextItem.logo, nextItem.logoHash, 960);
 	}
 	
 	if (prevItem) {
 		preloadPrev.value = new Image();
-		preloadPrev.value.src = posterMode.value ? getPosterUrl(prevItem.poster, prevItem.posterHash, 1200) : getPosterUrl(prevItem.logo, prevItem.logoHash, 1200);
+		preloadPrev.value.src = posterMode.value ? getPosterUrl(prevItem.poster, prevItem.posterHash, 960) : getPosterUrl(prevItem.logo, prevItem.logoHash, 960);
 	}
 };
 
@@ -1870,8 +1870,8 @@ const getPosterUrl = (name, hash, width) => {
 
 const getItemUrl = (item, posterMode, pixelatedEffect) => {
 	if (!posterMode && !item.logo) return null;
-	if (posterMode && pixelatedEffect && item.isNsfw && item.logo) return getPosterUrl(item.logo, item.logoHash, 300);
-	return posterMode ? getPosterUrl(item.poster, item.posterHash, 300) : getPosterUrl(item.logo, item.logoHash, 300);
+	if (posterMode && pixelatedEffect && item.isNsfw && item.logo) return getPosterUrl(item.logo, item.logoHash, 250);
+	return posterMode ? getPosterUrl(item.poster, item.posterHash, 250) : getPosterUrl(item.logo, item.logoHash, 250);
 };
 
 const getCommonsUrl = (item, posterMode, pixelatedEffect) => {
