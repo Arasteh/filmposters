@@ -1375,7 +1375,7 @@ const resetFilters = () => {
 };
 
 const films = Object.values(data.films);
-const uniqueFilmCount = films.length.toLocaleString('fa');
+const uniqueFilmCount = films.length.toLocaleString('fa', { useGrouping: false });
 const items = films.flatMap(film => {
 	return film.posters.map((poster, i) => {
 		const item = {};
