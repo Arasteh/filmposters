@@ -1146,8 +1146,7 @@ input[type="text"] {
 
 				<div class="similar-chars-toggle">
 					<label for="pixelatedSwitch" style="cursor: pointer;">
-						<input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect" v-if="posterMode">
-						<input type="checkbox" id="pixelatedSwitch" v-else disabled>
+						<input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect" :disabled="posterMode ? null : true">
 						سانسور
 					</label>
 					<label>
