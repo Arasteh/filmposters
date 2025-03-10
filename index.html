@@ -1268,11 +1268,16 @@ input[type="text"] {
 </div>
 
 <link rel="modulepreload" href="./vue.esm-browser.prod.min.js" />
+<link rel="preload" as="fetch" href="./db.json">
 <script type="module">
-const data = await (await fetch('db.json')).json();
 import {
 	createApp, ref, computed, watch, onMounted, nextTick, onUnmounted
 } from './vue.esm-browser.prod.min.js';
+const data = await (await fetch('./db.json', {
+    method: 'GET',
+    credentials: 'include',
+    mode: 'no-cors',
+})).json();
 
 createApp({ setup: () => {
 
