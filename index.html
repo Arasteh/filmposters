@@ -936,7 +936,8 @@ input[type="text"] {
 				<div class="sidebar-section-body">
 					<div class="search-container">
 						<input type="text" v-model="designerSearchQuery" placeholder="جستجوی طراح…" />
-						<span v-if="designerSearchQuery" @click="clearDesignerSearchQuery" class="clearSearch">
+						<span v-if="designerSearchQuery" @click="clearDesignerSearchQuery" class="clearSearch"
+							style="display: none" :style="{ display: undefined }">
 							<span class="material-symbols-rounded">
 								close
 							</span>
@@ -974,7 +975,8 @@ input[type="text"] {
 				<div class="sidebar-section-body">
 					<div class="search-container">
 						<input type="text" v-model="directorSearchQuery" placeholder="جستجوی کارگردان…" />
-						<span v-if="directorSearchQuery" @click="clearDirectorSearchQuery" class="clearSearch">
+						<span v-if="directorSearchQuery" @click="clearDirectorSearchQuery" class="clearSearch"
+							style="display: none" :style="{ display: undefined }">
 							<span class="material-symbols-rounded">
 								close
 							</span>
@@ -1105,7 +1107,8 @@ input[type="text"] {
 				</button>
 				<div style="position: relative; width: 100%;">
 					<input type="text" v-model="searchTerm" placeholder="جستجو…" />
-					<span v-if="searchTerm" @click="clearSearchTerm" class="clearSearch">
+					<span v-if="searchTerm" @click="clearSearchTerm" class="clearSearch"
+						style="display: none" :style="{ display: undefined }">
 						<span class="material-symbols-rounded">
 							close
 						</span>
