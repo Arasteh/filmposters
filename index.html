@@ -1267,11 +1267,12 @@ input[type="text"] {
 	</div>
 </div>
 
+<link rel="modulepreload" href="./vue.esm-browser.prod.min.js" />
 <script type="module">
+const data = await (await fetch('db.json')).json();
 import {
 	createApp, ref, computed, watch, onMounted, nextTick, onUnmounted
 } from './vue.esm-browser.prod.min.js';
-const data = await (await fetch('db.json')).json();
 
 createApp({ setup: () => {
 
