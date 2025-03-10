@@ -1271,6 +1271,8 @@ input[type="text"] {
 import {
 	createApp, ref, computed, watch, onMounted, nextTick, onUnmounted
 } from './vue.esm-browser.prod.min.js';
+const data = await (await fetch('db.json')).json();
+
 createApp({ setup: () => {
 
 
@@ -1366,59 +1368,57 @@ const resetFilters = () => {
 	selectedLetter.value = '';
 };
 
-const items = ref([]);
-fetch('db.json').then(x => x.json()).then(data => {
-	const films = Object.values(data.films);
-	uniqueFilmCount.value = films.length;
-	items.value = films.flatMap(film => {
-		return film.posters.map((poster, i) => {
-			const item = {};
-			item.film = film.id;
-			if (!film.labels.fa) {
-				console.log(film.id + ' doesn\'t have Persian label!');
-			}
-			item.filmLabel = film.labels.fa || film.labels.en || '';
-			item.aliases = film.aliases?.fa?.join(',') ?? '';
-			item.date = film.date
-				.map(x => x.replace(/^\+/, '')
-					.replace('-01-01T00:00:00Z', '-03-30T00:00:00Z')
-					.replace('-00-00T00:00:00Z', '-03-30T00:00:00Z')
-					.replace('-00T', '-01T')
-				)
-				.sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0];
-			item.poster = poster.image;
-			item.posterHash = poster.hash;
-			item.isNsfw = poster.characteristics?.includes('Q2716583') ?? false;
-			if (poster.designers?.length ?? 0) {
-				item.designers = poster.designers.map(designerId => {
-					const designer = data.secondary[designerId];
-					return {
-						id: designerId,
-						label: designer.labels.fa,
-						faWikipediaLink: designer.sitelinks?.fawiki
-					};
-				});
-				item.characteristics = poster.characteristics;
-				item.designerLabel = data.secondary[poster.designers[0]].labels.fa;
-				const fawiki = data.secondary[poster.designers[0]].sitelinks.fawiki;
-				if (fawiki) item.designerFaWikipediaLink = fawiki;
-			}
-			if (film.directors.length) {
-				item.director = film.directors[0];
-				item.directorLabel = data.secondary[film.directors[0]].labels.fa;
-			}
-			if (film.imdb.length) {
-				item.imdbID = film.imdb[0];
-			}
-			item.faWikipediaLink = film.sitelinks.fawiki;
-			if (film.logos.length > i) {
-				item.logo = film.logos[i].image;
-				item.logoHash = film.logos[i].hash;
-			}
-			return item;
-		});
+const films = Object.values(data.films);
+const uniqueFilmCount = films.length.toLocaleString('fa');
+const items = films.flatMap(film => {
+	return film.posters.map((poster, i) => {
+		const item = {};
+		item.film = film.id;
+		if (!film.labels.fa) {
+			console.log(film.id + ' doesn\'t have Persian label!');
+		}
+		item.filmLabel = film.labels.fa || film.labels.en || '';
+		item.aliases = film.aliases?.fa?.join(',') ?? '';
+		item.date = film.date
+			.map(x => x.replace(/^\+/, '')
+				.replace('-01-01T00:00:00Z', '-03-30T00:00:00Z')
+				.replace('-00-00T00:00:00Z', '-03-30T00:00:00Z')
+				.replace('-00T', '-01T')
+			)
+			.sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0];
+		item.poster = poster.image;
+		item.posterHash = poster.hash;
+		item.isNsfw = poster.characteristics?.includes('Q2716583') ?? false;
+		if (poster.designers?.length ?? 0) {
+			item.designers = poster.designers.map(designerId => {
+				const designer = data.secondary[designerId];
+				return {
+					id: designerId,
+					label: designer.labels.fa,
+					faWikipediaLink: designer.sitelinks?.fawiki
+				};
+			});
+			item.characteristics = poster.characteristics;
+			item.designerLabel = data.secondary[poster.designers[0]].labels.fa;
+			const fawiki = data.secondary[poster.designers[0]].sitelinks.fawiki;
+			if (fawiki) item.designerFaWikipediaLink = fawiki;
+		}
+		if (film.directors.length) {
+			item.director = film.directors[0];
+			item.directorLabel = data.secondary[film.directors[0]].labels.fa;
+		}
+		if (film.imdb.length) {
+			item.imdbID = film.imdb[0];
+		}
+		item.faWikipediaLink = film.sitelinks.fawiki;
+		if (film.logos.length > i) {
+			item.logo = film.logos[i].image;
+			item.logoHash = film.logos[i].hash;
+		}
+		return item;
 	});
 });
+const itemsLength = items.length.toLocaleString('fa', { useGrouping: false });
 
 const similarCharsMapping = {
 	'آ': '[آاأإ]', 'ا': '[آاأإ]', 'أ': '[آاأإ]', 'إ': '[آاأإ]', 'ط': '[طظ]', 'ظ': '[طظ]', 'ب': '[بپتثنی]', 'پ': '[بپتثنی]',
@@ -1439,41 +1439,41 @@ const toPersianYear = date => {
 	return year === 'Invalid Date' ? 'نامشخص' : year;
 };
 
-const availableYears = computed(() => {
-	const groups = Object.groupBy(items.value, item => toPersianYear(item.date));
+const availableYears = (() => {
+	const groups = Object.groupBy(items, item => toPersianYear(item.date));
 	return Object.keys(groups).sort().map(year => [year, groups[year].length.toLocaleString('fa')]);
-});
+})();
 
-const availableDesigners = computed(() => {
-	const groups = Object.groupBy(items.value.filter(x => x.designerLabel), item => item.designerLabel);
+const availableDesigners = (() => {
+	const groups = Object.groupBy(items.filter(x => x.designerLabel), item => item.designerLabel);
 	return Object.keys(groups)
 		.map(designer => [designer, groups[designer].length])
 		.sort((a, b) => b[1] - a[1])
 		.map(([designer, count]) => [designer, count.toLocaleString('fa')]);
-});
+})();
 
-const availableDirectors = computed(() => {
-	const groups = Object.groupBy(items.value.filter(x => x.directorLabel), item => item.directorLabel);
+const availableDirectors = (() => {
+	const groups = Object.groupBy(items.filter(x => x.directorLabel), item => item.directorLabel);
 	return Object.keys(groups)
 		.map(director => [director, groups[director].length])
 		.sort((a, b) => b[1] - a[1])
 		.map(([director, count]) => [director, count.toLocaleString('fa')]);
-});
+})();
 
 const getItemTitleWithYear = item => {
 	return item.filmLabel + (item.date ? ` (${toPersianYear(item.date)})` : '');
 };
 
-const letterCounts = computed(() => {
+const letterCounts = (() => {
 	const counts = persianAlphabet.reduce((acc, letter) => {
-		acc[letter] = items.value.filter(item => item.filmLabel.startsWith(letter)).length;
+		acc[letter] = items.filter(item => item.filmLabel.startsWith(letter)).length;
 		return acc;
 	}, {});
 	return counts;
-});
+})();
 
 const filteredItems = computed(() => {
-	let results = items.value;
+	let results = items;
 
 	if (searchTerm.value.length) {
 		const modifiedSearchTerm = searchTerm.value
@@ -1853,15 +1853,6 @@ const removeFilter = (type, value) => {
 
 const filteredItemsLength = computed(() => {
 	return filteredItems.value.length.toLocaleString('fa', { useGrouping: false });
-});
-
-const itemsLength = computed(() => {
-	return items.value.length.toLocaleString('fa', { useGrouping: false });
-});
-
-const uniqueFilmCount = computed(() => {
-	const uniqueFilms = new Set(filteredItems.value.map(item => item.film));
-	return uniqueFilms.size.toLocaleString('fa', { useGrouping: false });
 });
 
 const getPosterUrl = (name, hash, width) => {
