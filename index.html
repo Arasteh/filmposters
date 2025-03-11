@@ -377,13 +377,13 @@ input[type="text"] {
 	flex: 1;
 	text-align: center;
 	padding: 8px;
-	color: light-dark(#fff, #fff);
+	color: light-dark(#888, #888);
 	z-index: 1;
 	transition: color 0.3s;
 }
 
 .toggle-switch span.active {
-	color: light-dark(#888, #888);
+	color: light-dark(#fff, #fff);
 }
 
 .toggle-switch::before {
@@ -897,8 +897,9 @@ input[type="text"] {
 			</button>
 			<div class="sidebar-section" :class="getSectionClass('years')" :key="'years-section'">
 				<div class="sidebar-section-header" @click="toggleCollapse('years')">
-					<span style="visibility: hidden" :style="{ visibility: undefined }">{{ filteredYearLabel }}</span>
-					<button class="collapse-button" :class="collapseIconClass(isCollapsed.years)">
+					<span style="display: none" :style="{ display: undefined }">{{ filteredYearLabel }}</span>
+					<span :style="{ display: 'none' }">سال‌ها</span>
+					<button class="collapse-button rotate-up" id="yearsButton" :class="collapseIconClass(isCollapsed.years)">
 						<span class="material-symbols-rounded">
 							keyboard_arrow_up
 						</span>
@@ -926,8 +927,9 @@ input[type="text"] {
 
 			<div class="sidebar-section" :class="getSectionClass('designers')">
 				<div class="sidebar-section-header" @click="toggleCollapse('designers')">
-					<span style="visibility: hidden" :style="{ visibility: undefined }">{{ filteredDesignerLabel }}</span>
-					<button class="collapse-button" :class="collapseIconClass(isCollapsed.designers)">
+					<span style="display: none" :style="{ display: undefined }">{{ filteredDesignerLabel }}</span>
+					<span :style="{ display: 'none' }">طراحان</span>
+					<button class="collapse-button rotate-up" id="designersButton" :class="collapseIconClass(isCollapsed.designers)">
 						<span class="material-symbols-rounded">
 							keyboard_arrow_up
 						</span>
@@ -965,8 +967,9 @@ input[type="text"] {
 
 			<div class="sidebar-section" :class="getSectionClass('directors')">
 				<div class="sidebar-section-header" @click="toggleCollapse('directors')">
-					<span style="visibility: hidden" :style="{ visibility: undefined }">{{ filteredDirectorLabel }}</span>
-					<button class="collapse-button" :class="collapseIconClass(isCollapsed.directors)">
+					<span style="display: none" :style="{ display: undefined }">{{ filteredDirectorLabel }}</span>
+					<span :style="{ display: 'none' }">کارگردان‌ها</span>
+					<button class="collapse-button rotate-up" id="directorsButton" :class="collapseIconClass(isCollapsed.directors)">
 						<span class="material-symbols-rounded">
 							keyboard_arrow_up
 						</span>
@@ -1003,8 +1006,9 @@ input[type="text"] {
 
 			<div class="sidebar-section" :class="getSectionClass('letters')">
 				<div class="sidebar-section-header" @click="toggleCollapse('letters')">
-					<span style="visibility: hidden" :style="{ visibility: undefined }">{{ filteredLetterLabel }}</span>
-					<button class="collapse-button" :class="collapseIconClass(isCollapsed.letters)">
+					<span style="display: none" :style="{ display: undefined }">{{ filteredLetterLabel }}</span>
+					<span :style="{ display: 'none' }">حروف اول</span>
+					<button class="collapse-button rotate-up" id="lettersButton" :class="collapseIconClass(isCollapsed.letters)">
 						<span class="material-symbols-rounded">
 							keyboard_arrow_up
 						</span>
@@ -1127,9 +1131,10 @@ input[type="text"] {
 				</button>
 			</div>
 			<div class="options" :class="{ 'collapsed': isOptionsCollapsed }">
-				<div class="toggle-switch" @click="togglePosterMode" :data-mode="posterMode ? 'poster' : 'logo'">
-					<span :class="{ active: !posterMode }">پوستر</span>
-					<span :class="{ active: posterMode }">لوگو</span>
+				<div class="toggle-switch" @click="togglePosterMode"
+					id="posterLogoSwitch" data-mode="poster" :data-mode="posterMode ? 'poster' : 'logo'">
+					<span id="posterButton" class="active" :class="{ active: posterMode }">پوستر</span>
+					<span :class="{ active: !posterMode }">لوگو</span>
 				</div>
 				<div class="similar-chars-toggle">
 					<label for="similarCharsSwitch" style="cursor: pointer;">
@@ -1167,7 +1172,8 @@ input[type="text"] {
 						<span :class="{ active: sortOrder === 'alphabetical' }"
 							@click="sortOrder = 'alphabetical'">الفبایی</span>
 						<span :class="{ active: sortOrder === 'year' }" @click="sortOrder = 'year'">سال</span>
-						<span :class="{ active: sortOrder === 'random' }" @click="sortOrder = 'random'">تصادفی</span>
+						<span id="randomOrderButton" class="active"
+							:class="{ active: sortOrder === 'random' }" @click="sortOrder = 'random'">تصادفی</span>
 					</div>
 				</div>
 			</div>
@@ -1262,13 +1268,22 @@ input[type="text"] {
 				</div>
 			</div>
 		</div>
-		<p style="text-align: center" v-else>نتیجه‌ای برای نمایش وجود ندارد.</p>
+		<p v-else style="text-align: center; display: none;" :style="{ display: undefined }">
+			نتیجه‌ای برای نمایش وجود ندارد.
+		</p>
 		<div v-if="!isShowMore && filteredItems.length > 30" style="text-align: center; padding-top: 1em;">
-			<button @click="showMore">نمایش بیشتر</button>
+			<button @click="showMore" style="display: none" :style="{ display: undefined }">نمایش بیشتر</button>
 		</div>
 	</div>
 </div>
 
+<script>
+{
+	const urlParams = new URLSearchParams(window.location.search);
+	similarCharsSwitch.checked = urlParams.get('similar') === 'true';
+	pixelatedSwitch.checked = urlParams.get('censor') === 'true' || location.hostname === 'filmposters.ir';
+}
+</script>
 <link rel="modulepreload" href="./vue.esm-browser.prod.min.js" />
 <link rel="preload" as="fetch" href="./db.json">
 <script type="module">
@@ -1280,6 +1295,12 @@ const data = await (await fetch('./db.json', {
     credentials: 'include',
     mode: 'no-cors',
 })).json();
+
+randomOrderButton.classList.remove('active');
+posterButton.classList.remove('active');
+posterLogoSwitch.removeAttribute('data-mode');
+[yearsButton, designersButton, directorsButton, lettersButton]
+	.forEach(x => x.classList.remove('rotate-up'));
 
 createApp({ setup: () => {
 
