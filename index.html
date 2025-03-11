@@ -1281,7 +1281,9 @@ input[type="text"] {
 {
 	const urlParams = new URLSearchParams(window.location.search);
 	similarCharsSwitch.checked = urlParams.get('similar') === 'true';
-	pixelatedSwitch.checked = urlParams.get('censor') === 'true' || location.hostname === 'filmposters.ir';
+	pixelatedSwitch.checked = urlParams.get('censor') === null
+		? location.hostname === 'filmposters.ir'
+		: urlParams.get('censor') === 'true';
 }
 </script>
 <link rel="modulepreload" href="./vue.esm-browser.prod.min.js" />
@@ -1331,7 +1333,9 @@ const applyInitialFilters = () => {
 	selectedLetter.value = urlParams.get('letter') || '';
 	posterMode.value = urlParams.get('mode') !== 'logo';
 	combineSimilarChars.value = urlParams.get('similar') === 'true';
-	pixelatedEffect.value = urlParams.get('censor') === 'true' || location.hostname === 'filmposters.ir';
+	pixelatedEffect.value = urlParams.get('censor') === null
+		? location.hostname === 'filmposters.ir'
+		: urlParams.get('censor') === 'true';
 	sortOrder.value = urlParams.get('sort') || 'random';
 };
 applyInitialFilters();
