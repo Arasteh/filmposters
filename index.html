@@ -1640,6 +1640,7 @@ const sidebarWidth = ref(440);
 const minSidebarWidth = ref(300);
 const maxSidebarWidth = ref(600);
 
+let startX, startWidth;
 const startResize = e => {
 	e.preventDefault();
 	startX = e.clientX;
