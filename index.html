@@ -36,6 +36,12 @@
 
 html {
 	scroll-behavior: smooth;
+	--body-background: light-dark(#eee, #121212);
+	--body-foreground: light-dark(black, #e0e0e0);
+	--search-background: light-dark(#fff, #222);
+	--text-input-border: #ccc;
+	--card-background: light-dark(#fff, #222);
+	--year-link-foreground: light-dark(#555, #adadad);
 }
 
 body {
@@ -43,8 +49,8 @@ body {
 	justify-content: flex-start;
 	align-items: flex-start;
 	min-height: 100vh;
-	background-color: light-dark(#eee, #121212);
-	color: light-dark(black, #e0e0e0);
+	background-color: var(--body-backround);
+	color: var(--body-foreground);
 	margin: 0;
 	transition: background-color 0.3s, color 0.3s;
 	overflow-x: hidden;
@@ -80,7 +86,7 @@ body {
 .search-bar {
 	position: sticky;
 	top: 0;
-	background-color: light-dark(#fff, #222);
+	background-color: var(--search-background);
 	padding: 10px;
 	transition: transform 0.3s ease-in-out;
 	border-radius: 16px;
@@ -98,7 +104,7 @@ transform: translateY(-100%);
 input[type="text"] {
 	width: 100%;
 	padding: 10px;
-	border: 1px solid #ccc;
+	border: 1px solid var(--text-input-border);
 	border-radius: 12px;
 }
 
@@ -125,7 +131,7 @@ input[type="text"] {
 .item-card {
 	text-align: center;
 	padding: 15px 5px;
-	background: light-dark(#fff, #222);
+	background: var(--card-background);
 	border-radius: 12px;
 	display: flex;
 	flex-direction: column;
@@ -148,7 +154,7 @@ input[type="text"] {
 }
 
 .year-link {
-	color: light-dark(#555, #adadad);
+	color: var(--year-link-foreground);
 	cursor: pointer;
 	text-decoration: none;
 	margin-right: 3px;
