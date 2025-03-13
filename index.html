@@ -1801,14 +1801,8 @@ const changeLightboxImage = changeIndexCallback => {
 	
 	setTimeout(() => isLoading.value = false, 1000);
 };
-
-const prevImage = () => {
-	changeLightboxImage((current, lastItem) => current <= 0 ? lastItem : current - 1);
-};
-
-const nextImage = () => {
-	changeLightboxImage((current, lastItem) => current >= lastItem ? 0 : current + 1);
-};
+const prevImage = () => changeLightboxImage((current, lastItem) => current <= 0 ? lastItem : current - 1);
+const nextImage = () => changeLightboxImage((current, lastItem) => current >= lastItem ? 0 : current + 1);
 
 onMounted(() => {
 	window.addEventListener('keydown', handleKeyDown);
