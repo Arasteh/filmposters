@@ -1786,8 +1786,12 @@ const handleImageClick = item => {
 	openLightbox(item);
 };
 
-const changeLightboxImage = (newIndex) => {
+const changeLightboxImage = changeIndexCallback => {
 	isLoading.value = true;
+	const newIndex = changeIndexCallback(
+		filteredItems.value.findIndex(item => item.poster === lightboxItem.value.poster),
+		filteredItems.value.length - 1
+	);
 	lightboxItem.value = filteredItems.value[newIndex];
 	lightboxImage.value = posterMode.value 
 		? getPosterUrl(lightboxItem.value.poster, lightboxItem.value.posterHash, 960) 
@@ -1799,13 +1803,11 @@ const changeLightboxImage = (newIndex) => {
 };
 
 const prevImage = () => {
-	const currentIndex = filteredItems.value.findIndex(item => item.poster === lightboxItem.value.poster);
-	changeLightboxImage(currentIndex <= 0 ? filteredItems.value.length - 1 : currentIndex - 1);
+	changeLightboxImage((current, lastItem) => current <= 0 ? lastItem : current - 1);
 };
 
 const nextImage = () => {
-	const currentIndex = filteredItems.value.findIndex(item => item.poster === lightboxItem.value.poster);
-	changeLightboxImage(currentIndex >= filteredItems.value.length - 1 ? 0 : currentIndex + 1);
+	changeLightboxImage((current, lastItem) => current >= lastItem ? 0 : current + 1);
 };
 
 onMounted(() => {
