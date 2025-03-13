@@ -112,4 +112,4 @@ secondary = {
     )
 }
 
-print(json.dumps({'films': films, 'secondary': secondary}, indent=2, ensure_ascii=False))
+print(json.dumps({'films': films, 'secondary': secondary}, indent='\t', ensure_ascii=False))
