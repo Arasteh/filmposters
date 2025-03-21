@@ -1067,12 +1067,26 @@ input[type="text"] {
 			</p>
 		</div>
 		<div class="loading-spinner" v-if="isLoading">
-			<svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-				<circle cx="25" cy="25" r="20" stroke="#ccc" stroke-width="5" fill="none"
-					stroke-dasharray="31.415, 31.415">
-					<animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="1s"
-						repeatCount="indefinite" />
-				</circle>
+			<svg width="53" height="53" viewBox="0 0 53 53" xmlns="http://www.w3.org/2000/svg">
+				<svg:style type="text/css">
+@keyframes scale_SQHYY {
+	0%, 100% { transform: scale(1); }
+	50% { transform: scale(0.7); }
+}
+@keyframes fade_SQHYY {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.5; }
+}
+				</svg:style>
+				<circle cx="6.5" cy="6.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.57s; transform-origin: 6.5px 6.5px;"></circle>
+				<circle cx="6.5" cy="26.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.32s; transform-origin: 6.5px 26.5px;"></circle>
+				<circle cx="6.5" cy="46.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.82s; transform-origin: 6.5px 46.5px;"></circle>
+				<circle cx="26.5" cy="6.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.04s; transform-origin: 26.5px 6.5px;"></circle>
+				<circle cx="26.5" cy="26.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.12s; transform-origin: 26.5px 26.5px;"></circle>
+				<circle cx="26.5" cy="46.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -1.2s; transform-origin: 26.5px 46.5px;"></circle>
+				<circle cx="46.5" cy="6.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.46s; transform-origin: 46.5px 6.5px;"></circle>
+				<circle cx="46.5" cy="26.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.9s; transform-origin: 46.5px 26.5px;"></circle>
+				<circle cx="46.5" cy="46.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.73s; transform-origin: 46.5px 46.5px;"></circle>
 			</svg>
 		</div>
 		<button class="lightbox-button" @click.stop="closeLightbox" style="top: 20px; left: 20px">
