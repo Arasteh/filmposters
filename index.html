@@ -1101,12 +1101,12 @@ input[type="text"] {
 				</span>
 			</button>
 		</a>
-		<button class="lightbox-button desktop-only" style="left: 20px; top: 50%; transform: translateY(-50%);" @click.stop="prevImage">
+		<button class="lightbox-button desktop-only" style="left: 20px; top: 50%; transform: translateY(-50%);" @click.stop="nextImage">
 			<span class="material-symbols-rounded">
 				arrow_back_ios
 			</span>
 		</button>
-		<button class="lightbox-button desktop-only" style="right: 20px; top: 50%; transform: translateY(-50%);" @click.stop="nextImage">
+		<button class="lightbox-button desktop-only" style="right: 20px; top: 50%; transform: translateY(-50%);" @click.stop="prevImage">
 			<span class="material-symbols-rounded">
 				arrow_forward_ios
 			</span>
@@ -1829,9 +1829,9 @@ onUnmounted(() => {
 const handleKeyDown = (event) => {
 	if (lightboxItem.value) {
 		if (event.key === 'ArrowLeft') {
-			prevImage();
-		} else if (event.key === 'ArrowRight') {
 			nextImage();
+		} else if (event.key === 'ArrowRight') {
+			prevImage();
 		}
 	}
 };
