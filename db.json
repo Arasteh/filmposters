@@ -18081,6 +18081,20 @@
 					"designers": [
 						"Q61060515"
 					]
+				},
+				{
+					"image": "پایگاه_جهنمی_(پوستر_۲).jpg",
+					"hash": "e8",
+					"designers": [
+						"Q61060515"
+					]
+				},
+				{
+					"image": "پایگاه_جهنمی_(پوستر_۴).jpg",
+					"hash": "6c",
+					"designers": [
+						"Q61060515"
+					]
 				}
 			],
 			"logos": []
@@ -19979,6 +19993,32 @@
 				{
 					"image": "روزهای_بی_خبری_(پوستر).jpg",
 					"hash": "58"
+				}
+			],
+			"logos": []
+		},
+		"Q14756709": {
+			"id": "Q14756709",
+			"sitelinks": {
+				"fawiki": "سه ماه تعطیلی"
+			},
+			"labels": {
+				"fa": "سه ماه تعطیلی"
+			},
+			"aliases": {},
+			"directors": [
+				"Q5947357"
+			],
+			"date": [
+				"+1977-01-01T00:00:00Z"
+			],
+			"imdb": [
+				"tt1091844"
+			],
+			"posters": [
+				{
+					"image": "سه_ماه_تعطیلی_(پوستر).jpg",
+					"hash": "47"
 				}
 			],
 			"logos": []
@@ -25295,6 +25335,33 @@
 				}
 			]
 		},
+		"Q14756993": {
+			"id": "Q14756993",
+			"sitelinks": {
+				"fawiki": "چشمه (فیلم ۱۳۵۱)"
+			},
+			"labels": {
+				"en": "The Spring",
+				"fa": "چشمه (فیلم ۱۳۵۱)"
+			},
+			"aliases": {},
+			"directors": [
+				"Q5951347"
+			],
+			"date": [
+				"+1972-00-00T00:00:00Z"
+			],
+			"imdb": [
+				"tt0206631"
+			],
+			"posters": [
+				{
+					"image": "چشمه_(پوستر).jpg",
+					"hash": "6e"
+				}
+			],
+			"logos": []
+		},
 		"Q14756995": {
 			"id": "Q14756995",
 			"sitelinks": {
@@ -26218,6 +26285,34 @@
 					"designers": [
 						"Q131377764"
 					]
+				}
+			],
+			"logos": []
+		},
+		"Q14757047": {
+			"id": "Q14757047",
+			"sitelinks": {
+				"fawiki": "یک میلیونر و دو مفلس"
+			},
+			"labels": {
+				"fa": "یک میلیونر و دو مفلس"
+			},
+			"aliases": {},
+			"directors": [
+				"Q5948781"
+			],
+			"date": [
+				"+1972-00-00T00:00:00Z"
+			],
+			"imdb": [],
+			"posters": [
+				{
+					"image": "یک_میلیونر_و_دو_مفلس_(پوستر_۱).jpg",
+					"hash": "af"
+				},
+				{
+					"image": "یک_میلیونر_و_دو_مفلس_(پوستر_۲).jpg",
+					"hash": "06"
 				}
 			],
 			"logos": []
@@ -28750,6 +28845,40 @@
 			],
 			"logos": []
 		},
+		"Q14757191": {
+			"id": "Q14757191",
+			"sitelinks": {
+				"fawiki": "سوگند سکوت"
+			},
+			"labels": {
+				"en": "Oath of Silence",
+				"fa": "سوگند سکوت"
+			},
+			"aliases": {
+				"en": [
+					"Sogand-e sokoot"
+				]
+			},
+			"directors": [
+				"Q1672346"
+			],
+			"date": [
+				"+1969-00-00T00:00:00Z"
+			],
+			"imdb": [
+				"tt2388751"
+			],
+			"posters": [
+				{
+					"image": "سوگند_سکوت_(پوستر).jpg",
+					"hash": "70",
+					"designers": [
+						"Q131377887"
+					]
+				}
+			],
+			"logos": []
+		},
 		"Q14757192": {
 			"id": "Q14757192",
 			"sitelinks": {
@@ -29157,6 +29286,38 @@
 				{
 					"image": "Nasle-shojaan.jpg",
 					"hash": "3b"
+				}
+			],
+			"logos": []
+		},
+		"Q14757214": {
+			"id": "Q14757214",
+			"sitelinks": {
+				"fawiki": "نعره طوفان"
+			},
+			"labels": {
+				"en": "The Roar of the Storm",
+				"fa": "نعره طوفان"
+			},
+			"aliases": {
+				"en": [
+					"Roar of the Storm",
+					"The Scream of the Storm"
+				]
+			},
+			"directors": [
+				"Q4980507"
+			],
+			"date": [
+				"+1969-00-00T00:00:00Z"
+			],
+			"imdb": [
+				"tt2168420"
+			],
+			"posters": [
+				{
+					"image": "نعره_طوفان_(پوستر).jpg",
+					"hash": "7e"
 				}
 			],
 			"logos": []
@@ -35221,6 +35382,13 @@
 					"designers": [
 						"Q16051488"
 					]
+				},
+				{
+					"image": "گرگهای_گرسنه_(پوستر).jpg",
+					"hash": "1f",
+					"designers": [
+						"Q16051488"
+					]
 				}
 			],
 			"logos": []
@@ -37962,6 +38130,17 @@
 			"labels": {
 				"en": "Abbas Shabaviz",
 				"fa": "عباس شباویز"
+			}
+		},
+		"Q5951347": {
+			"id": "Q5951347",
+			"sitelinks": {
+				"enwiki": "Arby Ovanessian",
+				"fawiki": "آربی اوانسیان"
+			},
+			"labels": {
+				"en": "Arby Ovanessian",
+				"fa": "آربی اوانسیان"
 			}
 		},
 		"Q5951402": {
