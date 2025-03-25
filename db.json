@@ -31477,7 +31477,7 @@
 		"Q14757364": {
 			"id": "Q14757364",
 			"sitelinks": {
-				"fawiki": "فیل و فنجون"
+				"fawiki": "فیل و فنجان"
 			},
 			"labels": {
 				"en": "Elephant and Teacup",
@@ -35374,7 +35374,9 @@
 			"date": [
 				"+1962-00-00T00:00:00Z"
 			],
-			"imdb": [],
+			"imdb": [
+				"tt0414059"
+			],
 			"posters": [
 				{
 					"image": "The_Hungry_Wolves_movie_poster.jpg",
