@@ -1292,7 +1292,7 @@ input[type="text"] {
 			نتیجه‌ای برای نمایش وجود ندارد.
 		</p>
 		<div v-if="!isShowMore && filteredItems.length > 30" style="text-align: center; padding-top: 1em;">
-			<button @click="showMore" style="display: none" :style="{ display: undefined }">نمایش بیشتر</button>
+			<button @click="showMore" style="display: none" :style="{ display: undefined }">نمایش بیشتر ({{ (filteredItems.length - 30).toLocaleString('fa') }})</button>
 		</div>
 	</div>
 </div>
