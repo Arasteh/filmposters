@@ -1130,7 +1130,7 @@ input[type="text"] {
 					</span>
 				</button>
 				<div style="position: relative; width: 100%;">
-					<input type="text" v-model="searchTerm" placeholder="جستجو…" />
+					<input type="text" v-model="searchTerm" placeholder="جستجو… (برای جستجوی سریع / را فشار دهید)"  />
 					<span v-if="searchTerm" @click="clearSearchTerm" class="clearSearch"
 						style="display: none" :style="{ display: undefined }">
 						<span class="material-symbols-rounded">
@@ -1930,6 +1930,13 @@ window.addEventListener('scroll', () => {
 
 window.addEventListener('keydown', () => {
 	if (event.keyCode === 27) closeLightbox();
+});
+
+window.addEventListener('keydown', (event) => {
+	if (event.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+		event.preventDefault();
+		document.querySelector('input[type="text"][v-model="searchTerm"]').focus();
+	}
 });
 
 return {
