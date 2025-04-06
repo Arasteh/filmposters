@@ -26517,7 +26517,10 @@
 			"posters": [
 				{
 					"image": "پل_(پوستر).jpg",
-					"hash": "64"
+					"hash": "64",
+					"designers": [
+						"Q131377764"
+					]
 				}
 			],
 			"logos": []
