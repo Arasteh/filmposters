@@ -5354,7 +5354,7 @@
 				"fawiki": "دو نفر و نصفی"
 			},
 			"labels": {
-				"en": "Two and a Half Poeple",
+				"en": "Two and a Half People",
 				"fa": "دو نفر و نصفی"
 			},
 			"aliases": {
@@ -20029,11 +20029,20 @@
 				"fawiki": "شارلوت به بازارچه می‌آید"
 			},
 			"labels": {
-				"en": "Charlotte be bazarche miayad",
+				"en": "Charlotte Comes to the Bazaar",
 				"fa": "شارلوت به بازارچه می‌آید"
 			},
-			"aliases": {},
-			"directors": [],
+			"aliases": {
+				"en": [
+					"Charlotte be bazarche miayad"
+				],
+				"fa": [
+					"شارلوت به بازارچه میاید"
+				]
+			},
+			"directors": [
+				"Q133853125"
+			],
 			"date": [
 				"+1977-01-01T00:00:00Z"
 			],
@@ -41171,6 +41180,14 @@
 			"labels": {
 				"en": "Simin Sepehri",
 				"fa": "سیمین سپهری"
+			}
+		},
+		"Q133853125": {
+			"id": "Q133853125",
+			"sitelinks": {},
+			"labels": {
+				"en": "Abbas Jalilvand",
+				"fa": "عباس جلیلوند"
 			}
 		}
 	}
