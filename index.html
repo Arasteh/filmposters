@@ -1934,7 +1934,10 @@ window.addEventListener('keydown', () => {
 window.addEventListener('keydown', (event) => {
 	if (event.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
 		event.preventDefault();
-		document.querySelector('input[type="text"][v-model="searchTerm"]').focus();
+		const searchInput = document.querySelector('input[type="text"][placeholder*="جستجو"]');
+		if (searchInput) {
+			searchInput.focus();
+		}
 	}
 });
 
