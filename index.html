@@ -1129,7 +1129,7 @@ input[type="text"] {
 					</span>
 				</button>
 				<div style="position: relative; width: 100%;">
-					<input type="text" v-model="searchTerm" placeholder="جستجو… (برای جستجوی سریع‌تر / را تایپ کنید)" class="desktop-only" />
+					<input type="text" v-model="searchTerm" :placeholder="searchPlaceholder" @focus="onSearchFocus" @blur="onSearchBlur" class="desktop-only" />
 					<input type="text" v-model="searchTerm" placeholder="جستجو…" class="mobile-only" />
 					<span v-if="searchTerm" @click="clearSearchTerm" class="clearSearch"
 						style="display: none" :style="{ display: undefined }">
@@ -1331,7 +1331,6 @@ const darkMode = ref(false);
 const toggleDarkMode = () => darkMode.value = !darkMode.value;
 const isShowMore = ref(false);
 const showMore = () => isShowMore.value = true;
-
 const designerQuery = ref('');
 const isOptionsCollapsed = ref(true);
 const designerSearchQuery = ref('');
@@ -1344,6 +1343,19 @@ const posterMode = ref(true);
 const combineSimilarChars = ref(false);
 const pixelatedEffect = ref(false);
 const sortOrder = ref('random');
+const searchPlaceholder = ref('جستجو (برای پرش به کادر جستجو / را تایپ کنید)');
+const isSearchFocused = ref(false);
+
+const onSearchFocus = () => {
+	isSearchFocused.value = true;
+	searchPlaceholder.value = 'جستجو';
+};
+
+const onSearchBlur = () => {
+	isSearchFocused.value = false;
+	searchPlaceholder.value = 'جستجو (برای پرش به کادر جستجو / را تایپ کنید)';
+};
+
 const applyInitialFilters = () => {
 	const urlParams = new URLSearchParams(window.location.search);
 	searchTerm.value = urlParams.get('q') || '';
@@ -1957,7 +1969,8 @@ return {
 	sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm, lightboxItem,
 	lightboxImage, openLightbox, closeLightbox, downloadLink, handleImageClick,
 	clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading,
-	handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage
+	handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage,
+	searchPlaceholder, onSearchFocus, onSearchBlur
 };
 
 
