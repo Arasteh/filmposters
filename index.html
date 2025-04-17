@@ -1129,7 +1129,8 @@ input[type="text"] {
 					</span>
 				</button>
 				<div style="position: relative; width: 100%;">
-					<input type="text" v-model="searchTerm" placeholder="برای جستجوی سریع‌تر / را تایپ کنید."  />
+					<input type="text" v-model="searchTerm" placeholder="جستجو… (برای جستجوی سریع‌تر / را تایپ کنید)" class="desktop-only" />
+					<input type="text" v-model="searchTerm" placeholder="جستجو…" class="mobile-only" />
 					<span v-if="searchTerm" @click="clearSearchTerm" class="clearSearch"
 						style="display: none" :style="{ display: undefined }">
 						<span class="material-symbols-rounded">
