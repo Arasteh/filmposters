@@ -2033,7 +2033,10 @@
 			"posters": [
 				{
 					"image": "The_Deer_movie_poster.jpg",
-					"hash": "1e"
+					"hash": "1e",
+					"designers": [
+						"Q10294036"
+					]
 				}
 			],
 			"logos": [
@@ -35085,7 +35088,7 @@
 				"Q5942472"
 			],
 			"date": [
-				"+1966-00-00T00:00:00Z"
+				"+1956-00-00T00:00:00Z"
 			],
 			"imdb": [],
 			"posters": [
