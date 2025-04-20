@@ -95,11 +95,6 @@ body {
 	z-index: 100;
 }
 
-/*
-.search-bar.hidden {
-transform: translateY(-100%);
-}*/
-
 input[type="text"] {
 	width: 100%;
 	padding: 10px;
@@ -1638,7 +1633,8 @@ const filteredYearsInModal = computed(() => {
 		.map(year => [year, groups[year].length.toLocaleString('fa')]);
 });
 
-watch(filteredItems, newValue => {
+watch(filteredItems, (newValue) => {
+	displayedItemsCount.value = 30;
 	if (newValue.length > 100) {
 		isShowMore.value = false;
 	}
