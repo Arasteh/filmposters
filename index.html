@@ -1212,8 +1212,7 @@ input[type="text"] {
 			</div>
 		</div>
 		<div v-if="filteredItems.length > 0" class="results-grid">
-			<div class="item-card" v-for="(item, index) in (isShowMore ? filteredItems : filteredItems.slice(0, 30))"
-				:key="index" style="visibility: hidden" :style="{ visibility: undefined }">
+			<div class="item-card" v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)" :key="index" style="visibility: hidden" :style="{ visibility: undefined }">
 				<div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
 					<div class="image-container">
 						<a @click="handleImageClick(item)" :href="getCommonsUrl(item, posterMode, pixelatedEffect)"
@@ -1291,9 +1290,11 @@ input[type="text"] {
 		<p v-else style="text-align: center; display: none;" :style="{ display: undefined }">
 			نتیجه‌ای برای نمایش وجود ندارد.
 		</p>
-		<div v-if="!isShowMore && filteredItems.length > 30" style="text-align: center; padding-top: 1em;">
-			<button @click="showMore" style="display: none" :style="{ display: undefined }">نمایش بیشتر ({{ (filteredItems.length - 30).toLocaleString('fa') }})</button>
-		</div>
+		<div v-if="displayedItemsCount < filteredItems.length" style="text-align: center; padding-top: 1em;">
+			<button @click="showMore" style="display: none" :style="{ display: undefined }">
+				نمایش بیشتر ({{ Math.min(filteredItems.length - displayedItemsCount, 30).toLocaleString('fa') }})
+			</button>
+</div>
 	</div>
 </div>
 
@@ -1330,7 +1331,6 @@ createApp({ setup: () => {
 const darkMode = ref(false);
 const toggleDarkMode = () => darkMode.value = !darkMode.value;
 const isShowMore = ref(false);
-const showMore = () => isShowMore.value = true;
 const designerQuery = ref('');
 const isOptionsCollapsed = ref(true);
 const designerSearchQuery = ref('');
@@ -1345,6 +1345,10 @@ const pixelatedEffect = ref(false);
 const sortOrder = ref('random');
 const searchPlaceholder = ref('جستجو (برای پرش به کادر جستجو / را تایپ کنید)');
 const isSearchFocused = ref(false);
+const displayedItemsCount = ref(30);
+const showMore = () => {
+	displayedItemsCount.value += 30;
+};
 
 const onSearchFocus = () => {
 	isSearchFocused.value = true;
