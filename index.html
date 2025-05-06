@@ -1195,7 +1195,10 @@ input[type="text"] {
 			<div v-if="filteredItems.length > 0"
 				style="margin-top: 15px; text-align: center; padding-bottom: 5px; visibility: hidden"
 				:style="{ visibility: undefined }"
-			>{{ filteredItemsLength }} از {{ itemsLength }} پوستر ({{ uniqueResultsFilmCount }} از {{ uniqueFilmCount }} فیلم)</div>
+				>
+				<span v-if="hasActiveFilters">{{ filteredItemsLength }} پوستر از {{ itemsLength }} پوستر ({{ uniqueResultsFilmCount }} فیلم از {{ uniqueFilmCount }} فیلم)</span>
+				<span v-else>{{ itemsLength }} پوستر ({{ uniqueFilmCount }} فیلم)</span>
+			</div>
 		</div>
 		<div id="filters" class="filters-container" v-if="activeFilters.length > 0" style="display: none" :style="{ display: undefined }">
 			<div v-for="(filter, index) in activeFilters" :key="index" @click="removeFilter(filter.type, filter.value)"
@@ -1354,6 +1357,14 @@ const onSearchBlur = () => {
 	isSearchFocused.value = false;
 	searchPlaceholder.value = 'جستجو (برای پرش به کادر جستجو / را تایپ کنید)';
 };
+
+const hasActiveFilters = computed(() => {
+	return searchTerm.value || 
+		selectedYear.value || 
+		selectedDesigner.value || 
+		selectedDirector.value || 
+		selectedLetter.value;
+});
 
 const applyInitialFilters = () => {
 	const urlParams = new URLSearchParams(window.location.search);
@@ -1976,7 +1987,8 @@ return {
 	lightboxImage, openLightbox, closeLightbox, downloadLink, handleImageClick,
 	clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading,
 	handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage,
-	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount
+	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount,
+	hasActiveFilters
 };
 
 
