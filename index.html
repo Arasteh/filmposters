@@ -1195,7 +1195,7 @@ input[type="text"] {
 			<div v-if="filteredItems.length > 0"
 				style="margin-top: 15px; text-align: center; padding-bottom: 5px; visibility: hidden"
 				:style="{ visibility: undefined }"
-			>{{ filteredItemsLength }} از {{ itemsLength }} پوستر ({{ uniqueFilmCount }} فیلم)</div>
+			>{{ filteredItemsLength }} از {{ itemsLength }} پوستر ({{ uniqueResultsFilmCount }} از {{ uniqueFilmCount }} فیلم)</div>
 		</div>
 		<div id="filters" class="filters-container" v-if="activeFilters.length > 0" style="display: none" :style="{ display: undefined }">
 			<div v-for="(filter, index) in activeFilters" :key="index" @click="removeFilter(filter.type, filter.value)"
@@ -1434,6 +1434,12 @@ const resetFilters = () => {
 
 const films = Object.values(data.films);
 const uniqueFilmCount = films.length.toLocaleString('fa', { useGrouping: false });
+	
+const uniqueResultsFilmCount = computed(() => {
+	const uniqueFilmIds = new Set(filteredItems.value.map(item => item.film));
+	return uniqueFilmIds.size.toLocaleString('fa', { useGrouping: false });
+});
+
 const items = films.flatMap(film => {
 	return film.posters.map((poster, i) => {
 		const item = {};
@@ -1970,7 +1976,7 @@ return {
 	lightboxImage, openLightbox, closeLightbox, downloadLink, handleImageClick,
 	clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading,
 	handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage,
-	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore
+	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount
 };
 
 
