@@ -1570,33 +1570,34 @@ const letterCounts = (() => {
 
 const filteredItems = computed(() => {
 	let results = items;
-
+	
 	const trimmedSearchTerm = searchTerm.value
 		.replace(/^[\s\u200C]+|[\s\u200C]+$/g, '')
 		.trim();
-
+	
 	if (trimmedSearchTerm.length) {
 		let modifiedSearchTerm;
+		
 		if (exactWordMatch.value) {
 			modifiedSearchTerm = trimmedSearchTerm
-				.split('')
-				.map(char => combineSimilarChars.value 
-					? (similarCharsMapping[char] || char) 
-					: char)
-				.join('');
-
-		modifiedSearchTerm = `\\b${modifiedSearchTerm}\\b`;
+			.split('')
+			.map(char => combineSimilarChars.value 
+				? (similarCharsMapping[char] || char) 
+				: char)
+			.join('');
+			
+			modifiedSearchTerm = `(^|\\s)${modifiedSearchTerm}(?=\\s|$|\\p{P})`;
 		} else {
 			modifiedSearchTerm = trimmedSearchTerm
-				.split('')
-				.map(char => combineSimilarChars.value 
-					? (similarCharsMapping[char] || char) 
-					: char)
-				.join('');
+			.split('')
+			.map(char => combineSimilarChars.value 
+				? (similarCharsMapping[char] || char) 
+				: char)
+			.join('');
 		}
-
+	
 		try {
-			const regex = new RegExp(modifiedSearchTerm, 'i');
+			const regex = new RegExp(modifiedSearchTerm, 'iu');
 			results = results.filter(item => 
 				regex.test(item.filmLabel) || 
 				regex.test(item.aliases || '')
