@@ -1577,21 +1577,33 @@ const filteredItems = computed(() => {
 
 	if (trimmedSearchTerm.length) {
 		let modifiedSearchTerm;
-	
 		if (exactWordMatch.value) {
-			modifiedSearchTerm = `\\b${trimmedSearchTerm}\\b`;
+			modifiedSearchTerm = trimmedSearchTerm
+				.split('')
+				.map(char => combineSimilarChars.value 
+					? (similarCharsMapping[char] || char) 
+					: char)
+				.join('');
+
+		modifiedSearchTerm = `\\b${modifiedSearchTerm}\\b`;
 		} else {
 			modifiedSearchTerm = trimmedSearchTerm
 				.split('')
-				.map(char => (combineSimilarChars.value ? (similarCharsMapping[char] || char) : char))
+				.map(char => combineSimilarChars.value 
+					? (similarCharsMapping[char] || char) 
+					: char)
 				.join('');
 		}
-		
-		const regex = new RegExp(modifiedSearchTerm, 'i');
-		results = results.filter(item => 
-			regex.test(item.filmLabel) || 
-			regex.test(item.aliases || '')
-		);
+
+		try {
+			const regex = new RegExp(modifiedSearchTerm, 'i');
+			results = results.filter(item => 
+				regex.test(item.filmLabel) || 
+				regex.test(item.aliases || '')
+			);
+		} catch (e) {
+			console.error("Error in regex:", e);
+		}
 	}
 
 	if (selectedYear.value) {
