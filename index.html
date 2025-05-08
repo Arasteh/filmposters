@@ -1577,30 +1577,21 @@ const filteredItems = computed(() => {
 
 	if (trimmedSearchTerm.length) {
 		let modifiedSearchTerm;
-
+	
 		if (exactWordMatch.value) {
-		modifiedSearchTerm = `\\b${trimmedSearchTerm}\\b`;
-	} else {
-		modifiedSearchTerm = trimmedSearchTerm
-		.split('')
-		.map(char => (combineSimilarChars.value ? (similarCharsMapping[char] || char) : char)
-		.join('');
-	}
-
-	const regex = new RegExp(modifiedSearchTerm, 'i');
-	results = results.filter(item => 
-		regex.test(item.filmLabel) || 
-		regex.test(item.aliases || '')
-	);
-	}
-
-	if (searchTerm.value.length) {
-		const modifiedSearchTerm = searchTerm.value
-			.split('')
-			.map(char => (combineSimilarChars.value ? (similarCharsMapping[char] || char) : char))
-			.join('');
+			modifiedSearchTerm = `\\b${trimmedSearchTerm}\\b`;
+		} else {
+			modifiedSearchTerm = trimmedSearchTerm
+				.split('')
+				.map(char => (combineSimilarChars.value ? (similarCharsMapping[char] || char) : char))
+				.join('');
+		}
+		
 		const regex = new RegExp(modifiedSearchTerm, 'i');
-		results = results.filter(item => regex.test(item.filmLabel) || regex.test(item.aliases || ''));
+		results = results.filter(item => 
+			regex.test(item.filmLabel) || 
+			regex.test(item.aliases || '')
+		);
 	}
 
 	if (selectedYear.value) {
