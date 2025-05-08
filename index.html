@@ -1177,6 +1177,20 @@ input[type="text"] {
 						</span>
 					</label>
 				</div>
+
+				<div class="similar-chars-toggle">
+					<label for="exactWordSwitch" style="cursor: pointer;">
+						<input type="checkbox" id="exactWordSwitch" v-model="exactWordMatch">
+						جستجوی دقیق
+					</label>
+					<label>
+						<span class="material-symbols-rounded tooltip">
+							info
+							<span class="tooltiptext">فقط نتایجی که دقیقاً با کلمه وارد شده مطابقت دارند</span>
+						</span>
+					</label>
+				</div>
+
 				<div class="sort-order-container">
 					<label>
 						<span class="material-symbols-rounded">
@@ -1344,6 +1358,7 @@ const sortOrder = ref('random');
 const searchPlaceholder = ref('جستجو (برای پرش به کادر جستجو / را تایپ کنید)');
 const isSearchFocused = ref(false);
 const displayedItemsCount = ref(30);
+const exactWordMatch = ref(false);
 const showMore = () => {
 	displayedItemsCount.value += 30;
 };
@@ -1555,6 +1570,29 @@ const letterCounts = (() => {
 
 const filteredItems = computed(() => {
 	let results = items;
+
+	const trimmedSearchTerm = searchTerm.value
+		.replace(/^[\s\u200C]+|[\s\u200C]+$/g, '')
+		.trim();
+
+	if (trimmedSearchTerm.length) {
+		let modifiedSearchTerm;
+
+		if (exactWordMatch.value) {
+		modifiedSearchTerm = `\\b${trimmedSearchTerm}\\b`;
+	} else {
+		modifiedSearchTerm = trimmedSearchTerm
+		.split('')
+		.map(char => (combineSimilarChars.value ? (similarCharsMapping[char] || char) : char)
+		.join('');
+	}
+
+	const regex = new RegExp(modifiedSearchTerm, 'i');
+	results = results.filter(item => 
+		regex.test(item.filmLabel) || 
+		regex.test(item.aliases || '')
+	);
+	}
 
 	if (searchTerm.value.length) {
 		const modifiedSearchTerm = searchTerm.value
@@ -1988,7 +2026,7 @@ return {
 	clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading,
 	handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage,
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount,
-	hasActiveFilters
+	hasActiveFilters, exactWordMatch
 };
 
 
