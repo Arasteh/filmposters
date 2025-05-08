@@ -1165,6 +1165,19 @@ input[type="text"] {
 				</div>
 
 				<div class="similar-chars-toggle">
+					<label for="exactWordSwitch" style="cursor: pointer;">
+						<input type="checkbox" id="exactWordSwitch" v-model="exactWordMatch">
+						جستجوی دقیق
+					</label>
+					<label>
+						<span class="material-symbols-rounded tooltip">
+							info
+							<span class="tooltiptext">فقط نتایجی که دقیقاً با کلمه وارد شده مطابقت دارند</span>
+						</span>
+					</label>
+				</div>
+
+				<div class="similar-chars-toggle">
 					<label for="pixelatedSwitch" style="cursor: pointer;">
 						<input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect" :disabled="posterMode ? null : true">
 						سانسور
@@ -1174,19 +1187,6 @@ input[type="text"] {
 							info
 							<span class="tooltiptext" v-if="posterMode">مخفی کردن تصاویری که ممکن است نامناسب
 								باشند</span>
-						</span>
-					</label>
-				</div>
-
-				<div class="similar-chars-toggle">
-					<label for="exactWordSwitch" style="cursor: pointer;">
-						<input type="checkbox" id="exactWordSwitch" v-model="exactWordMatch">
-						جستجوی دقیق
-					</label>
-					<label>
-						<span class="material-symbols-rounded tooltip">
-							info
-							<span class="tooltiptext">فقط نتایجی که دقیقاً با کلمه وارد شده مطابقت دارند</span>
 						</span>
 					</label>
 				</div>
