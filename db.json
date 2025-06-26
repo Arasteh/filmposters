@@ -309,7 +309,7 @@
 			"id": "Q2308266",
 			"sitelinks": {
 				"enwiki": "Where Is the Friend's House?",
-				"fawiki": "خانه دوست کجاست؟"
+				"fawiki": "خانه دوست کجاست"
 			},
 			"labels": {
 				"en": "Where is the Friend's Home?",
@@ -654,7 +654,7 @@
 			"id": "Q3021408",
 			"sitelinks": {
 				"enwiki": "Love-stricken",
-				"fawiki": "دلشدگان"
+				"fawiki": "دل‌شدگان"
 			},
 			"labels": {
 				"en": "Del Shodegan",
@@ -4978,7 +4978,7 @@
 		"Q5869466": {
 			"id": "Q5869466",
 			"sitelinks": {
-				"fawiki": "سرنوشت در را می‌کوبد"
+				"fawiki": "سرنوشت در را میکوبد"
 			},
 			"labels": {
 				"fa": "سرنوشت در را می‌کوبد"
@@ -8631,7 +8631,7 @@
 			"id": "Q14415077",
 			"sitelinks": {
 				"enwiki": "Eagles (1984 film)",
-				"fawiki": "عقاب‌ها (فیلم)"
+				"fawiki": "عقابها (فیلم)"
 			},
 			"labels": {
 				"en": "Eagles",
@@ -9145,7 +9145,7 @@
 		"Q14755205": {
 			"id": "Q14755205",
 			"sitelinks": {
-				"fawiki": "جیب‌برها به بهشت نمی‌روند"
+				"fawiki": "جیب‌برها به بهشت نمی‌روند!"
 			},
 			"labels": {
 				"en": "Pickpocketers Don't Go to Heaven",
@@ -11117,7 +11117,9 @@
 			"date": [
 				"+1994-00-00T00:00:00Z"
 			],
-			"imdb": [],
+			"imdb": [
+				"tt13795618"
+			],
 			"posters": [
 				{
 					"image": "روزهای_خوب_زندگی_(پوستر).jpg",
@@ -13031,7 +13033,7 @@
 		"Q14756293": {
 			"id": "Q14756293",
 			"sitelinks": {
-				"fawiki": "تبعیدی‌ها (فیلم ۱۳۷۰)"
+				"fawiki": "تبعیدیها (فیلم ۱۳۷۰)"
 			},
 			"labels": {
 				"fa": "تبعیدی‌ها"
@@ -13265,7 +13267,7 @@
 		"Q14756309": {
 			"id": "Q14756309",
 			"sitelinks": {
-				"fawiki": "شتاب‌زده (فیلم ۱۳۷۰)"
+				"fawiki": "شتابزده (فیلم ۱۳۷۰)"
 			},
 			"labels": {
 				"fa": "شتابزده"
@@ -15806,7 +15808,7 @@
 		"Q14756442": {
 			"id": "Q14756442",
 			"sitelinks": {
-				"fawiki": "جنگل‌بان"
+				"fawiki": "جنگلبان (فیلم)"
 			},
 			"labels": {
 				"fa": "جنگل‌بان"
@@ -18403,7 +18405,7 @@
 			"id": "Q14756552",
 			"sitelinks": {
 				"enwiki": "The Flag Bearer",
-				"fawiki": "پرچم‌دار"
+				"fawiki": "پرچمدار"
 			},
 			"labels": {
 				"en": "The Flag Bearer (1984 film)",
@@ -25682,7 +25684,7 @@
 		"Q14756982": {
 			"id": "Q14756982",
 			"sitelinks": {
-				"fawiki": "باشرف‌ها"
+				"fawiki": "باشرفها"
 			},
 			"labels": {
 				"fa": "باشرف‌ها"
@@ -27035,7 +27037,7 @@
 		"Q14757060": {
 			"id": "Q14757060",
 			"sitelinks": {
-				"fawiki": "برای که قلب‌ها می‌تپد"
+				"fawiki": "برای که قلبها میطپد"
 			},
 			"labels": {
 				"fa": "برای که قلب‌ها می‌تپد"
@@ -28401,7 +28403,7 @@
 		"Q14757139": {
 			"id": "Q14757139",
 			"sitelinks": {
-				"fawiki": "خشم عقاب‌ها"
+				"fawiki": "خشم عقابها"
 			},
 			"labels": {
 				"fa": "خشم عقاب‌ها"
@@ -34659,7 +34661,7 @@
 		"Q14757572": {
 			"id": "Q14757572",
 			"sitelinks": {
-				"fawiki": "اینم یک جورشه"
+				"fawiki": "اینم یه جورشه"
 			},
 			"labels": {
 				"fa": "اینم یه جورشه"
@@ -34904,7 +34906,7 @@
 		"Q14757596": {
 			"id": "Q14757596",
 			"sitelinks": {
-				"fawiki": "چشم‌به‌راه (فیلم)"
+				"fawiki": "چشم‌براه (فیلم)"
 			},
 			"labels": {
 				"en": "Awaited",
@@ -35357,7 +35359,7 @@
 		"Q14757619": {
 			"id": "Q14757619",
 			"sitelinks": {
-				"fawiki": "خورشید می‌درخشد"
+				"fawiki": "خورشید میدرخشد"
 			},
 			"labels": {
 				"en": "The Sun Shines",
@@ -35955,7 +35957,7 @@
 			"id": "Q26000040",
 			"sitelinks": {
 				"enwiki": "The Nights of Tehran",
-				"fawiki": "شب‌های تهران (فیلم ۱۳۳۲)"
+				"fawiki": "شبهای تهران (فیلم ۱۳۳۲)"
 			},
 			"labels": {
 				"en": "The Nights of Tehran",
