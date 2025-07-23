@@ -7007,9 +7007,13 @@
 			},
 			"labels": {
 				"en": "City of Mice",
-				"fa": "شهر موش ها"
+				"fa": "شهر موشها"
 			},
-			"aliases": {},
+			"aliases": {
+				"fa": [
+					"شهر موش‌ها"
+				]
+			},
 			"directors": [
 				"Q5955198"
 			],
@@ -25120,7 +25124,10 @@
 			"posters": [
 				{
 					"image": "علی_کنکوری_(پوستر).jpg",
-					"hash": "8e"
+					"hash": "8e",
+					"designers": [
+						"Q131377764"
+					]
 				}
 			],
 			"logos": [
