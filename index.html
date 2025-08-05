@@ -72,6 +72,13 @@ body {
 	align-items: center;
 	max-width: 100%;
 	overflow-x: hidden;
+    /* Added transition for smooth padding adjustment */
+    transition: padding-top 0.3s ease-in-out;
+}
+
+/* Class to push down main content when search bar is visible */
+.main-content-pushed {
+    padding-top: 120px; /* Approximate height of search bar + spacing */
 }
 
 .search-container {
@@ -83,26 +90,30 @@ body {
 }
 
 .search-bar {
-	position: sticky;
-	top: 0;
+	position: fixed; /* Changed from sticky to fixed */
+	top: -120px; /* Hide it completely above the viewport (adjust based on actual height) */
+	left: 0;
+	width: 100%; /* Ensure it spans full width */
 	background-color: var(--search-background);
 	padding: 10px;
-	/* Add transition for smooth appearance/disappearance */
-	transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-	border-radius: 16px;
-	margin-bottom: 15px;
-	max-width: 960px;
-	width: 100%;
+	/* Changed transition property from transform to top */
+	transition: top 0.3s ease-in-out, opacity 0.3s ease-in-out;
+	/* Adjusted border-radius for a fixed top bar */
+	border-radius: 0 0 16px 16px; 
+	/* Removed margin-bottom as it's fixed */
+	/* margin-bottom: 15px; */ 
+	max-width: 960px; /* Keep max-width for alignment */
+	margin-left: auto; /* Center fixed element */
+	margin-right: auto; /* Center fixed element */
 	z-index: 100;
-	/* Initially hide the search bar by moving it up */
-	transform: translateY(-100%);
-	opacity: 0;
+	opacity: 0; /* Start with opacity 0 */
+	box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Added a subtle shadow */
 }
 
 /* Class to make the search bar visible */
 .search-bar.visible {
-	transform: translateY(0);
-	opacity: 1;
+	top: 0; /* Bring it into view */
+	opacity: 1; /* Make it fully visible */
 }
 
 input[type="text"] {
@@ -1119,7 +1130,7 @@ input[type="text"] {
 		
 	</div>
 
-	<div id="main-content">
+	<div id="main-content" :class="{ 'main-content-pushed': isSearchBarVisible }">
 		<button @click="bringToTop" id="toTop" :style="{ bottom: visibleBringToTop ? '20px' : '-100px' }">
 			<span class="material-symbols-rounded">
 				north
@@ -2018,22 +2029,27 @@ window.addEventListener('scroll', () => {
 });
 
 // New scroll handling for search bar visibility
-let scrollTimeout = null;
+const searchBarHeight = 120; // Approximate height of the search bar, adjust if needed
+
 const handleScroll = () => {
     const currentScrollY = window.scrollY;
+    const mainContent = document.getElementById('main-content');
 
     // Always show search bar at the very top
     if (currentScrollY === 0) {
         isSearchBarVisible.value = true;
+        mainContent.classList.add('main-content-pushed');
     } else if (currentScrollY < lastScrollY.value) {
         // Scrolling up
-        if (currentScrollY > 50) { // Only show if scrolled past a certain threshold
+        if (currentScrollY > 50) { // Only show if scrolled up significantly
             isSearchBarVisible.value = true;
+            mainContent.classList.add('main-content-pushed');
         }
     } else {
         // Scrolling down
-        if (currentScrollY > 50) { // Only hide if scrolled past a certain threshold
+        if (currentScrollY > searchBarHeight) { // Only hide if scrolled down past its height
             isSearchBarVisible.value = false;
+            mainContent.classList.remove('main-content-pushed');
         }
     }
     lastScrollY.value = currentScrollY;
@@ -2041,10 +2057,15 @@ const handleScroll = () => {
 
 onMounted(() => {
     window.addEventListener('scroll', handleScroll);
-});
-
-onUnmounted(() => {
-    window.removeEventListener('scroll', handleScroll);
+    // Initial check for search bar visibility and main content padding on load
+    const mainContent = document.getElementById('main-content');
+    if (window.scrollY === 0) {
+        isSearchBarVisible.value = true;
+        mainContent.classList.add('main-content-pushed');
+    } else {
+        isSearchBarVisible.value = false;
+        mainContent.classList.remove('main-content-pushed');
+    }
 });
 
 
