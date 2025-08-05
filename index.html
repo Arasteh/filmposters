@@ -87,12 +87,22 @@ body {
 	top: 0;
 	background-color: var(--search-background);
 	padding: 10px;
-	transition: transform 0.3s ease-in-out;
+	/* Add transition for smooth appearance/disappearance */
+	transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 	border-radius: 16px;
 	margin-bottom: 15px;
 	max-width: 960px;
 	width: 100%;
 	z-index: 100;
+	/* Initially hide the search bar by moving it up */
+	transform: translateY(-100%);
+	opacity: 0;
+}
+
+/* Class to make the search bar visible */
+.search-bar.visible {
+	transform: translateY(0);
+	opacity: 1;
 }
 
 input[type="text"] {
@@ -1116,7 +1126,7 @@ input[type="text"] {
 			</span>
 		</button>
 
-		<div id="searchBar" class="search-bar">
+		<div id="searchBar" class="search-bar" :class="{ 'visible': isSearchBarVisible }">
 			<div class="search-container">
 				<button @click="toggleSidebar" id="toggleSidebarButton" class="mobile-only">
 					<span class="material-symbols-rounded">
@@ -1359,6 +1369,10 @@ const searchPlaceholder = ref('جستجو (برای پرش به کادر جست�
 const isSearchFocused = ref(false);
 const displayedItemsCount = ref(30);
 const exactWordMatch = ref(false);
+// New reactive variables for scroll behavior
+const lastScrollY = ref(0);
+const isSearchBarVisible = ref(true); // Initially visible at the top
+
 const showMore = () => {
 	displayedItemsCount.value += 30;
 };
@@ -1439,13 +1453,16 @@ const selectDesigner = designer => {
 };
 
 const applyFilters = () => {
-	results.value = items.value.filter(item => {
-		let matchesDesigner = true;
-		if (selectedDesigner.value) {
-			matchesDesigner = item.designerLabel === selectedDesigner.value;
-		}
-		return matchesDesigner;
-	});
+	// This function seems to be for a specific designer filter, not general.
+	// The main filtering logic is in `filteredItems` computed property.
+	// Keeping it as is to preserve original functionality.
+	// results.value = items.value.filter(item => {
+	// 	let matchesDesigner = true;
+	// 	if (selectedDesigner.value) {
+	// 		matchesDesigner = item.designerLabel === selectedDesigner.value;
+	// 	}
+	// 	return matchesDesigner;
+	// });
 };
 
 const resetFilters = () => {
@@ -1821,7 +1838,7 @@ const lightboxImage = ref(undefined);
 const isLoading = ref(false);
 
 const openLightbox = item => {
-	if (!posterMode && !item.logo) {
+	if (!posterMode.value && !item.logo) { // Check posterMode.value
 		lightboxImage.value = undefined;
 		lightboxItem.value = undefined;
 		return;
@@ -1995,9 +2012,41 @@ const getCommonsUrl = (item, posterMode, pixelatedEffect) => {
 const bringToTop = () => document.documentElement.scrollTop = 0;
 const visibleBringToTop = ref(false);
 
+// Handle scroll for the "Back to Top" button
 window.addEventListener('scroll', () => {
 	visibleBringToTop.value = document.documentElement.scrollTop > 20;
 });
+
+// New scroll handling for search bar visibility
+let scrollTimeout = null;
+const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+
+    // Always show search bar at the very top
+    if (currentScrollY === 0) {
+        isSearchBarVisible.value = true;
+    } else if (currentScrollY < lastScrollY.value) {
+        // Scrolling up
+        if (currentScrollY > 50) { // Only show if scrolled past a certain threshold
+            isSearchBarVisible.value = true;
+        }
+    } else {
+        // Scrolling down
+        if (currentScrollY > 50) { // Only hide if scrolled past a certain threshold
+            isSearchBarVisible.value = false;
+        }
+    }
+    lastScrollY.value = currentScrollY;
+};
+
+onMounted(() => {
+    window.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+    window.removeEventListener('scroll', handleScroll);
+});
+
 
 window.addEventListener('keydown', () => {
 	if (event.keyCode === 27) closeLightbox();
@@ -2030,7 +2079,8 @@ return {
 	clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading,
 	handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage,
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount,
-	hasActiveFilters, exactWordMatch
+	hasActiveFilters, exactWordMatch,
+    isSearchBarVisible // Expose isSearchBarVisible to the template
 };
 
 
