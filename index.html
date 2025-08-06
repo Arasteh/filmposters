@@ -76,12 +76,6 @@ body {
     transition: padding-top 0.3s ease-in-out;
 }
 
-/* Class to push down main content when search bar is visible */
-/* This class is now dynamically controlled by inline style in Vue */
-/* .main-content-pushed {
-    padding-top: 120px; 
-} */
-
 .search-container {
 	display: flex;
 	align-items: center;
@@ -91,24 +85,23 @@ body {
 }
 
 .search-bar {
-	position: fixed; /* Changed from sticky to fixed */
+	position: fixed;
 	top: -120px; /* Hide it completely above the viewport (adjust based on actual height) */
-	left: 0;
-	width: 100%; /* Ensure it spans full width */
-	background-color: var(--search-background);
-	padding: 10px;
-	/* Changed transition property from transform to top */
-	transition: top 0.3s ease-in-out, opacity 0.3s ease-in-out;
-	/* Adjusted border-radius for a fixed top bar */
-	border-radius: 0 0 16px 16px; 
-	/* Removed margin-bottom as it's fixed */
-	/* margin-bottom: 15px; */ 
-	max-width: 960px; /* Keep max-width for alignment */
-	margin-left: auto; /* Center fixed element */
-	margin-right: auto; /* Center fixed element */
+	/* left and width will be controlled by Vue dynamic style */
 	z-index: 100;
-	opacity: 0; /* Start with opacity 0 */
-	box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Added a subtle shadow */
+	opacity: 0;
+	transition: top 0.3s ease-in-out, opacity 0.3s ease-in-out, left 0.3s ease-in-out, width 0.3s ease-in-out; /* Add left and width to transition */
+}
+
+/* New inner div for search bar content to handle max-width and centering */
+.search-bar-inner {
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto; /* Center the inner content */
+    padding: 10px; /* Original padding from .search-bar */
+    border-radius: 0 0 16px 16px; /* Original border-radius from .search-bar */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Original box-shadow from .search-bar */
+    background-color: var(--search-background); /* Moved from .search-bar */
 }
 
 /* Class to make the search bar visible */
@@ -800,8 +793,14 @@ input[type="text"] {
 	}
 
 	.search-bar {
-		max-width: 100%;
-		padding: 15px;
+		/* Overrides dynamic left/width for mobile */
+		left: 0 !important;
+		width: 100% !important;
+	}
+
+	.search-bar-inner {
+		padding: 15px; /* Original mobile padding */
+		border-radius: 16px; /* Original mobile border-radius */
 	}
 
 	.results-grid {
@@ -1138,103 +1137,105 @@ input[type="text"] {
 			</span>
 		</button>
 
-		<div id="searchBar" class="search-bar" :class="{ 'visible': isSearchBarVisible }" ref="searchBarRef">
-			<div class="search-container">
-				<button @click="toggleSidebar" id="toggleSidebarButton" class="mobile-only">
-					<span class="material-symbols-rounded">
-						menu
-					</span>
-				</button>
-				<div style="position: relative; width: 100%;">
-					<input type="text" v-model="searchTerm" :placeholder="searchPlaceholder" @focus="onSearchFocus" @blur="onSearchBlur" class="desktop-only" />
-					<input type="text" v-model="searchTerm" placeholder="جستجو…" class="mobile-only" />
-					<span v-if="searchTerm" @click="clearSearchTerm" class="clearSearch"
-						style="display: none" :style="{ display: undefined }">
-						<span class="material-symbols-rounded">
-							close
-						</span>
-					</span>
-				</div>
-				<button @click="resetFilters" id="resetSearch">
-					<span class="material-symbols-rounded">
-						refresh
-					</span>
-				</button>
-				<button @click="toggleOptions" id="collapseButton" class="collapse-button mobile-only"
-					:class="collapseIconClass(isOptionsCollapsed)">
-					<span class="material-symbols-rounded" style="font-size: xx-large;">
-						keyboard_arrow_up
-					</span>
-				</button>
-			</div>
-			<div class="options" :class="{ 'collapsed': isOptionsCollapsed }">
-				<div class="toggle-switch" @click="togglePosterMode"
-					id="posterLogoSwitch" data-mode="poster" :data-mode="posterMode ? 'poster' : 'logo'">
-					<span id="posterButton" class="active" :class="{ active: posterMode }">پوستر</span>
-					<span :class="{ active: !posterMode }">لوگو</span>
-				</div>
-				<div class="similar-chars-toggle">
-					<label for="similarCharsSwitch" style="cursor: pointer;">
-						<input type="checkbox" id="similarCharsSwitch" v-model="combineSimilarChars">
-						حروف مشابه
-					</label>
-					<label>
-						<span class="material-symbols-rounded tooltip">
-							info
-							<span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود: مانند س، ش</span>
-						</span>
-					</label>
-				</div>
+		<div id="searchBar" class="search-bar" :class="{ 'visible': isSearchBarVisible }" ref="searchBarRef" :style="searchBarDynamicStyle">
+            <div class="search-bar-inner"> <!-- NEW WRAPPER -->
+                <div class="search-container">
+                    <button @click="toggleSidebar" id="toggleSidebarButton" class="mobile-only">
+                        <span class="material-symbols-rounded">
+                            menu
+                        </span>
+                    </button>
+                    <div style="position: relative; width: 100%;">
+                        <input type="text" v-model="searchTerm" :placeholder="searchPlaceholder" @focus="onSearchFocus" @blur="onSearchBlur" class="desktop-only" />
+                        <input type="text" v-model="searchTerm" placeholder="جستجو…" class="mobile-only" />
+                        <span v-if="searchTerm" @click="clearSearchTerm" class="clearSearch"
+                            style="display: none" :style="{ display: undefined }">
+                            <span class="material-symbols-rounded">
+                                close
+                            </span>
+                        </span>
+                    </div>
+                    <button @click="resetFilters" id="resetSearch">
+                        <span class="material-symbols-rounded">
+                            refresh
+                        </span>
+                    </button>
+                    <button @click="toggleOptions" id="collapseButton" class="collapse-button mobile-only"
+                        :class="collapseIconClass(isOptionsCollapsed)">
+                        <span class="material-symbols-rounded" style="font-size: xx-large;">
+                            keyboard_arrow_up
+                        </span>
+                    </button>
+                </div>
+                <div class="options" :class="{ 'collapsed': isOptionsCollapsed }">
+                    <div class="toggle-switch" @click="togglePosterMode"
+                        id="posterLogoSwitch" data-mode="poster" :data-mode="posterMode ? 'poster' : 'logo'">
+                        <span id="posterButton" class="active" :class="{ active: posterMode }">پوستر</span>
+                        <span :class="{ active: !posterMode }">لوگو</span>
+                    </div>
+                    <div class="similar-chars-toggle">
+                        <label for="similarCharsSwitch" style="cursor: pointer;">
+                            <input type="checkbox" id="similarCharsSwitch" v-model="combineSimilarChars">
+                            حروف مشابه
+                        </label>
+                        <label>
+                            <span class="material-symbols-rounded tooltip">
+                                info
+                                <span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود: مانند س، ش</span>
+                            </span>
+                        </label>
+                    </div>
 
-				<div class="similar-chars-toggle">
-					<label for="exactWordSwitch" style="cursor: pointer;">
-						<input type="checkbox" id="exactWordSwitch" v-model="exactWordMatch">
-						جستجوی دقیق
-					</label>
-					<label>
-						<span class="material-symbols-rounded tooltip">
-							info
-							<span class="tooltiptext">فقط نتایجی که دقیقاً با کلمه وارد شده مطابقت دارند</span>
-						</span>
-					</label>
-				</div>
+                    <div class="similar-chars-toggle">
+                        <label for="exactWordSwitch" style="cursor: pointer;">
+                            <input type="checkbox" id="exactWordSwitch" v-model="exactWordMatch">
+                            جستجوی دقیق
+                        </label>
+                        <label>
+                            <span class="material-symbols-rounded tooltip">
+                                info
+                                <span class="tooltiptext">فقط نتایجی که دقیقاً با کلمه وارد شده مطابقت دارند</span>
+                            </span>
+                        </label>
+                    </div>
 
-				<div class="similar-chars-toggle">
-					<label for="pixelatedSwitch" style="cursor: pointer;">
-						<input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect" :disabled="posterMode ? null : true">
-						سانسور
-					</label>
-					<label>
-						<span class="material-symbols-rounded tooltip">
-							info
-							<span class="tooltiptext" v-if="posterMode">مخفی کردن تصاویری که ممکن است نامناسب
-								باشند</span>
-						</span>
-					</label>
-				</div>
+                    <div class="similar-chars-toggle">
+                        <label for="pixelatedSwitch" style="cursor: pointer;">
+                            <input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect" :disabled="posterMode ? null : true">
+                            سانسور
+                        </label>
+                        <label>
+                            <span class="material-symbols-rounded tooltip">
+                                info
+                                <span class="tooltiptext" v-if="posterMode">مخفی کردن تصاویری که ممکن است نامناسب
+                                    باشند</span>
+                            </span>
+                        </label>
+                    </div>
 
-				<div class="sort-order-container">
-					<label>
-						<span class="material-symbols-rounded">
-							swap_vert
-						</span>
-					</label>
-					<div class="triple-switch" :data-sort="sortOrder">
-						<span :class="{ active: sortOrder === 'alphabetical' }"
-							@click="sortOrder = 'alphabetical'">الفبایی</span>
-						<span :class="{ active: sortOrder === 'year' }" @click="sortOrder = 'year'">سال</span>
-						<span id="randomOrderButton" class="active"
-							:class="{ active: sortOrder === 'random' }" @click="sortOrder = 'random'">تصادفی</span>
-					</div>
-				</div>
-			</div>
-			<div v-if="filteredItems.length > 0"
-				style="margin-top: 15px; text-align: center; padding-bottom: 5px; visibility: hidden"
-				:style="{ visibility: undefined }"
-				>
-				<span v-if="hasActiveFilters">{{ filteredItemsLength }} از {{ itemsLength }} پوستر ({{ uniqueResultsFilmCount }} از {{ uniqueFilmCount }} فیلم)</span>
-				<span v-else>{{ itemsLength }} پوستر ({{ uniqueFilmCount }} فیلم)</span>
-			</div>
+                    <div class="sort-order-container">
+                        <label>
+                            <span class="material-symbols-rounded">
+                                swap_vert
+                            </span>
+                        </label>
+                        <div class="triple-switch" :data-sort="sortOrder">
+                            <span :class="{ active: sortOrder === 'alphabetical' }"
+                                @click="sortOrder = 'alphabetical'">الفبایی</span>
+                            <span :class="{ active: sortOrder === 'year' }" @click="sortOrder = 'year'">سال</span>
+                            <span id="randomOrderButton" class="active"
+                                :class="{ active: sortOrder === 'random' }" @click="sortOrder = 'random'">تصادفی</span>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="filteredItems.length > 0"
+                    style="margin-top: 15px; text-align: center; padding-bottom: 5px; visibility: hidden"
+                    :style="{ visibility: undefined }"
+                    >
+                    <span v-if="hasActiveFilters">{{ filteredItemsLength }} از {{ itemsLength }} پوستر ({{ uniqueResultsFilmCount }} از {{ uniqueFilmCount }} فیلم)</span>
+                    <span v-else>{{ itemsLength }} پوستر ({{ uniqueFilmCount }} فیلم)</span>
+                </div>
+            </div>
 		</div>
 		<div id="filters" class="filters-container" v-if="activeFilters.length > 0" style="display: none" :style="{ display: undefined }">
 			<div v-for="(filter, index) in activeFilters" :key="index" @click="removeFilter(filter.type, filter.value)"
@@ -2040,20 +2041,22 @@ const handleScroll = () => {
     const currentScrollY = window.scrollY;
     // Get the actual height of the search bar dynamically
     const currentSearchBarHeight = searchBarRef.value ? searchBarRef.value.offsetHeight : 0;
+    const searchBarInnerHeight = searchBarRef.value ? searchBarRef.value.querySelector('.search-bar-inner').offsetHeight : 0;
+
 
     if (currentScrollY === 0) {
         // At the very top, always show search bar
         isSearchBarVisible.value = true;
-        mainContentPaddingTop.value = currentSearchBarHeight + 15; // Add some extra spacing below the search bar
+        mainContentPaddingTop.value = searchBarInnerHeight + 15; // Add some extra spacing below the search bar
     } else if (currentScrollY < lastScrollY.value) {
         // Scrolling up
         if (currentScrollY > 50) { // Only show if scrolled up significantly (past initial header area)
             isSearchBarVisible.value = true;
-            mainContentPaddingTop.value = currentSearchBarHeight + 15;
+            mainContentPaddingTop.value = searchBarInnerHeight + 15;
         }
     } else {
         // Scrolling down
-        if (currentScrollY > currentSearchBarHeight) { // Only hide if scrolled down past its full height
+        if (currentScrollY > searchBarInnerHeight) { // Only hide if scrolled down past its full height
             isSearchBarVisible.value = false;
             mainContentPaddingTop.value = 0; // Remove padding when hidden
         }
@@ -2061,15 +2064,29 @@ const handleScroll = () => {
     lastScrollY.value = currentScrollY;
 };
 
+// Computed style for the search bar to handle dynamic width and left position
+const searchBarDynamicStyle = computed(() => {
+    let style = {};
+    if (sidebarVisible.value) {
+        style.left = `${sidebarWidth.value}px`;
+        style.width = `calc(100% - ${sidebarWidth.value}px)`;
+    } else {
+        style.left = '0px';
+        style.width = '100%';
+    }
+    return style;
+});
+
+
 onMounted(() => {
     window.addEventListener('scroll', handleScroll);
     // Initial setup on mount
     nextTick(() => { // Ensure searchBarRef is available after initial render
         if (searchBarRef.value) {
-            const initialSearchBarHeight = searchBarRef.value.offsetHeight;
+            const initialSearchBarInnerHeight = searchBarRef.value.querySelector('.search-bar-inner').offsetHeight;
             if (window.scrollY === 0) {
                 isSearchBarVisible.value = true;
-                mainContentPaddingTop.value = initialSearchBarHeight + 15;
+                mainContentPaddingTop.value = initialSearchBarInnerHeight + 15;
             } else {
                 isSearchBarVisible.value = false;
                 mainContentPaddingTop.value = 0;
@@ -2117,7 +2134,8 @@ return {
 	hasActiveFilters, exactWordMatch,
     isSearchBarVisible, // Expose isSearchBarVisible to the template
     searchBarRef,       // Expose searchBarRef to the template
-    mainContentPaddingTop // Expose mainContentPaddingTop to the template
+    mainContentPaddingTop, // Expose mainContentPaddingTop to the template
+    searchBarDynamicStyle // Expose the computed style for the search bar
 };
 
 
