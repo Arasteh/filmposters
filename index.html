@@ -1204,6 +1204,20 @@ input[type="text"] {
                             </span>
                         </label>
                     </div>
+					
+                    <div class="similar-chars-toggle">
+                        <label for="pixelatedSwitch" style="cursor: pointer;">
+                            <input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect" :disabled="posterMode ? null : true">
+                            سانسور
+                        </label>
+                        <label>
+                            <span class="material-symbols-rounded tooltip">
+                                info
+                                <span class="tooltiptext" v-if="posterMode">مخفی کردن تصاویری که ممکن است نامناسب
+                                    باشند</span>
+                            </span>
+                        </label>
+                    </div>
 
                     <div class="sort-order-container">
                         <label>
