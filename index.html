@@ -2061,11 +2061,11 @@ const sidebarStyle = computed(() => {
             transform: 'translateX(0)'
         };
     } else {
-        /*const effectiveRight = isDesktopSidebarFixed.value
+        const effectiveRight = isDesktopSidebarFixed.value
             ? '20px'
-            : `calc(20px - ${sidebarWidth.value}px)`;*/
+            : `calc(0px - ${sidebarWidth.value}px)`;
         return {
-            right: `${sidebarWidth.value}px`,
+            right: effectiveRight,
             width: `${sidebarWidth.value}px`,
             height: 'calc(100vh - 40px)',
             top: '20px',
