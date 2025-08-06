@@ -101,7 +101,7 @@ body {
 }
 
 .search-bar.visible {
-	top: 0px; /* Changed from 20px to 0px to stick to the very top */
+	top: 0px;
 	opacity: 1;
 }
 
@@ -1059,7 +1059,6 @@ input[type="text"] {
 		</div>
 	</div>
 
-    <!-- New Desktop Sidebar Toggle Button -->
     <button id="desktopSidebarToggleButton" class="desktop-only"
         @click="toggleDesktopSidebarFix"
         :style="desktopSidebarToggleStyle">
@@ -1478,9 +1477,7 @@ const selectDesigner = designer => {
 	applyFilters();
 };
 
-const applyFilters = () => {
-	// No action needed here as filtering is handled by computed property
-};
+const applyFilters = () => {};
 
 const resetFilters = () => {
 	searchTerm.value = '';
@@ -2053,7 +2050,7 @@ const handleScroll = () => {
 
     if (currentScrollY === 0) {
         isSearchBarVisible.value = true;
-        mainContentPaddingTop.value = searchBarInnerHeight + 15 + 20; // Add 20px for #app padding-top
+        mainContentPaddingTop.value = searchBarInnerHeight + 15 + 20;
     } else if (currentScrollY < lastScrollY.value) {
         if (currentScrollY > 50) {
             isSearchBarVisible.value = true;
@@ -2062,7 +2059,7 @@ const handleScroll = () => {
     } else {
         if (currentScrollY > searchBarInnerHeight) {
             isSearchBarVisible.value = false;
-            mainContentPaddingTop.value = 20; // Only #app padding-top remains
+            mainContentPaddingTop.value = 20;
         }
     }
     lastScrollY.value = currentScrollY;
@@ -2080,7 +2077,7 @@ const sidebarStyle = computed(() => {
     } else {
         const effectiveRight = isDesktopSidebarFixed.value
             ? '20px'
-            : `calc(20px - ${sidebarWidth.value}px)`;
+            : `calc(20px - ${sidebarWidth.value + 1}px)`;
         return {
             right: effectiveRight,
             width: `${sidebarWidth.value}px`,
@@ -2110,7 +2107,7 @@ const desktopSidebarToggleStyle = computed(() => {
 
 const mainContentStyle = computed(() => {
     if (isMobileView.value) {
-        return { marginRight: '0px' };
+        return { marginRight: '0px', paddingTop: `${mainContentPaddingTop.value}px` };
     } else {
         const effectiveMarginRight = isDesktopSidebarFixed.value
             ? `${sidebarWidth.value + 20}px`
@@ -2128,12 +2125,12 @@ const searchBarDynamicStyle = computed(() => {
     } else {
         if (isDesktopSidebarFixed.value) {
             style.right = `${sidebarWidth.value + 20}px`;
-            style.width = `calc(100% - ${sidebarWidth.value + 40}px)`;
+            style.left = '20px';
         } else {
             style.right = '20px';
-            style.width = 'calc(100% - 40px)';
+            style.left = '20px';
         }
-        style.left = 'auto';
+        style.width = 'calc(100% - (20px + 20px))';
     }
     return style;
 });
@@ -2152,10 +2149,10 @@ onMounted(() => {
             const initialSearchBarInnerHeight = searchBarRef.value.querySelector('.search-bar-inner').offsetHeight;
             if (window.scrollY === 0) {
                 isSearchBarVisible.value = true;
-                mainContentPaddingTop.value = initialSearchBarInnerHeight + 15 + 20; // Add 20px for #app padding-top
+                mainContentPaddingTop.value = initialSearchBarInnerHeight + 15 + 20;
             } else {
                 isSearchBarVisible.value = false;
-                mainContentPaddingTop.value = 20; // Only #app padding-top remains
+                mainContentPaddingTop.value = 20;
             }
         }
     });
