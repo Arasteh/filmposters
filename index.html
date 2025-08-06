@@ -65,15 +65,14 @@ body {
 
 #main-content {
 	flex: 1;
-	margin-right: 20px;
+	/* Removed margin-right: 20px; to be controlled dynamically */
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	max-width: 100%;
 	overflow-x: hidden;
-    /* Added transition for smooth padding adjustment */
-    transition: padding-top 0.3s ease-in-out;
+    transition: padding-top 0.3s ease-in-out, margin-right 0.3s ease-in-out; /* Added margin-right to transition */
 }
 
 .search-container {
@@ -86,28 +85,25 @@ body {
 
 .search-bar {
 	position: fixed;
-	top: -120px; /* Hide it completely above the viewport (adjust based on actual height) */
-	/* left and width will be controlled by Vue dynamic style */
+	top: -120px; /* Hidden above viewport */
 	z-index: 100;
 	opacity: 0;
-	transition: top 0.3s ease-in-out, opacity 0.3s ease-in-out, left 0.3s ease-in-out, width 0.3s ease-in-out; /* Add left and width to transition */
+	transition: top 0.3s ease-in-out, opacity 0.3s ease-in-out, left 0.3s ease-in-out, width 0.3s ease-in-out, right 0.3s ease-in-out; /* Added right to transition */
 }
 
-/* New inner div for search bar content to handle max-width and centering */
 .search-bar-inner {
-    max-width: 960px;
-    width: 100%;
+    max-width: 960px; /* Keep max-width for centering on large screens */
+    width: 100%; /* Take full width of its parent */
     margin: 0 auto; /* Center the inner content */
-    padding: 10px; /* Original padding from .search-bar */
-    border-radius: 0 0 16px 16px; /* Original border-radius from .search-bar */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Original box-shadow from .search-bar */
-    background-color: var(--search-background); /* Moved from .search-bar */
+    padding: 10px;
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    background-color: var(--search-background);
 }
 
-/* Class to make the search bar visible */
 .search-bar.visible {
-	top: 0; /* Bring it into view */
-	opacity: 1; /* Make it fully visible */
+	top: 20px; /* Visible, aligned with app padding */
+	opacity: 1;
 }
 
 input[type="text"] {
@@ -563,6 +559,26 @@ input[type="text"] {
 	padding: 6px;
 }
 
+#desktopSidebarToggleButton {
+    position: fixed;
+    top: 50%;
+    right: 20px; /* Default position when sidebar is hidden */
+    transform: translateY(-50%);
+    z-index: 101;
+    background-color: var(--search-background);
+    color: var(--body-foreground);
+    border: 1px solid var(--text-input-border);
+    border-radius: 12px;
+    padding: 10px 15px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: right 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+#desktopSidebarToggleButton:hover {
+    background-color: light-dark(#f0f0f0, #333);
+}
+
+
 .rotate-up {
 	transform: rotate(360deg) translateY(3px);
 }
@@ -575,11 +591,12 @@ input[type="text"] {
 	width: 440px;
 	overflow-y: auto;
 	z-index: 1000;
-	transition: transform 0.3s ease-in-out;
 	resize: none;
-    position: sticky;
-    top: 0;
-	height: fit-content;
+    position: fixed; /* Changed from sticky to fixed */
+    top: 20px; /* Aligned with app padding */
+    height: calc(100vh - 40px); /* Full viewport height minus app padding top/bottom */
+    transition: right 0.3s ease-in-out; /* Only transition right for desktop */
+    /* Mobile styles will override 'right' when active */
 }
 
 .sidebar-content {
@@ -788,15 +805,15 @@ input[type="text"] {
 	}
 
 	#main-content {
-		margin-right: 0;
+		margin-right: 0 !important; /* Override dynamic margin for mobile */
 		padding: 15px;
 		flex-direction: column;
 	}
 
 	.search-bar {
-		/* Overrides dynamic left/width for mobile */
 		left: 0 !important;
 		width: 100% !important;
+		right: auto !important; /* Reset right for mobile */
 	}
 
 	.search-bar-inner {
@@ -858,26 +875,6 @@ input[type="text"] {
 		transform: translateX(0);
 	}
 
-	.sidebar-overlay {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background-color: rgba(0, 0, 0, 0.5);
-		z-index: 999;
-		display: none;
-	}
-
-	.sidebar-content {
-		padding: 15px 15px 60px 15px;
-		background: light-dark(#fff, #121212);
-	}
-
-	.sidebar-section-body {
-		max-height: fit-content;
-	}
-
 	.sidebar-overlay.visible {
 		display: block;
 	}
@@ -904,12 +901,15 @@ input[type="text"] {
 		width: 100%;
 		max-width: 100%;
 	}
+    #desktopSidebarToggleButton {
+        display: none; /* Hide desktop toggle button on mobile */
+    }
 }
 </style>
 <div id="app">
-	<div id="sidebarOverlay" class="sidebar-overlay" :class="{ visible: sidebarVisible }" @click="hideSidebar">
+	<div id="sidebarOverlay" class="sidebar-overlay" :class="{ visible: sidebarVisible && isMobileView }" @click="hideSidebar">
 	</div>
-	<div id="sidebar" class="sidebar" :class="{ visible: sidebarVisible }" :style="{ width: sidebarWidth + 'px' }">
+	<div id="sidebar" class="sidebar" :class="{ 'visible': sidebarVisible && isMobileView }" :style="sidebarStyle">
 		<div class="sidebar-resize-handle"></div>
 		<div class="sidebar-content">
 			<button @click="hideSidebar" id="hideSidebarButton" class="mobile-only">
@@ -1062,6 +1062,17 @@ input[type="text"] {
 		</div>
 	</div>
 
+    <!-- New Desktop Sidebar Toggle Button -->
+    <button id="desktopSidebarToggleButton" class="desktop-only"
+        @mouseenter="handleDesktopSidebarHoverEnter"
+        @mouseleave="handleDesktopSidebarHoverLeave"
+        @click="toggleDesktopSidebarFix"
+        :style="desktopSidebarToggleStyle">
+        <span class="material-symbols-rounded">
+            menu
+        </span>
+    </button>
+
 	<div v-if="lightboxItem" style="display: none" :style="{ display: undefined }" class="lightbox" @click="closeLightbox">
 		<template v-if="lightboxImage">
 			<img :src="lightboxImage" :key="lightboxImage" alt="Lightbox Image" />
@@ -1131,7 +1142,7 @@ input[type="text"] {
 		
 	</div>
 
-	<div id="main-content" :style="{ 'padding-top': mainContentPaddingTop + 'px' }">
+	<div id="main-content" :style="mainContentStyle">
 		<button @click="bringToTop" id="toTop" :style="{ bottom: visibleBringToTop ? '20px' : '-100px' }">
 			<span class="material-symbols-rounded">
 				north
@@ -1391,6 +1402,11 @@ const isSearchBarVisible = ref(true); // Initially visible at the top
 const searchBarRef = ref(null);
 // Reactive variable for main content's padding-top
 const mainContentPaddingTop = ref(0);
+
+// New reactive variables for sidebar behavior
+const isMobileView = ref(false);
+const isDesktopSidebarFixed = ref(false);
+const isDesktopSidebarHovering = ref(false);
 
 
 const showMore = () => {
@@ -1824,16 +1840,39 @@ const removeLetterFilter = () => {
 	hoveredItem.value = null;
 };
 
-const sidebarVisible = ref(false);
+const sidebarVisible = ref(false); // Controls mobile sidebar visibility
 
-const toggleSidebar = () => {
+const toggleSidebar = () => { // For mobile sidebar
 	sidebarVisible.value = !sidebarVisible.value;
+	isDesktopSidebarFixed.value = false; // Ensure desktop fixed state is off
 	if (sidebarVisible.value) {
 		window.history.pushState(null, '', window.location.pathname);
 	}
 };
 
-const hideSidebar = () => sidebarVisible.value = false;
+const hideSidebar = () => { // For mobile sidebar
+    sidebarVisible.value = false;
+    isDesktopSidebarFixed.value = false; // Ensure desktop fixed state is off
+};
+
+// New methods for desktop sidebar
+const toggleDesktopSidebarFix = () => {
+    isDesktopSidebarFixed.value = !isDesktopSidebarFixed.value;
+    sidebarVisible.value = false; // Ensure mobile sidebar is off
+};
+
+const handleDesktopSidebarHoverEnter = () => {
+    if (!isDesktopSidebarFixed.value && !isMobileView.value) {
+        isDesktopSidebarHovering.value = true;
+    }
+};
+
+const handleDesktopSidebarHoverLeave = () => {
+    if (!isDesktopSidebarFixed.value && !isMobileView.value) {
+        isDesktopSidebarHovering.value = false;
+    }
+};
+
 
 onMounted(() => window.addEventListener('popstate', handlePopState));
 
@@ -2065,15 +2104,79 @@ const handleScroll = () => {
     lastScrollY.value = currentScrollY;
 };
 
-// Computed style for the search bar to handle dynamic width and left position
+// Computed style for the sidebar
+const sidebarStyle = computed(() => {
+    if (isMobileView.value) {
+        // Mobile sidebar logic (existing)
+        return {
+            right: sidebarVisible.value ? '0' : '-105%',
+            width: '385px', // Mobile fixed width
+            height: '100vh',
+            top: '0',
+            transform: 'translateX(0)' // Ensure no transform interferes
+        };
+    } else {
+        // Desktop sidebar logic
+        const effectiveRight = (isDesktopSidebarFixed.value || isDesktopSidebarHovering.value)
+            ? '20px' // Visible: aligned with app padding
+            : `calc(20px - ${sidebarWidth.value}px)`; // Hidden: shifted off-screen
+        return {
+            right: effectiveRight,
+            width: `${sidebarWidth.value}px`, // Dynamic desktop width
+            height: 'calc(100vh - 40px)', // Full height minus app padding (20px top + 20px bottom)
+            top: '20px', // Aligned with app padding
+            transform: 'translateX(0)' // Ensure no transform interferes
+        };
+    }
+});
+
+// Computed style for the desktop sidebar toggle button
+const desktopSidebarToggleStyle = computed(() => {
+    if (isMobileView.value) {
+        return { display: 'none' };
+    } else {
+        const rightPosition = (isDesktopSidebarFixed.value || isDesktopSidebarHovering.value)
+            ? `${sidebarWidth.value + 20}px` // Shift left by sidebar width + app padding
+            : '20px'; // Default position when sidebar is hidden
+        return {
+            display: 'block',
+            right: rightPosition,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            zIndex: '101',
+            transition: 'right 0.3s ease-in-out' // Smooth transition for button
+        };
+    }
+});
+
+// Computed style for main content to adjust margin based on sidebar
+const mainContentStyle = computed(() => {
+    if (isMobileView.value) {
+        return { marginRight: '0px' }; // Mobile has no fixed sidebar, no extra margin
+    } else {
+        const effectiveMarginRight = (isDesktopSidebarFixed.value || isDesktopSidebarHovering.value)
+            ? `${sidebarWidth.value + 20}px` // Shift left by sidebar width + app padding
+            : '20px'; // Default right padding of app
+        return { marginRight: effectiveMarginRight };
+    }
+});
+
+// Computed style for the search bar to handle dynamic width and right position
 const searchBarDynamicStyle = computed(() => {
     let style = {};
-    if (sidebarVisible.value) {
-        style.left = `${sidebarWidth.value}px`;
-        style.width = `calc(100% - ${sidebarWidth.value}px)`;
-    } else {
+    if (isMobileView.value) {
         style.left = '0px';
         style.width = '100%';
+        style.right = 'auto'; // Reset right for mobile
+    } else {
+        if (isDesktopSidebarFixed.value || isDesktopSidebarHovering.value) {
+            style.right = `${sidebarWidth.value + 20}px`; // Shift left by sidebar width + app padding
+            style.width = `calc(100% - ${sidebarWidth.value + 40}px)`; // Adjust width (40px for app padding left/right)
+        } else {
+            style.right = '20px'; // Default right for app padding
+            style.width = 'calc(100% - 40px)'; // Full width minus app padding (20px left + 20px right)
+        }
+        style.left = 'auto'; // Let right and width define position
     }
     return style;
 });
@@ -2081,8 +2184,14 @@ const searchBarDynamicStyle = computed(() => {
 
 onMounted(() => {
     window.addEventListener('scroll', handleScroll);
-    // Initial setup on mount
-    nextTick(() => { // Ensure searchBarRef is available after initial render
+    const checkMobile = () => {
+        isMobileView.value = window.innerWidth <= 768;
+    };
+    window.addEventListener('resize', checkMobile);
+    checkMobile(); // Initial check
+
+    // Initial setup for padding and search bar visibility
+    nextTick(() => {
         if (searchBarRef.value) {
             const initialSearchBarInnerHeight = searchBarRef.value.querySelector('.search-bar-inner').offsetHeight;
             if (window.scrollY === 0) {
@@ -2098,6 +2207,7 @@ onMounted(() => {
 
 onUnmounted(() => {
     window.removeEventListener('scroll', handleScroll);
+    window.removeEventListener('resize', checkMobile); // Clean up resize listener
 });
 
 
@@ -2133,10 +2243,16 @@ return {
 	handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage,
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount,
 	hasActiveFilters, exactWordMatch,
-    isSearchBarVisible, // Expose isSearchBarVisible to the template
-    searchBarRef,       // Expose searchBarRef to the template
-    mainContentPaddingTop, // Expose mainContentPaddingTop to the template
-    searchBarDynamicStyle // Expose the computed style for the search bar
+    isSearchBarVisible,
+    searchBarRef,
+    mainContentPaddingTop,
+    searchBarDynamicStyle,
+    sidebarStyle, // Expose sidebarStyle
+    desktopSidebarToggleStyle, // Expose desktopSidebarToggleStyle
+    toggleDesktopSidebarFix, // Expose toggleDesktopSidebarFix
+    handleDesktopSidebarHoverEnter, // Expose handleDesktopSidebarHoverEnter
+    handleDesktopSidebarHoverLeave, // Expose handleDesktopSidebarHoverLeave
+    mainContentStyle // Expose mainContentStyle
 };
 
 
