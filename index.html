@@ -804,7 +804,8 @@ input[type="text"] {
 	#main-content {
 		margin-right: 0 !important;
 		padding: 15px; 
-		padding-top: 20px !important; 
+		/* این قانون !important حذف شد تا پدینگ پویا توسط جاوااسکریپت اعمال شود. */
+		padding-top: 20px; 
 		flex-direction: column;
 	}
 
@@ -2038,7 +2039,7 @@ const bringToTop = () => document.documentElement.scrollTop = 0;
 const visibleBringToTop = ref(false);
 
 const mainContentPaddingTop = computed(() => {
-    // در حالت موبایل، پدینگ همیشه برابر با ارتفاع نوار جستجو است
+    // در حالت موبایل، پدینگ همیشه برابر با ارتفاع نوار جستجو است تا محتوا زیر آن قرار نگیرد.
     if (isMobileView.value) {
         return `${searchBarHeight.value}px`;
     } 
@@ -2053,26 +2054,22 @@ const handleScroll = () => {
     // تابع اسکرول برای مدیریت نمایش و پنهان‌سازی نوار جستجو
     const currentScrollY = window.scrollY;
     
+    // اگر سایدبار باز است، منطق اسکرول را متوقف کن
+    if (sidebarVisible.value) {
+        lastScrollY.value = currentScrollY;
+        return;
+    }
+
     // نمایش دکمه "رفتن به بالا"
     visibleBringToTop.value = currentScrollY > 20;
 
-    // این منطق فقط برای دسکتاپ و زمانی که sidebar ثابت نیست اجرا می‌شود
-    if (!isMobileView.value && !isDesktopSidebarFixed.value) {
-        // اگر به پایین اسکرول می‌کنیم و از ارتفاع نوار جستجو عبور کردیم، نوار جستجو را پنهان کن
-        if (currentScrollY > lastScrollY.value && currentScrollY > searchBarHeight.value) {
-            isSearchBarVisible.value = false;
-        } 
-        // اگر به بالا اسکرول می‌کنیم و نوار جستجو پنهان است، آن را نمایش بده
-        else if (currentScrollY < lastScrollY.value && !isSearchBarVisible.value) {
-            isSearchBarVisible.value = true;
-        }
-    } else if (isMobileView.value) {
-        // منطق اسکرول برای موبایل: همیشه پنهان می‌شود
-         if (currentScrollY > lastScrollY.value && currentScrollY > 50) {
-            isSearchBarVisible.value = false;
-        } else if (currentScrollY < lastScrollY.value) {
-            isSearchBarVisible.value = true;
-        }
+    // منطق نمایش/پنهان‌سازی نوار جستجو برای دسکتاپ و موبایل
+    if (currentScrollY > lastScrollY.value) {
+        // اسکرول به پایین
+        isSearchBarVisible.value = false;
+    } else if (currentScrollY < lastScrollY.value) {
+        // اسکرول به بالا
+        isSearchBarVisible.value = true;
     }
     
     lastScrollY.value = currentScrollY;
@@ -2119,8 +2116,6 @@ const desktopSidebarToggleStyle = computed(() => {
 });
 
 const mainContentStyle = computed(() => {
-    // در حالت دسکتاپ، حاشیه‌ی سمت راست با عرض سایدبار تنظیم می‌شود
-    // در حالت موبایل، حاشیه‌ای وجود ندارد
     const effectiveMarginRight = isDesktopSidebarFixed.value && !isMobileView.value
         ? `${sidebarWidth.value + 20}px`
         : '0px';
@@ -2134,13 +2129,11 @@ const mainContentStyle = computed(() => {
 
 const searchBarDynamicStyle = computed(() => {
     let style = {};
-    // در حالت موبایل، نوار جستجو کل عرض را می‌گیرد
     if (isMobileView.value) {
         style.left = '0px';
         style.width = '100%';
         style.right = 'auto';
     } else {
-        // در حالت دسکتاپ، عرض نوار جستجو بین سایدبار و لبه‌ی صفحه تقسیم می‌شود
         if (isDesktopSidebarFixed.value) {
             style.left = '20px';
             style.right = `${sidebarWidth.value + 20}px`;
@@ -2166,16 +2159,9 @@ onMounted(() => {
         if (searchBarRef.value) {
 			const searchBarInnerElement = searchBarRef.value.querySelector('.search-bar-inner');
 			if (searchBarInnerElement) {
-				// ذخیره ارتفاع نوار جستجو
 				searchBarHeight.value = searchBarInnerElement.offsetHeight;
 			}
-            // تنظیم اولیه پدینگ بر اساس اینکه نوار جستجو از ابتدا قابل مشاهده است یا نه
-            if (isMobileView.value) {
-                 mainContentPaddingTop.value = searchBarHeight.value;
-            } else {
-                 mainContentPaddingTop.value = isSearchBarVisible.value ? searchBarHeight.value : 0;
-            }
-           
+            mainContentPaddingTop.value = searchBarHeight.value;
         }
     });
 });
