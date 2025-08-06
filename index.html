@@ -2096,8 +2096,8 @@ const mainContentStyle = computed(() => {
         return { marginRight: '0px', paddingTop: `${mainContentPaddingTop.value}px` };
     } else {
         const effectiveMarginRight = isDesktopSidebarFixed.value
-            ? `${sidebarWidth.value + 20}px`
-            : '20px';
+            ? `${sidebarWidth.value + 0}px`
+            : '0px';
         return { marginRight: effectiveMarginRight, paddingTop: `${mainContentPaddingTop.value}px` };
     }
 });
