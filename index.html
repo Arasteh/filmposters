@@ -803,7 +803,6 @@ input[type="text"] {
 
 	#main-content {
 		margin-right: 0 !important;
-		/* اضافه کردن پدینگ ۲۰ پیکسلی برای موبایل */
 		padding: 15px; 
 		padding-top: 20px !important; 
 		flex-direction: column;
@@ -1394,7 +1393,6 @@ const lastScrollY = ref(0);
 const isSearchBarVisible = ref(true);
 
 const searchBarRef = ref(null);
-const mainContentPaddingTop = ref(0);
 const searchBarHeight = ref(0);
 
 const isMobileView = ref(false);
@@ -2046,22 +2044,27 @@ window.addEventListener('scroll', () => {
 	visibleBringToTop.value = document.documentElement.scrollTop > 20;
 });
 
+const mainContentPaddingTop = computed(() => {
+    // پدینگ بالای محتوا را بر اساس قابل مشاهده بودن نوار جستجو تنظیم می‌کند
+    return isSearchBarVisible.value ? searchBarHeight.value : 0;
+});
+
+
 const handleScroll = () => {
     const currentScrollY = window.scrollY;
     
-    // اگر به بالا اسکرول می‌کنیم و بالاتر از ارتفاع نوار جستجو هستیم، نوار جستجو را نمایش بده
-    if (currentScrollY < lastScrollY.value && currentScrollY < searchBarHeight.value) {
-        isSearchBarVisible.value = true;
-        mainContentPaddingTop.value = searchBarHeight.value;
-    } 
     // اگر به پایین اسکرول می‌کنیم و از ارتفاع نوار جستجو عبور کردیم، نوار جستجو را پنهان کن
-    else if (currentScrollY > lastScrollY.value && currentScrollY > searchBarHeight.value) {
+    if (currentScrollY > lastScrollY.value && currentScrollY > searchBarHeight.value) {
         isSearchBarVisible.value = false;
-        mainContentPaddingTop.value = 0; // برای جلوگیری از پرش، پدینگ را صفر کن
+    } 
+    // اگر به بالا اسکرول می‌کنیم (و نه در بالای صفحه) و نوار جستجو پنهان است، آن را نمایش بده
+    else if (currentScrollY < lastScrollY.value && !isSearchBarVisible.value) {
+        isSearchBarVisible.value = true;
     }
     
     lastScrollY.value = currentScrollY;
 };
+
 
 const sidebarStyle = computed(() => {
     if (isMobileView.value) {
@@ -2149,13 +2152,8 @@ onMounted(() => {
 				// ذخیره ارتفاع نوار جستجو
 				searchBarHeight.value = searchBarInnerElement.offsetHeight;
 			}
-            if (window.scrollY === 0) {
-                isSearchBarVisible.value = true;
-                mainContentPaddingTop.value = searchBarHeight.value;
-            } else {
-                isSearchBarVisible.value = false;
-                mainContentPaddingTop.value = 0; // پدینگ را صفر قرار بده
-            }
+            // تنظیم اولیه پدینگ بر اساس اینکه نوار جستجو از ابتدا قابل مشاهده است یا نه
+            mainContentPaddingTop.value = isSearchBarVisible.value ? searchBarHeight.value : 0;
         }
     });
 });
