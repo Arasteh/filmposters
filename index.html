@@ -77,9 +77,10 @@ body {
 }
 
 /* Class to push down main content when search bar is visible */
-.main-content-pushed {
-    padding-top: 120px; /* Approximate height of search bar + spacing */
-}
+/* This class is now dynamically controlled by inline style in Vue */
+/* .main-content-pushed {
+    padding-top: 120px; 
+} */
 
 .search-container {
 	display: flex;
@@ -1130,14 +1131,14 @@ input[type="text"] {
 		
 	</div>
 
-	<div id="main-content" :class="{ 'main-content-pushed': isSearchBarVisible }">
+	<div id="main-content" :style="{ 'padding-top': mainContentPaddingTop + 'px' }">
 		<button @click="bringToTop" id="toTop" :style="{ bottom: visibleBringToTop ? '20px' : '-100px' }">
 			<span class="material-symbols-rounded">
 				north
 			</span>
 		</button>
 
-		<div id="searchBar" class="search-bar" :class="{ 'visible': isSearchBarVisible }">
+		<div id="searchBar" class="search-bar" :class="{ 'visible': isSearchBarVisible }" ref="searchBarRef">
 			<div class="search-container">
 				<button @click="toggleSidebar" id="toggleSidebarButton" class="mobile-only">
 					<span class="material-symbols-rounded">
@@ -1383,6 +1384,12 @@ const exactWordMatch = ref(false);
 // New reactive variables for scroll behavior
 const lastScrollY = ref(0);
 const isSearchBarVisible = ref(true); // Initially visible at the top
+
+// Vue ref for the search bar element
+const searchBarRef = ref(null);
+// Reactive variable for main content's padding-top
+const mainContentPaddingTop = ref(0);
+
 
 const showMore = () => {
 	displayedItemsCount.value += 30;
@@ -2029,27 +2036,26 @@ window.addEventListener('scroll', () => {
 });
 
 // New scroll handling for search bar visibility
-const searchBarHeight = 120; // Approximate height of the search bar, adjust if needed
-
 const handleScroll = () => {
     const currentScrollY = window.scrollY;
-    const mainContent = document.getElementById('main-content');
+    // Get the actual height of the search bar dynamically
+    const currentSearchBarHeight = searchBarRef.value ? searchBarRef.value.offsetHeight : 0;
 
-    // Always show search bar at the very top
     if (currentScrollY === 0) {
+        // At the very top, always show search bar
         isSearchBarVisible.value = true;
-        mainContent.classList.add('main-content-pushed');
+        mainContentPaddingTop.value = currentSearchBarHeight + 15; // Add some extra spacing below the search bar
     } else if (currentScrollY < lastScrollY.value) {
         // Scrolling up
-        if (currentScrollY > 50) { // Only show if scrolled up significantly
+        if (currentScrollY > 50) { // Only show if scrolled up significantly (past initial header area)
             isSearchBarVisible.value = true;
-            mainContent.classList.add('main-content-pushed');
+            mainContentPaddingTop.value = currentSearchBarHeight + 15;
         }
     } else {
         // Scrolling down
-        if (currentScrollY > searchBarHeight) { // Only hide if scrolled down past its height
+        if (currentScrollY > currentSearchBarHeight) { // Only hide if scrolled down past its full height
             isSearchBarVisible.value = false;
-            mainContent.classList.remove('main-content-pushed');
+            mainContentPaddingTop.value = 0; // Remove padding when hidden
         }
     }
     lastScrollY.value = currentScrollY;
@@ -2057,15 +2063,23 @@ const handleScroll = () => {
 
 onMounted(() => {
     window.addEventListener('scroll', handleScroll);
-    // Initial check for search bar visibility and main content padding on load
-    const mainContent = document.getElementById('main-content');
-    if (window.scrollY === 0) {
-        isSearchBarVisible.value = true;
-        mainContent.classList.add('main-content-pushed');
-    } else {
-        isSearchBarVisible.value = false;
-        mainContent.classList.remove('main-content-pushed');
-    }
+    // Initial setup on mount
+    nextTick(() => { // Ensure searchBarRef is available after initial render
+        if (searchBarRef.value) {
+            const initialSearchBarHeight = searchBarRef.value.offsetHeight;
+            if (window.scrollY === 0) {
+                isSearchBarVisible.value = true;
+                mainContentPaddingTop.value = initialSearchBarHeight + 15;
+            } else {
+                isSearchBarVisible.value = false;
+                mainContentPaddingTop.value = 0;
+            }
+        }
+    });
+});
+
+onUnmounted(() => {
+    window.removeEventListener('scroll', handleScroll);
 });
 
 
@@ -2101,7 +2115,9 @@ return {
 	handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage,
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount,
 	hasActiveFilters, exactWordMatch,
-    isSearchBarVisible // Expose isSearchBarVisible to the template
+    isSearchBarVisible, // Expose isSearchBarVisible to the template
+    searchBarRef,       // Expose searchBarRef to the template
+    mainContentPaddingTop // Expose mainContentPaddingTop to the template
 };
 
 
