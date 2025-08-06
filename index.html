@@ -561,9 +561,9 @@ input[type="text"] {
 
 #desktopSidebarToggleButton {
     position: fixed;
-    top: 50%;
+    top: 20px; /* Changed from 50% to 20px */
     right: 20px; /* Default position when sidebar is hidden */
-    transform: translateY(-50%);
+    /* Removed transform: translateY(-50%); */
     z-index: 101;
     background-color: var(--search-background);
     color: var(--body-foreground);
@@ -572,7 +572,7 @@ input[type="text"] {
     padding: 10px 15px;
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    transition: right 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transition: right 0.3s ease-in-out, opacity 0.3s ease-in-out, top 0.3s ease-in-out; /* Added top to transition */
 }
 #desktopSidebarToggleButton:hover {
     background-color: light-dark(#f0f0f0, #333);
@@ -1064,8 +1064,6 @@ input[type="text"] {
 
     <!-- New Desktop Sidebar Toggle Button -->
     <button id="desktopSidebarToggleButton" class="desktop-only"
-        @mouseenter="handleDesktopSidebarHoverEnter"
-        @mouseleave="handleDesktopSidebarHoverLeave"
         @click="toggleDesktopSidebarFix"
         :style="desktopSidebarToggleStyle">
         <span class="material-symbols-rounded">
@@ -1406,7 +1404,7 @@ const mainContentPaddingTop = ref(0);
 // New reactive variables for sidebar behavior
 const isMobileView = ref(false);
 const isDesktopSidebarFixed = ref(false);
-const isDesktopSidebarHovering = ref(false);
+const isDesktopSidebarHovering = ref(false); // This ref is no longer actively used for hover logic but kept for consistency if needed elsewhere.
 
 
 const showMore = () => {
@@ -1861,16 +1859,13 @@ const toggleDesktopSidebarFix = () => {
     sidebarVisible.value = false; // Ensure mobile sidebar is off
 };
 
+// These functions are now empty as per user request
 const handleDesktopSidebarHoverEnter = () => {
-    if (!isDesktopSidebarFixed.value && !isMobileView.value) {
-        isDesktopSidebarHovering.value = true;
-    }
+    // No action on hover enter
 };
 
 const handleDesktopSidebarHoverLeave = () => {
-    if (!isDesktopSidebarFixed.value && !isMobileView.value) {
-        isDesktopSidebarHovering.value = false;
-    }
+    // No action on hover leave
 };
 
 
@@ -2117,7 +2112,7 @@ const sidebarStyle = computed(() => {
         };
     } else {
         // Desktop sidebar logic
-        const effectiveRight = (isDesktopSidebarFixed.value || isDesktopSidebarHovering.value)
+        const effectiveRight = isDesktopSidebarFixed.value
             ? '20px' // Visible: aligned with app padding
             : `calc(20px - ${sidebarWidth.value}px)`; // Hidden: shifted off-screen
         return {
@@ -2135,16 +2130,15 @@ const desktopSidebarToggleStyle = computed(() => {
     if (isMobileView.value) {
         return { display: 'none' };
     } else {
-        const rightPosition = (isDesktopSidebarFixed.value || isDesktopSidebarHovering.value)
+        const rightPosition = isDesktopSidebarFixed.value
             ? `${sidebarWidth.value + 20}px` // Shift left by sidebar width + app padding
             : '20px'; // Default position when sidebar is hidden
         return {
             display: 'block',
             right: rightPosition,
-            top: '50%',
-            transform: 'translateY(-50%)',
+            top: '20px', // Changed to top of the page
             zIndex: '101',
-            transition: 'right 0.3s ease-in-out' // Smooth transition for button
+            transition: 'right 0.3s ease-in-out, top 0.3s ease-in-out' // Added top to transition
         };
     }
 });
@@ -2154,7 +2148,7 @@ const mainContentStyle = computed(() => {
     if (isMobileView.value) {
         return { marginRight: '0px' }; // Mobile has no fixed sidebar, no extra margin
     } else {
-        const effectiveMarginRight = (isDesktopSidebarFixed.value || isDesktopSidebarHovering.value)
+        const effectiveMarginRight = isDesktopSidebarFixed.value
             ? `${sidebarWidth.value + 20}px` // Shift left by sidebar width + app padding
             : '20px'; // Default right padding of app
         return { marginRight: effectiveMarginRight };
@@ -2169,7 +2163,7 @@ const searchBarDynamicStyle = computed(() => {
         style.width = '100%';
         style.right = 'auto'; // Reset right for mobile
     } else {
-        if (isDesktopSidebarFixed.value || isDesktopSidebarHovering.value) {
+        if (isDesktopSidebarFixed.value) {
             style.right = `${sidebarWidth.value + 20}px`; // Shift left by sidebar width + app padding
             style.width = `calc(100% - ${sidebarWidth.value + 40}px)`; // Adjust width (40px for app padding left/right)
         } else {
