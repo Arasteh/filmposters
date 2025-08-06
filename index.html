@@ -1205,20 +1205,6 @@ input[type="text"] {
                         </label>
                     </div>
 
-                    <div class="similar-chars-toggle">
-                        <label for="pixelatedSwitch" style="cursor: pointer;">
-                            <input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect" :disabled="posterMode ? null : true">
-                            سانسور
-                        </label>
-                        <label>
-                            <span class="material-symbols-rounded tooltip">
-                                info
-                                <span class="tooltiptext" v-if="posterMode">مخفی کردن تصاویری که ممکن است نامناسب
-                                    باشند</span>
-                            </span>
-                        </label>
-                    </div>
-
                     <div class="sort-order-container">
                         <label>
                             <span class="material-symbols-rounded">
@@ -2077,7 +2063,7 @@ const sidebarStyle = computed(() => {
     } else {
         const effectiveRight = isDesktopSidebarFixed.value
             ? '20px'
-            : `calc(20px - ${sidebarWidth.value + 1}px)`;
+            : `calc(20px - ${sidebarWidth.value}px)`;
         return {
             right: effectiveRight,
             width: `${sidebarWidth.value}px`,
@@ -2124,13 +2110,13 @@ const searchBarDynamicStyle = computed(() => {
         style.right = 'auto';
     } else {
         if (isDesktopSidebarFixed.value) {
+            style.left = '20px';
             style.right = `${sidebarWidth.value + 20}px`;
-            style.left = '20px';
         } else {
-            style.right = '20px';
             style.left = '20px';
+            style.right = '20px';
         }
-        style.width = 'calc(100% - (20px + 20px))';
+        style.width = 'auto';
     }
     return style;
 });
