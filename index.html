@@ -2045,21 +2045,30 @@ window.addEventListener('scroll', () => {
 });
 
 const mainContentPaddingTop = computed(() => {
-    // پدینگ بالای محتوا را بر اساس قابل مشاهده بودن نوار جستجو تنظیم می‌کند
-    return isSearchBarVisible.value ? searchBarHeight.value : 0;
+    // در حالت موبایل، پدینگ همیشه برابر با ارتفاع نوار جستجو است تا محتوا زیر آن نمایش داده شود.
+    if (isMobileView.value) {
+        return searchBarHeight.value;
+    } 
+    // در حالت دسکتاپ، پدینگ بر اساس نمایش یا عدم نمایش نوار جستجو تغییر می‌کند.
+    else {
+        return isSearchBarVisible.value ? searchBarHeight.value : 0;
+    }
 });
 
 
 const handleScroll = () => {
     const currentScrollY = window.scrollY;
     
-    // اگر به پایین اسکرول می‌کنیم و از ارتفاع نوار جستجو عبور کردیم، نوار جستجو را پنهان کن
-    if (currentScrollY > lastScrollY.value && currentScrollY > searchBarHeight.value) {
-        isSearchBarVisible.value = false;
-    } 
-    // اگر به بالا اسکرول می‌کنیم (و نه در بالای صفحه) و نوار جستجو پنهان است، آن را نمایش بده
-    else if (currentScrollY < lastScrollY.value && !isSearchBarVisible.value) {
-        isSearchBarVisible.value = true;
+    // این منطق فقط برای دسکتاپ است
+    if (!isMobileView.value) {
+        // اگر به پایین اسکرول می‌کنیم و از ارتفاع نوار جستجو عبور کردیم، نوار جستجو را پنهان کن
+        if (currentScrollY > lastScrollY.value && currentScrollY > searchBarHeight.value) {
+            isSearchBarVisible.value = false;
+        } 
+        // اگر به بالا اسکرول می‌کنیم و نوار جستجو پنهان است، آن را نمایش بده
+        else if (currentScrollY < lastScrollY.value && !isSearchBarVisible.value) {
+            isSearchBarVisible.value = true;
+        }
     }
     
     lastScrollY.value = currentScrollY;
