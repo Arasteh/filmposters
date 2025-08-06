@@ -1204,7 +1204,7 @@ input[type="text"] {
                             </span>
                         </label>
                     </div>
-					
+
                     <div class="similar-chars-toggle">
                         <label for="pixelatedSwitch" style="cursor: pointer;">
                             <input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect" :disabled="posterMode ? null : true">
@@ -2149,7 +2149,7 @@ onMounted(() => {
             const initialSearchBarInnerHeight = searchBarRef.value.querySelector('.search-bar-inner').offsetHeight;
             if (window.scrollY === 0) {
                 isSearchBarVisible.value = true;
-                mainContentPaddingTop.value = initialSearchBarInnerHeight + 15 + 20;
+                mainContentPaddingTop.value = initialSearchBarInnerHeight;
             } else {
                 isSearchBarVisible.value = false;
                 mainContentPaddingTop.value = 20;
