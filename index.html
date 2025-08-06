@@ -2036,11 +2036,11 @@ const handleScroll = () => {
 
     if (currentScrollY === 0) {
         isSearchBarVisible.value = true;
-        mainContentPaddingTop.value = searchBarInnerHeight + 15 + 20;
+        mainContentPaddingTop.value = searchBarInnerHeight;
     } else if (currentScrollY < lastScrollY.value) {
         if (currentScrollY > 50) {
             isSearchBarVisible.value = true;
-            mainContentPaddingTop.value = searchBarInnerHeight + 15 + 20;
+            mainContentPaddingTop.value = searchBarInnerHeight;
         }
     } else {
         if (currentScrollY > searchBarInnerHeight) {
