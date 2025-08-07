@@ -2117,7 +2117,7 @@ const desktopSidebarToggleStyle = computed(() => {
 
 const mainContentStyle = computed(() => {
     const effectiveMarginRight = isDesktopSidebarFixed.value && !isMobileView.value
-        ? `${sidebarWidth.value + 40}px`
+        ? `${sidebarWidth.value + 20}px`
         : '0px';
 
     return {
