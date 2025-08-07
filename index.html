@@ -2037,22 +2037,15 @@ const getCommonsUrl = (item, posterMode, pixelatedEffect) => {
 const bringToTop = () => document.documentElement.scrollTop = 0;
 const visibleBringToTop = ref(false);
 
-// به روزرسانی محاسبه پدینگ برای حالت موبایل و باز بودن گزینه‌ها
 const mainContentPaddingTop = computed(() => {
     // در حالت موبایل، پدینگ همیشه برابر با ارتفاع نوار جستجو است تا محتوا زیر آن قرار نگیرد.
     if (isMobileView.value) {
-        // اگر options باز باشد، باید کل ارتفاع searchBar-inner را در نظر بگیریم.
-        // در غیر این صورت فقط ارتفاع search-container کافی است.
-        const searchBarInner = searchBarRef.value?.querySelector('.search-bar-inner');
-        if (searchBarInner) {
-            return `${searchBarInner.offsetHeight}px`;
-        }
+        return `${searchBarHeight.value}px`;
     } 
     // در حالت دسکتاپ، پدینگ بر اساس نمایش یا عدم نمایش نوار جستجو تغییر می‌کند.
     else {
         return isSearchBarVisible.value ? `${searchBarHeight.value}px` : '0px';
     }
-    return '0px';
 });
 
 
@@ -2186,7 +2179,7 @@ onMounted(() => {
 			if (searchBarInnerElement) {
 				searchBarHeight.value = searchBarInnerElement.offsetHeight;
 			}
-            // این خط حذف شده است زیرا محاسبه پدینگ در computed property انجام می‌شود.
+            mainContentPaddingTop.value = searchBarHeight.value;
         }
     });
 });
