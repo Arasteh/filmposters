@@ -2054,6 +2054,8 @@ let lastScrollPosition = 0;
 
 const handleScroll = () => {
     const currentScrollY = window.scrollY;
+    const documentHeight = document.documentElement.scrollHeight;
+    const windowHeight = window.innerHeight;
     
     // اگر سایدبار باز است، منطق اسکرول را متوقف کن
     if (sidebarVisible.value) {
@@ -2064,20 +2066,26 @@ const handleScroll = () => {
     visibleBringToTop.value = currentScrollY > 20;
 
     // متغیر برای بررسی اینکه آیا کاربر در انتهای صفحه قرار دارد یا خیر
-    const isAtBottom = (window.innerHeight + currentScrollY) >= (document.documentElement.scrollHeight - 5);
+    const isAtBottom = (currentScrollY + windowHeight) >= (documentHeight - 5);
 
     // منطق نمایش/پنهان‌سازی نوار جستجو
-    // اگر در حال اوورسکرول در بالا هستیم (اسکرول منفی)، نوار را همیشه نمایش بده
-    if (currentScrollY < 0) {
+    // اگر در بالای صفحه هستیم، نوار را نمایش بده
+    if (currentScrollY <= 0) {
         isSearchBarVisible.value = true;
-    } 
-    // اگر در حال اسکرول به پایین و نه در انتهای صفحه هستیم، نوار را پنهان کن
-    else if (currentScrollY > lastScrollPosition && !isAtBottom) {
+    }
+    // اگر در انتهای صفحه هستیم، نوار را پنهان کن
+    else if (isAtBottom) {
         isSearchBarVisible.value = false;
-    } 
-    // در بقیه موارد (اسکرول به بالا یا اوورسکرول در انتهای صفحه)، نوار را نمایش بده
-    else if (currentScrollY < lastScrollPosition) {
-        isSearchBarVisible.value = true;
+    }
+    // در غیر این صورت، بر اساس جهت اسکرول عمل کن
+    else {
+        if (currentScrollY > lastScrollPosition) {
+            // اسکرول به پایین
+            isSearchBarVisible.value = false;
+        } else {
+            // اسکرول به بالا
+            isSearchBarVisible.value = true;
+        }
     }
     
     // موقعیت اسکرول فعلی را برای مقایسه بعدی ذخیره کن
