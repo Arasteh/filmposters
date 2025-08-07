@@ -1390,7 +1390,6 @@ const searchPlaceholder = ref('جستجو (برای پرش به کادر جست�
 const isSearchFocused = ref(false);
 const displayedItemsCount = ref(30);
 const exactWordMatch = ref(false);
-const lastScrollY = ref(0);
 const isSearchBarVisible = ref(true);
 const searchBarRef = ref(null);
 const searchBarHeight = ref(0);
@@ -2050,30 +2049,41 @@ const mainContentPaddingTop = computed(() => {
 });
 
 
+// متغیر برای ذخیره آخرین موقعیت اسکرول
+let lastScrollPosition = 0;
+
 const handleScroll = () => {
-    // تابع اسکرول برای مدیریت نمایش و پنهان‌سازی نوار جستجو
     const currentScrollY = window.scrollY;
     
     // اگر سایدبار باز است، منطق اسکرول را متوقف کن
     if (sidebarVisible.value) {
-        lastScrollY.value = currentScrollY;
+        lastScrollPosition = currentScrollY;
         return;
     }
 
-    // نمایش دکمه "رفتن به بالا"
     visibleBringToTop.value = currentScrollY > 20;
 
-    // منطق نمایش/پنهان‌سازی نوار جستجو برای دسکتاپ و موبایل
-    if (currentScrollY > lastScrollY.value) {
-        // اسکرول به پایین
+    // متغیر برای بررسی اینکه آیا کاربر در انتهای صفحه قرار دارد یا خیر
+    const isAtBottom = (window.innerHeight + currentScrollY) >= (document.documentElement.scrollHeight - 5);
+
+    // منطق نمایش/پنهان‌سازی نوار جستجو
+    // اگر در حال اوورسکرول در بالا هستیم (اسکرول منفی)، نوار را همیشه نمایش بده
+    if (currentScrollY < 0) {
+        isSearchBarVisible.value = true;
+    } 
+    // اگر در حال اسکرول به پایین و نه در انتهای صفحه هستیم، نوار را پنهان کن
+    else if (currentScrollY > lastScrollPosition && !isAtBottom) {
         isSearchBarVisible.value = false;
-    } else if (currentScrollY < lastScrollY.value) {
-        // اسکرول به بالا
+    } 
+    // در بقیه موارد (اسکرول به بالا یا اوورسکرول در انتهای صفحه)، نوار را نمایش بده
+    else if (currentScrollY < lastScrollPosition) {
         isSearchBarVisible.value = true;
     }
     
-    lastScrollY.value = currentScrollY;
+    // موقعیت اسکرول فعلی را برای مقایسه بعدی ذخیره کن
+    lastScrollPosition = currentScrollY;
 };
+
 
 const sidebarStyle = computed(() => {
     if (isMobileView.value) {
