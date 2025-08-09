@@ -123,22 +123,21 @@ input[type="text"] {
 	align-items: center;
 }
 
-/* تغییرات اعمال شده برای وسط‌چین کردن گرید */
 .results-grid {
-	display: flex; /* تغییر از grid به flex */
-	flex-wrap: wrap; /* برای اینکه آیتم‌ها به خط بعدی بروند */
-	justify-content: center; /* آیتم‌ها را در محور افقی وسط‌چین می‌کند */
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 	gap: 15px;
-	max-width: 1470px;
+	max-width: 1520px;
 	width: 100%;
 	z-index: 1;
+    padding-right: 60px;
+    padding-left: 60px;
 }
 
 .item-card {
-	/* اضافه کردن این دو خط برای اینکه عرض آیتم‌ها قابل تنظیم باشد */
-    width: 200px;
+    width: 220px;
     min-width: 200px; 
-    
 	text-align: center;
 	padding: 15px 5px;
 	background: var(--card-background);
