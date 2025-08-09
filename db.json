@@ -8168,7 +8168,7 @@
 					"image": "هالو_(پوستر).jpg",
 					"hash": "ae",
 					"designers": [
-						"Q361697"
+						"Q135671787"
 					]
 				}
 			],
@@ -42605,6 +42605,14 @@
 			"labels": {
 				"en": "Maryam Naderi",
 				"fa": "مریم نادری"
+			}
+		},
+		"Q135671787": {
+			"id": "Q135671787",
+			"sitelinks": {},
+			"labels": {
+				"en": "Caspian advertising agency",
+				"fa": "آژانس تبلیغاتی کاسپین"
 			}
 		}
 	}
