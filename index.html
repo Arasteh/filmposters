@@ -809,7 +809,6 @@ input[type="text"] {
 	#main-content {
 		margin-right: 0 !important;
 		padding: 15px; 
-		/* این قانون !important حذف شد تا پدینگ پویا توسط جاوااسکریپت اعمال شود. */
 		padding-top: 20px; 
 		flex-direction: column;
 	}
@@ -829,15 +828,14 @@ input[type="text"] {
 	.results-grid {
 		width: 100%;
 		max-width: 100%;
-		display: flex; /* تغییر از grid به flex */
-		flex-wrap: wrap; /* برای اینکه آیتم‌ها به خط بعدی بروند */
-		justify-content: center; /* آیتم‌ها را در محور افقی وسط‌چین می‌کند */
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
 		gap: 15px;
 	}
     
-	/* تغییرات برای آیتم‌های گرید در حالت موبایل */
     .item-card {
-        width: calc(50% - 7.5px); /* دو آیتم در هر ردیف با احتساب گپ */
+        width: calc(50% - 7.5px);
         max-width: none;
     }
 
@@ -2053,18 +2051,15 @@ const bringToTop = () => document.documentElement.scrollTop = 0;
 const visibleBringToTop = ref(false);
 
 const mainContentPaddingTop = computed(() => {
-    // در حالت موبایل، پدینگ همیشه برابر با ارتفاع نوار جستجو است تا محتوا زیر آن قرار نگیرد.
     if (isMobileView.value) {
         return `${searchBarHeight.value}px`;
     } 
-    // در حالت دسکتاپ، پدینگ بر اساس نمایش یا عدم نمایش نوار جستجو تغییر می‌کند.
     else {
         return isSearchBarVisible.value ? `${searchBarHeight.value}px` : '0px';
     }
 });
 
 
-// متغیر برای ذخیره آخرین موقعیت اسکرول
 let lastScrollPosition = 0;
 
 const handleScroll = () => {
@@ -2072,7 +2067,6 @@ const handleScroll = () => {
     const documentHeight = document.documentElement.scrollHeight;
     const windowHeight = window.innerHeight;
     
-    // اگر سایدبار باز است، منطق اسکرول را متوقف کن
     if (sidebarVisible.value) {
         lastScrollPosition = currentScrollY;
         return;
@@ -2080,30 +2074,22 @@ const handleScroll = () => {
 
     visibleBringToTop.value = currentScrollY > 20;
 
-    // متغیر برای بررسی اینکه آیا کاربر در انتهای صفحه قرار دارد یا خیر
     const isAtBottom = (currentScrollY + windowHeight) >= (documentHeight - 5);
 
-    // منطق نمایش/پنهان‌سازی نوار جستجو
-    // اگر در بالای صفحه هستیم، نوار را نمایش بده
     if (currentScrollY <= 0) {
         isSearchBarVisible.value = true;
     }
-    // اگر در انتهای صفحه هستیم، نوار را پنهان کن
     else if (isAtBottom) {
         isSearchBarVisible.value = false;
     }
-    // در غیر این صورت، بر اساس جهت اسکرول عمل کن
     else {
         if (currentScrollY > lastScrollPosition) {
-            // اسکرول به پایین
             isSearchBarVisible.value = false;
         } else {
-            // اسکرول به بالا
             isSearchBarVisible.value = true;
         }
     }
     
-    // موقعیت اسکرول فعلی را برای مقایسه بعدی ذخیره کن
     lastScrollPosition = currentScrollY;
 };
 
@@ -2236,17 +2222,9 @@ return {
 	clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading,
 	handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage,
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount,
-	hasActiveFilters, exactWordMatch,
-    isSearchBarVisible,
-    searchBarRef,
-    mainContentPaddingTop,
-    searchBarDynamicStyle,
-    sidebarStyle,
-    desktopSidebarToggleStyle,
-    toggleDesktopSidebarFix,
-    handleDesktopSidebarHoverEnter,
-    handleDesktopSidebarHoverLeave,
-    mainContentStyle
+	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
+    searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleDesktopSidebarFix,
+    handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle
 };
 
 
