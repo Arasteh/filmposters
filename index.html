@@ -71,8 +71,6 @@ body {
 	align-items: center;
 	max-width: 100%;
 	overflow-x: hidden;
-	/* افزایش پدینگ در نمای دسکتاپ */
-	padding-top: 50px;
     transition: padding-top 0.3s ease-in-out, margin-right 0.3s ease-in-out;
 }
 
@@ -803,13 +801,6 @@ input[type="text"] {
 	font-size: x-large;
 }
 
-@media (max-width: 1520px) and (min-width: 768px) {
-    .results-grid {
-        padding-left: 15px;
-        padding-right: 15px;
-    }
-}
-
 @media (max-width: 768px) {
 	#app {
 		padding: 0;
@@ -1229,7 +1220,7 @@ input[type="text"] {
                             </span>
                         </label>
                     </div>
-					
+
                     <div class="similar-chars-toggle">
                         <label for="pixelatedSwitch" style="cursor: pointer;">
                             <input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect" :disabled="posterMode ? null : true">
@@ -2063,10 +2054,10 @@ const visibleBringToTop = ref(false);
 const mainContentPaddingTop = computed(() => {
 	// افزایش پدینگ در موبایل
     if (isMobileView.value) {
-        return `${searchBarHeight.value + 30}px`;
+        return `${searchBarHeight.value + 10}px`;
     } 
     else {
-        return isSearchBarVisible.value ? `${searchBarHeight.value + 30}px` : '30px';
+        return isSearchBarVisible.value ? `${searchBarHeight.value + 10}px` : '10px';
     }
 });
 
