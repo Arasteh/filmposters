@@ -71,8 +71,8 @@ body {
 	align-items: center;
 	max-width: 100%;
 	overflow-x: hidden;
-	/* افزایش پدینگ در نمای دسکتاپ */
-	padding-top: 35px;
+	/* پدینگ بالا توسط متغیر پویا از اسکریپت مدیریت می‌شود */
+	padding-top: 30px;
     transition: padding-top 0.3s ease-in-out, margin-right 0.3s ease-in-out;
 }
 
@@ -125,10 +125,11 @@ input[type="text"] {
 	align-items: center;
 }
 
+/* تغییرات اعمال شده برای چیدمان گرید پویا و وسط‌چین */
 .results-grid {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	justify-content: center; /* وسط‌چین کردن گرید در صورت عدم پر شدن کامل عرض */
 	gap: 15px;
 	max-width: 1520px;
 	width: 100%;
@@ -138,8 +139,8 @@ input[type="text"] {
 }
 
 .item-card {
-    width: 220px;
-    min-width: 200px; 
+    /* عرض آیتم‌ها توسط grid-template-columns تعیین می‌شود */
+    
 	text-align: center;
 	padding: 15px 5px;
 	background: var(--card-background);
@@ -803,6 +804,20 @@ input[type="text"] {
 	font-size: x-large;
 }
 
+/* تغییرات اعمال شده برای چیدمان در صفحه نمایش‌های مختلف */
+@media (min-width: 1521px) {
+    .results-grid {
+        padding-left: 60px;
+        padding-right: 60px;
+    }
+}
+@media (max-width: 1520px) and (min-width: 769px) {
+    .results-grid {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
 @media (max-width: 768px) {
 	#app {
 		padding: 0;
@@ -810,8 +825,8 @@ input[type="text"] {
 
 	#main-content {
 		margin-right: 0 !important;
-		padding: 15px; 
-		padding-top: 20px; 
+		padding: 15px;
+		/* padding-top توسط اسکریپت مدیریت می‌شود */
 		flex-direction: column;
 	}
 
@@ -829,16 +844,15 @@ input[type="text"] {
 	.results-grid {
 		width: 100%;
 		max-width: 100%;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr); /* دو ستون با عرض یکسان */
 		gap: 15px;
 		padding-left: 0;
 		padding-right: 0;
 	}
     
     .item-card {
-        width: calc(50% - 7.5px);
+        width: 100%; /* عرض کامل را می‌گیرد، چون گرید آن را مدیریت می‌کند */
         max-width: none;
     }
 
@@ -909,12 +923,6 @@ input[type="text"] {
 
 	.sidebar-resize-handle {
 		display: none;
-	}
-
-	.item-card {
-		padding: 8px;
-		width: 48%;
-		max-width: 100%;
 	}
     #desktopSidebarToggleButton {
         display: none;
@@ -1223,7 +1231,7 @@ input[type="text"] {
                         </label>
                     </div>
 
-                    <div class="similar-chars-toggle">
+					<div class="similar-chars-toggle">
                         <label for="pixelatedSwitch" style="cursor: pointer;">
                             <input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect" :disabled="posterMode ? null : true">
                             سانسور
@@ -2054,12 +2062,11 @@ const bringToTop = () => document.documentElement.scrollTop = 0;
 const visibleBringToTop = ref(false);
 
 const mainContentPaddingTop = computed(() => {
-	// افزایش پدینگ در موبایل
+    const basePadding = 30; 
     if (isMobileView.value) {
-        return `${searchBarHeight.value + 10}px`;
-    } 
-    else {
-        return isSearchBarVisible.value ? `${searchBarHeight.value + 10}px` : '10px';
+        return `${searchBarHeight.value + basePadding}px`;
+    } else {
+        return isSearchBarVisible.value ? `${searchBarHeight.value + basePadding}px` : `${basePadding}px`;
     }
 });
 
