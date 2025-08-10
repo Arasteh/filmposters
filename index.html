@@ -71,6 +71,8 @@ body {
 	align-items: center;
 	max-width: 100%;
 	overflow-x: hidden;
+	/* افزایش پدینگ در نمای دسکتاپ */
+	padding-top: 50px;
     transition: padding-top 0.3s ease-in-out, margin-right 0.3s ease-in-out;
 }
 
@@ -801,6 +803,13 @@ input[type="text"] {
 	font-size: x-large;
 }
 
+@media (max-width: 1520px) and (min-width: 768px) {
+    .results-grid {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
 @media (max-width: 768px) {
 	#app {
 		padding: 0;
@@ -809,7 +818,7 @@ input[type="text"] {
 	#main-content {
 		margin-right: 0 !important;
 		padding: 15px; 
-		padding-top: 20px; 
+		padding-top: 50px; 
 		flex-direction: column;
 	}
 
@@ -1220,7 +1229,7 @@ input[type="text"] {
                             </span>
                         </label>
                     </div>
-
+					
                     <div class="similar-chars-toggle">
                         <label for="pixelatedSwitch" style="cursor: pointer;">
                             <input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect" :disabled="posterMode ? null : true">
@@ -2052,11 +2061,12 @@ const bringToTop = () => document.documentElement.scrollTop = 0;
 const visibleBringToTop = ref(false);
 
 const mainContentPaddingTop = computed(() => {
+	// افزایش پدینگ در موبایل
     if (isMobileView.value) {
-        return `${searchBarHeight.value}px`;
+        return `${searchBarHeight.value + 30}px`;
     } 
     else {
-        return isSearchBarVisible.value ? `${searchBarHeight.value}px` : '0px';
+        return isSearchBarVisible.value ? `${searchBarHeight.value + 30}px` : '30px';
     }
 });
 
@@ -2181,7 +2191,7 @@ onMounted(() => {
 			if (searchBarInnerElement) {
 				searchBarHeight.value = searchBarInnerElement.offsetHeight;
 			}
-            mainContentPaddingTop.value = searchBarHeight.value;
+            mainContentPaddingTop.value = mainContentPaddingTop.value;
         }
     });
 });
