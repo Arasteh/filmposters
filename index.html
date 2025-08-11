@@ -621,8 +621,6 @@ input[type="text"] {
 
 .sidebar-content {
 	padding: 0 0 0 15px;
-	/* اضافه کردن پدینگ از بالا برای محتوای سایدبار جهت جلوگیری از تداخل */
-	padding-top: 50px;
 }
 
 .mobile-only {
@@ -946,6 +944,7 @@ input[type="text"] {
 					close
 				</span>
 			</button>
+			<p style="right: 60px; position: relative; width: fit-content; font-weight: bold; height: 15px; top: -5px;">فیلترها</p>
 			<div class="sidebar-section" :class="getSectionClass('years')" :key="'years-section'">
 				<div class="sidebar-section-header" @click="toggleCollapse('years')">
 					<span style="display: none" :style="{ display: undefined }">{{ filteredYearLabel }}</span>
