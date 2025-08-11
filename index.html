@@ -566,10 +566,12 @@ input[type="text"] {
 	padding: 6px;
 }
 
+/* تغییرات برای دکمه سایدبار دسکتاپ */
 #desktopSidebarToggleButton {
     position: fixed;
     top: 20px;
     right: 20px;
+    left: auto;
     z-index: 101;
     background-color: var(--search-background);
     color: var(--body-foreground);
@@ -584,7 +586,6 @@ input[type="text"] {
     background-color: light-dark(#f0f0f0, #333);
 }
 
-
 .rotate-up {
 	transform: rotate(360deg) translateY(3px);
 }
@@ -593,6 +594,7 @@ input[type="text"] {
 	transform: rotate(180deg) translateY(3px);
 }
 
+/* تغییرات برای سایدبار */
 .sidebar {
 	width: 440px;
 	overflow-y: auto;
@@ -600,12 +602,25 @@ input[type="text"] {
 	resize: none;
     position: fixed;
     top: 20px;
+    left: auto;
+    right: -480px; /* پنهان کردن سایدبار در حالت عادی */
     height: calc(100vh - 40px);
     transition: right 0.3s ease-in-out;
+    background-color: var(--search-background);
+    border: 1px solid var(--text-input-border);
+    border-radius: 16px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
+/* نمایش سایدبار در نمای دسکتاپ */
+.sidebar.desktop-fixed {
+    right: 20px; /* نمایش سایدبار در سمت راست */
+}
+
 
 .sidebar-content {
 	padding: 0 0 0 15px;
+	/* اضافه کردن پدینگ از بالا برای محتوای سایدبار جهت جلوگیری از تداخل */
+	padding-top: 50px;
 }
 
 .mobile-only {
@@ -619,7 +634,7 @@ input[type="text"] {
 .sidebar-resize-handle {
 	position: absolute;
 	top: 0;
-	left: 0;
+	left: 0; /* تغییر موقعیت به چپ */
 	width: 5px;
 	height: 98%;
 	cursor: ew-resize;
@@ -932,8 +947,16 @@ input[type="text"] {
 <div id="app">
 	<div id="sidebarOverlay" class="sidebar-overlay" :class="{ visible: sidebarVisible && isMobileView }" @click="hideSidebar">
 	</div>
-	<div id="sidebar" class="sidebar" :class="{ 'visible': sidebarVisible && isMobileView }" :style="sidebarStyle">
+	<div id="sidebar" class="sidebar" :class="{ 'visible': sidebarVisible && isMobileView, 'desktop-fixed': isDesktopSidebarFixed && !isMobileView }" :style="sidebarStyle">
 		<div class="sidebar-resize-handle"></div>
+		
+		<button v-if="isDesktopSidebarFixed && !isMobileView" id="desktopSidebarCloseButton" class="desktop-only" @click="toggleDesktopSidebarFix"
+				style="position: absolute; top: 15px; right: 15px; z-index: 1002; background: none; border: none; cursor: pointer; color: var(--body-foreground);">
+			<span class="material-symbols-rounded">
+				close
+			</span>
+		</button>
+		
 		<div class="sidebar-content">
 			<button @click="hideSidebar" id="hideSidebarButton" class="mobile-only">
 				<span class="material-symbols-rounded">
@@ -1087,6 +1110,7 @@ input[type="text"] {
 
     <button id="desktopSidebarToggleButton" class="desktop-only"
         @click="toggleDesktopSidebarFix"
+        v-if="!isDesktopSidebarFixed && !isMobileView"
         :style="desktopSidebarToggleStyle">
         <span class="material-symbols-rounded">
             menu
@@ -2117,7 +2141,7 @@ const sidebarStyle = computed(() => {
     } else {
         const effectiveRight = isDesktopSidebarFixed.value
             ? '20px'
-            : `calc(0px - ${sidebarWidth.value}px)`;
+            : `calc(0px - ${sidebarWidth.value + 20}px)`;
         return {
             right: effectiveRight,
             width: `${sidebarWidth.value}px`,
@@ -2165,8 +2189,8 @@ const searchBarDynamicStyle = computed(() => {
         style.right = 'auto';
     } else {
         if (isDesktopSidebarFixed.value) {
+            style.right = `${sidebarWidth.value + 60}px`;
             style.left = '20px';
-            style.right = `${sidebarWidth.value + 40}px`;
         } else {
             style.left = '20px';
             style.right = '20px';
