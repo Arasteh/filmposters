@@ -571,14 +571,13 @@ input[type="text"] {
     position: fixed;
     top: 20px;
     right: 20px;
-    z-index: 101;
-    background-color: var(--search-background);
+    z-index: 1001;
+    background: none;
     color: var(--body-foreground);
-    border: 1px solid var(--text-input-border);
+    border: none;
     border-radius: 12px;
     padding: 10px 15px;
     cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     transition: all 0.3s ease-in-out;
 }
 
@@ -609,10 +608,10 @@ input[type="text"] {
     height: calc(100vh - 40px);
     transition: transform 0.3s ease-in-out;
     background-color: var(--search-background);
-    border: 1px solid var(--text-input-border);
     border-radius: 16px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     transform: translateX(105%); /* پنهان کردن سایدبار در حالت عادی */
+	z-index: 100;
 }
 /* نمایش سایدبار در نمای دسکتاپ */
 .sidebar.visible-desktop {
