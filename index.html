@@ -1850,7 +1850,6 @@ const sidebarVisible = ref(false);
 
 const toggleSidebar = () => {
 	sidebarVisible.value = !sidebarVisible.value;
-	isDesktopSidebarFixed.value = false;
 	if (sidebarVisible.value) {
 		window.history.pushState(null, '', window.location.pathname);
 	}
@@ -1858,15 +1857,11 @@ const toggleSidebar = () => {
 
 const hideSidebar = () => {
     sidebarVisible.value = false;
-    isDesktopSidebarFixed.value = false;
 };
 
-// متد جدید برای باز و بسته کردن سایدبار در حالت دسکتاپ
 const toggleSidebarDesktop = () => {
     sidebarVisible.value = !sidebarVisible.value;
 };
-
-// حذف toggleDesktopSidebarFix و منطق مربوط به آن
 
 const handleDesktopSidebarHoverEnter = () => {};
 
@@ -2083,30 +2078,22 @@ let lastScrollPosition = 0;
 
 const handleScroll = () => {
     const currentScrollY = window.scrollY;
-    const documentHeight = document.documentElement.scrollHeight;
-    const windowHeight = window.innerHeight;
     
-    if (sidebarVisible.value) {
+    // اگر در حالت دسکتاپ و سایدبار باز است، نوار جستجو را پنهان نکن
+    if (!isMobileView.value && sidebarVisible.value) {
+        isSearchBarVisible.value = true;
         lastScrollPosition = currentScrollY;
         return;
     }
 
     visibleBringToTop.value = currentScrollY > 20;
 
-    const isAtBottom = (currentScrollY + windowHeight) >= (documentHeight - 5);
-
     if (currentScrollY <= 0) {
         isSearchBarVisible.value = true;
-    }
-    else if (isAtBottom) {
+    } else if (currentScrollY > lastScrollPosition) {
         isSearchBarVisible.value = false;
-    }
-    else {
-        if (currentScrollY > lastScrollPosition) {
-            isSearchBarVisible.value = false;
-        } else {
-            isSearchBarVisible.value = true;
-        }
+    } else {
+        isSearchBarVisible.value = true;
     }
     
     lastScrollPosition = currentScrollY;
@@ -2138,7 +2125,7 @@ const desktopSidebarToggleStyle = computed(() => {
         return { display: 'none' };
     } else {
         return {
-            right: '20px',
+            right: sidebarVisible.value ? `${sidebarWidth.value + 40}px` : '20px',
             top: '20px',
             zIndex: '101',
             transition: 'all 0.3s ease-in-out'
