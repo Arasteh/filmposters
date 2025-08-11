@@ -2075,6 +2075,15 @@ const mainContentPaddingTop = computed(() => {
 
 
 let lastScrollPosition = 0;
+const scrollThreshold = 10; // آستانه اسکرول برای مخفی کردن/نمایش
+
+const getDocHeight = () => {
+    return Math.max(
+        document.body.scrollHeight, document.documentElement.scrollHeight,
+        document.body.offsetHeight, document.documentElement.offsetHeight,
+        document.body.clientHeight, document.documentElement.clientHeight
+    );
+};
 
 const handleScroll = () => {
     const currentScrollY = window.scrollY;
@@ -2086,11 +2095,21 @@ const handleScroll = () => {
         return;
     }
 
-    visibleBringToTop.value = currentScrollY > 20;
+	// اگر ارتفاع کل صفحه از ارتفاع پنجره مرورگر کمتر از ۵۰ پیکسل بیشتر باشد، نوار جستجو همیشه نمایش داده می‌شود
+	const docHeight = getDocHeight();
+	const viewportHeight = window.innerHeight;
+	if (docHeight - viewportHeight < 50) {
+		isSearchBarVisible.value = true;
+		lastScrollPosition = currentScrollY;
+		return;
+	}
 
-    if (currentScrollY <= 0) {
+
+    visibleBringToTop.value = currentScrollY > 20;
+    
+    if (currentScrollY <= scrollThreshold) {
         isSearchBarVisible.value = true;
-    } else if (currentScrollY > lastScrollPosition) {
+    } else if (currentScrollY > lastScrollPosition && currentScrollY > scrollThreshold) {
         isSearchBarVisible.value = false;
     } else {
         isSearchBarVisible.value = true;
