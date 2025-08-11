@@ -1391,7 +1391,11 @@ const data = await (await fetch('./db.json', {
     credentials: 'include',
     mode: 'no-cors',
 })).json();
-
+randomOrderButton.classList.remove('active');
+posterButton.classList.remove('active');
+posterLogoSwitch.removeAttribute('data-mode');
+[yearsButton, designersButton, directorsButton, lettersButton]
+	.forEach(x => x.classList.remove('rotate-up'));
 desktopSidebarToggleButton.style.display = 'block';
 
 createApp({ setup: () => {
