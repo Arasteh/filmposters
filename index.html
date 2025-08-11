@@ -1092,6 +1092,7 @@ input[type="text"] {
     <!-- دکمه جدید و ثابت برای سایدبار -->
     <button id="desktopSidebarToggleButton" class="desktop-only"
         @click="toggleSidebarDesktop"
+        style="display: none;"
         :style="desktopSidebarToggleStyle">
         <span class="material-symbols-rounded">
             {{ sidebarVisible ? 'close' : 'menu' }}
@@ -1391,11 +1392,7 @@ const data = await (await fetch('./db.json', {
     mode: 'no-cors',
 })).json();
 
-randomOrderButton.classList.remove('active');
-posterButton.classList.remove('active');
-posterLogoSwitch.removeAttribute('data-mode');
-[yearsButton, designersButton, directorsButton, lettersButton]
-	.forEach(x => x.classList.remove('rotate-up'));
+desktopSidebarToggleButton.style.display = 'block';
 
 createApp({ setup: () => {
 
