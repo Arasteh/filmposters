@@ -2098,7 +2098,7 @@ const handleScroll = () => {
 	// اگر ارتفاع کل صفحه از ارتفاع پنجره مرورگر کمتر از ۵۰ پیکسل بیشتر باشد، نوار جستجو همیشه نمایش داده می‌شود
 	const docHeight = getDocHeight();
 	const viewportHeight = window.innerHeight;
-	if (docHeight - viewportHeight < 50) {
+	if (docHeight - viewportHeight < 200) {
 		isSearchBarVisible.value = true;
 		lastScrollPosition = currentScrollY;
 		return;
