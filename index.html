@@ -2098,24 +2098,20 @@ const handleScroll = () => {
 	// اگر ارتفاع کل صفحه از ارتفاع پنجره مرورگر کمتر از ۵۰ پیکسل بیشتر باشد، نوار جستجو همیشه نمایش داده می‌شود
 	const docHeight = getDocHeight();
 	const viewportHeight = window.innerHeight;
-	if (docHeight - viewportHeight < 200) {
+    const isAtBottom = Math.ceil(currentScrollY + viewportHeight) >= docHeight;
+
+	if (docHeight - viewportHeight < 200 || currentScrollY <= scrollThreshold) {
 		isSearchBarVisible.value = true;
-		lastScrollPosition = currentScrollY;
-		return;
+	} else if (isAtBottom) {
+        isSearchBarVisible.value = true;
+    } else if (currentScrollY > lastScrollPosition) {
+		isSearchBarVisible.value = false;
+	} else if (currentScrollY < lastScrollPosition) {
+		isSearchBarVisible.value = true;
 	}
-
-
-    visibleBringToTop.value = currentScrollY > 20;
-    
-    if (currentScrollY <= scrollThreshold) {
-        isSearchBarVisible.value = true;
-    } else if (currentScrollY > lastScrollPosition && currentScrollY > scrollThreshold) {
-        isSearchBarVisible.value = false;
-    } else {
-        isSearchBarVisible.value = true;
-    }
     
     lastScrollPosition = currentScrollY;
+    visibleBringToTop.value = currentScrollY > 20;
 };
 
 
