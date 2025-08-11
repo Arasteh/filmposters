@@ -566,13 +566,12 @@ input[type="text"] {
 	padding: 6px;
 }
 
-/* تغییرات برای دکمه سایدبار دسکتاپ */
 #desktopSidebarToggleButton {
     position: fixed;
     top: 20px;
     right: 20px;
     left: auto;
-    z-index: 101;
+    z-index: 1002; /* زِد-این‌دکس بالا برای قرارگیری روی سایدبار */
     background-color: var(--search-background);
     color: var(--body-foreground);
     border: 1px solid var(--text-input-border);
@@ -580,7 +579,7 @@ input[type="text"] {
     padding: 10px 15px;
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    transition: right 0.3s ease-in-out, opacity 0.3s ease-in-out, top 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 #desktopSidebarToggleButton:hover {
     background-color: light-dark(#f0f0f0, #333);
@@ -594,11 +593,10 @@ input[type="text"] {
 	transform: rotate(180deg) translateY(3px);
 }
 
-/* تغییرات برای سایدبار */
 .sidebar {
 	width: 440px;
 	overflow-y: auto;
-	z-index: 1000;
+	z-index: 1001; /* زِد-این‌دکس پایین‌تر از دکمه */
 	resize: none;
     position: fixed;
     top: 20px;
@@ -611,7 +609,6 @@ input[type="text"] {
     border-radius: 16px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
-/* نمایش سایدبار در نمای دسکتاپ */
 .sidebar.desktop-fixed {
     right: 20px; /* نمایش سایدبار در سمت راست */
 }
@@ -619,7 +616,6 @@ input[type="text"] {
 
 .sidebar-content {
 	padding: 0 0 0 15px;
-	/* اضافه کردن پدینگ از بالا برای محتوای سایدبار جهت جلوگیری از تداخل */
 	padding-top: 50px;
 }
 
@@ -634,7 +630,7 @@ input[type="text"] {
 .sidebar-resize-handle {
 	position: absolute;
 	top: 0;
-	left: 0; /* تغییر موقعیت به چپ */
+	left: 0;
 	width: 5px;
 	height: 98%;
 	cursor: ew-resize;
@@ -947,15 +943,18 @@ input[type="text"] {
 <div id="app">
 	<div id="sidebarOverlay" class="sidebar-overlay" :class="{ visible: sidebarVisible && isMobileView }" @click="hideSidebar">
 	</div>
-	<div id="sidebar" class="sidebar" :class="{ 'visible': sidebarVisible && isMobileView, 'desktop-fixed': isDesktopSidebarFixed && !isMobileView }" :style="sidebarStyle">
+	
+    <button id="desktopSidebarToggleButton" class="desktop-only"
+        @click="toggleSidebar"
+        v-if="!isMobileView"
+        :style="desktopSidebarToggleStyle">
+        <span class="material-symbols-rounded">
+            {{ sidebarVisible ? 'close' : 'menu' }}
+        </span>
+    </button>
+    
+	<div id="sidebar" class="sidebar" :class="{ 'visible': sidebarVisible && isMobileView, 'desktop-fixed': sidebarVisible && !isMobileView }" :style="sidebarStyle">
 		<div class="sidebar-resize-handle"></div>
-		
-		<button v-if="isDesktopSidebarFixed && !isMobileView" id="desktopSidebarCloseButton" class="desktop-only" @click="toggleDesktopSidebarFix"
-				style="position: absolute; top: 15px; right: 15px; z-index: 1002; background: none; border: none; cursor: pointer; color: var(--body-foreground);">
-			<span class="material-symbols-rounded">
-				close
-			</span>
-		</button>
 		
 		<div class="sidebar-content">
 			<button @click="hideSidebar" id="hideSidebarButton" class="mobile-only">
@@ -1107,15 +1106,6 @@ input[type="text"] {
 			</a>
 		</div>
 	</div>
-
-    <button id="desktopSidebarToggleButton" class="desktop-only"
-        @click="toggleDesktopSidebarFix"
-        v-if="!isDesktopSidebarFixed && !isMobileView"
-        :style="desktopSidebarToggleStyle">
-        <span class="material-symbols-rounded">
-            menu
-        </span>
-    </button>
 
 	<div v-if="lightboxItem" style="display: none" :style="{ display: undefined }" class="lightbox" @click="closeLightbox">
 		<template v-if="lightboxImage">
@@ -1822,7 +1812,7 @@ const startResize = e => {
 };
 
 const resize = e => {
-	const newWidth = startWidth + (startX - e.clientX);
+	const newWidth = startWidth - (e.clientX - startX); // تغییر جهت برای ریسایز از راست
 	if (newWidth >= minSidebarWidth.value && newWidth <= maxSidebarWidth.value) {
 		sidebarWidth.value = newWidth;
 	}
@@ -1868,26 +1858,11 @@ const sidebarVisible = ref(false);
 
 const toggleSidebar = () => {
 	sidebarVisible.value = !sidebarVisible.value;
-	isDesktopSidebarFixed.value = false;
-	if (sidebarVisible.value) {
-		window.history.pushState(null, '', window.location.pathname);
-	}
 };
 
 const hideSidebar = () => {
     sidebarVisible.value = false;
-    isDesktopSidebarFixed.value = false;
 };
-
-const toggleDesktopSidebarFix = () => {
-    isDesktopSidebarFixed.value = !isDesktopSidebarFixed.value;
-    sidebarVisible.value = false;
-};
-
-const handleDesktopSidebarHoverEnter = () => {};
-
-const handleDesktopSidebarHoverLeave = () => {};
-
 
 onMounted(() => window.addEventListener('popstate', handlePopState));
 
@@ -2139,7 +2114,7 @@ const sidebarStyle = computed(() => {
             transform: 'translateX(0)'
         };
     } else {
-        const effectiveRight = isDesktopSidebarFixed.value
+        const effectiveRight = sidebarVisible.value
             ? '20px'
             : `calc(0px - ${sidebarWidth.value + 20}px)`;
         return {
@@ -2156,21 +2131,18 @@ const desktopSidebarToggleStyle = computed(() => {
     if (isMobileView.value) {
         return { display: 'none' };
     } else {
-        const rightPosition = isDesktopSidebarFixed.value
-            ? `${sidebarWidth.value + 40}px`
-            : '20px';
         return {
             display: 'block',
-            right: rightPosition,
+            right: '20px',
             top: '20px',
-            zIndex: '101',
+            zIndex: '1002',
             transition: 'right 0.3s ease-in-out, top 0.3s ease-in-out'
         };
     }
 });
 
 const mainContentStyle = computed(() => {
-    const effectiveMarginRight = isDesktopSidebarFixed.value && !isMobileView.value
+    const effectiveMarginRight = sidebarVisible.value && !isMobileView.value
         ? `${sidebarWidth.value + 20}px`
         : '0px';
 
@@ -2188,7 +2160,7 @@ const searchBarDynamicStyle = computed(() => {
         style.width = '100%';
         style.right = 'auto';
     } else {
-        if (isDesktopSidebarFixed.value) {
+        if (sidebarVisible.value) {
             style.right = `${sidebarWidth.value + 60}px`;
             style.left = '20px';
         } else {
@@ -2258,7 +2230,7 @@ return {
 	handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage,
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount,
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
-    searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleDesktopSidebarFix,
+    searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle,
     handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle
 };
 
