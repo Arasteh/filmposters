@@ -2125,9 +2125,8 @@ const desktopSidebarToggleStyle = computed(() => {
         return { display: 'none' };
     } else {
         return {
-            right: sidebarVisible.value ? `${sidebarWidth.value + 40}px` : '20px',
             top: '20px',
-            zIndex: '101',
+            zIndex: '1001',
             transition: 'all 0.3s ease-in-out'
         };
     }
