@@ -2199,28 +2199,29 @@ const updateChart = () => {
         yearsChartInstance.value.destroy();
     }
 
-    const persianYears = filteredYearsInModal.value.map(([year]) => year);
-    // استفاده مستقیم از مقادیر عددی که توسط filteredYearsInModal بازگردانده می‌شود
-    const posterCounts = filteredYearsInModal.value.map(([_, count]) => count);
+    const persianYearsWithData = Object.fromEntries(filteredYearsInModal.value);
+
+    // پیدا کردن قدیمی‌ترین و جدیدترین سال
+    const allYears = Object.keys(Object.groupBy(items, item => toPersianYear(item.date)));
+    const startYear = Math.min(...allYears.map(y => parseInt(y)));
+    const endYear = Math.max(...allYears.map(y => parseInt(y)));
+    
+    const chartLabels = [];
+    const chartData = [];
+    for (let year = startYear; year <= endYear; year++) {
+        chartLabels.push(year.toString());
+        chartData.push(persianYearsWithData[year.toString()] || 0);
+    }
 
     const ctx = document.getElementById('yearsChart').getContext('2d');
-	const startYear = Math.min(...persianYears.map(y => parseInt(y)));
-    const endYear = Math.max(...persianYears.map(y => parseInt(y)));
-	const ticks = [];
-	for (let i = startYear; i <= endYear; i++) {
-        // نمایش هر ۱۰ سال یک بار
-		if (i % 10 === 0) {
-            ticks.push(i.toString());
-        }
-    }
 	
     yearsChartInstance.value = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: persianYears,
+            labels: chartLabels,
             datasets: [{
                 label: 'تعداد پوستر',
-                data: posterCounts,
+                data: chartData,
                 backgroundColor: 'rgba(187, 119, 119, 0.8)',
                 borderColor: 'rgba(187, 119, 119, 1)',
                 borderWidth: 1
@@ -2232,7 +2233,7 @@ const updateChart = () => {
             scales: {
                 x: {
                     type: 'category',
-                    labels: persianYears,
+                    labels: chartLabels,
                     title: {
                         display: true,
                         text: 'سال'
