@@ -835,241 +835,69 @@ input[type="text"] {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-
-/* Bar chart styles */
-.bar-chart-container {
+/* استایل‌های نمودار سالانه */
+.year-chart-container {
     padding: 10px;
-    background-color: light-dark(#fff, #000);
-    border-radius: 10px;
-    border: 1px light-dark(#ddd, #333) solid;
-    overflow-x: auto;
-    direction: ltr; /* Force LTR for the chart itself */
-    text-align: left;
+    margin-bottom: 15px;
+    background-color: light-dark(#f5f5f5, #222);
+    border-radius: 8px;
+    direction: ltr;
 }
-.chart-title {
-	text-align: center;
-	font-size: 1em;
-	margin-bottom: 10px;
-    direction: rtl; /* Reset direction for title */
+.year-chart {
+    display: flex;
+    height: 200px;
+    align-items: flex-end;
+    gap: 2px;
+    direction: ltr; /* برای نمایش صحیح نمودار از چپ به راست */
+    justify-content: flex-start;
+    overflow-x: auto;
+}
+.year-bar-container {
+    flex: 0 0 auto; /* Prevent shrinking and specify a fixed size */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    width: 10px; /* Fixed bar container width */
+}
+.year-bar {
+    width: 3px; /* Fixed bar width as requested */
+    background-color: light-dark(#b77, #b77);
+    border-radius: 3px 3px 0 0;
+    transition: height 0.3s ease, background-color 0.3s ease;
+    position: relative;
+    min-height: 2px;
+}
+.year-bar.active {
+    background-color: light-dark(#a55, #a55);
+}
+.year-bar:hover {
+    background-color: light-dark(#c88, #c88);
+}
+.year-count {
+    position: absolute;
+    top: -25px;
+    font-size: 0.8em;
+    color: light-dark(#333, #ddd);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.year-bar:hover .year-count {
+    opacity: 1;
+}
+.year-label {
+    margin-top: 5px;
+    font-size: 0.7em;
+    color: light-dark(#555, #aaa);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
     text-align: right;
 }
-.chart-wrapper {
-	padding: 10px 0;
-	position: relative;
-    padding-left: 40px; /* Space for y-axis labels */
-    height: 250px;
-}
-.chart {
-    display: flex;
-    justify-content: flex-start; /* Align bars to the left for LTR order */
-    align-items: flex-end;
-    gap: 3px; /* Smaller gap for 3px width */
-    height: 200px;
-    border-bottom: 1px solid light-dark(#ccc, #666);
-    position: relative;
-    width: fit-content;
-}
-.bar-wrapper {
-	display: flex;
-	flex-direction: column-reverse;
-	align-items: center;
-	position: relative;
-	width: 3px; /* Fixed width of 3px */
-	flex-shrink: 0;
-    margin: 0 1px;
-}
-.bar {
-    width: 100%;
-    background-color: light-dark(#b77, #b77);
-    transition: height 0.3s ease-in-out;
-    cursor: pointer;
-}
-.bar:hover {
-    background-color: light-dark(#a66, #a66);
-}
-.bar-label {
-    position: absolute;
-    bottom: -35px;
-    font-size: 0.7em;
-    white-space: nowrap;
-    transform-origin: 50% 50%;
-    transform: rotate(45deg);
-    display: none; /* Hide labels by default */
-}
-.bar-wrapper:nth-child(5n+1) .bar-label { /* Show every 5th label */
-    display: block;
-}
-.bar-tooltip {
-	position: absolute;
-	top: -20px;
-	left: 50%;
-	transform: translateX(-50%);
-	background-color: rgba(0, 0, 0, 0.7);
-	color: white;
-	padding: 4px 8px;
-	border-radius: 4px;
-	font-size: 0.8em;
-	white-space: nowrap;
-	opacity: 0;
-	pointer-events: none;
-	transition: opacity 0.3s;
-	z-index: 10;
-}
-.bar:hover .bar-tooltip {
-	opacity: 1;
-}
-.y-axis-label {
-	position: absolute;
-	left: 0;
-	top: -5px;
-	font-size: 0.8em;
-	color: light-dark(#666, #aaa);
-}
-.y-axis-lines {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-direction: column-reverse;
-	justify-content: space-between;
-	pointer-events: none;
-}
-.y-axis-line {
-	height: 1px;
-	background-color: light-dark(#ddd, #444);
-	width: 100%;
-	position: relative;
-}
-.y-axis-item {
-	font-size: 0.8em;
-	text-align: right;
-	white-space: nowrap;
-	position: absolute;
-	right: 100%;
-	transform: translateY(50%);
-	margin-right: 5px;
-}
-.bar-chart-wrapper {
-	overflow-x: auto;
-}
 
 @media (max-width: 768px) {
-	.chart {
-		min-width: 300px;
-	}
-}
-
-
-@media (max-width: 768px) {
-	#app {
-		padding: 0;
-	}
-
-	#main-content {
-		margin-right: 0 !important;
-		padding: 15px;
-		/* padding-top توسط اسکریپت مدیریت می‌شود */
-		flex-direction: column;
-	}
-
-	.search-bar {
-		left: 0 !important;
-		width: 100% !important;
-		right: auto !important;
-	}
-
-	.search-bar-inner {
-		padding: 15px;
-		border-radius: 16px;
-	}
-	
-	.results-grid {
-		width: 100%;
-		max-width: 100%;
-		display: grid;
-		grid-template-columns: repeat(2, 1fr); /* دو ستون با عرض یکسان */
-		gap: 15px;
-		padding-left: 15px;
-		padding-right: 15px;
-	}
-    
-    .item-card {
-        width: 100%; /* عرض کامل را می‌گیرد، چون گرید آن را مدیریت می‌کند */
-        max-width: none;
-    }
-
-	.options {
-		gap: 15px;
-		align-items: center;
-		transition: 0.3s ease-in-out;
-		max-height: 200px;
-		opacity: 1;
-	}
-
-	.options.collapsed {
-		max-height: 0;
-		opacity: 0;
-		margin: 0;
-		padding: 0;
-		visibility: hidden;
-	}
-
-	#showSidebarButton {
-		display: inline-block;
-	}
-
-	#hideSidebarButton {
-		display: inline-block;
-		margin-bottom: 10px;
-		padding: 8px 14px;
-		border: none;
-		background: none;
-		font-size: x-large;
-		cursor: pointer;
-	}
-
-	.sidebar {
-		position: fixed;
-		top: 0;
-		right: -105%;
-		width: 385px !important;
-		height: 100vh;
-		background-color: light-dark(#fff, #121212);
-		transition: right 0.3s cubic-bezier(1, 0, 0, 1);
-		z-index: 1000;
-		display: block;
-	}
-
-	.sidebar.visible {
-		right: 0;
-		display: block;
-		transform: translateX(0);
-	}
-
-	.sidebar-overlay.visible {
-		display: block;
-	}
-
-	.mobile-only {
-		display: inline-block;
-	}
-
-	.desktop-only {
-		display: none;
-	}
-
-	.collapse-button {
-		display: inline-block;
-		padding: 0;
-	}
-
-	.sidebar-resize-handle {
-		display: none;
-	}
-    #desktopSidebarToggleButton {
-        display: none;
+    .year-label {
+        font-size: 0.6em;
     }
 }
 </style>
@@ -1099,25 +927,24 @@ input[type="text"] {
 					</button>
 				</div>
 				<div class="sidebar-section-body">
-					<div class="bar-chart-container" v-if="chartData.length > 0 && !isCollapsed.years">
-						<div class="chart-title">تعداد پوسترها بر اساس سال</div>
-						<div class="bar-chart-wrapper">
-							<div class="chart">
-								<div v-for="item in chartData" :key="item.year" class="bar-wrapper">
-									<div class="bar" 
-										:style="{ height: (item.count / yMax * 100) + '%' }"
-										@click="selectedYear === item.year ? removeYearFilter() : selectYearFromModal(item.year)"
-										@mouseenter="hoveredItem = item.year" 
-										@mouseleave="hoveredItem = null"
-										:class="{ 'selected': selectedYear === item.year }"
-									>
-										<span class="bar-tooltip">{{ item.count }}</span>
-									</div>
-									<span class="bar-label">{{ item.year }}</span>
+					<!-- نمودار جدید -->
+					<div class="year-chart-container" v-if="chartData.length > 0 && !isCollapsed.years">
+						<div class="year-chart">
+							<div v-for="(yearData, index) in chartData" 
+								:key="index" 
+								class="year-bar-container"
+								@click="toggleYearFilter(yearData.year)">
+								<div class="year-bar" 
+									:style="{ height: yearData.height + '%' }"
+									:class="{ 'active': selectedYear === yearData.year }">
+									<span class="year-count">{{ yearData.count }}</span>
 								</div>
+								<span class="year-label">{{ yearData.year }}</span>
 							</div>
 						</div>
 					</div>
+					
+					<!-- لیست سال‌ها (بقیه کدهای موجود) -->
 					<div class="year-grid">
 						<div v-if="filteredYearsInModal.length === 0" class="no-results">
 							نتیجه‌ای وجود ندارد
@@ -1872,19 +1699,39 @@ const filteredYears = computed(() => {
 		.map(year => [year, groups[year].length.toLocaleString('fa')]);
 });
 
-const chartData = computed(() => {
-	const validItems = filteredItems.value.filter(item => toPersianYear(item.date) !== 'نامشخص');
-	const groups = Object.groupBy(validItems, item => toPersianYear(item.date));
-	const sortedYears = Object.keys(groups).sort((a, b) => parseInt(a) - parseInt(b));
+const yearChartData = computed(() => {
+    // Group items by year
+    const yearGroups = {};
+    const validItems = filteredItems.value.filter(item => toPersianYear(item.date) !== 'نامشخص');
+    validItems.forEach(item => {
+        const year = toPersianYear(item.date);
+        if (!yearGroups[year]) {
+            yearGroups[year] = 0;
+        }
+        yearGroups[year]++;
+    });
 
-	const data = sortedYears.map(year => ({
-		year: year,
-		count: groups[year].length
-	}));
-	yMax.value = Math.max(...data.map(d => d.count), 0) * 1.05; // 5% extra space for a better visual representation
+    // Convert to an array and sort by year
+    const years = Object.keys(yearGroups).sort();
+    const maxCount = Math.max(...Object.values(yearGroups), 0);
 
-	return data.reverse();
+    // Create chart data
+    const data = years.map(year => ({
+        year,
+        count: yearGroups[year],
+        height: (yearGroups[year] / maxCount) * 100
+    }));
+
+    return data;
 });
+
+const toggleYearFilter = (year) => {
+    if (selectedYear.value === year) {
+        selectedYear.value = '';
+    } else {
+        selectedYear.value = year;
+    }
+};
 
 const filteredDesigners = computed(() => {
 	const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
@@ -2422,7 +2269,7 @@ return {
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
     searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
     handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle,
-	chartData, yMax
+	yearChartData, toggleYearFilter
 };
 
 
