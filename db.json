@@ -25665,6 +25665,33 @@
 			],
 			"logos": []
 		},
+		"Q14756960": {
+			"id": "Q14756960",
+			"sitelinks": {
+				"fawiki": "گرگ بیزار"
+			},
+			"labels": {
+				"en": "The Hateful Wolf",
+				"fa": "گرگ بیزار"
+			},
+			"aliases": {},
+			"directors": [
+				"Q6798542"
+			],
+			"date": [
+				"+1973-01-01T00:00:00Z"
+			],
+			"imdb": [
+				"tt1091775"
+			],
+			"posters": [
+				{
+					"image": "گرگ_بیزار_(پوستر).jpg",
+					"hash": "4d"
+				}
+			],
+			"logos": []
+		},
 		"Q14756961": {
 			"id": "Q14756961",
 			"sitelinks": {
