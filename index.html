@@ -838,38 +838,45 @@ input[type="text"] {
 
 /* Bar chart styles */
 .bar-chart-container {
-	padding: 10px;
-	background-color: light-dark(#fff, #000);
-	border-radius: 10px;
-	border: 1px light-dark(#ddd, #333) solid;
-	overflow-x: auto;
+    padding: 10px;
+    background-color: light-dark(#fff, #000);
+    border-radius: 10px;
+    border: 1px light-dark(#ddd, #333) solid;
+    overflow-x: auto;
+    direction: ltr; /* Force LTR for the chart itself */
+    text-align: left;
 }
 .chart-title {
 	text-align: center;
 	font-size: 1em;
 	margin-bottom: 10px;
+    direction: rtl; /* Reset direction for title */
+    text-align: right;
 }
 .chart-wrapper {
 	padding: 10px 0;
 	position: relative;
+    padding-left: 40px; /* Space for y-axis labels */
+    height: 250px;
 }
 .chart {
     display: flex;
-    justify-content: flex-end; /* Align bars to the right for RTL */
+    justify-content: flex-start; /* Align bars to the left for LTR order */
     align-items: flex-end;
-    gap: 1px;
+    gap: 3px; /* Smaller gap for 3px width */
     height: 200px;
     border-bottom: 1px solid light-dark(#ccc, #666);
     position: relative;
-    width: fit-content; /* Let the chart width be determined by its content */
+    width: fit-content;
 }
 .bar-wrapper {
 	display: flex;
 	flex-direction: column-reverse;
 	align-items: center;
 	position: relative;
-	width: 25px;
-	flex-shrink: 0; /* Do not shrink bars */
+	width: 3px; /* Fixed width of 3px */
+	flex-shrink: 0;
+    margin: 0 1px;
 }
 .bar {
     width: 100%;
@@ -887,6 +894,10 @@ input[type="text"] {
     white-space: nowrap;
     transform-origin: 50% 50%;
     transform: rotate(45deg);
+    display: none; /* Hide labels by default */
+}
+.bar-wrapper:nth-child(5n+1) .bar-label { /* Show every 5th label */
+    display: block;
 }
 .bar-tooltip {
 	position: absolute;
@@ -1092,11 +1103,6 @@ input[type="text"] {
 						<div class="chart-title">تعداد پوسترها بر اساس سال</div>
 						<div class="bar-chart-wrapper">
 							<div class="chart">
-								<div class="y-axis-lines">
-									<div class="y-axis-line" v-for="n in 5" :key="n">
-										<span class="y-axis-item">{{ ((yMax / 4) * (n - 1)).toFixed(0) }}</span>
-									</div>
-								</div>
 								<div v-for="item in chartData" :key="item.year" class="bar-wrapper">
 									<div class="bar" 
 										:style="{ height: (item.count / yMax * 100) + '%' }"
@@ -1867,7 +1873,6 @@ const filteredYears = computed(() => {
 });
 
 const chartData = computed(() => {
-	// Filter out items with 'نامشخص' date
 	const validItems = filteredItems.value.filter(item => toPersianYear(item.date) !== 'نامشخص');
 	const groups = Object.groupBy(validItems, item => toPersianYear(item.date));
 	const sortedYears = Object.keys(groups).sort((a, b) => parseInt(a) - parseInt(b));
@@ -1876,9 +1881,8 @@ const chartData = computed(() => {
 		year: year,
 		count: groups[year].length
 	}));
-	yMax.value = Math.max(...data.map(d => d.count), 0);
+	yMax.value = Math.max(...data.map(d => d.count), 0) * 1.05; // 5% extra space for a better visual representation
 
-	// The user wants oldest (right) to newest (left). With RTL direction, we need to reverse the array.
 	return data.reverse();
 });
 
