@@ -849,18 +849,28 @@ input[type="text"] {
 	font-size: 1em;
 	margin-bottom: 10px;
 }
+.chart-wrapper {
+	padding: 10px 0;
+	position: relative;
+}
 .chart {
     display: flex;
+    justify-content: space-between;
     align-items: flex-end;
     gap: 1px;
     height: 200px;
     border-bottom: 1px solid light-dark(#ccc, #666);
-    padding: 5px 0;
     position: relative;
 }
+.bar-wrapper {
+	display: flex;
+	flex-direction: column-reverse;
+	align-items: center;
+	position: relative;
+	width: 25px; /* Fixed width for each bar */
+}
 .bar {
-    position: relative;
-    width: 20px;
+    width: 100%;
     background-color: light-dark(#b77, #b77);
     transition: height 0.3s ease-in-out;
     cursor: pointer;
@@ -870,15 +880,15 @@ input[type="text"] {
 }
 .bar-label {
     position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%) rotate(-45deg);
+    bottom: -35px;
     font-size: 0.7em;
     white-space: nowrap;
+    transform-origin: 50% 50%;
+    transform: rotate(45deg);
 }
 .bar-tooltip {
 	position: absolute;
-	top: -30px;
+	top: -20px;
 	left: 50%;
 	transform: translateX(-50%);
 	background-color: rgba(0, 0, 0, 0.7);
@@ -890,6 +900,7 @@ input[type="text"] {
 	opacity: 0;
 	pointer-events: none;
 	transition: opacity 0.3s;
+	z-index: 10;
 }
 .bar:hover .bar-tooltip {
 	opacity: 1;
@@ -918,37 +929,25 @@ input[type="text"] {
 	width: 100%;
 	position: relative;
 }
-.y-axis-line-label {
-	position: absolute;
-	right: 100%;
-	top: -5px;
-	font-size: 0.7em;
-	color: light-dark(#666, #aaa);
-	white-space: nowrap;
-	margin-right: 5px;
-}
-.y-axis {
-	position: absolute;
-	right: 100%;
-	bottom: 0;
-	width: 40px;
-	height: 100%;
-	display: flex;
-	flex-direction: column-reverse;
-	justify-content: space-between;
-	padding-bottom: 20px;
-}
 .y-axis-item {
 	font-size: 0.8em;
 	text-align: right;
 	white-space: nowrap;
+	position: absolute;
+	right: 100%;
+	transform: translateY(50%);
+	margin-right: 5px;
 }
 .bar-chart-wrapper {
-	width: 100%;
 	overflow-x: auto;
 }
 .chart {
-	min-width: 600px;
+	min-width: 600px; /* Adjust as needed */
+}
+@media (max-width: 768px) {
+	.chart {
+		min-width: 300px;
+	}
 }
 
 
@@ -1094,20 +1093,21 @@ input[type="text"] {
 						<div class="bar-chart-wrapper">
 							<div class="chart">
 								<div class="y-axis-lines">
-									<div class="y-axis-line" v-for="n in 5"></div>
-								</div>
-								<div class="y-axis">
-									<div class="y-axis-item" v-for="n in 5">{{ ((yMax / 4) * (n - 1)).toFixed(0) }}</div>
+									<div class="y-axis-line" v-for="n in 5" :key="n">
+										<span class="y-axis-item">{{ ((yMax / 4) * (n - 1)).toFixed(0) }}</span>
+									</div>
 								</div>
 								<div v-for="item in chartData" :key="item.year" class="bar-wrapper">
 									<div class="bar" 
 										:style="{ height: (item.count / yMax * 100) + '%' }"
-										@click="selectYearFromModal(item.year)"
+										@click="selectedYear === item.year ? removeYearFilter() : selectYearFromModal(item.year)"
 										@mouseenter="hoveredItem = item.year" 
-										@mouseleave="hoveredItem = null">
+										@mouseleave="hoveredItem = null"
+										:class="{ 'selected': selectedYear === item.year }"
+									>
 										<span class="bar-tooltip">{{ item.count }}</span>
-										<span class="bar-label">{{ item.year }}</span>
 									</div>
+									<span class="bar-label">{{ item.year }}</span>
 								</div>
 							</div>
 						</div>
@@ -1867,14 +1867,19 @@ const filteredYears = computed(() => {
 });
 
 const chartData = computed(() => {
-	const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
+	// Filter out items with 'نامشخص' date
+	const validItems = filteredItems.value.filter(item => toPersianYear(item.date) !== 'نامشخص');
+	const groups = Object.groupBy(validItems, item => toPersianYear(item.date));
 	const sortedYears = Object.keys(groups).sort((a, b) => parseInt(a) - parseInt(b));
+
 	const data = sortedYears.map(year => ({
 		year: year,
 		count: groups[year].length
 	}));
 	yMax.value = Math.max(...data.map(d => d.count), 0);
-	return data;
+
+	// The user wants oldest (right) to newest (left). With RTL direction, we need to reverse the array.
+	return data.reverse();
 });
 
 const filteredDesigners = computed(() => {
