@@ -819,85 +819,114 @@ input[type="text"] {
 	font-size: x-large;
 }
 
-.load-more-button {
-    background-color: light-dark(#b77, #b77);
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 24px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-
-.load-more-button:hover {
-    background-color: light-dark(#a66, #a66);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-/* استایل‌های نمودار سالانه */
-.year-chart-container {
-    padding: 10px;
-    margin-bottom: 15px;
-    background-color: light-dark(#f5f5f5, #222);
-    border-radius: 8px;
-    direction: ltr;
-}
-.year-chart {
-    display: flex;
-    height: 200px;
-    align-items: flex-end;
-    gap: 2px;
-    direction: ltr; /* برای نمایش صحیح نمودار از چپ به راست */
-    justify-content: flex-start;
-    overflow-x: auto;
-}
-.year-bar-container {
-    flex: 0 0 auto; /* Prevent shrinking and specify a fixed size */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    width: 10px; /* Fixed bar container width */
-}
-.year-bar {
-    width: 3px; /* Fixed bar width as requested */
-    background-color: light-dark(#b77, #b77);
-    border-radius: 3px 3px 0 0;
-    transition: height 0.3s ease, background-color 0.3s ease;
-    position: relative;
-    min-height: 2px;
-}
-.year-bar.active {
-    background-color: light-dark(#a55, #a55);
-}
-.year-bar:hover {
-    background-color: light-dark(#c88, #c88);
-}
-.year-count {
-    position: absolute;
-    top: -25px;
-    font-size: 0.8em;
-    color: light-dark(#333, #ddd);
-    white-space: nowrap;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-.year-bar:hover .year-count {
-    opacity: 1;
-}
-.year-label {
-    margin-top: 5px;
-    font-size: 0.7em;
-    color: light-dark(#555, #aaa);
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    text-align: right;
-}
-
 @media (max-width: 768px) {
-    .year-label {
-        font-size: 0.6em;
+	#app {
+		padding: 0;
+	}
+
+	#main-content {
+		margin-right: 0 !important;
+		padding: 15px;
+		/* padding-top توسط اسکریپت مدیریت می‌شود */
+		flex-direction: column;
+	}
+
+	.search-bar {
+		left: 0 !important;
+		width: 100% !important;
+		right: auto !important;
+	}
+
+	.search-bar-inner {
+		padding: 15px;
+		border-radius: 16px;
+	}
+	
+	.results-grid {
+		width: 100%;
+		max-width: 100%;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr); /* دو ستون با عرض یکسان */
+		gap: 15px;
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+    
+    .item-card {
+        width: 100%; /* عرض کامل را می‌گیرد، چون گرید آن را مدیریت می‌کند */
+        max-width: none;
+    }
+
+	.options {
+		gap: 15px;
+		align-items: center;
+		transition: 0.3s ease-in-out;
+		max-height: 200px;
+		opacity: 1;
+	}
+
+	.options.collapsed {
+		max-height: 0;
+		opacity: 0;
+		margin: 0;
+		padding: 0;
+		visibility: hidden;
+	}
+
+	#showSidebarButton {
+		display: inline-block;
+	}
+
+	#hideSidebarButton {
+		display: inline-block;
+		margin-bottom: 10px;
+		padding: 8px 14px;
+		border: none;
+		background: none;
+		font-size: x-large;
+		cursor: pointer;
+	}
+
+	.sidebar {
+		position: fixed;
+		top: 0;
+		right: -105%;
+		width: 385px !important;
+		height: 100vh;
+		background-color: light-dark(#fff, #121212);
+		transition: right 0.3s cubic-bezier(1, 0, 0, 1);
+		z-index: 1000;
+		display: block;
+	}
+
+	.sidebar.visible {
+		right: 0;
+		display: block;
+		transform: translateX(0);
+	}
+
+	.sidebar-overlay.visible {
+		display: block;
+	}
+
+	.mobile-only {
+		display: inline-block;
+	}
+
+	.desktop-only {
+		display: none;
+	}
+
+	.collapse-button {
+		display: inline-block;
+		padding: 0;
+	}
+
+	.sidebar-resize-handle {
+		display: none;
+	}
+    #desktopSidebarToggleButton {
+        display: none;
     }
 }
 </style>
@@ -927,25 +956,7 @@ input[type="text"] {
 					</button>
 				</div>
 				<div class="sidebar-section-body">
-					<!-- نمودار جدید -->
-					<div class="year-chart-container" v-if="yearChartData.length > 0 && !isCollapsed.years">
-						<div class="year-chart">
-							<div v-for="(yearData, index) in yearChartData" 
-								:key="index" 
-								class="year-bar-container"
-								@click="toggleYearFilter(yearData.year)">
-								<div class="year-bar" 
-									:style="{ height: yearData.height + '%' }"
-									:class="{ 'active': selectedYear === yearData.year }">
-									<span class="year-count">{{ yearData.count }}</span>
-								</div>
-								<span class="year-label">{{ yearData.year }}</span>
-							</div>
-						</div>
-					</div>
-					
-					<!-- لیست سال‌ها (بقیه کدهای موجود) -->
-					<div class="year-grid">
+					<div class="year-grid" style="visibility: hidden" :style="{ visibility: undefined }">
 						<div v-if="filteredYearsInModal.length === 0" class="no-results">
 							نتیجه‌ای وجود ندارد
 						</div>
@@ -1353,14 +1364,13 @@ input[type="text"] {
 			نتیجه‌ای برای نمایش وجود ندارد.
 		</p>
 		<div v-if="displayedItemsCount < filteredItems.length" style="text-align: center; padding-top: 1em;">
-			<button @click="showMore" class="load-more-button" style="display: none" :style="{ display: undefined }">
-				نمایش بیشتر ({{ Math.min(filteredItems.length - displayedItemsCount, 30).toLocaleString('fa') }})
+			<button @click="showMore" style="display: none" :style="{ display: undefined }">
+				نمایش بیشتر ({{ Math.min(filteredItems.length - displayedItemsCount).toLocaleString('fa') }})
 			</button>
 </div>
 	</div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 {
 	const urlParams = new URLSearchParams(window.location.search);
@@ -1415,7 +1425,6 @@ const searchBarRef = ref(null);
 const searchBarHeight = ref(0);
 const isMobileView = ref(false);
 const isDesktopSidebarFixed = ref(false);
-const yMax = ref(0);
 
 const showMore = () => {
 	displayedItemsCount.value += 30;
@@ -1698,40 +1707,6 @@ const filteredYears = computed(() => {
 		.sort()
 		.map(year => [year, groups[year].length.toLocaleString('fa')]);
 });
-
-const yearChartData = computed(() => {
-    // Group items by year
-    const yearGroups = {};
-    const validItems = filteredItems.value.filter(item => toPersianYear(item.date) !== 'نامشخص');
-    validItems.forEach(item => {
-        const year = toPersianYear(item.date);
-        if (!yearGroups[year]) {
-            yearGroups[year] = 0;
-        }
-        yearGroups[year]++;
-    });
-
-    // Convert to an array and sort by year
-    const years = Object.keys(yearGroups).sort();
-    const maxCount = Math.max(...Object.values(yearGroups), 0);
-
-    // Create chart data
-    const data = years.map(year => ({
-        year,
-        count: yearGroups[year],
-        height: maxCount > 0 ? (yearGroups[year] / maxCount) * 100 : 0
-    }));
-
-    return data;
-});
-
-const toggleYearFilter = (year) => {
-    if (selectedYear.value === year) {
-        selectedYear.value = '';
-    } else {
-        selectedYear.value = year;
-    }
-};
 
 const filteredDesigners = computed(() => {
 	const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
@@ -2268,8 +2243,7 @@ return {
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount,
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
     searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
-    handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle,
-	yearChartData, toggleYearFilter
+    handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle
 };
 
 
