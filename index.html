@@ -973,7 +973,7 @@ input[type="text"] {
 							@click="selectedYear === year ? removeYearFilter() : selectYearFromModal(year)"
 							@mouseenter="hoveredItem = year" @mouseleave="hoveredItem = null"
 							:class="{ 'hovered': hoveredItem === year }" class="year-item">
-							{{ year }} <span class="count">({{ count }})</span>
+							{{ year }} <span class="count">({{ count.toLocaleString('fa') }})</span>
 							<span v-if="selectedYear === year" class="remove-filter" @click.stop="removeYearFilter">
 								<span class="material-symbols-rounded" style="font-size: inherit;">
 									close
@@ -1012,7 +1012,7 @@ input[type="text"] {
 							@click="selectedDesigner === designer ? removeDesignerFilter() : selectDesignerFromModal(designer)"
 							@mouseenter="hoveredItem = designer" @mouseleave="hoveredItem = null"
 							:class="{ 'hovered': hoveredItem === designer }" class="designer-item">
-							{{ designer }} <span class="count">({{ count }})</span>
+							{{ designer }} <span class="count">({{ count.toLocaleString('fa') }})</span>
 							<span v-if="selectedDesigner === designer" class="remove-filter"
 								@click.stop="removeDesignerFilter">
 								<span class="material-symbols-rounded" style="font-size: inherit;">
@@ -1052,7 +1052,7 @@ input[type="text"] {
 							@click="selectedDirector === director ? removeDirectorFilter() : selectDirectorFromModal(director)"
 							@mouseenter="hoveredItem = director" @mouseleave="hoveredItem = null"
 							:class="{ 'hovered': hoveredItem === director }" class="director-item">
-							{{ director }} <span class="count">({{ count }})</span>
+							{{ director }} <span class="count">({{ count.toLocaleString('fa') }})</span>
 							<span v-if="selectedDirector === director" class="remove-filter"
 								@click.stop="removeDirectorFilter">
 								<span class="material-symbols-rounded" style="font-size: inherit;">
@@ -1082,7 +1082,7 @@ input[type="text"] {
 							@click="selectedLetter === letter ? removeLetterFilter() : selectLetterFromModal(letter)"
 							@mouseenter="hoveredItem = letter" @mouseleave="hoveredItem = null"
 							:class="{ 'hovered': hoveredItem === letter }" class="letter-item">
-							{{ letter }} <span class="count">({{ count }})</span>
+							{{ letter }} <span class="count">({{ count.toLocaleString('fa') }})</span>
 							<span v-if="selectedLetter === letter" class="remove-filter"
 								@click.stop="removeLetterFilter">
 								<span class="material-symbols-rounded" style="font-size: inherit;">
@@ -1529,7 +1529,7 @@ const resetFilters = () => {
 };
 
 const films = Object.values(data.films);
-const uniqueFilmCount = films.length.toLocaleString('fa', { useGrouping: false });
+const uniqueFilmCount = computed(() => films.length.toLocaleString('fa', { useGrouping: false }));
 	
 const uniqueResultsFilmCount = computed(() => {
 	const uniqueFilmIds = new Set(filteredItems.value.map(item => item.film));
@@ -1584,7 +1584,7 @@ const items = films.flatMap(film => {
 		return item;
 	});
 });
-const itemsLength = items.length.toLocaleString('fa', { useGrouping: false });
+const itemsLength = computed(() => items.length.toLocaleString('fa', { useGrouping: false }));
 
 const similarCharsMapping = {
 	'آ': '[آاأإ]', 'ا': '[آاأإ]', 'أ': '[آاأإ]', 'إ': '[آاأإ]', 'ط': '[طظ]', 'ظ': '[طظ]', 'ب': '[بپتثنی]', 'پ': '[بپتثنی]',
@@ -1605,38 +1605,39 @@ const toPersianYear = date => {
 	return year === 'Invalid Date' ? 'نامشخص' : year;
 };
 
-const availableYears = (() => {
+// تغییر برای بازگرداندن مقادیر عددی
+const availableYears = computed(() => {
 	const groups = Object.groupBy(items, item => toPersianYear(item.date));
-	return Object.keys(groups).sort().map(year => [year, groups[year].length.toLocaleString('fa')]);
-})();
+	return Object.keys(groups).sort().map(year => [year, groups[year].length]);
+});
 
-const availableDesigners = (() => {
+// تغییر برای بازگرداندن مقادیر عددی
+const availableDesigners = computed(() => {
 	const groups = Object.groupBy(items.filter(x => x.designerLabel), item => item.designerLabel);
 	return Object.keys(groups)
 		.map(designer => [designer, groups[designer].length])
-		.sort((a, b) => b[1] - a[1])
-		.map(([designer, count]) => [designer, count.toLocaleString('fa')]);
-})();
+		.sort((a, b) => b[1] - a[1]);
+});
 
-const availableDirectors = (() => {
+// تغییر برای بازگرداندن مقادیر عددی
+const availableDirectors = computed(() => {
 	const groups = Object.groupBy(items.filter(x => x.directorLabel), item => item.directorLabel);
 	return Object.keys(groups)
 		.map(director => [director, groups[director].length])
-		.sort((a, b) => b[1] - a[1])
-		.map(([director, count]) => [director, count.toLocaleString('fa')]);
-})();
+		.sort((a, b) => b[1] - a[1]);
+});
 
 const getItemTitleWithYear = item => {
 	return item.filmLabel + (item.date ? ` (${toPersianYear(item.date)})` : '');
 };
 
-const letterCounts = (() => {
+const letterCounts = computed(() => {
 	const counts = persianAlphabet.reduce((acc, letter) => {
 		acc[letter] = items.filter(item => item.filmLabel.startsWith(letter)).length;
 		return acc;
 	}, {});
 	return counts;
-})();
+});
 
 const filteredItems = computed(() => {
 	let results = items;
@@ -1716,31 +1717,28 @@ const filteredYears = computed(() => {
 	const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
 	return Object.keys(groups)
 		.sort()
-		.map(year => [year, groups[year].length.toLocaleString('fa')]);
+		.map(year => [year, groups[year].length]);
 });
 
 const filteredDesigners = computed(() => {
 	const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
 	return Object.keys(groups)
 		.map(designer => [designer, groups[designer].length])
-		.sort((a, b) => b[1] - a[1])
-		.map(([designer, count]) => [designer, count.toLocaleString('fa')]);
+		.sort((a, b) => b[1] - a[1]);
 });
 
 const filteredDirectors = computed(() => {
 	const groups = Object.groupBy(filteredItems.value.filter(x => x.directorLabel), item => item.directorLabel);
 	return Object.keys(groups)
 		.map(director => [director, groups[director].length])
-		.sort((a, b) => b[1] - a[1])
-		.map(([director, count]) => [director, count.toLocaleString('fa')]);
+		.sort((a, b) => b[1] - a[1]);
 });
 
 const filteredDesignersInModal = computed(() => {
 	const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
 	const designers = Object.keys(groups)
 		.map(designer => [designer, groups[designer].length])
-		.sort((a, b) => b[1] - a[1])
-		.map(([designer, count]) => [designer, count.toLocaleString('fa')]);
+		.sort((a, b) => b[1] - a[1]);
 
 	if (!designerSearchQuery.value) {
 		return designers;
@@ -1755,11 +1753,12 @@ const selectDesignerFromModal = designer => {
 	designerQuery.value = designer;
 };
 
+// تغییر برای بازگرداندن مقادیر عددی
 const filteredYearsInModal = computed(() => {
 	const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
 	return Object.keys(groups)
 		.sort()
-		.map(year => [year, groups[year].length.toLocaleString('fa')]);
+		.map(year => [year, groups[year].length]);
 });
 
 watch(filteredItems, (newValue) => {
@@ -1775,8 +1774,7 @@ const filteredDirectorsInModal = computed(() => {
 	const groups = Object.groupBy(filteredItems.value.filter(x => x.directorLabel), item => item.directorLabel);
 	const directors = Object.keys(groups)
 		.map(director => [director, groups[director].length])
-		.sort((a, b) => b[1] - a[1])
-		.map(([director, count]) => [director, count.toLocaleString('fa')]);
+		.sort((a, b) => b[1] - a[1]);
 
 	if (!directorSearchQuery.value) {
 		return directors;
@@ -1791,7 +1789,7 @@ const filteredLettersInModal = computed(() => {
 
 	const letters = persianAlphabet
 		.filter(letter => groups[letter])
-		.map(letter => [letter, groups[letter].length.toLocaleString('fa')]);
+		.map(letter => [letter, groups[letter].length]);
 
 	return letters;
 });
@@ -2202,7 +2200,8 @@ const updateChart = () => {
     }
 
     const persianYears = filteredYearsInModal.value.map(([year]) => year);
-    const posterCounts = filteredYearsInModal.value.map(([_, count]) => parseInt(count.replace(/,/g, '')));
+    // استفاده مستقیم از مقادیر عددی که توسط filteredYearsInModal بازگردانده می‌شود
+    const posterCounts = filteredYearsInModal.value.map(([_, count]) => count);
 
     const ctx = document.getElementById('yearsChart').getContext('2d');
 	const startYear = Math.min(...persianYears.map(y => parseInt(y)));
