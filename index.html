@@ -5,7 +5,7 @@
 <meta name="color-scheme" content="light dark">
 <meta name="title" content="Film Posters of Iran | آرشیو پوسترهای سینمای ایران">
 <meta name="description" content="آرشیو پوستر فیلم‌های سینمایی ایرانی قبل و بعد از انقلاب؛ دربردارندهٔ آثار محمدعلی باطنی، محمدعلی حدت، محسن دولو، مسعود بهنام، مرتضی ممیز، ابراهیم حقیقی و دیگر طراحان گرافیک.">
-<meta name="keywords" content="پوستر فیلم, فیلم ایرانی, پوستر سینمایی, محمدعلی باطنی, محمدعلی حدت, محسن دولو, مرتضی ممیز, ابراهیم حقیقی, قباد شیوا, فرشید مثقالی, جشنواره فیلم فجر, دانلود پوستر فیلم, عباس کیارستمی film posters of Iran, Iranian films">
+<meta name="keywords" content="پوستر فیلم, فیلم ایرانی, پوستر سینمایی, محمدعلی باطنی, محمدعلی حدت, محسن دولو, مسعود بهنام, مرتضی ممیز, ابراهیم حقیقی, قباد شیوا, فرشید مثقالی, جشنواره فیلم فجر, دانلود پوستر فیلم, عباس کیارستمی film posters of Iran, Iranian films">
 <meta property="twitter:title" content="Film Posters of Iran | آرشیو پوسترهای سینمای ایران">
 <meta property="twitter:description" content="آرشیو پوستر فیلم‌های سینمایی ایرانی قبل و بعد از انقلاب؛ دربردارندهٔ آثار محمدعلی باطنی، محمدعلی حدت، محسن دولو، مسعود بهنام، مرتضی ممیز، ابراهیم حقیقی و دیگر طراحان گرافیک">
 <meta property="og:title" content="Film Posters of Iran | آرشیو پوسترهای سینمای ایران" />
@@ -928,9 +928,9 @@ input[type="text"] {
 				</div>
 				<div class="sidebar-section-body">
 					<!-- نمودار جدید -->
-					<div class="year-chart-container" v-if="chartData.length > 0 && !isCollapsed.years">
+					<div class="year-chart-container" v-if="yearChartData.length > 0 && !isCollapsed.years">
 						<div class="year-chart">
-							<div v-for="(yearData, index) in chartData" 
+							<div v-for="(yearData, index) in yearChartData" 
 								:key="index" 
 								class="year-bar-container"
 								@click="toggleYearFilter(yearData.year)">
@@ -1719,7 +1719,7 @@ const yearChartData = computed(() => {
     const data = years.map(year => ({
         year,
         count: yearGroups[year],
-        height: (yearGroups[year] / maxCount) * 100
+        height: maxCount > 0 ? (yearGroups[year] / maxCount) * 100 : 0
     }));
 
     return data;
