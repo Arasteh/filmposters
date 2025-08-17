@@ -855,19 +855,21 @@ input[type="text"] {
 }
 .chart {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end; /* Align bars to the right for RTL */
     align-items: flex-end;
     gap: 1px;
     height: 200px;
     border-bottom: 1px solid light-dark(#ccc, #666);
     position: relative;
+    width: fit-content; /* Let the chart width be determined by its content */
 }
 .bar-wrapper {
 	display: flex;
 	flex-direction: column-reverse;
 	align-items: center;
 	position: relative;
-	width: 25px; /* Fixed width for each bar */
+	width: 25px;
+	flex-shrink: 0; /* Do not shrink bars */
 }
 .bar {
     width: 100%;
@@ -941,9 +943,7 @@ input[type="text"] {
 .bar-chart-wrapper {
 	overflow-x: auto;
 }
-.chart {
-	min-width: 600px; /* Adjust as needed */
-}
+
 @media (max-width: 768px) {
 	.chart {
 		min-width: 300px;
