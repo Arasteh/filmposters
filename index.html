@@ -2199,21 +2199,36 @@ const updateChart = () => {
         yearsChartInstance.value.destroy();
     }
 
+    // Get counts for filtered years
     const persianYearsWithData = Object.fromEntries(filteredYearsInModal.value);
 
-    // پیدا کردن قدیمی‌ترین و جدیدترین سال
-    const allYears = Object.keys(Object.groupBy(items, item => toPersianYear(item.date)));
-    const startYear = Math.min(...allYears.map(y => parseInt(y)));
-    const endYear = Math.max(...allYears.map(y => parseInt(y)));
+    // Get the full range of years from all items, excluding invalid ones
+    const allYearsInNumbers = Object.keys(Object.groupBy(items, item => toPersianYear(item.date)))
+                                    .filter(y => y !== 'نامشخص')
+                                    .map(y => parseInt(y));
+    
+    // Fallback if no valid years are found
+    if (allYearsInNumbers.length === 0) {
+        console.warn('No valid years found to create chart range.');
+        return;
+    }
+
+    const startYear = Math.min(...allYearsInNumbers);
+    const endYear = Math.max(...allYearsInNumbers);
     
     const chartLabels = [];
     const chartData = [];
     for (let year = startYear; year <= endYear; year++) {
-        chartLabels.push(year.toString());
-        chartData.push(persianYearsWithData[year.toString()] || 0);
+        const persianYear = year.toString();
+        chartLabels.push(persianYear);
+        chartData.push(persianYearsWithData[persianYear] || 0);
     }
-
-    const ctx = document.getElementById('yearsChart').getContext('2d');
+    
+    const ctx = document.getElementById('yearsChart');
+    if (!ctx) {
+        console.error("Canvas element 'yearsChart' not found.");
+        return;
+    }
 	
     yearsChartInstance.value = new Chart(ctx, {
         type: 'bar',
