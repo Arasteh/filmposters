@@ -819,6 +819,139 @@ input[type="text"] {
 	font-size: x-large;
 }
 
+.load-more-button {
+    background-color: light-dark(#b77, #b77);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 24px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.load-more-button:hover {
+    background-color: light-dark(#a66, #a66);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Bar chart styles */
+.bar-chart-container {
+	padding: 10px;
+	background-color: light-dark(#fff, #000);
+	border-radius: 10px;
+	border: 1px light-dark(#ddd, #333) solid;
+	overflow-x: auto;
+}
+.chart-title {
+	text-align: center;
+	font-size: 1em;
+	margin-bottom: 10px;
+}
+.chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 1px;
+    height: 200px;
+    border-bottom: 1px solid light-dark(#ccc, #666);
+    padding: 5px 0;
+    position: relative;
+}
+.bar {
+    position: relative;
+    width: 20px;
+    background-color: light-dark(#b77, #b77);
+    transition: height 0.3s ease-in-out;
+    cursor: pointer;
+}
+.bar:hover {
+    background-color: light-dark(#a66, #a66);
+}
+.bar-label {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-45deg);
+    font-size: 0.7em;
+    white-space: nowrap;
+}
+.bar-tooltip {
+	position: absolute;
+	top: -30px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: rgba(0, 0, 0, 0.7);
+	color: white;
+	padding: 4px 8px;
+	border-radius: 4px;
+	font-size: 0.8em;
+	white-space: nowrap;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.3s;
+}
+.bar:hover .bar-tooltip {
+	opacity: 1;
+}
+.y-axis-label {
+	position: absolute;
+	left: 0;
+	top: -5px;
+	font-size: 0.8em;
+	color: light-dark(#666, #aaa);
+}
+.y-axis-lines {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column-reverse;
+	justify-content: space-between;
+	pointer-events: none;
+}
+.y-axis-line {
+	height: 1px;
+	background-color: light-dark(#ddd, #444);
+	width: 100%;
+	position: relative;
+}
+.y-axis-line-label {
+	position: absolute;
+	right: 100%;
+	top: -5px;
+	font-size: 0.7em;
+	color: light-dark(#666, #aaa);
+	white-space: nowrap;
+	margin-right: 5px;
+}
+.y-axis {
+	position: absolute;
+	right: 100%;
+	bottom: 0;
+	width: 40px;
+	height: 100%;
+	display: flex;
+	flex-direction: column-reverse;
+	justify-content: space-between;
+	padding-bottom: 20px;
+}
+.y-axis-item {
+	font-size: 0.8em;
+	text-align: right;
+	white-space: nowrap;
+}
+.bar-chart-wrapper {
+	width: 100%;
+	overflow-x: auto;
+}
+.chart {
+	min-width: 600px;
+}
+
+
 @media (max-width: 768px) {
 	#app {
 		padding: 0;
@@ -956,7 +1089,30 @@ input[type="text"] {
 					</button>
 				</div>
 				<div class="sidebar-section-body">
-					<div class="year-grid" style="visibility: hidden" :style="{ visibility: undefined }">
+					<div class="bar-chart-container" v-if="chartData.length > 0 && !isCollapsed.years">
+						<div class="chart-title">تعداد پوسترها بر اساس سال</div>
+						<div class="bar-chart-wrapper">
+							<div class="chart">
+								<div class="y-axis-lines">
+									<div class="y-axis-line" v-for="n in 5"></div>
+								</div>
+								<div class="y-axis">
+									<div class="y-axis-item" v-for="n in 5">{{ ((yMax / 4) * (n - 1)).toFixed(0) }}</div>
+								</div>
+								<div v-for="item in chartData" :key="item.year" class="bar-wrapper">
+									<div class="bar" 
+										:style="{ height: (item.count / yMax * 100) + '%' }"
+										@click="selectYearFromModal(item.year)"
+										@mouseenter="hoveredItem = item.year" 
+										@mouseleave="hoveredItem = null">
+										<span class="bar-tooltip">{{ item.count }}</span>
+										<span class="bar-label">{{ item.year }}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="year-grid">
 						<div v-if="filteredYearsInModal.length === 0" class="no-results">
 							نتیجه‌ای وجود ندارد
 						</div>
@@ -1364,13 +1520,14 @@ input[type="text"] {
 			نتیجه‌ای برای نمایش وجود ندارد.
 		</p>
 		<div v-if="displayedItemsCount < filteredItems.length" style="text-align: center; padding-top: 1em;">
-			<button @click="showMore" style="display: none" :style="{ display: undefined }">
-				نمایش بیشتر ({{ Math.min(filteredItems.length - displayedItemsCount).toLocaleString('fa') }})
+			<button @click="showMore" class="load-more-button" style="display: none" :style="{ display: undefined }">
+				نمایش بیشتر ({{ Math.min(filteredItems.length - displayedItemsCount, 30).toLocaleString('fa') }})
 			</button>
 </div>
 	</div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 {
 	const urlParams = new URLSearchParams(window.location.search);
@@ -1425,6 +1582,7 @@ const searchBarRef = ref(null);
 const searchBarHeight = ref(0);
 const isMobileView = ref(false);
 const isDesktopSidebarFixed = ref(false);
+const yMax = ref(0);
 
 const showMore = () => {
 	displayedItemsCount.value += 30;
@@ -1706,6 +1864,17 @@ const filteredYears = computed(() => {
 	return Object.keys(groups)
 		.sort()
 		.map(year => [year, groups[year].length.toLocaleString('fa')]);
+});
+
+const chartData = computed(() => {
+	const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
+	const sortedYears = Object.keys(groups).sort((a, b) => parseInt(a) - parseInt(b));
+	const data = sortedYears.map(year => ({
+		year: year,
+		count: groups[year].length
+	}));
+	yMax.value = Math.max(...data.map(d => d.count), 0);
+	return data;
 });
 
 const filteredDesigners = computed(() => {
@@ -2243,7 +2412,8 @@ return {
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount,
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
     searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
-    handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle
+    handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle,
+	chartData, yMax
 };
 
 
