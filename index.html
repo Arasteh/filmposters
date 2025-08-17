@@ -819,6 +819,11 @@ input[type="text"] {
 	font-size: x-large;
 }
 
+.chart-container {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
 @media (max-width: 768px) {
 	#app {
 		padding: 0;
@@ -956,6 +961,10 @@ input[type="text"] {
 					</button>
 				</div>
 				<div class="sidebar-section-body">
+					<!-- اضافه کردن کانواس برای نمودار -->
+					<div class="chart-container">
+						<canvas id="yearsChart"></canvas>
+					</div>
 					<div class="year-grid" style="visibility: hidden" :style="{ visibility: undefined }">
 						<div v-if="filteredYearsInModal.length === 0" class="no-results">
 							نتیجه‌ای وجود ندارد
@@ -1149,7 +1158,7 @@ input[type="text"] {
 		</button>
 		<a :href="downloadLink(lightboxItem)" aria-label="دریافت پوستر" target="_blank">
 			<button class="lightbox-button" style="top: 20px; right: 20px">
-				<span class="material-symbols-rounded" style="font-size: xx-large;">
+				<span class="material-symbols-rounded">
 					download
 				</span>
 			</button>
@@ -1370,7 +1379,8 @@ input[type="text"] {
 </div>
 	</div>
 </div>
-
+<!-- اضافه کردن کتابخانه Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>
 {
 	const urlParams = new URLSearchParams(window.location.search);
@@ -1400,7 +1410,7 @@ desktopSidebarToggleButton.style.display = 'block';
 
 createApp({ setup: () => {
 
-
+// متغیرها
 const darkMode = ref(false);
 const toggleDarkMode = () => darkMode.value = !darkMode.value;
 const isShowMore = ref(false);
@@ -1425,6 +1435,7 @@ const searchBarRef = ref(null);
 const searchBarHeight = ref(0);
 const isMobileView = ref(false);
 const isDesktopSidebarFixed = ref(false);
+const yearsChartInstance = ref(null); // نگهداری نمونه نمودار
 
 const showMore = () => {
 	displayedItemsCount.value += 30;
@@ -2184,6 +2195,94 @@ const searchBarDynamicStyle = computed(() => {
     return style;
 });
 
+// تابع برای به‌روزرسانی نمودار
+const updateChart = () => {
+    if (yearsChartInstance.value) {
+        yearsChartInstance.value.destroy();
+    }
+
+    const persianYears = filteredYearsInModal.value.map(([year]) => year);
+    const posterCounts = filteredYearsInModal.value.map(([_, count]) => parseInt(count.replace(/,/g, '')));
+
+    const ctx = document.getElementById('yearsChart').getContext('2d');
+	const startYear = Math.min(...persianYears.map(y => parseInt(y)));
+    const endYear = Math.max(...persianYears.map(y => parseInt(y)));
+	const ticks = [];
+	for (let i = startYear; i <= endYear; i++) {
+        // نمایش هر ۱۰ سال یک بار
+		if (i % 10 === 0) {
+            ticks.push(i.toString());
+        }
+    }
+	
+    yearsChartInstance.value = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: persianYears,
+            datasets: [{
+                label: 'تعداد پوستر',
+                data: posterCounts,
+                backgroundColor: 'rgba(187, 119, 119, 0.8)',
+                borderColor: 'rgba(187, 119, 119, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    type: 'category',
+                    labels: persianYears,
+                    title: {
+                        display: true,
+                        text: 'سال'
+                    },
+                    ticks: {
+                        autoSkip: true,
+                        maxTicksLimit: 15,
+                        callback: function(value, index, values) {
+                            const year = this.getLabelForValue(value);
+                            return parseInt(year) % 10 === 0 ? year : '';
+                        }
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'تعداد'
+                    },
+                    ticks: {
+                        callback: function(value) {
+                            return value.toLocaleString('fa');
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `تعداد: ${context.raw.toLocaleString('fa')}`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+};
+
+// مشاهده تغییرات فیلتر سال‌ها برای به‌روزرسانی نمودار
+watch(filteredYearsInModal, () => {
+	nextTick(() => {
+		updateChart();
+	});
+}, { immediate: true });
+
 
 onMounted(() => {
     window.addEventListener('scroll', handleScroll);
@@ -2207,6 +2306,9 @@ onMounted(() => {
 onUnmounted(() => {
     window.removeEventListener('scroll', handleScroll);
     window.removeEventListener('resize', checkMobile);
+	if (yearsChartInstance.value) {
+		yearsChartInstance.value.destroy();
+	}
 });
 
 
