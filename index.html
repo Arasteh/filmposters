@@ -2199,44 +2199,28 @@ const updateChart = () => {
         yearsChartInstance.value.destroy();
     }
 
-    // Get counts for filtered years
-    const persianYearsWithData = Object.fromEntries(filteredYearsInModal.value);
+    const persianYears = filteredYearsInModal.value.map(([year]) => year);
+    // استفاده مستقیم از مقادیر عددی که توسط filteredYearsInModal بازگردانده می‌شود
+    const posterCounts = filteredYearsInModal.value.map(([_, count]) => count);
 
-    // Get the full range of years from all items, excluding invalid ones
-    const allYearsInNumbers = Object.keys(Object.groupBy(items, item => toPersianYear(item.date)))
-                                    .filter(y => y !== 'نامشخص')
-                                    .map(y => parseInt(y));
-    
-    // Fallback if no valid years are found
-    if (allYearsInNumbers.length === 0) {
-        console.warn('No valid years found to create chart range.');
-        return;
-    }
-
-    const startYear = Math.min(...allYearsInNumbers);
-    const endYear = Math.max(...allYearsInNumbers);
-    
-    const chartLabels = [];
-    const chartData = [];
-    for (let year = startYear; year <= endYear; year++) {
-        const persianYear = year.toString();
-        chartLabels.push(persianYear);
-        chartData.push(persianYearsWithData[persianYear] || 0);
-    }
-    
-    const ctx = document.getElementById('yearsChart');
-    if (!ctx) {
-        console.error("Canvas element 'yearsChart' not found.");
-        return;
+    const ctx = document.getElementById('yearsChart').getContext('2d');
+	const startYear = Math.min(...persianYears.map(y => parseInt(y)));
+    const endYear = Math.max(...persianYears.map(y => parseInt(y)));
+	const ticks = [];
+	for (let i = startYear; i <= endYear; i++) {
+        // نمایش هر ۱۰ سال یک بار
+		if (i % 10 === 0) {
+            ticks.push(i.toString());
+        }
     }
 	
     yearsChartInstance.value = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: chartLabels,
+            labels: persianYears,
             datasets: [{
                 label: 'تعداد پوستر',
-                data: chartData,
+                data: posterCounts,
                 backgroundColor: 'rgba(187, 119, 119, 0.8)',
                 borderColor: 'rgba(187, 119, 119, 1)',
                 borderWidth: 1
@@ -2248,7 +2232,7 @@ const updateChart = () => {
             scales: {
                 x: {
                     type: 'category',
-                    labels: chartLabels,
+                    labels: persianYears,
                     title: {
                         display: true,
                         text: 'سال'
