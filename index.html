@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light dark">
@@ -41,6 +42,11 @@ html {
 	--text-input-border: #ccc;
 	--card-background: light-dark(#fff, #222);
 	--year-link-foreground: light-dark(#555, #adadad);
+	--bar-color: light-dark(#b77, #b77);
+	--bar-hover-color: light-dark(#a66, #a66);
+	--svg-background: light-dark(#fff, #000);
+	--svg-border-color: light-dark(#ddd, #333);
+	--axis-text-color: light-dark(black, #e0e0e0);
 }
 
 body {
@@ -680,11 +686,11 @@ input[type="text"] {
 	overflow-y: scroll;
 	interpolate-size: allow-keywords;
 	min-height: 0;
-	background-color: light-dark(#fff, #000);
+	background-color: var(--svg-background);
 	opacity: 1;
 	max-height: 350px;
 	border-radius: 0 0 10px 10px;
-	border: 1px light-dark(#ddd, #333) solid;
+	border: 1px var(--svg-border-color) solid;
 	transition: 0.4s cubic-bezier(1, 0, 0, 1);
 	transition-property: opacity, max-height, padding-top, padding-bottom;
 }
@@ -695,11 +701,6 @@ input[type="text"] {
 	opacity: 0;
 	max-height: 0;
 	overflow-y: hidden;
-}
-
-.sidebar-section.collapsed {
-	flex-grow: 0;
-	border: none;
 }
 
 .sidebar-section.expanded {
@@ -824,6 +825,28 @@ input[type="text"] {
     margin-bottom: 20px;
 }
 
+.chart-container svg {
+	width: 100%;
+	height: 300px;
+}
+
+.bar {
+    fill: var(--bar-color);
+	cursor: pointer;
+}
+
+.bar:hover {
+    fill: var(--bar-hover-color);
+}
+
+.axis path, .axis line {
+	stroke: var(--axis-text-color);
+}
+
+.axis text {
+	fill: var(--axis-text-color);
+}
+
 @media (max-width: 768px) {
 	#app {
 		padding: 0;
@@ -935,6 +958,8 @@ input[type="text"] {
     }
 }
 </style>
+</head>
+<body>
 <div id="app">
 	<div id="sidebarOverlay" class="sidebar-overlay" :class="{ visible: sidebarVisible && isMobileView }" @click="hideSidebar">
 	</div>
@@ -961,9 +986,9 @@ input[type="text"] {
 					</button>
 				</div>
 				<div class="sidebar-section-body">
-					<!-- اضافه کردن کانواس برای نمودار -->
+					<!-- اضافه کردن نمودار SVG -->
 					<div class="chart-container">
-						<canvas id="yearsChart"></canvas>
+						<svg id="yearsChart"></svg>
 					</div>
 					<div class="year-grid" style="visibility: hidden" :style="{ visibility: undefined }">
 						<div v-if="filteredYearsInModal.length === 0" class="no-results">
@@ -1379,8 +1404,8 @@ input[type="text"] {
 </div>
 	</div>
 </div>
-<!-- اضافه کردن کتابخانه Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<!-- اضافه کردن کتابخانه D3.js -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
 {
 	const urlParams = new URLSearchParams(window.location.search);
@@ -2193,87 +2218,72 @@ const searchBarDynamicStyle = computed(() => {
     return style;
 });
 
-// تابع برای به‌روزرسانی نمودار
+// تابع برای به‌روزرسانی نمودار SVG
 const updateChart = () => {
-    if (yearsChartInstance.value) {
-        yearsChartInstance.value.destroy();
-    }
+	const svg = d3.select("#yearsChart");
+	svg.selectAll("*").remove(); // پاک کردن نمودار قبلی
 
-    const persianYears = filteredYearsInModal.value.map(([year]) => year);
-    // استفاده مستقیم از مقادیر عددی که توسط filteredYearsInModal بازگردانده می‌شود
-    const posterCounts = filteredYearsInModal.value.map(([_, count]) => count);
+	const data = filteredYearsInModal.value;
 
-    const ctx = document.getElementById('yearsChart').getContext('2d');
-	const startYear = Math.min(...persianYears.map(y => parseInt(y)));
-    const endYear = Math.max(...persianYears.map(y => parseInt(y)));
-	const ticks = [];
-	for (let i = startYear; i <= endYear; i++) {
-        // نمایش هر ۱۰ سال یک بار
-		if (i % 10 === 0) {
-            ticks.push(i.toString());
-        }
-    }
-	
-    yearsChartInstance.value = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: persianYears,
-            datasets: [{
-                label: 'تعداد پوستر',
-                data: posterCounts,
-                backgroundColor: 'rgba(187, 119, 119, 0.8)',
-                borderColor: 'rgba(187, 119, 119, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    type: 'category',
-                    labels: persianYears,
-                    title: {
-                        display: true,
-                        text: 'سال'
-                    },
-                    ticks: {
-                        autoSkip: true,
-                        maxTicksLimit: 15,
-                        callback: function(value, index, values) {
-                            const year = this.getLabelForValue(value);
-                            return parseInt(year) % 10 === 0 ? year : '';
-                        }
-                    }
-                },
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'تعداد'
-                    },
-                    ticks: {
-                        callback: function(value) {
-                            return value.toLocaleString('fa');
-                        }
-                    }
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            return `تعداد: ${context.raw.toLocaleString('fa')}`;
-                        }
-                    }
-                }
-            }
-        }
-    });
+	const margin = { top: 20, right: 30, bottom: 40, left: 40 };
+	const width = document.querySelector('.chart-container').clientWidth - margin.left - margin.right;
+	const height = 300 - margin.top - margin.bottom;
+
+	const x = d3.scaleBand()
+		.domain(data.map(d => d[0]))
+		.range([0, width])
+		.padding(0.1);
+
+	const y = d3.scaleLinear()
+		.domain([0, d3.max(data, d => d[1])])
+		.nice()
+		.range([height, 0]);
+
+	const g = svg.append("g")
+		.attr("transform", `translate(${margin.left},${margin.top})`);
+
+	// افزودن نوارها
+	g.selectAll(".bar")
+		.data(data)
+		.enter().append("rect")
+		.attr("class", "bar")
+		.attr("x", d => x(d[0]))
+		.attr("y", d => y(d[1]))
+		.attr("width", x.bandwidth())
+		.attr("height", d => height - y(d[1]))
+		.on("click", (event, d) => selectYearFromModal(d[0]));
+
+	// افزودن محور X
+	g.append("g")
+		.attr("class", "x-axis")
+		.attr("transform", `translate(0,${height})`)
+		.call(d3.axisBottom(x))
+		.selectAll("text")
+		.style("text-anchor", "end")
+		.attr("dx", "-.8em")
+		.attr("dy", ".15em")
+		.attr("transform", "rotate(-65)");
+
+	// افزودن محور Y
+	g.append("g")
+		.attr("class", "y-axis")
+		.call(d3.axisLeft(y).tickFormat(d3.format("d")));
+
+	// افزودن توضیحات محور
+	g.append("text")
+		.attr("transform", "rotate(-90)")
+		.attr("y", 0 - margin.left)
+		.attr("x", 0 - (height / 2))
+		.attr("dy", "1em")
+		.style("text-anchor", "middle")
+		.text("تعداد پوستر");
+
+	g.append("text")
+		.attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`)
+		.style("text-anchor", "middle")
+		.text("سال");
 };
+
 
 // مشاهده تغییرات فیلتر سال‌ها برای به‌روزرسانی نمودار
 watch(filteredYearsInModal, () => {
@@ -2305,9 +2315,6 @@ onMounted(() => {
 onUnmounted(() => {
     window.removeEventListener('scroll', handleScroll);
     window.removeEventListener('resize', checkMobile);
-	if (yearsChartInstance.value) {
-		yearsChartInstance.value.destroy();
-	}
 });
 
 
@@ -2351,3 +2358,5 @@ return {
 
 } }).mount('#app');
 </script>
+</body>
+</html>
