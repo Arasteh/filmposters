@@ -987,7 +987,7 @@ input[type="text"] {
 				</div>
 				<div class="sidebar-section-body">
 					<!-- اضافه کردن نمودار SVG -->
-					<div class="chart-container" ref="chartContainer">
+					<div class="chart-container">
 						<svg id="yearsChart"></svg>
 					</div>
 					<div class="year-grid" style="visibility: hidden" :style="{ visibility: undefined }">
@@ -1460,8 +1460,7 @@ const searchBarRef = ref(null);
 const searchBarHeight = ref(0);
 const isMobileView = ref(false);
 const isDesktopSidebarFixed = ref(false);
-
-const chartContainer = ref(null); // اضافه کردن یک ref برای نگه داشتن ارجاع به کانتینر نمودار
+const yearsChartInstance = ref(null); // نگهداری نمونه نمودار
 
 const showMore = () => {
 	displayedItemsCount.value += 30;
@@ -2221,16 +2220,11 @@ const searchBarDynamicStyle = computed(() => {
 
 // تابع برای به‌روزرسانی نمودار SVG
 const updateChart = () => {
-    // اطمینان از وجود المان کانتینر قبل از رسم
-    if (!chartContainer.value) {
-        return;
-    }
-
 	const svg = d3.select("#yearsChart");
 	svg.selectAll("*").remove(); // پاک کردن نمودار قبلی
 
 	const dataFromFilter = filteredYearsInModal.value;
-    
+
 	const yearsWithPosters = new Map(dataFromFilter);
 	const allYears = Array.from(yearsWithPosters.keys()).map(Number).sort((a, b) => a - b);
 	
@@ -2251,7 +2245,7 @@ const updateChart = () => {
 	}
 
 	const margin = { top: 20, right: 30, bottom: 40, left: 40 };
-	const width = chartContainer.value.clientWidth - margin.left - margin.right;
+	const width = document.querySelector('.chart-container').clientWidth - margin.left - margin.right;
 	const height = 200 - margin.top - margin.bottom;
 
 	const x = d3.scaleBand()
@@ -2339,8 +2333,6 @@ onMounted(() => {
 			}
             mainContentPaddingTop.value = mainContentPaddingTop.value;
         }
-        // فراخوانی اولیه برای رسم نمودار
-        updateChart();
     });
 });
 
@@ -2383,8 +2375,7 @@ return {
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount,
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
     searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
-    handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle,
-    chartContainer
+    handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle
 };
 
 
