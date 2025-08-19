@@ -990,6 +990,25 @@ input[type="text"] {
 				</span>
 			</button>
 			<p style="right: 60px; position: relative; width: fit-content; font-weight: bold; height: 15px; top: -5px;">فیلترها</p>
+			
+			<!-- بخش جدید نمودار -->
+			<div class="sidebar-section" :class="getSectionClass('chart')" :key="'chart-section'">
+				<div class="sidebar-section-header" @click="toggleCollapse('chart')">
+					<span>نمودار</span>
+					<button class="collapse-button rotate-up" :class="collapseIconClass(isCollapsed.chart)">
+						<span class="material-symbols-rounded">
+							keyboard_arrow_up
+						</span>
+					</button>
+				</div>
+				<div class="sidebar-section-body">
+					<div class="chart-container">
+						<svg id="yearsChart"></svg>
+						<div id="tooltip"></div>
+					</div>
+				</div>
+			</div>
+			
 			<div class="sidebar-section" :class="getSectionClass('years')" :key="'years-section'">
 				<div class="sidebar-section-header" @click="toggleCollapse('years')">
 					<span style="display: none" :style="{ display: undefined }">{{ filteredYearLabel }}</span>
@@ -1001,12 +1020,6 @@ input[type="text"] {
 					</button>
 				</div>
 				<div class="sidebar-section-body">
-					<!-- اضافه کردن نمودار SVG -->
-					<div class="chart-container">
-						<svg id="yearsChart"></svg>
-                        <!-- تول‌تیپ برای نمودار -->
-                        <div id="tooltip"></div>
-					</div>
 					<div class="year-grid" style="visibility: hidden" :style="{ visibility: undefined }">
 						<div v-if="filteredYearsInModal.length === 0" class="no-results">
 							نتیجه‌ای وجود ندارد
@@ -1541,7 +1554,8 @@ const isCollapsed = ref({
 	designers: false,
 	directors: true,
 	years: false,
-	letters: true
+	letters: true,
+	chart: false // اضافه شدن بخش نمودار
 });
 
 const getSectionClass = section => isCollapsed.value[section] ? 'collapsed' : 'expanded';
@@ -2260,12 +2274,15 @@ const updateChart = () => {
 	const xAxis = g => g
         .attr("transform", `translate(0,${height})`)
         .call(d3.axisBottom(x).tickSizeOuter(0))
-        .call(g => g.selectAll("text").remove()); // حذف لیبل‌های محور X
+        .selectAll("text")
+		.style("text-anchor", "end")
+		.attr("dx", "-.8em")
+		.attr("dy", ".15em")
+		.attr("transform", "rotate(-65)");
 
 	const yAxis = g => g
         .attr("transform", `translate(0,0)`)
-        .call(d3.axisLeft(y).tickFormat(d3.format("d")))
-        .call(g => g.selectAll("text").remove()); // حذف لیبل‌های محور Y
+        .call(d3.axisLeft(y).tickFormat(d3.format("d")));
 
 	const g = svg.append("g")
 		.attr("transform", `translate(${margin.left},${margin.top})`);
@@ -2324,6 +2341,21 @@ const updateChart = () => {
     
 	// افزودن محور Y
 	g.append("g").attr("class", "y-axis").call(yAxis);
+
+    // افزودن لیبل به محور X
+    g.append("text")
+        .attr("transform", `translate(${width / 2}, ${height + margin.bottom / 2})`)
+        .style("text-anchor", "middle")
+        .text("سال");
+
+    // افزودن لیبل به محور Y
+    g.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x", 0 - (height / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("تعداد پوستر");
 
 };
 
