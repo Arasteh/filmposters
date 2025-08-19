@@ -847,18 +847,6 @@ input[type="text"] {
 	fill: var(--axis-text-color);
 }
 
-.tooltip {
-    position: absolute;
-    background: rgba(0,0,0,0.8);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    pointer-events: none;
-    font-size: 14px;
-    line-height: 1.4;
-    z-index: 1000;
-}
-
 @media (max-width: 768px) {
 	#app {
 		padding: 0;
@@ -2233,21 +2221,13 @@ const searchBarDynamicStyle = computed(() => {
 // تابع برای به‌روزرسانی نمودار SVG
 const updateChart = () => {
 	const svg = d3.select("#yearsChart");
-	svg.selectAll("*").remove();
+	svg.selectAll("*").remove(); // پاک کردن نمودار قبلی
 
-	// یافتن محدوده سال‌ها
-	const years = availableYears.value.map(y => y[0]);
-	const minYear = Math.min(...years.map(y => parseInt(y)));
-	const maxYear = Math.max(...years.map(y => parseInt(y)));
-	const allYears = Array.from({length: maxYear - minYear + 1}, (_, i) => (minYear + i).toString());
-	
-	// ایجاد داده برای نمودار
-	const yearCounts = Object.fromEntries(filteredYearsInModal.value);
-	const data = allYears.map(year => [year, yearCounts[year] || 0]);
+	const data = filteredYearsInModal.value;
 
 	const margin = { top: 20, right: 30, bottom: 40, left: 40 };
 	const width = document.querySelector('.chart-container').clientWidth - margin.left - margin.right;
-	const height = 200 - margin.top - margin.bottom;
+	const height = 300 - margin.top - margin.bottom;
 
 	const x = d3.scaleBand()
 		.domain(data.map(d => d[0]))
@@ -2262,18 +2242,7 @@ const updateChart = () => {
 	const g = svg.append("g")
 		.attr("transform", `translate(${margin.left},${margin.top})`);
 
-	// ایجاد تولتیپ
-	const tooltip = d3.select("body").append("div")
-		.attr("class", "tooltip")
-		.style("opacity", 0)
-		.style("position", "absolute")
-		.style("background", "rgba(0,0,0,0.8)")
-		.style("color", "white")
-		.style("padding", "5px 10px")
-		.style("border-radius", "5px")
-		.style("pointer-events", "none");
-
-	// افزودن میله‌ها با قابلیت hover و کلیک
+	// افزودن نوارها
 	g.selectAll(".bar")
 		.data(data)
 		.enter().append("rect")
@@ -2282,22 +2251,9 @@ const updateChart = () => {
 		.attr("y", d => y(d[1]))
 		.attr("width", x.bandwidth())
 		.attr("height", d => height - y(d[1]))
-		.on("mouseover", function(event, d) {
-			tooltip.transition()
-				.duration(200)
-				.style("opacity", .9);
-			tooltip.html(`سال: ${d[0]}<br/>تعداد: ${d[1]}`)
-				.style("left", (event.pageX + 10) + "px")
-				.style("top", (event.pageY - 28) + "px");
-		})
-		.on("mouseout", function(d) {
-			tooltip.transition()
-				.duration(500)
-				.style("opacity", 0);
-		})
 		.on("click", (event, d) => selectYearFromModal(d[0]));
 
-	// محورها
+	// افزودن محور X
 	g.append("g")
 		.attr("class", "x-axis")
 		.attr("transform", `translate(0,${height})`)
@@ -2308,17 +2264,26 @@ const updateChart = () => {
 		.attr("dy", ".15em")
 		.attr("transform", "rotate(-65)");
 
+	// افزودن محور Y
 	g.append("g")
 		.attr("class", "y-axis")
 		.call(d3.axisLeft(y).tickFormat(d3.format("d")));
+
+	// افزودن توضیحات محور
+	g.append("text")
+		.attr("transform", "rotate(-90)")
+		.attr("y", 0 - margin.left)
+		.attr("x", 0 - (height / 2))
+		.attr("dy", "1em")
+		.style("text-anchor", "middle")
+		.text("تعداد پوستر");
+
+	g.append("text")
+		.attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`)
+		.style("text-anchor", "middle")
+		.text("سال");
 };
 
-// واکنش به تغییر عرض سایدبار
-watch(sidebarWidth, () => {
-	nextTick(() => {
-		updateChart();
-	});
-});
 
 // مشاهده تغییرات فیلتر سال‌ها برای به‌روزرسانی نمودار
 watch(filteredYearsInModal, () => {
