@@ -822,7 +822,7 @@ input[type="text"] {
 
 .chart-container {
     width: 100%;
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 	position: relative; /* برای موقعیت‌یابی تول‌تیپ */
 }
 
@@ -992,7 +992,7 @@ input[type="text"] {
 			<p style="right: 60px; position: relative; width: fit-content; font-weight: bold; height: 15px; top: -5px;">فیلترها</p>
 			
 			<!-- بخش جدید نمودار -->
-			<div class="sidebar-section" :class="getSectionClass('chart')" :key="'chart-section'">
+			<div class="sidebar-section" :class="getSectionClass('chart')">
 				<div class="sidebar-section-header" @click="toggleCollapse('chart')">
 					<span>نمودار</span>
 					<button class="collapse-button rotate-up" :class="collapseIconClass(isCollapsed.chart)">
@@ -1553,9 +1553,9 @@ watch([
 const isCollapsed = ref({
 	designers: false,
 	directors: true,
-	years: false,
+	years: true, // تغییر وضعیت به بسته در حالت اولیه
 	letters: true,
-	chart: false // اضافه شدن بخش نمودار
+	chart: true // تغییر وضعیت به بسته در حالت اولیه
 });
 
 const getSectionClass = section => isCollapsed.value[section] ? 'collapsed' : 'expanded';
@@ -2256,11 +2256,10 @@ const updateChart = () => {
 
 	const data = filteredYearsInModal.value;
 
-	const margin = { top: 20, right: 30, bottom: 40, left: 40 };
+	const margin = { top: 20, right: 30, bottom: 20, left: 40 };
 	const width = document.querySelector('.chart-container').clientWidth - margin.left - margin.right;
 	const height = 300 - margin.top - margin.bottom;
-
-    // ایجاد مقیاس‌های اولیه
+	
 	const x = d3.scaleBand()
 		.domain(data.map(d => d[0]))
 		.range([0, width])
@@ -2269,54 +2268,44 @@ const updateChart = () => {
 	const y = d3.scaleLinear()
 		.domain([0, d3.max(data, d => d[1])]).nice()
 		.range([height, 0]);
-
-    // تعریف محورها
+	
+	const g = svg.append("g")
+		.attr("transform", `translate(${margin.left},${margin.top})`);
+	
 	const xAxis = g => g
-        .attr("transform", `translate(0,${height})`)
-        .call(d3.axisBottom(x).tickSizeOuter(0))
-        .selectAll("text")
+		.attr("transform", `translate(0,${height})`)
+		.call(d3.axisBottom(x).tickSizeOuter(0))
+		.selectAll("text")
 		.style("text-anchor", "end")
 		.attr("dx", "-.8em")
 		.attr("dy", ".15em")
 		.attr("transform", "rotate(-65)");
 
 	const yAxis = g => g
-        .attr("transform", `translate(0,0)`)
-        .call(d3.axisLeft(y).tickFormat(d3.format("d")));
+		.attr("transform", `translate(0,0)`)
+		.call(d3.axisLeft(y).tickFormat(d3.format("d")));
 
-	const g = svg.append("g")
-		.attr("transform", `translate(${margin.left},${margin.top})`);
-    
-    // گروهی برای نوارها که قابلیت زوم داشته باشد
-    const barsGroup = g.append("g").attr("class", "bars");
+	const barsGroup = g.append("g").attr("class", "bars");
+	const tooltip = d3.select("#tooltip");
 
-    // افزودن تول‌تیپ
-    const tooltip = d3.select("#tooltip");
+	const zoom = d3.zoom()
+		.scaleExtent([1, 8])
+		.translateExtent([[0, 0], [width, height]])
+		.extent([[0, 0], [width, height]])
+		.on("zoom", zoomed);
+	
+	svg.call(zoom);
 
-    // تابع اصلی زوم
-    const zoom = d3.zoom()
-        .scaleExtent([1, 8])
-        .translateExtent([[0, 0], [width, height]])
-        .extent([[0, 0], [width, height]])
-        .on("zoom", zoomed);
-    
-    // اعمال رفتار زوم به SVG
-    svg.call(zoom);
-
-    function zoomed(event) {
-        // به‌روزرسانی مقیاس x بر اساس ترنسفورم زوم
-        x.range([0, width].map(d => event.transform.applyX(d)));
-        
-        // به‌روزرسانی موقعیت و عرض میله‌ها
-        barsGroup.selectAll("rect")
-            .attr("x", d => x(d[0]))
-            .attr("width", x.bandwidth());
-        
-        // به‌روزرسانی محور x
-        g.selectAll(".x-axis").call(xAxis);
-    }
-    
-    // افزودن نوارها
+	function zoomed(event) {
+		x.range([0, width].map(d => event.transform.applyX(d)));
+		
+		barsGroup.selectAll("rect")
+			.attr("x", d => x(d[0]))
+			.attr("width", x.bandwidth());
+		
+		g.selectAll(".x-axis").call(xAxis);
+	}
+	
 	barsGroup.selectAll(".bar")
 		.data(data)
 		.enter().append("rect")
@@ -2325,37 +2314,33 @@ const updateChart = () => {
 		.attr("y", d => y(d[1]))
 		.attr("width", x.bandwidth())
 		.attr("height", d => height - y(d[1]))
-        .on("mouseover", (event, d) => {
-            tooltip.transition().duration(200).style("opacity", .9);
-            tooltip.html(`سال: ${d[0]}<br/>پوستر: ${d[1].toLocaleString('fa')}`)
-                   .style("left", (event.pageX) + "px")
-                   .style("top", (event.pageY - 28) + "px");
-        })
-        .on("mouseout", () => {
-            tooltip.transition().duration(500).style("opacity", 0);
-        })
+		.on("mouseover", (event, d) => {
+			tooltip.transition().duration(200).style("opacity", .9);
+            const [xPos, yPos] = d3.pointer(event);
+			tooltip.html(`سال: ${d[0]}<br/>پوستر: ${d[1].toLocaleString('fa')}`)
+                   .style("left", (xPos + margin.left) + "px")
+                   .style("top", (yPos + margin.top - 28) + "px");
+		})
+		.on("mouseout", () => {
+			tooltip.transition().duration(500).style("opacity", 0);
+		})
 		.on("click", (event, d) => selectYearFromModal(d[0]));
 
-	// افزودن محور X
-    g.append("g").attr("class", "x-axis").call(xAxis);
-    
-	// افزودن محور Y
+	g.append("g").attr("class", "x-axis").call(xAxis);
 	g.append("g").attr("class", "y-axis").call(yAxis);
 
-    // افزودن لیبل به محور X
-    g.append("text")
-        .attr("transform", `translate(${width / 2}, ${height + margin.bottom / 2})`)
-        .style("text-anchor", "middle")
-        .text("سال");
+	g.append("text")
+		.attr("transform", `translate(${width / 2}, ${height + margin.bottom + 15})`)
+		.style("text-anchor", "middle")
+		.text("سال");
 
-    // افزودن لیبل به محور Y
-    g.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 0 - margin.left)
-        .attr("x", 0 - (height / 2))
-        .attr("dy", "1em")
-        .style("text-anchor", "middle")
-        .text("تعداد پوستر");
+	g.append("text")
+		.attr("transform", "rotate(-90)")
+		.attr("y", 0 - margin.left + 5)
+		.attr("x", 0 - (height / 2))
+		.attr("dy", "1em")
+		.style("text-anchor", "middle")
+		.text("تعداد پوستر");
 
 };
 
