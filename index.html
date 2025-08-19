@@ -340,6 +340,46 @@ input[type="text"] {
 	font-size: 1em;
 }
 
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: var(--card-background);
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 16px;
+    position: relative;
+    width: 80%;
+    max-width: 900px;
+}
+
+.modal-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-close-button:hover,
+.modal-close-button:focus {
+    color: #fff;
+    text-decoration: none;
+}
 #toTop {
 	transition: bottom ease-in-out 350ms, opacity linear 350ms;
 	bottom: -100px;
@@ -827,7 +867,7 @@ input[type="text"] {
 
 .chart-container svg {
 	width: 100%;
-	height: 300px;
+	height: 200px;
 }
 
 .bar {
@@ -990,6 +1030,9 @@ input[type="text"] {
 					<div class="chart-container">
 						<svg id="yearsChart"></svg>
 					</div>
+					<button @click="openChartModal" style="width: 100%; border-radius: 12px; border: 1px solid #ccc; padding: 10px; margin-top: 10px; background-color: light-dark(#f0f0f0, #333); color: light-dark(#222, #ddd); cursor: pointer;">
+						نمایش نمودار طراحان/کارگردانان
+					</button>
 					<div class="year-grid" style="visibility: hidden" :style="{ visibility: undefined }">
 						<div v-if="filteredYearsInModal.length === 0" class="no-results">
 							نتیجه‌ای وجود ندارد
@@ -1200,6 +1243,24 @@ input[type="text"] {
 		</button>
 
 		
+	</div>
+	
+	<!-- Modal for the stacked bar chart -->
+	<div id="chartModal" class="modal" v-if="isChartModalVisible" style="display: none;" :style="{ display: isChartModalVisible ? 'flex' : 'none' }" @click.self="closeChartModal">
+		<div class="modal-content">
+			<span class="modal-close-button" @click="closeChartModal">&times;</span>
+			<h3 style="text-align: center;">نمودار پوسترها بر اساس سال</h3>
+			
+			<!-- Chart mode toggle switch -->
+			<div class="triple-switch" style="margin: 10px auto; width: 200px;" :data-sort="chartMode" @click="toggleChartMode">
+				<span :class="{ active: chartMode === 'designer' }">طراح</span>
+				<span :class="{ active: chartMode === 'director' }">کارگردان</span>
+			</div>
+
+			<div class="chart-container">
+				<svg id="stackedChart"></svg>
+			</div>
+		</div>
 	</div>
 
 	<div id="main-content" :style="mainContentStyle">
@@ -1461,6 +1522,26 @@ const searchBarHeight = ref(0);
 const isMobileView = ref(false);
 const isDesktopSidebarFixed = ref(false);
 const yearsChartInstance = ref(null); // نگهداری نمونه نمودار
+
+// Chart Modal properties
+const isChartModalVisible = ref(false);
+const chartMode = ref('designer'); // 'designer' or 'director'
+
+// Chart Modal functions
+const openChartModal = () => {
+	isChartModalVisible.value = true;
+};
+
+const closeChartModal = () => {
+	isChartModalVisible.value = false;
+};
+
+const toggleChartMode = (event) => {
+	const newMode = event.target.innerText === 'طراح' ? 'designer' : 'director';
+	if (chartMode.value !== newMode) {
+		chartMode.value = newMode;
+	}
+};
 
 const showMore = () => {
 	displayedItemsCount.value += 30;
@@ -2218,69 +2299,40 @@ const searchBarDynamicStyle = computed(() => {
     return style;
 });
 
-// تابع برای به‌روزرسانی نمودار SVG
-const updateChart = () => {
+// تابع برای به‌روزرسانی نمودار ساده در سایدبار
+const updateSimpleBarChart = () => {
     const svg = d3.select("#yearsChart");
     svg.selectAll("*").remove(); // پاک کردن نمودار قبلی
 
-    // داده‌ها را بر اساس سال و طراح دسته‌بندی کنید
-    const aggregatedData = d3.rollup(
-        filteredItems.value.filter(d => d.designers),
-        v => v.length,
-        d => toPersianYear(d.date),
-        d => d.designers[0].label // از اولین طراح استفاده کنید
-    );
-
-    // لیست سال‌ها را استخراج و مرتب کنید
-    const years = Array.from(aggregatedData.keys()).sort();
-
-    // لیست طراحان را استخراج کنید
-    const allDesigners = Array.from(new Set(filteredItems.value.flatMap(d => d.designers ? d.designers.map(x => x.label) : [])));
-
-    // تولید سری داده برای نمودار Stacked Bar
-    const series = d3.stack()
-        .keys(allDesigners)
-        .value(([, values], key) => values.get(key) || 0)
-        .order(d3.stackOrderAscending)
-    (aggregatedData);
+    const data = filteredYearsInModal.value;
 
     const margin = { top: 20, right: 30, bottom: 40, left: 40 };
     const width = document.querySelector('.chart-container').clientWidth - margin.left - margin.right;
     const height = 300 - margin.top - margin.bottom;
 
     const x = d3.scaleBand()
-        .domain(years)
+        .domain(data.map(d => d[0]))
         .range([0, width])
         .padding(0.1);
 
     const y = d3.scaleLinear()
-        .domain([0, d3.max(series, d => d3.max(d, d => d[1]))])
+        .domain([0, d3.max(data, d => d[1])])
         .nice()
         .range([height, 0]);
-
-    // رنگ‌ها
-    const color = d3.scaleOrdinal()
-        .domain(allDesigners)
-        .range(d3.schemeCategory10);
 
     const g = svg.append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // افزودن میله‌ها
-    g.append("g")
-        .selectAll("g")
-        .data(series)
-        .join("g")
-        .attr("fill", ({ key }) => color(key))
-        .selectAll("rect")
-        .data(d => d)
-        .join("rect")
-        .attr("x", d => x(d.data[0]))
+    // افزودن نوارها
+    g.selectAll(".bar")
+        .data(data)
+        .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", d => x(d[0]))
         .attr("y", d => y(d[1]))
-        .attr("height", d => y(d[0]) - y(d[1]))
         .attr("width", x.bandwidth())
-        .append("title")
-        .text(d => `${d.data[0]}, ${d.key}: ${d[1] - d[0]} پوستر`);
+        .attr("height", d => height - y(d[1]))
+        .on("click", (event, d) => selectYearFromModal(d[0]));
 
     // افزودن محور X
     g.append("g")
@@ -2311,37 +2363,135 @@ const updateChart = () => {
         .attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`)
         .style("text-anchor", "middle")
         .text("سال");
+};
 
-    // افزودن Legend
+// تابع برای به‌روزرسانی نمودار Stacked در مدال
+const updateStackedChart = () => {
+    const svg = d3.select("#stackedChart");
+    svg.selectAll("*").remove(); // پاک کردن نمودار قبلی
+
+    // داده‌ها را بر اساس سال و طراح/کارگردان دسته‌بندی کنید
+    const dataKey = chartMode.value === 'designer' ? 'designerLabel' : 'directorLabel';
+    const allKeys = chartMode.value === 'designer' ? allDesigners.value : allDirectors.value;
+    
+    const aggregatedData = d3.rollup(
+        filteredItems.value.filter(d => d[dataKey]),
+        v => v.length,
+        d => toPersianYear(d.date),
+        d => d[dataKey]
+    );
+
+    const years = Array.from(aggregatedData.keys()).sort();
+
+    const series = d3.stack()
+        .keys(allKeys)
+        .value(([, values], key) => values.get(key) || 0)
+        .order(d3.stackOrderAscending)
+    (aggregatedData);
+
+    const margin = { top: 20, right: 30, bottom: 40, left: 100 };
+    const width = document.querySelector('.modal-content').clientWidth - margin.left - margin.right;
+    const height = 400 - margin.top - margin.bottom;
+
+    const x = d3.scaleBand()
+        .domain(years)
+        .range([0, width])
+        .padding(0.1);
+
+    const y = d3.scaleLinear()
+        .domain([0, d3.max(series, d => d3.max(d, d => d[1]))])
+        .nice()
+        .range([height, 0]);
+
+    const color = d3.scaleOrdinal()
+        .domain(allKeys)
+        .range(d3.schemeCategory10);
+
+    const g = svg.append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    g.append("g")
+        .selectAll("g")
+        .data(series)
+        .join("g")
+        .attr("fill", ({ key }) => color(key))
+        .selectAll("rect")
+        .data(d => d)
+        .join("rect")
+        .attr("x", d => x(d.data[0]))
+        .attr("y", d => y(d[1]))
+        .attr("height", d => y(d[0]) - y(d[1]))
+        .attr("width", x.bandwidth())
+        .append("title")
+        .text(d => `${d.data[0]}, ${d.key}: ${d[1] - d[0]} پوستر`);
+
+    g.append("g")
+        .attr("class", "x-axis")
+        .attr("transform", `translate(0,${height})`)
+        .call(d3.axisBottom(x))
+        .selectAll("text")
+        .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("transform", "rotate(-65)");
+
+    g.append("g")
+        .attr("class", "y-axis")
+        .call(d3.axisLeft(y).tickFormat(d3.format("d")));
+
+    g.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left + 10)
+        .attr("x", 0 - (height / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("تعداد پوستر");
+
+    g.append("text")
+        .attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`)
+        .style("text-anchor", "middle")
+        .text("سال");
+
     const legend = svg.append("g")
         .attr("font-family", "sans-serif")
         .attr("font-size", 10)
         .attr("text-anchor", "end")
         .selectAll("g")
-        .data(allDesigners.slice().reverse())
+        .data(allKeys.slice().reverse())
         .join("g")
         .attr("transform", (d, i) => `translate(0,${i * 20})`);
 
     legend.append("rect")
-        .attr("x", width - 19)
+        .attr("x", width + 10)
         .attr("width", 19)
         .attr("height", 19)
         .attr("fill", color);
 
     legend.append("text")
-        .attr("x", width - 24)
+        .attr("x", width + 5)
         .attr("y", 9.5)
         .attr("dy", "0.32em")
         .text(d => d);
 };
 
 
-// مشاهده تغییرات فیلتر سال‌ها برای به‌روزرسانی نمودار
+// مشاهده تغییرات فیلترها و حالت نمودار برای به‌روزرسانی نمودارها
 watch(filteredItems, () => {
 	nextTick(() => {
-		updateChart();
+		updateSimpleBarChart();
+		if (isChartModalVisible.value) {
+			updateStackedChart();
+		}
 	});
 }, { immediate: true });
+
+watch(chartMode, () => {
+    if (isChartModalVisible.value) {
+        nextTick(() => {
+            updateStackedChart();
+        });
+    }
+});
 
 
 onMounted(() => {
@@ -2402,7 +2552,8 @@ return {
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount,
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
     searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
-    handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle
+    handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle,
+	isChartModalVisible, openChartModal, closeChartModal, chartMode, toggleChartMode
 };
 
 
