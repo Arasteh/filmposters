@@ -1553,9 +1553,9 @@ watch([
 const isCollapsed = ref({
 	designers: false,
 	directors: true,
-	years: true, // تغییر وضعیت به بسته در حالت اولیه
+	years: false,
 	letters: true,
-	chart: true // تغییر وضعیت به بسته در حالت اولیه
+	chart: true
 });
 
 const getSectionClass = section => isCollapsed.value[section] ? 'collapsed' : 'expanded';
