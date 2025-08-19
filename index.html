@@ -2246,23 +2246,61 @@ const updateChart = () => {
 	const width = document.querySelector('.chart-container').clientWidth - margin.left - margin.right;
 	const height = 300 - margin.top - margin.bottom;
 
+    // ایجاد مقیاس‌های اولیه
 	const x = d3.scaleBand()
 		.domain(data.map(d => d[0]))
 		.range([0, width])
 		.padding(0.1);
 
 	const y = d3.scaleLinear()
-		.domain([0, d3.max(data, d => d[1])])
-		.nice()
+		.domain([0, d3.max(data, d => d[1])]).nice()
 		.range([height, 0]);
+
+    // تعریف محورها
+	const xAxis = g => g
+        .attr("transform", `translate(0,${height})`)
+        .call(d3.axisBottom(x).tickSizeOuter(0))
+        .call(g => g.selectAll("text").remove()); // حذف لیبل‌های محور X
+
+	const yAxis = g => g
+        .attr("transform", `translate(0,0)`)
+        .call(d3.axisLeft(y).tickFormat(d3.format("d")))
+        .call(g => g.selectAll("text").remove()); // حذف لیبل‌های محور Y
 
 	const g = svg.append("g")
 		.attr("transform", `translate(${margin.left},${margin.top})`);
+    
+    // گروهی برای نوارها که قابلیت زوم داشته باشد
+    const barsGroup = g.append("g").attr("class", "bars");
 
+    // افزودن تول‌تیپ
     const tooltip = d3.select("#tooltip");
 
-	// افزودن نوارها
-	g.selectAll(".bar")
+    // تابع اصلی زوم
+    const zoom = d3.zoom()
+        .scaleExtent([1, 8])
+        .translateExtent([[0, 0], [width, height]])
+        .extent([[0, 0], [width, height]])
+        .on("zoom", zoomed);
+    
+    // اعمال رفتار زوم به SVG
+    svg.call(zoom);
+
+    function zoomed(event) {
+        // به‌روزرسانی مقیاس x بر اساس ترنسفورم زوم
+        x.range([0, width].map(d => event.transform.applyX(d)));
+        
+        // به‌روزرسانی موقعیت و عرض میله‌ها
+        barsGroup.selectAll("rect")
+            .attr("x", d => x(d[0]))
+            .attr("width", x.bandwidth());
+        
+        // به‌روزرسانی محور x
+        g.selectAll(".x-axis").call(xAxis);
+    }
+    
+    // افزودن نوارها
+	barsGroup.selectAll(".bar")
 		.data(data)
 		.enter().append("rect")
 		.attr("class", "bar")
@@ -2282,17 +2320,11 @@ const updateChart = () => {
 		.on("click", (event, d) => selectYearFromModal(d[0]));
 
 	// افزودن محور X
-	g.append("g")
-		.attr("class", "x-axis")
-		.attr("transform", `translate(0,${height})`)
-		.call(d3.axisBottom(x))
-        .selectAll("text").remove(); // حذف لیبل‌های محور X
-
+    g.append("g").attr("class", "x-axis").call(xAxis);
+    
 	// افزودن محور Y
-	g.append("g")
-		.attr("class", "y-axis")
-		.call(d3.axisLeft(y).tickFormat(d3.format("d")))
-        .selectAll("text").remove(); // حذف لیبل‌های محور Y
+	g.append("g").attr("class", "y-axis").call(yAxis);
+
 };
 
 
