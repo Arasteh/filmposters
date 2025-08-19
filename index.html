@@ -2318,7 +2318,7 @@ const updateChart = () => {
 			tooltip.transition().duration(200).style("opacity", .9);
             const [xPos, yPos] = d3.pointer(event);
 			tooltip.html(`سال: ${d[0]}<br/>پوستر: ${d[1].toLocaleString('fa')}`)
-                   .style("left", (xPos + margin.left) + "px")
+                   .style("left", (xPos + margin.right) + "px")
                    .style("top", (yPos + margin.top - 28) + "px");
 		})
 		.on("mouseout", () => {
