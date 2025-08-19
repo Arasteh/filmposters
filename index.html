@@ -2220,124 +2220,73 @@ const searchBarDynamicStyle = computed(() => {
 
 // تابع برای به‌روزرسانی نمودار SVG
 const updateChart = () => {
-    const svg = d3.select("#yearsChart");
-    svg.selectAll("*").remove(); // پاک کردن نمودار قبلی
+	const svg = d3.select("#yearsChart");
+	svg.selectAll("*").remove(); // پاک کردن نمودار قبلی
 
-    // داده‌ها را بر اساس سال و طراح دسته‌بندی کنید
-    const aggregatedData = d3.rollup(
-        filteredItems.value.filter(d => d.designers),
-        v => v.length,
-        d => toPersianYear(d.date),
-        d => d.designers[0].label // از اولین طراح استفاده کنید
-    );
+	const data = filteredYearsInModal.value;
 
-    // لیست سال‌ها را استخراج و مرتب کنید
-    const years = Array.from(aggregatedData.keys()).sort();
+	const margin = { top: 20, right: 30, bottom: 40, left: 40 };
+	const width = document.querySelector('.chart-container').clientWidth - margin.left - margin.right;
+	const height = 300 - margin.top - margin.bottom;
 
-    // لیست طراحان را استخراج کنید
-    const allDesigners = Array.from(new Set(filteredItems.value.flatMap(d => d.designers ? d.designers.map(x => x.label) : [])));
+	const x = d3.scaleBand()
+		.domain(data.map(d => d[0]))
+		.range([0, width])
+		.padding(0.1);
 
-    // تولید سری داده برای نمودار Stacked Bar
-    const series = d3.stack()
-        .keys(allDesigners)
-        .value(([, values], key) => values.get(key) || 0)
-        .order(d3.stackOrderAscending)
-    (aggregatedData);
+	const y = d3.scaleLinear()
+		.domain([0, d3.max(data, d => d[1])])
+		.nice()
+		.range([height, 0]);
 
-    const margin = { top: 20, right: 30, bottom: 40, left: 40 };
-    const width = document.querySelector('.chart-container').clientWidth - margin.left - margin.right;
-    const height = 300 - margin.top - margin.bottom;
+	const g = svg.append("g")
+		.attr("transform", `translate(${margin.left},${margin.top})`);
 
-    const x = d3.scaleBand()
-        .domain(years)
-        .range([0, width])
-        .padding(0.1);
+	// افزودن نوارها
+	g.selectAll(".bar")
+		.data(data)
+		.enter().append("rect")
+		.attr("class", "bar")
+		.attr("x", d => x(d[0]))
+		.attr("y", d => y(d[1]))
+		.attr("width", x.bandwidth())
+		.attr("height", d => height - y(d[1]))
+		.on("click", (event, d) => selectYearFromModal(d[0]));
 
-    const y = d3.scaleLinear()
-        .domain([0, d3.max(series, d => d3.max(d, d => d[1]))])
-        .nice()
-        .range([height, 0]);
+	// افزودن محور X
+	g.append("g")
+		.attr("class", "x-axis")
+		.attr("transform", `translate(0,${height})`)
+		.call(d3.axisBottom(x))
+		.selectAll("text")
+		.style("text-anchor", "end")
+		.attr("dx", "-.8em")
+		.attr("dy", ".15em")
+		.attr("transform", "rotate(-65)");
 
-    // رنگ‌ها
-    const color = d3.scaleOrdinal()
-        .domain(allDesigners)
-        .range(d3.schemeCategory10);
+	// افزودن محور Y
+	g.append("g")
+		.attr("class", "y-axis")
+		.call(d3.axisLeft(y).tickFormat(d3.format("d")));
 
-    const g = svg.append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`);
+	// افزودن توضیحات محور
+	g.append("text")
+		.attr("transform", "rotate(-90)")
+		.attr("y", 0 - margin.left)
+		.attr("x", 0 - (height / 2))
+		.attr("dy", "1em")
+		.style("text-anchor", "middle")
+		.text("تعداد پوستر");
 
-    // افزودن میله‌ها
-    g.append("g")
-        .selectAll("g")
-        .data(series)
-        .join("g")
-        .attr("fill", ({ key }) => color(key))
-        .selectAll("rect")
-        .data(d => d)
-        .join("rect")
-        .attr("x", d => x(d.data[0]))
-        .attr("y", d => y(d[1]))
-        .attr("height", d => y(d[0]) - y(d[1]))
-        .attr("width", x.bandwidth())
-        .append("title")
-        .text(d => `${d.data[0]}, ${d.key}: ${d[1] - d[0]} پوستر`);
-
-    // افزودن محور X
-    g.append("g")
-        .attr("class", "x-axis")
-        .attr("transform", `translate(0,${height})`)
-        .call(d3.axisBottom(x))
-        .selectAll("text")
-        .style("text-anchor", "end")
-        .attr("dx", "-.8em")
-        .attr("dy", ".15em")
-        .attr("transform", "rotate(-65)");
-
-    // افزودن محور Y
-    g.append("g")
-        .attr("class", "y-axis")
-        .call(d3.axisLeft(y).tickFormat(d3.format("d")));
-
-    // افزودن توضیحات محور
-    g.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 0 - margin.left)
-        .attr("x", 0 - (height / 2))
-        .attr("dy", "1em")
-        .style("text-anchor", "middle")
-        .text("تعداد پوستر");
-
-    g.append("text")
-        .attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`)
-        .style("text-anchor", "middle")
-        .text("سال");
-
-    // افزودن Legend
-    const legend = svg.append("g")
-        .attr("font-family", "sans-serif")
-        .attr("font-size", 10)
-        .attr("text-anchor", "end")
-        .selectAll("g")
-        .data(allDesigners.slice().reverse())
-        .join("g")
-        .attr("transform", (d, i) => `translate(0,${i * 20})`);
-
-    legend.append("rect")
-        .attr("x", width - 19)
-        .attr("width", 19)
-        .attr("height", 19)
-        .attr("fill", color);
-
-    legend.append("text")
-        .attr("x", width - 24)
-        .attr("y", 9.5)
-        .attr("dy", "0.32em")
-        .text(d => d);
+	g.append("text")
+		.attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`)
+		.style("text-anchor", "middle")
+		.text("سال");
 };
 
 
 // مشاهده تغییرات فیلتر سال‌ها برای به‌روزرسانی نمودار
-watch(filteredItems, () => {
+watch(filteredYearsInModal, () => {
 	nextTick(() => {
 		updateChart();
 	});
