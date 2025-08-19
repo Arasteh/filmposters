@@ -823,6 +823,7 @@ input[type="text"] {
 .chart-container {
     width: 100%;
     margin-bottom: 20px;
+	position: relative; /* برای موقعیت‌یابی تول‌تیپ */
 }
 
 .chart-container svg {
@@ -845,6 +846,20 @@ input[type="text"] {
 
 .axis text {
 	fill: var(--axis-text-color);
+}
+
+/* استایل تول‌تیپ */
+#tooltip {
+    position: absolute;
+    text-align: center;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border-radius: 4px;
+    pointer-events: none;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.2s;
 }
 
 @media (max-width: 768px) {
@@ -989,6 +1004,8 @@ input[type="text"] {
 					<!-- اضافه کردن نمودار SVG -->
 					<div class="chart-container">
 						<svg id="yearsChart"></svg>
+                        <!-- تول‌تیپ برای نمودار -->
+                        <div id="tooltip"></div>
 					</div>
 					<div class="year-grid" style="visibility: hidden" :style="{ visibility: undefined }">
 						<div v-if="filteredYearsInModal.length === 0" class="no-results">
@@ -2242,6 +2259,8 @@ const updateChart = () => {
 	const g = svg.append("g")
 		.attr("transform", `translate(${margin.left},${margin.top})`);
 
+    const tooltip = d3.select("#tooltip");
+
 	// افزودن نوارها
 	g.selectAll(".bar")
 		.data(data)
@@ -2251,6 +2270,15 @@ const updateChart = () => {
 		.attr("y", d => y(d[1]))
 		.attr("width", x.bandwidth())
 		.attr("height", d => height - y(d[1]))
+        .on("mouseover", (event, d) => {
+            tooltip.transition().duration(200).style("opacity", .9);
+            tooltip.html(`سال: ${d[0]}<br/>پوستر: ${d[1].toLocaleString('fa')}`)
+                   .style("left", (event.pageX) + "px")
+                   .style("top", (event.pageY - 28) + "px");
+        })
+        .on("mouseout", () => {
+            tooltip.transition().duration(500).style("opacity", 0);
+        })
 		.on("click", (event, d) => selectYearFromModal(d[0]));
 
 	// افزودن محور X
@@ -2258,30 +2286,13 @@ const updateChart = () => {
 		.attr("class", "x-axis")
 		.attr("transform", `translate(0,${height})`)
 		.call(d3.axisBottom(x))
-		.selectAll("text")
-		.style("text-anchor", "end")
-		.attr("dx", "-.8em")
-		.attr("dy", ".15em")
-		.attr("transform", "rotate(-65)");
+        .selectAll("text").remove(); // حذف لیبل‌های محور X
 
 	// افزودن محور Y
 	g.append("g")
 		.attr("class", "y-axis")
-		.call(d3.axisLeft(y).tickFormat(d3.format("d")));
-
-	// افزودن توضیحات محور
-	g.append("text")
-		.attr("transform", "rotate(-90)")
-		.attr("y", 0 - margin.left)
-		.attr("x", 0 - (height / 2))
-		.attr("dy", "1em")
-		.style("text-anchor", "middle")
-		.text("تعداد پوستر");
-
-	g.append("text")
-		.attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`)
-		.style("text-anchor", "middle")
-		.text("سال");
+		.call(d3.axisLeft(y).tickFormat(d3.format("d")))
+        .selectAll("text").remove(); // حذف لیبل‌های محور Y
 };
 
 
