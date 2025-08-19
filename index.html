@@ -822,7 +822,6 @@ input[type="text"] {
 
 .chart-container {
     width: 100%;
-	margin-bottom: 20px;
 	position: relative; /* برای موقعیت‌یابی تول‌تیپ */
 }
 
@@ -860,6 +859,7 @@ input[type="text"] {
     font-size: 14px;
     opacity: 0;
     transition: opacity 0.2s;
+	white-space: nowrap;
 }
 
 @media (max-width: 768px) {
@@ -1553,9 +1553,9 @@ watch([
 const isCollapsed = ref({
 	designers: false,
 	directors: true,
-	years: false,
+	years: true,
 	letters: true,
-	chart: true
+	chart: true // وضعیت پیش‌فرض بخش نمودار به بسته تغییر داده شد
 });
 
 const getSectionClass = section => isCollapsed.value[section] ? 'collapsed' : 'expanded';
@@ -2256,7 +2256,7 @@ const updateChart = () => {
 
 	const data = filteredYearsInModal.value;
 
-	const margin = { top: 20, right: 30, bottom: 20, left: 40 };
+	const margin = { top: 20, right: 30, bottom: 50, left: 50 }; // افزایش حاشیه پایین و چپ برای لیبل‌ها
 	const width = document.querySelector('.chart-container').clientWidth - margin.left - margin.right;
 	const height = 300 - margin.top - margin.bottom;
 	
@@ -2314,23 +2314,36 @@ const updateChart = () => {
 		.attr("y", d => y(d[1]))
 		.attr("width", x.bandwidth())
 		.attr("height", d => height - y(d[1]))
-		.on("mouseover", (event, d) => {
-			tooltip.transition().duration(200).style("opacity", .9);
-            const [xPos, yPos] = d3.pointer(event);
-			tooltip.html(`سال: ${d[0]}<br/>پوستر: ${d[1].toLocaleString('fa')}`)
-                   .style("left", (xPos + margin.right) + "px")
-                   .style("top", (yPos + margin.top - 28) + "px");
-		})
-		.on("mouseout", () => {
-			tooltip.transition().duration(500).style("opacity", 0);
-		})
+		.on("pointerenter", function(event, d) {
+            tooltip.style("opacity", .9);
+        })
+        .on("pointermove", function(event, d) {
+            const chartRect = d3.select("#yearsChart").node().getBoundingClientRect();
+            const tooltipWidth = tooltip.node().offsetWidth;
+            const pointerX = event.clientX - chartRect.left;
+            
+            // تعیین موقعیت x تول‌تیپ (به سمت چپ ماوس)
+            let tooltipX = pointerX - tooltipWidth - 10; 
+            
+            // جلوگیری از بیرون رفتن از صفحه
+            if (tooltipX < 0) {
+                tooltipX = pointerX + 10;
+            }
+
+            tooltip.html(`سال: ${d[0]}<br/>پوستر: ${d[1].toLocaleString('fa')}`)
+                   .style("left", tooltipX + "px")
+                   .style("top", (event.pageY - 28) + "px");
+        })
+        .on("pointerleave", () => {
+            tooltip.transition().duration(500).style("opacity", 0);
+        })
 		.on("click", (event, d) => selectYearFromModal(d[0]));
 
 	g.append("g").attr("class", "x-axis").call(xAxis);
 	g.append("g").attr("class", "y-axis").call(yAxis);
 
 	g.append("text")
-		.attr("transform", `translate(${width / 2}, ${height + margin.bottom + 15})`)
+		.attr("transform", `translate(${width / 2}, ${height + margin.bottom - 10})`)
 		.style("text-anchor", "middle")
 		.text("سال");
 
