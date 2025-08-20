@@ -1490,8 +1490,9 @@ const searchBarRef = ref(null);
 const searchBarHeight = ref(0);
 const isMobileView = ref(false);
 const isDesktopSidebarFixed = ref(false);
-const yearsChartInstance = ref(null);
-const chartContainerRef = ref(null);
+const yearsChartInstance = ref(null); // نگهداری نمونه نمودار
+const chartContainerRef = ref(null); // نگهداری رفرنس کانتینر نمودار
+
 
 const showMore = () => {
 	displayedItemsCount.value += 30;
@@ -2252,37 +2253,20 @@ const searchBarDynamicStyle = computed(() => {
 
 // تابع برای به‌روزرسانی نمودار SVG
 const updateChart = () => {
-    console.log('Update chart called.');
 	const svg = d3.select("#yearsChart");
 	svg.selectAll("*").remove(); // پاک کردن نمودار قبلی
 
 	const data = filteredYearsInModal.value;
-    console.log('Chart data:', data);
-    
-    if (data.length === 0) {
-        console.warn('No data to draw chart.');
-        return;
-    }
 
-	const margin = { top: 20, right: 30, bottom: 40, left: 60 };
+	const margin = { top: 20, right: 30, bottom: 40, left: 60 }; // تغییر مقادیر left و bottom
 	
+	// استفاده از عرض کانتینر واقعی
 	const chartContainer = chartContainerRef.value;
-    if (!chartContainer) {
-        console.error('Chart container reference is null.');
-        return;
-    }
+    if (!chartContainer) return;
 
     const width = chartContainer.clientWidth - margin.left - margin.right;
     const height = 300 - margin.top - margin.bottom;
 	
-    console.log(`Chart dimensions: width=${width}, height=${height}`);
-    
-    // Check for invalid dimensions
-    if (width <= 0 || height <= 0) {
-        console.warn('Invalid chart dimensions, not drawing.');
-        return;
-    }
-
 	const x = d3.scaleBand()
 		.domain(data.map(d => d[0]))
 		.range([0, width])
@@ -2301,14 +2285,14 @@ const updateChart = () => {
 		.selectAll("text")
 		.style("text-anchor", "end")
 		.attr("dx", "-.8em")
-		.attr("dy", "1.5em")
+		.attr("dy", "1.5em") // افزایش فاصله از محور افقی
 		.attr("transform", "rotate(-65)");
 
 	const yAxis = g => g
 		.attr("transform", `translate(0,0)`)
 		.call(d3.axisLeft(y).tickFormat(d3.format("d")))
 		.selectAll("text")
-		.attr("dx", "-1em");
+		.attr("dx", "-1em"); // جابجایی لیبل‌های محور عمودی به چپ
 
 	const barsGroup = g.append("g").attr("class", "bars");
 	const tooltip = d3.select("#tooltip");
@@ -2355,34 +2339,34 @@ const updateChart = () => {
 	g.append("g").attr("class", "y-axis").call(yAxis);
 
 	g.append("text")
-		.attr("transform", `translate(${width / 2}, ${height + margin.bottom - 10})`)
+		.attr("transform", `translate(${width / 2}, ${height + margin.bottom - 10})`) // پایین‌تر بردن عنوان محور افقی
 		.style("text-anchor", "middle")
 		.text("سال");
 
 	g.append("text")
 		.attr("transform", "rotate(-90)")
-		.attr("y", 0 - margin.left + 15)
+		.attr("y", 0 - margin.left + 15) // جابجایی عنوان محور عمودی به چپ
 		.attr("x", 0 - (height / 2 - 10))
 		.attr("dy", "1em")
 		.style("text-anchor", "middle")
 		.text("تعداد پوستر");
-    
-    console.log('Chart drawn successfully.');
+
 };
 
+// مشاهده تغییرات فیلتر سال‌ها برای به‌روزرسانی نمودار
 watch(filteredYearsInModal, () => {
 	nextTick(() => {
 		updateChart();
 	});
 }, { immediate: true });
 
+// تابع برای به‌روزرسانی نمودار هنگام تغییر اندازه
 const handleResize = () => {
-    console.log('Window resized, updating chart.');
     updateChart();
 };
 
+// مشاهده تغییر عرض سایدبار برای به‌روزرسانی نمودار
 watch(sidebarWidth, () => {
-    console.log('Sidebar width changed, updating chart.');
     nextTick(() => {
         updateChart();
     });
@@ -2394,7 +2378,7 @@ onMounted(() => {
         isMobileView.value = window.innerWidth <= 768;
     };
     window.addEventListener('resize', checkMobile);
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize); // گوش دادن به رویداد تغییر اندازه پنجره
     checkMobile();
 
     nextTick(() => {
@@ -2411,7 +2395,7 @@ onMounted(() => {
 onUnmounted(() => {
     window.removeEventListener('scroll', handleScroll);
     window.removeEventListener('resize', checkMobile);
-    window.removeEventListener('resize', handleResize);
+    window.removeEventListener('resize', handleResize); // حذف گوش‌دهنده
 });
 
 
