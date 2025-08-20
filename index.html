@@ -626,7 +626,7 @@ input[type="text"] {
 
 
 .sidebar-content {
-	padding: 0 0 0 15px;
+	padding: 0 10px 0 10px;
 }
 
 .mobile-only {
@@ -2331,7 +2331,7 @@ const updateChart = () => {
 
 	g.append("text")
 		.attr("transform", `translate(${width / 2}, ${height + margin.bottom + 15})`)
-		.style("text-anchor", "middle")
+		.style("text-anchor", "end")
 		.text("سال");
 
 	g.append("text")
@@ -2339,7 +2339,7 @@ const updateChart = () => {
 		.attr("y", 0 - margin.left + 5)
 		.attr("x", 0 - (height / 2))
 		.attr("dy", "1em")
-		.style("text-anchor", "middle")
+		.style("text-anchor", "start")
 		.text("تعداد پوستر");
 
 };
