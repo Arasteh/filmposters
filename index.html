@@ -2373,30 +2373,12 @@ const updateChart = () => {
     console.log('Chart drawn successfully.');
 };
 
-watch([filteredYearsInModal, chartContainerRef], ([newYears, newContainer]) => {
-    console.log('Watcher triggered for filteredYearsInModal or chartContainerRef.');
-    if (newYears.length > 0 && newContainer) {
-        console.log('Data and container are ready, calling updateChart.');
-        nextTick(() => {
-            updateChart();
-        });
-    } else {
-        console.log('Data or container not ready, skipping chart update.');
-    }
-}, { immediate: true });
-
-
-const handleResize = () => {
-    console.log('Window resized, updating chart.');
-    updateChart();
-};
-
-watch(sidebarWidth, () => {
-    console.log('Sidebar width changed, updating chart.');
+watch([filteredYearsInModal, sidebarWidth], () => {
     nextTick(() => {
         updateChart();
     });
 });
+
 
 onMounted(() => {
     window.addEventListener('scroll', handleScroll);
@@ -2404,7 +2386,19 @@ onMounted(() => {
         isMobileView.value = window.innerWidth <= 768;
     };
     window.addEventListener('resize', checkMobile);
-    window.addEventListener('resize', handleResize);
+    
+    // MutationObserver برای اطمینان از بارگذاری کامل chartContainerRef
+    console.log('MutationObserver is watching for chart container availability.');
+    const observer = new MutationObserver((mutationsList, observer) => {
+        if (chartContainerRef.value) {
+            console.log('Chart container is now available.');
+            updateChart();
+            observer.disconnect(); // قطع مشاهده پس از یافتن المان
+        }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
     checkMobile();
 
     nextTick(() => {
@@ -2421,7 +2415,7 @@ onMounted(() => {
 onUnmounted(() => {
     window.removeEventListener('scroll', handleScroll);
     window.removeEventListener('resize', checkMobile);
-    window.removeEventListener('resize', handleResize);
+    // گوش‌دهنده resize مربوط به window توسط observer جایگزین می‌شود.
 });
 
 
