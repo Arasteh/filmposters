@@ -2253,6 +2253,13 @@ const searchBarDynamicStyle = computed(() => {
 // تابع برای به‌روزرسانی نمودار SVG
 const updateChart = () => {
     console.log('Update chart called.');
+    const chartContainer = chartContainerRef.value;
+    if (!chartContainer) {
+        console.error('Chart container reference is null. Cannot draw chart.');
+        return;
+    }
+    console.log('Chart container is ready.');
+
 	const svg = d3.select("#yearsChart");
 	svg.selectAll("*").remove(); // پاک کردن نمودار قبلی
 
@@ -2263,15 +2270,11 @@ const updateChart = () => {
         console.warn('No data to draw chart.');
         return;
     }
+    
+    console.log('Chart data is available, attempting to draw.');
 
 	const margin = { top: 20, right: 30, bottom: 40, left: 60 };
 	
-	const chartContainer = chartContainerRef.value;
-    if (!chartContainer) {
-        console.error('Chart container reference is null.');
-        return;
-    }
-
     const width = chartContainer.clientWidth - margin.left - margin.right;
     const height = 300 - margin.top - margin.bottom;
 	
@@ -2370,11 +2373,18 @@ const updateChart = () => {
     console.log('Chart drawn successfully.');
 };
 
-watch(filteredYearsInModal, () => {
-	nextTick(() => {
-		updateChart();
-	});
+watch([filteredYearsInModal, chartContainerRef], ([newYears, newContainer]) => {
+    console.log('Watcher triggered for filteredYearsInModal or chartContainerRef.');
+    if (newYears.length > 0 && newContainer) {
+        console.log('Data and container are ready, calling updateChart.');
+        nextTick(() => {
+            updateChart();
+        });
+    } else {
+        console.log('Data or container not ready, skipping chart update.');
+    }
 }, { immediate: true });
+
 
 const handleResize = () => {
     console.log('Window resized, updating chart.');
