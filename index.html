@@ -2287,11 +2287,6 @@ const updateChart = () => {
 	svg.selectAll("*").remove(); // پاک کردن نمودار قبلی
 
 	const data = filteredYearsInModal.value;
-    
-    // Check for empty data and return early to prevent errors
-    if (data.length === 0) {
-        return;
-    }
 
 	const margin = { top: 20, right: 30, bottom: 40, left: 60 }; // تغییر مقادیر left و bottom
 	const width = document.querySelector('.chart-container').clientWidth - margin.left - margin.right;
