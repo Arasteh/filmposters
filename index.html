@@ -2256,7 +2256,7 @@ const updateChart = () => {
 
 	const data = filteredYearsInModal.value;
 
-	const margin = { top: 20, right: 30, bottom: 20, left: 40 };
+	const margin = { top: 20, right: 30, bottom: 40, left: 60 }; // تغییر مقادیر left و bottom
 	const width = document.querySelector('.chart-container').clientWidth - margin.left - margin.right;
 	const height = 300 - margin.top - margin.bottom;
 	
@@ -2278,12 +2278,14 @@ const updateChart = () => {
 		.selectAll("text")
 		.style("text-anchor", "end")
 		.attr("dx", "-.8em")
-		.attr("dy", ".15em")
+		.attr("dy", "1.2em") // افزایش فاصله از محور افقی
 		.attr("transform", "rotate(-65)");
 
 	const yAxis = g => g
 		.attr("transform", `translate(0,0)`)
-		.call(d3.axisLeft(y).tickFormat(d3.format("d")));
+		.call(d3.axisLeft(y).tickFormat(d3.format("d")))
+		.selectAll("text")
+		.attr("dx", "-0.8em"); // جابجایی لیبل‌های محور عمودی به چپ
 
 	const barsGroup = g.append("g").attr("class", "bars");
 	const tooltip = d3.select("#tooltip");
@@ -2330,20 +2332,19 @@ const updateChart = () => {
 	g.append("g").attr("class", "y-axis").call(yAxis);
 
 	g.append("text")
-		.attr("transform", `translate(${width / 2}, ${height + margin.bottom + 25})`)
+		.attr("transform", `translate(${width / 2}, ${height + margin.bottom - 10})`) // پایین‌تر بردن عنوان محور افقی
 		.style("text-anchor", "middle")
 		.text("سال");
 
 	g.append("text")
 		.attr("transform", "rotate(-90)")
-		.attr("y", 0 - margin.left + 5)
+		.attr("y", 0 - margin.left + 15) // جابجایی عنوان محور عمودی به چپ
 		.attr("x", 0 - (height / 2 - 10))
 		.attr("dy", "1em")
 		.style("text-anchor", "middle")
 		.text("تعداد پوستر");
 
 };
-
 
 // مشاهده تغییرات فیلتر سال‌ها برای به‌روزرسانی نمودار
 watch(filteredYearsInModal, () => {
