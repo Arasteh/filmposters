@@ -824,11 +824,20 @@ input[type="text"] {
     width: 100%;
 	margin-bottom: 20px;
 	position: relative; /* برای موقعیت‌یابی تول‌تیپ */
+	overflow: hidden;
+	resize: horizontal; /* اختیاری - برای تست ریزایز */
+
 }
 
 .chart-container svg {
 	width: 100%;
 	height: 300px;
+}
+
+#yearsChart {
+  display: block;
+  width: 100%;
+  height: 300px;
 }
 
 .bar {
@@ -2249,16 +2258,36 @@ const searchBarDynamicStyle = computed(() => {
     return style;
 });
 
+// تابع برای مشاهده تغییرات سایز المان
+const observeResize = (element, callback) => {
+  const resizeObserver = new ResizeObserver(entries => {
+    if (!entries[0].target.offsetParent) return; // اگر المان hidden است، کاری نکن
+    callback();
+  });
+  
+  resizeObserver.observe(element);
+  return resizeObserver;
+};
+
 // تابع برای به‌روزرسانی نمودار SVG
 const updateChart = () => {
 	const svg = d3.select("#yearsChart");
 	svg.selectAll("*").remove(); // پاک کردن نمودار قبلی
 
 	const data = filteredYearsInModal.value;
+	if (!data || data.length === 0) return;
 
-	const margin = { top: 20, right: 30, bottom: 40, left: 60 }; // تغییر مقادیر left و bottom
-	const width = document.querySelector('.chart-container').clientWidth - margin.left - margin.right;
+	const margin = { top: 20, right: 30, bottom: 40, left: 60 };
+	
+	// دریافت عرض container به صورت پویا
+	const container = document.querySelector('.chart-container');
+	const containerWidth = container.clientWidth;
+	const width = containerWidth - margin.left - margin.right;
 	const height = 300 - margin.top - margin.bottom;
+	
+	// تنظیم عرض SVG برای تطابق با container
+	svg.attr("width", containerWidth)
+	   .attr("height", height + margin.top + margin.bottom);
 	
 	const x = d3.scaleBand()
 		.domain(data.map(d => d[0]))
@@ -2278,14 +2307,14 @@ const updateChart = () => {
 		.selectAll("text")
 		.style("text-anchor", "end")
 		.attr("dx", "-.8em")
-		.attr("dy", "1.5em") // افزایش فاصله از محور افقی
+		.attr("dy", "1.5em")
 		.attr("transform", "rotate(-65)");
 
 	const yAxis = g => g
 		.attr("transform", `translate(0,0)`)
 		.call(d3.axisLeft(y).tickFormat(d3.format("d")))
 		.selectAll("text")
-		.attr("dx", "-1em"); // جابجایی لیبل‌های محور عمودی به چپ
+		.attr("dx", "-1em");
 
 	const barsGroup = g.append("g").attr("class", "bars");
 	const tooltip = d3.select("#tooltip");
@@ -2299,15 +2328,16 @@ const updateChart = () => {
 	svg.call(zoom);
 
 	function zoomed(event) {
-		x.range([0, width].map(d => event.transform.applyX(d)));
+		const newXScale = event.transform.rescaleX(x);
 		
 		barsGroup.selectAll("rect")
-			.attr("x", d => x(d[0]))
-			.attr("width", x.bandwidth());
+			.attr("x", d => newXScale(d[0]))
+			.attr("width", newXScale.bandwidth());
 		
-		g.selectAll(".x-axis").call(xAxis);
+		g.select(".x-axis").call(d3.axisBottom(newXScale));
 	}
 	
+	// رسم میله‌ها
 	barsGroup.selectAll(".bar")
 		.data(data)
 		.enter().append("rect")
@@ -2318,32 +2348,33 @@ const updateChart = () => {
 		.attr("height", d => height - y(d[1]))
 		.on("mouseover", (event, d) => {
 			tooltip.transition().duration(200).style("opacity", .9);
-            const [xPos, yPos] = d3.pointer(event);
+			const [xPos, yPos] = d3.pointer(event);
 			tooltip.html(`سال: ${d[0]}<br/>پوستر: ${d[1].toLocaleString('fa')}`)
-                   .style("left", (xPos + margin.left) + "px")
-                   .style("top", (yPos + margin.top - 28) + "px");
+				   .style("left", (xPos + margin.left) + "px")
+				   .style("top", (yPos + margin.top - 28) + "px");
 		})
 		.on("mouseout", () => {
 			tooltip.transition().duration(500).style("opacity", 0);
 		})
 		.on("click", (event, d) => selectYearFromModal(d[0]));
 
+	// اضافه کردن محورها
 	g.append("g").attr("class", "x-axis").call(xAxis);
 	g.append("g").attr("class", "y-axis").call(yAxis);
 
+	// اضافه کردن عنوان‌ها
 	g.append("text")
-		.attr("transform", `translate(${width / 2}, ${height + margin.bottom - 10})`) // پایین‌تر بردن عنوان محور افقی
+		.attr("transform", `translate(${width / 2}, ${height + margin.bottom - 10})`)
 		.style("text-anchor", "middle")
 		.text("سال");
 
 	g.append("text")
 		.attr("transform", "rotate(-90)")
-		.attr("y", 0 - margin.left + 15) // جابجایی عنوان محور عمودی به چپ
+		.attr("y", 0 - margin.left + 15)
 		.attr("x", 0 - (height / 2 - 10))
 		.attr("dy", "1em")
 		.style("text-anchor", "middle")
 		.text("تعداد پوستر");
-
 };
 
 // مشاهده تغییرات فیلتر سال‌ها برای به‌روزرسانی نمودار
@@ -2353,6 +2384,17 @@ watch(filteredYearsInModal, () => {
 	});
 }, { immediate: true });
 
+// مشاهده تغییرات سایز container
+onMounted(() => {
+	const container = document.querySelector('.chart-container');
+	if (container) {
+		observeResize(container, () => {
+			nextTick(() => {
+				updateChart();
+			});
+		});
+	}
+});
 
 onMounted(() => {
     window.addEventListener('scroll', handleScroll);
