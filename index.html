@@ -1661,11 +1661,16 @@ const toPersianYear = date => {
 	return year === 'Invalid Date' ? 'نامشخص' : year;
 };
 
+// تابع کمکی برای گرفتن سال‌های معتبر از آیتم‌ها
+const getValidYears = (data) => {
+    return data.filter(item => item.date)
+               .map(item => parseInt(toPersianYear(item.date)))
+               .filter(year => !isNaN(year));
+}
+
 // تغییر: ایجاد یک لیست کامل از سال‌ها شامل سال‌های بدون پوستر، فقط برای حالت بدون فیلتر
 const allYearsWithCounts = computed(() => {
-    const yearsWithPosters = items.filter(item => item.date)
-                                 .map(item => parseInt(toPersianYear(item.date)))
-                                 .filter(year => !isNaN(year));
+    const yearsWithPosters = getValidYears(items);
 
     if (yearsWithPosters.length === 0) {
         return [];
@@ -1689,15 +1694,21 @@ const allYearsWithCounts = computed(() => {
     const result = Array.from(yearCounts.entries())
                         .sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
     
+    // Log the data to the console for debugging
+    console.log("All years with counts (for chart):", result);
     return result;
 });
 
 // تغییر: لیست سال‌ها برای گرید فیلترها که فقط سال‌های دارای پوستر را نمایش می‌دهد
 const availableYearsForGrid = computed(() => {
-    const groups = Object.groupBy(items.filter(item => item.date && toPersianYear(item.date) !== 'نامشخص'), item => toPersianYear(item.date));
-    return Object.keys(groups)
+    const yearsWithPosters = getValidYears(items);
+    const groups = Object.groupBy(items.filter(item => yearsWithPosters.includes(parseInt(toPersianYear(item.date)))), item => toPersianYear(item.date));
+    const result = Object.keys(groups)
         .map(year => [year, groups[year].length])
         .sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
+    
+    console.log("Available years for grid:", result);
+    return result;
 });
 
 // تغییر برای بازگرداندن مقادیر عددی
