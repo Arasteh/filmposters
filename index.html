@@ -1811,13 +1811,10 @@ const selectDesignerFromModal = designer => {
 
 // تغییر برای بازگرداندن مقادیر عددی
 const filteredYearsInModal = computed(() => {
-    const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
-    const years = Object.keys(groups)
-        .sort()
-        .map(year => [year, groups[year].length]);
-    
-    // استفاده از تابع جدید برای ایجاد بازه کامل
-    return createCompleteYearRange(years);
+	const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
+	return Object.keys(groups)
+		.sort()
+		.map(year => [year, groups[year].length]);
 });
 
 watch(filteredItems, (newValue) => {
@@ -2254,128 +2251,99 @@ const searchBarDynamicStyle = computed(() => {
 
 // تابع برای به‌روزرسانی نمودار SVG
 const updateChart = () => {
-    const svg = d3.select("#yearsChart");
-    svg.selectAll("*").remove(); // پاک کردن نمودار قبلی
+	const svg = d3.select("#yearsChart");
+	svg.selectAll("*").remove(); // پاک کردن نمودار قبلی
 
-    const data = filteredYearsInModal.value;
-    
-    // ایجاد آرایه کامل از سال‌ها در بازه
-    const yearsData = createCompleteYearRange(data);
-    
-    const margin = { top: 20, right: 30, bottom: 40, left: 60 };
-    const width = document.querySelector('.chart-container').clientWidth - margin.left - margin.right;
-    const height = 300 - margin.top - margin.bottom;
-    
-    const x = d3.scaleBand()
-        .domain(yearsData.map(d => d[0]))
-        .range([0, width])
-        .padding(0.1);
+	const data = filteredYearsInModal.value;
 
-    const y = d3.scaleLinear()
-        .domain([0, d3.max(yearsData, d => d[1])]).nice()
-        .range([height, 0]);
-    
-    const g = svg.append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`);
-    
-    const xAxis = g => g
-        .attr("transform", `translate(0,${height})`)
-        .call(d3.axisBottom(x).tickSizeOuter(0))
-        .selectAll("text")
-        .style("text-anchor", "end")
-        .attr("dx", "-.8em")
-        .attr("dy", "1.5em")
-        .attr("transform", "rotate(-65)");
+	const margin = { top: 20, right: 30, bottom: 40, left: 60 }; // تغییر مقادیر left و bottom
+	const width = document.querySelector('.chart-container').clientWidth - margin.left - margin.right;
+	const height = 300 - margin.top - margin.bottom;
+	
+	const x = d3.scaleBand()
+		.domain(data.map(d => d[0]))
+		.range([0, width])
+		.padding(0.1);
 
-    const yAxis = g => g
-        .attr("transform", `translate(0,0)`)
-        .call(d3.axisLeft(y).tickFormat(d3.format("d")))
-        .selectAll("text")
-        .attr("dx", "-1em");
+	const y = d3.scaleLinear()
+		.domain([0, d3.max(data, d => d[1])]).nice()
+		.range([height, 0]);
+	
+	const g = svg.append("g")
+		.attr("transform", `translate(${margin.left},${margin.top})`);
+	
+	const xAxis = g => g
+		.attr("transform", `translate(0,${height})`)
+		.call(d3.axisBottom(x).tickSizeOuter(0))
+		.selectAll("text")
+		.style("text-anchor", "end")
+		.attr("dx", "-.8em")
+		.attr("dy", "1.5em") // افزایش فاصله از محور افقی
+		.attr("transform", "rotate(-65)");
 
-    const barsGroup = g.append("g").attr("class", "bars");
-    const tooltip = d3.select("#tooltip");
+	const yAxis = g => g
+		.attr("transform", `translate(0,0)`)
+		.call(d3.axisLeft(y).tickFormat(d3.format("d")))
+		.selectAll("text")
+		.attr("dx", "-1em"); // جابجایی لیبل‌های محور عمودی به چپ
 
-    const zoom = d3.zoom()
-        .scaleExtent([1, 8])
-        .translateExtent([[0, 0], [width, height]])
-        .extent([[0, 0], [width, height]])
-        .on("zoom", zoomed);
-    
-    svg.call(zoom);
+	const barsGroup = g.append("g").attr("class", "bars");
+	const tooltip = d3.select("#tooltip");
 
-    function zoomed(event) {
-        x.range([0, width].map(d => event.transform.applyX(d)));
-        
-        barsGroup.selectAll("rect")
-            .attr("x", d => x(d[0]))
-            .attr("width", x.bandwidth());
-        
-        g.selectAll(".x-axis").call(xAxis);
-    }
-    
-    barsGroup.selectAll(".bar")
-        .data(yearsData)
-        .enter().append("rect")
-        .attr("class", "bar")
-        .attr("x", d => x(d[0]))
-        .attr("y", d => y(d[1]))
-        .attr("width", x.bandwidth())
-        .attr("height", d => height - y(d[1]))
-        .on("mouseover", (event, d) => {
-            tooltip.transition().duration(200).style("opacity", .9);
+	const zoom = d3.zoom()
+		.scaleExtent([1, 8])
+		.translateExtent([[0, 0], [width, height]])
+		.extent([[0, 0], [width, height]])
+		.on("zoom", zoomed);
+	
+	svg.call(zoom);
+
+	function zoomed(event) {
+		x.range([0, width].map(d => event.transform.applyX(d)));
+		
+		barsGroup.selectAll("rect")
+			.attr("x", d => x(d[0]))
+			.attr("width", x.bandwidth());
+		
+		g.selectAll(".x-axis").call(xAxis);
+	}
+	
+	barsGroup.selectAll(".bar")
+		.data(data)
+		.enter().append("rect")
+		.attr("class", "bar")
+		.attr("x", d => x(d[0]))
+		.attr("y", d => y(d[1]))
+		.attr("width", x.bandwidth())
+		.attr("height", d => height - y(d[1]))
+		.on("mouseover", (event, d) => {
+			tooltip.transition().duration(200).style("opacity", .9);
             const [xPos, yPos] = d3.pointer(event);
-            tooltip.html(`سال: ${d[0]}<br/>پوستر: ${d[1].toLocaleString('fa')}`)
+			tooltip.html(`سال: ${d[0]}<br/>پوستر: ${d[1].toLocaleString('fa')}`)
                    .style("left", (xPos + margin.left) + "px")
                    .style("top", (yPos + margin.top - 28) + "px");
-        })
-        .on("mouseout", () => {
-            tooltip.transition().duration(500).style("opacity", 0);
-        })
-        .on("click", (event, d) => {
-            if (d[1] > 0) { // فقط سال‌هایی که داده دارند قابل کلیک باشند
-                selectYearFromModal(d[0]);
-            }
-        });
+		})
+		.on("mouseout", () => {
+			tooltip.transition().duration(500).style("opacity", 0);
+		})
+		.on("click", (event, d) => selectYearFromModal(d[0]));
 
-    g.append("g").attr("class", "x-axis").call(xAxis);
-    g.append("g").attr("class", "y-axis").call(yAxis);
+	g.append("g").attr("class", "x-axis").call(xAxis);
+	g.append("g").attr("class", "y-axis").call(yAxis);
 
-    g.append("text")
-        .attr("transform", `translate(${width / 2}, ${height + margin.bottom - 10})`)
-        .style("text-anchor", "middle")
-        .text("سال");
+	g.append("text")
+		.attr("transform", `translate(${width / 2}, ${height + margin.bottom - 10})`) // پایین‌تر بردن عنوان محور افقی
+		.style("text-anchor", "middle")
+		.text("سال");
 
-    g.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 0 - margin.left + 15)
-        .attr("x", 0 - (height / 2 - 10))
-        .attr("dy", "1em")
-        .style("text-anchor", "middle")
-        .text("تعداد پوستر");
-};
+	g.append("text")
+		.attr("transform", "rotate(-90)")
+		.attr("y", 0 - margin.left + 15) // جابجایی عنوان محور عمودی به چپ
+		.attr("x", 0 - (height / 2 - 10))
+		.attr("dy", "1em")
+		.style("text-anchor", "middle")
+		.text("تعداد پوستر");
 
-// تابع جدید برای ایجاد بازه کامل سال‌ها
-const createCompleteYearRange = (data) => {
-    if (data.length === 0) return [];
-    
-    // تبدیل سال‌ها به اعداد برای محاسبات
-    const yearValues = data.map(d => parseInt(d[0]));
-    const minYear = Math.min(...yearValues);
-    const maxYear = Math.max(...yearValues);
-    
-    // ایجاد یک مپ از داده‌های موجود برای دسترسی سریع
-    const dataMap = new Map(data);
-    
-    // ایجاد آرایه کامل از سال‌ها
-    const completeRange = [];
-    for (let year = minYear; year <= maxYear; year++) {
-        const yearStr = year.toString();
-        const count = dataMap.has(yearStr) ? dataMap.get(yearStr) : 0;
-        completeRange.push([yearStr, count]);
-    }
-    
-    return completeRange;
 };
 
 // مشاهده تغییرات فیلتر سال‌ها برای به‌روزرسانی نمودار
