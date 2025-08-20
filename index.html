@@ -994,7 +994,7 @@ input[type="text"] {
 			<!-- بخش جدید نمودار -->
 			<div class="sidebar-section" :class="getSectionClass('chart')">
 				<div class="sidebar-section-header" @click="toggleCollapse('chart')">
-					<span>نمودار</span>
+					<span>نمودار تعداد پوسترها</span>
 					<button class="collapse-button rotate-up" :class="collapseIconClass(isCollapsed.chart)">
 						<span class="material-symbols-rounded">
 							keyboard_arrow_up
@@ -2330,14 +2330,14 @@ const updateChart = () => {
 	g.append("g").attr("class", "y-axis").call(yAxis);
 
 	g.append("text")
-		.attr("transform", `translate(${width / 2}, ${height + margin.bottom + 15})`)
+		.attr("transform", `translate(${width / 2}, ${height + margin.bottom + 25})`)
 		.style("text-anchor", "middle")
 		.text("سال");
 
 	g.append("text")
 		.attr("transform", "rotate(-90)")
 		.attr("y", 0 - margin.left + 5)
-		.attr("x", 0 - (height / 2))
+		.attr("x", 0 - (height / 2 - 10))
 		.attr("dy", "1em")
 		.style("text-anchor", "middle")
 		.text("تعداد پوستر");
