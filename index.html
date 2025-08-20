@@ -2278,14 +2278,14 @@ const updateChart = () => {
 		.selectAll("text")
 		.style("text-anchor", "end")
 		.attr("dx", "-.8em")
-		.attr("dy", "1.2em") // افزایش فاصله از محور افقی
+		.attr("dy", "1.5em") // افزایش فاصله از محور افقی
 		.attr("transform", "rotate(-65)");
 
 	const yAxis = g => g
 		.attr("transform", `translate(0,0)`)
 		.call(d3.axisLeft(y).tickFormat(d3.format("d")))
 		.selectAll("text")
-		.attr("dx", "-0.8em"); // جابجایی لیبل‌های محور عمودی به چپ
+		.attr("dx", "-1em"); // جابجایی لیبل‌های محور عمودی به چپ
 
 	const barsGroup = g.append("g").attr("class", "bars");
 	const tooltip = d3.select("#tooltip");
