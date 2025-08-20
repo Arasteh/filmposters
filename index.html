@@ -1663,28 +1663,31 @@ const toPersianYear = date => {
 
 // تغییر: ایجاد یک لیست کامل از سال‌ها شامل سال‌های بدون پوستر
 const allYearsWithCounts = computed(() => {
-    const yearsWithPosters = items.filter(item => item.date)
-                                 .map(item => parseInt(toPersianYear(item.date)));
-    
-    if (yearsWithPosters.length === 0) {
+    const allYearsWithPosters = items.filter(item => item.date)
+                                 .map(item => parseInt(toPersianYear(item.date)))
+                                 .filter(year => !isNaN(year)); // Filter out NaN values
+
+    if (allYearsWithPosters.length === 0) {
         return [];
     }
 
-    const minYear = Math.min(...yearsWithPosters);
-    const maxYear = Math.max(...yearsWithPosters);
+    const minYear = Math.min(...allYearsWithPosters);
+    const maxYear = Math.max(...allYearsWithPosters);
 
     const yearCounts = new Map();
     for (let year = minYear; year <= maxYear; year++) {
-        yearCounts.set(year, 0);
+        yearCounts.set(year.toString(), 0);
     }
 
-    yearsWithPosters.forEach(year => {
-        yearCounts.set(year, yearCounts.get(year) + 1);
+    allYearsWithPosters.forEach(year => {
+        const yearStr = year.toString();
+        if (yearCounts.has(yearStr)) {
+            yearCounts.set(yearStr, yearCounts.get(yearStr) + 1);
+        }
     });
 
     const result = Array.from(yearCounts.entries())
-                        .map(([year, count]) => [year.toString(), count])
-                        .sort((a, b) => a[0].localeCompare(b[0], 'fa'));
+                        .sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
     
     return result;
 });
@@ -1799,8 +1802,8 @@ watch(designerQuery, newValue => {
 const filteredYears = computed(() => {
 	const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
 	return Object.keys(groups)
-		.sort()
-		.map(year => [year, groups[year].length]);
+		.map(year => [year, groups[year].length])
+		.sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
 });
 
 const filteredDesigners = computed(() => {
@@ -1845,8 +1848,8 @@ const filteredYearsInModal = computed(() => {
         return allYearsWithCounts.value;
     }
 	return Object.keys(groups)
-		.sort()
-		.map(year => [year, groups[year].length]);
+		.map(year => [year, groups[year].length])
+		.sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
 });
 
 watch(filteredItems, (newValue) => {
