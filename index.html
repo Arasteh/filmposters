@@ -1021,10 +1021,10 @@ input[type="text"] {
 				</div>
 				<div class="sidebar-section-body">
 					<div class="year-grid" style="visibility: hidden" :style="{ visibility: undefined }">
-						<div v-if="availableYearsForGrid.length === 0" class="no-results">
+						<div v-if="filteredYearsInModal.length === 0" class="no-results">
 							نتیجه‌ای وجود ندارد
 						</div>
-						<div v-else v-for="[year, count] in availableYearsForGrid" :key="year"
+						<div v-else v-for="[year, count] in filteredYearsInModal" :key="year"
 							@click="selectedYear === year ? removeYearFilter() : selectYearFromModal(year)"
 							@mouseenter="hoveredItem = year" @mouseleave="hoveredItem = null"
 							:class="{ 'hovered': hoveredItem === year }" class="year-item">
@@ -1394,7 +1394,7 @@ input[type="text"] {
 								<a :href="'https://www.wikidata.org/wiki/' + designer.id" aria-label="ویکی‌داده" target="_blank">
 									<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg"
 										alt="ویکی‌داده" class="linkIcon">
-									</a>
+								</a>
 								<template v-if="designer.faWikipediaLink">
 									<a :href="'https://fa.wikipedia.org/wiki/' + designer.faWikipediaLink.replaceAll(' ', '_')"
 										aria-label="ویکی‌پدیا" target="_blank">
@@ -1661,25 +1661,25 @@ const toPersianYear = date => {
 	return year === 'Invalid Date' ? 'نامشخص' : year;
 };
 
-// تغییر: ایجاد یک لیست کامل از سال‌ها شامل سال‌های بدون پوستر، فقط برای حالت بدون فیلتر
+// تغییر: ایجاد یک لیست کامل از سال‌ها شامل سال‌های بدون پوستر
 const allYearsWithCounts = computed(() => {
-    const yearsWithPosters = items.filter(item => item.date)
+    const allYearsWithPosters = items.filter(item => item.date)
                                  .map(item => parseInt(toPersianYear(item.date)))
-                                 .filter(year => !isNaN(year));
+                                 .filter(year => !isNaN(year)); // Filter out NaN values
 
-    if (yearsWithPosters.length === 0) {
+    if (allYearsWithPosters.length === 0) {
         return [];
     }
 
-    const minYear = Math.min(...yearsWithPosters);
-    const maxYear = Math.max(...yearsWithPosters);
+    const minYear = Math.min(...allYearsWithPosters);
+    const maxYear = Math.max(...allYearsWithPosters);
 
     const yearCounts = new Map();
     for (let year = minYear; year <= maxYear; year++) {
         yearCounts.set(year.toString(), 0);
     }
 
-    yearsWithPosters.forEach(year => {
+    allYearsWithPosters.forEach(year => {
         const yearStr = year.toString();
         if (yearCounts.has(yearStr)) {
             yearCounts.set(yearStr, yearCounts.get(yearStr) + 1);
@@ -1692,12 +1692,9 @@ const allYearsWithCounts = computed(() => {
     return result;
 });
 
-// تغییر: لیست سال‌ها برای گرید فیلترها که فقط سال‌های دارای پوستر را نمایش می‌دهد
-const availableYearsForGrid = computed(() => {
-    const groups = Object.groupBy(items.filter(item => item.date && toPersianYear(item.date) !== 'نامشخص'), item => toPersianYear(item.date));
-    return Object.keys(groups)
-        .map(year => [year, groups[year].length])
-        .sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
+// تغییر: از computed جدید استفاده می‌کنیم تا لیست کامل سال‌ها را بازگرداند
+const availableYears = computed(() => {
+	return allYearsWithCounts.value;
 });
 
 // تغییر برای بازگرداندن مقادیر عددی
@@ -1802,8 +1799,8 @@ watch(designerQuery, newValue => {
 	}
 });
 
-const filteredYearsWithPosters = computed(() => {
-	const groups = Object.groupBy(filteredItems.value.filter(item => item.date && toPersianYear(item.date) !== 'نامشخص'), item => toPersianYear(item.date));
+const filteredYears = computed(() => {
+	const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
 	return Object.keys(groups)
 		.map(year => [year, groups[year].length])
 		.sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
@@ -1842,14 +1839,17 @@ const selectDesignerFromModal = designer => {
 	designerQuery.value = designer;
 };
 
-// تغییر: حالا این computed فقط داده‌های نمودار را آماده می‌کند
+// تغییر برای بازگرداندن مقادیر عددی
 const filteredYearsInModal = computed(() => {
+	const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
     // اگر هیچ فیلتری فعال نیست، لیست کامل سال‌ها (شامل سال‌های با پوستر صفر) را بازگردان.
     // در غیر این صورت، فقط سال‌هایی را نمایش بده که در نتیجه فیلتر وجود دارند.
     if (!hasActiveFilters.value) {
         return allYearsWithCounts.value;
     }
-    return filteredYearsWithPosters.value;
+	return Object.keys(groups)
+		.map(year => [year, groups[year].length])
+		.sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
 });
 
 watch(filteredItems, (newValue) => {
@@ -2292,7 +2292,7 @@ const updateChart = () => {
 	const data = filteredYearsInModal.value;
     
     // Check for empty data and return early to prevent errors
-    if (!data || data.length === 0) {
+    if (data.length === 0) {
         return;
     }
 
@@ -2436,7 +2436,7 @@ window.addEventListener('keydown', (event) => {
 return {
 	showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items,
 	getItemUrl, getCommonsUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear,
-	availableYearsForGrid, availableDesigners, selectedDesigner, filteredYearsWithPosters: filteredYearsWithPosters, bringToTop, visibleBringToTop,
+	availableYears, availableDesigners, selectedDesigner, filteredYears, bringToTop, visibleBringToTop,
 	filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors,
 	selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode,
 	toggleOptions, isOptionsCollapsed, collapseIconClass, filteredDesignersInModal, designerSearchQuery,
