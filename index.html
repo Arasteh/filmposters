@@ -1695,7 +1695,7 @@ const allYearsWithCounts = computed(() => {
                         .sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
     
     // Log the data to the console for debugging
-    console.log("All years with counts (for chart):", result);
+    console.log("All years with counts (for chart, no active filters):", result);
     return result;
 });
 
@@ -1815,9 +1815,12 @@ watch(designerQuery, newValue => {
 
 const filteredYearsWithPosters = computed(() => {
 	const groups = Object.groupBy(filteredItems.value.filter(item => item.date && toPersianYear(item.date) !== 'نامشخص'), item => toPersianYear(item.date));
-	return Object.keys(groups)
+	const result = Object.keys(groups)
 		.map(year => [year, groups[year].length])
 		.sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
+
+    console.log("Filtered years with posters (for chart/grid with filters):", result);
+	return result;
 });
 
 const filteredDesigners = computed(() => {
@@ -2304,6 +2307,7 @@ const updateChart = () => {
     
     // Check for empty data and return early to prevent errors
     if (!data || data.length === 0) {
+        console.warn("No data available for chart, returning early.");
         return;
     }
 
