@@ -2268,7 +2268,6 @@ const observeResize = (element, callback) => {
   resizeObserver.observe(element);
   return resizeObserver;
 };
-
 // تابع برای به‌روزرسانی نمودار SVG
 const updateChart = () => {
 	const svg = d3.select("#yearsChart");
@@ -2319,6 +2318,7 @@ const updateChart = () => {
 	const barsGroup = g.append("g").attr("class", "bars");
 	const tooltip = d3.select("#tooltip");
 
+	// ایجاد زوم با عملکرد صحیح
 	const zoom = d3.zoom()
 		.scaleExtent([1, 8])
 		.translateExtent([[0, 0], [width, height]])
@@ -2327,14 +2327,27 @@ const updateChart = () => {
 	
 	svg.call(zoom);
 
+	// تابع زوم اصلاح شده
 	function zoomed(event) {
-		const newXScale = event.transform.rescaleX(x);
+		const transform = event.transform;
 		
+		// ایجاد scale جدید برای محور X با اعمال ترانسفورمیشن
+		const xScaleNew = transform.rescaleX(x);
+		
+		// بروزرسانی میله‌ها با موقعیت و عرض جدید
 		barsGroup.selectAll("rect")
-			.attr("x", d => newXScale(d[0]))
-			.attr("width", newXScale.bandwidth());
+			.attr("x", d => xScaleNew(d[0]))
+			.attr("width", xScaleNew.bandwidth());
 		
-		g.select(".x-axis").call(d3.axisBottom(newXScale));
+		// بروزرسانی محور X
+		g.select(".x-axis").call(
+			d3.axisBottom(xScaleNew)
+				.tickSizeOuter(0)
+		).selectAll("text")
+			.style("text-anchor", "end")
+			.attr("dx", "-.8em")
+			.attr("dy", "1.5em")
+			.attr("transform", "rotate(-65)");
 	}
 	
 	// رسم میله‌ها
@@ -2359,8 +2372,13 @@ const updateChart = () => {
 		.on("click", (event, d) => selectYearFromModal(d[0]));
 
 	// اضافه کردن محورها
-	g.append("g").attr("class", "x-axis").call(xAxis);
-	g.append("g").attr("class", "y-axis").call(yAxis);
+	g.append("g")
+		.attr("class", "x-axis")
+		.call(xAxis);
+		
+	g.append("g")
+		.attr("class", "y-axis")
+		.call(yAxis);
 
 	// اضافه کردن عنوان‌ها
 	g.append("text")
