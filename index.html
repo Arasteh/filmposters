@@ -1661,37 +1661,10 @@ const toPersianYear = date => {
 	return year === 'Invalid Date' ? 'نامشخص' : year;
 };
 
-// تغییر: ایجاد یک لیست کامل از سال‌ها شامل سال‌های بدون پوستر
-const allYearsWithCounts = computed(() => {
-    const yearsWithPosters = items.filter(item => item.date)
-                                 .map(item => parseInt(toPersianYear(item.date)));
-    
-    if (yearsWithPosters.length === 0) {
-        return [];
-    }
-
-    const minYear = Math.min(...yearsWithPosters);
-    const maxYear = Math.max(...yearsWithPosters);
-
-    const yearCounts = new Map();
-    for (let year = minYear; year <= maxYear; year++) {
-        yearCounts.set(year, 0);
-    }
-
-    yearsWithPosters.forEach(year => {
-        yearCounts.set(year, yearCounts.get(year) + 1);
-    });
-
-    const result = Array.from(yearCounts.entries())
-                        .map(([year, count]) => [year.toString(), count])
-                        .sort((a, b) => a[0].localeCompare(b[0], 'fa'));
-    
-    return result;
-});
-
-// تغییر: از computed جدید استفاده می‌کنیم تا لیست کامل سال‌ها را بازگرداند
+// تغییر برای بازگرداندن مقادیر عددی
 const availableYears = computed(() => {
-	return allYearsWithCounts.value;
+	const groups = Object.groupBy(items, item => toPersianYear(item.date));
+	return Object.keys(groups).sort().map(year => [year, groups[year].length]);
 });
 
 // تغییر برای بازگرداندن مقادیر عددی
@@ -1839,11 +1812,6 @@ const selectDesignerFromModal = designer => {
 // تغییر برای بازگرداندن مقادیر عددی
 const filteredYearsInModal = computed(() => {
 	const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
-    // اگر هیچ فیلتری فعال نیست، لیست کامل سال‌ها (شامل سال‌های با پوستر صفر) را بازگردان.
-    // در غیر این صورت، فقط سال‌هایی را نمایش بده که در نتیجه فیلتر وجود دارند.
-    if (!hasActiveFilters.value) {
-        return allYearsWithCounts.value;
-    }
 	return Object.keys(groups)
 		.sort()
 		.map(year => [year, groups[year].length]);
@@ -2200,7 +2168,7 @@ const handleScroll = () => {
 	if (docHeight <= viewportHeight + 50) {
 		isSearchBarVisible.value = true;
 	} else if (currentScrollY <= scrollThreshold) {
-		// اگر در بالای صفحه هستیم، نوار جستجو نمایش داده شود.
+		// اگر در بالای صفحه هستیم، نوار جستجو نمایش داده شود
 		isSearchBarVisible.value = true;
 	} else if (isAtBottom) {
         // وقتی به انتهای صفحه می‌رسیم، نوار جستجو مخفی شود.
@@ -2283,99 +2251,153 @@ const searchBarDynamicStyle = computed(() => {
 
 // تابع برای به‌روزرسانی نمودار SVG
 const updateChart = () => {
-	const svg = d3.select("#yearsChart");
-	svg.selectAll("*").remove(); // پاک کردن نمودار قبلی
+    const svg = d3.select("#yearsChart");
+    svg.selectAll("*").remove(); // پاک کردن نمودار قبلی
 
-	const data = filteredYearsInModal.value;
+    // دریافت تمام سال‌های ممکن از قدیمی‌ترین تا جدیدترین
+    const allYears = [];
+    const minYear = Math.min(...availableYears.value.map(y => parseInt(y[0])));
+    const maxYear = Math.max(...availableYears.value.map(y => parseInt(y[0])));
+    
+    for (let year = minYear; year <= maxYear; year++) {
+        allYears.push(year.toString());
+    }
 
-	const margin = { top: 20, right: 30, bottom: 40, left: 60 }; // تغییر مقادیر left و bottom
-	const width = document.querySelector('.chart-container').clientWidth - margin.left - margin.right;
-	const height = 300 - margin.top - margin.bottom;
-	
-	const x = d3.scaleBand()
-		.domain(data.map(d => d[0]))
-		.range([0, width])
-		.padding(0.1);
+    // ایجاد داده‌های کامل شامل سال‌های بدون آیتم
+    const completeData = allYears.map(year => {
+        const existingData = filteredYearsInModal.value.find(d => d[0] === year);
+        return [year, existingData ? existingData[1] : 0];
+    });
 
-	const y = d3.scaleLinear()
-		.domain([0, d3.max(data, d => d[1])]).nice()
-		.range([height, 0]);
-	
-	const g = svg.append("g")
-		.attr("transform", `translate(${margin.left},${margin.top})`);
-	
-	const xAxis = g => g
-		.attr("transform", `translate(0,${height})`)
-		.call(d3.axisBottom(x).tickSizeOuter(0))
-		.selectAll("text")
-		.style("text-anchor", "end")
-		.attr("dx", "-.8em")
-		.attr("dy", "1.5em") // افزایش فاصله از محور افقی
-		.attr("transform", "rotate(-65)");
+    const margin = { top: 20, right: 30, bottom: 40, left: 60 };
+    const width = document.querySelector('.chart-container').clientWidth - margin.left - margin.right;
+    const height = 300 - margin.top - margin.bottom;
+    
+    const x = d3.scaleBand()
+        .domain(completeData.map(d => d[0]))
+        .range([0, width])
+        .padding(0.1);
 
-	const yAxis = g => g
-		.attr("transform", `translate(0,0)`)
-		.call(d3.axisLeft(y).tickFormat(d3.format("d")))
-		.selectAll("text")
-		.attr("dx", "-1em"); // جابجایی لیبل‌های محور عمودی به چپ
+    const y = d3.scaleLinear()
+        .domain([0, d3.max(completeData, d => d[1])]).nice()
+        .range([height, 0]);
+    
+    const g = svg.append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+    
+    // تابع برای تولید محور X با لیبل‌های دهه‌ای
+    const xAxis = g => {
+        const axis = d3.axisBottom(x);
+        
+        // فقط نمایش لیبل برای سال‌هایی که مضرب 10 هستند
+        axis.tickValues(x.domain().filter((d, i) => {
+            // در حالت عادی فقط مضرب‌های 10 را نشان بده
+            const year = parseInt(d);
+            return year % 10 === 0;
+        }));
+        
+        return g
+            .attr("transform", `translate(0,${height})`)
+            .call(axis)
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", "1.5em")
+            .attr("transform", "rotate(-65)");
+    };
 
-	const barsGroup = g.append("g").attr("class", "bars");
-	const tooltip = d3.select("#tooltip");
+    const yAxis = g => g
+        .attr("transform", `translate(0,0)`)
+        .call(d3.axisLeft(y).tickFormat(d3.format("d")))
+        .selectAll("text")
+        .attr("dx", "-1em");
 
-	const zoom = d3.zoom()
-		.scaleExtent([1, 8])
-		.translateExtent([[0, 0], [width, height]])
-		.extent([[0, 0], [width, height]])
-		.on("zoom", zoomed);
-	
-	svg.call(zoom);
+    const barsGroup = g.append("g").attr("class", "bars");
+    const tooltip = d3.select("#tooltip");
 
-	function zoomed(event) {
-		x.range([0, width].map(d => event.transform.applyX(d)));
-		
-		barsGroup.selectAll("rect")
-			.attr("x", d => x(d[0]))
-			.attr("width", x.bandwidth());
-		
-		g.selectAll(".x-axis").call(xAxis);
-	}
-	
-	barsGroup.selectAll(".bar")
-		.data(data)
-		.enter().append("rect")
-		.attr("class", "bar")
-		.attr("x", d => x(d[0]))
-		.attr("y", d => y(d[1]))
-		.attr("width", x.bandwidth())
-		.attr("height", d => height - y(d[1]))
-		.on("mouseover", (event, d) => {
-			tooltip.transition().duration(200).style("opacity", .9);
+    const zoom = d3.zoom()
+        .scaleExtent([1, 8])
+        .translateExtent([[0, 0], [width, height]])
+        .extent([[0, 0], [width, height]])
+        .on("zoom", zoomed);
+    
+    svg.call(zoom);
+
+    function zoomed(event) {
+        const newX = event.transform.rescaleX(x);
+        
+        barsGroup.selectAll("rect")
+            .attr("x", d => newX(d[0]))
+            .attr("width", newX.bandwidth());
+        
+        // هنگام زوم، لیبل‌های بیشتری نشان داده شود
+        const zoomedAxis = d3.axisBottom(newX);
+        
+        // اگر زوم فعال است، لیبل‌های بیشتری نشان بده
+        if (event.transform.k > 1.5) {
+            // در حالت زوم شده، سال‌های بیشتری را نشان بده
+            zoomedAxis.tickValues(newX.domain().filter((d, i) => {
+                // هر چه زوم بیشتر باشد، لیبل‌های بیشتری نشان داده شود
+                const showEvery = Math.max(1, Math.floor(10 / event.transform.k));
+                return i % showEvery === 0;
+            }));
+        } else {
+            // در حالت عادی فقط مضرب‌های 10 را نشان بده
+            zoomedAxis.tickValues(newX.domain().filter(d => parseInt(d) % 10 === 0));
+        }
+        
+        g.select(".x-axis").call(zoomedAxis)
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", "1.5em")
+            .attr("transform", "rotate(-65)");
+    }
+    
+    barsGroup.selectAll(".bar")
+        .data(completeData)
+        .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", d => x(d[0]))
+        .attr("y", d => y(d[1]))
+        .attr("width", x.bandwidth())
+        .attr("height", d => height - y(d[1]))
+        .on("mouseover", (event, d) => {
+            tooltip.transition().duration(200).style("opacity", .9);
             const [xPos, yPos] = d3.pointer(event);
-			tooltip.html(`سال: ${d[0]}<br/>پوستر: ${d[1].toLocaleString('fa')}`)
+            tooltip.html(`سال: ${d[0]}<br/>پوستر: ${d[1].toLocaleString('fa')}`)
                    .style("left", (xPos + margin.left) + "px")
                    .style("top", (yPos + margin.top - 28) + "px");
-		})
-		.on("mouseout", () => {
-			tooltip.transition().duration(500).style("opacity", 0);
-		})
-		.on("click", (event, d) => selectYearFromModal(d[0]));
+        })
+        .on("mouseout", () => {
+            tooltip.transition().duration(500).style("opacity", 0);
+        })
+        .on("click", (event, d) => {
+            if (d[1] > 0) { // فقط در صورت وجود آیتم قابل کلیک باشد
+                selectYearFromModal(d[0]);
+            }
+        });
 
-	g.append("g").attr("class", "x-axis").call(xAxis);
-	g.append("g").attr("class", "y-axis").call(yAxis);
+    g.append("g")
+        .attr("class", "x-axis")
+        .call(xAxis);
+    
+    g.append("g")
+        .attr("class", "y-axis")
+        .call(yAxis);
 
-	g.append("text")
-		.attr("transform", `translate(${width / 2}, ${height + margin.bottom - 10})`) // پایین‌تر بردن عنوان محور افقی
-		.style("text-anchor", "middle")
-		.text("سال");
+    g.append("text")
+        .attr("transform", `translate(${width / 2}, ${height + margin.bottom - 10})`)
+        .style("text-anchor", "middle")
+        .text("سال");
 
-	g.append("text")
-		.attr("transform", "rotate(-90)")
-		.attr("y", 0 - margin.left + 15) // جابجایی عنوان محور عمودی به چپ
-		.attr("x", 0 - (height / 2 - 10))
-		.attr("dy", "1em")
-		.style("text-anchor", "middle")
-		.text("تعداد پوستر");
-
+    g.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left + 15)
+        .attr("x", 0 - (height / 2 - 10))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("تعداد پوستر");
 };
 
 // مشاهده تغییرات فیلتر سال‌ها برای به‌روزرسانی نمودار
