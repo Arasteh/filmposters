@@ -862,6 +862,30 @@ input[type="text"] {
     transition: opacity 0.2s;
 }
 
+/* سبک دکمه "نمایش بیشتر" */
+.show-more-button {
+    background-color: var(--bar-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.show-more-button:hover {
+    background-color: var(--bar-hover-color);
+    transform: translateY(-2px);
+}
+
+.show-more-button:active {
+    transform: translateY(0);
+}
+
+
 @media (max-width: 768px) {
 	#app {
 		padding: 0;
@@ -1428,10 +1452,10 @@ input[type="text"] {
 			نتیجه‌ای برای نمایش وجود ندارد.
 		</p>
 		<div v-if="displayedItemsCount < filteredItems.length" style="text-align: center; padding-top: 1em;">
-			<button @click="showMore" style="display: none" :style="{ display: undefined }">
-				نمایش بیشتر ({{ Math.min(filteredItems.length - displayedItemsCount).toLocaleString('fa') }})
+			<button @click="showMore" class="show-more-button" style="display: none" :style="{ display: undefined }">
+				نمایش بیشتر ({{ Math.min(filteredItems.length - displayedItemsCount, 30).toLocaleString('fa') }})
 			</button>
-</div>
+		</div>
 	</div>
 </div>
 <!-- اضافه کردن کتابخانه D3.js -->
@@ -1624,10 +1648,17 @@ const items = films.flatMap(film => {
 			item.designerLabel = data.secondary[poster.designers[0]].labels.fa;
 			const fawiki = data.secondary[poster.designers[0]].sitelinks.fawiki;
 			if (fawiki) item.designerFaWikipediaLink = fawiki;
+		} else {
+			// اضافه کردن طراح "نامشخص" برای پوسترهایی که طراح ندارند
+			item.designers = [{ id: 'unknown', label: 'نامشخص' }];
+			item.designerLabel = 'نامشخص';
 		}
 		if (film.directors.length) {
 			item.director = film.directors[0];
 			item.directorLabel = data.secondary[film.directors[0]].labels.fa;
+		} else {
+			// اضافه کردن کارگردان "نامشخص" برای فیلم‌هایی که کارگردان ندارند
+			item.directorLabel = 'نامشخص';
 		}
 		if (film.imdb.length) {
 			item.imdbID = film.imdb[0];
@@ -1664,23 +1695,43 @@ const toPersianYear = date => {
 // تغییر برای بازگرداندن مقادیر عددی
 const availableYears = computed(() => {
 	const groups = Object.groupBy(items, item => toPersianYear(item.date));
-	return Object.keys(groups).sort().map(year => [year, groups[year].length]);
+	let years = Object.keys(groups)
+		.map(year => [year, groups[year].length]);
+	
+	const unknown = years.find(([name]) => name === 'نامشخص');
+    years = years.filter(([name]) => name !== 'نامشخص').sort();
+    if (unknown) {
+        years.push(unknown);
+    }
+    return years;
 });
 
 // تغییر برای بازگرداندن مقادیر عددی
 const availableDesigners = computed(() => {
-	const groups = Object.groupBy(items.filter(x => x.designerLabel), item => item.designerLabel);
-	return Object.keys(groups)
-		.map(designer => [designer, groups[designer].length])
-		.sort((a, b) => b[1] - a[1]);
+	const groups = Object.groupBy(items, item => item.designerLabel);
+	let designers = Object.keys(groups)
+		.map(designer => [designer, groups[designer].length]);
+
+	const unknown = designers.find(([name]) => name === 'نامشخص');
+    designers = designers.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
+    if (unknown) {
+        designers.push(unknown);
+    }
+	return designers;
 });
 
 // تغییر برای بازگرداندن مقادیر عددی
 const availableDirectors = computed(() => {
-	const groups = Object.groupBy(items.filter(x => x.directorLabel), item => item.directorLabel);
-	return Object.keys(groups)
-		.map(director => [director, groups[director].length])
-		.sort((a, b) => b[1] - a[1]);
+	const groups = Object.groupBy(items, item => item.directorLabel);
+	let directors = Object.keys(groups)
+		.map(director => [director, groups[director].length]);
+
+	const unknown = directors.find(([name]) => name === 'نامشخص');
+    directors = directors.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
+    if (unknown) {
+        directors.push(unknown);
+    }
+	return directors;
 });
 
 const getItemTitleWithYear = item => {
@@ -1771,31 +1822,53 @@ watch(designerQuery, newValue => {
 
 const filteredYears = computed(() => {
 	const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
-	return Object.keys(groups)
-		.sort()
+	let years = Object.keys(groups)
 		.map(year => [year, groups[year].length]);
+	
+	const unknown = years.find(([name]) => name === 'نامشخص');
+    years = years.filter(([name]) => name !== 'نامشخص').sort();
+    if (unknown) {
+        years.push(unknown);
+    }
+    return years;
 });
 
 const filteredDesigners = computed(() => {
-	const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
-	return Object.keys(groups)
-		.map(designer => [designer, groups[designer].length])
-		.sort((a, b) => b[1] - a[1]);
+	const groups = Object.groupBy(filteredItems.value, item => item.designerLabel);
+	let designers = Object.keys(groups)
+		.map(designer => [designer, groups[designer].length]);
+
+	const unknown = designers.find(([name]) => name === 'نامشخص');
+    designers = designers.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
+    if (unknown) {
+        designers.push(unknown);
+    }
+	return designers;
 });
 
 const filteredDirectors = computed(() => {
-	const groups = Object.groupBy(filteredItems.value.filter(x => x.directorLabel), item => item.directorLabel);
-	return Object.keys(groups)
-		.map(director => [director, groups[director].length])
-		.sort((a, b) => b[1] - a[1]);
+	const groups = Object.groupBy(filteredItems.value, item => item.directorLabel);
+	let directors = Object.keys(groups)
+		.map(director => [director, groups[director].length]);
+
+	const unknown = directors.find(([name]) => name === 'نامشخص');
+    directors = directors.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
+    if (unknown) {
+        directors.push(unknown);
+    }
+	return directors;
 });
 
 const filteredDesignersInModal = computed(() => {
-	const groups = Object.groupBy(filteredItems.value.filter(x => x.designerLabel), item => item.designerLabel);
-	const designers = Object.keys(groups)
-		.map(designer => [designer, groups[designer].length])
-		.sort((a, b) => b[1] - a[1]);
+	const groups = Object.groupBy(filteredItems.value, item => item.designerLabel);
+	let designers = Object.keys(groups)
+		.map(designer => [designer, groups[designer].length]);
 
+	const unknown = designers.find(([name]) => name === 'نامشخص');
+    designers = designers.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
+    if (unknown) {
+        designers.push(unknown);
+    }
 	if (!designerSearchQuery.value) {
 		return designers;
 	}
@@ -1812,9 +1885,15 @@ const selectDesignerFromModal = designer => {
 // تغییر برای بازگرداندن مقادیر عددی
 const filteredYearsInModal = computed(() => {
 	const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
-	return Object.keys(groups)
-		.sort()
+	let years = Object.keys(groups)
 		.map(year => [year, groups[year].length]);
+
+	const unknown = years.find(([name]) => name === 'نامشخص');
+    years = years.filter(([name]) => name !== 'نامشخص').sort();
+    if (unknown) {
+        years.push(unknown);
+    }
+    return years;
 });
 
 watch(filteredItems, (newValue) => {
@@ -1827,10 +1906,15 @@ watch(filteredItems, (newValue) => {
 const directorSearchQuery = ref('');
 
 const filteredDirectorsInModal = computed(() => {
-	const groups = Object.groupBy(filteredItems.value.filter(x => x.directorLabel), item => item.directorLabel);
-	const directors = Object.keys(groups)
-		.map(director => [director, groups[director].length])
-		.sort((a, b) => b[1] - a[1]);
+	const groups = Object.groupBy(filteredItems.value, item => item.directorLabel);
+	let directors = Object.keys(groups)
+		.map(director => [director, groups[director].length]);
+
+	const unknown = directors.find(([name]) => name === 'نامشخص');
+    directors = directors.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
+    if (unknown) {
+        directors.push(unknown);
+    }
 
 	if (!directorSearchQuery.value) {
 		return directors;
@@ -2168,7 +2252,7 @@ const handleScroll = () => {
 	if (docHeight <= viewportHeight + 50) {
 		isSearchBarVisible.value = true;
 	} else if (currentScrollY <= scrollThreshold) {
-		// اگر در بالای صفحه هستیم، نوار جستجو نمایش داده شود
+		// اگر در بالای صفحه هستیم، نوار جستجو نمایش داده شود.
 		isSearchBarVisible.value = true;
 	} else if (isAtBottom) {
         // وقتی به انتهای صفحه می‌رسیم، نوار جستجو مخفی شود.
