@@ -1199,8 +1199,8 @@ input[type="text"] {
 		<div class="lightbox-info desktop-only" v-if="lightboxItem">
 			<h2>{{ lightboxItem.filmLabel }}</h2>
 			<p>سال تولید: {{ toPersianYear(lightboxItem.date) }}</p>
-			<p v-if="lightboxItem.directorLabel">کارگردان: {{ lightboxItem.directorLabel }}</p>
-			<p v-if="lightboxItem.designers && lightboxItem.designers.length > 0">
+			<p v-if="lightboxItem.directorLabel && lightboxItem.directorLabel !== 'نامشخص'">کارگردان: {{ lightboxItem.directorLabel }}</p>
+			<p v-if="lightboxItem.designerLabel && lightboxItem.designerLabel !== 'نامشخص'">
 				طراح پوستر: 
 				<span v-for="(designer, index) in lightboxItem.designers" :key="index">
 					{{ designer.label }}<span v-if="index < lightboxItem.designers.length - 1">, </span>
@@ -1406,7 +1406,7 @@ input[type="text"] {
 						</span>
 					</div>
 	
-					<div v-if="item.designers && item.designers.length > 0" class="item-designer">
+					<div v-if="item.designerLabel && item.designerLabel !== 'نامشخص'" class="item-designer">
 						<span class="mobile-only">
 							<span class="material-symbols-rounded"
 								style="margin-left: 5px; top: 8px; position: relative;">person_edit</span>
