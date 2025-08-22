@@ -1325,7 +1325,7 @@ input[type="text"] {
                         </label>
                     </div>
 
-					<div class="similar-chars-toggle">
+                    <div class="similar-chars-toggle">
                         <label for="pixelatedSwitch" style="cursor: pointer;">
                             <input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect" :disabled="posterMode ? null : true">
                             سانسور
@@ -1340,7 +1340,7 @@ input[type="text"] {
                     </div>
 
                     <div class="sort-order-container">
-                        <label>
+                        <label @click="toggleSortDirection" style="cursor: pointer;">
                             <span class="material-symbols-rounded">
                                 swap_vert
                             </span>
@@ -1401,7 +1401,7 @@ input[type="text"] {
 	
 					<div class="item-title">
 						{{ item.filmLabel }}
-						<span class="year-link" @click="selectYearFromTitle(toPersianYear(item.date))">
+						<span class="year-link" v-if="item.date" @click="selectYearFromTitle(toPersianYear(item.date))">
 							({{ toPersianYear(item.date) }})
 						</span>
 					</div>
@@ -1505,6 +1505,7 @@ const posterMode = ref(true);
 const combineSimilarChars = ref(false);
 const pixelatedEffect = ref(false);
 const sortOrder = ref('random');
+const sortDirection = ref('asc'); // 'asc' یا 'desc' برای مرتب‌سازی
 const searchPlaceholder = ref('جستجو (برای پرش به کادر جستجو / را تایپ کنید)');
 const isSearchFocused = ref(false);
 const displayedItemsCount = ref(30);
@@ -1551,6 +1552,7 @@ const applyInitialFilters = () => {
 		? location.hostname.endsWith('.ir')
 		: urlParams.get('censor') === 'true';
 	sortOrder.value = urlParams.get('sort') || 'random';
+	sortDirection.value = urlParams.get('dir') || 'asc';
 };
 applyInitialFilters();
 
@@ -1565,13 +1567,14 @@ const updateURL = () => {
 	params.set('similar', combineSimilarChars.value ? 'true' : 'false');
 	params.set('censor', pixelatedEffect.value ? 'true' : 'false');
 	params.set('sort', sortOrder.value);
+	params.set('dir', sortDirection.value);
 
 	const newUrl = `${window.location.pathname}?${params.toString()}`;
 	window.history.pushState({}, '', newUrl);
 };
 watch([
 	searchTerm, selectedYear, selectedDesigner, selectedDirector,
-	selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder
+	selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder, sortDirection
 ], updateURL);
 
 const isCollapsed = ref({
@@ -1589,6 +1592,7 @@ const selectLetterFromModal = letter => selectedLetter.value = letter;
 const togglePosterMode = () => posterMode.value = !posterMode.value;
 const toggleOptions = () => isOptionsCollapsed.value = !isOptionsCollapsed.value;
 const collapseIconClass = value => value ? 'rotate-down' : 'rotate-up';
+const toggleSortDirection = () => sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc';
 
 const selectDesigner = designer => {
 	selectedDesigner.value = designer;
@@ -1606,6 +1610,7 @@ const resetFilters = () => {
 	selectedDesigner.value = '';
 	selectedDirector.value = '';
 	selectedLetter.value = '';
+	sortDirection.value = 'asc';
 };
 
 const films = Object.values(data.films);
@@ -1650,7 +1655,6 @@ const items = films.flatMap(film => {
 			if (fawiki) item.designerFaWikipediaLink = fawiki;
 		} else {
 			// اضافه کردن طراح "نامشخص" برای پوسترهایی که طراح ندارند
-			item.designers = [{ id: 'unknown', label: 'نامشخص' }];
 			item.designerLabel = 'نامشخص';
 		}
 		if (film.directors.length) {
@@ -1791,7 +1795,7 @@ const filteredItems = computed(() => {
 
 	if (selectedDesigner.value) {
 		results = results.filter(item =>
-			item.designers && item.designers.some(designer => designer.label === selectedDesigner.value)
+			item.designerLabel === selectedDesigner.value
 		);
 	}
 
@@ -1804,9 +1808,17 @@ const filteredItems = computed(() => {
 	}
 
 	if (sortOrder.value === 'alphabetical') {
-		results = results.sort((a, b) => a.filmLabel.localeCompare(b.filmLabel, 'fa'));
+		results = results.sort((a, b) => {
+			const comparison = a.filmLabel.localeCompare(b.filmLabel, 'fa');
+			return sortDirection.value === 'asc' ? comparison : -comparison;
+		});
 	} else if (sortOrder.value === 'year') {
-		results = results.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+		results = results.sort((a, b) => {
+			const dateA = a.date ? new Date(a.date).getTime() : 0;
+			const dateB = b.date ? new Date(b.date).getTime() : 0;
+			const comparison = dateA - dateB;
+			return sortDirection.value === 'asc' ? comparison : -comparison;
+		});
 	} else if (sortOrder.value === 'random') {
 		results = results.slice().sort(() => Math.random() - 0.5);
 	}
@@ -2479,10 +2491,10 @@ window.addEventListener('keydown', (event) => {
 
 return {
 	showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items,
-	getItemUrl, getCommonsUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, selectedYear,
+	getItemUrl, getCommonsUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, sortDirection, selectedYear,
 	availableYears, availableDesigners, selectedDesigner, filteredYears, bringToTop, visibleBringToTop,
 	filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors,
-	selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode,
+	selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleSortDirection,
 	toggleOptions, isOptionsCollapsed, collapseIconClass, filteredDesignersInModal, designerSearchQuery,
 	selectDesignerFromModal, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal,
 	selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse,
