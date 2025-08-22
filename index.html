@@ -885,6 +885,18 @@ input[type="text"] {
     transform: translateY(0);
 }
 
+.sort-direction-icon {
+    transition: transform 0.3s ease-in-out;
+}
+
+.sort-direction-icon.asc {
+    transform: rotate(0deg);
+}
+
+.sort-direction-icon.desc {
+    transform: rotate(180deg);
+}
+
 
 @media (max-width: 768px) {
 	#app {
@@ -1231,7 +1243,7 @@ input[type="text"] {
 			</svg>
 		</div>
 		<button class="lightbox-button" @click.stop="closeLightbox" style="top: 20px; left: 20px">
-			<span class="material-symbols-rounded" style="font-size: xx-large;">
+			<span class="material-symbols-rounded">
 				close
 			</span>
 		</button>
@@ -1341,7 +1353,7 @@ input[type="text"] {
 
                     <div class="sort-order-container">
                         <label @click="toggleSortDirection" style="cursor: pointer;">
-                            <span class="material-symbols-rounded">
+                            <span class="material-symbols-rounded sort-direction-icon" :class="sortDirection">
                                 swap_vert
                             </span>
                         </label>
