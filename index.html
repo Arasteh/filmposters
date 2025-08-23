@@ -1565,6 +1565,7 @@ const applyInitialFilters = () => {
 		: urlParams.get('censor') === 'true';
 	sortOrder.value = urlParams.get('sort') || 'random';
 	sortDirection.value = urlParams.get('dir') || 'asc';
+	exactWordMatch.value = urlParams.get('exact') === 'true'; // بازگرداندن گزینه جستجوی دقیق
 };
 applyInitialFilters();
 
@@ -1580,13 +1581,14 @@ const updateURL = () => {
 	params.set('censor', pixelatedEffect.value ? 'true' : 'false');
 	params.set('sort', sortOrder.value);
 	params.set('dir', sortDirection.value);
+	params.set('exact', exactWordMatch.value ? 'true' : 'false'); // به‌روزرسانی URL با گزینه جستجوی دقیق
 
 	const newUrl = `${window.location.pathname}?${params.toString()}`;
 	window.history.pushState({}, '', newUrl);
 };
 watch([
 	searchTerm, selectedYear, selectedDesigner, selectedDirector,
-	selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder, sortDirection
+	selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder, sortDirection, exactWordMatch
 ], updateURL);
 
 const isCollapsed = ref({
@@ -1623,6 +1625,7 @@ const resetFilters = () => {
 	selectedDirector.value = '';
 	selectedLetter.value = '';
 	sortDirection.value = 'asc';
+	exactWordMatch.value = false;
 };
 
 const films = Object.values(data.films);
@@ -1763,43 +1766,44 @@ const letterCounts = computed(() => {
 });
 
 const filteredItems = computed(() => {
-	let results = items;
-	
-	const trimmedSearchTerm = searchTerm.value
-		.replace(/^[\s\u200C]+|[\s\u200C]+$/g, '')
-		.trim();
-	
-	if (trimmedSearchTerm.length) {
-		let modifiedSearchTerm;
-		
-		if (exactWordMatch.value) {
-			modifiedSearchTerm = trimmedSearchTerm
-			.split('')
-			.map(char => combineSimilarChars.value 
-				? (similarCharsMapping[char] || char) 
-				: char)
-			.join('');
-			
-			modifiedSearchTerm = `(^|\\s)${modifiedSearchTerm}(?=\\s|$|\\p{P})`;
-		} else {
-			modifiedSearchTerm = trimmedSearchTerm
-			.split('')
-			.map(char => combineSimilarChars.value 
-				? (similarCharsMapping[char] || char) 
-				: char)
-			.join('');
-		}
-	
-		try {
-			const regex = new RegExp(modifiedSearchTerm, 'iu');
-			results = results.filter(item => 
-				regex.test(item.filmLabel) || 
-				regex.test(item.aliases || '')
-			);
-		} catch (e) {
-			console.error("Error in regex:", e);
-		}
-	}
+    let results = items;
+
+    const trimmedSearchTerm = searchTerm.value
+        .replace(/^[\s\u200C]+|[\s\u200C]+$/g, '')
+        .trim();
+
+    if (trimmedSearchTerm.length) {
+        let regexString;
+        if (exactWordMatch.value) {
+             let modifiedSearchTerm = trimmedSearchTerm
+                .split(/\s+/)
+                .filter(Boolean)
+                .map(part => {
+                    return part.split('').map(char => combineSimilarChars.value ? (similarCharsMapping[char] || char) : char).join('');
+                })
+                .join('|'); // OR operator
+            regexString = `(^|\\s)(${modifiedSearchTerm})(?=\\s|$)`;
+        } else {
+             let regexParts = trimmedSearchTerm.split(/\s+/).filter(Boolean); // تقسیم به کلمات و حذف موارد خالی
+            if (combineSimilarChars.value) {
+                regexParts = regexParts.map(part => {
+                    return part.split('').map(char => similarCharsMapping[char] || char).join('');
+                });
+            }
+            regexString = regexParts.map(part => `(?=.*${part})`).join('');
+        }
+        
+        try {
+            const regex = new RegExp(regexString, 'iu');
+            results = results.filter(item =>
+                regex.test(item.filmLabel) ||
+                regex.test(item.aliases || '')
+            );
+        } catch (e) {
+            console.error("Error in regex:", e);
+        }
+    }
+
 
 	if (selectedYear.value) {
 		results = results.filter(item => toPersianYear(item.date) === selectedYear.value);
