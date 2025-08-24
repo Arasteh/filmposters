@@ -627,9 +627,6 @@ input[type="text"] {
 
 .sidebar-content {
 	padding: 0 10px 0 10px;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
 }
 
 .mobile-only {
@@ -657,22 +654,12 @@ input[type="text"] {
 }
 
 .sidebar-section {
-	flex: 1 1 auto;
+	flex: 1;
 	display: flex;
 	flex-direction: column;
 	min-height: 0;
 	transition: flex-grow 0.3s ease-in-out;
 	padding-bottom: 8px;
-}
-
-.sidebar-section.chart-expanded {
-	flex-grow: 0;
-	min-height: 350px;
-}
-
-.sidebar-section.expanded {
-	flex-grow: 1;
-	min-height: 0;
 }
 
 .sidebar-section-header {
@@ -696,21 +683,28 @@ input[type="text"] {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	padding-inline: 10px;
-	overflow-y: auto;
+	overflow-y: scroll;
+	interpolate-size: allow-keywords;
+	min-height: 0;
 	background-color: var(--svg-background);
 	opacity: 1;
-	max-height: auto;
+	max-height: 350px;
 	border-radius: 0 0 10px 10px;
 	border: 1px var(--svg-border-color) solid;
 	transition: 0.4s cubic-bezier(1, 0, 0, 1);
 	transition-property: opacity, max-height, padding-top, padding-bottom;
 }
+
 .sidebar-section.collapsed .sidebar-section-body {
 	padding-top: 0;
 	padding-bottom: 0;
 	opacity: 0;
 	max-height: 0;
 	overflow-y: hidden;
+}
+
+.sidebar-section.expanded {
+	flex-grow: 1;
 }
 
 .collapse-button {
@@ -1217,8 +1211,8 @@ input[type="text"] {
 		<div class="lightbox-info desktop-only" v-if="lightboxItem">
 			<h2>{{ lightboxItem.filmLabel }}</h2>
 			<p>سال تولید: {{ toPersianYear(lightboxItem.date) }}</p>
-			<p v-if="lightboxItem.directorLabel">کارگردان: {{ lightboxItem.directorLabel }}</p>
-			<p v-if="lightboxItem.designers && lightboxItem.designers.length > 0">
+			<p v-if="lightboxItem.directorLabel && lightboxItem.directorLabel !== 'نامشخص'">کارگردان: {{ lightboxItem.directorLabel }}</p>
+			<p v-if="lightboxItem.designerLabel && lightboxItem.designerLabel !== 'نامشخص'">
 				طراح پوستر: 
 				<span v-for="(designer, index) in lightboxItem.designers" :key="index">
 					{{ designer.label }}<span v-if="index < lightboxItem.designers.length - 1">, </span>
@@ -1249,7 +1243,7 @@ input[type="text"] {
 			</svg>
 		</div>
 		<button class="lightbox-button" @click.stop="closeLightbox" style="top: 20px; left: 20px">
-			<span class="material-symbols-rounded" style="font-size: xx-large;">
+			<span class="material-symbols-rounded">
 				close
 			</span>
 		</button>
@@ -1571,7 +1565,7 @@ const applyInitialFilters = () => {
 		: urlParams.get('censor') === 'true';
 	sortOrder.value = urlParams.get('sort') || 'random';
 	sortDirection.value = urlParams.get('dir') || 'asc';
-	exactWordMatch.value = urlParams.get('exact') === 'true';
+	exactWordMatch.value = urlParams.get('exact') === 'true'; // بازگرداندن گزینه جستجوی دقیق
 };
 applyInitialFilters();
 
@@ -1587,7 +1581,7 @@ const updateURL = () => {
 	params.set('censor', pixelatedEffect.value ? 'true' : 'false');
 	params.set('sort', sortOrder.value);
 	params.set('dir', sortDirection.value);
-	params.set('exact', exactWordMatch.value ? 'true' : 'false');
+	params.set('exact', exactWordMatch.value ? 'true' : 'false'); // به‌روزرسانی URL با گزینه جستجوی دقیق
 
 	const newUrl = `${window.location.pathname}?${params.toString()}`;
 	window.history.pushState({}, '', newUrl);
@@ -1781,16 +1775,16 @@ const filteredItems = computed(() => {
     if (trimmedSearchTerm.length) {
         let regexString;
         if (exactWordMatch.value) {
-            let modifiedSearchTerm = trimmedSearchTerm
+             let modifiedSearchTerm = trimmedSearchTerm
                 .split(/\s+/)
                 .filter(Boolean)
                 .map(part => {
                     return part.split('').map(char => combineSimilarChars.value ? (similarCharsMapping[char] || char) : char).join('');
                 })
-                .join('|'); 
+                .join('|'); // OR operator
             regexString = `(^|\\s)(${modifiedSearchTerm})(?=\\s|$)`;
         } else {
-             let regexParts = trimmedSearchTerm.split(/\s+/).filter(Boolean);
+             let regexParts = trimmedSearchTerm.split(/\s+/).filter(Boolean); // تقسیم به کلمات و حذف موارد خالی
             if (combineSimilarChars.value) {
                 regexParts = regexParts.map(part => {
                     return part.split('').map(char => similarCharsMapping[char] || char).join('');
@@ -2067,19 +2061,7 @@ const clearSearchTerm = () => searchTerm.value = '';
 const clearDesignerSearchQuery = () => designerSearchQuery.value = '';
 const clearDirectorSearchQuery = () => directorSearchQuery.value = '';
 
-const toggleCollapse = section => {
-	const hasExpanded = Object.values(isCollapsed.value).filter(v => !v).length > 0;
-	if (section === 'chart' && !isCollapsed.value.chart) {
-		// اگر نمودار در حال باز شدن است، به عنوان یک بخش ثابت در نظر گرفته شود.
-		isCollapsed.value.chart = false;
-	} else if (isCollapsed.value[section]) {
-		// اگر بخش دیگری باز می‌شود
-		isCollapsed.value[section] = false;
-	} else {
-		// اگر بخش دیگری بسته می‌شود
-		isCollapsed.value[section] = true;
-	}
-};
+const toggleCollapse = section => isCollapsed.value[section] = !isCollapsed.value[section];
 
 const lightboxItem = ref(undefined);
 const lightboxImage = ref(undefined);
@@ -2298,7 +2280,7 @@ const handleScroll = () => {
 	if (docHeight <= viewportHeight + 50) {
 		isSearchBarVisible.value = true;
 	} else if (currentScrollY <= scrollThreshold) {
-		// اگر در بالای صفحه هستیم، نوار جستجو نمایش داده شود
+		// اگر در بالای صفحه هستیم، نوار جستجو نمایش داده شود.
 		isSearchBarVisible.value = true;
 	} else if (isAtBottom) {
         // وقتی به انتهای صفحه می‌رسیم، نوار جستجو مخفی شود.
@@ -2379,79 +2361,16 @@ const searchBarDynamicStyle = computed(() => {
     return style;
 });
 
-const updateSectionBodyHeight = () => {
-    nextTick(() => {
-        if (isMobileView.value || !sidebarVisible.value) return;
-
-        const sidebarElement = document.getElementById('sidebar');
-        if (!sidebarElement) return;
-
-        const totalHeight = sidebarElement.clientHeight - 40; // 20px padding top/bottom
-        let occupiedHeight = 0;
-        const expandedSections = [];
-
-        document.querySelectorAll('.sidebar-section').forEach(section => {
-            const header = section.querySelector('.sidebar-section-header');
-            if (header) {
-                occupiedHeight += header.offsetHeight + 8; // 8px for padding-bottom
-            }
-            if (section.classList.contains('expanded')) {
-                expandedSections.push(section);
-            }
-        });
-        
-        const collapsibleHeight = totalHeight - occupiedHeight;
-        const expandedCount = expandedSections.length;
-        const fixedChartHeight = isCollapsed.value.chart ? 0 : 350;
-        let remainingHeight = collapsibleHeight;
-
-        if (!isCollapsed.value.chart) {
-            remainingHeight = collapsibleHeight - fixedChartHeight;
-            if (remainingHeight < 0) {
-                remainingHeight = 0;
-            }
-        }
-        
-        const otherExpandedSections = expandedSections.filter(section => !section.classList.contains('chart-expanded'));
-        const dynamicHeight = otherExpandedSections.length > 0 ? remainingHeight / otherExpandedSections.length : 0;
-        
-        expandedSections.forEach(section => {
-            const body = section.querySelector('.sidebar-section-body');
-            if (body) {
-                if (section.classList.contains('chart-expanded')) {
-                    body.style.maxHeight = `${fixedChartHeight}px`;
-                } else {
-                    body.style.maxHeight = `${dynamicHeight > 0 ? dynamicHeight : 0}px`;
-                }
-            }
-        });
-    });
-};
-
-
-watch(isCollapsed, () => {
-	updateSectionBodyHeight();
-	updateChart();
-}, { deep: true, immediate: true });
-
-watch(sidebarVisible, () => {
-    updateSectionBodyHeight();
-}, { immediate: true });
-
 // تابع برای به‌روزرسانی نمودار SVG
 const updateChart = () => {
 	const svg = d3.select("#yearsChart");
 	svg.selectAll("*").remove(); // پاک کردن نمودار قبلی
 
 	const data = filteredYearsInModal.value;
-    if (data.length === 0 || isCollapsed.value.chart) {
-        return;
-    }
 
 	const margin = { top: 20, right: 30, bottom: 40, left: 60 }; // تغییر مقادیر left و bottom
-    const container = document.querySelector('.chart-container');
-    const width = container.clientWidth - margin.left - margin.right;
-    const height = container.clientHeight - margin.top - margin.bottom;
+	const width = document.querySelector('.chart-container').clientWidth - margin.left - margin.right;
+	const height = 300 - margin.top - margin.bottom;
 	
 	const x = d3.scaleBand()
 		.domain(data.map(d => d[0]))
@@ -2552,10 +2471,7 @@ onMounted(() => {
     const checkMobile = () => {
         isMobileView.value = window.innerWidth <= 768;
     };
-    window.addEventListener('resize', () => {
-        checkMobile();
-        updateSectionBodyHeight();
-    });
+    window.addEventListener('resize', checkMobile);
     checkMobile();
 
     nextTick(() => {
