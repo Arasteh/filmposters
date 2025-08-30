@@ -7,49 +7,24 @@ import json
 import sys
 import hashlib
 
-try:
-    queryResult = requests.post(
-        'https://query.wikidata.org/bigdata/namespace/wdq/sparql', 
-        '''
-        SELECT DISTINCT ?qid
-        WHERE {
-          ?qid wdt:P495 wd:Q794. # Iran (Q794) is country of origin (P495)
-          ?qid wdt:P3383 ?x.     # Item has a film poster (P3383)
-        }
-        ''', 
-        headers={'Content-Type': 'application/sparql-query', 'Accept': 'application/json'}
-    )
-
-    queryResult.raise_for_status() 
-
-    data = queryResult.json()
-except requests.exceptions.RequestException as e:
-    print(f"Error during initial request to Wikidata: {e}", file=sys.stderr)
-    sys.exit(1)
-except json.decoder.JSONDecodeError:
-    print("Failed to decode JSON from the initial request.", file=sys.stderr)
-    print(f"Response content: {queryResult.text}", file=sys.stderr)
-    sys.exit(1)
+queryResult = requests.post('https://query.wikidata.org/bigdata/namespace/wdq/sparql', '''
+SELECT DISTINCT ?qid
+WHERE {
+  ?qid wdt:P495 wd:Q794. # Iran (Q794) is country of origin (P495)
+  ?qid wdt:P3383 ?x.     # Item has a film poster (P3383)
+}
+''', headers={'Content-Type': 'application/sparql-query', 'Accept': 'application/json'})
 
 def wikidata_items(ids):
     for batch in itertools.batched(sorted(ids, key=lambda x: int(x[1:])), 50):
-        try:
-            response = requests.post(
-                'https://www.wikidata.org/w/api.php',
-                {'action': 'wbgetentities',
-                 'format': 'json',
-                 'ids': '|'.join(batch)}
-            )
-            response.raise_for_status()
-            yield from response.json()['entities'].values()
-            print('fetched 50 items, sleep for 2s', file=sys.stderr)
-            time.sleep(2)
-        except (requests.exceptions.RequestException, json.decoder.JSONDecodeError) as e:
-            print(f"Error fetching Wikidata items for batch: {batch}", file=sys.stderr)
-            print(f"Error: {e}", file=sys.stderr)
-            print(f"Response content: {response.text}", file=sys.stderr)
-            continue
-
+        yield from requests.post(
+            'https://www.wikidata.org/w/api.php',
+            {'action': 'wbgetentities',
+             'format': 'json',
+             'ids': '|'.join(batch)}
+        ).json()['entities'].values()
+        print('fetched 50 items, sleep for 2s', file=sys.stderr)
+        time.sleep(2)
     print('finished', file=sys.stderr)
 
 image_qualifiers = {
@@ -101,7 +76,7 @@ films = {
     for item in wikidata_items(
         [
             x['qid']['value'].split('entity/')[1]
-            for x in data['results']['bindings']
+            for x in (queryResult.json()['results']['bindings'])
         ] + [
             'Q6054055', 'Q6082474', 'Q87193819', 'Q24905261', 'Q131455075',
             'Q88384815',
