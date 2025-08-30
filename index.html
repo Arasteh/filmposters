@@ -1468,7 +1468,6 @@ input[type="text"] {
 		</div>
 	</div>
 </div>
-<script src="./d3.v7.min.js"></script>
 <script>
 {
 	const urlParams = new URLSearchParams(window.location.search);
@@ -1525,6 +1524,7 @@ const searchBarHeight = ref(0);
 const isMobileView = ref(false);
 const isDesktopSidebarFixed = ref(false);
 const yearsChartInstance = ref(null); // نگهداری نمونه نمودار
+const isD3Loaded = ref(false);
 
 const showMore = () => {
 	displayedItemsCount.value += 30;
@@ -2469,11 +2469,14 @@ const updateChart = () => {
 
 };
 
-// مشاهده تغییرات فیلتر سال‌ها برای به‌روزرسانی نمودار
-watch(filteredYearsInModal, () => {
-	nextTick(() => {
-		updateChart();
-	});
+{
+	const script = document.createElement('script');
+	script.src = './d3.v7.min.js';
+	script.onload = () => isD3Loaded.value = true;
+	document.body.appendChild(script);
+}
+watch([filteredYearsInModal, isD3Loaded], () => {
+	isD3Loaded.value && nextTick(updateChart);
 }, { immediate: true });
 
 
