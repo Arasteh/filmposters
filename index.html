@@ -1395,17 +1395,10 @@ input[type="text"] {
 					<div class="image-container">
 						<a @click="handleImageClick(item)" :href="getCommonsUrl(item, posterMode, pixelatedEffect)"
 							class="clickable-image">
-							<template v-if="!posterMode && !item.logo">
-								<div class="no-logo-placeholder">
-									(بدون لوگو)
-								</div>
-							</template>
-							<template v-else>
 								<img :src="getItemUrl(item, posterMode, pixelatedEffect)"
 									:key="getItemUrl(item, posterMode, pixelatedEffect)" :alt="item.filmLabel"
 									class="item-image"
-									:class="{ pixelated: pixelatedEffect && !item.logo && item.isNsfw && posterMode, 'no-logo-bw': !item.logo && !posterMode }" />
-							</template>
+									:class="{ 'no-logo-bw': !item.logo && !posterMode }" />
 						</a>
 						<a :href="downloadLink(item)" aria-label="دریافت پوستر" target="_blank">
 							<button class="download-btn">
@@ -2233,9 +2226,23 @@ const getPosterUrl = (name, hash, width) => {
 };
 
 const getItemUrl = (item, posterMode, pixelatedEffect) => {
-	if (!posterMode && !item.logo) return null;
-	if (posterMode && pixelatedEffect && item.isNsfw && item.logo) return getPosterUrl(item.logo, item.logoHash, 250);
-	return posterMode ? getPosterUrl(item.poster, item.posterHash, 250) : getPosterUrl(item.logo, item.logoHash, 250);
+	// اگر در حالت پوستر هستیم و تصویر NSFW و لوگو وجود دارد، لوگوی پیکسلی را برمی‌گرداند
+	if (posterMode && pixelatedEffect && item.isNsfw && item.logo) {
+		return getPosterUrl(item.logo, item.logoHash, 250);
+	}
+	// اگر در حالت پوستر هستیم، پوستر را برمی‌گرداند
+	if (posterMode) {
+		return getPosterUrl(item.poster, item.posterHash, 250);
+	}
+	// اگر در حالت لوگو هستیم
+	if (!posterMode) {
+		// اگر لوگو وجود دارد، لوگو را برمی‌گرداند
+		if (item.logo) {
+			return getPosterUrl(item.logo, item.logoHash, 250);
+		}
+		// اگر لوگو وجود ندارد، پوستر را برمی‌گرداند
+		return getPosterUrl(item.poster, item.posterHash, 250);
+	}
 };
 
 const getCommonsUrl = (item, posterMode, pixelatedEffect) => {
