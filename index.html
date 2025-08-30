@@ -79,7 +79,7 @@ body {
 	overflow-x: hidden;
 	/* پدینگ بالا توسط متغیر پویا از اسکریپت مدیریت می‌شود */
 	padding-top: 30px;
-    transition: padding-top 0.3s ease-in-out, margin-right 0.3s ease-in-out;
+	transition: padding-top 0.3s ease-in-out, margin-right 0.3s ease-in-out;
 }
 
 .search-container {
@@ -99,13 +99,13 @@ body {
 }
 
 .search-bar-inner {
-    max-width: 960px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 10px;
-    border-radius: 0 0 16px 16px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    background-color: var(--search-background);
+	max-width: 960px;
+	width: 100%;
+	margin: 0 auto;
+	padding: 10px;
+	border-radius: 0 0 16px 16px;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+	background-color: var(--search-background);
 }
 
 .search-bar.visible {
@@ -140,13 +140,13 @@ input[type="text"] {
 	max-width: 1520px;
 	width: 100%;
 	z-index: 1;
-    padding-right: 60px;
-    padding-left: 60px;
+	padding-right: 60px;
+	padding-left: 60px;
 }
 
 .item-card {
-    /* عرض آیتم‌ها توسط grid-template-columns تعیین می‌شود */
-    
+	/* عرض آیتم‌ها توسط grid-template-columns تعیین می‌شود */
+	
 	text-align: center;
 	padding: 15px 5px;
 	background: var(--card-background);
@@ -579,21 +579,21 @@ input[type="text"] {
 
 /* تغییرات برای دکمه سایدبار دسکتاپ */
 #desktopSidebarToggleButton {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1001;
-    background: none;
-    color: var(--body-foreground);
-    border: none;
-    border-radius: 12px;
-    padding: 10px 15px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	z-index: 1001;
+	background: none;
+	color: var(--body-foreground);
+	border: none;
+	border-radius: 12px;
+	padding: 10px 15px;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
 }
 
 #desktopSidebarToggleButton:hover {
-    background-color: light-dark(#f0f0f0, #333);
+	background-color: light-dark(#f0f0f0, #333);
 }
 
 /* حذف کلاس‌های اضافی برای دکمه */
@@ -612,21 +612,21 @@ input[type="text"] {
 	overflow-y: auto;
 	z-index: 1000;
 	resize: none;
-    position: fixed;
-    top: 20px;
-    left: auto;
-    right: 20px;
-    height: calc(100vh - 40px);
-    transition: transform 0.3s ease-in-out;
-    background-color: var(--search-background);
-    border-radius: 16px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    transform: translateX(105%); /* پنهان کردن سایدبار در حالت عادی */
+	position: fixed;
+	top: 20px;
+	left: auto;
+	right: 20px;
+	height: calc(100vh - 40px);
+	transition: transform 0.3s ease-in-out;
+	background-color: var(--search-background);
+	border-radius: 16px;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+	transform: translateX(105%); /* پنهان کردن سایدبار در حالت عادی */
 	z-index: 100;
 }
 /* نمایش سایدبار در نمای دسکتاپ */
 .sidebar.visible-desktop {
-    transform: translateX(0); /* نمایش سایدبار در سمت راست */
+	transform: translateX(0); /* نمایش سایدبار در سمت راست */
 }
 
 
@@ -826,7 +826,7 @@ input[type="text"] {
 }
 
 .chart-container {
-    width: 100%;
+	width: 100%;
 	margin-bottom: 20px;
 	position: relative; /* برای موقعیت‌یابی تول‌تیپ */
 }
@@ -837,12 +837,12 @@ input[type="text"] {
 }
 
 .bar {
-    fill: var(--bar-color);
+	fill: var(--bar-color);
 	cursor: pointer;
 }
 
 .bar:hover {
-    fill: var(--bar-hover-color);
+	fill: var(--bar-hover-color);
 }
 
 .axis path, .axis line {
@@ -855,51 +855,51 @@ input[type="text"] {
 
 /* استایل تول‌تیپ */
 #tooltip {
-    position: absolute;
-    text-align: center;
-    padding: 8px;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    border-radius: 4px;
-    pointer-events: none;
-    font-size: 14px;
-    opacity: 0;
-    transition: opacity 0.2s;
+	position: absolute;
+	text-align: center;
+	padding: 8px;
+	background: rgba(0, 0, 0, 0.7);
+	color: white;
+	border-radius: 4px;
+	pointer-events: none;
+	font-size: 14px;
+	opacity: 0;
+	transition: opacity 0.2s;
 }
 
 /* سبک دکمه "نمایش بیشتر" */
 .show-more-button {
-    background-color: var(--bar-color);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    padding: 12px 24px;
-    font-size: 1em;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	background-color: var(--bar-color);
+	color: white;
+	border: none;
+	border-radius: 12px;
+	padding: 12px 24px;
+	font-size: 1em;
+	font-weight: bold;
+	cursor: pointer;
+	transition: background-color 0.3s, transform 0.2s;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .show-more-button:hover {
-    background-color: var(--bar-hover-color);
-    transform: translateY(-2px);
+	background-color: var(--bar-hover-color);
+	transform: translateY(-2px);
 }
 
 .show-more-button:active {
-    transform: translateY(0);
+	transform: translateY(0);
 }
 
 .sort-direction-icon {
-    transition: transform 0.3s ease-in-out;
+	transition: transform 0.3s ease-in-out;
 }
 
 .sort-direction-icon.asc {
-    transform: rotate(0deg);
+	transform: rotate(0deg);
 }
 
 .sort-direction-icon.desc {
-    transform: rotate(180deg);
+	transform: rotate(180deg);
 }
 
 
@@ -935,11 +935,11 @@ input[type="text"] {
 		padding-left: 15px;
 		padding-right: 15px;
 	}
-    
-    .item-card {
-        width: 100%; /* عرض کامل را می‌گیرد، چون گرید آن را مدیریت می‌کند */
-        max-width: none;
-    }
+	
+	.item-card {
+		width: 100%; /* عرض کامل را می‌گیرد، چون گرید آن را مدیریت می‌کند */
+		max-width: none;
+	}
 
 	.options {
 		gap: 15px;
@@ -1009,9 +1009,9 @@ input[type="text"] {
 	.sidebar-resize-handle {
 		display: none;
 	}
-    #desktopSidebarToggleButton {
-        display: none;
-    }
+	#desktopSidebarToggleButton {
+		display: none;
+	}
 }
 </style>
 </head>
@@ -1194,16 +1194,16 @@ input[type="text"] {
 			</a>
 		</div>
 	</div>
-    <!-- دکمه جدید و ثابت برای سایدبار -->
-    <button id="desktopSidebarToggleButton" class="desktop-only"
-        @click="toggleSidebarDesktop"
-        style="display: none;"
-        :style="desktopSidebarToggleStyle">
-        <span class="material-symbols-rounded">
-            {{ sidebarVisible ? 'close' : 'menu' }}
-        </span>
-    </button>
-    
+	<!-- دکمه جدید و ثابت برای سایدبار -->
+	<button id="desktopSidebarToggleButton" class="desktop-only"
+		@click="toggleSidebarDesktop"
+		style="display: none;"
+		:style="desktopSidebarToggleStyle">
+		<span class="material-symbols-rounded">
+			{{ sidebarVisible ? 'close' : 'menu' }}
+		</span>
+	</button>
+	
 	<div v-if="lightboxItem" style="display: none" :style="{ display: undefined }" class="lightbox" @click="closeLightbox">
 		<template v-if="lightboxImage">
 			<img :src="lightboxImage" :key="lightboxImage" alt="Lightbox Image" />
@@ -1281,104 +1281,104 @@ input[type="text"] {
 		</button>
 
 		<div id="searchBar" class="search-bar" :class="{ 'visible': isSearchBarVisible }" ref="searchBarRef" :style="searchBarDynamicStyle">
-            <div class="search-bar-inner">
-                <div class="search-container">
-                    <button @click="toggleSidebar" id="toggleSidebarButton" class="mobile-only">
-                        <span class="material-symbols-rounded">
-                            menu
-                        </span>
-                    </button>
-                    <div style="position: relative; width: 100%;">
-                        <input type="text" v-model="searchTerm" :placeholder="searchPlaceholder" @focus="onSearchFocus" @blur="onSearchBlur" class="desktop-only" />
-                        <input type="text" v-model="searchTerm" placeholder="جستجو…" class="mobile-only" />
-                        <span v-if="searchTerm" @click="clearSearchTerm" class="clearSearch"
-                            style="display: none" :style="{ display: undefined }">
-                            <span class="material-symbols-rounded">
-                                close
-                            </span>
-                        </span>
-                    </div>
-                    <button @click="resetFilters" id="resetSearch">
-                        <span class="material-symbols-rounded">
-                            refresh
-                        </span>
-                    </button>
-                    <button @click="toggleOptions" id="collapseButton" class="collapse-button mobile-only"
-                        :class="collapseIconClass(isOptionsCollapsed)">
-                        <span class="material-symbols-rounded" style="font-size: xx-large;">
-                            keyboard_arrow_up
-                        </span>
-                    </button>
-                </div>
-                <div class="options" :class="{ 'collapsed': isOptionsCollapsed }">
-                    <div class="toggle-switch" @click="togglePosterMode"
-                        id="posterLogoSwitch" data-mode="poster" :data-mode="posterMode ? 'poster' : 'logo'">
-                        <span id="posterButton" class="active" :class="{ active: posterMode }">پوستر</span>
-                        <span :class="{ active: !posterMode }">لوگو</span>
-                    </div>
-                    <div class="similar-chars-toggle">
-                        <label for="similarCharsSwitch" style="cursor: pointer;">
-                            <input type="checkbox" id="similarCharsSwitch" v-model="combineSimilarChars">
-                            حروف مشابه
-                        </label>
-                        <label>
-                            <span class="material-symbols-rounded tooltip">
-                                info
-                                <span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود: مانند س، ش</span>
-                            </span>
-                        </label>
-                    </div>
+			<div class="search-bar-inner">
+				<div class="search-container">
+					<button @click="toggleSidebar" id="toggleSidebarButton" class="mobile-only">
+						<span class="material-symbols-rounded">
+							menu
+						</span>
+					</button>
+					<div style="position: relative; width: 100%;">
+						<input type="text" v-model="searchTerm" :placeholder="searchPlaceholder" @focus="onSearchFocus" @blur="onSearchBlur" class="desktop-only" />
+						<input type="text" v-model="searchTerm" placeholder="جستجو…" class="mobile-only" />
+						<span v-if="searchTerm" @click="clearSearchTerm" class="clearSearch"
+							style="display: none" :style="{ display: undefined }">
+							<span class="material-symbols-rounded">
+								close
+							</span>
+						</span>
+					</div>
+					<button @click="resetFilters" id="resetSearch">
+						<span class="material-symbols-rounded">
+							refresh
+						</span>
+					</button>
+					<button @click="toggleOptions" id="collapseButton" class="collapse-button mobile-only"
+						:class="collapseIconClass(isOptionsCollapsed)">
+						<span class="material-symbols-rounded" style="font-size: xx-large;">
+							keyboard_arrow_up
+						</span>
+					</button>
+				</div>
+				<div class="options" :class="{ 'collapsed': isOptionsCollapsed }">
+					<div class="toggle-switch" @click="togglePosterMode"
+						id="posterLogoSwitch" data-mode="poster" :data-mode="posterMode ? 'poster' : 'logo'">
+						<span id="posterButton" class="active" :class="{ active: posterMode }">پوستر</span>
+						<span :class="{ active: !posterMode }">لوگو</span>
+					</div>
+					<div class="similar-chars-toggle">
+						<label for="similarCharsSwitch" style="cursor: pointer;">
+							<input type="checkbox" id="similarCharsSwitch" v-model="combineSimilarChars">
+							حروف مشابه
+						</label>
+						<label>
+							<span class="material-symbols-rounded tooltip">
+								info
+								<span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود: مانند س، ش</span>
+							</span>
+						</label>
+					</div>
 
-                    <div class="similar-chars-toggle">
-                        <label for="exactWordSwitch" style="cursor: pointer;">
-                            <input type="checkbox" id="exactWordSwitch" v-model="exactWordMatch">
-                            جستجوی دقیق
-                        </label>
-                        <label>
-                            <span class="material-symbols-rounded tooltip">
-                                info
-                                <span class="tooltiptext">فقط نتایجی که دقیقاً با کلمه وارد شده مطابقت دارند</span>
-                            </span>
-                        </label>
-                    </div>
+					<div class="similar-chars-toggle">
+						<label for="exactWordSwitch" style="cursor: pointer;">
+							<input type="checkbox" id="exactWordSwitch" v-model="exactWordMatch">
+							جستجوی دقیق
+						</label>
+						<label>
+							<span class="material-symbols-rounded tooltip">
+								info
+								<span class="tooltiptext">فقط نتایجی که دقیقاً با کلمه وارد شده مطابقت دارند</span>
+							</span>
+						</label>
+					</div>
 
-                    <div class="similar-chars-toggle">
-                        <label for="pixelatedSwitch" style="cursor: pointer;">
-                            <input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect" :disabled="posterMode ? null : true">
-                            سانسور
-                        </label>
-                        <label>
-                            <span class="material-symbols-rounded tooltip">
-                                info
-                                <span class="tooltiptext" v-if="posterMode">مخفی کردن تصاویری که ممکن است نامناسب
-                                    باشند</span>
-                            </span>
-                        </label>
-                    </div>
+					<div class="similar-chars-toggle">
+						<label for="pixelatedSwitch" style="cursor: pointer;">
+							<input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect" :disabled="posterMode ? null : true">
+							سانسور
+						</label>
+						<label>
+							<span class="material-symbols-rounded tooltip">
+								info
+								<span class="tooltiptext" v-if="posterMode">مخفی کردن تصاویری که ممکن است نامناسب
+									باشند</span>
+							</span>
+						</label>
+					</div>
 
-                    <div class="sort-order-container">
-                        <label @click="toggleSortDirection" style="cursor: pointer;">
-                            <span class="material-symbols-rounded sort-direction-icon" :class="sortDirection">
-                                swap_vert
-                            </span>
-                        </label>
-                        <div class="triple-switch" :data-sort="sortOrder">
-                            <span :class="{ active: sortOrder === 'alphabetical' }"
-                                @click="sortOrder = 'alphabetical'">الفبایی</span>
-                            <span :class="{ active: sortOrder === 'year' }" @click="sortOrder = 'year'">سال</span>
-                            <span id="randomOrderButton" class="active"
-                                :class="{ active: sortOrder === 'random' }" @click="sortOrder = 'random'">تصادفی</span>
-                        </div>
-                    </div>
-                </div>
-                <div v-if="filteredItems.length > 0"
-                    style="margin-top: 15px; text-align: center; padding-bottom: 5px; visibility: hidden"
-                    :style="{ visibility: undefined }"
-                    >
-                    <span v-if="hasActiveFilters">{{ filteredItemsLength }} از {{ itemsLength }} پوستر ({{ uniqueResultsFilmCount }} از {{ uniqueFilmCount }} فیلم)</span>
-                    <span v-else>{{ itemsLength }} پوستر ({{ uniqueFilmCount }} فیلم)</span>
-                </div>
-            </div>
+					<div class="sort-order-container">
+						<label @click="toggleSortDirection" style="cursor: pointer;">
+							<span class="material-symbols-rounded sort-direction-icon" :class="sortDirection">
+								swap_vert
+							</span>
+						</label>
+						<div class="triple-switch" :data-sort="sortOrder">
+							<span :class="{ active: sortOrder === 'alphabetical' }"
+								@click="sortOrder = 'alphabetical'">الفبایی</span>
+							<span :class="{ active: sortOrder === 'year' }" @click="sortOrder = 'year'">سال</span>
+							<span id="randomOrderButton" class="active"
+								:class="{ active: sortOrder === 'random' }" @click="sortOrder = 'random'">تصادفی</span>
+						</div>
+					</div>
+				</div>
+				<div v-if="filteredItems.length > 0"
+					style="margin-top: 15px; text-align: center; padding-bottom: 5px; visibility: hidden"
+					:style="{ visibility: undefined }"
+					>
+					<span v-if="hasActiveFilters">{{ filteredItemsLength }} از {{ itemsLength }} پوستر ({{ uniqueResultsFilmCount }} از {{ uniqueFilmCount }} فیلم)</span>
+					<span v-else>{{ itemsLength }} پوستر ({{ uniqueFilmCount }} فیلم)</span>
+				</div>
+			</div>
 		</div>
 		<div id="filters" class="filters-container" v-if="activeFilters.length > 0" style="display: none" :style="{ display: undefined }">
 			<div v-for="(filter, index) in activeFilters" :key="index" @click="removeFilter(filter.type, filter.value)"
@@ -1486,9 +1486,9 @@ import {
 	createApp, ref, computed, watch, onMounted, nextTick, onUnmounted
 } from './vue.esm-browser.prod.min.js';
 const data = await (await fetch('./db.json', {
-    method: 'GET',
-    credentials: 'include',
-    mode: 'no-cors',
+	method: 'GET',
+	credentials: 'include',
+	mode: 'no-cors',
 })).json();
 randomOrderButton.classList.remove('active');
 posterButton.classList.remove('active');
@@ -1716,11 +1716,11 @@ const availableYears = computed(() => {
 		.map(year => [year, groups[year].length]);
 	
 	const unknown = years.find(([name]) => name === 'نامشخص');
-    years = years.filter(([name]) => name !== 'نامشخص').sort();
-    if (unknown) {
-        years.push(unknown);
-    }
-    return years;
+	years = years.filter(([name]) => name !== 'نامشخص').sort();
+	if (unknown) {
+		years.push(unknown);
+	}
+	return years;
 });
 
 // تغییر برای بازگرداندن مقادیر عددی
@@ -1730,10 +1730,10 @@ const availableDesigners = computed(() => {
 		.map(designer => [designer, groups[designer].length]);
 
 	const unknown = designers.find(([name]) => name === 'نامشخص');
-    designers = designers.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
-    if (unknown) {
-        designers.push(unknown);
-    }
+	designers = designers.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
+	if (unknown) {
+		designers.push(unknown);
+	}
 	return designers;
 });
 
@@ -1744,10 +1744,10 @@ const availableDirectors = computed(() => {
 		.map(director => [director, groups[director].length]);
 
 	const unknown = directors.find(([name]) => name === 'نامشخص');
-    directors = directors.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
-    if (unknown) {
-        directors.push(unknown);
-    }
+	directors = directors.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
+	if (unknown) {
+		directors.push(unknown);
+	}
 	return directors;
 });
 
@@ -1764,43 +1764,43 @@ const letterCounts = computed(() => {
 });
 
 const filteredItems = computed(() => {
-    let results = items;
+	let results = items;
 
-    const trimmedSearchTerm = searchTerm.value
-        .replace(/^[\s\u200C]+|[\s\u200C]+$/g, '')
-        .trim();
+	const trimmedSearchTerm = searchTerm.value
+		.replace(/^[\s\u200C]+|[\s\u200C]+$/g, '')
+		.trim();
 
-    if (trimmedSearchTerm.length) {
-        let regexString;
-        if (exactWordMatch.value) {
-             let modifiedSearchTerm = trimmedSearchTerm
-                .split(/\s+/)
-                .filter(Boolean)
-                .map(part => {
-                    return part.split('').map(char => combineSimilarChars.value ? (similarCharsMapping[char] || char) : char).join('');
-                })
-                .join('|'); // OR operator
-            regexString = `(^|\\s)(${modifiedSearchTerm})(?=\\s|$)`;
-        } else {
-             let regexParts = trimmedSearchTerm.split(/\s+/).filter(Boolean); // تقسیم به کلمات و حذف موارد خالی
-            if (combineSimilarChars.value) {
-                regexParts = regexParts.map(part => {
-                    return part.split('').map(char => similarCharsMapping[char] || char).join('');
-                });
-            }
-            regexString = regexParts.map(part => `(?=.*${part})`).join('');
-        }
-        
-        try {
-            const regex = new RegExp(regexString, 'iu');
-            results = results.filter(item =>
-                regex.test(item.filmLabel) ||
-                regex.test(item.aliases || '')
-            );
-        } catch (e) {
-            console.error("Error in regex:", e);
-        }
-    }
+	if (trimmedSearchTerm.length) {
+		let regexString;
+		if (exactWordMatch.value) {
+			 let modifiedSearchTerm = trimmedSearchTerm
+				.split(/\s+/)
+				.filter(Boolean)
+				.map(part => {
+					return part.split('').map(char => combineSimilarChars.value ? (similarCharsMapping[char] || char) : char).join('');
+				})
+				.join('|'); // OR operator
+			regexString = `(^|\\s)(${modifiedSearchTerm})(?=\\s|$)`;
+		} else {
+			 let regexParts = trimmedSearchTerm.split(/\s+/).filter(Boolean); // تقسیم به کلمات و حذف موارد خالی
+			if (combineSimilarChars.value) {
+				regexParts = regexParts.map(part => {
+					return part.split('').map(char => similarCharsMapping[char] || char).join('');
+				});
+			}
+			regexString = regexParts.map(part => `(?=.*${part})`).join('');
+		}
+		
+		try {
+			const regex = new RegExp(regexString, 'iu');
+			results = results.filter(item =>
+				regex.test(item.filmLabel) ||
+				regex.test(item.aliases || '')
+			);
+		} catch (e) {
+			console.error("Error in regex:", e);
+		}
+	}
 
 
 	if (selectedYear.value) {
@@ -1852,11 +1852,11 @@ const filteredYears = computed(() => {
 		.map(year => [year, groups[year].length]);
 	
 	const unknown = years.find(([name]) => name === 'نامشخص');
-    years = years.filter(([name]) => name !== 'نامشخص').sort();
-    if (unknown) {
-        years.push(unknown);
-    }
-    return years;
+	years = years.filter(([name]) => name !== 'نامشخص').sort();
+	if (unknown) {
+		years.push(unknown);
+	}
+	return years;
 });
 
 const filteredDesigners = computed(() => {
@@ -1865,10 +1865,10 @@ const filteredDesigners = computed(() => {
 		.map(designer => [designer, groups[designer].length]);
 
 	const unknown = designers.find(([name]) => name === 'نامشخص');
-    designers = designers.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
-    if (unknown) {
-        designers.push(unknown);
-    }
+	designers = designers.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
+	if (unknown) {
+		designers.push(unknown);
+	}
 	return designers;
 });
 
@@ -1878,10 +1878,10 @@ const filteredDirectors = computed(() => {
 		.map(director => [director, groups[director].length]);
 
 	const unknown = directors.find(([name]) => name === 'نامشخص');
-    directors = directors.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
-    if (unknown) {
-        directors.push(unknown);
-    }
+	directors = directors.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
+	if (unknown) {
+		directors.push(unknown);
+	}
 	return directors;
 });
 
@@ -1891,10 +1891,10 @@ const filteredDesignersInModal = computed(() => {
 		.map(designer => [designer, groups[designer].length]);
 
 	const unknown = designers.find(([name]) => name === 'نامشخص');
-    designers = designers.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
-    if (unknown) {
-        designers.push(unknown);
-    }
+	designers = designers.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
+	if (unknown) {
+		designers.push(unknown);
+	}
 	if (!designerSearchQuery.value) {
 		return designers;
 	}
@@ -1915,11 +1915,11 @@ const filteredYearsInModal = computed(() => {
 		.map(year => [year, groups[year].length]);
 
 	const unknown = years.find(([name]) => name === 'نامشخص');
-    years = years.filter(([name]) => name !== 'نامشخص').sort();
-    if (unknown) {
-        years.push(unknown);
-    }
-    return years;
+	years = years.filter(([name]) => name !== 'نامشخص').sort();
+	if (unknown) {
+		years.push(unknown);
+	}
+	return years;
 });
 
 watch(filteredItems, (newValue) => {
@@ -1937,10 +1937,10 @@ const filteredDirectorsInModal = computed(() => {
 		.map(director => [director, groups[director].length]);
 
 	const unknown = directors.find(([name]) => name === 'نامشخص');
-    directors = directors.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
-    if (unknown) {
-        directors.push(unknown);
-    }
+	directors = directors.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
+	if (unknown) {
+		directors.push(unknown);
+	}
 
 	if (!directorSearchQuery.value) {
 		return directors;
@@ -2031,11 +2031,11 @@ const toggleSidebar = () => {
 };
 
 const hideSidebar = () => {
-    sidebarVisible.value = false;
+	sidebarVisible.value = false;
 };
 
 const toggleSidebarDesktop = () => {
-    sidebarVisible.value = !sidebarVisible.value;
+	sidebarVisible.value = !sidebarVisible.value;
 };
 
 const handleDesktopSidebarHoverEnter = () => {};
@@ -2254,12 +2254,12 @@ const bringToTop = () => document.documentElement.scrollTop = 0;
 const visibleBringToTop = ref(false);
 
 const mainContentPaddingTop = computed(() => {
-    const basePadding = 30; 
-    if (isMobileView.value) {
-        return `${searchBarHeight.value + basePadding}px`;
-    } else {
-        return isSearchBarVisible.value ? `${searchBarHeight.value + basePadding}px` : `${basePadding}px`;
-    }
+	const basePadding = 30; 
+	if (isMobileView.value) {
+		return `${searchBarHeight.value + basePadding}px`;
+	} else {
+		return isSearchBarVisible.value ? `${searchBarHeight.value + basePadding}px` : `${basePadding}px`;
+	}
 });
 
 
@@ -2267,26 +2267,26 @@ let lastScrollPosition = 0;
 const scrollThreshold = 10; // آستانه اسکرول برای مخفی کردن/نمایش
 
 const getDocHeight = () => {
-    return Math.max(
-        document.body.scrollHeight, document.documentElement.scrollHeight,
-        document.body.offsetHeight, document.documentElement.offsetHeight,
-        document.body.clientHeight, document.documentElement.clientHeight
-    );
+	return Math.max(
+		document.body.scrollHeight, document.documentElement.scrollHeight,
+		document.body.offsetHeight, document.documentElement.offsetHeight,
+		document.body.clientHeight, document.documentElement.clientHeight
+	);
 };
 
 const handleScroll = () => {
-    const currentScrollY = window.scrollY;
-    
-    // اگر در حالت دسکتاپ و سایدبار باز است، نوار جستجو را پنهان نکن
-    if (!isMobileView.value && sidebarVisible.value) {
-        isSearchBarVisible.value = true;
-        lastScrollPosition = currentScrollY;
-        return;
-    }
+	const currentScrollY = window.scrollY;
+	
+	// اگر در حالت دسکتاپ و سایدبار باز است، نوار جستجو را پنهان نکن
+	if (!isMobileView.value && sidebarVisible.value) {
+		isSearchBarVisible.value = true;
+		lastScrollPosition = currentScrollY;
+		return;
+	}
 
 	const docHeight = getDocHeight();
 	const viewportHeight = window.innerHeight;
-    const isAtBottom = Math.ceil(currentScrollY + viewportHeight) >= docHeight;
+	const isAtBottom = Math.ceil(currentScrollY + viewportHeight) >= docHeight;
 	
 	// اگر ارتفاع صفحه از ارتفاع پنجره مرورگر کمتر است، نوار جستجو همیشه نمایش داده شود.
 	if (docHeight <= viewportHeight + 50) {
@@ -2295,82 +2295,82 @@ const handleScroll = () => {
 		// اگر در بالای صفحه هستیم، نوار جستجو نمایش داده شود.
 		isSearchBarVisible.value = true;
 	} else if (isAtBottom) {
-        // وقتی به انتهای صفحه می‌رسیم، نوار جستجو مخفی شود.
-        isSearchBarVisible.value = false;
-    } else if (currentScrollY > lastScrollPosition) {
+		// وقتی به انتهای صفحه می‌رسیم، نوار جستجو مخفی شود.
+		isSearchBarVisible.value = false;
+	} else if (currentScrollY > lastScrollPosition) {
 		// هنگام اسکرول به پایین، نوار جستجو مخفی شود.
 		isSearchBarVisible.value = false;
 	} else if (currentScrollY < lastScrollPosition) {
 		// هنگام اسکرول به بالا، نوار جستجو نمایش داده شود.
 		isSearchBarVisible.value = true;
 	}
-    
-    lastScrollPosition = currentScrollY;
-    visibleBringToTop.value = currentScrollY > 20;
+	
+	lastScrollPosition = currentScrollY;
+	visibleBringToTop.value = currentScrollY > 20;
 };
 
 
 const sidebarStyle = computed(() => {
-    if (isMobileView.value) {
-        return {
-            right: sidebarVisible.value ? '0' : '-105%',
-            width: '385px',
-            height: '100vh',
-            top: '0',
-            transform: 'translateX(0)'
-        };
-    } else {
-        return {
-            transform: sidebarVisible.value ? 'translateX(0)' : 'translateX(105%)',
-            width: `${sidebarWidth.value}px`,
-            height: 'calc(100vh - 40px)',
-            top: '20px',
-            right: '20px',
-        };
-    }
+	if (isMobileView.value) {
+		return {
+			right: sidebarVisible.value ? '0' : '-105%',
+			width: '385px',
+			height: '100vh',
+			top: '0',
+			transform: 'translateX(0)'
+		};
+	} else {
+		return {
+			transform: sidebarVisible.value ? 'translateX(0)' : 'translateX(105%)',
+			width: `${sidebarWidth.value}px`,
+			height: 'calc(100vh - 40px)',
+			top: '20px',
+			right: '20px',
+		};
+	}
 });
 
 const desktopSidebarToggleStyle = computed(() => {
-    if (isMobileView.value) {
-        return { display: 'none' };
-    } else {
-        return {
-            top: '20px',
-            zIndex: '1001',
-            transition: 'all 0.3s ease-in-out'
-        };
-    }
+	if (isMobileView.value) {
+		return { display: 'none' };
+	} else {
+		return {
+			top: '20px',
+			zIndex: '1001',
+			transition: 'all 0.3s ease-in-out'
+		};
+	}
 });
 
 const mainContentStyle = computed(() => {
-    const effectiveMarginRight = sidebarVisible.value && !isMobileView.value
-        ? `${sidebarWidth.value + 20}px`
-        : '0px';
+	const effectiveMarginRight = sidebarVisible.value && !isMobileView.value
+		? `${sidebarWidth.value + 20}px`
+		: '0px';
 
-    return {
-        marginRight: effectiveMarginRight, 
-        paddingTop: mainContentPaddingTop.value 
-    };
+	return {
+		marginRight: effectiveMarginRight, 
+		paddingTop: mainContentPaddingTop.value 
+	};
 });
 
 
 const searchBarDynamicStyle = computed(() => {
-    let style = {};
-    if (isMobileView.value) {
-        style.left = '0px';
-        style.width = '100%';
-        style.right = 'auto';
-    } else {
-        if (sidebarVisible.value) {
-            style.right = `${sidebarWidth.value + 60}px`;
-            style.left = '20px';
-        } else {
-            style.left = '20px';
-            style.right = '20px';
-        }
-        style.width = 'auto';
-    }
-    return style;
+	let style = {};
+	if (isMobileView.value) {
+		style.left = '0px';
+		style.width = '100%';
+		style.right = 'auto';
+	} else {
+		if (sidebarVisible.value) {
+			style.right = `${sidebarWidth.value + 60}px`;
+			style.left = '20px';
+		} else {
+			style.left = '20px';
+			style.right = '20px';
+		}
+		style.width = 'auto';
+	}
+	return style;
 });
 
 // تابع برای به‌روزرسانی نمودار SVG
@@ -2442,10 +2442,10 @@ const updateChart = () => {
 		.attr("height", d => height - y(d[1]))
 		.on("mouseover", (event, d) => {
 			tooltip.transition().duration(200).style("opacity", .9);
-            const [xPos, yPos] = d3.pointer(event);
+			const [xPos, yPos] = d3.pointer(event);
 			tooltip.html(`سال: ${d[0]}<br/>پوستر: ${d[1].toLocaleString('fa')}`)
-                   .style("left", (xPos + margin.left) + "px")
-                   .style("top", (yPos + margin.top - 28) + "px");
+				   .style("left", (xPos + margin.left) + "px")
+				   .style("top", (yPos + margin.top - 28) + "px");
 		})
 		.on("mouseout", () => {
 			tooltip.transition().duration(500).style("opacity", 0);
@@ -2479,27 +2479,27 @@ watch(filteredYearsInModal, () => {
 
 
 onMounted(() => {
-    window.addEventListener('scroll', handleScroll);
-    const checkMobile = () => {
-        isMobileView.value = window.innerWidth <= 768;
-    };
-    window.addEventListener('resize', checkMobile);
-    checkMobile();
+	window.addEventListener('scroll', handleScroll);
+	const checkMobile = () => {
+		isMobileView.value = window.innerWidth <= 768;
+	};
+	window.addEventListener('resize', checkMobile);
+	checkMobile();
 
-    nextTick(() => {
-        if (searchBarRef.value) {
+	nextTick(() => {
+		if (searchBarRef.value) {
 			const searchBarInnerElement = searchBarRef.value.querySelector('.search-bar-inner');
 			if (searchBarInnerElement) {
 				searchBarHeight.value = searchBarInnerElement.offsetHeight;
 			}
-            mainContentPaddingTop.value = mainContentPaddingTop.value;
-        }
-    });
+			mainContentPaddingTop.value = mainContentPaddingTop.value;
+		}
+	});
 });
 
 onUnmounted(() => {
-    window.removeEventListener('scroll', handleScroll);
-    window.removeEventListener('resize', checkMobile);
+	window.removeEventListener('scroll', handleScroll);
+	window.removeEventListener('resize', checkMobile);
 });
 
 
@@ -2535,8 +2535,8 @@ return {
 	handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage,
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount,
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
-    searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
-    handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle
+	searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
+	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle
 };
 
 
