@@ -13,7 +13,11 @@ WHERE {
   ?qid wdt:P495 wd:Q794. # Iran (Q794) is country of origin (P495)
   ?qid wdt:P3383 ?x.     # Item has a film poster (P3383)
 }
-''', headers={'Content-Type': 'application/sparql-query', 'Accept': 'application/json'})
+''', headers={
+  'Content-Type': 'application/sparql-query',
+  'Accept': 'application/json',
+  'User-Agent': 'UpdateBot/0.0 (https://github.com/Arasteh/filmposters)',
+})
 
 def wikidata_items(ids):
     for batch in itertools.batched(sorted(ids, key=lambda x: int(x[1:])), 50):
@@ -21,7 +25,8 @@ def wikidata_items(ids):
             'https://www.wikidata.org/w/api.php',
             {'action': 'wbgetentities',
              'format': 'json',
-             'ids': '|'.join(batch)}
+             'ids': '|'.join(batch)},
+            headers = {'User-Agent': 'UpdateBot/0.0 (https://github.com/Arasteh/filmposters)'}
         ).json()['entities'].values()
         print('fetched 50 items, sleep for 2s', file=sys.stderr)
         time.sleep(2)
