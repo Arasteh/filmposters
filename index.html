@@ -643,7 +643,7 @@ input[type="text"] {
 	height: 98%;
 	cursor: ew-resize;
 	background-color: rgba(128, 128, 128, 0.1);
-	z-index: 1001;
+	z-index: 999;
 	transition: background-color 0.3s;
 }
 
@@ -2304,7 +2304,7 @@ const desktopSidebarToggleStyle = computed(() => {
 	} else {
 		return {
 			top: '20px',
-			zIndex: '1001',
+			zIndex: '999',
 			transition: 'all 0.3s ease-in-out'
 		};
 	}
