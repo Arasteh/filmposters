@@ -131,11 +131,10 @@ input[type="text"] {
 	align-items: center;
 }
 
-/* تغییرات اعمال شده برای چیدمان گرید پویا و وسط‌چین */
 .results-grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-	justify-content: center; /* وسط‌چین کردن گرید در صورت عدم پر شدن کامل عرض */
+	justify-content: center;
 	gap: 15px;
 	max-width: 1520px;
 	width: 100%;
@@ -144,9 +143,7 @@ input[type="text"] {
 	padding-left: 60px;
 }
 
-.item-card {
-	/* عرض آیتم‌ها توسط grid-template-columns تعیین می‌شود */
-	
+.item-card {	
 	text-align: center;
 	padding: 15px 5px;
 	background: var(--card-background);
@@ -577,12 +574,11 @@ input[type="text"] {
 	padding: 6px;
 }
 
-/* تغییرات برای دکمه سایدبار دسکتاپ */
 #desktopSidebarToggleButton {
 	position: fixed;
 	top: 20px;
 	right: 20px;
-	z-index: 1001;
+	z-index: 999;
 	background: none;
 	color: var(--body-foreground);
 	border: none;
@@ -596,8 +592,6 @@ input[type="text"] {
 	background-color: light-dark(#f0f0f0, #333);
 }
 
-/* حذف کلاس‌های اضافی برای دکمه */
-
 .rotate-up {
 	transform: rotate(360deg) translateY(3px);
 }
@@ -606,7 +600,6 @@ input[type="text"] {
 	transform: rotate(180deg) translateY(3px);
 }
 
-/* تغییرات برای سایدبار */
 .sidebar {
 	width: 440px;
 	overflow-y: auto;
@@ -621,12 +614,12 @@ input[type="text"] {
 	background-color: var(--search-background);
 	border-radius: 16px;
 	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-	transform: translateX(105%); /* پنهان کردن سایدبار در حالت عادی */
+	transform: translateX(105%);
 	z-index: 100;
 }
-/* نمایش سایدبار در نمای دسکتاپ */
+
 .sidebar.visible-desktop {
-	transform: translateX(0); /* نمایش سایدبار در سمت راست */
+	transform: translateX(0);
 }
 
 
@@ -645,7 +638,7 @@ input[type="text"] {
 .sidebar-resize-handle {
 	position: absolute;
 	top: 0;
-	left: 0; /* تغییر موقعیت به چپ */
+	left: 0;
 	width: 5px;
 	height: 98%;
 	cursor: ew-resize;
@@ -828,7 +821,7 @@ input[type="text"] {
 .chart-container {
 	width: 100%;
 	margin-bottom: 20px;
-	position: relative; /* برای موقعیت‌یابی تول‌تیپ */
+	position: relative;
 }
 
 .chart-container svg {
@@ -853,7 +846,6 @@ input[type="text"] {
 	fill: var(--axis-text-color);
 }
 
-/* استایل تول‌تیپ */
 #tooltip {
 	position: absolute;
 	text-align: center;
@@ -867,7 +859,6 @@ input[type="text"] {
 	transition: opacity 0.2s;
 }
 
-/* سبک دکمه "نمایش بیشتر" */
 .show-more-button {
 	background-color: var(--bar-color);
 	color: white;
@@ -911,7 +902,6 @@ input[type="text"] {
 	#main-content {
 		margin-right: 0 !important;
 		padding: 15px;
-		/* padding-top توسط اسکریپت مدیریت می‌شود */
 		flex-direction: column;
 	}
 
@@ -930,14 +920,14 @@ input[type="text"] {
 		width: 100%;
 		max-width: 100%;
 		display: grid;
-		grid-template-columns: repeat(2, 1fr); /* دو ستون با عرض یکسان */
+		grid-template-columns: repeat(2, 1fr);
 		gap: 15px;
 		padding-left: 15px;
 		padding-right: 15px;
 	}
 	
 	.item-card {
-		width: 100%; /* عرض کامل را می‌گیرد، چون گرید آن را مدیریت می‌کند */
+		width: 100%;
 		max-width: none;
 	}
 
@@ -1021,9 +1011,7 @@ input[type="text"] {
 	</div>
 	<div id="sidebar" class="sidebar" :class="{ 'visible-desktop': sidebarVisible && !isMobileView }" :style="sidebarStyle">
 		<div class="sidebar-resize-handle"></div>
-		
-		<!-- دکمهٔ بستن سایدبار در حالت دسکتاپ حذف شد زیرا دکمهٔ اصلی این وظیفه را انجام می‌دهد -->
-		
+				
 		<div class="sidebar-content">
 			<button @click="hideSidebar" id="hideSidebarButton" class="mobile-only">
 				<span class="material-symbols-rounded">
@@ -1032,7 +1020,6 @@ input[type="text"] {
 			</button>
 			<p style="right: 60px; position: relative; width: fit-content; font-weight: bold; height: 15px; top: -5px;">فیلترها</p>
 			
-			<!-- بخش جدید نمودار -->
 			<div class="sidebar-section" :class="getSectionClass('chart')">
 				<div class="sidebar-section-header" @click="toggleCollapse('chart')">
 					<span>نمودار تعداد پوسترها</span>
@@ -1497,7 +1484,6 @@ desktopSidebarToggleButton.style.display = 'block';
 
 createApp({ setup: () => {
 
-// متغیرها
 const darkMode = ref(false);
 const toggleDarkMode = () => darkMode.value = !darkMode.value;
 const isShowMore = ref(false);
@@ -1513,7 +1499,7 @@ const posterMode = ref(true);
 const combineSimilarChars = ref(false);
 const pixelatedEffect = ref(false);
 const sortOrder = ref('random');
-const sortDirection = ref('asc'); // 'asc' یا 'desc' برای مرتب‌سازی
+const sortDirection = ref('asc');
 const searchPlaceholder = ref('جستجو (برای پرش به کادر جستجو / را تایپ کنید)');
 const isSearchFocused = ref(false);
 const displayedItemsCount = ref(30);
@@ -1523,7 +1509,7 @@ const searchBarRef = ref(null);
 const searchBarHeight = ref(0);
 const isMobileView = ref(false);
 const isDesktopSidebarFixed = ref(false);
-const yearsChartInstance = ref(null); // نگهداری نمونه نمودار
+const yearsChartInstance = ref(null);
 const isD3Loaded = ref(false);
 
 const showMore = () => {
@@ -1562,7 +1548,7 @@ const applyInitialFilters = () => {
 		: urlParams.get('censor') === 'true';
 	sortOrder.value = urlParams.get('sort') || 'random';
 	sortDirection.value = urlParams.get('dir') || 'asc';
-	exactWordMatch.value = urlParams.get('exact') === 'true'; // بازگرداندن گزینه جستجوی دقیق
+	exactWordMatch.value = urlParams.get('exact') === 'true';
 };
 applyInitialFilters();
 
@@ -1578,7 +1564,7 @@ const updateURL = () => {
 	params.set('censor', pixelatedEffect.value ? 'true' : 'false');
 	params.set('sort', sortOrder.value);
 	params.set('dir', sortDirection.value);
-	params.set('exact', exactWordMatch.value ? 'true' : 'false'); // به‌روزرسانی URL با گزینه جستجوی دقیق
+	params.set('exact', exactWordMatch.value ? 'true' : 'false');
 
 	const newUrl = `${window.location.pathname}?${params.toString()}`;
 	window.history.pushState({}, '', newUrl);
@@ -1666,14 +1652,12 @@ const items = films.flatMap(film => {
 			const fawiki = data.secondary[poster.designers[0]].sitelinks.fawiki;
 			if (fawiki) item.designerFaWikipediaLink = fawiki;
 		} else {
-			// اضافه کردن طراح "نامشخص" برای پوسترهایی که طراح ندارند
 			item.designerLabel = 'نامشخص';
 		}
 		if (film.directors.length) {
 			item.director = film.directors[0];
 			item.directorLabel = data.secondary[film.directors[0]].labels.fa;
 		} else {
-			// اضافه کردن کارگردان "نامشخص" برای فیلم‌هایی که کارگردان ندارند
 			item.directorLabel = 'نامشخص';
 		}
 		if (film.imdb.length) {
@@ -1708,7 +1692,6 @@ const toPersianYear = date => {
 	return year === 'Invalid Date' ? 'نامشخص' : year;
 };
 
-// تغییر برای بازگرداندن مقادیر عددی
 const availableYears = computed(() => {
 	const groups = Object.groupBy(items, item => toPersianYear(item.date));
 	let years = Object.keys(groups)
@@ -1722,7 +1705,6 @@ const availableYears = computed(() => {
 	return years;
 });
 
-// تغییر برای بازگرداندن مقادیر عددی
 const availableDesigners = computed(() => {
 	const groups = Object.groupBy(items, item => item.designerLabel);
 	let designers = Object.keys(groups)
@@ -1736,7 +1718,6 @@ const availableDesigners = computed(() => {
 	return designers;
 });
 
-// تغییر برای بازگرداندن مقادیر عددی
 const availableDirectors = computed(() => {
 	const groups = Object.groupBy(items, item => item.directorLabel);
 	let directors = Object.keys(groups)
@@ -1781,7 +1762,7 @@ const filteredItems = computed(() => {
 				.join('|'); // OR operator
 			regexString = `(^|\\s)(${modifiedSearchTerm})(?=\\s|$)`;
 		} else {
-			 let regexParts = trimmedSearchTerm.split(/\s+/).filter(Boolean); // تقسیم به کلمات و حذف موارد خالی
+			 let regexParts = trimmedSearchTerm.split(/\s+/).filter(Boolean);
 			if (combineSimilarChars.value) {
 				regexParts = regexParts.map(part => {
 					return part.split('').map(char => similarCharsMapping[char] || char).join('');
@@ -2225,21 +2206,16 @@ const getPosterUrl = (name, hash, width) => {
 };
 
 const getItemUrl = (item, posterMode, pixelatedEffect) => {
-	// اگر در حالت پوستر هستیم و تصویر NSFW و لوگو وجود دارد، لوگوی پیکسلی را برمی‌گرداند
 	if (posterMode && pixelatedEffect && item.isNsfw && item.logo) {
 		return getPosterUrl(item.logo, item.logoHash, 250);
 	}
-	// اگر در حالت پوستر هستیم، پوستر را برمی‌گرداند
 	if (posterMode) {
 		return getPosterUrl(item.poster, item.posterHash, 250);
 	}
-	// اگر در حالت لوگو هستیم
 	if (!posterMode) {
-		// اگر لوگو وجود دارد، لوگو را برمی‌گرداند
 		if (item.logo) {
 			return getPosterUrl(item.logo, item.logoHash, 250);
 		}
-		// اگر لوگو وجود ندارد، پوستر را برمی‌گرداند
 		return getPosterUrl(item.poster, item.posterHash, 250);
 	}
 };
@@ -2263,7 +2239,7 @@ const mainContentPaddingTop = computed(() => {
 
 
 let lastScrollPosition = 0;
-const scrollThreshold = 10; // آستانه اسکرول برای مخفی کردن/نمایش
+const scrollThreshold = 10;
 
 const getDocHeight = () => {
 	return Math.max(
@@ -2275,8 +2251,6 @@ const getDocHeight = () => {
 
 const handleScroll = () => {
 	const currentScrollY = window.scrollY;
-	
-	// اگر در حالت دسکتاپ و سایدبار باز است، نوار جستجو را پنهان نکن
 	if (!isMobileView.value && sidebarVisible.value) {
 		isSearchBarVisible.value = true;
 		lastScrollPosition = currentScrollY;
@@ -2287,20 +2261,15 @@ const handleScroll = () => {
 	const viewportHeight = window.innerHeight;
 	const isAtBottom = Math.ceil(currentScrollY + viewportHeight) >= docHeight;
 	
-	// اگر ارتفاع صفحه از ارتفاع پنجره مرورگر کمتر است، نوار جستجو همیشه نمایش داده شود.
 	if (docHeight <= viewportHeight + 50) {
 		isSearchBarVisible.value = true;
 	} else if (currentScrollY <= scrollThreshold) {
-		// اگر در بالای صفحه هستیم، نوار جستجو نمایش داده شود.
 		isSearchBarVisible.value = true;
 	} else if (isAtBottom) {
-		// وقتی به انتهای صفحه می‌رسیم، نوار جستجو مخفی شود.
 		isSearchBarVisible.value = false;
 	} else if (currentScrollY > lastScrollPosition) {
-		// هنگام اسکرول به پایین، نوار جستجو مخفی شود.
 		isSearchBarVisible.value = false;
 	} else if (currentScrollY < lastScrollPosition) {
-		// هنگام اسکرول به بالا، نوار جستجو نمایش داده شود.
 		isSearchBarVisible.value = true;
 	}
 	
@@ -2372,14 +2341,13 @@ const searchBarDynamicStyle = computed(() => {
 	return style;
 });
 
-// تابع برای به‌روزرسانی نمودار SVG
 const updateChart = () => {
 	const svg = d3.select("#yearsChart");
-	svg.selectAll("*").remove(); // پاک کردن نمودار قبلی
+	svg.selectAll("*").remove();
 
 	const data = filteredYearsInModal.value;
 
-	const margin = { top: 20, right: 30, bottom: 40, left: 60 }; // تغییر مقادیر left و bottom
+	const margin = { top: 20, right: 30, bottom: 40, left: 60 };
 	const width = document.querySelector('.chart-container').clientWidth - margin.left - margin.right;
 	const height = 300 - margin.top - margin.bottom;
 	
@@ -2401,14 +2369,14 @@ const updateChart = () => {
 		.selectAll("text")
 		.style("text-anchor", "end")
 		.attr("dx", "-.8em")
-		.attr("dy", "1.5em") // افزایش فاصله از محور افقی
+		.attr("dy", "1.5em")
 		.attr("transform", "rotate(-65)");
 
 	const yAxis = g => g
 		.attr("transform", `translate(0,0)`)
 		.call(d3.axisLeft(y).tickFormat(d3.format("d")))
 		.selectAll("text")
-		.attr("dx", "-1em"); // جابجایی لیبل‌های محور عمودی به چپ
+		.attr("dx", "-1em");
 
 	const barsGroup = g.append("g").attr("class", "bars");
 	const tooltip = d3.select("#tooltip");
@@ -2455,13 +2423,13 @@ const updateChart = () => {
 	g.append("g").attr("class", "y-axis").call(yAxis);
 
 	g.append("text")
-		.attr("transform", `translate(${width / 2}, ${height + margin.bottom - 10})`) // پایین‌تر بردن عنوان محور افقی
+		.attr("transform", `translate(${width / 2}, ${height + margin.bottom - 10})`)
 		.style("text-anchor", "middle")
 		.text("سال");
 
 	g.append("text")
 		.attr("transform", "rotate(-90)")
-		.attr("y", 0 - margin.left + 15) // جابجایی عنوان محور عمودی به چپ
+		.attr("y", 0 - margin.left + 15)
 		.attr("x", 0 - (height / 2 - 10))
 		.attr("dy", "1em")
 		.style("text-anchor", "middle")
@@ -2504,7 +2472,6 @@ onUnmounted(() => {
 	window.removeEventListener('resize', checkMobile);
 });
 
-
 window.addEventListener('keydown', () => {
 	if (event.keyCode === 27) closeLightbox();
 });
@@ -2540,8 +2507,6 @@ return {
 	searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
 	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle
 };
-
-
 
 } }).mount('#app');
 </script>
