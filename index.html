@@ -2189,6 +2189,27 @@ const changeLightboxImage = changeIndexCallback => {
 const prevImage = () => changeLightboxImage((current, lastItem) => current <= 0 ? lastItem : current - 1);
 const nextImage = () => changeLightboxImage((current, lastItem) => current >= lastItem ? 0 : current + 1);
 
+onMounted(() => {
+	window.addEventListener('keydown', handleKeyDown);
+	window.addEventListener('popstate', handleUrlChange);
+	handleUrlChange();
+});
+
+onUnmounted(() => {
+	window.removeEventListener('keydown', handleKeyDown);
+	window.removeEventListener('popstate', handleUrlChange);
+});
+
+const handleKeyDown = (event) => {
+	if (lightboxItem.value) {
+		if (event.key === 'ArrowLeft') {
+			nextImage();
+		} else if (event.key === 'ArrowRight') {
+			prevImage();
+		}
+	}
+};
+
 const preloadedImages = ref({});
 const preloadNext = ref(null);
 const preloadPrev = ref(null);
