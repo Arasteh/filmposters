@@ -1509,6 +1509,10 @@ const isMobileView = ref(false);
 const isDesktopSidebarFixed = ref(false);
 const yearsChartInstance = ref(null);
 const isD3Loaded = ref(false);
+const lightboxItem = ref(undefined);
+const lightboxImage = ref(undefined);
+const isLoading = ref(false);
+
 
 const showMore = () => {
 	displayedItemsCount.value += 30;
@@ -1589,7 +1593,14 @@ const updateMetaTags = (item) => {
 	}
 };
 
-const handleUrlChange = () => {
+const closeLightbox = () => {
+	lightboxItem.value = undefined;
+	isLoading.value = false;
+	updateMetaTags(null);
+	window.history.pushState({}, '', buildFilterPath() + window.location.search);
+};
+
+const handleUrlAndApplyState = () => {
 	const path = window.location.pathname.split('/').filter(Boolean);
 	const params = new URLSearchParams(window.location.search);
 	
@@ -1686,7 +1697,7 @@ const applyInitialFilters = () => {
 	sortOrder.value = urlParams.get('sort') || 'random';
 	sortDirection.value = urlParams.get('dir') || 'asc';
 	exactWordMatch.value = urlParams.get('exact') === 'true';
-	handleUrlChange();
+	handleUrlAndApplyState();
 };
 applyInitialFilters();
 
@@ -2097,17 +2108,17 @@ const handleDesktopSidebarHoverEnter = () => {};
 
 const handleDesktopSidebarHoverLeave = () => {};
 
-const clearSearchTerm = () => searchTerm.value = '';
+const clearSearchTerm = () => {
+	searchTerm.value = '';
+	updateUrlWithSearch();
+};
 const clearDesignerSearchQuery = () => designerSearchQuery.value = '';
 const clearDirectorSearchQuery = () => directorSearchQuery.value = '';
 
 const toggleCollapse = section => isCollapsed.value[section] = !isCollapsed.value[section];
 
-const lightboxItem = ref(undefined);
-const lightboxImage = ref(undefined);
-const isLoading = ref(false);
 
-const openLightbox = item => {
+const openLightbox = (item) => {
 	if (!posterMode.value && !item.logo) {
 		lightboxImage.value = undefined;
 		lightboxItem.value = undefined;
@@ -2529,15 +2540,21 @@ onMounted(() => {
 			mainContentPaddingTop.value = mainContentPaddingTop.value;
 		}
 	});
+
+	// Call the new state handler on initial load and popstate events
+	handleUrlAndApplyState();
+	window.addEventListener('popstate', handleUrlAndApplyState);
+
 });
 
 onUnmounted(() => {
 	window.removeEventListener('scroll', handleScroll);
 	window.removeEventListener('resize', checkMobile);
+	window.removeEventListener('popstate', handleUrlAndApplyState);
 });
 
-window.addEventListener('keydown', () => {
-	if (event.keyCode === 27) closeLightbox();
+window.addEventListener('keydown', (event) => {
+	if (event.key === 'Escape') closeLightbox();
 });
 
 window.addEventListener('keydown', (event) => {
