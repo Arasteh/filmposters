@@ -926,7 +926,7 @@ input[type="text"] {
 		padding-right: 15px;
 	}
 	
-	.item-card {
+.item-card {
 		width: 100%;
 		max-width: none;
 	}
@@ -1697,9 +1697,7 @@ const applyInitialFilters = () => {
 	sortOrder.value = urlParams.get('sort') || 'random';
 	sortDirection.value = urlParams.get('dir') || 'asc';
 	exactWordMatch.value = urlParams.get('exact') === 'true';
-	handleUrlAndApplyState();
 };
-applyInitialFilters();
 
 watch([
 	posterMode, combineSimilarChars, pixelatedEffect, sortOrder, sortDirection, exactWordMatch
@@ -2560,7 +2558,7 @@ window.addEventListener('keydown', (event) => {
 window.addEventListener('keydown', (event) => {
 	if (event.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
 		event.preventDefault();
-		const searchInput = document.querySelector('input[type="text"][placeholder*="پرش"]');
+		const searchInput = document.querySelector('input[type="text'][placeholder*="پرش"]');
 		if (searchInput) {
 			searchInput.focus();
 		}
