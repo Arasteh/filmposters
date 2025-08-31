@@ -2138,12 +2138,6 @@ const openLightbox = (item) => {
 	}, 1000);
 };
 
-const closeLightbox = () => {
-	lightboxItem.value = undefined;
-	isLoading.value = false;
-	updateMetaTags(null);
-	window.history.pushState({}, '', buildFilterPath() + window.location.search);
-};
 
 watch(lightboxItem, newValue => {
 	if (newValue) {
