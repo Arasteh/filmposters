@@ -1053,11 +1053,11 @@ input[type="text"] {
 							نتیجه‌ای وجود ندارد
 						</div>
 						<div v-else v-for="[year, count] in filteredYearsInModal" :key="year"
-							@click="selectedYear === year ? removeYearFilter() : selectYearFromModal(year)"
+							@click="selectFilter('year', year)"
 							@mouseenter="hoveredItem = year" @mouseleave="hoveredItem = null"
 							:class="{ 'hovered': hoveredItem === year }" class="year-item">
 							{{ year }} <span class="count">({{ count.toLocaleString('fa') }})</span>
-							<span v-if="selectedYear === year" class="remove-filter" @click.stop="removeYearFilter">
+							<span v-if="selectedYear === year" class="remove-filter" @click.stop="removeFilter('year')">
 								<span class="material-symbols-rounded" style="font-size: inherit;">
 									close
 								</span>
@@ -1092,12 +1092,12 @@ input[type="text"] {
 							نتیجه‌ای وجود ندارد
 						</div>
 						<div v-else v-for="[designer, count] in filteredDesignersInModal" :key="designer"
-							@click="selectedDesigner === designer ? removeDesignerFilter() : selectDesignerFromModal(designer)"
+							@click="selectFilter('designer', designer)"
 							@mouseenter="hoveredItem = designer" @mouseleave="hoveredItem = null"
 							:class="{ 'hovered': hoveredItem === designer }" class="designer-item">
 							{{ designer }} <span class="count">({{ count.toLocaleString('fa') }})</span>
 							<span v-if="selectedDesigner === designer" class="remove-filter"
-								@click.stop="removeDesignerFilter">
+								@click.stop="removeFilter('designer')">
 								<span class="material-symbols-rounded" style="font-size: inherit;">
 									close
 								</span>
@@ -1132,12 +1132,12 @@ input[type="text"] {
 							نتیجه‌ای وجود ندارد
 						</div>
 						<div v-else v-for="[director, count] in filteredDirectorsInModal" :key="director"
-							@click="selectedDirector === director ? removeDirectorFilter() : selectDirectorFromModal(director)"
+							@click="selectFilter('director', director)"
 							@mouseenter="hoveredItem = director" @mouseleave="hoveredItem = null"
 							:class="{ 'hovered': hoveredItem === director }" class="director-item">
 							{{ director }} <span class="count">({{ count.toLocaleString('fa') }})</span>
 							<span v-if="selectedDirector === director" class="remove-filter"
-								@click.stop="removeDirectorFilter">
+								@click.stop="removeFilter('director')">
 								<span class="material-symbols-rounded" style="font-size: inherit;">
 									close
 								</span>
@@ -1162,12 +1162,12 @@ input[type="text"] {
 							نتیجه‌ای وجود ندارد
 						</div>
 						<div v-else v-for="[letter, count] in filteredLettersInModal" :key="letter"
-							@click="selectedLetter === letter ? removeLetterFilter() : selectLetterFromModal(letter)"
+							@click="selectFilter('letter', letter)"
 							@mouseenter="hoveredItem = letter" @mouseleave="hoveredItem = null"
 							:class="{ 'hovered': hoveredItem === letter }" class="letter-item">
 							{{ letter }} <span class="count">({{ count.toLocaleString('fa') }})</span>
 							<span v-if="selectedLetter === letter" class="remove-filter"
-								@click.stop="removeLetterFilter">
+								@click.stop="removeFilter('letter')">
 								<span class="material-symbols-rounded" style="font-size: inherit;">
 									close
 								</span>
@@ -1246,18 +1246,16 @@ input[type="text"] {
 				</span>
 			</button>
 		</a>
-		<button class="lightbox-button desktop-only" style="left: 20px; top: 50%; transform: translateY(-50%);" @click.stop="nextImage">
+		<button class="lightbox-button desktop-only" style="left: 20px; top: 50%; transform: translateY(-50%);" @click.stop="prevImage">
 			<span class="material-symbols-rounded">
 				arrow_back_ios
 			</span>
 		</button>
-		<button class="lightbox-button desktop-only" style="right: 20px; top: 50%; transform: translateY(-50%);" @click.stop="prevImage">
+		<button class="lightbox-button desktop-only" style="right: 20px; top: 50%; transform: translateY(-50%);" @click.stop="nextImage">
 			<span class="material-symbols-rounded">
 				arrow_forward_ios
 			</span>
 		</button>
-
-		
 	</div>
 
 	<div id="main-content" :style="mainContentStyle">
@@ -1276,8 +1274,8 @@ input[type="text"] {
 						</span>
 					</button>
 					<div style="position: relative; width: 100%;">
-						<input type="text" v-model="searchTerm" :placeholder="searchPlaceholder" @focus="onSearchFocus" @blur="onSearchBlur" class="desktop-only" />
-						<input type="text" v-model="searchTerm" placeholder="جستجو…" class="mobile-only" />
+						<input type="text" v-model="searchTerm" @input="updateUrlWithSearch" :placeholder="searchPlaceholder" @focus="onSearchFocus" @blur="onSearchBlur" class="desktop-only" />
+						<input type="text" v-model="searchTerm" @input="updateUrlWithSearch" placeholder="جستجو…" class="mobile-only" />
 						<span v-if="searchTerm" @click="clearSearchTerm" class="clearSearch"
 							style="display: none" :style="{ display: undefined }">
 							<span class="material-symbols-rounded">
@@ -1368,7 +1366,7 @@ input[type="text"] {
 			</div>
 		</div>
 		<div id="filters" class="filters-container" v-if="activeFilters.length > 0" style="display: none" :style="{ display: undefined }">
-			<div v-for="(filter, index) in activeFilters" :key="index" @click="removeFilter(filter.type, filter.value)"
+			<div v-for="(filter, index) in activeFilters" :key="index" @click="removeFilter(filter.type)"
 				class="designer-item">
 				<span style="align-content: center;">{{ filter.label }}: {{ filter.value }}</span>
 				<button class="remove-filter">
@@ -1377,10 +1375,10 @@ input[type="text"] {
 			</div>
 		</div>
 		<div v-if="filteredItems.length > 0" class="results-grid">
-			<div class="item-card" v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)" :key="index" style="visibility: hidden" :style="{ visibility: undefined }">
+			<div class="item-card" v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)" :key="item.id" style="visibility: hidden" :style="{ visibility: undefined }">
 				<div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
 					<div class="image-container">
-						<a @click="handleImageClick(item)" :href="getCommonsUrl(item, posterMode, pixelatedEffect)"
+						<a @click="handleImageClick(item)" :href="getPosterUrl(item, 'poster', posterMode, pixelatedEffect)"
 							class="clickable-image">
 								<img :src="getItemUrl(item, posterMode, pixelatedEffect)"
 									:key="getItemUrl(item, posterMode, pixelatedEffect)" :alt="item.filmLabel"
@@ -1398,7 +1396,7 @@ input[type="text"] {
 	
 					<div class="item-title">
 						{{ item.filmLabel }}
-						<span class="year-link" v-if="item.date" @click="selectYearFromTitle(toPersianYear(item.date))">
+						<span class="year-link" v-if="item.date" @click="selectFilter('year', toPersianYear(item.date))">
 							({{ toPersianYear(item.date) }})
 						</span>
 					</div>
@@ -1410,7 +1408,7 @@ input[type="text"] {
 						</span>
 						<span class="desktop-only">{{ item.designers.length === 1 ? 'طراح: ' : 'طراحان: ' }}</span>
 						<span v-for="(designer, index) in item.designers" :key="index">
-							<a href="#" @click.prevent="selectDesigner(designer.label)" aria-label="انتخاب طراح">{{ designer.label }}</a>
+							<a href="#" @click.prevent="selectFilter('designer', designer.label)" aria-label="انتخاب طراح">{{ designer.label }}</a>
 							<span class="item-links">
 								<a :href="'https://www.wikidata.org/wiki/' + designer.id" aria-label="ویکی‌داده" target="_blank">
 									<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg"
@@ -1534,13 +1532,152 @@ const hasActiveFilters = computed(() => {
 		selectedLetter.value;
 });
 
+// این تابع مسیریابی جدید را بر اساس فیلترهای فعال می‌سازد
+const buildFilterPath = () => {
+	let path = '';
+	if (selectedYear.value) {
+		path += `/year/${encodeURIComponent(selectedYear.value)}`;
+	}
+	if (selectedDesigner.value) {
+		path += `/designer/${encodeURIComponent(selectedDesigner.value)}`;
+	}
+	if (selectedDirector.value) {
+		path += `/director/${encodeURIComponent(selectedDirector.value)}`;
+	}
+	if (selectedLetter.value) {
+		path += `/letter/${encodeURIComponent(selectedLetter.value)}`;
+	}
+	return path;
+};
+
+const updateMetaTags = (item) => {
+	const titleTag = document.querySelector('title');
+	const ogTitle = document.querySelector('meta[property="og:title"]');
+	const ogDescription = document.querySelector('meta[property="og:description"]');
+	const twitterTitle = document.querySelector('meta[property="twitter:title"]');
+	const twitterDescription = document.querySelector('meta[property="twitter:description"]');
+	
+	if (item) {
+		const metaTitle = `پوستر فیلم ${item.filmLabel} (${toPersianYear(item.date)}) | آرشیو پوسترهای سینمای ایران`;
+		const metaDescription = `پوستر فیلم ${item.filmLabel}، طراحی شده توسط ${item.designerLabel}. سال تولید: ${toPersianYear(item.date)}.`;
+		
+		titleTag.innerText = metaTitle;
+		ogTitle.setAttribute('content', metaTitle);
+		ogDescription.setAttribute('content', metaDescription);
+		twitterTitle.setAttribute('content', metaTitle);
+		twitterDescription.setAttribute('content', metaDescription);
+	} else if (hasActiveFilters.value) {
+		const filterNames = {
+			year: 'سال',
+			designer: 'طراح',
+			director: 'کارگردان',
+			letter: 'حروف اول'
+		};
+		const filterTitle = activeFilters.value.map(f => `${filterNames[f.type]}: ${f.value}`).join(' و ');
+		const metaTitle = `پوسترهای فیلم فیلترشده با ${filterTitle} | آرشیو پوسترهای سینمای ایران`;
+		titleTag.innerText = metaTitle;
+		ogTitle.setAttribute('content', metaTitle);
+	} else {
+		const defaultTitle = 'Film Posters of Iran | آرشیو پوسترهای سینمای ایران';
+		const defaultDescription = 'آرشیو پوستر فیلم‌های سینمایی ایرانی قبل و بعد از انقلاب؛ دربردارندهٔ آثار محمدعلی باطنی، محمدعلی حدت، محسن دولو، مسعود بهنام، مرتضی ممیز، ابراهیم حقیقی و دیگر طراحان گرافیک.';
+		
+		titleTag.innerText = defaultTitle;
+		ogTitle.setAttribute('content', defaultTitle);
+		ogDescription.setAttribute('content', defaultDescription);
+		twitterTitle.setAttribute('content', defaultTitle);
+		twitterDescription.setAttribute('content', defaultDescription);
+	}
+};
+
+const handleUrlChange = () => {
+	const path = window.location.pathname.split('/').filter(Boolean);
+	const params = new URLSearchParams(window.location.search);
+	
+	selectedYear.value = '';
+	selectedDesigner.value = '';
+	selectedDirector.value = '';
+	selectedLetter.value = '';
+	searchTerm.value = params.get('q') || '';
+	
+	// بررسی مسیر URL برای فیلترها
+	if (path.length >= 2) {
+		for (let i = 0; i < path.length; i += 2) {
+			const type = path[i];
+			const value = decodeURIComponent(path[i + 1]);
+			if (type === 'year') selectedYear.value = value;
+			if (type === 'designer') selectedDesigner.value = value;
+			if (type === 'director') selectedDirector.value = value;
+			if (type === 'letter') selectedLetter.value = value;
+		}
+	}
+
+	// بررسی URL برای لایت‌باکس پوستر/لوگو
+	const itemPathParts = window.location.pathname.split('/').filter(Boolean);
+	if (itemPathParts.length === 2 && (itemPathParts[0] === 'posters' || itemPathParts[0] === 'logos')) {
+		const type = itemPathParts[0].substring(0, itemPathParts[0].length - 1);
+		const id = itemPathParts[1];
+		const item = items.find(i => {
+			const typeKey = `${type}Hash`;
+			return i[typeKey] === id;
+		});
+		if (item) {
+			openLightbox(item);
+		} else {
+			closeLightbox();
+		}
+	} else {
+		closeLightbox();
+	}
+	
+	// به‌روزرسانی متا تگ‌ها
+	updateMetaTags(lightboxItem.value);
+};
+
+// این تابع URL را بر اساس فیلترهای فعال به‌روزرسانی می‌کند
+const updateUrlFromFilters = () => {
+	const filterPath = buildFilterPath();
+	const params = new URLSearchParams(window.location.search);
+	if (searchTerm.value) {
+		params.set('q', searchTerm.value);
+	} else {
+		params.delete('q');
+	}
+
+	const newUrl = `${filterPath}${params.toString() ? '?' + params.toString() : ''}`;
+	window.history.replaceState({}, '', newUrl);
+};
+
+const selectFilter = (type, value) => {
+	switch (type) {
+		case 'year':
+			selectedYear.value = selectedYear.value === value ? '' : value;
+			break;
+		case 'designer':
+			selectedDesigner.value = selectedDesigner.value === value ? '' : value;
+			break;
+		case 'director':
+			selectedDirector.value = selectedDirector.value === value ? '' : value;
+			break;
+		case 'letter':
+			selectedLetter.value = selectedLetter.value === value ? '' : value;
+			break;
+	}
+	updateUrlFromFilters();
+};
+
+const updateUrlWithSearch = () => {
+	const params = new URLSearchParams(window.location.search);
+	if (searchTerm.value) {
+		params.set('q', searchTerm.value);
+	} else {
+		params.delete('q');
+	}
+	const newUrl = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`;
+	window.history.replaceState({}, '', newUrl);
+};
+
 const applyInitialFilters = () => {
 	const urlParams = new URLSearchParams(window.location.search);
-	searchTerm.value = urlParams.get('q') || '';
-	selectedYear.value = urlParams.get('y') || '';
-	selectedDesigner.value = urlParams.get('designer') || '';
-	selectedDirector.value = urlParams.get('director') || '';
-	selectedLetter.value = urlParams.get('letter') || '';
 	posterMode.value = urlParams.get('mode') !== 'logo';
 	combineSimilarChars.value = urlParams.get('similar') === 'true';
 	pixelatedEffect.value = urlParams.get('censor') === null
@@ -1549,30 +1686,13 @@ const applyInitialFilters = () => {
 	sortOrder.value = urlParams.get('sort') || 'random';
 	sortDirection.value = urlParams.get('dir') || 'asc';
 	exactWordMatch.value = urlParams.get('exact') === 'true';
+	handleUrlChange();
 };
 applyInitialFilters();
 
-const updateURL = () => {
-	const params = new URLSearchParams();
-	if (searchTerm.value) params.set('q', searchTerm.value);
-	if (selectedYear.value) params.set('y', selectedYear.value);
-	if (selectedDesigner.value) params.set('designer', selectedDesigner.value);
-	if (selectedDirector.value) params.set('director', selectedDirector.value);
-	if (selectedLetter.value) params.set('letter', selectedLetter.value);
-	params.set('mode', posterMode.value ? 'poster' : 'logo');
-	params.set('similar', combineSimilarChars.value ? 'true' : 'false');
-	params.set('censor', pixelatedEffect.value ? 'true' : 'false');
-	params.set('sort', sortOrder.value);
-	params.set('dir', sortDirection.value);
-	params.set('exact', exactWordMatch.value ? 'true' : 'false');
-
-	const newUrl = `${window.location.pathname}?${params.toString()}`;
-	window.history.pushState({}, '', newUrl);
-};
 watch([
-	searchTerm, selectedYear, selectedDesigner, selectedDirector,
-	selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder, sortDirection, exactWordMatch
-], updateURL);
+	posterMode, combineSimilarChars, pixelatedEffect, sortOrder, sortDirection, exactWordMatch
+], updateUrlFromFilters);
 
 const isCollapsed = ref({
 	designers: false,
@@ -1583,21 +1703,22 @@ const isCollapsed = ref({
 });
 
 const getSectionClass = section => isCollapsed.value[section] ? 'collapsed' : 'expanded';
-const selectDirectorFromModal = director => selectedDirector.value = director;
-const selectYearFromModal = year => selectedYear.value = year;
-const selectLetterFromModal = letter => selectedLetter.value = letter;
-const togglePosterMode = () => posterMode.value = !posterMode.value;
+const togglePosterMode = () => {
+	posterMode.value = !posterMode.value;
+	updateUrlFromFilters();
+};
 const toggleOptions = () => isOptionsCollapsed.value = !isOptionsCollapsed.value;
 const collapseIconClass = value => value ? 'rotate-down' : 'rotate-up';
-const toggleSortDirection = () => sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc';
+const toggleSortDirection = () => {
+	sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc';
+	updateUrlFromFilters();
+};
 
 const selectDesigner = designer => {
 	selectedDesigner.value = designer;
 	designerQuery.value = designer;
-	applyFilters();
+	updateUrlFromFilters();
 };
-
-const applyFilters = () => {};
 
 const resetFilters = () => {
 	searchTerm.value = '';
@@ -1609,6 +1730,7 @@ const resetFilters = () => {
 	selectedLetter.value = '';
 	sortDirection.value = 'asc';
 	exactWordMatch.value = false;
+	updateUrlFromFilters();
 };
 
 const films = Object.values(data.films);
@@ -1622,6 +1744,7 @@ const uniqueResultsFilmCount = computed(() => {
 const items = films.flatMap(film => {
 	return film.posters.map((poster, i) => {
 		const item = {};
+		item.id = `item-${film.id}-${i}`;
 		item.film = film.id;
 		if (!film.labels.fa) {
 			console.log(film.id + ' doesn\'t have Persian label!');
@@ -1883,34 +2006,6 @@ const filteredDesignersInModal = computed(() => {
 	);
 });
 
-const selectDesignerFromModal = designer => {
-	selectedDesigner.value = designer;
-	designerQuery.value = designer;
-};
-
-// تغییر برای بازگرداندن مقادیر عددی
-const filteredYearsInModal = computed(() => {
-	const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
-	let years = Object.keys(groups)
-		.map(year => [year, groups[year].length]);
-
-	const unknown = years.find(([name]) => name === 'نامشخص');
-	years = years.filter(([name]) => name !== 'نامشخص').sort();
-	if (unknown) {
-		years.push(unknown);
-	}
-	return years;
-});
-
-watch(filteredItems, (newValue) => {
-	displayedItemsCount.value = 30;
-	if (newValue.length > 100) {
-		isShowMore.value = false;
-	}
-});
-
-const directorSearchQuery = ref('');
-
 const filteredDirectorsInModal = computed(() => {
 	const groups = Object.groupBy(filteredItems.value, item => item.directorLabel);
 	let directors = Object.keys(groups)
@@ -1981,26 +2076,6 @@ onMounted(() => {
 
 const hoveredItem = ref(null);
 
-const removeYearFilter = () => {
-	selectedYear.value = '';
-	hoveredItem.value = null;
-};
-
-const removeDesignerFilter = () => {
-	selectedDesigner.value = '';
-	hoveredItem.value = null;
-};
-
-const removeDirectorFilter = () => {
-	selectedDirector.value = '';
-	hoveredItem.value = null;
-};
-
-const removeLetterFilter = () => {
-	selectedLetter.value = '';
-	hoveredItem.value = null;
-};
-
 const sidebarVisible = ref(false);
 
 const toggleSidebar = () => {
@@ -2022,19 +2097,6 @@ const handleDesktopSidebarHoverEnter = () => {};
 
 const handleDesktopSidebarHoverLeave = () => {};
 
-
-onMounted(() => window.addEventListener('popstate', handlePopState));
-
-onUnmounted(() => window.removeEventListener('popstate', handlePopState));
-
-const handlePopState = e => {
-	if (sidebarVisible.value) {
-		hideSidebar();
-		e.preventDefault();
-		window.history.pushState(null, '', window.location.pathname);
-	}
-};
-
 const clearSearchTerm = () => searchTerm.value = '';
 const clearDesignerSearchQuery = () => designerSearchQuery.value = '';
 const clearDirectorSearchQuery = () => directorSearchQuery.value = '';
@@ -2054,8 +2116,12 @@ const openLightbox = item => {
 	isLoading.value = true;
 	lightboxImage.value = posterMode.value ? getPosterUrl(item.poster, item.posterHash, 960) : getPosterUrl(item.logo, item.logoHash, 960);
 	lightboxItem.value = item;
+	updateMetaTags(item);
 
-	const currentIndex = filteredItems.value.findIndex(i => i === item);
+	const urlPath = `/${posterMode.value ? 'posters' : 'logos'}/${posterMode.value ? item.posterHash : item.logoHash}`;
+	window.history.pushState({ item: item }, '', urlPath);
+
+	const currentIndex = filteredItems.value.findIndex(i => i.id === item.id);
 	preloadImages(currentIndex);
 
 	setTimeout(() => {
@@ -2066,6 +2132,8 @@ const openLightbox = item => {
 const closeLightbox = () => {
 	lightboxItem.value = undefined;
 	isLoading.value = false;
+	updateMetaTags(null);
+	window.history.pushState({}, '', buildFilterPath() + window.location.search);
 };
 
 watch(lightboxItem, newValue => {
@@ -2089,7 +2157,6 @@ const handleImageClick = item => {
 		return true;
 	}
 
-	console.log('Image clicked:', item);
 	event.preventDefault();
 	event.stopPropagation();
 	openLightbox(item);
@@ -2098,7 +2165,7 @@ const handleImageClick = item => {
 const changeLightboxImage = changeIndexCallback => {
 	isLoading.value = true;
 	const newIndex = changeIndexCallback(
-		filteredItems.value.findIndex(item => item.poster === lightboxItem.value.poster),
+		filteredItems.value.findIndex(item => item.id === lightboxItem.value.id),
 		filteredItems.value.length - 1
 	);
 	lightboxItem.value = filteredItems.value[newIndex];
@@ -2115,10 +2182,13 @@ const nextImage = () => changeLightboxImage((current, lastItem) => current >= la
 
 onMounted(() => {
 	window.addEventListener('keydown', handleKeyDown);
+	window.addEventListener('popstate', handleUrlChange);
+	handleUrlChange();
 });
 
 onUnmounted(() => {
 	window.removeEventListener('keydown', handleKeyDown);
+	window.removeEventListener('popstate', handleUrlChange);
 });
 
 const handleKeyDown = (event) => {
@@ -2160,8 +2230,6 @@ const downloadLink = item => {
 	return `https://upload.wikimedia.org/wikipedia/commons/${hash[0]}/${hash}/${name}?download`;
 };
 
-const selectYearFromTitle = year => selectedYear.value = year;
-
 const activeFilters = computed(() => {
 	const filters = [];
 	if (selectedYear.value) {
@@ -2179,7 +2247,7 @@ const activeFilters = computed(() => {
 	return filters;
 });
 
-const removeFilter = (type, value) => {
+const removeFilter = (type) => {
 	switch (type) {
 		case 'year':
 			selectedYear.value = '';
@@ -2194,6 +2262,7 @@ const removeFilter = (type, value) => {
 			selectedLetter.value = '';
 			break;
 	}
+	updateUrlFromFilters();
 };
 
 const filteredItemsLength = computed(() => {
@@ -2218,11 +2287,6 @@ const getItemUrl = (item, posterMode, pixelatedEffect) => {
 		}
 		return getPosterUrl(item.poster, item.posterHash, 250);
 	}
-};
-
-const getCommonsUrl = (item, posterMode, pixelatedEffect) => {
-	if (!posterMode && !item.logo) return '#';
-	return 'https://commons.wikimedia.org/wiki/File:' + (posterMode ? item.poster : item.logo);
 };
 
 const bringToTop = () => document.documentElement.scrollTop = 0;
@@ -2417,7 +2481,7 @@ const updateChart = () => {
 		.on("mouseout", () => {
 			tooltip.transition().duration(500).style("opacity", 0);
 		})
-		.on("click", (event, d) => selectYearFromModal(d[0]));
+		.on("click", (event, d) => selectFilter('year', d[0]));
 
 	g.append("g").attr("class", "x-axis").call(xAxis);
 	g.append("g").attr("class", "y-axis").call(yAxis);
@@ -2488,24 +2552,25 @@ window.addEventListener('keydown', (event) => {
 
 return {
 	showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items,
-	getItemUrl, getCommonsUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, sortDirection, selectedYear,
+	getItemUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, sortDirection, selectedYear,
 	availableYears, availableDesigners, selectedDesigner, filteredYears, bringToTop, visibleBringToTop,
 	filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors,
 	selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleSortDirection,
 	toggleOptions, isOptionsCollapsed, collapseIconClass, filteredDesignersInModal, designerSearchQuery,
-	selectDesignerFromModal, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal,
-	selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse,
+	filteredDirectorsInModal, filteredYearsInModal,
+	filteredLettersInModal, isCollapsed, toggleCollapse,
 	filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass,
-	directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter,
-	removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar,
+	directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth,
+	removeFilter, hoveredItem, hideSidebar, selectFilter,
 	sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm, lightboxItem,
 	lightboxImage, openLightbox, closeLightbox, downloadLink, handleImageClick,
-	clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading,
-	handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage,
+	clearDesignerSearchQuery, clearDirectorSearchQuery, toPersianYear, isLoading,
+	activeFilters, filteredItemsLength, itemsLength, prevImage, nextImage,
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount,
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
 	searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
-	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle
+	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle,
+	updateUrlWithSearch
 };
 
 } }).mount('#app');
