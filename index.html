@@ -1053,11 +1053,11 @@ input[type="text"] {
 							نتیجه‌ای وجود ندارد
 						</div>
 						<div v-else v-for="[year, count] in filteredYearsInModal" :key="year"
-							@click="selectedYear === year ? removeYearFilter() : selectYearFromModal(year)"
+							@click="selectedYear === year ? navigate(basePath) : navigate('/year/' + year, { preserveQuery: true })"
 							@mouseenter="hoveredItem = year" @mouseleave="hoveredItem = null"
 							:class="{ 'hovered': hoveredItem === year }" class="year-item">
 							{{ year }} <span class="count">({{ count.toLocaleString('fa') }})</span>
-							<span v-if="selectedYear === year" class="remove-filter" @click.stop="removeYearFilter">
+							<span v-if="selectedYear === year" class="remove-filter" @click.stop="navigate(basePath, { preserveQuery: true })">
 								<span class="material-symbols-rounded" style="font-size: inherit;">
 									close
 								</span>
@@ -1092,12 +1092,12 @@ input[type="text"] {
 							نتیجه‌ای وجود ندارد
 						</div>
 						<div v-else v-for="[designer, count] in filteredDesignersInModal" :key="designer"
-							@click="selectedDesigner === designer ? removeDesignerFilter() : selectDesignerFromModal(designer)"
+							@click="selectedDesigner === designer ? navigate(basePath) : navigate('/designer/' + toSlug(designer), { preserveQuery: true })"
 							@mouseenter="hoveredItem = designer" @mouseleave="hoveredItem = null"
 							:class="{ 'hovered': hoveredItem === designer }" class="designer-item">
 							{{ designer }} <span class="count">({{ count.toLocaleString('fa') }})</span>
 							<span v-if="selectedDesigner === designer" class="remove-filter"
-								@click.stop="removeDesignerFilter">
+								@click.stop="navigate(basePath, { preserveQuery: true })">
 								<span class="material-symbols-rounded" style="font-size: inherit;">
 									close
 								</span>
@@ -1132,12 +1132,12 @@ input[type="text"] {
 							نتیجه‌ای وجود ندارد
 						</div>
 						<div v-else v-for="[director, count] in filteredDirectorsInModal" :key="director"
-							@click="selectedDirector === director ? removeDirectorFilter() : selectDirectorFromModal(director)"
+							@click="selectedDirector === director ? navigate(basePath) : navigate('/director/' + toSlug(director), { preserveQuery: true })"
 							@mouseenter="hoveredItem = director" @mouseleave="hoveredItem = null"
 							:class="{ 'hovered': hoveredItem === director }" class="director-item">
 							{{ director }} <span class="count">({{ count.toLocaleString('fa') }})</span>
 							<span v-if="selectedDirector === director" class="remove-filter"
-								@click.stop="removeDirectorFilter">
+								@click.stop="navigate(basePath, { preserveQuery: true })">
 								<span class="material-symbols-rounded" style="font-size: inherit;">
 									close
 								</span>
@@ -1162,12 +1162,12 @@ input[type="text"] {
 							نتیجه‌ای وجود ندارد
 						</div>
 						<div v-else v-for="[letter, count] in filteredLettersInModal" :key="letter"
-							@click="selectedLetter === letter ? removeLetterFilter() : selectLetterFromModal(letter)"
+							@click="selectedLetter === letter ? navigate(basePath) : navigate('/letter/' + letter, { preserveQuery: true })"
 							@mouseenter="hoveredItem = letter" @mouseleave="hoveredItem = null"
 							:class="{ 'hovered': hoveredItem === letter }" class="letter-item">
 							{{ letter }} <span class="count">({{ count.toLocaleString('fa') }})</span>
 							<span v-if="selectedLetter === letter" class="remove-filter"
-								@click.stop="removeLetterFilter">
+								@click.stop="navigate(basePath, { preserveQuery: true })">
 								<span class="material-symbols-rounded" style="font-size: inherit;">
 									close
 								</span>
@@ -1285,7 +1285,7 @@ input[type="text"] {
 							</span>
 						</span>
 					</div>
-					<button @click="resetFilters" id="resetSearch">
+					<button @click="navigate(basePath)" id="resetSearch">
 						<span class="material-symbols-rounded">
 							refresh
 						</span>
@@ -1368,7 +1368,7 @@ input[type="text"] {
 			</div>
 		</div>
 		<div id="filters" class="filters-container" v-if="activeFilters.length > 0" style="display: none" :style="{ display: undefined }">
-			<div v-for="(filter, index) in activeFilters" :key="index" @click="removeFilter(filter.type, filter.value)"
+			<div v-for="(filter, index) in activeFilters" :key="index" @click="navigate(filter.path, { preserveQuery: true })"
 				class="designer-item">
 				<span style="align-content: center;">{{ filter.label }}: {{ filter.value }}</span>
 				<button class="remove-filter">
@@ -1397,8 +1397,10 @@ input[type="text"] {
 					</div>
 	
 					<div class="item-title">
-						{{ item.filmLabel }}
-						<span class="year-link" v-if="item.date" @click="selectYearFromTitle(toPersianYear(item.date))">
+						<a href="#" @click.prevent="navigate('/poster/' + toSlug(item.filmLabel) + '-' + toPersianYear(item.date), { preserveQuery: true })">
+							{{ item.filmLabel }}
+						</a>
+						<span class="year-link" v-if="item.date" @click="navigate('/year/' + toPersianYear(item.date), { preserveQuery: true })">
 							({{ toPersianYear(item.date) }})
 						</span>
 					</div>
@@ -1410,7 +1412,7 @@ input[type="text"] {
 						</span>
 						<span class="desktop-only">{{ item.designers.length === 1 ? 'طراح: ' : 'طراحان: ' }}</span>
 						<span v-for="(designer, index) in item.designers" :key="index">
-							<a href="#" @click.prevent="selectDesigner(designer.label)" aria-label="انتخاب طراح">{{ designer.label }}</a>
+							<a href="#" @click.prevent="navigate('/designer/' + toSlug(designer.label), { preserveQuery: true })" aria-label="انتخاب طراح">{{ designer.label }}</a>
 							<span class="item-links">
 								<a :href="'https://www.wikidata.org/wiki/' + designer.id" aria-label="ویکی‌داده" target="_blank">
 									<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg"
@@ -1483,6 +1485,18 @@ posterLogoSwitch.removeAttribute('data-mode');
 desktopSidebarToggleButton.style.display = 'block';
 
 createApp({ setup: () => {
+	
+// تابع برای تبدیل رشته فارسی به اسلاگ (URL دوستانه)
+const toSlug = (text) => {
+    if (!text) return '';
+    const charMap = {
+        ' ': '-', 'آ': 'a', 'ا': 'a', 'ب': 'b', 'پ': 'p', 'ت': 't', 'ث': 's', 'ج': 'j', 'چ': 'ch', 'ح': 'h', 'خ': 'kh', 'د': 'd', 'ذ': 'z', 'ر': 'r', 'ز': 'z', 'ژ': 'zh', 'س': 's', 'ش': 'sh', 'ص': 's', 'ض': 'z', 'ط': 't', 'ظ': 'z', 'ع': 'a', 'غ': 'gh', 'ف': 'f', 'ق': 'gh', 'ک': 'k', 'گ': 'g', 'ل': 'l', 'م': 'm', 'ن': 'n', 'و': 'v', 'ه': 'h', 'ی': 'y',
+        '0': '0', '1': '1', '2': '2', '3': '3', '4': '4', '5': '5', '6': '6', '7': '7', '8': '8', '9': '9'
+    };
+    return text.toLowerCase().replace(/[\u0600-\u06FF\u200C]/g, (char) => charMap[char] || '').replace(/[\s-]+/g, '-').replace(/^-+|-+$/g, '');
+};
+
+const basePath = window.location.pathname.replace(/\/poster\/.*|\/designer\/.*|\/year\/.*|\/letter\/.*/, '');
 
 const darkMode = ref(false);
 const toggleDarkMode = () => darkMode.value = !darkMode.value;
@@ -1495,6 +1509,7 @@ const selectedYear = ref('');
 const selectedDesigner = ref('');
 const selectedDirector = ref('');
 const selectedLetter = ref('');
+const selectedPoster = ref(null);
 const posterMode = ref(true);
 const combineSimilarChars = ref(false);
 const pixelatedEffect = ref(false);
@@ -1511,6 +1526,126 @@ const isMobileView = ref(false);
 const isDesktopSidebarFixed = ref(false);
 const yearsChartInstance = ref(null);
 const isD3Loaded = ref(false);
+
+// SEO: Reactive meta tags
+const metaTitle = ref('Film Posters of Iran | آرشیو پوسترهای سینمای ایران');
+const metaDescription = ref('آرشیو پوستر فیلم‌های سینمایی ایرانی قبل و بعد از انقلاب؛ دربردارندهٔ آثار محمدعلی باطنی، محمدعلی حدت، محسن دولو، مسعود بهنام، مرتضی ممیز، ابراهیم حقیقی و دیگر طراحان گرافیک.');
+
+// تابع برای هدایت به مسیر جدید با حفظ پارامترهای فعلی
+const navigate = (path, options = {}) => {
+    const { preserveQuery = false } = options;
+    const currentQuery = preserveQuery ? window.location.search : '';
+    const newUrl = `${path}${currentQuery}`;
+    history.pushState(null, '', newUrl);
+    handleRouting();
+};
+
+const handleRouting = () => {
+    const path = window.location.pathname;
+    
+    // ابتدا همه فیلترهای مرتبط با مسیر را ریست می‌کنیم
+    selectedYear.value = '';
+    selectedDesigner.value = '';
+    selectedDirector.value = '';
+    selectedLetter.value = '';
+    selectedPoster.value = null;
+
+    const pathParts = path.split('/').filter(part => part !== '');
+    if (pathParts.length > 0) {
+        const type = pathParts[0];
+        const value = decodeURIComponent(pathParts[1] || '').replace(/-/g, ' ');
+        switch (type) {
+            case 'year':
+                selectedYear.value = value;
+                break;
+            case 'designer':
+                selectedDesigner.value = value;
+                break;
+            case 'director':
+                selectedDirector.value = value;
+                break;
+            case 'letter':
+                selectedLetter.value = value;
+                break;
+            case 'poster':
+                const filmItem = filteredItems.value.find(item => toSlug(item.filmLabel) + '-' + toPersianYear(item.date) === toSlug(value));
+                if (filmItem) {
+                    selectedPoster.value = filmItem;
+                    openLightbox(filmItem);
+                } else {
+                    // در صورت عدم یافتن آیتم به صفحه اصلی برگردید
+                    navigate(basePath, { replace: true });
+                }
+                break;
+            default:
+                // مسیر نامعتبر
+                navigate(basePath, { replace: true });
+                break;
+        }
+    } else {
+        // مسیر ریشه (صفحه اصلی)
+        // هیچ فیلتری از طریق مسیر اعمال نمی‌شود
+    }
+};
+
+watch([searchTerm, selectedYear, selectedDesigner, selectedDirector, selectedLetter, selectedPoster], () => {
+    let newTitle = 'Film Posters of Iran | آرشیو پوسترهای سینمای ایران';
+    let newDescription = 'آرشیو پوستر فیلم‌های سینمایی ایرانی قبل و بعد از انقلاب؛ دربردارندهٔ آثار محمدعلی باطنی، محمدعلی حدت، محسن دولو، مسعود بهنام، مرتضی ممیز، ابراهیم حقیقی و دیگر طراحان گرافیک.';
+    const filters = [];
+
+    // SEO: مدیریت متا تگ‌ها و JSON-LD برای نمایش پوستر تکی
+    if (selectedPoster.value) {
+        const item = selectedPoster.value;
+        newTitle = `پوستر فیلم ${item.filmLabel} (${toPersianYear(item.date)})`;
+        newDescription = `پوستر فیلم ${item.filmLabel} به کارگردانی ${item.directorLabel} و طراحی ${item.designerLabel}.`;
+		
+		const ldData = {
+            "@context": "https://schema.org",
+            "@type": "CreativeWork",
+            "name": `پوستر فیلم ${item.filmLabel}`,
+            "author": item.designers.map(d => ({ "@type": "Person", "name": d.label })),
+            "dateCreated": item.date,
+            "creator": { "@type": "Person", "name": item.directorLabel },
+            "image": `https://upload.wikimedia.org/wikipedia/commons/thumb/${item.posterHash[0]}/${item.posterHash}/${item.poster}/960px-${item.poster}`,
+            "url": window.location.href
+        };
+        const ldScript = document.getElementById('json-ld-data');
+        if (ldScript) ldScript.textContent = JSON.stringify(ldData);
+    } else {
+        if (searchTerm.value) filters.push(`جستجو: ${searchTerm.value}`);
+        if (selectedYear.value) filters.push(`سال: ${selectedYear.value}`);
+        if (selectedDesigner.value) filters.push(`طراح: ${selectedDesigner.value}`);
+        if (selectedDirector.value) filters.push(`کارگردان: ${selectedDirector.value}`);
+        if (selectedLetter.value) filters.push(`حرف: ${selectedLetter.value}`);
+
+        if (filters.length > 0) {
+            const filterText = filters.join(' - ');
+            newTitle = `${filterText} | ${newTitle}`;
+            newDescription = `نتایج فیلتر شده برای ${filterText}. ${newDescription}`;
+        }
+		
+		const ldData = {
+			"@context": "https://schema.org",
+			"@graph": filteredItems.value.slice(0, displayedItemsCount.value).map(item => ({
+				"@type": "CreativeWork",
+				"name": item.filmLabel,
+				"author": item.designers.map(d => ({ "@type": "Person", "name": d.label })),
+				"dateCreated": item.date,
+				"creator": { "@type": "Person", "name": item.directorLabel },
+				"image": `https://upload.wikimedia.org/wikipedia/commons/thumb/${item.posterHash[0]}/${item.posterHash}/${item.poster}/250px-${item.poster}`
+			}))
+		};
+        const ldScript = document.getElementById('json-ld-data');
+        if (ldScript) ldScript.textContent = JSON.stringify(ldData);
+    }
+
+    document.title = newTitle;
+    document.querySelector('meta[name="description"]').setAttribute('content', newDescription);
+    document.querySelector('meta[property="og:title"]').setAttribute('content', newTitle);
+    document.querySelector('meta[property="og:description"]').setAttribute('content', newDescription);
+    document.querySelector('meta[property="twitter:title"]').setAttribute('content', newTitle);
+    document.querySelector('meta[property="twitter:description"]').setAttribute('content', newDescription);
+}, { immediate: true });
 
 const showMore = () => {
 	displayedItemsCount.value += 30;
@@ -1535,12 +1670,9 @@ const hasActiveFilters = computed(() => {
 });
 
 const applyInitialFilters = () => {
+    handleRouting();
 	const urlParams = new URLSearchParams(window.location.search);
 	searchTerm.value = urlParams.get('q') || '';
-	selectedYear.value = urlParams.get('y') || '';
-	selectedDesigner.value = urlParams.get('designer') || '';
-	selectedDirector.value = urlParams.get('director') || '';
-	selectedLetter.value = urlParams.get('letter') || '';
 	posterMode.value = urlParams.get('mode') !== 'logo';
 	combineSimilarChars.value = urlParams.get('similar') === 'true';
 	pixelatedEffect.value = urlParams.get('censor') === null
@@ -1553,26 +1685,25 @@ const applyInitialFilters = () => {
 applyInitialFilters();
 
 const updateURL = () => {
-	const params = new URLSearchParams();
-	if (searchTerm.value) params.set('q', searchTerm.value);
-	if (selectedYear.value) params.set('y', selectedYear.value);
-	if (selectedDesigner.value) params.set('designer', selectedDesigner.value);
-	if (selectedDirector.value) params.set('director', selectedDirector.value);
-	if (selectedLetter.value) params.set('letter', selectedLetter.value);
-	params.set('mode', posterMode.value ? 'poster' : 'logo');
-	params.set('similar', combineSimilarChars.value ? 'true' : 'false');
-	params.set('censor', pixelatedEffect.value ? 'true' : 'false');
-	params.set('sort', sortOrder.value);
-	params.set('dir', sortDirection.value);
-	params.set('exact', exactWordMatch.value ? 'true' : 'false');
+    const params = new URLSearchParams(window.location.search);
+    if (searchTerm.value) {
+        params.set('q', searchTerm.value);
+    } else {
+        params.delete('q');
+    }
+    params.set('mode', posterMode.value ? 'poster' : 'logo');
+    params.set('similar', combineSimilarChars.value ? 'true' : 'false');
+    params.set('censor', pixelatedEffect.value ? 'true' : 'false');
+    params.set('sort', sortOrder.value);
+    params.set('dir', sortDirection.value);
+    params.set('exact', exactWordMatch.value ? 'true' : 'false');
 
-	const newUrl = `${window.location.pathname}?${params.toString()}`;
-	window.history.pushState({}, '', newUrl);
+    let newUrl = `${window.location.pathname}?${params.toString()}`;
+    history.replaceState(null, '', newUrl);
 };
-watch([
-	searchTerm, selectedYear, selectedDesigner, selectedDirector,
-	selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder, sortDirection, exactWordMatch
-], updateURL);
+watch([searchTerm, posterMode, combineSimilarChars, pixelatedEffect, sortOrder, sortDirection, exactWordMatch], () => {
+    updateURL();
+});
 
 const isCollapsed = ref({
 	designers: false,
@@ -1601,14 +1732,11 @@ const applyFilters = () => {};
 
 const resetFilters = () => {
 	searchTerm.value = '';
-	combineSimilarChars.value = false;
-	sortOrder.value = 'random';
 	selectedYear.value = '';
 	selectedDesigner.value = '';
 	selectedDirector.value = '';
 	selectedLetter.value = '';
-	sortDirection.value = 'asc';
-	exactWordMatch.value = false;
+	selectedPoster.value = null;
 };
 
 const films = Object.values(data.films);
@@ -1800,6 +1928,12 @@ const filteredItems = computed(() => {
 	if (selectedLetter.value) {
 		results = results.filter(item => item.filmLabel.startsWith(selectedLetter.value));
 	}
+    
+    // فیلتر برای نمایش پوستر تکی
+    if (selectedPoster.value) {
+        results = results.filter(item => item.film === selectedPoster.value.film);
+    }
+
 
 	if (sortOrder.value === 'alphabetical') {
 		results = results.sort((a, b) => {
@@ -2028,11 +2162,20 @@ onMounted(() => window.addEventListener('popstate', handlePopState));
 onUnmounted(() => window.removeEventListener('popstate', handlePopState));
 
 const handlePopState = e => {
-	if (sidebarVisible.value) {
-		hideSidebar();
-		e.preventDefault();
-		window.history.pushState(null, '', window.location.pathname);
-	}
+    // بازگردانی حالت برنامه بر اساس مسیر جدید
+    if (lightboxItem.value) closeLightbox();
+    handleRouting();
+    // updateURL();
+    const urlParams = new URLSearchParams(window.location.search);
+	searchTerm.value = urlParams.get('q') || '';
+	posterMode.value = urlParams.get('mode') !== 'logo';
+	combineSimilarChars.value = urlParams.get('similar') === 'true';
+	pixelatedEffect.value = urlParams.get('censor') === null
+		? location.hostname.endsWith('.ir')
+		: urlParams.get('censor') === 'true';
+	sortOrder.value = urlParams.get('sort') || 'random';
+	sortDirection.value = urlParams.get('dir') || 'asc';
+	exactWordMatch.value = urlParams.get('exact') === 'true';
 };
 
 const clearSearchTerm = () => searchTerm.value = '';
@@ -2045,7 +2188,7 @@ const lightboxItem = ref(undefined);
 const lightboxImage = ref(undefined);
 const isLoading = ref(false);
 
-const openLightbox = item => {
+const openLightbox = (item) => {
 	if (!posterMode.value && !item.logo) {
 		lightboxImage.value = undefined;
 		lightboxItem.value = undefined;
@@ -2066,13 +2209,16 @@ const openLightbox = item => {
 const closeLightbox = () => {
 	lightboxItem.value = undefined;
 	isLoading.value = false;
+	navigate(basePath, { preserveQuery: true });
 };
 
 watch(lightboxItem, newValue => {
 	if (newValue) {
-		document.addEventListener('click', handleClickOutsideLightbox);
+		// document.addEventListener('click', handleClickOutsideLightbox);
 	} else {
-		document.removeEventListener('click', handleClickOutsideLightbox);
+		// document.removeEventListener('click', handleClickOutsideLightbox);
+        // به مسیر اصلی برگردید
+        // navigate(basePath, { replace: true });
 	}
 });
 
@@ -2083,16 +2229,13 @@ const handleClickOutsideLightbox = event => {
 	}
 };
 
-const handleImageClick = item => {
-	if ((event.button !== 0 && event.which !== 1) ||
-		event.altKey || event.ctrlKey || event.shiftKey || event.metaKey) {
-		return true;
-	}
-
-	console.log('Image clicked:', item);
-	event.preventDefault();
-	event.stopPropagation();
-	openLightbox(item);
+const handleImageClick = (item) => {
+    if ((event.button !== 0 && event.which !== 1) || event.altKey || event.ctrlKey || event.shiftKey || event.metaKey) {
+        return true;
+    }
+    event.preventDefault();
+    event.stopPropagation();
+    navigate('/poster/' + toSlug(item.filmLabel) + '-' + toPersianYear(item.date), { preserveQuery: true });
 };
 
 const changeLightboxImage = changeIndexCallback => {
@@ -2115,6 +2258,7 @@ const nextImage = () => changeLightboxImage((current, lastItem) => current >= la
 
 onMounted(() => {
 	window.addEventListener('keydown', handleKeyDown);
+    handleRouting();
 });
 
 onUnmounted(() => {
@@ -2160,21 +2304,24 @@ const downloadLink = item => {
 	return `https://upload.wikimedia.org/wikipedia/commons/${hash[0]}/${hash}/${name}?download`;
 };
 
-const selectYearFromTitle = year => selectedYear.value = year;
+const selectYearFromTitle = year => navigate('/year/' + year, { preserveQuery: true });
 
 const activeFilters = computed(() => {
 	const filters = [];
 	if (selectedYear.value) {
-		filters.push({ type: 'year', label: 'سال', value: selectedYear.value });
+		filters.push({ type: 'year', label: 'سال', value: selectedYear.value, path: `/year/${selectedYear.value}` });
 	}
 	if (selectedDesigner.value) {
-		filters.push({ type: 'designer', label: 'طراح', value: selectedDesigner.value });
+		filters.push({ type: 'designer', label: 'طراح', value: selectedDesigner.value, path: `/designer/${toSlug(selectedDesigner.value)}` });
 	}
 	if (selectedDirector.value) {
-		filters.push({ type: 'director', label: 'کارگردان', value: selectedDirector.value });
+		filters.push({ type: 'director', label: 'کارگردان', value: selectedDirector.value, path: `/director/${toSlug(selectedDirector.value)}` });
 	}
 	if (selectedLetter.value) {
-		filters.push({ type: 'letter', label: 'حرف اول', value: selectedLetter.value });
+		filters.push({ type: 'letter', label: 'حرف اول', value: selectedLetter.value, path: `/letter/${selectedLetter.value}` });
+	}
+	if (searchTerm.value) {
+		filters.push({ type: 'q', label: 'جستجو', value: searchTerm.value, path: `/?q=${searchTerm.value}` });
 	}
 	return filters;
 });
@@ -2182,16 +2329,19 @@ const activeFilters = computed(() => {
 const removeFilter = (type, value) => {
 	switch (type) {
 		case 'year':
-			selectedYear.value = '';
+			navigate(basePath, { preserveQuery: true });
 			break;
 		case 'designer':
-			selectedDesigner.value = '';
+			navigate(basePath, { preserveQuery: true });
 			break;
 		case 'director':
-			selectedDirector.value = '';
+			navigate(basePath, { preserveQuery: true });
 			break;
 		case 'letter':
-			selectedLetter.value = '';
+			navigate(basePath, { preserveQuery: true });
+			break;
+		case 'q':
+			searchTerm.value = '';
 			break;
 	}
 };
@@ -2417,7 +2567,7 @@ const updateChart = () => {
 		.on("mouseout", () => {
 			tooltip.transition().duration(500).style("opacity", 0);
 		})
-		.on("click", (event, d) => selectYearFromModal(d[0]));
+		.on("click", (event, d) => navigate('/year/' + d[0], { preserveQuery: true }));
 
 	g.append("g").attr("class", "x-axis").call(xAxis);
 	g.append("g").attr("class", "y-axis").call(yAxis);
@@ -2487,7 +2637,7 @@ window.addEventListener('keydown', (event) => {
 });
 
 return {
-	showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items,
+	toSlug, navigate, showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items,
 	getItemUrl, getCommonsUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, sortDirection, selectedYear,
 	availableYears, availableDesigners, selectedDesigner, filteredYears, bringToTop, visibleBringToTop,
 	filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors,
@@ -2505,10 +2655,11 @@ return {
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount,
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
 	searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
-	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle
+	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle, basePath
 };
 
 } }).mount('#app');
 </script>
+<script id="json-ld-data" type="application/ld+json"></script>
 </body>
 </html>
