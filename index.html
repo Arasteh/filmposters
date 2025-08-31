@@ -1141,6 +1141,7 @@ input[type="text"] {
 								<span class="material-symbols-rounded" style="font-size: inherit;">
 									close
 								</span>
+							</span>
 						</div>
 					</div>
 				</div>
@@ -1171,6 +1172,7 @@ input[type="text"] {
 								<span class="material-symbols-rounded" style="font-size: inherit;">
 									close
 								</span>
+							</span>
 						</div>
 					</div>
 				</div>
@@ -2531,7 +2533,7 @@ window.addEventListener('keydown', (event) => {
 window.addEventListener('keydown', (event) => {
 	if (event.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
 		event.preventDefault();
-		const searchInput = document.querySelector('input[type="text'][placeholder*="پرش"]');
+		const searchInput = document.querySelector('input[type="text"][placeholder*="پرش"]');
 		if (searchInput) {
 			searchInput.focus();
 		}
