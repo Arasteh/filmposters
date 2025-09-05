@@ -1329,9 +1329,9 @@ input[type="text"] {
 						</label>
 					</div>
 
-					<div class="similar-chars-toggle">
+					<div class="similar-chars-toggle" v-if="posterMode">
 						<label for="pixelatedSwitch" style="cursor: pointer;">
-							<input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect" :disabled="posterMode ? null : true">
+							<input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect">
 							سانسور
 						</label>
 						<label>
@@ -1354,7 +1354,7 @@ input[type="text"] {
 								<span class="tooltiptext">فقط تصاویر نمایش داده شوند و باقی اطلاعات مخفی شوند</span>
 							</span>
 						</label>
-						<div v-if="!posterMode" style="margin-right: 10px;">
+						<div v-if="!posterMode && cleanMode" style="margin-right: 10px;">
 							<input type="color" v-model="backgroundColor" id="bgColorPicker" style="width: 40px; height: 40px; border-radius: 50%; border: none; cursor: pointer; padding: 0;">
 						</div>
 					</div>
