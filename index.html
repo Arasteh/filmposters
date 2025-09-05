@@ -1354,6 +1354,9 @@ input[type="text"] {
 								<span class="tooltiptext">فقط تصاویر نمایش داده شوند و باقی اطلاعات مخفی شوند</span>
 							</span>
 						</label>
+						<div v-if="!posterMode" style="margin-right: 10px;">
+							<input type="color" v-model="backgroundColor" id="bgColorPicker" style="width: 40px; height: 40px; border-radius: 50%; border: none; cursor: pointer; padding: 0;">
+						</div>
 					</div>
 
 					<div class="sort-order-container">
@@ -1390,7 +1393,7 @@ input[type="text"] {
 			</div>
 		</div>
 		<div v-if="filteredItems.length > 0" class="results-grid">
-			<div class="item-card" v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)" :key="index" style="visibility: hidden" :style="{ visibility: undefined, padding: !posterMode && cleanMode ? '0' : '15px 5px', background: !posterMode && cleanMode ? 'white' : 'var(--card-background)', border: !posterMode && cleanMode ? 'none' : '1px solid ' + 'var(--card-background)' }">
+			<div class="item-card" v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)" :key="index" style="visibility: hidden" :style="{ visibility: undefined, padding: !posterMode && cleanMode ? '0' : '15px 5px', background: !posterMode && cleanMode ? backgroundColor : 'var(--card-background)', border: !posterMode && cleanMode ? 'none' : '1px solid ' + 'var(--card-background)' }">
 				<div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
 					<div class="image-container" :style="{ aspectRatio: !posterMode && cleanMode ? '1/1' : '5/7.5' }">
 						<a @click="handleImageClick(item)" :href="getCommonsUrl(item, posterMode, pixelatedEffect)"
@@ -1511,7 +1514,7 @@ const selectedLetter = ref('');
 const posterMode = ref(true);
 const combineSimilarChars = ref(false);
 const pixelatedEffect = ref(false);
-const cleanMode = ref(false); // Add this line
+const cleanMode = ref(false);
 const sortOrder = ref('random');
 const sortDirection = ref('asc');
 const searchPlaceholder = ref('جستجو (برای پرش به کادر جستجو / را تایپ کنید)');
@@ -1525,6 +1528,7 @@ const isMobileView = ref(false);
 const isDesktopSidebarFixed = ref(false);
 const yearsChartInstance = ref(null);
 const isD3Loaded = ref(false);
+const backgroundColor = ref('#ffffff');
 
 const showMore = () => {
 	displayedItemsCount.value += 30;
@@ -1563,7 +1567,8 @@ const applyInitialFilters = () => {
 	sortOrder.value = urlParams.get('sort') || 'random';
 	sortDirection.value = urlParams.get('dir') || 'asc';
 	exactWordMatch.value = urlParams.get('exact') === 'true';
-	cleanMode.value = urlParams.get('clean') === 'true'; // Add this line
+	cleanMode.value = urlParams.get('clean') === 'true';
+	backgroundColor.value = urlParams.get('bgcolor') || '#ffffff';
 };
 applyInitialFilters();
 
@@ -1582,7 +1587,10 @@ const updateURL = () => {
 		params.set('dir', sortDirection.value);
 	}
 	params.set('exact', exactWordMatch.value ? 'true' : 'false');
-	if (cleanMode.value) params.set('clean', 'true'); // Add this line
+	if (cleanMode.value) params.set('clean', 'true');
+	if (!posterMode.value) {
+		params.set('bgcolor', backgroundColor.value);
+	}
 
 	const newUrl = `${window.location.pathname}?${params.toString()}`;
 	window.history.pushState({}, '', newUrl);
@@ -1590,7 +1598,7 @@ const updateURL = () => {
 watch([
 	searchTerm, selectedYear, selectedDesigner, selectedDirector,
 	selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder, sortDirection, exactWordMatch,
-	cleanMode // Add this line
+	cleanMode, backgroundColor
 ], updateURL);
 
 const isCollapsed = ref({
@@ -1628,7 +1636,8 @@ const resetFilters = () => {
 	selectedLetter.value = '';
 	sortDirection.value = 'asc';
 	exactWordMatch.value = false;
-	cleanMode.value = false; // Add this line
+	cleanMode.value = false;
+	backgroundColor.value = '#ffffff';
 };
 
 const films = Object.values(data.films);
@@ -2531,7 +2540,7 @@ return {
 	filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass,
 	directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter,
 	removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar,
-	sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, cleanMode, clearSearchTerm, lightboxItem,
+	sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, cleanMode, backgroundColor, clearSearchTerm, lightboxItem,
 	lightboxImage, openLightbox, closeLightbox, downloadLink, handleImageClick,
 	clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading,
 	handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage,
