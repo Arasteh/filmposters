@@ -1298,11 +1298,6 @@ input[type="text"] {
 					</button>
 				</div>
 				<div class="options" :class="{ 'collapsed': isOptionsCollapsed }">
-					<div class="toggle-switch" @click="togglePosterMode"
-						id="posterLogoSwitch" data-mode="poster" :data-mode="posterMode ? 'poster' : 'logo'">
-						<span id="posterButton" class="active" :class="{ active: posterMode }">پوستر</span>
-						<span :class="{ active: !posterMode }">لوگو</span>
-					</div>
 					<div class="similar-chars-toggle">
 						<label for="similarCharsSwitch" style="cursor: pointer;">
 							<input type="checkbox" id="similarCharsSwitch" v-model="combineSimilarChars">
@@ -1374,6 +1369,12 @@ input[type="text"] {
 						</div>
 					</div>
 				</div>
+				<div>
+				<div class="toggle-switch" @click="togglePosterMode"
+						id="posterLogoSwitch" data-mode="poster" :data-mode="posterMode ? 'poster' : 'logo'">
+						<span id="posterButton" class="active" :class="{ active: posterMode }">پوستر</span>
+						<span :class="{ active: !posterMode }">لوگو</span>
+				</div>
 				<div v-if="filteredItems.length > 0"
 					style="margin-top: 15px; text-align: center; padding-bottom: 5px; visibility: hidden"
 					:style="{ visibility: undefined }"
@@ -1381,7 +1382,7 @@ input[type="text"] {
 					<span v-if="hasActiveFilters">{{ filteredItemsLength }} از {{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueResultsFilmCount }} از {{ uniqueFilmCount }} فیلم)</span>
 					<span v-else>{{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueFilmCount }} فیلم)</span>
 				</div>
-			</div>
+			</div></div>
 		</div>
 		<div id="filters" class="filters-container" v-if="activeFilters.length > 0" style="display: none" :style="{ display: undefined }">
 			<div v-for="(filter, index) in activeFilters" :key="index" @click="removeFilter(filter.type, filter.value)"
