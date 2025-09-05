@@ -1362,8 +1362,8 @@ input[type="text"] {
 					style="margin-top: 15px; text-align: center; padding-bottom: 5px; visibility: hidden"
 					:style="{ visibility: undefined }"
 					>
-					<span v-if="hasActiveFilters">{{ filteredItemsLength }} از {{ itemsLength }} پوستر ({{ uniqueResultsFilmCount }} از {{ uniqueFilmCount }} فیلم)</span>
-					<span v-else>{{ itemsLength }} پوستر ({{ uniqueFilmCount }} فیلم)</span>
+					<span v-if="hasActiveFilters">{{ filteredItemsLength }} از {{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueResultsFilmCount }} از {{ uniqueFilmCount }} فیلم)</span>
+					<span v-else>{{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueFilmCount }} فیلم)</span>
 				</div>
 			</div>
 		</div>
@@ -1612,8 +1612,11 @@ const resetFilters = () => {
 };
 
 const films = Object.values(data.films);
+const posters = films.flatMap(film => film.posters);
+const logos = films.flatMap(film => film.logos).filter(logo => logo.image.endsWith('.png'));
+
 const uniqueFilmCount = computed(() => films.length.toLocaleString('fa', { useGrouping: false }));
-	
+
 const uniqueResultsFilmCount = computed(() => {
 	const uniqueFilmIds = new Set(filteredItems.value.map(item => item.film));
 	return uniqueFilmIds.size.toLocaleString('fa', { useGrouping: false });
@@ -1664,14 +1667,19 @@ const items = films.flatMap(film => {
 			item.imdbID = film.imdb[0];
 		}
 		item.faWikipediaLink = film.sitelinks.fawiki;
-		if (film.logos.length > i) {
+		if (film.logos.length > i && film.logos[i].image.endsWith('.png')) {
 			item.logo = film.logos[i].image;
 			item.logoHash = film.logos[i].hash;
 		}
 		return item;
 	});
 });
-const itemsLength = computed(() => items.length.toLocaleString('fa', { useGrouping: false }));
+const itemsLength = computed(() => {
+	const count = posterMode.value
+		? posters.length
+		: logos.length;
+	return count.toLocaleString('fa', { useGrouping: false });
+});
 
 const similarCharsMapping = {
 	'آ': '[آاأإ]', 'ا': '[آاأإ]', 'أ': '[آاأإ]', 'إ': '[آاأإ]', 'ط': '[طظ]', 'ظ': '[طظ]', 'ب': '[بپتثنی]', 'پ': '[بپتثنی]',
@@ -1800,6 +1808,11 @@ const filteredItems = computed(() => {
 	if (selectedLetter.value) {
 		results = results.filter(item => item.filmLabel.startsWith(selectedLetter.value));
 	}
+
+	if (!posterMode.value) {
+		results = results.filter(item => item.logo);
+	}
+
 
 	if (sortOrder.value === 'alphabetical') {
 		results = results.sort((a, b) => {
