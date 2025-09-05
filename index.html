@@ -1342,6 +1342,19 @@ input[type="text"] {
 							</span>
 						</label>
 					</div>
+					
+					<div class="similar-chars-toggle">
+						<label for="cleanModeSwitch" style="cursor: pointer;">
+							<input type="checkbox" id="cleanModeSwitch" v-model="cleanMode">
+							حالت تمیز
+						</label>
+						<label>
+							<span class="material-symbols-rounded tooltip">
+								info
+								<span class="tooltiptext">فقط تصاویر نمایش داده شوند و باقی اطلاعات مخفی شوند</span>
+							</span>
+						</label>
+					</div>
 
 					<div class="sort-order-container">
 						<label @click="toggleSortDirection" style="cursor: pointer;">
@@ -1396,14 +1409,14 @@ input[type="text"] {
 						</a>
 					</div>
 	
-					<div class="item-title">
+					<div class="item-title" v-if="!cleanMode">
 						{{ item.filmLabel }}
 						<span class="year-link" v-if="item.date" @click="selectYearFromTitle(toPersianYear(item.date))">
 							({{ toPersianYear(item.date) }})
 						</span>
 					</div>
 	
-					<div v-if="item.designerLabel && item.designerLabel !== 'نامشخص'" class="item-designer">
+					<div v-if="item.designerLabel && item.designerLabel !== 'نامشخص' && !cleanMode" class="item-designer">
 						<span class="mobile-only">
 							<span class="material-symbols-rounded"
 								style="margin-left: 5px; top: 8px; position: relative;">person_edit</span>
@@ -1428,7 +1441,7 @@ input[type="text"] {
 						</span>
 					</div>
 				</div>
-				<div id="film-links" class="item-links">
+				<div id="film-links" class="item-links" v-if="!cleanMode">
 					<a v-if="item.imdbID" :href="'https://www.imdb.com/title/' + item.imdbID" aria-label="IMDb" target="_blank">
 						<img src="https://upload.wikimedia.org/wikipedia/commons/5/53/IMDB_-_SuperTinyIcons.svg"
 							alt="IMDb" class="linkIcon">
@@ -1498,6 +1511,7 @@ const selectedLetter = ref('');
 const posterMode = ref(true);
 const combineSimilarChars = ref(false);
 const pixelatedEffect = ref(false);
+const cleanMode = ref(false); // Add this line
 const sortOrder = ref('random');
 const sortDirection = ref('asc');
 const searchPlaceholder = ref('جستجو (برای پرش به کادر جستجو / را تایپ کنید)');
@@ -1549,6 +1563,7 @@ const applyInitialFilters = () => {
 	sortOrder.value = urlParams.get('sort') || 'random';
 	sortDirection.value = urlParams.get('dir') || 'asc';
 	exactWordMatch.value = urlParams.get('exact') === 'true';
+	cleanMode.value = urlParams.get('clean') === 'true'; // Add this line
 };
 applyInitialFilters();
 
@@ -1563,15 +1578,19 @@ const updateURL = () => {
 	params.set('similar', combineSimilarChars.value ? 'true' : 'false');
 	params.set('censor', pixelatedEffect.value ? 'true' : 'false');
 	params.set('sort', sortOrder.value);
-	params.set('dir', sortDirection.value);
+	if (sortOrder.value !== 'random') {
+		params.set('dir', sortDirection.value);
+	}
 	params.set('exact', exactWordMatch.value ? 'true' : 'false');
+	if (cleanMode.value) params.set('clean', 'true'); // Add this line
 
 	const newUrl = `${window.location.pathname}?${params.toString()}`;
 	window.history.pushState({}, '', newUrl);
 };
 watch([
 	searchTerm, selectedYear, selectedDesigner, selectedDirector,
-	selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder, sortDirection, exactWordMatch
+	selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder, sortDirection, exactWordMatch,
+	cleanMode // Add this line
 ], updateURL);
 
 const isCollapsed = ref({
@@ -1609,6 +1628,7 @@ const resetFilters = () => {
 	selectedLetter.value = '';
 	sortDirection.value = 'asc';
 	exactWordMatch.value = false;
+	cleanMode.value = false; // Add this line
 };
 
 const films = Object.values(data.films);
@@ -2511,7 +2531,7 @@ return {
 	filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass,
 	directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter,
 	removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar,
-	sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, clearSearchTerm, lightboxItem,
+	sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, cleanMode, clearSearchTerm, lightboxItem,
 	lightboxImage, openLightbox, closeLightbox, downloadLink, handleImageClick,
 	clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading,
 	handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage,
