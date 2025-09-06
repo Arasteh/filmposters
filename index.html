@@ -2415,39 +2415,33 @@ const mainContentPaddingTop = computed(() => {
 
 
 let lastScrollPosition = 0;
-let lastScrollY = 0;
 const scrollTolerance = 50;
 
 const handleScroll = () => {
-    const currentScrollY = window.scrollY;
-    const docHeight = document.body.scrollHeight;
-    const viewportHeight = window.innerHeight;
+	const currentScrollY = window.scrollY;
+	const docHeight = document.body.scrollHeight;
+	const viewportHeight = window.innerHeight;
 
-    // Conditionally apply scroll behavior
-    if (docHeight < viewportHeight * 1.5) {
+	if (docHeight < viewportHeight * 1.5) {
+		isSearchBarVisible.value = true;
+		lastScrollPosition = currentScrollY;
+		return;
+	}
+
+	if (currentScrollY > lastScrollPosition + scrollTolerance) {
+        // Scrolling down past tolerance
+        isSearchBarVisible.value = false;
+        lastScrollPosition = currentScrollY;
+    } else if (currentScrollY < lastScrollPosition - scrollTolerance) {
+        // Scrolling up past tolerance
         isSearchBarVisible.value = true;
-        lastScrollY = currentScrollY; // Keep lastScrollY updated
-        return;
+        lastScrollPosition = currentScrollY;
     }
-
-    const scrollDelta = currentScrollY - lastScrollY;
-
-    if (Math.abs(scrollDelta) > scrollTolerance) {
-        if (scrollDelta > 0) {
-            // Scrolling down
-            isSearchBarVisible.value = false;
-        } else {
-            // Scrolling up
-            isSearchBarVisible.value = true;
-        }
-    }
-    
-    // Always show search bar at the very top and bottom
-    if (currentScrollY <= 0 || (currentScrollY + viewportHeight) >= docHeight) {
-        isSearchBarVisible.value = true;
-    }
-    
-    lastScrollY = currentScrollY;
+	
+	// Always show search bar at the very top and bottom of the page
+	if (currentScrollY <= 0 || (window.innerHeight + window.scrollY) >= docHeight) {
+		isSearchBarVisible.value = true;
+	}
 
 	visibleBringToTop.value = currentScrollY > 20;
 };
@@ -2652,6 +2646,7 @@ onMounted(() => {
 			if (searchBarInnerElement) {
 				searchBarHeight.value = searchBarInnerElement.offsetHeight;
 			}
+			mainContentPaddingTop.value = mainContentPaddingTop.value;
 		}
 	});
 });
