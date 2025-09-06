@@ -1400,7 +1400,7 @@ input[type="text"] {
 						</button>
 						<button @click="toggleOptions" class="options-toggle-desktop desktop-only" :class="{ 'active-options-toggle': !isOptionsCollapsed }">جستجوی پیشرفته</button>
 					</div>
-					<div class="options-wrapper-bottom" :class="{ 'collapsed': isOptionsCollapsed }">
+					<div class="options-wrapper-bottom" :class="{ 'collapsed-desktop': isOptionsCollapsed, 'collapsed': isOptionsCollapsed }">
 						<div class="options-row-top">
 							<div class="similar-chars-toggle">
 								<label for="similarCharsSwitch" style="cursor: pointer;">
