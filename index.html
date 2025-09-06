@@ -2409,7 +2409,7 @@ const mainContentPaddingTop = computed(() => {
 	if (isMobileView.value) {
 		return `${searchBarHeight.value + basePadding}px`;
 	} else {
-		return isSearchBarVisible.value ? `${searchBarHeight.value + basePadding}px` : `${basePadding}px`;
+		return isSearchBarVisible.value ? `${searchBarHeight.value - basePadding}px` : `${basePadding}px`;
 	}
 });
 
