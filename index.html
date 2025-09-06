@@ -582,6 +582,10 @@ input[type="text"] {
 	padding: 6px;
 }
 
+#toggleSidebarButton:hover {
+	background-color: light-dark(#aaa, #333);
+}
+
 #desktopSidebarToggleButton {
 	position: fixed;
 	top: 20px;
@@ -597,7 +601,7 @@ input[type="text"] {
 }
 
 #desktopSidebarToggleButton:hover {
-	background-color: light-dark(#f0f0f0, #333);
+	background-color: light-dark(#aaa, #333);
 }
 
 .rotate-up {
@@ -633,6 +637,15 @@ input[type="text"] {
 
 .sidebar-content {
 	padding: 0 10px 0 10px;
+}
+
+.filtersTitle {
+    right: 60px;
+    position: relative;
+    width: fit-content;
+    font-weight: bold;
+    height: 15px;
+    top: -5px;
 }
 
 .mobile-only {
@@ -996,6 +1009,10 @@ input[type="text"] {
 		cursor: pointer;
 	}
 
+	#hideSidebarButton:hover {
+	background-color: light-dark(#f0f0f0, #333);
+}
+
 	.sidebar {
 		position: fixed;
 		top: 0;
@@ -1031,6 +1048,9 @@ input[type="text"] {
 		padding: 0;
 	}
 
+	.filtersTitle {
+    right: 0px;
+	}
 	.sidebar-resize-handle {
 		display: none;
 	}
@@ -1130,13 +1150,13 @@ input[type="text"] {
 		<div class="sidebar-resize-handle"></div>
 				
 		<div class="sidebar-content">
-		<div style="display: flex; justify-content: start; gap: 20px;">
+		<div style="display: flex; justify-content: start; gap: 20px; padding-top: 10px;">
 			<button @click="hideSidebar" id="hideSidebarButton" class="mobile-only">
 				<span class="material-symbols-rounded">
 					close
 				</span>
 			</button>
-			<p style="right: 60px; position: relative; width: fit-content; font-weight: bold; height: 15px; top: -5px;">فیلترها</p>
+			<p class="filtersTitle">فیلترها</p>
 			</div>
 
 			<div class="sidebar-section" :class="getSectionClass('chart')">
