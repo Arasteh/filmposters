@@ -2400,9 +2400,9 @@ const bringToTop = () => document.documentElement.scrollTop = 0;
 const visibleBringToTop = ref(false);
 
 const mainContentPaddingTop = computed(() => {
-	const basePadding = 30; 
+	const basePadding = 0; 
 	if (isMobileView.value) {
-		return `${searchBarHeight.value + basePadding}px`;
+		return `${searchBarHeight.value + basePadding + 30}px`;
 	} else {
 		return isSearchBarVisible.value ? `${searchBarHeight.value + basePadding}px` : `${basePadding}px`;
 	}
