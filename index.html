@@ -957,6 +957,19 @@ input[type="text"] {
 		visibility: hidden;
 	}
 
+	.options-wrapper-bottom {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+		overflow: hidden;
+		max-height: 200px;
+	}
+	.options-wrapper-bottom.collapsed {
+		max-height: 0;
+		opacity: 0;
+	}
+
 	#showSidebarButton {
 		display: inline-block;
 	}
@@ -1020,18 +1033,6 @@ input[type="text"] {
 	}
 	.search-container {
 		gap: 5px;
-	}
-	.options-wrapper-bottom {
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-		overflow: hidden;
-		max-height: 200px;
-	}
-	.options-wrapper-bottom.collapsed {
-		max-height: 0;
-		opacity: 0;
 	}
 }
 
