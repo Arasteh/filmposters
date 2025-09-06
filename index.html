@@ -1002,6 +1002,35 @@ input[type="text"] {
 	#desktopSidebarToggleButton {
 		display: none;
 	}
+	.options-toggle-desktop {
+		display: none;
+	}
+}
+
+@media (min-width: 769px) {
+	.options {
+		transition: 0.3s ease-in-out;
+		max-height: 200px;
+		opacity: 1;
+	}
+
+	.options.collapsed {
+		max-height: 0;
+		opacity: 0;
+		margin: 0;
+		padding: 0;
+		visibility: hidden;
+	}
+	.options-toggle-desktop {
+		display: inline-flex;
+	}
+	.desktop-options-bar {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-top: 10px;
+		gap: 15px;
+	}
 }
 </style>
 </head>
@@ -1297,7 +1326,7 @@ input[type="text"] {
 						</span>
 					</button>
 				</div>
-				<div class="options" :class="{ 'collapsed': isOptionsCollapsed }">
+				<div class="options" :class="{ 'collapsed': isOptionsCollapsed && isMobileView, 'collapsed-desktop': isOptionsCollapsed && !isMobileView }">
 					<div class="similar-chars-toggle">
 						<label for="similarCharsSwitch" style="cursor: pointer;">
 							<input type="checkbox" id="similarCharsSwitch" v-model="combineSimilarChars">
@@ -1369,20 +1398,36 @@ input[type="text"] {
 						</div>
 					</div>
 				</div>
-				<div>
-				<div class="toggle-switch" @click="togglePosterMode"
-						id="posterLogoSwitch" data-mode="poster" :data-mode="posterMode ? 'poster' : 'logo'">
-						<span id="posterButton" class="active" :class="{ active: posterMode }">پوستر</span>
-						<span :class="{ active: !posterMode }">لوگو</span>
+				<div class="desktop-options-bar" :style="{ display: isMobileView ? 'none' : 'flex' }" style="justify-content: center;">
+					<button @click="toggleOptions" class="options-toggle-desktop">{{ isOptionsCollapsed ? 'جستجوی پیشرفته' : 'بستن' }}</button>
+					<div class="toggle-switch" @click="togglePosterMode"
+							id="posterLogoSwitch" data-mode="poster" :data-mode="posterMode ? 'poster' : 'logo'">
+							<span id="posterButton" class="active" :class="{ active: posterMode }">پوستر</span>
+							<span :class="{ active: !posterMode }">لوگو</span>
+					</div>
+					<div v-if="filteredItems.length > 0"
+						style="text-align: center; padding-bottom: 5px; visibility: hidden; margin-top: 5px; font-weight: bold;"
+						:style="{ visibility: undefined }"
+						>
+						<span v-if="hasActiveFilters">{{ filteredItemsLength }} از {{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueResultsFilmCount }} از {{ uniqueFilmCount }} فیلم)</span>
+						<span v-else>{{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueFilmCount }} فیلم)</span>
+					</div>
 				</div>
-				<div v-if="filteredItems.length > 0"
-					style="margin-top: 15px; text-align: center; padding-bottom: 5px; visibility: hidden"
-					:style="{ visibility: undefined }"
-					>
-					<span v-if="hasActiveFilters">{{ filteredItemsLength }} از {{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueResultsFilmCount }} از {{ uniqueFilmCount }} فیلم)</span>
-					<span v-else>{{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueFilmCount }} فیلم)</span>
+				<div class="options" :class="{ 'collapsed': isOptionsCollapsed }">
+					<div class="similar-chars-toggle">
+						<label for="similarCharsSwitch" style="cursor: pointer;">
+							<input type="checkbox" id="similarCharsSwitch" v-model="combineSimilarChars">
+							حروف مشابه
+						</label>
+						<label>
+							<span class="material-symbols-rounded tooltip">
+								info
+								<span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود: مانند س، ش</span>
+							</span>
+						</label>
+					</div>
 				</div>
-			</div></div>
+			</div>
 		</div>
 		<div id="filters" class="filters-container" v-if="activeFilters.length > 0" style="display: none" :style="{ display: undefined }">
 			<div v-for="(filter, index) in activeFilters" :key="index" @click="removeFilter(filter.type, filter.value)"
