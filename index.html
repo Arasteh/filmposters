@@ -1002,27 +1002,15 @@ input[type="text"] {
 	#desktopSidebarToggleButton {
 		display: none;
 	}
-	.options-toggle-desktop {
-		display: none;
-	}
 }
 
 @media (min-width: 769px) {
-	.options {
-		transition: 0.3s ease-in-out;
-		max-height: 200px;
-		opacity: 1;
-	}
-
-	.options.collapsed {
+	.options.collapsed-desktop {
 		max-height: 0;
 		opacity: 0;
 		margin: 0;
 		padding: 0;
 		visibility: hidden;
-	}
-	.options-toggle-desktop {
-		display: inline-flex;
 	}
 	.desktop-options-bar {
 		display: flex;
@@ -1030,6 +1018,16 @@ input[type="text"] {
 		align-items: center;
 		margin-top: 10px;
 		gap: 15px;
+	}
+	.desktop-options-bar {
+		justify-content: center;
+	}
+	.desktop-options-bar-wrapper {
+		display: flex;
+		justify-content: center;
+		gap: 20px;
+		align-items: center;
+		margin: 10px 0;
 	}
 }
 </style>
@@ -1319,70 +1317,14 @@ input[type="text"] {
 							refresh
 						</span>
 					</button>
-					<button @click="toggleOptions" id="collapseButton" class="collapse-button mobile-only"
-						:class="collapseIconClass(isOptionsCollapsed)">
-						<span class="material-symbols-rounded" style="font-size: xx-large;">
-							keyboard_arrow_up
-						</span>
-					</button>
+					<button @click="toggleOptions" class="options-toggle-desktop desktop-only">جستجوی پیشرفته</button>
 				</div>
-				<div class="options" :class="{ 'collapsed': isOptionsCollapsed && isMobileView, 'collapsed-desktop': isOptionsCollapsed && !isMobileView }">
-					<div class="similar-chars-toggle">
-						<label for="similarCharsSwitch" style="cursor: pointer;">
-							<input type="checkbox" id="similarCharsSwitch" v-model="combineSimilarChars">
-							حروف مشابه
-						</label>
-						<label>
-							<span class="material-symbols-rounded tooltip">
-								info
-								<span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود: مانند س، ش</span>
-							</span>
-						</label>
+				<div class="desktop-options-bar-wrapper desktop-only">
+					<div class="toggle-switch" @click="togglePosterMode"
+							id="posterLogoSwitch" data-mode="poster" :data-mode="posterMode ? 'poster' : 'logo'">
+							<span id="posterButton" class="active" :class="{ active: posterMode }">پوستر</span>
+							<span :class="{ active: !posterMode }">لوگو</span>
 					</div>
-
-					<div class="similar-chars-toggle">
-						<label for="exactWordSwitch" style="cursor: pointer;">
-							<input type="checkbox" id="exactWordSwitch" v-model="exactWordMatch">
-							جستجوی دقیق
-						</label>
-						<label>
-							<span class="material-symbols-rounded tooltip">
-								info
-								<span class="tooltiptext">فقط نتایجی که دقیقاً با کلمه وارد شده مطابقت دارند</span>
-							</span>
-						</label>
-					</div>
-
-					<div class="similar-chars-toggle" v-if="posterMode">
-						<label for="pixelatedSwitch" style="cursor: pointer;">
-							<input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect">
-							سانسور
-						</label>
-						<label>
-							<span class="material-symbols-rounded tooltip">
-								info
-								<span class="tooltiptext" v-if="posterMode">مخفی کردن تصاویری که ممکن است نامناسب
-									باشند</span>
-							</span>
-						</label>
-					</div>
-					
-					<div class="similar-chars-toggle">
-						<label for="cleanModeSwitch" style="cursor: pointer;">
-							<input type="checkbox" id="cleanModeSwitch" v-model="cleanMode">
-							مینیمال
-						</label>
-						<label>
-							<span class="material-symbols-rounded tooltip">
-								info
-								<span class="tooltiptext">فقط تصاویر نمایش داده شوند و باقی اطلاعات مخفی شوند</span>
-							</span>
-						</label>
-						<div v-if="!posterMode && cleanMode" style="margin-right: 10px;">
-							<input type="color" v-model="backgroundColor" id="bgColorPicker" style="width: 40px; height: 40px; border-radius: 50%; border: none; cursor: pointer; padding: 0;">
-						</div>
-					</div>
-
 					<div class="sort-order-container">
 						<label @click="toggleSortDirection" style="cursor: pointer;">
 							<span class="material-symbols-rounded sort-direction-icon" :class="sortDirection">
@@ -1397,23 +1339,14 @@ input[type="text"] {
 								:class="{ active: sortOrder === 'random' }" @click="sortOrder = 'random'">تصادفی</span>
 						</div>
 					</div>
-				</div>
-				<div class="desktop-options-bar" :style="{ display: isMobileView ? 'none' : 'flex' }" style="justify-content: center;">
-					<button @click="toggleOptions" class="options-toggle-desktop">{{ isOptionsCollapsed ? 'جستجوی پیشرفته' : 'بستن' }}</button>
-					<div class="toggle-switch" @click="togglePosterMode"
-							id="posterLogoSwitch" data-mode="poster" :data-mode="posterMode ? 'poster' : 'logo'">
-							<span id="posterButton" class="active" :class="{ active: posterMode }">پوستر</span>
-							<span :class="{ active: !posterMode }">لوگو</span>
-					</div>
 					<div v-if="filteredItems.length > 0"
-						style="text-align: center; padding-bottom: 5px; visibility: hidden; margin-top: 5px; font-weight: bold;"
-						:style="{ visibility: undefined }"
+						style="text-align: center; font-weight: bold; width: fit-content;"
 						>
 						<span v-if="hasActiveFilters">{{ filteredItemsLength }} از {{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueResultsFilmCount }} از {{ uniqueFilmCount }} فیلم)</span>
 						<span v-else>{{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueFilmCount }} فیلم)</span>
 					</div>
 				</div>
-				<div class="options" :class="{ 'collapsed': isOptionsCollapsed }">
+				<div class="options" :class="{ 'collapsed': isOptionsCollapsed && isMobileView, 'collapsed-desktop': isOptionsCollapsed && !isMobileView }">
 					<div class="similar-chars-toggle">
 						<label for="similarCharsSwitch" style="cursor: pointer;">
 							<input type="checkbox" id="similarCharsSwitch" v-model="combineSimilarChars">
@@ -1425,6 +1358,46 @@ input[type="text"] {
 								<span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود: مانند س، ش</span>
 							</span>
 						</label>
+					</div>
+					<div class="similar-chars-toggle">
+						<label for="exactWordSwitch" style="cursor: pointer;">
+							<input type="checkbox" id="exactWordSwitch" v-model="exactWordMatch">
+							جستجوی دقیق
+						</label>
+						<label>
+							<span class="material-symbols-rounded tooltip">
+								info
+								<span class="tooltiptext">فقط نتایجی که دقیقاً با کلمه وارد شده مطابقت دارند</span>
+							</span>
+						</label>
+					</div>
+					<div class="similar-chars-toggle" v-if="posterMode">
+						<label for="pixelatedSwitch" style="cursor: pointer;">
+							<input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect">
+							سانسور
+						</label>
+						<label>
+							<span class="material-symbols-rounded tooltip">
+								info
+								<span class="tooltiptext" v-if="posterMode">مخفی کردن تصاویری که ممکن است نامناسب
+									باشند</span>
+							</span>
+						</label>
+					</div>
+					<div class="similar-chars-toggle">
+						<label for="cleanModeSwitch" style="cursor: pointer;">
+							<input type="checkbox" id="cleanModeSwitch" v-model="cleanMode">
+							مینیمال
+						</label>
+						<label>
+							<span class="material-symbols-rounded tooltip">
+								info
+								<span class="tooltiptext">فقط تصاویر نمایش داده شوند و باقی اطلاعات مخفی شوند</span>
+							</span>
+						</label>
+						<div v-if="!posterMode && cleanMode" style="margin-right: 10px;">
+							<input type="color" v-model="backgroundColor" id="bgColorPicker" style="width: 40px; height: 40px; border-radius: 50%; border: none; cursor: pointer; padding: 0;">
+						</div>
 					</div>
 				</div>
 			</div>
