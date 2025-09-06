@@ -77,7 +77,7 @@ body {
 	align-items: center;
 	max-width: 100%;
 	overflow-x: hidden;
-	/* پدینگ بالا توسط متغیر پویا از اسکریپت مدیریت می‌شود */
+	/* پدینگ بالا توسط اسکریپت به صورت پویا مدیریت می‌شود تا با ارتفاع نوار جستجو هماهنگ باشد */
 	padding-top: 30px;
 	transition: padding-top 0.3s ease-in-out, margin-right 0.3s ease-in-out;
 }
@@ -2630,32 +2630,20 @@ onMounted(() => {
 	checkMobile();
 	window.addEventListener('scroll', handleScroll);
 
-	nextTick(() => {
-		if (searchBarRef.value) {
-			const searchBarInnerElement = searchBarRef.value.querySelector('.search-bar-inner');
-			if (searchBarInnerElement) {
-				searchBarHeight.value = searchBarInnerElement.offsetHeight;
+	// با استفاده از ResizeObserver، ارتفاع نوار جستجو را به صورت پویا و قابل اطمینان دریافت می‌کنیم.
+	if (searchBarRef.value) {
+		const resizeObserver = new ResizeObserver(entries => {
+			for (let entry of entries) {
+				searchBarHeight.value = entry.contentRect.height;
 			}
-			mainContentPaddingTop.value = mainContentPaddingTop.value;
-		}
-	});
+		});
+		resizeObserver.observe(searchBarRef.value);
+	}
 });
 
 onUnmounted(() => {
 	window.removeEventListener('scroll', handleScroll);
 	window.removeEventListener('resize', checkMobile);
-});
-
-// Watch for changes in isOptionsCollapsed to update searchBarHeight
-watch(isOptionsCollapsed, () => {
-	nextTick(() => {
-		if (searchBarRef.value) {
-			const searchBarInnerElement = searchBarRef.value.querySelector('.search-bar-inner');
-			if (searchBarInnerElement) {
-				searchBarHeight.value = searchBarInnerElement.offsetHeight;
-			}
-		}
-	});
 });
 
 window.addEventListener('keydown', () => {
