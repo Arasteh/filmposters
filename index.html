@@ -2379,7 +2379,7 @@ const mainContentPaddingTop = computed(() => {
 
 
 let lastScrollPosition = 0;
-const scrollSensitivityThreshold = 50;
+const scrollThreshold = 10;
 
 const getDocHeight = () => {
 	return Math.max(
@@ -2403,15 +2403,14 @@ const handleScroll = () => {
 	
 	if (docHeight <= viewportHeight + 50) {
 		isSearchBarVisible.value = true;
-	} else if (currentScrollY <= 10) {
+	} else if (currentScrollY <= scrollThreshold) {
 		isSearchBarVisible.value = true;
-	} else if (Math.abs(currentScrollY - lastScrollPosition) > scrollSensitivityThreshold) {
-		if (currentScrollY > lastScrollPosition) {
-			isSearchBarVisible.value = false;
-		} else {
-			isSearchBarVisible.value = true;
-		}
-		lastScrollPosition = currentScrollY;
+	} else if (isAtBottom) {
+		isSearchBarVisible.value = false;
+	} else if (currentScrollY > lastScrollPosition) {
+		isSearchBarVisible.value = false;
+	} else if (currentScrollY < lastScrollPosition) {
+		isSearchBarVisible.value = true;
 	}
 	
 	lastScrollPosition = currentScrollY;
