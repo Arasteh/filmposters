@@ -1084,13 +1084,24 @@ input[type="text"] {
 		justify-content: space-around;
 	}
 	.desktop-options-bar-wrapper {
-        display: flex;
-        justify-content: center;
-        gap: 40px;
-        row-gap: 20px;
-        align-items: center;
-        margin: 15px 0 10px 0;
-        flex-wrap: wrap;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin: 15px 0 10px 0;
+	}
+	.controls-wrapper-desktop {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 40px;
+		row-gap: 20px;
+		width: 60%;
+	}
+	.counter-wrapper-desktop {
+		text-align: center;
+		font-weight: bold;
+		width: 30%;
 	}
 	.options {
 		transition: 0.3s ease-in-out;
@@ -1483,7 +1494,7 @@ input[type="text"] {
 				
 				<div class="desktop-options-bar-wrapper">
 					<!-- کانتینر جدید برای گروه‌بندی سوییچ‌ها -->
-					<div class="controls-wrapper" style="width: 70%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+					<div class="controls-wrapper-desktop">
 						<div class="toggle-switch" @click="togglePosterMode"
 								id="posterLogoSwitch" data-mode="poster" :data-mode="posterMode ? 'poster' : 'logo'">
 								<span id="posterButton" class="active" :class="{ active: posterMode }">پوستر</span>
@@ -1506,7 +1517,7 @@ input[type="text"] {
 					</div>
 					<!-- شمارنده نتایج با عرض ثابت -->
 					<div v-if="filteredItems.length > 0"
-						style="text-align: center; font-weight: bold; width: 30%;"
+						class="counter-wrapper-desktop"
 						>
 						<span v-if="hasActiveFilters">{{ filteredItemsLength }} از {{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueResultsFilmCount }} از {{ uniqueFilmCount }} فیلم)</span>
 						<span v-else>{{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueFilmCount }} فیلم)</span>
