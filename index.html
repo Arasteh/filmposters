@@ -894,32 +894,6 @@ input[type="text"] {
 }
 
 
-.search-flex-row {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 10px;
-	margin-bottom: 10px;
-}
-
-.compact-options-desktop {
-	position: absolute;
-	right: 150px;
-	top: 50%;
-	transform: translateY(-50%);
-	display: flex;
-	align-items: center;
-	gap: 15px;
-	opacity: 0;
-	pointer-events: none;
-	transition: opacity 0.3s;
-}
-
-.search-input-wrapper:focus-within .compact-options-desktop {
-	opacity: 1;
-	pointer-events: auto;
-}
-
 @media (max-width: 768px) {
 	#app {
 		padding: 0;
@@ -972,23 +946,6 @@ input[type="text"] {
 		padding: 0;
 		visibility: hidden;
 	}
-	
-	.search-flex-row {
-		flex-direction: column;
-		align-items: flex-end;
-	}
-
-	.mobile-only {
-		display: inline-block;
-	}
-
-	.desktop-only {
-		display: none;
-	}
-
-	.compact-options-desktop {
-		display: none;
-	}
 
 	#showSidebarButton {
 		display: inline-block;
@@ -1024,6 +981,14 @@ input[type="text"] {
 
 	.sidebar-overlay.visible {
 		display: block;
+	}
+
+	.mobile-only {
+		display: inline-block;
+	}
+
+	.desktop-only {
+		display: none;
 	}
 
 	.collapse-button {
@@ -1310,7 +1275,7 @@ input[type="text"] {
 							menu
 						</span>
 					</button>
-					<div style="position: relative; width: 100%;" class="search-input-wrapper">
+					<div style="position: relative; width: 100%;">
 						<input type="text" v-model="searchTerm" :placeholder="searchPlaceholder" @focus="onSearchFocus" @blur="onSearchBlur" class="desktop-only" />
 						<input type="text" v-model="searchTerm" placeholder="جستجو…" class="mobile-only" />
 						<span v-if="searchTerm" @click="clearSearchTerm" class="clearSearch"
@@ -1319,21 +1284,6 @@ input[type="text"] {
 								close
 							</span>
 						</span>
-						<!-- گزینه‌های فشرده‌شده برای دسکتاپ -->
-						<div class="compact-options-desktop">
-							<div class="similar-chars-toggle" style="margin-left: -5px;">
-								<label for="similarCharsSwitch" style="cursor: pointer;">
-									<input type="checkbox" id="similarCharsSwitch" v-model="combineSimilarChars">
-									حروف مشابه
-								</label>
-							</div>
-							<div class="similar-chars-toggle">
-								<label for="exactWordSwitch" style="cursor: pointer;">
-									<input type="checkbox" id="exactWordSwitch" v-model="exactWordMatch">
-									جستجوی دقیق
-								</label>
-							</div>
-						</div>
 					</div>
 					<button @click="resetFilters" id="resetSearch">
 						<span class="material-symbols-rounded">
@@ -1348,7 +1298,7 @@ input[type="text"] {
 					</button>
 				</div>
 				<div class="options" :class="{ 'collapsed': isOptionsCollapsed }">
-					<div class="similar-chars-toggle mobile-only">
+					<div class="similar-chars-toggle">
 						<label for="similarCharsSwitch" style="cursor: pointer;">
 							<input type="checkbox" id="similarCharsSwitch" v-model="combineSimilarChars">
 							حروف مشابه
@@ -1361,7 +1311,7 @@ input[type="text"] {
 						</label>
 					</div>
 
-					<div class="similar-chars-toggle mobile-only">
+					<div class="similar-chars-toggle">
 						<label for="exactWordSwitch" style="cursor: pointer;">
 							<input type="checkbox" id="exactWordSwitch" v-model="exactWordMatch">
 							جستجوی دقیق
@@ -1419,35 +1369,20 @@ input[type="text"] {
 						</div>
 					</div>
 				</div>
-				<div class="search-flex-row desktop-only" style="justify-content: space-between;">
-					<div class="toggle-switch" @click="togglePosterMode"
-							id="posterLogoSwitch" data-mode="poster" :data-mode="posterMode ? 'poster' : 'logo'">
-							<span id="posterButton" class="active" :class="{ active: posterMode }">پوستر</span>
-							<span :class="{ active: !posterMode }">لوگو</span>
-					</div>
-					<div v-if="filteredItems.length > 0"
-						style="text-align: right; padding-bottom: 5px; visibility: hidden"
-						:style="{ visibility: undefined }"
-						>
-						<span v-if="hasActiveFilters">{{ filteredItemsLength }} از {{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueResultsFilmCount }} از {{ uniqueFilmCount }} فیلم)</span>
-						<span v-else>{{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueFilmCount }} فیلم)</span>
-					</div>
+				<div>
+				<div class="toggle-switch" @click="togglePosterMode"
+						id="posterLogoSwitch" data-mode="poster" :data-mode="posterMode ? 'poster' : 'logo'">
+						<span id="posterButton" class="active" :class="{ active: posterMode }">پوستر</span>
+						<span :class="{ active: !posterMode }">لوگو</span>
 				</div>
-				<div class="mobile-only">
-					<div class="toggle-switch" @click="togglePosterMode"
-							id="posterLogoSwitch" data-mode="poster" :data-mode="posterMode ? 'poster' : 'logo'">
-							<span id="posterButton" class="active" :class="{ active: posterMode }">پوستر</span>
-							<span :class="{ active: !posterMode }">لوگو</span>
-					</div>
-					<div v-if="filteredItems.length > 0"
-						style="margin-top: 15px; text-align: center; padding-bottom: 5px; visibility: hidden"
-						:style="{ visibility: undefined }"
-						>
-						<span v-if="hasActiveFilters">{{ filteredItemsLength }} از {{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueResultsFilmCount }} از {{ uniqueFilmCount }} فیلم)</span>
-						<span v-else>{{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueFilmCount }} فیلم)</span>
-					</div>
+				<div v-if="filteredItems.length > 0"
+					style="margin-top: 15px; text-align: center; padding-bottom: 5px; visibility: hidden"
+					:style="{ visibility: undefined }"
+					>
+					<span v-if="hasActiveFilters">{{ filteredItemsLength }} از {{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueResultsFilmCount }} از {{ uniqueFilmCount }} فیلم)</span>
+					<span v-else>{{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueFilmCount }} فیلم)</span>
 				</div>
-			</div>
+			</div></div>
 		</div>
 		<div id="filters" class="filters-container" v-if="activeFilters.length > 0" style="display: none" :style="{ display: undefined }">
 			<div v-for="(filter, index) in activeFilters" :key="index" @click="removeFilter(filter.type, filter.value)"
