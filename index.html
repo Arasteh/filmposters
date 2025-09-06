@@ -1043,7 +1043,7 @@ input[type="text"] {
         justify-content: center;
         gap: 20px;
         align-items: center;
-        margin: 10px 0;
+		margin: 20px 0 5px 0;
         flex-wrap: wrap;
 	}
 	.search-container {
@@ -1066,11 +1066,13 @@ input[type="text"] {
 		opacity: 0;
 	}
 	.desktop-options-bar-wrapper {
-		display: flex;
-		justify-content: center;
-		gap: 40px;
-		align-items: center;
-		margin: 10px 0;
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        row-gap: 20px;
+        align-items: center;
+        margin: 10px 0;
+        flex-wrap: wrap;
 	}
 	.options {
 		transition: 0.3s ease-in-out;
@@ -1104,9 +1106,6 @@ input[type="text"] {
 	}
 	.options-toggle-desktop:hover {
 		opacity: 0.8;
-	}
-	.options-toggle-mobile {
-		display: none;
 	}
 	.options-row-top {
 		display: flex;
@@ -1406,7 +1405,7 @@ input[type="text"] {
 								refresh
 							</span>
 						</button>
-						<button @click="toggleOptions" class="options-toggle-mobile mobile-only"
+						<button @click="toggleOptions" class="collapse-button mobile-only"
 							:class="collapseIconClass(isOptionsCollapsed)">
 							<span class="material-symbols-rounded" style="font-size: xx-large;">
 								keyboard_arrow_up
