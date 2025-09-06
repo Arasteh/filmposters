@@ -604,6 +604,18 @@ input[type="text"] {
 	background-color: light-dark(#aaa, #333);
 }
 
+.options-wrapper-bottom {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+	overflow: hidden;
+	max-height: 200px;
+}
+.options-wrapper-bottom.collapsed {
+	max-height: 0;
+	opacity: 0;
+}
 .rotate-up {
 	transform: rotate(360deg) translateY(3px);
 }
@@ -982,18 +994,6 @@ input[type="text"] {
         border: none;
         align-items: center;
     }
-	.options-wrapper-bottom {
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-		overflow: hidden;
-		max-height: 200px;
-	}
-	.options-wrapper-bottom.collapsed {
-		max-height: 0;
-		opacity: 0;
-	}
 
 	#showSidebarButton {
 		display: inline-block;
@@ -1082,10 +1082,6 @@ input[type="text"] {
 		visibility: hidden;
 		flex-direction: row;
 		justify-content: space-around;
-	}
-	.options-wrapper-bottom.collapsed {
-		max-height: 0;
-		opacity: 0;
 	}
 	.desktop-options-bar-wrapper {
         display: flex;
