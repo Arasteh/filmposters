@@ -96,6 +96,7 @@ body {
 	z-index: 100;
 	opacity: 0;
 	transition: top 0.3s ease-in-out, opacity 0.3s ease-in-out, left 0.3s ease-in-out, width 0.3s ease-in-out, right 0.3s ease-in-out;
+	padding: 0px 60px;
 }
 
 .search-bar-inner {
@@ -916,6 +917,7 @@ input[type="text"] {
 		left: 0 !important;
 		width: 100% !important;
 		right: auto !important;
+		padding: 0px;
 	}
 
 	.search-bar-inner {
@@ -1128,12 +1130,14 @@ input[type="text"] {
 		<div class="sidebar-resize-handle"></div>
 				
 		<div class="sidebar-content">
+		</div style="display: flex; justify-content: start; gap: 20px;">
 			<button @click="hideSidebar" id="hideSidebarButton" class="mobile-only">
 				<span class="material-symbols-rounded">
 					close
 				</span>
 			</button>
 			<p style="right: 60px; position: relative; width: fit-content; font-weight: bold; height: 15px; top: -5px;">فیلترها</p>
+			</div>
 			
 			<div class="sidebar-section" :class="getSectionClass('chart')">
 				<div class="sidebar-section-header" @click="toggleCollapse('chart')">
