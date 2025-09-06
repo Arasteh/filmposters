@@ -6,7 +6,7 @@
 <meta name="color-scheme" content="light dark">
 <meta name="title" content="Film Posters of Iran | آرشیو پوسترهای سینمای ایران">
 <meta name="description" content="آرشیو پوستر فیلم‌های سینمایی ایرانی قبل و بعد از انقلاب؛ دربردارندهٔ آثار محمدعلی باطنی، محمدعلی حدت، محسن دولو، مسعود بهنام، مرتضی ممیز، ابراهیم حقیقی و دیگر طراحان گرافیک.">
-<meta name="keywords" content="پوستر فیلم, فیلم ایرانی, پوستر سینمایی, محمدعلی باطنی, محمدعلی حدت, محسن دولو, مسعود بهنام, مرتضی ممیز, ابراهیم حقیقی, قباد شیوا, فرشید مثقالی, جشنواره فیلم فجر, دانلود پوستر فیلم, عباس کیارستمی film posters of Iran, Iranian films">
+<meta name="keywords" content="پوستر فیلم, فیلم ایرانی, پوستر سینمایی, محمدعلی باطنی, محمدعلی حدت, محسن دولو، مسعود بهنام، مرتضی ممیز، ابراهیم حقیقی، قباد شیوا، فرشید مثقالی، جشنواره فیلم فجر، دانلود پوستر فیلم، عباس کیارستمی film posters of Iran, Iranian films">
 <meta property="twitter:title" content="Film Posters of Iran | آرشیو پوسترهای سینمای ایران">
 <meta property="twitter:description" content="آرشیو پوستر فیلم‌های سینمایی ایرانی قبل و بعد از انقلاب؛ دربردارندهٔ آثار محمدعلی باطنی، محمدعلی حدت، محسن دولو، مسعود بهنام، مرتضی ممیز، ابراهیم حقیقی و دیگر طراحان گرافیک">
 <meta property="og:title" content="Film Posters of Iran | آرشیو پوسترهای سینمای ایران" />
@@ -960,7 +960,7 @@ input[type="text"] {
 		padding-right: 15px;
 	}
 	
-	.item-card {
+.item-card {
 		width: 100%;
 		max-width: none;
 	}
@@ -2417,34 +2417,32 @@ const mainContentPaddingTop = computed(() => {
 let lastScrollPosition = 0;
 const scrollTolerance = 50;
 
-const getDocHeight = () => {
-	return Math.max(
-		document.body.scrollHeight, document.documentElement.scrollHeight,
-		document.body.offsetHeight, document.documentElement.offsetHeight,
-		document.body.clientHeight, document.documentElement.clientHeight
-	);
-};
-
 const handleScroll = () => {
-    const currentScrollY = window.scrollY;
-    const scrollDifference = currentScrollY - lastScrollPosition;
+	const currentScrollY = window.scrollY;
+	const docHeight = getDocHeight();
+	const viewportHeight = window.innerHeight;
 
-    const docHeight = getDocHeight();
-    const viewportHeight = window.innerHeight;
-    const isAtBottom = Math.ceil(currentScrollY + viewportHeight) >= docHeight;
+	// Added new condition to disable scroll effect if page content is too short
+	if (docHeight < viewportHeight * 1.5) {
+		isSearchBarVisible.value = true;
+		lastScrollPosition = currentScrollY;
+		return;
+	}
 
-    if (currentScrollY <= 0) {
-        isSearchBarVisible.value = true;
-        lastScrollPosition = currentScrollY;
-    } else if (isAtBottom) {
+	if (currentScrollY > lastScrollPosition + scrollTolerance) {
+        // Scrolling down past tolerance
         isSearchBarVisible.value = false;
         lastScrollPosition = currentScrollY;
-    } else if (isSearchBarVisible.value && scrollDifference > scrollTolerance) {
-        isSearchBarVisible.value = false;
-        lastScrollPosition = currentScrollY;
-    } else if (!isSearchBarVisible.value && scrollDifference < -scrollTolerance) {
+    } else if (currentScrollY < lastScrollPosition - scrollTolerance) {
+        // Scrolling up past tolerance
         isSearchBarVisible.value = true;
         lastScrollPosition = currentScrollY;
+    }
+
+	// Always show search bar at the very top
+	if (currentScrollY <= 0) {
+        isSearchBarVisible.value = true;
+		lastScrollPosition = currentScrollY;
     }
     
 	visibleBringToTop.value = currentScrollY > 20;
