@@ -2415,7 +2415,7 @@ const mainContentPaddingTop = computed(() => {
 
 
 let lastScrollPosition = 0;
-const scrollThreshold = 50; // مقدار حساسیت اسکرول تغییر کرد
+const scrollTolerance = 50;
 
 const getDocHeight = () => {
 	return Math.max(
@@ -2426,30 +2426,27 @@ const getDocHeight = () => {
 };
 
 const handleScroll = () => {
-	const currentScrollY = window.scrollY;
-	if (!isMobileView.value && sidebarVisible.value) {
-		isSearchBarVisible.value = true;
-		lastScrollPosition = currentScrollY;
-		return;
-	}
+    const currentScrollY = window.scrollY;
+    const scrollDifference = currentScrollY - lastScrollPosition;
 
-	const docHeight = getDocHeight();
-	const viewportHeight = window.innerHeight;
-	const isAtBottom = Math.ceil(currentScrollY + viewportHeight) >= docHeight;
-	
-	if (docHeight <= viewportHeight + 50) {
-		isSearchBarVisible.value = true;
-	} else if (currentScrollY <= scrollThreshold) {
-		isSearchBarVisible.value = true;
-	} else if (isAtBottom) {
-		isSearchBarVisible.value = false;
-	} else if (currentScrollY > lastScrollPosition) {
-		isSearchBarVisible.value = false;
-	} else if (currentScrollY < lastScrollPosition) {
-		isSearchBarVisible.value = true;
-	}
-	
-	lastScrollPosition = currentScrollY;
+    const docHeight = getDocHeight();
+    const viewportHeight = window.innerHeight;
+    const isAtBottom = Math.ceil(currentScrollY + viewportHeight) >= docHeight;
+
+    if (currentScrollY <= 0) {
+        isSearchBarVisible.value = true;
+        lastScrollPosition = currentScrollY;
+    } else if (isAtBottom) {
+        isSearchBarVisible.value = false;
+        lastScrollPosition = currentScrollY;
+    } else if (isSearchBarVisible.value && scrollDifference > scrollTolerance) {
+        isSearchBarVisible.value = false;
+        lastScrollPosition = currentScrollY;
+    } else if (!isSearchBarVisible.value && scrollDifference < -scrollTolerance) {
+        isSearchBarVisible.value = true;
+        lastScrollPosition = currentScrollY;
+    }
+    
 	visibleBringToTop.value = currentScrollY > 20;
 };
 
@@ -2653,6 +2650,18 @@ onMounted(() => {
 onUnmounted(() => {
 	window.removeEventListener('scroll', handleScroll);
 	window.removeEventListener('resize', checkMobile);
+});
+
+// Watch for changes in isOptionsCollapsed to update searchBarHeight
+watch(isOptionsCollapsed, () => {
+	nextTick(() => {
+		if (searchBarRef.value) {
+			const searchBarInnerElement = searchBarRef.value.querySelector('.search-bar-inner');
+			if (searchBarInnerElement) {
+				searchBarHeight.value = searchBarInnerElement.offsetHeight;
+			}
+		}
+	});
 });
 
 window.addEventListener('keydown', () => {
