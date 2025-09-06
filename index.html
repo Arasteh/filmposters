@@ -1480,28 +1480,33 @@ input[type="text"] {
 						</div>
 					</div>
 				</div>
+				
 				<div class="desktop-options-bar-wrapper">
-					<div class="toggle-switch" @click="togglePosterMode"
-							id="posterLogoSwitch" data-mode="poster" :data-mode="posterMode ? 'poster' : 'logo'">
-							<span id="posterButton" class="active" :class="{ active: posterMode }">پوستر</span>
-							<span :class="{ active: !posterMode }">لوگو</span>
-					</div>
-					<div class="sort-order-container">
-						<label @click="toggleSortDirection" style="cursor: pointer;">
-							<span class="material-symbols-rounded sort-direction-icon" :class="sortDirection">
-								swap_vert
-							</span>
-						</label>
-						<div class="triple-switch" :data-sort="sortOrder">
-							<span :class="{ active: sortOrder === 'alphabetical' }"
-								@click="sortOrder = 'alphabetical'">الفبایی</span>
-							<span :class="{ active: sortOrder === 'year' }" @click="sortOrder = 'year'">سال</span>
-							<span id="randomOrderButton" class="active"
-								:class="{ active: sortOrder === 'random' }" @click="sortOrder = 'random'">تصادفی</span>
+					<!-- کانتینر جدید برای گروه‌بندی سوییچ‌ها -->
+					<div class="controls-wrapper" style="width: 70%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+						<div class="toggle-switch" @click="togglePosterMode"
+								id="posterLogoSwitch" data-mode="poster" :data-mode="posterMode ? 'poster' : 'logo'">
+								<span id="posterButton" class="active" :class="{ active: posterMode }">پوستر</span>
+								<span :class="{ active: !posterMode }">لوگو</span>
+						</div>
+						<div class="sort-order-container">
+							<label @click="toggleSortDirection" style="cursor: pointer;">
+								<span class="material-symbols-rounded sort-direction-icon" :class="sortDirection">
+									swap_vert
+								</span>
+							</label>
+							<div class="triple-switch" :data-sort="sortOrder">
+								<span :class="{ active: sortOrder === 'alphabetical' }"
+									@click="sortOrder = 'alphabetical'">الفبایی</span>
+								<span :class="{ active: sortOrder === 'year' }" @click="sortOrder = 'year'">سال</span>
+								<span id="randomOrderButton" class="active"
+									:class="{ active: sortOrder === 'random' }" @click="sortOrder = 'random'">تصادفی</span>
+							</div>
 						</div>
 					</div>
+					<!-- شمارنده نتایج با عرض ثابت -->
 					<div v-if="filteredItems.length > 0"
-						style="text-align: center; font-weight: bold; width: fit-content;"
+						style="text-align: center; font-weight: bold; width: 30%;"
 						>
 						<span v-if="hasActiveFilters">{{ filteredItemsLength }} از {{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueResultsFilmCount }} از {{ uniqueFilmCount }} فیلم)</span>
 						<span v-else>{{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueFilmCount }} فیلم)</span>
