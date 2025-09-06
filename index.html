@@ -1657,7 +1657,7 @@ const pixelatedEffect = ref(false);
 const cleanMode = ref(false);
 const sortOrder = ref('random');
 const sortDirection = ref('asc');
-const searchPlaceholder = ref('جستجو (برای پرش به کادر جستجو / را تایپ کنید)');
+const searchPlaceholder = ref(''); // مقدار اولیه خالی
 const isSearchFocused = ref(false);
 const displayedItemsCount = ref(30);
 const exactWordMatch = ref(false);
@@ -1676,12 +1676,10 @@ const showMore = () => {
 
 const onSearchFocus = () => {
 	isSearchFocused.value = true;
-	searchPlaceholder.value = 'جستجو';
 };
 
 const onSearchBlur = () => {
 	isSearchFocused.value = false;
-	searchPlaceholder.value = 'جستجو (برای پرش به کادر جستجو / را تایپ کنید)';
 };
 
 const hasActiveFilters = computed(() => {
@@ -2421,7 +2419,7 @@ const mainContentPaddingTop = computed(() => {
 
 
 let lastScrollPosition = 0;
-const scrollThreshold = 10;
+const scrollThreshold = 50; // مقدار حساسیت اسکرول تغییر کرد
 
 const getDocHeight = () => {
 	return Math.max(
@@ -2631,12 +2629,19 @@ watch([filteredYearsInModal, isD3Loaded], () => {
 
 
 onMounted(() => {
-	window.addEventListener('scroll', handleScroll);
 	const checkMobile = () => {
 		isMobileView.value = window.innerWidth <= 768;
+		// Update placeholder immediately after checking mobile view
+		if (isMobileView.value) {
+			searchPlaceholder.value = 'جستجو';
+		} else {
+			searchPlaceholder.value = 'جستجو (برای پرش به کادر جستجو / را تایپ کنید)';
+		}
 	};
+
 	window.addEventListener('resize', checkMobile);
 	checkMobile();
+	window.addEventListener('scroll', handleScroll);
 
 	nextTick(() => {
 		if (searchBarRef.value) {
