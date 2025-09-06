@@ -98,6 +98,16 @@ body {
 	transition: top 0.3s ease-in-out, opacity 0.3s ease-in-out, left 0.3s ease-in-out, width 0.3s ease-in-out, right 0.3s ease-in-out;
 }
 
+.search-bar-inner {
+	max-width: 960px;
+	width: 100%;
+	margin: 0 auto;
+	padding: 10px;
+	border-radius: 0 0 16px 16px;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+	background-color: var(--search-background);
+}
+
 .search-bar.visible {
 	top: 0px;
 	opacity: 1;
@@ -947,6 +957,19 @@ input[type="text"] {
 		visibility: hidden;
 	}
 
+	.options-wrapper-bottom {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+		overflow: hidden;
+		max-height: 200px;
+	}
+	.options-wrapper-bottom.collapsed {
+		max-height: 0;
+		opacity: 0;
+	}
+
 	#showSidebarButton {
 		display: inline-block;
 	}
@@ -1006,22 +1029,14 @@ input[type="text"] {
 		display: none;
 	}
 	.desktop-options-bar-wrapper {
-		display: none;
+		display: flex;
+		justify-content: center;
+		gap: 20px;
+		align-items: center;
+		margin: 10px 0;
 	}
 	.search-container {
 		gap: 5px;
-	}
-	.options-wrapper-bottom {
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-		overflow: hidden;
-		max-height: 200px;
-	}
-	.options-wrapper-bottom.collapsed {
-		max-height: 0;
-		opacity: 0;
 	}
 }
 
@@ -1034,13 +1049,6 @@ input[type="text"] {
 		visibility: hidden;
 		flex-direction: row;
 		justify-content: space-around;
-	}
-	.desktop-options-bar-wrapper {
-		display: flex;
-		justify-content: center;
-		gap: 20px;
-		align-items: center;
-		margin: 10px 0;
 	}
 	.options {
 		transition: 0.3s ease-in-out;
@@ -1581,22 +1589,6 @@ const data = await (await fetch('./db.json', {
 randomOrderButton.classList.remove('active');
 posterButton.classList.remove('active');
 posterLogoSwitch.removeAttribute('data-mode');
-const toggleOptionsButton = document.querySelector('.options-toggle-desktop');
-if (toggleOptionsButton) {
-	toggleOptionsButton.addEventListener('click', () => {
-		const optionsWrapper = document.querySelector('.options-wrapper-bottom');
-		optionsWrapper.classList.toggle('collapsed');
-		toggleOptionsButton.classList.toggle('active-options-toggle');
-	});
-}
-
-const toggleMobileOptionsButton = document.querySelector('.options-toggle-mobile');
-if (toggleMobileOptionsButton) {
-	toggleMobileOptionsButton.addEventListener('click', () => {
-		const optionsWrapper = document.querySelector('.options-wrapper-bottom');
-		optionsWrapper.classList.toggle('collapsed');
-	});
-}
 [yearsButton, designersButton, directorsButton, lettersButton]
 	.forEach(x => x.classList.remove('rotate-up'));
 desktopSidebarToggleButton.style.display = 'block';
