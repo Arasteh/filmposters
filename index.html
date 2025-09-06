@@ -394,6 +394,17 @@ input[type="text"] {
 	width: 100%;
 }
 
+.options-row-top {
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: 20px;
+	row-gap: 10px;
+	justify-content: space-around;
+	margin: 15px 0 0px;
+	border: none;
+	align-items: center;
+}
+
 .toggle-switch {
 	display: flex;
 	align-items: center;
@@ -410,7 +421,7 @@ input[type="text"] {
 .toggle-switch span {
 	flex: 1;
 	text-align: center;
-	padding: 8px;
+	padding: 5px;
 	color: light-dark(#888, #888);
 	z-index: 1;
 	transition: color 0.3s;
@@ -467,7 +478,7 @@ input[type="text"] {
 .triple-switch span {
 	flex: 1;
 	text-align: center;
-	padding: 8px 16px;
+	padding: 5px 12px;
 	border-radius: 30px;
 	color: light-dark(#888, #888);
 	transition: background-color 0.2s, color 0.2s;
@@ -984,17 +995,6 @@ input[type="text"] {
 		visibility: hidden;
 	}
 
-    .options-row-top {
-        display: flex;
-        flex-wrap: wrap;
-        column-gap: 20px;
-        row-gap: 10px;
-        justify-content: space-around;
-        margin: 10px 0 10px;
-        border: none;
-        align-items: center;
-    }
-
 	#showSidebarButton {
 		display: inline-block;
 	}
@@ -1089,7 +1089,7 @@ input[type="text"] {
         gap: 40px;
         row-gap: 20px;
         align-items: center;
-        margin: 10px 0;
+        margin: 15px 0 10px 0;
         flex-wrap: wrap;
 	}
 	.options {
@@ -1124,16 +1124,6 @@ input[type="text"] {
 	}
 	.options-toggle-desktop:hover {
 		opacity: 0.8;
-	}
-	.options-row-top {
-		display: flex;
-		flex-wrap: wrap;
-		column-gap: 20px;
-		row-gap: 10px;
-		justify-content: space-around;
-		margin: 10px 0 10px;
-		border: none;
-		align-items: center;
 	}
 }
 </style>
