@@ -2419,10 +2419,9 @@ const scrollTolerance = 50;
 
 const handleScroll = () => {
 	const currentScrollY = window.scrollY;
-	const docHeight = getDocHeight();
+	const docHeight = document.body.scrollHeight;
 	const viewportHeight = window.innerHeight;
 
-	// Added new condition to disable scroll effect if page content is too short
 	if (docHeight < viewportHeight * 1.5) {
 		isSearchBarVisible.value = true;
 		lastScrollPosition = currentScrollY;
@@ -2438,14 +2437,21 @@ const handleScroll = () => {
         isSearchBarVisible.value = true;
         lastScrollPosition = currentScrollY;
     }
+	
+	// Always show search bar at the very top and bottom of the page
+	if (currentScrollY <= 0 || (window.innerHeight + window.scrollY) >= docHeight) {
+		isSearchBarVisible.value = true;
+	}
 
-	// Always show search bar at the very top
-	if (currentScrollY <= 0) {
-        isSearchBarVisible.value = true;
-		lastScrollPosition = currentScrollY;
-    }
-    
 	visibleBringToTop.value = currentScrollY > 20;
+};
+
+const getDocHeight = () => {
+    return Math.max(
+        document.body.scrollHeight, document.documentElement.scrollHeight,
+        document.body.offsetHeight, document.documentElement.offsetHeight,
+        document.body.clientHeight, document.documentElement.clientHeight
+    );
 };
 
 
