@@ -386,6 +386,13 @@ input[type="text"] {
 	transition-duration: 0.3s;
 }
 
+.options-wrapper-top {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	width: 100%;
+}
+
 .toggle-switch {
 	display: flex;
 	align-items: center;
@@ -1014,12 +1021,6 @@ input[type="text"] {
 	.search-container {
 		gap: 5px;
 	}
-	.options-wrapper-top {
-		display: flex;
-		align-items: center;
-		gap: 10px;
-		width: 100%;
-	}
 	.options-wrapper-bottom {
 		display: flex;
 		flex-direction: column;
@@ -1450,7 +1451,7 @@ input[type="text"] {
 						</div>
 					</div>
 				</div>
-				<div class="desktop-options-bar-wrapper desktop-only">
+				<div class="desktop-options-bar-wrapper">
 					<div class="toggle-switch" @click="togglePosterMode"
 							id="posterLogoSwitch" data-mode="poster" :data-mode="posterMode ? 'poster' : 'logo'">
 							<span id="posterButton" class="active" :class="{ active: posterMode }">پوستر</span>
