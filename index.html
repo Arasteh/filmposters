@@ -1540,17 +1540,10 @@ input[type="text"] {
 <script>
 {
 	const urlParams = new URLSearchParams(window.location.search);
-	const similarCharsSwitch = document.getElementById('similarCharsSwitch');
-	const pixelatedSwitch = document.getElementById('pixelatedSwitch');
-
-	if (similarCharsSwitch) {
-		similarCharsSwitch.checked = urlParams.get('similar') === 'true';
-	}
-	if (pixelatedSwitch) {
-		pixelatedSwitch.checked = urlParams.get('censor') === null
-			? location.hostname.endsWith('.ir')
-			: urlParams.get('censor') === 'true';
-	}
+	similarCharsSwitch.checked = urlParams.get('similar') === 'true';
+	pixelatedSwitch.checked = urlParams.get('censor') === null
+		? location.hostname.endsWith('.ir')
+		: urlParams.get('censor') === 'true';
 }
 </script>
 <link rel="modulepreload" href="./vue.esm-browser.prod.min.js" />
@@ -1564,35 +1557,14 @@ const data = await (await fetch('./db.json', {
 	credentials: 'include',
 	mode: 'no-cors',
 })).json();
+randomOrderButton.classList.remove('active');
+posterButton.classList.remove('active');
+posterLogoSwitch.removeAttribute('data-mode');
+[yearsButton, designersButton, directorsButton, lettersButton]
+	.forEach(x => x.classList.remove('rotate-up'));
+desktopSidebarToggleButton.style.display = 'block';
 
 createApp({ setup: () => {
-	onMounted(() => {
-		const randomOrderButton = document.getElementById('randomOrderButton');
-		const posterButton = document.getElementById('posterButton');
-		const posterLogoSwitch = document.getElementById('posterLogoSwitch');
-		const yearsButton = document.getElementById('yearsButton');
-		const designersButton = document.getElementById('designersButton');
-		const directorsButton = document.getElementById('directorsButton');
-		const lettersButton = document.getElementById('lettersButton');
-		const desktopSidebarToggleButton = document.getElementById('desktopSidebarToggleButton');
-
-		if (randomOrderButton) {
-			randomOrderButton.classList.remove('active');
-		}
-		if (posterButton) {
-			posterButton.classList.remove('active');
-		}
-		if (posterLogoSwitch) {
-			posterLogoSwitch.removeAttribute('data-mode');
-		}
-		[yearsButton, designersButton, directorsButton, lettersButton]
-			.forEach(x => {
-				if (x) x.classList.remove('rotate-up');
-			});
-		if (desktopSidebarToggleButton) {
-			desktopSidebarToggleButton.style.display = 'block';
-		}
-	});
 
 const darkMode = ref(false);
 const toggleDarkMode = () => darkMode.value = !darkMode.value;
