@@ -1680,6 +1680,7 @@ const isDesktopSidebarFixed = ref(false);
 const yearsChartInstance = ref(null);
 const isD3Loaded = ref(false);
 const backgroundColor = ref('#ffffff');
+const savedMinimalColor = ref('#ffffff');
 
 const showMore = () => {
 	displayedItemsCount.value += 30;
@@ -1718,6 +1719,7 @@ const applyInitialFilters = () => {
 	exactWordMatch.value = urlParams.get('exact') === 'true';
 	cleanMode.value = urlParams.get('clean') === 'true';
 	backgroundColor.value = urlParams.get('bgcolor') || '#ffffff';
+	savedMinimalColor.value = backgroundColor.value;
 };
 applyInitialFilters();
 
@@ -2670,6 +2672,17 @@ onUnmounted(() => {
 	window.removeEventListener('scroll', handleScroll);
 	window.removeEventListener('resize', checkMobile);
 });
+
+// Watch for changes in cleanMode to reset background color
+watch(cleanMode, (newValue) => {
+	if (newValue) { // Minimal mode is ON
+		backgroundColor.value = savedMinimalColor.value;
+	} else { // Minimal mode is OFF
+		savedMinimalColor.value = backgroundColor.value;
+		backgroundColor.value = '#ffffff';
+	}
+});
+
 
 window.addEventListener('keydown', () => {
 	if (event.keyCode === 27) closeLightbox();
