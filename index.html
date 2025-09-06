@@ -296,6 +296,7 @@ input[type="text"] {
 	max-height: 90%;
 	border-radius: 10px;
 	z-index: 2;
+	background-color: #fff; /* پس‌زمینه پیش‌فرض سفید */
 }
 
 .loading-spinner {
@@ -1337,7 +1338,7 @@ input[type="text"] {
 	
 	<div v-if="lightboxItem" style="display: none" :style="{ display: undefined }" class="lightbox" @click="closeLightbox">
 		<template v-if="lightboxImage">
-			<img :src="lightboxImage" :key="lightboxImage" alt="Lightbox Image" />
+			<img :src="lightboxImage" :key="lightboxImage" alt="Lightbox Image" :style="{ backgroundColor: backgroundColor }" />
 		</template>
 		<template v-else>
 			<div class="no-logo-placeholder">
