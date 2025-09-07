@@ -1544,15 +1544,15 @@ input[type="text"] {
 			</div>
 		</div>
 		<div v-if="filteredItems.length > 0" class="results-grid">
-			<div class="item-card" v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)" :key="index" style="visibility: hidden" :style="{ visibility: undefined, padding: !posterMode && cleanMode ? '0' : '15px 5px', background: !posterMode && cleanMode ? backgroundColor : 'var(--card-background)', border: !posterMode && cleanMode ? 'none' : '1px solid ' + 'var(--card-background)' }">
+			<div class="item-card" v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)" :key="index" style="visibility: hidden" :style="{ visibility: undefined, padding: '15px 5px', background: 'var(--card-background)', border: '1px solid var(--card-background)' }">
 				<div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
-					<div class="image-container" :style="{ aspectRatio: !posterMode && cleanMode ? '1/1' : '5/7.5' }">
+					<div class="image-container" :style="{ aspectRatio: '5/7.5' }">
 						<a @click="handleImageClick(item)" :href="getCommonsUrl(item, posterMode, pixelatedEffect)"
 							class="clickable-image">
 								<img :src="getItemUrl(item, posterMode, pixelatedEffect)"
 									:key="getItemUrl(item, posterMode, pixelatedEffect)" :alt="item.filmLabel"
 									class="item-image"
-									:class="{ 'no-logo-bw': !item.logo && !posterMode }" :style="{ borderRadius: !posterMode && cleanMode ? '8px' : '0', marginBottom: !posterMode && cleanMode ? '0' : '10px', aspectRatio: !posterMode && cleanMode ? '1/1' : '5/7.5' }" />
+									:class="{ 'no-logo-bw': !item.logo && !posterMode }" :style="{ borderRadius: '0', marginBottom: '10px', aspectRatio: '5/7.5' }" />
 						</a>
 						<a :href="downloadLink(item)" aria-label="دریافت پوستر" target="_blank">
 							<button class="download-btn">
@@ -1563,19 +1563,19 @@ input[type="text"] {
 						</a>
 					</div>
 	
-					<div class="item-title" v-if="!cleanMode">
+					<div class="item-title" >
 						{{ item.filmLabel }}
 						<span class="year-link" v-if="item.date" @click="selectYearFromTitle(toPersianYear(item.date))">
 							({{ toPersianYear(item.date) }})
 						</span>
 					</div>
 	
-					<div v-if="item.designerLabel && item.designerLabel !== 'نامشخص' && !cleanMode" class="item-designer">
+					<div v-if="item.designerLabel && item.designerLabel !== 'نامشخص'" class="item-designer" style="display: none;">
 						<span class="mobile-only">
 							<span class="material-symbols-rounded"
 								style="margin-left: 5px; top: 8px; position: relative;">person_edit</span>
 						</span>
-						<span class="desktop-only">{{ item.designers.length === 1 ? 'طراح: ' : 'طراحان: ' }}</span>
+						<span class="desktop-only">طراح: </span>
 						<span v-for="(designer, index) in item.designers" :key="index">
 							<a href="#" @click.prevent="selectDesigner(designer.label)" aria-label="انتخاب طراح">{{ designer.label }}</a>
 							<span class="item-links">
@@ -1595,7 +1595,7 @@ input[type="text"] {
 						</span>
 					</div>
 				</div>
-				<div id="film-links" class="item-links" v-if="!cleanMode">
+				<div id="film-links" class="item-links" style="display: none;">
 					<a v-if="item.imdbID" :href="'https://www.imdb.com/title/' + item.imdbID" aria-label="IMDb" target="_blank">
 						<img src="https://upload.wikimedia.org/wikipedia/commons/5/53/IMDB_-_SuperTinyIcons.svg"
 							alt="IMDb" class="linkIcon">
@@ -1665,7 +1665,7 @@ const selectedLetter = ref('');
 const posterMode = ref(true);
 const combineSimilarChars = ref(false);
 const pixelatedEffect = ref(false);
-const cleanMode = ref(false);
+const cleanMode = ref(true); // Changed to true
 const sortOrder = ref('random');
 const sortDirection = ref('asc');
 const searchPlaceholder = ref(''); // مقدار اولیه خالی
