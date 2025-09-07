@@ -157,6 +157,12 @@ input[type="text"] {
 	position: relative;
 }
 
+.item-card.minimal {
+	padding: 0;
+	background: none;
+	border: none;
+}
+
 .item-image {
 	width: 100%;
 	object-fit: contain;
@@ -172,6 +178,12 @@ input[type="text"] {
 
 .item-title {
 	font-weight: bold;
+}
+
+.item-title.minimal {
+	color: var(--body-foreground);
+	margin-top: 10px;
+	padding: 0 5px;
 }
 
 .year-link {
@@ -1544,15 +1556,15 @@ input[type="text"] {
 			</div>
 		</div>
 		<div v-if="filteredItems.length > 0" class="results-grid">
-			<div class="item-card" v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)" :key="index" style="visibility: hidden" :style="{ visibility: undefined, padding: !posterMode && cleanMode ? '0' : '15px 5px', background: !posterMode && cleanMode ? backgroundColor : 'var(--card-background)', border: !posterMode && cleanMode ? 'none' : '1px solid ' + 'var(--card-background)' }">
+			<div class="item-card" v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)" :key="index" :class="{ 'minimal': cleanMode }" style="visibility: hidden" :style="{ visibility: undefined }">
 				<div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
-					<div class="image-container" :style="{ aspectRatio: !posterMode && cleanMode ? '1/1' : '5/7.5' }">
+					<div class="image-container" :style="{ aspectRatio: cleanMode ? '5/6' : (posterMode ? '5/7.5' : '1/1'), background: cleanMode && !posterMode ? backgroundColor : '' }">
 						<a @click="handleImageClick(item)" :href="getCommonsUrl(item, posterMode, pixelatedEffect)"
 							class="clickable-image">
 								<img :src="getItemUrl(item, posterMode, pixelatedEffect)"
 									:key="getItemUrl(item, posterMode, pixelatedEffect)" :alt="item.filmLabel"
 									class="item-image"
-									:class="{ 'no-logo-bw': !item.logo && !posterMode }" :style="{ borderRadius: !posterMode && cleanMode ? '8px' : '0', marginBottom: !posterMode && cleanMode ? '0' : '10px', aspectRatio: !posterMode && cleanMode ? '1/1' : '5/7.5' }" />
+									:class="{ 'no-logo-bw': !item.logo && !posterMode }" :style="{ borderRadius: !posterMode && cleanMode ? '8px' : '0', marginBottom: !posterMode && cleanMode ? '0' : '10px' }" />
 						</a>
 						<a :href="downloadLink(item)" aria-label="دریافت پوستر" target="_blank">
 							<button class="download-btn">
@@ -1563,19 +1575,19 @@ input[type="text"] {
 						</a>
 					</div>
 	
-					<div class="item-title">
+					<div class="item-title" :class="{ 'minimal': cleanMode }">
 						{{ item.filmLabel }}
-						<span class="year-link" v-if="item.date" @click="selectYearFromTitle(toPersianYear(item.date))">
+						<span class="year-link" v-if="item.date">
 							({{ toPersianYear(item.date) }})
 						</span>
 					</div>
 	
-					<div v-if="item.designerLabel && item.designerLabel !== 'نامشخص' && !cleanMode" class="item-designer">
+					<div v-if="!cleanMode" class="item-designer">
 						<span class="mobile-only">
 							<span class="material-symbols-rounded"
 								style="margin-left: 5px; top: 8px; position: relative;">person_edit</span>
 						</span>
-						<span class="desktop-only">{{ item.designers.length === 1 ? 'طراح: ' : 'طراحان: ' }}</span>
+						<span class="desktop-only">{{ item.designers?.length === 1 ? 'طراح: ' : 'طراحان: ' }}</span>
 						<span v-for="(designer, index) in item.designers" :key="index">
 							<a href="#" @click.prevent="selectDesigner(designer.label)" aria-label="انتخاب طراح">{{ designer.label }}</a>
 							<span class="item-links">
@@ -1821,6 +1833,7 @@ const items = films.flatMap(film => {
 		item.poster = poster.image;
 		item.posterHash = poster.hash;
 		item.isNsfw = poster.characteristics?.includes('Q2716583') ?? false;
+		// Ensure designers property is an array, even if it's missing
 		if (poster.designers?.length ?? 0) {
 			item.designers = poster.designers.map(designerId => {
 				const designer = data.secondary[designerId];
@@ -1831,15 +1844,16 @@ const items = films.flatMap(film => {
 				};
 			});
 			item.characteristics = poster.characteristics;
-			item.designerLabel = data.secondary[poster.designers[0]].labels.fa;
-			const fawiki = data.secondary[poster.designers[0]].sitelinks.fawiki;
+			item.designerLabel = data.secondary[poster.designers[0]]?.labels?.fa;
+			const fawiki = data.secondary[poster.designers[0]]?.sitelinks?.fawiki;
 			if (fawiki) item.designerFaWikipediaLink = fawiki;
 		} else {
+			item.designers = []; // Set to an empty array
 			item.designerLabel = 'نامشخص';
 		}
 		if (film.directors.length) {
 			item.director = film.directors[0];
-			item.directorLabel = data.secondary[film.directors[0]].labels.fa;
+			item.directorLabel = data.secondary[film.directors[0]]?.labels?.fa;
 		} else {
 			item.directorLabel = 'نامشخص';
 		}
@@ -2536,13 +2550,19 @@ const searchBarDynamicStyle = computed(() => {
 });
 
 const updateChart = () => {
+	const chartContainer = document.querySelector('.chart-container');
+	if (!chartContainer) {
+		console.error("Chart container not found.");
+		return;
+	}
+	
 	const svg = d3.select("#yearsChart");
 	svg.selectAll("*").remove();
 
 	const data = filteredYearsInModal.value;
 
 	const margin = { top: 20, right: 30, bottom: 40, left: 60 };
-	const width = document.querySelector('.chart-container').clientWidth - margin.left - margin.right;
+	const width = chartContainer.clientWidth - margin.left - margin.right;
 	const height = 300 - margin.top - margin.bottom;
 	
 	const x = d3.scaleBand()
