@@ -1626,6 +1626,7 @@ input[type="text"] {
 {
 	const urlParams = new URLSearchParams(window.location.search);
 	similarCharsSwitch.checked = urlParams.get('similar') === 'true';
+	cleanModeSwitch.checked = urlParams.get('clean') === 'true';
 	pixelatedSwitch.checked = urlParams.get('censor') === null
 		? location.hostname.endsWith('.ir')
 		: urlParams.get('censor') === 'true';
