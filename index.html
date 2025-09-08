@@ -1483,17 +1483,17 @@ input[type="text"] {
 								</label>
 							</div>
 							<div class="similar-chars-toggle">
-								<label for="cleanModeSwitch" style="cursor: pointer;">
-									<input type="checkbox" id="cleanModeSwitch" v-model="cleanMode">
-									مینیمال
+								<label for="moreInfoSwitch" style="cursor: pointer;">
+									<input type="checkbox" id="moreInfoSwitch" v-model="moreInformation">
+									اطلاعات بیشتر
 								</label>
 								<label>
 									<span class="material-symbols-rounded tooltip">
 										info
-										<span class="tooltiptext">فقط تصاویر نمایش داده شوند و باقی اطلاعات مخفی شوند</span>
+										<span class="tooltiptext">اطلاعات کامل پوستر و فیلم مانند نام طراح و صفحهٔ ویکی‌پدیا نمایش داده می‌شود</span>
 									</span>
 								</label>
-								<div v-if="!posterMode && cleanMode" style="margin-right: 10px;">
+								<div v-if="!posterMode && !moreInformation" style="margin-right: 10px;">
 									<input type="color" v-model="backgroundColor" id="bgColorPicker" style="width: 40px; height: 40px; border-radius: 50%; border: none; cursor: pointer; padding: 0;">
 								</div>
 							</div>
@@ -1544,15 +1544,15 @@ input[type="text"] {
 			</div>
 		</div>
 		<div v-if="filteredItems.length > 0" class="results-grid">
-			<div class="item-card" v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)" :key="index" style="visibility: hidden" :style="{ visibility: undefined, padding: !posterMode && cleanMode ? '15px 0px' : '15px 0px' }">
+			<div class="item-card" v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)" :key="index" style="visibility: hidden" :style="{ visibility: undefined, padding: !posterMode && !moreInformation ? '15px 0px' : '15px 0px' }">
 				<div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
-					<div class="image-container" :style="{ aspectRatio: !posterMode ? '1/1' : '5/7.5', background: !posterMode && cleanMode ? backgroundColor : 'var(--card-background)' }">
+					<div class="image-container" :style="{ aspectRatio: !posterMode ? '1/1' : '5/7.5', background: !posterMode && !moreInformation ? backgroundColor : 'var(--card-background)' }">
 						<a @click="handleImageClick(item)" :href="getCommonsUrl(item, posterMode, pixelatedEffect)"
 							class="clickable-image">
 								<img :src="getItemUrl(item, posterMode, pixelatedEffect)"
 									:key="getItemUrl(item, posterMode, pixelatedEffect)" :alt="item.filmLabel"
 									class="item-image"
-									:class="{ 'no-logo-bw': !item.logo && !posterMode }" :style="{ borderRadius: !posterMode && cleanMode ? '0' : '0', marginBottom: !posterMode && cleanMode ? '0' : '10px', aspectRatio: !posterMode && cleanMode ? '1/1' : '5/7.5' }" />
+									:class="{ 'no-logo-bw': !item.logo && !posterMode }" :style="{ borderRadius: !posterMode && !moreInformation ? '0' : '0', marginBottom: !posterMode && !moreInformation ? '0' : '10px', aspectRatio: !posterMode && !moreInformation ? '1/1' : '5/7.5' }" />
 						</a>
 						<a :href="downloadLink(item)" aria-label="دریافت پوستر" target="_blank">
 							<button class="download-btn">
@@ -1570,7 +1570,7 @@ input[type="text"] {
 						</span>
 					</div>
 	
-					<div v-if="item.designerLabel && item.designerLabel !== 'نامشخص' && !cleanMode" class="item-designer">
+					<div v-if="item.designerLabel && item.designerLabel !== 'نامشخص' && moreInformation" class="item-designer">
 						<span class="mobile-only">
 							<span class="material-symbols-rounded"
 								style="margin-left: 5px; top: 8px; position: relative;">person_edit</span>
@@ -1595,7 +1595,7 @@ input[type="text"] {
 						</span>
 					</div>
 				</div>
-				<div id="film-links" class="item-links" v-if="!cleanMode">
+				<div id="film-links" class="item-links" v-if="moreInformation">
 					<a v-if="item.imdbID" :href="'https://www.imdb.com/title/' + item.imdbID" aria-label="IMDb" target="_blank">
 						<img src="https://upload.wikimedia.org/wikipedia/commons/5/53/IMDB_-_SuperTinyIcons.svg"
 							alt="IMDb" class="linkIcon">
@@ -1626,7 +1626,7 @@ input[type="text"] {
 {
 	const urlParams = new URLSearchParams(window.location.search);
 	similarCharsSwitch.checked = urlParams.get('similar') === 'true';
-	cleanModeSwitch.checked = urlParams.get('clean') === 'true';
+	moreInfoSwitch.checked = urlParams.get('moreInfo') === 'true';
 	pixelatedSwitch.checked = urlParams.get('censor') === null
 		? location.hostname.endsWith('.ir')
 		: urlParams.get('censor') === 'true';
@@ -1666,7 +1666,7 @@ const selectedLetter = ref('');
 const posterMode = ref(true);
 const combineSimilarChars = ref(false);
 const pixelatedEffect = ref(false);
-const cleanMode = ref(true);
+const moreInformation = ref(false);
 const sortOrder = ref('random');
 const sortDirection = ref('asc');
 const searchPlaceholder = ref(''); // مقدار اولیه خالی
@@ -1718,7 +1718,7 @@ const applyInitialFilters = () => {
 	sortOrder.value = urlParams.get('sort') || 'random';
 	sortDirection.value = urlParams.get('dir') || 'asc';
 	exactWordMatch.value = urlParams.get('exact') === 'true';
-	cleanMode.value = urlParams.get('clean') === 'true';
+	moreInformation.value = urlParams.get('moreInfo') === 'true';
 	backgroundColor.value = urlParams.get('bgcolor') || '#ffffff';
 	savedMinimalColor.value = backgroundColor.value;
 };
@@ -1739,7 +1739,7 @@ const updateURL = () => {
 		params.set('dir', sortDirection.value);
 	}
 	params.set('exact', exactWordMatch.value ? 'true' : 'false');
-	if (cleanMode.value) params.set('clean', 'true');
+	if (moreInformation.value) params.set('moreInfo', 'true');
 	if (!posterMode.value) {
 		params.set('bgcolor', backgroundColor.value);
 	}
@@ -1750,7 +1750,7 @@ const updateURL = () => {
 watch([
 	searchTerm, selectedYear, selectedDesigner, selectedDirector,
 	selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder, sortDirection, exactWordMatch,
-	cleanMode, backgroundColor
+	moreInformation, backgroundColor
 ], updateURL);
 
 const isCollapsed = ref({
@@ -1788,7 +1788,7 @@ const resetFilters = () => {
 	selectedLetter.value = '';
 	sortDirection.value = 'asc';
 	exactWordMatch.value = false;
-	cleanMode.value = true;
+	moreInformation.value = false;
 	backgroundColor.value = '#ffffff';
 };
 
@@ -2674,11 +2674,11 @@ onUnmounted(() => {
 	window.removeEventListener('resize', checkMobile);
 });
 
-// Watch for changes in cleanMode to reset background color
-watch(cleanMode, (newValue) => {
-	if (newValue) { // Minimal mode is ON
+// Watch for changes in moreInformation to reset background color
+watch(moreInformation, (newValue) => {
+	if (!newValue) { // Minimal mode is ON (moreInformation is false)
 		backgroundColor.value = savedMinimalColor.value;
-	} else { // Minimal mode is OFF
+	} else { // Minimal mode is OFF (moreInformation is true)
 		savedMinimalColor.value = backgroundColor.value;
 		backgroundColor.value = '#ffffff';
 	}
@@ -2711,7 +2711,7 @@ return {
 	filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass,
 	directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter,
 	removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar,
-	sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, cleanMode, backgroundColor, clearSearchTerm, lightboxItem,
+	sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, moreInformation, backgroundColor, clearSearchTerm, lightboxItem,
 	lightboxImage, openLightbox, closeLightbox, downloadLink, handleImageClick,
 	clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading,
 	handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage,
