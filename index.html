@@ -939,6 +939,49 @@ input[type="text"] {
 }
 
 
+/* --- اضافه شدن استایل برای ترنزیشن نمایش/مخفی شدن اطلاعات بیشتر --- */
+.more-info-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	overflow: hidden;
+	transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+	max-height: 0;
+	opacity: 0;
+	margin-top: 0;
+	visibility: hidden;
+	padding: 0 10px;
+	width: 100%;
+}
+
+.more-info-content.visible {
+	max-height: 200px; /* این مقدار باید به اندازه کافی بزرگ باشد تا محتوا را در بر بگیرد */
+	opacity: 1;
+	margin-top: 10px;
+	visibility: visible;
+}
+
+.more-info-toggle-button {
+	background: none;
+	border: none;
+	cursor: pointer;
+	color: light-dark(#555, #bbb);
+	padding: 5px;
+	font-size: 0.9em;
+	margin-top: 5px;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	transition: color 0.3s;
+}
+
+.more-info-toggle-button:hover {
+	color: var(--body-foreground);
+}
+
+/* --- پایان استایل‌های جدید --- */
+
+
 @media (max-width: 768px) {
 	#app {
 		padding: 0;
@@ -1483,9 +1526,10 @@ input[type="text"] {
 								</label>
 							</div>
 							<div class="similar-chars-toggle">
+								<!-- حذف چک‌باکس اصلی و اضافه کردن دکمه و چک‌باکس جدید -->
 								<label for="moreInfoSwitch" style="cursor: pointer;">
-									<input type="checkbox" id="moreInfoSwitch" v-model="moreInformation">
-									اطلاعات بیشتر
+									<input type="checkbox" id="moreInfoSwitch" v-model="moreInformation" style="display: none;">
+									نمایش اطلاعات
 								</label>
 								<label>
 									<span class="material-symbols-rounded tooltip">
@@ -1569,46 +1613,50 @@ input[type="text"] {
 							({{ toPersianYear(item.date) }})
 						</span>
 					</div>
-	
-					<div v-if="item.designerLabel && item.designerLabel !== 'نامشخص' && moreInformation" class="item-designer">
-						<span class="mobile-only">
-							<span class="material-symbols-rounded"
-								style="margin-left: 5px; top: 8px; position: relative;">person_edit</span>
+
+					<!-- اضافه شدن دکمه نمایش/مخفی کردن اطلاعات بیشتر -->
+					<button class="more-info-toggle-button" @click="toggleMoreInfo(item)">
+						<span class="material-symbols-rounded" style="transition: transform 0.3s;" :class="{ 'rotate-up': moreInfoStates[item.film+item.poster], 'rotate-down': !moreInfoStates[item.film+item.poster] }">
+							info
 						</span>
-						<span class="desktop-only">{{ item.designers.length === 1 ? 'طراح: ' : 'طراحان: ' }}</span>
-						<span v-for="(designer, index) in item.designers" :key="index">
-							<a href="#" @click.prevent="selectDesigner(designer.label)" aria-label="انتخاب طراح">{{ designer.label }}</a>
-							<span class="item-links">
-								<a :href="'https://www.wikidata.org/wiki/' + designer.id" aria-label="ویکی‌داده" target="_blank">
-									<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg"
-										alt="ویکی‌داده" class="linkIcon">
-								</a>
-								<template v-if="designer.faWikipediaLink">
-									<a :href="'https://fa.wikipedia.org/wiki/' + designer.faWikipediaLink.replaceAll(' ', '_')"
-										aria-label="ویکی‌پدیا" target="_blank">
-										<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg"
-											alt="ویکی‌پدیا" class="linkIcon">
-									</a>
-								</template>
+						<span>اطلاعات بیشتر</span>
+					</button>
+
+					<!-- محتوای اطلاعات بیشتر با ترنزیشن -->
+					<div class="more-info-content" :class="{ 'visible': moreInfoStates[item.film+item.poster] }">
+						<div v-if="item.designerLabel && item.designerLabel !== 'نامشخص'" class="item-designer">
+							<span class="mobile-only">
+								<span class="material-symbols-rounded" style="margin-left: 5px; top: 8px; position: relative;">person_edit</span>
 							</span>
-							<br v-if="index < item.designers.length - 1">
-						</span>
+							<span class="desktop-only">{{ item.designers.length === 1 ? 'طراح: ' : 'طراحان: ' }}</span>
+							<span v-for="(designer, index) in item.designers" :key="index">
+								<a href="#" @click.prevent="selectDesigner(designer.label)" aria-label="انتخاب طراح">{{ designer.label }}</a>
+								<span class="item-links">
+									<a :href="'https://www.wikidata.org/wiki/' + designer.id" aria-label="ویکی‌داده" target="_blank">
+										<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg" alt="ویکی‌داده" class="linkIcon">
+									</a>
+									<template v-if="designer.faWikipediaLink">
+										<a :href="'https://fa.wikipedia.org/wiki/' + designer.faWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
+											<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
+										</a>
+									</template>
+								</span>
+								<br v-if="index < item.designers.length - 1">
+							</span>
+						</div>
+						<div id="film-links" class="item-links">
+							<a v-if="item.imdbID" :href="'https://www.imdb.com/title/' + item.imdbID" aria-label="IMDb" target="_blank">
+								<img src="https://upload.wikimedia.org/wikipedia/commons/5/53/IMDB_-_SuperTinyIcons.svg" alt="IMDb" class="linkIcon">
+							</a>
+							<a v-if="item.film" :href="'https://www.wikidata.org/wiki/' + item.film" aria-label="ویکی‌داده" target="_blank">
+								<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg" alt="ویکی‌داده" class="linkIcon">
+							</a>
+							<a v-if="item.faWikipediaLink" :href="'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
+								<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
+							</a>
+						</div>
 					</div>
-				</div>
-				<div id="film-links" class="item-links" v-if="moreInformation">
-					<a v-if="item.imdbID" :href="'https://www.imdb.com/title/' + item.imdbID" aria-label="IMDb" target="_blank">
-						<img src="https://upload.wikimedia.org/wikipedia/commons/5/53/IMDB_-_SuperTinyIcons.svg"
-							alt="IMDb" class="linkIcon">
-					</a>
-					<a v-if="item.film" :href="'https://www.wikidata.org/wiki/' + item.film" aria-label="ویکی‌داده" target="_blank">
-						<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg" alt="ویکی‌داده" class="linkIcon">
-					</a>
-					<a v-if="item.faWikipediaLink"
-						:href="'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_')"
-						aria-label="ویکی‌پدیا" target="_blank">
-						<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg"
-							alt="ویکی‌پدیا" class="linkIcon">
-					</a>
+
 				</div>
 			</div>
 		</div>
@@ -1626,7 +1674,6 @@ input[type="text"] {
 {
 	const urlParams = new URLSearchParams(window.location.search);
 	similarCharsSwitch.checked = urlParams.get('similar') === 'true';
-	moreInfoSwitch.checked = urlParams.get('moreInfo') === 'true';
 	pixelatedSwitch.checked = urlParams.get('censor') === null
 		? location.hostname.endsWith('.ir')
 		: urlParams.get('censor') === 'true';
@@ -1682,6 +1729,13 @@ const yearsChartInstance = ref(null);
 const isD3Loaded = ref(false);
 const backgroundColor = ref('#ffffff');
 const savedMinimalColor = ref('#ffffff');
+const moreInfoStates = ref({}); // وضعیت نمایش اطلاعات بیشتر هر کارت
+
+
+const toggleMoreInfo = (item) => {
+	const key = item.film + item.poster;
+	moreInfoStates.value[key] = !moreInfoStates.value[key];
+};
 
 const showMore = () => {
 	displayedItemsCount.value += 30;
@@ -2718,7 +2772,8 @@ return {
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount,
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
 	searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
-	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle
+	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle,
+	moreInfoStates, toggleMoreInfo
 };
 
 } }).mount('#app');
