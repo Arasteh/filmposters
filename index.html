@@ -1526,10 +1526,9 @@ input[type="text"] {
 								</label>
 							</div>
 							<div class="similar-chars-toggle">
-								<!-- حذف چک‌باکس اصلی و اضافه کردن دکمه و چک‌باکس جدید -->
 								<label for="moreInfoSwitch" style="cursor: pointer;">
-									<input type="checkbox" id="moreInfoSwitch" v-model="moreInformation" style="display: none;">
-									نمایش اطلاعات
+									<input type="checkbox" id="moreInfoSwitch" v-model="moreInformation">
+									اطلاعات بیشتر
 								</label>
 								<label>
 									<span class="material-symbols-rounded tooltip">
@@ -1614,16 +1613,8 @@ input[type="text"] {
 						</span>
 					</div>
 
-					<!-- اضافه شدن دکمه نمایش/مخفی کردن اطلاعات بیشتر -->
-					<button class="more-info-toggle-button" @click="toggleMoreInfo(item)">
-						<span class="material-symbols-rounded" style="transition: transform 0.3s;" :class="{ 'rotate-up': moreInfoStates[item.film+item.poster], 'rotate-down': !moreInfoStates[item.film+item.poster] }">
-							info
-						</span>
-						<span>اطلاعات بیشتر</span>
-					</button>
-
 					<!-- محتوای اطلاعات بیشتر با ترنزیشن -->
-					<div class="more-info-content" :class="{ 'visible': moreInfoStates[item.film+item.poster] }">
+					<div class="more-info-content" :class="{ 'visible': moreInformation }">
 						<div v-if="item.designerLabel && item.designerLabel !== 'نامشخص'" class="item-designer">
 							<span class="mobile-only">
 								<span class="material-symbols-rounded" style="margin-left: 5px; top: 8px; position: relative;">person_edit</span>
@@ -1729,13 +1720,6 @@ const yearsChartInstance = ref(null);
 const isD3Loaded = ref(false);
 const backgroundColor = ref('#ffffff');
 const savedMinimalColor = ref('#ffffff');
-const moreInfoStates = ref({}); // وضعیت نمایش اطلاعات بیشتر هر کارت
-
-
-const toggleMoreInfo = (item) => {
-	const key = item.film + item.poster;
-	moreInfoStates.value[key] = !moreInfoStates.value[key];
-};
 
 const showMore = () => {
 	displayedItemsCount.value += 30;
@@ -2772,8 +2756,7 @@ return {
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount,
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
 	searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
-	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle,
-	moreInfoStates, toggleMoreInfo
+	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle
 };
 
 } }).mount('#app');
