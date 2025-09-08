@@ -1545,7 +1545,7 @@ input[type="text"] {
 		</div>
 		<div v-if="filteredItems.length > 0" class="results-grid">
 			<div class="item-card" v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)" :key="index" style="visibility: hidden" :style="{ visibility: undefined, padding: !posterMode && !moreInformation ? '15px 0px' : '15px 0px' }">
-				<div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
+				<div style="display: flex; flex-direction: column; height: 100%;">
 					<div class="image-container" :style="{ aspectRatio: !posterMode ? '1/1' : '5/7.5', background: !posterMode && !moreInformation ? backgroundColor : 'var(--card-background)' }">
 						<a @click="handleImageClick(item)" :href="getCommonsUrl(item, posterMode, pixelatedEffect)"
 							class="clickable-image">
