@@ -1544,9 +1544,9 @@ input[type="text"] {
 			</div>
 		</div>
 		<div v-if="filteredItems.length > 0" class="results-grid">
-			<div class="item-card" v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)" :key="index" style="visibility: hidden" :style="{ visibility: undefined, padding: !posterMode && cleanMode ? '0' : '15px 5px', background: !posterMode && cleanMode ? backgroundColor : 'var(--card-background)', border: !posterMode && cleanMode ? 'none' : '1px solid ' + 'var(--card-background)' }">
+			<div class="item-card" v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)" :key="index" style="visibility: hidden" :style="{ visibility: undefined, padding: !posterMode && cleanMode ? '15px 0px' : '15px 5px', border: !posterMode && cleanMode ? 'none' : '1px solid ' + 'var(--card-background)' }">
 				<div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
-					<div class="image-container" :style="{ aspectRatio: !posterMode && cleanMode ? '1/1' : '5/7.5' }">
+					<div class="image-container" :style="{ aspectRatio: !posterMode && cleanMode ? '1/1' : '5/7.5', background: !posterMode && cleanMode ? backgroundColor : 'var(--card-background)' }">
 						<a @click="handleImageClick(item)" :href="getCommonsUrl(item, posterMode, pixelatedEffect)"
 							class="clickable-image">
 								<img :src="getItemUrl(item, posterMode, pixelatedEffect)"
