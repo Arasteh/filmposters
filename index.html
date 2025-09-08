@@ -77,7 +77,6 @@ body {
 	align-items: center;
 	max-width: 100%;
 	overflow-x: hidden;
-	/* پدینگ بالا توسط اسکریپت به صورت پویا مدیریت می‌شود تا با ارتفاع نوار جستجو هماهنگ باشد */
 	padding-top: 30px;
 	transition: padding-top 0.3s ease-in-out, margin-right 0.3s ease-in-out;
 }
@@ -296,7 +295,7 @@ input[type="text"] {
 	max-height: 90%;
 	border-radius: 10px;
 	z-index: 2;
-	background-color: #fff; /* پس‌زمینه پیش‌فرض سفید */
+	background-color: #fff;
 }
 
 .loading-spinner {
@@ -939,23 +938,21 @@ input[type="text"] {
 }
 
 
-/* --- اضافه شدن استایل برای ترنزیشن نمایش/مخفی شدن اطلاعات بیشتر --- */
 .more-info-content {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	overflow: hidden;
-	transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+	transition: max-height 0.3s ease-in-out , opacity 0.3s ease-in-out , margin-top 0.3s ease-in-out;
 	max-height: 0;
 	opacity: 0;
 	margin-top: 0;
-	visibility: hidden;
 	padding: 0 10px;
 	width: 100%;
 }
 
 .more-info-content.visible {
-	max-height: 200px; /* این مقدار باید به اندازه کافی بزرگ باشد تا محتوا را در بر بگیرد */
+	max-height: 200px;
 	opacity: 1;
 	margin-top: 10px;
 	visibility: visible;
@@ -978,9 +975,6 @@ input[type="text"] {
 .more-info-toggle-button:hover {
 	color: var(--body-foreground);
 }
-
-/* --- پایان استایل‌های جدید --- */
-
 
 @media (max-width: 768px) {
 	#app {
@@ -1369,7 +1363,6 @@ input[type="text"] {
 			</a>
 		</div>
 	</div>
-	<!-- دکمه جدید و ثابت برای سایدبار -->
 	<button id="desktopSidebarToggleButton" class="desktop-only"
 		@click="toggleSidebarDesktop"
 		style="display: none;"
@@ -1545,7 +1538,6 @@ input[type="text"] {
 				</div>
 				
 				<div class="desktop-options-bar-wrapper">
-					<!-- کانتینر جدید برای گروه‌بندی سوییچ‌ها -->
 					<div class="controls-wrapper-desktop">
 						<div class="toggle-switch" @click="togglePosterMode"
 								id="posterLogoSwitch" data-mode="poster" :data-mode="posterMode ? 'poster' : 'logo'">
@@ -1613,7 +1605,6 @@ input[type="text"] {
 						</span>
 					</div>
 
-					<!-- محتوای اطلاعات بیشتر با ترنزیشن -->
 					<div class="more-info-content" :class="{ 'visible': moreInformation }">
 						<div v-if="item.designerLabel && item.designerLabel !== 'نامشخص'" class="item-designer">
 							<span class="mobile-only">
@@ -1708,7 +1699,7 @@ const pixelatedEffect = ref(false);
 const moreInformation = ref(false);
 const sortOrder = ref('random');
 const sortDirection = ref('asc');
-const searchPlaceholder = ref(''); // مقدار اولیه خالی
+const searchPlaceholder = ref('');
 const isSearchFocused = ref(false);
 const displayedItemsCount = ref(30);
 const exactWordMatch = ref(false);
@@ -2486,16 +2477,13 @@ const handleScroll = () => {
 	}
 
 	if (currentScrollY > lastScrollPosition + scrollTolerance) {
-        // Scrolling down past tolerance
         isSearchBarVisible.value = false;
         lastScrollPosition = currentScrollY;
     } else if (currentScrollY < lastScrollPosition - scrollTolerance) {
-        // Scrolling up past tolerance
         isSearchBarVisible.value = true;
         lastScrollPosition = currentScrollY;
     }
 	
-	// Always show search bar at the very top and bottom of the page
 	if (currentScrollY <= 0 || (window.innerHeight + window.scrollY) >= docHeight) {
 		isSearchBarVisible.value = true;
 	}
@@ -2685,7 +2673,6 @@ watch([filteredYearsInModal, isD3Loaded], () => {
 onMounted(() => {
 	const checkMobile = () => {
 		isMobileView.value = window.innerWidth <= 768;
-		// Update placeholder immediately after checking mobile view
 		if (isMobileView.value) {
 			searchPlaceholder.value = 'جستجو';
 		} else {
@@ -2697,7 +2684,6 @@ onMounted(() => {
 	checkMobile();
 	window.addEventListener('scroll', handleScroll);
 
-	// با استفاده از ResizeObserver، ارتفاع نوار جستجو را به صورت پویا و قابل اطمینان دریافت می‌کنیم.
 	if (searchBarRef.value) {
 		const resizeObserver = new ResizeObserver(entries => {
 			for (let entry of entries) {
@@ -2713,11 +2699,10 @@ onUnmounted(() => {
 	window.removeEventListener('resize', checkMobile);
 });
 
-// Watch for changes in moreInformation to reset background color
 watch(moreInformation, (newValue) => {
-	if (!newValue) { // Minimal mode is ON (moreInformation is false)
+	if (!newValue) {
 		backgroundColor.value = savedMinimalColor.value;
-	} else { // Minimal mode is OFF (moreInformation is true)
+	} else {
 		savedMinimalColor.value = backgroundColor.value;
 		backgroundColor.value = '#ffffff';
 	}
