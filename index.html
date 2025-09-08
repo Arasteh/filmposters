@@ -1552,7 +1552,7 @@ input[type="text"] {
 								<img :src="getItemUrl(item, posterMode, pixelatedEffect)"
 									:key="getItemUrl(item, posterMode, pixelatedEffect)" :alt="item.filmLabel"
 									class="item-image"
-									:class="{ 'no-logo-bw': !item.logo && !posterMode }" :style="{ borderRadius: !posterMode && !moreInformation ? '0' : '0', marginBottom: !posterMode && !moreInformation ? '0' : '10px', aspectRatio: !posterMode && !moreInformation ? '1/1' : '5/7.5' }" />
+									:class="{ 'no-logo-bw': !item.logo && !posterMode }" :style="{ borderRadius: !posterMode && !moreInformation ? '0' : '0', marginBottom: !posterMode && !moreInformation ? '0' : '10px', aspectRatio: !posterMode ? '1/1' : '5/7.5' }" />
 						</a>
 						<a :href="downloadLink(item)" aria-label="دریافت پوستر" target="_blank">
 							<button class="download-btn">
