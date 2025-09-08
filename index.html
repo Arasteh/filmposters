@@ -1757,7 +1757,7 @@ const applyInitialFilters = () => {
 	sortOrder.value = urlParams.get('sort') || 'random';
 	sortDirection.value = urlParams.get('dir') || 'asc';
 	exactWordMatch.value = urlParams.get('exact') === 'true';
-	moreInformation.value = urlParams.get('moreInfo') === 'false';
+	moreInformation.value = urlParams.get('moreInfo') === 'true';
 	backgroundColor.value = urlParams.get('bgcolor') || '#ffffff';
 	savedMinimalColor.value = backgroundColor.value;
 };
@@ -1778,7 +1778,7 @@ const updateURL = () => {
 		params.set('dir', sortDirection.value);
 	}
 	params.set('exact', exactWordMatch.value ? 'true' : 'false');
-	if (moreInformation.value) params.set('moreInfo', 'false');
+	if (moreInformation.value) params.set('moreInfo', 'true');
 	if (!posterMode.value) {
 		params.set('bgcolor', backgroundColor.value);
 	}
