@@ -83,14 +83,14 @@ body {
 
 .title-container {
     position: fixed;
-    top: 0;
+    top: 5px;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
     text-align: center;
     transition: opacity 0.3s ease-in-out;
     opacity: 0;
-    z-index: 99;
+    z-index: 1;
     pointer-events: none;
     padding-top: 10px;
 }
@@ -127,8 +127,8 @@ body {
 .search-bar-inner {
 	max-width: 960px;
 	width: 100%;
-	margin: 0 auto;
-	padding: 10px;
+    margin: -50px auto 0;
+    padding: 60px 10px 10px 10px;
 	border-radius: 0 0 16px 16px;
 	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 	background-color: var(--search-background);
@@ -417,6 +417,8 @@ input[type="text"] {
 	align-items: center;
 	gap: 10px;
 	width: 100%;
+    z-index: 40;
+    position: relative;
 }
 
 .options-row-top {
@@ -1471,9 +1473,6 @@ input[type="text"] {
 	</div>
 
 	<div id="main-content" :style="mainContentStyle">
-		<div class="title-container" :class="{ 'visible-title': isAtTop }">
-			<h1>آرشیو پوسترهای سینمای ایران</h1>
-		</div>
 		<button @click="bringToTop" id="toTop" :style="{ bottom: visibleBringToTop ? '20px' : '-100px' }">
 			<span class="material-symbols-rounded">
 				north
@@ -1482,6 +1481,9 @@ input[type="text"] {
 
 		<div id="searchBar" class="search-bar" :class="{ 'visible': isSearchBarVisible }" ref="searchBarRef" :style="searchBarDynamicStyle">
 			<div class="search-bar-inner">
+				<div class="title-container" :class="{ 'visible-title': isAtTop }">
+					<h1>آرشیو پوسترهای سینمای ایران</h1>
+				</div>
 				<div class="options-wrapper-container">
 					<div class="options-wrapper-top">
 						<button @click="toggleSidebar" id="toggleSidebarButton" class="mobile-only">
