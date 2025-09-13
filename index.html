@@ -2486,14 +2486,14 @@ const bringToTop = () => document.documentElement.scrollTop = 0;
 const visibleBringToTop = ref(false);
 
 const mainContentPaddingTop = computed(() => {
-	const basePadding = 0; 
+	const basePadding = 0;
 	if (isMobileView.value) {
 		return `${searchBarHeight.value + basePadding + 30}px`;
 	} else {
-		return isSearchBarVisible.value ? `${searchBarHeight.value + basePadding}px` : `${basePadding}px`;
+		const titleHeight = 50; /* Adjust this value if the title's height changes */
+		return isAtTop.value ? `${searchBarHeight.value + titleHeight + basePadding}px` : `${searchBarHeight.value + basePadding}px`;
 	}
 });
-
 
 let lastScrollPosition = 0;
 const scrollTolerance = 50;
@@ -2574,7 +2574,8 @@ const searchBarDynamicStyle = computed(() => {
 		style.width = '100%';
 		style.right = 'auto';
 		if (isSearchBarVisible.value) {
-			style.top = isAtTop.value ? '50px' : '0px';
+			const titleHeight = 50; /* Adjust this value if the title's height changes */
+			style.top = isAtTop.value ? `${titleHeight}px` : '0px';
 		} else {
 			style.top = '-120px';
 		}
@@ -2588,7 +2589,8 @@ const searchBarDynamicStyle = computed(() => {
 		}
 		style.width = 'auto';
 		if (isSearchBarVisible.value) {
-			style.top = isAtTop.value ? '50px' : '0px';
+			const titleHeight = 50; /* Adjust this value if the title's height changes */
+			style.top = isAtTop.value ? `${titleHeight}px` : '0px';
 		} else {
 			style.top = '-120px';
 		}
@@ -2596,15 +2598,22 @@ const searchBarDynamicStyle = computed(() => {
 	return style;
 });
 
-
 const mainContentStyle = computed(() => {
 	const effectiveMarginRight = sidebarVisible.value && !isMobileView.value
 		? `${sidebarWidth.value + 20}px`
 		: '0px';
+	
+	const titleHeight = 50; /* Adjust this value if the title's height changes */
+	const searchBarTotalHeight = isSearchBarVisible.value ? searchBarHeight.value : 0;
+	
+	let totalPadding = searchBarTotalHeight;
+	if (isAtTop.value) {
+		totalPadding += titleHeight;
+	}
 
 	return {
-		marginRight: effectiveMarginRight, 
-		paddingTop: mainContentPaddingTop.value 
+		marginRight: effectiveMarginRight,
+		paddingTop: `${totalPadding}px`
 	};
 });
 
