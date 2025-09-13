@@ -78,7 +78,7 @@ body {
 	max-width: 100%;
 	overflow-x: hidden;
 	transition: padding-top 0.3s ease-in-out, margin-right 0.3s ease-in-out;
-	padding-top: 0;
+	padding-top: 0; /* Remove initial padding from main-content */
 }
 
 .title-container {
@@ -1152,22 +1152,6 @@ input[type="text"] {
 	.search-container {
 		gap: 5px;
 	}
-	.search-bar-on-top {
-		top: 0 !important;
-		opacity: 1;
-		transition: top 0.3s ease-in-out, opacity 0.3s ease-in-out;
-	}
-	.search-bar-scrolled-top {
-		top: -120px !important;
-		opacity: 0;
-		transition: top 0.3s ease-in-out, opacity 0.3s ease-in-out;
-	}
-	.search-bar-top-padding {
-		padding-top: 140px !important;
-	}
-	.main-content-top-padding {
-		padding-top: 140px !important;
-	}
 }
 
 @media (min-width: 769px) {
@@ -1232,22 +1216,6 @@ input[type="text"] {
 	}
 	.options-toggle-desktop:hover {
 		opacity: 0.8;
-	}
-	.search-bar-on-top {
-		top: 0 !important;
-		opacity: 1;
-		transition: top 0.3s ease-in-out, opacity 0.3s ease-in-out;
-	}
-	.search-bar-scrolled-top {
-		top: -120px !important;
-		opacity: 0;
-		transition: top 0.3s ease-in-out, opacity 0.3s ease-in-out;
-	}
-	.search-bar-top-padding {
-		padding-top: 140px !important;
-	}
-	.main-content-top-padding {
-		padding-top: 140px !important;
 	}
 }
 </style>
@@ -1515,7 +1483,7 @@ input[type="text"] {
 			</span>
 		</button>
 
-		<div id="searchBar" class="search-bar" :class="{ 'search-bar-on-top': isSearchBarVisible, 'search-bar-scrolled-top': !isSearchBarVisible }" ref="searchBarRef" :style="searchBarDynamicStyle">
+		<div id="searchBar" class="search-bar" :class="{ 'visible': isSearchBarVisible }" ref="searchBarRef" :style="searchBarDynamicStyle">
 			<div class="search-bar-inner">
 				<div class="title-container" :class="{ 'visible-title': isAtTop }">
 					<h1>آرشیو پوسترهای سینمای ایران</h1>
