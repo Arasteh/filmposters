@@ -81,34 +81,6 @@ body {
 	padding-top: 0; /* Remove initial padding from main-content */
 }
 
-.title-container {
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    text-align: center;
-    transition: opacity 0.3s ease-in-out, background-color 0.3s;
-    opacity: 0;
-    z-index: 99;
-    pointer-events: none;
-    padding-top: 10px;
-    background-color: transparent;
-}
-
-.title-container.visible-title {
-    opacity: 1;
-    pointer-events: auto;
-    background-color: var(--search-background);
-}
-
-.title-container h1 {
-    font-weight: bold;
-    font-size: larger;
-    margin: 0;
-    color: var(--body-foreground);
-}
-
 .search-container {
 	display: flex;
 	align-items: center;
@@ -147,6 +119,12 @@ body {
 	font-weight: bolder;
 	font-size: larger;
 	margin-bottom: 10px;
+	transition: opacity 0.3s ease-in-out;
+	opacity: 0;
+}
+
+.search-title-wrapper.visible-title {
+	opacity: 1;
 }
 
 input[type="text"] {
@@ -2496,21 +2474,16 @@ const getCommonsUrl = (item, posterMode, pixelatedEffect) => {
 const bringToTop = () => document.documentElement.scrollTop = 0;
 const visibleBringToTop = ref(false);
 
+const titleHeight = 50; /* Adjust this value if the title's height changes */
+
 const mainContentPaddingTop = computed(() => {
-	const basePadding = 0;
-	const searchBarTotalHeight = isSearchBarVisible.value ? searchBarHeight.value : 0;
-	
-	let totalPadding = searchBarTotalHeight;
-	
+	let totalPadding = isSearchBarVisible.value ? searchBarHeight.value : 0;
 	if (isAtTop.value) {
-		const titleHeight = 50;
 		totalPadding += titleHeight;
 	}
-
-	return {
-		paddingTop: `${totalPadding}px`
-	};
+	return `${totalPadding}px`;
 });
+
 
 let lastScrollPosition = 0;
 const scrollTolerance = 50;
@@ -2591,7 +2564,6 @@ const searchBarDynamicStyle = computed(() => {
 		style.width = '100%';
 		style.right = 'auto';
 		if (isSearchBarVisible.value) {
-			const titleHeight = document.querySelector('.search-title-wrapper').offsetHeight;
 			style.top = isAtTop.value ? `${titleHeight}px` : '0px';
 		} else {
 			style.top = '-120px';
@@ -2606,7 +2578,6 @@ const searchBarDynamicStyle = computed(() => {
 		}
 		style.width = 'auto';
 		if (isSearchBarVisible.value) {
-			const titleHeight = document.querySelector('.search-title-wrapper').offsetHeight;
 			style.top = isAtTop.value ? `${titleHeight}px` : '0px';
 		} else {
 			style.top = '-120px';
@@ -2615,32 +2586,20 @@ const searchBarDynamicStyle = computed(() => {
 	return style;
 });
 
-const mainContentStyle = computed(() => {
-	const effectiveMarginRight = sidebarVisible.value && !isMobileView.value
-		? `${sidebarWidth.value + 20}px`
-		: '0px';
-	
-	let totalPadding = isSearchBarVisible.value ? searchBarHeight.value : 0;
-	
-	if (isAtTop.value) {
-		const titleHeight = document.querySelector('.search-title-wrapper').offsetHeight;
-		totalPadding += titleHeight;
-	}
-
-	return {
-		marginRight: effectiveMarginRight,
-		paddingTop: `${totalPadding}px`
-	};
-});
-
 const updateChart = () => {
 	const svg = d3.select("#yearsChart");
 	svg.selectAll("*").remove();
 
+	const chartContainer = document.querySelector('.chart-container');
+	if (!chartContainer) {
+		console.error('Chart container not found.');
+		return;
+	}
+	
 	const data = filteredYearsInModal.value;
 
 	const margin = { top: 20, right: 30, bottom: 40, left: 60 };
-	const width = document.querySelector('.chart-container').clientWidth - margin.left - margin.right;
+	const width = chartContainer.clientWidth - margin.left - margin.right;
 	const height = 300 - margin.top - margin.bottom;
 	
 	const x = d3.scaleBand()
