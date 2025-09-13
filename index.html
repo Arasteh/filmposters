@@ -2494,7 +2494,7 @@ const visibleBringToTop = ref(false);
 const mainContentPaddingTop = computed(() => {
 	const basePadding = 0;
 	if (isMobileView.value) {
-		return `${searchBarHeight.value + basePadding + 30}px`;
+		return `${searchBarHeight.value + basePadding + 50}px`;
 	} else {
 		const titleHeight = 50; /* Adjust this value if the title's height changes */
 		return isAtTop.value ? `${searchBarHeight.value + titleHeight + basePadding}px` : `${searchBarHeight.value + basePadding}px`;
