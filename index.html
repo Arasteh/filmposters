@@ -88,16 +88,18 @@ body {
     transform: translateX(-50%);
     width: 100%;
     text-align: center;
-    transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out, background-color 0.3s;
     opacity: 0;
     z-index: 99;
     pointer-events: none;
     padding-top: 10px;
+    background-color: transparent;
 }
 
 .title-container.visible-title {
     opacity: 1;
     pointer-events: auto;
+    background-color: var(--search-background);
 }
 
 .title-container h1 {
@@ -136,6 +138,15 @@ body {
 
 .search-bar.visible {
 	opacity: 1;
+}
+
+.search-title-wrapper {
+	display: flex;
+	align-items: center;
+	flex-flow: column;
+	font-weight: bolder;
+	font-size: larger;
+	margin-bottom: 10px;
 }
 
 input[type="text"] {
@@ -1471,9 +1482,6 @@ input[type="text"] {
 	</div>
 
 	<div id="main-content" :style="mainContentStyle">
-		<div class="title-container" :class="{ 'visible-title': isAtTop }">
-			<h1>آرشیو پوسترهای سینمای ایران</h1>
-		</div>
 		<button @click="bringToTop" id="toTop" :style="{ bottom: visibleBringToTop ? '20px' : '-100px' }">
 			<span class="material-symbols-rounded">
 				north
@@ -1482,6 +1490,9 @@ input[type="text"] {
 
 		<div id="searchBar" class="search-bar" :class="{ 'visible': isSearchBarVisible }" ref="searchBarRef" :style="searchBarDynamicStyle">
 			<div class="search-bar-inner">
+				<div class="search-title-wrapper" :class="{ 'visible-title': isAtTop }">
+					<h1>آرشیو پوسترهای سینمای ایران</h1>
+				</div>
 				<div class="options-wrapper-container">
 					<div class="options-wrapper-top">
 						<button @click="toggleSidebar" id="toggleSidebarButton" class="mobile-only">
@@ -2487,12 +2498,18 @@ const visibleBringToTop = ref(false);
 
 const mainContentPaddingTop = computed(() => {
 	const basePadding = 0;
-	if (isMobileView.value) {
-		return `${searchBarHeight.value + basePadding + 30}px`;
-	} else {
-		const titleHeight = 50; /* Adjust this value if the title's height changes */
-		return isAtTop.value ? `${searchBarHeight.value + titleHeight + basePadding}px` : `${searchBarHeight.value + basePadding}px`;
+	const searchBarTotalHeight = isSearchBarVisible.value ? searchBarHeight.value : 0;
+	
+	let totalPadding = searchBarTotalHeight;
+	
+	if (isAtTop.value) {
+		const titleHeight = 50;
+		totalPadding += titleHeight;
 	}
+
+	return {
+		paddingTop: `${totalPadding}px`
+	};
 });
 
 let lastScrollPosition = 0;
@@ -2574,7 +2591,7 @@ const searchBarDynamicStyle = computed(() => {
 		style.width = '100%';
 		style.right = 'auto';
 		if (isSearchBarVisible.value) {
-			const titleHeight = 50; /* Adjust this value if the title's height changes */
+			const titleHeight = document.querySelector('.search-title-wrapper').offsetHeight;
 			style.top = isAtTop.value ? `${titleHeight}px` : '0px';
 		} else {
 			style.top = '-120px';
@@ -2589,7 +2606,7 @@ const searchBarDynamicStyle = computed(() => {
 		}
 		style.width = 'auto';
 		if (isSearchBarVisible.value) {
-			const titleHeight = 50; /* Adjust this value if the title's height changes */
+			const titleHeight = document.querySelector('.search-title-wrapper').offsetHeight;
 			style.top = isAtTop.value ? `${titleHeight}px` : '0px';
 		} else {
 			style.top = '-120px';
@@ -2603,11 +2620,10 @@ const mainContentStyle = computed(() => {
 		? `${sidebarWidth.value + 20}px`
 		: '0px';
 	
-	const titleHeight = 50; /* Adjust this value if the title's height changes */
-	const searchBarTotalHeight = isSearchBarVisible.value ? searchBarHeight.value : 0;
+	let totalPadding = isSearchBarVisible.value ? searchBarHeight.value : 0;
 	
-	let totalPadding = searchBarTotalHeight;
 	if (isAtTop.value) {
+		const titleHeight = document.querySelector('.search-title-wrapper').offsetHeight;
 		totalPadding += titleHeight;
 	}
 
