@@ -77,8 +77,8 @@ body {
 	align-items: center;
 	max-width: 100%;
 	overflow-x: hidden;
-	padding-top: 30px;
 	transition: padding-top 0.3s ease-in-out, margin-right 0.3s ease-in-out;
+	padding-top: 0; /* Remove initial padding from main-content */
 }
 
 .title-container {
@@ -135,7 +135,6 @@ body {
 }
 
 .search-bar.visible {
-	top: 0px;
 	opacity: 1;
 }
 
@@ -2568,24 +2567,17 @@ const desktopSidebarToggleStyle = computed(() => {
 	}
 });
 
-const mainContentStyle = computed(() => {
-	const effectiveMarginRight = sidebarVisible.value && !isMobileView.value
-		? `${sidebarWidth.value + 20}px`
-		: '0px';
-
-	return {
-		marginRight: effectiveMarginRight, 
-		paddingTop: mainContentPaddingTop.value 
-	};
-});
-
-
 const searchBarDynamicStyle = computed(() => {
 	let style = {};
 	if (isMobileView.value) {
 		style.left = '0px';
 		style.width = '100%';
 		style.right = 'auto';
+		if (isSearchBarVisible.value) {
+			style.top = isAtTop.value ? '50px' : '0px';
+		} else {
+			style.top = '-120px';
+		}
 	} else {
 		if (sidebarVisible.value) {
 			style.right = `${sidebarWidth.value + 60}px`;
@@ -2595,8 +2587,25 @@ const searchBarDynamicStyle = computed(() => {
 			style.right = '20px';
 		}
 		style.width = 'auto';
+		if (isSearchBarVisible.value) {
+			style.top = isAtTop.value ? '50px' : '0px';
+		} else {
+			style.top = '-120px';
+		}
 	}
 	return style;
+});
+
+
+const mainContentStyle = computed(() => {
+	const effectiveMarginRight = sidebarVisible.value && !isMobileView.value
+		? `${sidebarWidth.value + 20}px`
+		: '0px';
+
+	return {
+		marginRight: effectiveMarginRight, 
+		paddingTop: mainContentPaddingTop.value 
+	};
 });
 
 const updateChart = () => {
