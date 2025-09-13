@@ -2506,38 +2506,40 @@ const scrollTolerance = 50;
 
 const handleScroll = () => {
 	const currentScrollY = window.scrollY;
-	const docHeight = document.body.scrollHeight;
+	const docHeight = getDocHeight();
 	const viewportHeight = window.innerHeight;
-
+	
+	// If the page content is less than 1.5 times the viewport height, the search bar should always be visible.
 	if (docHeight < viewportHeight * 1.5) {
 		isSearchBarVisible.value = true;
 		lastScrollPosition = currentScrollY;
 		return;
 	}
-	
+
 	isAtTop.value = window.scrollY < 20;
 
+	// Hide on scroll down, show on scroll up
 	if (currentScrollY > lastScrollPosition + scrollTolerance) {
-        isSearchBarVisible.value = false;
-        lastScrollPosition = currentScrollY;
-    } else if (currentScrollY < lastScrollPosition - scrollTolerance) {
-        isSearchBarVisible.value = true;
-        lastScrollPosition = currentScrollY;
-    }
+		isSearchBarVisible.value = false;
+	} else if (currentScrollY < lastScrollPosition - scrollTolerance) {
+		isSearchBarVisible.value = true;
+	}
 	
-	if (currentScrollY <= 0 || (window.innerHeight + window.scrollY) >= docHeight) {
+	// Keep search bar visible at the top and bottom of the page
+	if (currentScrollY <= 0 || (window.innerHeight + currentScrollY) >= docHeight) {
 		isSearchBarVisible.value = true;
 	}
 
+	lastScrollPosition = currentScrollY;
 	visibleBringToTop.value = currentScrollY > 20;
 };
 
 const getDocHeight = () => {
-    return Math.max(
-        document.body.scrollHeight, document.documentElement.scrollHeight,
-        document.body.offsetHeight, document.documentElement.offsetHeight,
-        document.body.clientHeight, document.documentElement.clientHeight
-    );
+	return Math.max(
+		document.body.scrollHeight, document.documentElement.scrollHeight,
+		document.body.offsetHeight, document.documentElement.offsetHeight,
+		document.body.clientHeight, document.documentElement.clientHeight
+	);
 };
 
 
