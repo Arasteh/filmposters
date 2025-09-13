@@ -81,6 +81,32 @@ body {
 	transition: padding-top 0.3s ease-in-out, margin-right 0.3s ease-in-out;
 }
 
+.title-container {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
+    z-index: 99;
+    pointer-events: none;
+    padding-top: 10px;
+}
+
+.title-container.visible-title {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.title-container h1 {
+    font-weight: bold;
+    font-size: larger;
+    margin: 0;
+    color: var(--body-foreground);
+}
+
 .search-container {
 	display: flex;
 	align-items: center;
@@ -980,6 +1006,11 @@ input[type="text"] {
 	#app {
 		padding: 0;
 	}
+	
+	.title-container {
+		font-size: 0.8rem;
+		padding-top: 5px;
+	}
 
 	#main-content {
 		margin-right: 0 !important;
@@ -1441,6 +1472,9 @@ input[type="text"] {
 	</div>
 
 	<div id="main-content" :style="mainContentStyle">
+		<div class="title-container" :class="{ 'visible-title': isAtTop }">
+			<h1>آرشیو پوسترهای سینمای ایران</h1>
+		</div>
 		<button @click="bringToTop" id="toTop" :style="{ bottom: visibleBringToTop ? '20px' : '-100px' }">
 			<span class="material-symbols-rounded">
 				north
@@ -1711,6 +1745,7 @@ const yearsChartInstance = ref(null);
 const isD3Loaded = ref(false);
 const backgroundColor = ref('#ffffff');
 const savedMinimalColor = ref('#ffffff');
+const isAtTop = ref(true);
 
 const showMore = () => {
 	displayedItemsCount.value += 30;
@@ -2474,6 +2509,8 @@ const handleScroll = () => {
 		lastScrollPosition = currentScrollY;
 		return;
 	}
+	
+	isAtTop.value = window.scrollY < 20;
 
 	if (currentScrollY > lastScrollPosition + scrollTolerance) {
         isSearchBarVisible.value = false;
@@ -2741,7 +2778,7 @@ return {
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount,
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
 	searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
-	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle
+	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle, isAtTop
 };
 
 } }).mount('#app');
