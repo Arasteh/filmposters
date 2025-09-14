@@ -1800,16 +1800,16 @@ const updateURL = () => {
 	if (selectedDesigner.value) params.set('designer', selectedDesigner.value);
 	if (selectedDirector.value) params.set('director', selectedDirector.value);
 	if (selectedLetter.value) params.set('letter', selectedLetter.value);
-	params.set('mode', posterMode.value ? 'poster' : 'logo');
-	params.set('similar', combineSimilarChars.value ? 'true' : 'false');
-	params.set('censor', pixelatedEffect.value ? 'true' : 'false');
+	if (!posterMode.value) params.set('mode', 'logo');
+	if (combineSimilarChars.value) params.set('similar', 'true');
+	if (pixelatedEffect.value) params.set('censor', 'true');
 	params.set('sort', sortOrder.value);
 	if (sortOrder.value !== 'random') {
 		params.set('dir', sortDirection.value);
 	}
-	params.set('exact', exactWordMatch.value ? 'true' : 'false');
+	if (exactWordMatch.value) params.set('exact', 'true');
 	if (moreInformation.value) params.set('moreInfo', 'true');
-	if (!posterMode.value) {
+	if (!posterMode.value && backgroundColor.value !== '#ffffff') {
 		params.set('bgcolor', backgroundColor.value);
 	}
 
