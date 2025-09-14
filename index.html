@@ -1810,7 +1810,7 @@ const updateURL = () => {
 	if (exactWordMatch.value) params.set('exact', 'true');
 	if (moreInformation.value) params.set('moreInfo', 'true');
 	if (!posterMode.value && backgroundColor.value !== '#ffffff') {
-		params.set('bgcolor', backgroundColor.value);
+		params.set('bgcolor', backgroundColor.value.replace('#', ''));
 	}
 
 	const newUrl = `${window.location.pathname}?${params.toString()}`;
