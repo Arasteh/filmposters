@@ -1802,7 +1802,7 @@ const updateURL = () => {
 	if (selectedLetter.value) params.set('letter', selectedLetter.value);
 	if (!posterMode.value) params.set('mode', 'logo');
 	if (combineSimilarChars.value) params.set('similar', 'true');
-	if (pixelatedEffect.value) params.set('censor', 'true');
+	if (posterMode.value && pixelatedEffect.value) params.set('censor', 'true');
 	params.set('sort', sortOrder.value);
 	if (sortOrder.value !== 'random') {
 		params.set('dir', sortDirection.value);
