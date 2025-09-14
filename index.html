@@ -1749,7 +1749,7 @@ const isDesktopSidebarFixed = ref(false);
 const yearsChartInstance = ref(null);
 const isD3Loaded = ref(false);
 const backgroundColor = ref('#ffffff');
-const savedMinimalColor = ref('#ffffff');
+const savedLogoColor = ref('#ffffff');
 const isAtTop = ref(true);
 
 const showMore = () => {
@@ -1789,7 +1789,7 @@ const applyInitialFilters = () => {
 	exactWordMatch.value = urlParams.get('exact') === 'true';
 	moreInformation.value = urlParams.get('moreInfo') === 'true';
 	backgroundColor.value = urlParams.get('bgcolor') || '#ffffff';
-	savedMinimalColor.value = backgroundColor.value;
+	savedLogoColor.value = backgroundColor.value;
 };
 applyInitialFilters();
 
@@ -1834,7 +1834,15 @@ const getSectionClass = section => isCollapsed.value[section] ? 'collapsed' : 'e
 const selectDirectorFromModal = director => selectedDirector.value = director;
 const selectYearFromModal = year => selectedYear.value = year;
 const selectLetterFromModal = letter => selectedLetter.value = letter;
-const togglePosterMode = () => posterMode.value = !posterMode.value;
+const togglePosterMode = () => {
+	posterMode.value = !posterMode.value;
+	if (posterMode.value) {
+		savedLogoColor.value = backgroundColor.value;
+		backgroundColor.value = '#ffffff';
+	} else {
+		backgroundColor.value = savedLogoColor.value;
+	}
+};
 const toggleOptions = () => isOptionsCollapsed.value = !isOptionsCollapsed.value;
 const collapseIconClass = value => value ? 'rotate-down' : 'rotate-up';
 const toggleSortDirection = () => sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc';
@@ -2758,16 +2766,6 @@ onUnmounted(() => {
 	window.removeEventListener('scroll', handleScroll);
 	window.removeEventListener('resize', checkMobile);
 });
-
-watch(moreInformation, (newValue) => {
-	if (!newValue) {
-		backgroundColor.value = savedMinimalColor.value;
-	} else {
-		savedMinimalColor.value = backgroundColor.value;
-		backgroundColor.value = '#ffffff';
-	}
-});
-
 
 window.addEventListener('keydown', () => {
 	if (event.keyCode === 27) closeLightbox();
