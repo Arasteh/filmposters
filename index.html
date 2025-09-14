@@ -1556,6 +1556,9 @@ input[type="text"] {
 									</span>
 								</label>
 							</div>
+							<div v-if="!posterMode" style="display: flex; align-items: center;">
+									<p>پس‌زمینه: </p><input type="color" v-model="backgroundColor" id="bgColorPicker" style="background: none; width: 40px; height: 40px; border: none; cursor: pointer;">
+							</div>
 							<div class="similar-chars-toggle">
 								<label for="moreInfoSwitch" style="cursor: pointer;">
 									<input type="checkbox" id="moreInfoSwitch" v-model="moreInformation">
@@ -1567,9 +1570,6 @@ input[type="text"] {
 										<span class="tooltiptext">اطلاعات کامل پوستر و فیلم مانند نام طراح و صفحهٔ ویکی‌پدیا نمایش داده می‌شود</span>
 									</span>
 								</label>
-								<div v-if="!posterMode" style="margin-right: 10px;">
-									<input type="color" v-model="backgroundColor" id="bgColorPicker" style="width: 40px; height: 40px; border-radius: 50%; border: none; cursor: pointer; padding: 0;">
-								</div>
 							</div>
 						</div>
 					</div>
