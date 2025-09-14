@@ -1788,7 +1788,7 @@ const applyInitialFilters = () => {
 	sortDirection.value = urlParams.get('dir') || 'asc';
 	exactWordMatch.value = urlParams.get('exact') === 'true';
 	moreInformation.value = urlParams.get('moreInfo') === 'true';
-	backgroundColor.value = urlParams.get('bgcolor') || '#ffffff';
+	backgroundColor.value = urlParams.get('bgcolor') ? `#${urlParams.get('bgcolor')}` : '#ffffff';
 	savedLogoColor.value = backgroundColor.value;
 };
 applyInitialFilters();
@@ -2513,31 +2513,31 @@ let lastScrollPosition = 0;
 const scrollTolerance = 50;
 
 const handleScroll = () => {
-	const currentScrollY = window.scrollY;
-	const docHeight = document.body.scrollHeight;
-	const viewportHeight = window.innerHeight;
-
-	if (docHeight < viewportHeight * 1.5) {
-		isSearchBarVisible.value = true;
-		lastScrollPosition = currentScrollY;
-		return;
-	}
-	
-	isAtTop.value = window.scrollY < 20;
-
-	if (currentScrollY > lastScrollPosition + scrollTolerance) {
-        isSearchBarVisible.value = false;
-        lastScrollPosition = currentScrollY;
-    } else if (currentScrollY < lastScrollPosition - scrollTolerance) {
+    const currentScrollY = window.scrollY;
+    const docHeight = getDocHeight();
+    const viewportHeight = window.innerHeight;
+    
+    // در صورتی که طول صفحه به اندازه کافی برای اسکرول نباشد، نوار جستجو همیشه نمایش داده می‌شود.
+    if (docHeight < viewportHeight * 1.5) {
         isSearchBarVisible.value = true;
         lastScrollPosition = currentScrollY;
+        return;
     }
-	
-	if (currentScrollY <= 0 || (window.innerHeight + window.scrollY) >= docHeight) {
-		isSearchBarVisible.value = true;
-	}
 
-	visibleBringToTop.value = currentScrollY > 20;
+    isAtTop.value = currentScrollY < 20;
+
+    // منطق اصلی نمایش/پنهان کردن نوار جستجو
+    // نوار جستجو را پنهان کن اگر به سمت پایین اسکرول می‌کنی
+    if (currentScrollY > lastScrollPosition + scrollTolerance) {
+        isSearchBarVisible.value = false;
+    } 
+    // نوار جستجو را نمایش بده اگر به سمت بالا اسکرول می‌کنی یا در بالای صفحه هستی
+    else if (currentScrollY < lastScrollPosition - scrollTolerance || currentScrollY <= 0) {
+        isSearchBarVisible.value = true;
+    }
+
+    lastScrollPosition = currentScrollY;
+    visibleBringToTop.value = currentScrollY > 20;
 };
 
 const getDocHeight = () => {
