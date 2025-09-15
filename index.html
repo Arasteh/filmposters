@@ -2614,7 +2614,7 @@ const searchBarDynamicStyle = computed(() => {
 
 const mainContentStyle = computed(() => {
 	const effectiveMarginRight = sidebarVisible.value && !isMobileView.value
-		? `${sidebarWidth.value}px`
+		? `${sidebarWidth.value + 40}px`
 		: '0px';
 	
 	const titleHeight = 50; /* Adjust this value if the title's height changes */
