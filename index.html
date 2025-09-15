@@ -210,6 +210,11 @@ input[type="text"] {
 	text-decoration: underline;
 }
 
+.gregorian-year-link {
+	color: inherit;
+	text-decoration-line: none;
+}
+
 .item-designer {
 	font-size: 0.85em;
 	color: light-dark(#555, #adadad);
@@ -1641,11 +1646,9 @@ input[type="text"] {
 						<span class="year-link" v-if="item.date">
 							<a @click.prevent="selectYearFromTitle(toPersianYear(item.date))" href="#" class="year-link">
 								({{ toPersianYear(item.date) }}
-							</a>
-							-
-							<a v-if="moreInformation" :href="'https://commons.wikimedia.org/wiki/Category:' + new Date(item.date).getFullYear() + '_film_posters_of_Iran'" target="_blank" class="year-link">
-								{{ new Date(item.date).getFullYear() }})
-							</a>
+							</a><template v-if="moreInformation"> - <a
+								v-if="moreInformation" :href="'https://commons.wikimedia.org/wiki/Category:' + new Date(item.date).getFullYear() + '_film_posters_of_Iran'"
+								target="_blank" class="gregorian-year-link">{{ new Date(item.date).getFullYear() }}</a></template>)
 						</span>
 					</div>
 
