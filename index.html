@@ -78,7 +78,7 @@ body {
 	max-width: 100%;
 	overflow-x: hidden;
 	transition: padding-top 0.3s ease-in-out, margin-right 0.3s ease-in-out;
-	padding-top: 0;
+	padding-top: 0; /* Remove initial padding from main-content */
 }
 
 .title-container {
@@ -315,23 +315,6 @@ input[type="text"] {
 	z-index: 1000;
 }
 
-.lightbox-content {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	text-align: center;
-}
-
-.lightbox-content .more-info-content {
-	padding: 0;
-	margin-top: 10px;
-	max-height: 500px;
-}
-
-.lightbox-content .more-info-content.visible {
-	max-height: 500px;
-}
-
 .lightbox img {
 	max-width: 90%;
 	max-height: 90%;
@@ -383,49 +366,6 @@ input[type="text"] {
 .lightbox-info p {
 	margin: 5px 0;
 	font-size: 1em;
-}
-
-.view-page-btn {
-	background-color: #b77;
-	color: white;
-	border: none;
-	padding: 8px 12px;
-	border-radius: 5px;
-	cursor: pointer;
-	font-size: 0.9em;
-	display: flex;
-	align-items: center;
-	gap: 5px;
-	margin-top: 10px;
-}
-
-.view-page-btn:hover {
-	background-color: #a66;
-}
-
-.lightbox-item-card {
-	background: var(--card-background);
-	padding: 15px;
-	border-radius: 12px;
-	text-align: center;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
-.lightbox-item-card .item-image {
-	max-width: 90%;
-	max-height: 90vh;
-	border-radius: 10px;
-	margin-bottom: 10px;
-}
-
-.lightbox-item-card .item-title {
-	font-size: 1.5em;
-}
-.lightbox-item-card .item-designer,
-.lightbox-item-card .item-links {
-	margin-top: 5px;
 }
 
 #toTop {
@@ -1234,10 +1174,10 @@ input[type="text"] {
 		display: flex;
 		align-items: center;
 		flex-wrap: wrap;
+		width: 63%;
 		justify-content: space-around;
 		row-gap: 10px;
 		column-gap: 20px;
-		width: auto;
 	}
 	.counter-wrapper-desktop {
 		text-align: center;
@@ -1467,50 +1407,25 @@ input[type="text"] {
 		</span>
 	</button>
 	
-	<div v-if="lightboxItem" style="display: none" :style="{ display: undefined }" class="lightbox" @click.self="closeLightbox">
-		<div class="lightbox-content">
+	<div v-if="lightboxItem" style="display: none" :style="{ display: undefined }" class="lightbox" @click="closeLightbox">
+		<template v-if="lightboxImage">
 			<img :src="lightboxImage" :key="lightboxImage" alt="Lightbox Image" :style="{ backgroundColor: backgroundColor }" />
-			<div class="lightbox-item-card">
-				<div class="item-title">
-					{{ lightboxItem.filmLabel }}
-					<span class="year-link" v-if="lightboxItem.date">
-						({{ toPersianYear(lightboxItem.date) }})
-					</span>
-				</div>
-				<div class="more-info-content visible">
-					<div v-if="lightboxItem.designerLabel && lightboxItem.designerLabel !== 'نامشخص'" class="item-designer">
-						<span class="mobile-only">
-							<span class="material-symbols-rounded" style="margin-left: 5px; top: 8px; position: relative;">person_edit</span>
-						</span>
-						<span class="desktop-only">{{ lightboxItem.designers.length === 1 ? 'طراح: ' : 'طراحان: ' }}</span>
-						<span v-for="(designer, index) in lightboxItem.designers" :key="index">
-							<a href="#" @click.prevent="selectDesigner(designer.label)" aria-label="انتخاب طراح">{{ designer.label }}</a>
-							<span class="item-links">
-								<a :href="'https://www.wikidata.org/wiki/' + designer.id" aria-label="ویکی‌داده" target="_blank">
-									<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg" alt="ویکی‌داده" class="linkIcon">
-								</a>
-								<template v-if="designer.faWikipediaLink">
-									<a :href="'https://fa.wikipedia.org/wiki/' + designer.faWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
-										<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
-									</a>
-								</template>
-							</span>
-							<br v-if="index < lightboxItem.designers.length - 1">
-						</span>
-					</div>
-					<div id="film-links" class="item-links">
-						<a v-if="lightboxItem.imdbID" :href="'https://www.imdb.com/title/' + lightboxItem.imdbID" aria-label="IMDb" target="_blank">
-							<img src="https://upload.wikimedia.org/wikipedia/commons/5/53/IMDB_-_SuperTinyIcons.svg" alt="IMDb" class="linkIcon">
-						</a>
-						<a v-if="lightboxItem.film" :href="'https://www.wikidata.org/wiki/' + lightboxItem.film" aria-label="ویکی‌داده" target="_blank">
-							<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg" alt="ویکی‌داده" class="linkIcon">
-						</a>
-						<a v-if="lightboxItem.faWikipediaLink" :href="'https://fa.wikipedia.org/wiki/' + lightboxItem.faWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
-							<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
-						</a>
-					</div>
-				</div>
+		</template>
+		<template v-else>
+			<div class="no-logo-placeholder">
+				(بدون لوگو)
 			</div>
+		</template>
+		<div class="lightbox-info desktop-only" v-if="lightboxItem">
+			<h2>{{ lightboxItem.filmLabel }}</h2>
+			<p>سال تولید: {{ toPersianYear(lightboxItem.date) }}</p>
+			<p v-if="lightboxItem.directorLabel && lightboxItem.directorLabel !== 'نامشخص'">کارگردان: {{ lightboxItem.directorLabel }}</p>
+			<p v-if="lightboxItem.designerLabel && lightboxItem.designerLabel !== 'نامشخص'">
+				طراح پوستر: 
+				<span v-for="(designer, index) in lightboxItem.designers" :key="index">
+					{{ designer.label }}<span v-if="index < lightboxItem.designers.length - 1">, </span>
+				</span>
+			</p>
 		</div>
 		<div class="loading-spinner" v-if="isLoading">
 			<svg width="53" height="53" viewBox="0 0 53 53" xmlns="http://www.w3.org/2000/svg">
@@ -1547,24 +1462,18 @@ input[type="text"] {
 				</span>
 			</button>
 		</a>
-		<button class="lightbox-button desktop-only" style="left: 20px; top: 50%; transform: translateY(-50%);" @click.stop="prevImage">
+		<button class="lightbox-button desktop-only" style="left: 20px; top: 50%; transform: translateY(-50%);" @click.stop="nextImage">
 			<span class="material-symbols-rounded">
 				arrow_back_ios
 			</span>
 		</button>
-		<button class="lightbox-button desktop-only" style="right: 20px; top: 50%; transform: translateY(-50%);" @click.stop="nextImage">
+		<button class="lightbox-button desktop-only" style="right: 20px; top: 50%; transform: translateY(-50%);" @click.stop="prevImage">
 			<span class="material-symbols-rounded">
 				arrow_forward_ios
 			</span>
 		</button>
-		<a :href="itemPageLink(lightboxItem)" target="_blank">
-			<button class="view-page-btn" style="position: absolute; bottom: 20px; left: 20px; opacity: 1; transition: opacity 0.3s; z-index: 10;">
-				<span>مشاهده صفحهٔ اختصاصی</span>
-				<span class="material-symbols-rounded">
-					open_in_new
-				</span>
-			</button>
-		</a>
+
+		
 	</div>
 
 	<div id="main-content" :style="mainContentStyle">
@@ -1708,7 +1617,7 @@ input[type="text"] {
 			</div>
 		</div>
 		<div v-if="filteredItems.length > 0" class="results-grid">
-			<div class="item-card" v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)" :key="item.id" style="visibility: hidden" :style="{ visibility: undefined, padding: !posterMode && !moreInformation ? '15px 0px' : '15px 0px' }">
+			<div class="item-card" v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)" :key="index" style="visibility: hidden" :style="{ visibility: undefined, padding: !posterMode && !moreInformation ? '15px 0px' : '15px 0px' }">
 				<div>
 					<div class="image-container" :style="{ aspectRatio: !posterMode ? '1/1' : '5/7.5' }">
 						<a @click="handleImageClick(item)" :href="getCommonsUrl(item, posterMode, pixelatedEffect)"
@@ -1766,12 +1675,6 @@ input[type="text"] {
 								<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
 							</a>
 						</div>
-						<button @click.prevent.stop="showItemPage(item)" class="view-page-btn">
-							<span>مشاهده صفحهٔ اختصاصی</span>
-							<span class="material-symbols-rounded" style="font-size: 1.2em;">
-								open_in_new
-							</span>
-						</button>
 					</div>
 
 				</div>
@@ -1890,9 +1793,8 @@ const applyInitialFilters = () => {
 };
 applyInitialFilters();
 
-const updateURL = (itemId = null) => {
+const updateURL = () => {
 	const params = new URLSearchParams();
-	if (itemId) params.set('id', itemId);
 	if (searchTerm.value) params.set('q', searchTerm.value);
 	if (selectedYear.value) params.set('y', selectedYear.value);
 	if (selectedDesigner.value) params.set('designer', selectedDesigner.value);
@@ -1918,7 +1820,7 @@ watch([
 	searchTerm, selectedYear, selectedDesigner, selectedDirector,
 	selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder, sortDirection, exactWordMatch,
 	moreInformation, backgroundColor
-], () => updateURL());
+], updateURL);
 
 const isCollapsed = ref({
 	designers: false,
@@ -1968,53 +1870,8 @@ const resetFilters = () => {
 };
 
 const films = Object.values(data.films);
-const items = films.flatMap(film => {
-	const posters = film.posters.map(poster => ({
-		...poster,
-		type: 'poster',
-		film: film.id,
-		id: poster.image.replace(/\.(png|jpe?g)$/i, ''),
-		filmLabel: film.labels.fa || film.labels.en || '',
-		aliases: film.aliases?.fa?.join(',') ?? '',
-		date: film.date[0],
-		designers: poster.designers?.map(designerId => ({
-			id: designerId,
-			label: data.secondary[designerId].labels.fa,
-			faWikipediaLink: data.secondary[designerId].sitelinks?.fawiki
-		})) || [],
-		designerLabel: (poster.designers?.length ? data.secondary[poster.designers[0]].labels.fa : 'نامشخص'),
-		director: film.directors[0] || '',
-		directorLabel: (film.directors?.length ? data.secondary[film.directors[0]].labels.fa : 'نامشخص'),
-		imdbID: film.imdb[0] || '',
-		faWikipediaLink: film.sitelinks.fawiki
-	}));
-
-	const logos = film.logos.filter(logo => logo.image.endsWith('.png')).map(logo => ({
-		...logo,
-		type: 'logo',
-		film: film.id,
-		id: logo.image.replace(/\.(png|jpe?g)$/i, ''),
-		filmLabel: film.labels.fa || film.labels.en || '',
-		aliases: film.aliases?.fa?.join(',') ?? '',
-		date: film.date[0],
-		designers: logo.designers?.map(designerId => ({
-			id: designerId,
-			label: data.secondary[designerId].labels.fa,
-			faWikipediaLink: data.secondary[designerId].sitelinks?.fawiki
-		})) || [],
-		designerLabel: (logo.designers?.length ? data.secondary[logo.designers[0]].labels.fa : 'نامشخص'),
-		director: film.directors[0] || '',
-		directorLabel: (film.directors?.length ? data.secondary[film.directors[0]].labels.fa : 'نامشخص'),
-		imdbID: film.imdb[0] || '',
-		faWikipediaLink: film.sitelinks.fawiki
-	}));
-	
-	return [...posters, ...logos];
-});
-
-
-const posters = items.filter(item => item.type === 'poster');
-const logos = items.filter(item => item.type === 'logo');
+const posters = films.flatMap(film => film.posters);
+const logos = films.flatMap(film => film.logos).filter(logo => logo.image.endsWith('.png'));
 
 const uniqueFilmCount = computed(() => films.length.toLocaleString('fa', { useGrouping: false }));
 
@@ -2023,6 +1880,58 @@ const uniqueResultsFilmCount = computed(() => {
 	return uniqueFilmIds.size.toLocaleString('fa', { useGrouping: false });
 });
 
+const items = films.flatMap(film => {
+	return film.posters.map((poster, i) => {
+		const item = {};
+		item.film = film.id;
+		if (!film.labels.fa) {
+			console.log(film.id + ' doesn\'t have Persian label!');
+		}
+		item.filmLabel = film.labels.fa || film.labels.en || '';
+		item.aliases = film.aliases?.fa?.join(',') ?? '';
+		item.date = film.date
+			.map(x => x.replace(/^\+/, '')
+				.replace('-01-01T00:00:00Z', '-03-30T00:00:00Z')
+				.replace('-00-00T00:00:00Z', '-03-30T00:00:00Z')
+				.replace('-00T', '-01T')
+			)
+			.sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0];
+		item.poster = poster.image;
+		item.posterHash = poster.hash;
+		item.isNsfw = poster.characteristics?.includes('Q2716583') ?? false;
+		if (poster.designers?.length ?? 0) {
+			item.designers = poster.designers.map(designerId => {
+				const designer = data.secondary[designerId];
+				return {
+					id: designerId,
+					label: designer.labels.fa,
+					faWikipediaLink: designer.sitelinks?.fawiki
+				};
+			});
+			item.characteristics = poster.characteristics;
+			item.designerLabel = data.secondary[poster.designers[0]].labels.fa;
+			const fawiki = data.secondary[poster.designers[0]].sitelinks.fawiki;
+			if (fawiki) item.designerFaWikipediaLink = fawiki;
+		} else {
+			item.designerLabel = 'نامشخص';
+		}
+		if (film.directors.length) {
+			item.director = film.directors[0];
+			item.directorLabel = data.secondary[film.directors[0]].labels.fa;
+		} else {
+			item.directorLabel = 'نامشخص';
+		}
+		if (film.imdb.length) {
+			item.imdbID = film.imdb[0];
+		}
+		item.faWikipediaLink = film.sitelinks.fawiki;
+		if (film.logos.length > i && film.logos[i].image.endsWith('.png')) {
+			item.logo = film.logos[i].image;
+			item.logoHash = film.logos[i].hash;
+		}
+		return item;
+	});
+});
 const itemsLength = computed(() => {
 	const count = posterMode.value
 		? posters.length
@@ -2116,7 +2025,7 @@ const filteredItems = computed(() => {
 				.map(part => {
 					return part.split('').map(char => combineSimilarChars.value ? (similarCharsMapping[char] || char) : char).join('');
 				})
-				.join('|');
+				.join('|'); // OR operator
 			regexString = `(^|\\s)(${modifiedSearchTerm})(?=\\s|$)`;
 		} else {
 			 let regexParts = trimmedSearchTerm.split(/\s+/).filter(Boolean);
@@ -2159,9 +2068,7 @@ const filteredItems = computed(() => {
 	}
 
 	if (!posterMode.value) {
-		results = results.filter(item => item.type === 'logo');
-	} else {
-		results = results.filter(item => item.type === 'poster');
+		results = results.filter(item => item.logo);
 	}
 
 
@@ -2252,6 +2159,7 @@ const selectDesignerFromModal = designer => {
 	designerQuery.value = designer;
 };
 
+// تغییر برای بازگرداندن مقادیر عددی
 const filteredYearsInModal = computed(() => {
 	const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
 	let years = Object.keys(groups)
@@ -2391,17 +2299,10 @@ onMounted(() => window.addEventListener('popstate', handlePopState));
 onUnmounted(() => window.removeEventListener('popstate', handlePopState));
 
 const handlePopState = e => {
-	const urlParams = new URLSearchParams(window.location.search);
-	const itemId = urlParams.get('id');
-	if (itemId) {
-		const item = items.find(i => i.id === itemId);
-		if (item) {
-			openLightbox(item);
-		} else {
-			closeLightbox();
-		}
-	} else {
-		closeLightbox();
+	if (sidebarVisible.value) {
+		hideSidebar();
+		e.preventDefault();
+		window.history.pushState(null, '', window.location.pathname);
 	}
 };
 
@@ -2411,19 +2312,21 @@ const clearDirectorSearchQuery = () => directorSearchQuery.value = '';
 
 const toggleCollapse = section => isCollapsed.value[section] = !isCollapsed.value[section];
 
-const lightboxItem = ref(null);
-const lightboxImage = ref(null);
+const lightboxItem = ref(undefined);
+const lightboxImage = ref(undefined);
 const isLoading = ref(false);
 
 const openLightbox = item => {
-	if (!item) return;
+	if (!posterMode.value && !item.logo) {
+		lightboxImage.value = undefined;
+		lightboxItem.value = undefined;
+		return;
+	}
 	isLoading.value = true;
+	lightboxImage.value = posterMode.value ? getPosterUrl(item.poster, item.posterHash, 960) : getPosterUrl(item.logo, item.logoHash, 960);
 	lightboxItem.value = item;
-	lightboxImage.value = posterMode.value
-		? getPosterUrl(item.poster, item.posterHash, 960)
-		: getPosterUrl(item.logo, item.logoHash, 960);
 
-	const currentIndex = filteredItems.value.findIndex(i => i.id === item.id);
+	const currentIndex = filteredItems.value.findIndex(i => i === item);
 	preloadImages(currentIndex);
 
 	setTimeout(() => {
@@ -2432,42 +2335,51 @@ const openLightbox = item => {
 };
 
 const closeLightbox = () => {
-	lightboxItem.value = null;
+	lightboxItem.value = undefined;
 	isLoading.value = false;
-	const urlParams = new URLSearchParams(window.location.search);
-	urlParams.delete('id');
-	window.history.pushState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
+};
+
+watch(lightboxItem, newValue => {
+	if (newValue) {
+		document.addEventListener('click', handleClickOutsideLightbox);
+	} else {
+		document.removeEventListener('click', handleClickOutsideLightbox);
+	}
+});
+
+const handleClickOutsideLightbox = event => {
+	const lightbox = document.querySelector('.lightbox');
+	if (lightbox && !lightbox.contains(event.target)) {
+		closeLightbox();
+	}
 };
 
 const handleImageClick = item => {
+	if ((event.button !== 0 && event.which !== 1) ||
+		event.altKey || event.ctrlKey || event.shiftKey || event.metaKey) {
+		return true;
+	}
+
+	console.log('Image clicked:', item);
 	event.preventDefault();
 	event.stopPropagation();
-	showItemPage(item);
-};
-
-const showItemPage = item => {
-	const urlParams = new URLSearchParams(window.location.search);
-	urlParams.set('id', item.id);
-	window.history.pushState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
 	openLightbox(item);
 };
 
 const changeLightboxImage = changeIndexCallback => {
 	isLoading.value = true;
 	const newIndex = changeIndexCallback(
-		filteredItems.value.findIndex(item => item.id === lightboxItem.value.id),
+		filteredItems.value.findIndex(item => item.poster === lightboxItem.value.poster),
 		filteredItems.value.length - 1
 	);
-	const newItem = filteredItems.value[newIndex];
-	lightboxItem.value = newItem;
+	lightboxItem.value = filteredItems.value[newIndex];
 	lightboxImage.value = posterMode.value 
-		? getPosterUrl(newItem.poster, newItem.posterHash, 960) 
-		: getPosterUrl(newItem.logo, newItem.logoHash, 960);
+		? getPosterUrl(lightboxItem.value.poster, lightboxItem.value.posterHash, 960) 
+		: getPosterUrl(lightboxItem.value.logo, lightboxItem.value.logoHash, 960);
 	
 	preloadImages(newIndex);
 	
 	setTimeout(() => isLoading.value = false, 1000);
-	updateURL(newItem.id);
 };
 const prevImage = () => changeLightboxImage((current, lastItem) => current <= 0 ? lastItem : current - 1);
 const nextImage = () => changeLightboxImage((current, lastItem) => current >= lastItem ? 0 : current + 1);
@@ -2486,8 +2398,6 @@ const handleKeyDown = (event) => {
 			nextImage();
 		} else if (event.key === 'ArrowRight') {
 			prevImage();
-		} else if (event.key === 'Escape') {
-			closeLightbox();
 		}
 	}
 };
@@ -2519,12 +2429,6 @@ const downloadLink = item => {
 	if (!name) return 'https://upload.wikimedia.org/wikipedia/commons/8/82/NoImageEn.svg';
 	const hash = posterMode.value ? item.posterHash : item.logoHash;
 	return `https://upload.wikimedia.org/wikipedia/commons/${hash[0]}/${hash}/${name}?download`;
-};
-
-const itemPageLink = item => {
-	const urlParams = new URLSearchParams(window.location.search);
-	urlParams.set('id', item.id);
-	return `${window.location.pathname}?${urlParams.toString()}`;
 };
 
 const selectYearFromTitle = year => selectedYear.value = year;
@@ -2573,15 +2477,22 @@ const getPosterUrl = (name, hash, width) => {
 };
 
 const getItemUrl = (item, posterMode, pixelatedEffect) => {
+	if (posterMode && pixelatedEffect && item.isNsfw && item.logo) {
+		return getPosterUrl(item.logo, item.logoHash, 250);
+	}
 	if (posterMode) {
 		return getPosterUrl(item.poster, item.posterHash, 250);
 	}
 	if (!posterMode) {
-		return getPosterUrl(item.logo, item.logoHash, 250);
+		if (item.logo) {
+			return getPosterUrl(item.logo, item.logoHash, 250);
+		}
+		return getPosterUrl(item.poster, item.posterHash, 250);
 	}
 };
 
 const getCommonsUrl = (item, posterMode, pixelatedEffect) => {
+	if (!posterMode && !item.logo) return '#';
 	return 'https://commons.wikimedia.org/wiki/File:' + (posterMode ? item.poster : item.logo);
 };
 
@@ -2593,7 +2504,7 @@ const mainContentPaddingTop = computed(() => {
 	if (isMobileView.value) {
 		return `${searchBarHeight.value + basePadding + 50}px`;
 	} else {
-		const titleHeight = 50;
+		const titleHeight = 50; /* Adjust this value if the title's height changes */
 		return isAtTop.value ? `${searchBarHeight.value + titleHeight + basePadding}px` : `${searchBarHeight.value + basePadding}px`;
 	}
 });
@@ -2606,6 +2517,7 @@ const handleScroll = () => {
     const docHeight = getDocHeight();
     const viewportHeight = window.innerHeight;
     
+    // در صورتی که طول صفحه به اندازه کافی برای اسکرول نباشد، نوار جستجو همیشه نمایش داده می‌شود.
     if (docHeight < viewportHeight * 1.5) {
         isSearchBarVisible.value = true;
         lastScrollPosition = currentScrollY;
@@ -2614,9 +2526,12 @@ const handleScroll = () => {
 
     isAtTop.value = currentScrollY < 20;
 
+    // منطق اصلی نمایش/پنهان کردن نوار جستجو
+    // نوار جستجو را پنهان کن اگر به سمت پایین اسکرول می‌کنی
     if (currentScrollY > lastScrollPosition + scrollTolerance) {
         isSearchBarVisible.value = false;
     } 
+    // نوار جستجو را نمایش بده اگر به سمت بالا اسکرول می‌کنی یا در بالای صفحه هستی
     else if (currentScrollY < lastScrollPosition - scrollTolerance || currentScrollY <= 0) {
         isSearchBarVisible.value = true;
     }
@@ -2673,7 +2588,7 @@ const searchBarDynamicStyle = computed(() => {
 		style.width = '100%';
 		style.right = 'auto';
 		if (isSearchBarVisible.value) {
-			const titleHeight = 50;
+			const titleHeight = 50; /* Adjust this value if the title's height changes */
 			style.top = isAtTop.value ? `${titleHeight}px` : '0px';
 		} else {
 			style.top = '-120px';
@@ -2688,7 +2603,7 @@ const searchBarDynamicStyle = computed(() => {
 		}
 		style.width = 'auto';
 		if (isSearchBarVisible.value) {
-			const titleHeight = 50;
+			const titleHeight = 50; /* Adjust this value if the title's height changes */
 			style.top = isAtTop.value ? `${titleHeight}px` : '0px';
 		} else {
 			style.top = '-120px';
@@ -2702,7 +2617,7 @@ const mainContentStyle = computed(() => {
 		? `${sidebarWidth.value + 20}px`
 		: '0px';
 	
-	const titleHeight = 50;
+	const titleHeight = 50; /* Adjust this value if the title's height changes */
 	const searchBarTotalHeight = isSearchBarVisible.value ? searchBarHeight.value : 0;
 	
 	let totalPadding = searchBarTotalHeight;
@@ -2845,20 +2760,15 @@ onMounted(() => {
 		});
 		resizeObserver.observe(searchBarRef.value);
 	}
-
-	const urlParams = new URLSearchParams(window.location.search);
-	const itemId = urlParams.get('id');
-	if (itemId) {
-		const item = items.find(i => i.id === itemId);
-		if (item) {
-			openLightbox(item);
-		}
-	}
 });
 
 onUnmounted(() => {
 	window.removeEventListener('scroll', handleScroll);
 	window.removeEventListener('resize', checkMobile);
+});
+
+window.addEventListener('keydown', () => {
+	if (event.keyCode === 27) closeLightbox();
 });
 
 window.addEventListener('keydown', (event) => {
@@ -2890,8 +2800,7 @@ return {
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount,
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
 	searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
-	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle, isAtTop,
-	itemPageLink, showItemPage
+	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle, isAtTop
 };
 
 } }).mount('#app');
