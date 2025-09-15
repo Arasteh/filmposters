@@ -88,7 +88,7 @@ body {
     transform: translateX(-50%);
     width: 100%;
     text-align: center;
-    transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, left 0.3s ease-in-out, right 0.3s ease-in-out;
     opacity: 0;
     z-index: 1;
     pointer-events: none;
@@ -1605,7 +1605,7 @@ input[type="text"] {
 				</div>
 			</div>
 		</div>
-		<div id="filters" class="filters-container" v-if="activeFilters.length > 0" :style="filtersContainerStyle" style="display: none" :style="{ display: undefined }">
+		<div id="filters" class="filters-container" v-if="activeFilters.length > 0" :style="filtersContainerStyle">
 			<div v-for="(filter, index) in activeFilters" :key="index" @click="removeFilter(filter.type, filter.value)"
 				class="designer-item">
 				<span style="align-content: center;">{{ filter.label }}: {{ filter.value }}</span>
