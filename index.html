@@ -839,8 +839,6 @@ input[type="text"] {
 	margin-bottom: 15px;
 	background-color: light-dark(#fff, #222);
 	border-radius: 16px;
-	max-width: 960px;
-	width: 100%;
 }
 
 .filter-item {
@@ -1485,7 +1483,7 @@ input[type="text"] {
 
 		<div id="searchBar" class="search-bar" :class="{ 'visible': isSearchBarVisible }" ref="searchBarRef" :style="searchBarDynamicStyle">
 			<div class="search-bar-inner">
-				<div class="title-container" :class="{ 'visible-title': isAtTop }">
+				<div class="title-container" :class="{ 'visible-title': isAtTop }" :style="titleContainerStyle">
 					<h1>آرشیو پوسترهای سینمای ایران</h1>
 				</div>
 				<div class="options-wrapper-container">
@@ -1607,7 +1605,7 @@ input[type="text"] {
 				</div>
 			</div>
 		</div>
-		<div id="filters" class="filters-container" v-if="activeFilters.length > 0" style="display: none" :style="{ display: undefined }">
+		<div id="filters" class="filters-container" v-if="activeFilters.length > 0" :style="filtersContainerStyle" style="display: none" :style="{ display: undefined }">
 			<div v-for="(filter, index) in activeFilters" :key="index" @click="removeFilter(filter.type, filter.value)"
 				class="designer-item">
 				<span style="align-content: center;">{{ filter.label }}: {{ filter.value }}</span>
@@ -1751,6 +1749,7 @@ const isD3Loaded = ref(false);
 const backgroundColor = ref('#ffffff');
 const savedLogoColor = ref('#ffffff');
 const isAtTop = ref(true);
+const sidebarVisible = ref(false);
 
 const showMore = () => {
 	displayedItemsCount.value += 30;
@@ -2272,7 +2271,6 @@ const removeLetterFilter = () => {
 	hoveredItem.value = null;
 };
 
-const sidebarVisible = ref(false);
 
 const toggleSidebar = () => {
 	sidebarVisible.value = !sidebarVisible.value;
@@ -2631,6 +2629,49 @@ const mainContentStyle = computed(() => {
 	};
 });
 
+const titleContainerStyle = computed(() => {
+	if (isMobileView.value) {
+		return {
+			paddingRight: '60px',
+			paddingLeft: '60px',
+			width: 'auto',
+			left: '0px',
+			right: '0px',
+			transform: 'translateX(0%)'
+		};
+	} else {
+		if (sidebarVisible.value) {
+			return {
+				right: `${sidebarWidth.value + 60}px`,
+				left: '20px',
+				width: 'auto',
+				transform: 'translateX(0)'
+			};
+		} else {
+			return {
+				left: '50%',
+				right: 'auto',
+				width: '100%',
+				transform: 'translateX(-50%)'
+			};
+		}
+	}
+});
+
+const filtersContainerStyle = computed(() => {
+	let style = {};
+	if (isMobileView.value) {
+		style.maxWidth = '100%';
+		style.paddingRight = '15px';
+		style.paddingLeft = '15px';
+	} else {
+		style.maxWidth = '960px';
+		style.paddingRight = '60px';
+		style.paddingLeft = '60px';
+	}
+	return style;
+});
+
 const updateChart = () => {
 	const svg = d3.select("#yearsChart");
 	svg.selectAll("*").remove();
@@ -2800,7 +2841,8 @@ return {
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount,
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
 	searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
-	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle, isAtTop
+	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle, isAtTop,
+	titleContainerStyle, filtersContainerStyle
 };
 
 } }).mount('#app');
