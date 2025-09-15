@@ -1638,8 +1638,14 @@ input[type="text"] {
 	
 					<div class="item-title">
 						{{ item.filmLabel }}
-						<span class="year-link" v-if="item.date" @click="selectYearFromTitle(toPersianYear(item.date))">
-							({{ toPersianYear(item.date) + (moreInformation ? '-' + new Date(item.date).getFullYear() : '') }})
+						<span class="year-link" v-if="item.date">
+							<a @click.prevent="selectYearFromTitle(toPersianYear(item.date))" href="#" class="year-link">
+								({{ toPersianYear(item.date) }})
+							</a>
+							-
+							<a v-if="moreInformation" :href="'https://commons.wikimedia.org/wiki/Category:' + new Date(item.date).getFullYear() + '_film_posters_of_Iran'" target="_blank" class="year-link">
+								{{ new Date(item.date).getFullYear() }}
+							</a>
 						</span>
 					</div>
 
