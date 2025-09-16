@@ -1487,10 +1487,10 @@ input[type="text"] {
 				north
 			</span>
 		</button>
-
+		
 		<div id="searchBar" class="search-bar" :class="{ 'visible': isSearchBarVisible }" ref="searchBarRef" :style="searchBarDynamicStyle">
 			<div class="search-bar-inner">
-				<div class="title-container" :class="{ 'visible-title': isAtTop }">
+				<div class="title-container" :class="{ 'visible-title': isAtTop }" :style="titleContainerStyle">
 					<h1>آرشیو پوسترهای سینمای ایران</h1>
 				</div>
 				<div class="options-wrapper-container">
@@ -1760,6 +1760,9 @@ const isD3Loaded = ref(false);
 const backgroundColor = ref('#ffffff');
 const savedLogoColor = ref('#ffffff');
 const isAtTop = ref(true);
+const sidebarWidth = ref(440);
+const minSidebarWidth = ref(300);
+const maxSidebarWidth = ref(600);
 
 const showMore = () => {
 	displayedItemsCount.value += 30;
@@ -2225,10 +2228,6 @@ const filteredDesignerLabel = computed(() => selectedDesigner.value ? `طراح:
 const filteredDirectorLabel = computed(() => selectedDirector.value ? `کارگردان: ${selectedDirector.value}` : 'کارگردان‌ها');
 const filteredLetterLabel = computed(() => selectedLetter.value ? `حرف اول: ${selectedLetter.value}` : 'حروف اول');
 
-const sidebarWidth = ref(440);
-const minSidebarWidth = ref(300);
-const maxSidebarWidth = ref(600);
-
 let startX, startWidth;
 const startResize = e => {
 	e.preventDefault();
@@ -2557,7 +2556,6 @@ const getDocHeight = () => {
     );
 };
 
-
 const sidebarStyle = computed(() => {
 	if (isMobileView.value) {
 		return {
@@ -2591,34 +2589,48 @@ const desktopSidebarToggleStyle = computed(() => {
 });
 
 const searchBarDynamicStyle = computed(() => {
-	let style = {};
+    let style = {};
+    if (isMobileView.value) {
+        style.left = '0px';
+        style.width = '100%';
+        style.right = 'auto';
+        if (isSearchBarVisible.value) {
+            style.top = '0px';
+        } else {
+            style.top = '-120px';
+        }
+    } else {
+        const viewportWidth = window.innerWidth;
+        const sidebarEffectiveWidth = sidebarVisible.value ? sidebarWidth.value : 0;
+        const searchBarWidth = viewportWidth - sidebarEffectiveWidth - 80; /* 20px padding on each side for main-content */
+        const leftPosition = (viewportWidth - sidebarEffectiveWidth - searchBarWidth) / 2;
+        
+        style.left = `${leftPosition}px`;
+        style.width = `${searchBarWidth}px`;
+        style.right = 'auto';
+        
+        if (isSearchBarVisible.value) {
+            style.top = '0px';
+        } else {
+            style.top = '-120px';
+        }
+    }
+    return style;
+});
+
+const titleContainerStyle = computed(() => {
 	if (isMobileView.value) {
-		style.left = '0px';
-		style.width = '100%';
-		style.right = 'auto';
-		if (isSearchBarVisible.value) {
-			const titleHeight = 50; /* Adjust this value if the title's height changes */
-			style.top = isAtTop.value ? `${titleHeight}px` : '0px';
-		} else {
-			style.top = '-120px';
-		}
+		return {};
 	} else {
-		if (sidebarVisible.value) {
-			style.right = `${sidebarWidth.value + 60}px`;
-			style.left = '20px';
-		} else {
-			style.left = '20px';
-			style.right = '20px';
-		}
-		style.width = 'auto';
-		if (isSearchBarVisible.value) {
-			const titleHeight = 50; /* Adjust this value if the title's height changes */
-			style.top = isAtTop.value ? `${titleHeight}px` : '0px';
-		} else {
-			style.top = '-120px';
-		}
+		const viewportWidth = window.innerWidth;
+		const sidebarEffectiveWidth = sidebarVisible.value ? sidebarWidth.value : 0;
+		const searchBarWidth = viewportWidth - sidebarEffectiveWidth - 40; /* 20px on each side */
+		const leftPosition = (searchBarWidth / 2) + 20;
+
+		return {
+			left: `${leftPosition}px`
+		};
 	}
-	return style;
 });
 
 const mainContentStyle = computed(() => {
@@ -2809,7 +2821,7 @@ return {
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount,
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
 	searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
-	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle, isAtTop
+	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle, isAtTop, titleContainerStyle
 };
 
 } }).mount('#app');
