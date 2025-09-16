@@ -813,20 +813,21 @@ input[type="text"] {
 	transition: background-color 0.3s;
 	white-space: nowrap;
 	font-size: smaller;
-	border: 1px solid light-dark(#000, #666);
 	display: flex;
 	gap: 5px;
+	background-color: light-dark(hsl(0 0% 68% / 1), hsl(0 0% 10% / 1));
 }
 
 .designer-item:hover,
 .director-item:hover,
 .year-item:hover,
 .letter-item:hover {
-	background-color: light-dark(hsl(0 0% 88% / 1), hsl(0 0% 20% / 1));
+	background-color: light-dark(hsl(0 0% 88% / 1), hsl(0 0% 30% / 1));
 }
 
 .count {
 	color: light-dark(#555, #999);
+	font-weight: lighter;
 }
 
 .no-results {
