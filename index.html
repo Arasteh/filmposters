@@ -1222,11 +1222,6 @@ input[type="text"] {
 	.options-toggle-desktop:hover {
 		opacity: 0.8;
 	}
-
-	.title-container.shifted {
-		transform: translateX(0);
-		left: auto;
-	}
 }
 </style>
 </head>
@@ -1495,7 +1490,7 @@ input[type="text"] {
 
 		<div id="searchBar" class="search-bar" :class="{ 'visible': isSearchBarVisible }" ref="searchBarRef" :style="searchBarDynamicStyle">
 			<div class="search-bar-inner">
-				<div class="title-container" :class="{ 'visible-title': isAtTop, 'shifted': sidebarVisible }">
+				<div class="title-container" :class="{ 'visible-title': isAtTop }">
 					<h1>آرشیو پوسترهای سینمای ایران</h1>
 				</div>
 				<div class="options-wrapper-container">
