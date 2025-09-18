@@ -78,18 +78,17 @@ body {
 	max-width: 100%;
 	overflow-x: hidden;
 	transition: padding-top 0.3s ease-in-out, margin-right 0.3s ease-in-out;
-	padding-top: 0; /* Remove initial padding from main-content */
+	padding-top: 0;
 }
 
 .title-container {
-    position: fixed;
+    position: sticky;
     top: 5px;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
     text-align: center;
     transition: opacity 0.3s ease-in-out;
-    opacity: 0;
     z-index: 1;
     pointer-events: none;
     padding-top: 10px;
@@ -119,10 +118,9 @@ body {
 }
 
 .search-bar {
-	position: fixed;
-	top: -120px;
+	position: sticky;
+	top: 0;
 	z-index: 100;
-	opacity: 0;
 	transition: top 0.3s ease-in-out, opacity 0.3s ease-in-out, left 0.3s ease-in-out, width 0.3s ease-in-out, right 0.3s ease-in-out;
 	padding: 0px 60px;
 }
@@ -135,10 +133,6 @@ body {
 	border-radius: 0 0 16px 16px;
 	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 	background-color: var(--search-background);
-}
-
-.search-bar.visible {
-	opacity: 1;
 }
 
 input[type="text"] {
@@ -1492,7 +1486,7 @@ input[type="text"] {
 			</span>
 		</button>
 
-		<div id="searchBar" class="search-bar" :class="{ 'visible': isSearchBarVisible }" ref="searchBarRef" :style="searchBarDynamicStyle">
+		<div id="searchBar" class="search-bar" ref="searchBarRef" :style="searchBarDynamicStyle">
 			<div class="search-bar-inner">
 				<div class="title-container" :class="{ 'visible-title': isAtTop }">
 					<h1>آرشیو پوسترهای سینمای ایران</h1>
@@ -1752,15 +1746,6 @@ const searchPlaceholder = ref('');
 const isSearchFocused = ref(false);
 const displayedItemsCount = ref(0);
 const exactWordMatch = ref(false);
-const isSearchBarVisible = ref(true);
-const searchBarRef = ref(null);
-const searchBarHeight = ref(0);
-const isMobileView = ref(false);
-const isDesktopSidebarFixed = ref(false);
-const yearsChartInstance = ref(null);
-const isD3Loaded = ref(false);
-const backgroundColor = ref('#ffffff');
-const savedLogoColor = ref('#ffffff');
 const isAtTop = ref(true);
 
 const ITEMS_PER_LOAD = 30; // تعداد نتایج برای هر بار لود شدن
@@ -1796,27 +1781,6 @@ const setupInfiniteScroll = () => {
 	
 	observer.observe(target.lastElementChild);
 };
-
-// تابع مدیریت اسکرول برای نمایش/پنهان کردن نوار جستجو
-let lastScrollPosition = ref(0);
-const scrollTolerance = 20;
-
-const debounce = (func, delay) => {
-	let timeoutId;
-	return function(...args) {
-		clearTimeout(timeoutId);
-		timeoutId = setTimeout(() => func.apply(this, args), delay);
-	};
-};
-
-const getDocHeight = () => {
-    return Math.max(
-        document.body.scrollHeight, document.documentElement.scrollHeight,
-        document.body.offsetHeight, document.documentElement.offsetHeight,
-        document.body.clientHeight, document.documentElement.clientHeight
-    );
-};
-
 
 const onSearchFocus = () => {
 	isSearchFocused.value = true;
@@ -2559,55 +2523,45 @@ const getCommonsUrl = (item, posterMode, pixelatedEffect) => {
 const bringToTop = () => document.documentElement.scrollTop = 0;
 const visibleBringToTop = ref(false);
 
-const mainContentPaddingTop = computed(() => {
-	const basePadding = 0;
-	if (isMobileView.value) {
-		return `${searchBarHeight.value + basePadding + 50}px`;
-	} else {
-		const titleHeight = 50; /* Adjust this value if the title's height changes */
-		return isAtTop.value ? `${searchBarHeight.value + titleHeight + basePadding}px` : `${searchBarHeight.value + basePadding}px`;
-	}
+const isMobileView = ref(false);
+const handleResize = () => {
+    isMobileView.value = window.innerWidth <= 768;
+    searchPlaceholder.value = isMobileView.value ? 'جستجو' : 'جستجو (برای پرش به کادر جستجو / را تایپ کنید)';
+};
+
+onMounted(() => {
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Initial check
+
+    const mainContent = document.querySelector('#main-content');
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            isAtTop.value = entry.intersectionRatio > 0.1;
+        });
+    }, observerOptions);
+
+    observer.observe(mainContent);
+
 });
 
-const handleScroll = () => {
-    const currentScrollY = window.scrollY;
-    const docHeight = getDocHeight();
-    const viewportHeight = window.innerHeight;
-    
-    // در صورتی که طول صفحه به اندازه کافی برای اسکرول نباشد، نوار جستجو همیشه نمایش داده می‌شود.
-    if (docHeight < viewportHeight * 1.5) {
-        isSearchBarVisible.value = true;
-        lastScrollPosition.value = currentScrollY;
-        return;
-    }
+onUnmounted(() => {
+    window.removeEventListener('resize', handleResize);
+});
 
-    isAtTop.value = currentScrollY < 20;
+const mainContentStyle = computed(() => {
+    const effectiveMarginRight = sidebarVisible.value && !isMobileView.value
+        ? `${sidebarWidth.value + 40}px`
+        : '0px';
 
-    // منطق اصلی نمایش/پنهان کردن نوار جستجو
-    // نوار جستجو را پنهان کن اگر به سمت پایین اسکرول می‌کنی
-    if (currentScrollY > lastScrollPosition.value + scrollTolerance) {
-        isSearchBarVisible.value = false;
-    } 
-    // نوار جستجو را نمایش بده اگر به سمت بالا اسکرول می‌کنی یا در بالای صفحه هستی
-    else if (currentScrollY < lastScrollPosition.value - scrollTolerance || currentScrollY <= 0) {
-        isSearchBarVisible.value = true;
-    }
-
-    lastScrollPosition.value = currentScrollY;
-    visibleBringToTop.value = currentScrollY > 20;
-
-	// منطق مربوط به infinite scroll
-	const grid = document.querySelector('.results-grid');
-	const lastElement = grid.lastElementChild;
-	if (lastElement) {
-		const lastElementRect = lastElement.getBoundingClientRect();
-		if (lastElementRect.top <= window.innerHeight + 500) {
-			if (displayedItemsCount.value < filteredItems.value.length) {
-				displayedItemsCount.value += calculateInitialLoadCount();
-			}
-		}
-	}
-};
+    return {
+        marginRight: effectiveMarginRight,
+    };
+});
 
 const sidebarStyle = computed(() => {
 	if (isMobileView.value) {
@@ -2647,12 +2601,7 @@ const searchBarDynamicStyle = computed(() => {
 		style.left = '0px';
 		style.width = '100%';
 		style.right = 'auto';
-		if (isSearchBarVisible.value) {
-			const titleHeight = 0; /* Adjust this value if the title's height changes */
-			style.top = isAtTop.value ? `${titleHeight}px` : '0px';
-		} else {
-			style.top = '-120px';
-		}
+		style.top = '0';
 	} else {
 		if (sidebarVisible.value) {
 			style.right = `${sidebarWidth.value + 60}px`;
@@ -2662,33 +2611,9 @@ const searchBarDynamicStyle = computed(() => {
 			style.right = '20px';
 		}
 		style.width = 'auto';
-		if (isSearchBarVisible.value) {
-			const titleHeight = 50; /* Adjust this value if the title's height changes */
-			style.top = isAtTop.value ? `${titleHeight}px` : '0px';
-		} else {
-			style.top = '-120px';
-		}
+		style.top = '0';
 	}
 	return style;
-});
-
-const mainContentStyle = computed(() => {
-	const effectiveMarginRight = sidebarVisible.value && !isMobileView.value
-		? `${sidebarWidth.value + 40}px`
-		: '0px';
-	
-	const titleHeight = 50; /* Adjust this value if the title's height changes */
-	const searchBarTotalHeight = isSearchBarVisible.value ? searchBarHeight.value : 0;
-	
-	let totalPadding = searchBarTotalHeight;
-	if (isAtTop.value) {
-		totalPadding += titleHeight;
-	}
-
-	return {
-		marginRight: effectiveMarginRight,
-		paddingTop: `${totalPadding}px`
-	};
 });
 
 const updateChart = () => {
@@ -2798,33 +2723,6 @@ watch([filteredYearsInModal, isD3Loaded], () => {
 }, { immediate: true });
 
 
-onMounted(() => {
-	const checkMobile = () => {
-		isMobileView.value = window.innerWidth <= 768;
-		if (isMobileView.value) {
-			searchPlaceholder.value = 'جستجو';
-		} else {
-			searchPlaceholder.value = 'جستجو (برای پرش به کادر جستجو / را تایپ کنید)';
-		}
-	};
-	window.addEventListener('resize', checkMobile);
-	checkMobile();
-	window.addEventListener('scroll', debounce(handleScroll, 100)); // اتصال تابع اسکرول به رویداد
-	if (searchBarRef.value) {
-		const resizeObserver = new ResizeObserver(entries => {
-			for (let entry of entries) {
-				searchBarHeight.value = entry.contentRect.height;
-			}
-		});
-		resizeObserver.observe(searchBarRef.value);
-	}
-});
-
-onUnmounted(() => {
-	window.removeEventListener('scroll', debounce(handleScroll, 100));
-	window.removeEventListener('resize', checkMobile);
-});
-
 window.addEventListener('keydown', () => {
 	if (event.keyCode === 27) closeLightbox();
 });
@@ -2856,10 +2754,8 @@ return {
 	clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading,
 	handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage,
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, uniqueResultsFilmCount,
-	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
-	searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
-	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle, isAtTop,
-	displayedItems
+	hasActiveFilters, exactWordMatch, isMobileView, mainContentStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
+	mainContentStyle, isAtTop, displayedItems
 };
 
 } }).mount('#app');
