@@ -83,7 +83,7 @@ body {
 
 .title-container {
     position: fixed;
-    top: 5px;
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -92,12 +92,14 @@ body {
     opacity: 0;
     z-index: 1;
     pointer-events: none;
-    padding-top: 10px;
+    padding-top: 0;
 }
 
 .title-container.visible-title {
     opacity: 1;
     pointer-events: auto;
+	position: relative;
+    margin-bottom: 20px;
 }
 
 .title-container h1 {
@@ -128,7 +130,7 @@ body {
 	max-width: 960px;
 	width: 100%;
     margin: -50px auto 0;
-    padding: 60px 10px 10px 10px;
+    padding: 20px 10px 10px 10px;
 	border-radius: 0 0 16px 16px;
 	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 	background-color: var(--search-background);
@@ -1016,7 +1018,7 @@ input[type="text"] {
 	
 	.title-container {
         font-size: 1rem;
-        padding-top: 15px;
+        padding-top: 5px;
 	}
 
 	#main-content {
@@ -1063,7 +1065,7 @@ input[type="text"] {
 	}
 
 .options-wrapper-top {
-    padding-top: 60px;
+    padding-top: 20px;
     margin-top: -15px;
 }
 	.options.collapsed {
@@ -2502,7 +2504,7 @@ const mainContentPaddingTop = computed(() => {
 	if (isMobileView.value) {
 		return `${searchBarHeight.value + basePadding + 50}px`;
 	} else {
-		const titleHeight = 50; /* Adjust this value if the title's height changes */
+		const titleHeight = 30; /* Adjust this value if the title's height changes */
 		return isAtTop.value ? `${searchBarHeight.value + titleHeight + basePadding}px` : `${searchBarHeight.value + basePadding}px`;
 	}
 });
@@ -2594,7 +2596,7 @@ const searchBarDynamicStyle = computed(() => {
 		style.width = '100%';
 		style.right = 'auto';
 		if (isSearchBarVisible.value) {
-			const titleHeight = 50; /* Adjust this value if the title's height changes */
+			const titleHeight = 30; /* Adjust this value if the title's height changes */
 			style.top = isAtTop.value ? `${titleHeight}px` : '0px';
 		} else {
 			style.top = '-120px';
@@ -2609,7 +2611,7 @@ const searchBarDynamicStyle = computed(() => {
 		}
 		style.width = 'auto';
 		if (isSearchBarVisible.value) {
-			const titleHeight = 50; /* Adjust this value if the title's height changes */
+			const titleHeight = 30; /* Adjust this value if the title's height changes */
 			style.top = isAtTop.value ? `${titleHeight}px` : '0px';
 		} else {
 			style.top = '-120px';
@@ -2623,7 +2625,7 @@ const mainContentStyle = computed(() => {
 		? `${sidebarWidth.value + 40}px`
 		: '0px';
 	
-	const titleHeight = 50; /* Adjust this value if the title's height changes */
+	const titleHeight = 30; /* Adjust this value if the title's height changes */
 	const searchBarTotalHeight = isSearchBarVisible.value ? searchBarHeight.value : 0;
 	
 	let totalPadding = searchBarTotalHeight;
