@@ -130,7 +130,7 @@ body {
 .search-bar-inner {
 	max-width: 960px;
 	width: 100%;
-    margin: -50px auto 0;
+    margin: 0 auto 0;
     padding: 10px 10px 10px 10px;
 	border-radius: 0 0 16px 16px;
 	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -2648,7 +2648,7 @@ const searchBarDynamicStyle = computed(() => {
 		style.width = '100%';
 		style.right = 'auto';
 		if (isSearchBarVisible.value) {
-			const titleHeight = 50; /* Adjust this value if the title's height changes */
+			const titleHeight = 0; /* Adjust this value if the title's height changes */
 			style.top = isAtTop.value ? `${titleHeight}px` : '0px';
 		} else {
 			style.top = '-120px';
