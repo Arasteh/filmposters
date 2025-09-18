@@ -2598,6 +2598,9 @@ const mainContentPaddingTop = computed(() => {
 	}
 });
 
+let lastScrollPosition = ref(0);
+const scrollTolerance = 20;
+
 const handleScroll = () => {
     const currentScrollY = window.scrollY;
     const docHeight = getDocHeight();
