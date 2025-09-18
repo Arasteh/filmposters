@@ -1623,7 +1623,7 @@ input[type="text"] {
 			</div>
 		</div>
 		<div v-if="filteredItems.length > 0" class="results-grid">
-			<div class="item-card" v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)" :key="index" style="visibility: hidden" :style="{ visibility: undefined, padding: !posterMode && !moreInformation ? '15px 0px' : '15px 0px' }">
+			<div class="item-card" v-for="(item, index) in displayedItems" :key="index" style="visibility: hidden" :style="{ visibility: undefined, padding: !posterMode && !moreInformation ? '15px 0px' : '15px 0px' }">
 				<div>
 					<div class="image-container" :style="{ aspectRatio: !posterMode ? '1/1' : '5/7.5' }">
 						<a @click="handleImageClick(item)" :href="getCommonsUrl(item, posterMode, pixelatedEffect)"
@@ -1693,10 +1693,8 @@ input[type="text"] {
 		<p v-else style="text-align: center; display: none;" :style="{ display: undefined }">
 			نتیجه‌ای برای نمایش وجود ندارد.
 		</p>
-		<div v-if="displayedItemsCount < filteredItems.length" style="text-align: center; padding-top: 1em;">
-			<button @click="showMore" class="show-more-button" style="display: none" :style="{ display: undefined }">
-				نمایش بیشتر ({{ Math.min(filteredItems.length - displayedItemsCount, 30).toLocaleString('fa') }})
-			</button>
+		<div v-if="displayedItemsCount < filteredItems.length" style="text-align: center; padding-top: 1em; display: none;" :style="{ display: 'block' }">
+			<span style="font-size: smaller;">درحال بارگذاری نتایج بیشتر...</span>
 		</div>
 	</div>
 </div>
@@ -1749,7 +1747,7 @@ const sortOrder = ref('random');
 const sortDirection = ref('asc');
 const searchPlaceholder = ref('');
 const isSearchFocused = ref(false);
-const displayedItemsCount = ref(30);
+const displayedItemsCount = ref(0);
 const exactWordMatch = ref(false);
 const isSearchBarVisible = ref(true);
 const searchBarRef = ref(null);
@@ -1762,9 +1760,62 @@ const backgroundColor = ref('#ffffff');
 const savedLogoColor = ref('#ffffff');
 const isAtTop = ref(true);
 
-const showMore = () => {
-	displayedItemsCount.value += 30;
+const ITEMS_PER_LOAD = 30; // تعداد نتایج برای هر بار لود شدن
+const INITIAL_LOAD_ROWS = 5; // تعداد ردیف‌های اولیه
+let observer = null;
+
+const displayedItems = computed(() => {
+	return filteredItems.value.slice(0, displayedItemsCount.value);
+});
+
+const calculateInitialLoadCount = () => {
+	const grid = document.querySelector('.results-grid');
+	if (!grid) return ITEMS_PER_LOAD;
+	const gridColumns = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
+	return INITIAL_LOAD_ROWS * gridColumns;
 };
+
+const setupInfiniteScroll = () => {
+	if (observer) observer.disconnect();
+
+	const target = document.querySelector('.results-grid');
+	if (!target) return;
+
+	observer = new IntersectionObserver((entries) => {
+		if (entries[0].isIntersecting && displayedItemsCount.value < filteredItems.value.length) {
+			displayedItemsCount.value += calculateInitialLoadCount();
+		}
+	}, {
+		root: null, // viewport
+		rootMargin: '0px 0px 500px 0px', // فاصله 500 پیکسلی قبل از رسیدن به انتهای صفحه
+		threshold: 0.1
+	});
+	
+	observer.observe(target.lastElementChild);
+};
+
+const handleScrollForInfiniteLoad = () => {
+	const grid = document.querySelector('.results-grid');
+	const lastElement = grid.lastElementChild;
+	if (lastElement) {
+		const lastElementRect = lastElement.getBoundingClientRect();
+		if (lastElementRect.top <= window.innerHeight + 500) {
+			if (displayedItemsCount.value < filteredItems.value.length) {
+				displayedItemsCount.value += calculateInitialLoadCount();
+			}
+		}
+	}
+};
+
+const debounce = (func, delay) => {
+	let timeoutId;
+	return function(...args) {
+		clearTimeout(timeoutId);
+		timeoutId = setTimeout(() => func.apply(this, args), delay);
+	};
+};
+
+const debouncedScroll = debounce(handleScrollForInfiniteLoad, 100);
 
 const onSearchFocus = () => {
 	isSearchFocused.value = true;
@@ -1800,6 +1851,7 @@ const applyInitialFilters = () => {
 	moreInformation.value = urlParams.get('moreInfo') === 'true';
 	backgroundColor.value = urlParams.get('bgcolor') ? `#${urlParams.get('bgcolor')}` : '#ffffff';
 	savedLogoColor.value = backgroundColor.value;
+	displayedItemsCount.value = calculateInitialLoadCount();
 };
 applyInitialFilters();
 
@@ -2183,11 +2235,8 @@ const filteredYearsInModal = computed(() => {
 	return years;
 });
 
-watch(filteredItems, (newValue) => {
-	displayedItemsCount.value = 30;
-	if (newValue.length > 100) {
-		isShowMore.value = false;
-	}
+watch(filteredItems, () => {
+	displayedItemsCount.value = calculateInitialLoadCount();
 });
 
 const directorSearchQuery = ref('');
@@ -2760,7 +2809,7 @@ onMounted(() => {
 
 	window.addEventListener('resize', checkMobile);
 	checkMobile();
-	window.addEventListener('scroll', handleScroll);
+	window.addEventListener('scroll', debouncedScroll);
 
 	if (searchBarRef.value) {
 		const resizeObserver = new ResizeObserver(entries => {
@@ -2773,7 +2822,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-	window.removeEventListener('scroll', handleScroll);
+	window.removeEventListener('scroll', debouncedScroll);
 	window.removeEventListener('resize', checkMobile);
 });
 
@@ -2810,7 +2859,8 @@ return {
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount,
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
 	searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
-	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle, isAtTop
+	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle, isAtTop,
+	displayedItems
 };
 
 } }).mount('#app');
