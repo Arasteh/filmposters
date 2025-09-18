@@ -98,9 +98,6 @@ body {
 .title-container.visible-title {
     opacity: 1;
     pointer-events: auto;
-    display: block;
-    position: relative;
-    margin-bottom: 15px;
 }
 
 .title-container h1 {
@@ -131,7 +128,7 @@ body {
 	max-width: 960px;
 	width: 100%;
     margin: -50px auto 0;
-    padding: 10px 10px 10px 10px;
+    padding: 60px 10px 10px 10px;
 	border-radius: 0 0 16px 16px;
 	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 	background-color: var(--search-background);
@@ -2844,7 +2841,7 @@ window.addEventListener('keydown', (event) => {
 });
 
 return {
-	isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items,
+	showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items,
 	getItemUrl, getCommonsUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, sortDirection, selectedYear,
 	availableYears, availableDesigners, selectedDesigner, filteredYears, bringToTop, visibleBringToTop,
 	filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors,
@@ -2859,7 +2856,7 @@ return {
 	lightboxImage, openLightbox, closeLightbox, downloadLink, handleImageClick,
 	clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading,
 	handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage,
-	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, uniqueResultsFilmCount,
+	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount,
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
 	searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
 	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle, isAtTop,
