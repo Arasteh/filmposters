@@ -1801,6 +1801,35 @@ const setupInfiniteScroll = () => {
 let lastScrollPosition = ref(0);
 const scrollTolerance = 20;
 
+const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+    const docHeight = getDocHeight();
+    const viewportHeight = window.innerHeight;
+    
+    // در صورتی که طول صفحه به اندازه کافی برای اسکرول نباشد، نوار جستجو همیشه نمایش داده می‌شود.
+    if (docHeight < viewportHeight * 1.5) {
+        isSearchBarVisible.value = true;
+        lastScrollPosition.value = currentScrollY;
+        return;
+    }
+
+    isAtTop.value = currentScrollY < 20;
+
+    // منطق اصلی نمایش/پنهان کردن نوار جستجو
+    // نوار جستجو را پنهان کن اگر به سمت پایین اسکرول می‌کنی
+    if (currentScrollY > lastScrollPosition.value + scrollTolerance) {
+        isSearchBarVisible.value = false;
+    } 
+    // نوار جستجو را نمایش بده اگر به سمت بالا اسکرول می‌کنی یا در بالای صفحه هستی
+    else if (currentScrollY < lastScrollPosition.value - scrollTolerance || currentScrollY <= 0) {
+        isSearchBarVisible.value = true;
+    }
+
+    lastScrollPosition.value = currentScrollY;
+    visibleBringToTop.value = currentScrollY > 20;
+};
+
+
 const debounce = (func, delay) => {
 	let timeoutId;
 	return function(...args) {
