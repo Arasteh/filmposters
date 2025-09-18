@@ -1693,11 +1693,6 @@ input[type="text"] {
 		<p v-else style="text-align: center; display: none;" :style="{ display: undefined }">
 			نتیجه‌ای برای نمایش وجود ندارد.
 		</p>
-		<div v-if="displayedItemsCount < filteredItems.length" style="text-align: center; padding-top: 1em;">
-			<button @click="showMore" class="show-more-button" style="display: none" :style="{ display: undefined }">
-				نمایش بیشتر ({{ Math.min(filteredItems.length - displayedItemsCount, 30).toLocaleString('fa') }})
-			</button>
-		</div>
 	</div>
 </div>
 <script>
@@ -1732,7 +1727,6 @@ createApp({ setup: () => {
 
 const darkMode = ref(false);
 const toggleDarkMode = () => darkMode.value = !darkMode.value;
-const isShowMore = ref(false);
 const designerQuery = ref('');
 const isOptionsCollapsed = ref(true);
 const designerSearchQuery = ref('');
@@ -1750,6 +1744,7 @@ const sortDirection = ref('asc');
 const searchPlaceholder = ref('');
 const isSearchFocused = ref(false);
 const displayedItemsCount = ref(30);
+const itemsPerPage = 30; // تعداد آیتم‌های جدید برای نمایش
 const exactWordMatch = ref(false);
 const isSearchBarVisible = ref(true);
 const searchBarRef = ref(null);
@@ -1761,10 +1756,6 @@ const isD3Loaded = ref(false);
 const backgroundColor = ref('#ffffff');
 const savedLogoColor = ref('#ffffff');
 const isAtTop = ref(true);
-
-const showMore = () => {
-	displayedItemsCount.value += 30;
-};
 
 const onSearchFocus = () => {
 	isSearchFocused.value = true;
@@ -2183,11 +2174,8 @@ const filteredYearsInModal = computed(() => {
 	return years;
 });
 
-watch(filteredItems, (newValue) => {
-	displayedItemsCount.value = 30;
-	if (newValue.length > 100) {
-		isShowMore.value = false;
-	}
+watch(filteredItems, () => {
+	displayedItemsCount.value = itemsPerPage;
 });
 
 const directorSearchQuery = ref('');
@@ -2531,20 +2519,28 @@ const handleScroll = () => {
     if (docHeight < viewportHeight * 1.5) {
         isSearchBarVisible.value = true;
         lastScrollPosition = currentScrollY;
-        return;
+    } else {
+
+        isAtTop.value = currentScrollY < 20;
+
+        // منطق اصلی نمایش/پنهان کردن نوار جستجو
+        // نوار جستجو را پنهان کن اگر به سمت پایین اسکرول می‌کنی
+        if (currentScrollY > lastScrollPosition + scrollTolerance) {
+            isSearchBarVisible.value = false;
+        } 
+        // نوار جستجو را نمایش بده اگر به سمت بالا اسکرول می‌کنی یا در بالای صفحه هستی
+        else if (currentScrollY < lastScrollPosition - scrollTolerance || currentScrollY <= 0) {
+            isSearchBarVisible.value = true;
+        }
+    }
+    
+    // Check for infinite scroll trigger
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100) {
+        if (displayedItemsCount.value < filteredItems.value.length) {
+            displayedItemsCount.value += itemsPerPage;
+        }
     }
 
-    isAtTop.value = currentScrollY < 20;
-
-    // منطق اصلی نمایش/پنهان کردن نوار جستجو
-    // نوار جستجو را پنهان کن اگر به سمت پایین اسکرول می‌کنی
-    if (currentScrollY > lastScrollPosition + scrollTolerance) {
-        isSearchBarVisible.value = false;
-    } 
-    // نوار جستجو را نمایش بده اگر به سمت بالا اسکرول می‌کنی یا در بالای صفحه هستی
-    else if (currentScrollY < lastScrollPosition - scrollTolerance || currentScrollY <= 0) {
-        isSearchBarVisible.value = true;
-    }
 
     lastScrollPosition = currentScrollY;
     visibleBringToTop.value = currentScrollY > 20;
@@ -2792,7 +2788,7 @@ window.addEventListener('keydown', (event) => {
 });
 
 return {
-	showMore, isShowMore, searchTerm, combineSimilarChars, posterMode, filteredItems, items,
+	searchTerm, combineSimilarChars, posterMode, filteredItems, items,
 	getItemUrl, getCommonsUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, sortDirection, selectedYear,
 	availableYears, availableDesigners, selectedDesigner, filteredYears, bringToTop, visibleBringToTop,
 	filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors,
@@ -2807,7 +2803,7 @@ return {
 	lightboxImage, openLightbox, closeLightbox, downloadLink, handleImageClick,
 	clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading,
 	handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage,
-	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, showMore, uniqueResultsFilmCount,
+	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, uniqueResultsFilmCount,
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
 	searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
 	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle, isAtTop
