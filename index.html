@@ -1797,18 +1797,38 @@ const setupInfiniteScroll = () => {
 	observer.observe(target.lastElementChild);
 };
 
-const handleScrollForInfiniteLoad = () => {
-	const grid = document.querySelector('.results-grid');
-	const lastElement = grid.lastElementChild;
-	if (lastElement) {
-		const lastElementRect = lastElement.getBoundingClientRect();
-		if (lastElementRect.top <= window.innerHeight + 500) {
-			if (displayedItemsCount.value < filteredItems.value.length) {
-				displayedItemsCount.value += calculateInitialLoadCount();
-			}
-		}
-	}
+// تابع مدیریت اسکرول برای نمایش/پنهان کردن نوار جستجو
+let lastScrollPosition = ref(0);
+const scrollTolerance = 20;
+
+const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+    const docHeight = getDocHeight();
+    const viewportHeight = window.innerHeight;
+    
+    // در صورتی که طول صفحه به اندازه کافی برای اسکرول نباشد، نوار جستجو همیشه نمایش داده می‌شود.
+    if (docHeight < viewportHeight * 1.5) {
+        isSearchBarVisible.value = true;
+        lastScrollPosition.value = currentScrollY;
+        return;
+    }
+
+    isAtTop.value = currentScrollY < 20;
+
+    // منطق اصلی نمایش/پنهان کردن نوار جستجو
+    // نوار جستجو را پنهان کن اگر به سمت پایین اسکرول می‌کنی
+    if (currentScrollY > lastScrollPosition.value + scrollTolerance) {
+        isSearchBarVisible.value = false;
+    } 
+    // نوار جستجو را نمایش بده اگر به سمت بالا اسکرول می‌کنی یا در بالای صفحه هستی
+    else if (currentScrollY < lastScrollPosition.value - scrollTolerance || currentScrollY <= 0) {
+        isSearchBarVisible.value = true;
+    }
+
+    lastScrollPosition.value = currentScrollY;
+    visibleBringToTop.value = currentScrollY > 20;
 };
+
 
 const debounce = (func, delay) => {
 	let timeoutId;
@@ -1818,7 +1838,14 @@ const debounce = (func, delay) => {
 	};
 };
 
-const debouncedScroll = debounce(handleScrollForInfiniteLoad, 100);
+const getDocHeight = () => {
+    return Math.max(
+        document.body.scrollHeight, document.documentElement.scrollHeight,
+        document.body.offsetHeight, document.documentElement.offsetHeight,
+        document.body.clientHeight, document.documentElement.clientHeight
+    );
+};
+
 
 const onSearchFocus = () => {
 	isSearchFocused.value = true;
@@ -2571,7 +2598,7 @@ const mainContentPaddingTop = computed(() => {
 	}
 });
 
-let lastScrollPosition = 0;
+let lastScrollPosition = ref(0);
 const scrollTolerance = 20;
 
 const handleScroll = () => {
@@ -2582,7 +2609,7 @@ const handleScroll = () => {
     // در صورتی که طول صفحه به اندازه کافی برای اسکرول نباشد، نوار جستجو همیشه نمایش داده می‌شود.
     if (docHeight < viewportHeight * 1.5) {
         isSearchBarVisible.value = true;
-        lastScrollPosition = currentScrollY;
+        lastScrollPosition.value = currentScrollY;
         return;
     }
 
@@ -2590,16 +2617,28 @@ const handleScroll = () => {
 
     // منطق اصلی نمایش/پنهان کردن نوار جستجو
     // نوار جستجو را پنهان کن اگر به سمت پایین اسکرول می‌کنی
-    if (currentScrollY > lastScrollPosition + scrollTolerance) {
+    if (currentScrollY > lastScrollPosition.value + scrollTolerance) {
         isSearchBarVisible.value = false;
     } 
     // نوار جستجو را نمایش بده اگر به سمت بالا اسکرول می‌کنی یا در بالای صفحه هستی
-    else if (currentScrollY < lastScrollPosition - scrollTolerance || currentScrollY <= 0) {
+    else if (currentScrollY < lastScrollPosition.value - scrollTolerance || currentScrollY <= 0) {
         isSearchBarVisible.value = true;
     }
 
-    lastScrollPosition = currentScrollY;
+    lastScrollPosition.value = currentScrollY;
     visibleBringToTop.value = currentScrollY > 20;
+
+	// منطق مربوط به infinite scroll
+	const grid = document.querySelector('.results-grid');
+	const lastElement = grid.lastElementChild;
+	if (lastElement) {
+		const lastElementRect = lastElement.getBoundingClientRect();
+		if (lastElementRect.top <= window.innerHeight + 500) {
+			if (displayedItemsCount.value < filteredItems.value.length) {
+				displayedItemsCount.value += calculateInitialLoadCount();
+			}
+		}
+	}
 };
 
 const getDocHeight = () => {
@@ -2809,11 +2848,9 @@ onMounted(() => {
 			searchPlaceholder.value = 'جستجو (برای پرش به کادر جستجو / را تایپ کنید)';
 		}
 	};
-
 	window.addEventListener('resize', checkMobile);
 	checkMobile();
-	window.addEventListener('scroll', debouncedScroll);
-
+	window.addEventListener('scroll', debounce(handleScroll, 100)); // اتصال تابع اسکرول به رویداد
 	if (searchBarRef.value) {
 		const resizeObserver = new ResizeObserver(entries => {
 			for (let entry of entries) {
@@ -2825,7 +2862,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-	window.removeEventListener('scroll', debouncedScroll);
+	window.removeEventListener('scroll', debounce(handleScroll, 100));
 	window.removeEventListener('resize', checkMobile);
 });
 
