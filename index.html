@@ -1502,7 +1502,7 @@ input[type="text"] {
 							</span>
 						</button>
 						<div style="position: relative; width: 100%;">
-							<input type="text" v-model="searchTerm" :placeholder="searchPlaceholder" @focus="onSearchFocus" @blur="onSearchBlur" />
+							<input type="text" v-model="searchTerm" :placeholder="searchPlaceholder" @focus="onSearchFocus" @blur="onSearchBlur" id="searchInput" />
 							<span v-if="searchTerm" @click="clearSearchTerm" class="clearSearch"
 								style="display: none" :style="{ display: undefined }">
 								<span class="material-symbols-rounded">
@@ -1744,7 +1744,7 @@ const sortDirection = ref('asc');
 const searchPlaceholder = ref('');
 const isSearchFocused = ref(false);
 const displayedItemsCount = ref(30);
-const itemsPerPage = 30; // تعداد آیتم‌های جدید برای نمایش
+const itemsPerPage = 30;
 const exactWordMatch = ref(false);
 const isSearchBarVisible = ref(true);
 const searchBarRef = ref(null);
@@ -1757,8 +1757,12 @@ const backgroundColor = ref('#ffffff');
 const savedLogoColor = ref('#ffffff');
 const isAtTop = ref(true);
 
-const onSearchFocus = () => {
+const onSearchFocus = (event) => {
 	isSearchFocused.value = true;
+	const searchInput = event.target;
+	if (searchInput.value) {
+		searchInput.select();
+	}
 };
 
 const onSearchBlur = () => {
@@ -2594,7 +2598,7 @@ const searchBarDynamicStyle = computed(() => {
 		style.width = '100%';
 		style.right = 'auto';
 		if (isSearchBarVisible.value) {
-			const titleHeight = 50; /* Adjust this value if the title's height changes */
+			const titleHeight = 50;
 			style.top = isAtTop.value ? `${titleHeight}px` : '0px';
 		} else {
 			style.top = '-120px';
@@ -2609,7 +2613,7 @@ const searchBarDynamicStyle = computed(() => {
 		}
 		style.width = 'auto';
 		if (isSearchBarVisible.value) {
-			const titleHeight = 50; /* Adjust this value if the title's height changes */
+			const titleHeight = 50;
 			style.top = isAtTop.value ? `${titleHeight}px` : '0px';
 		} else {
 			style.top = '-120px';
@@ -2623,7 +2627,7 @@ const mainContentStyle = computed(() => {
 		? `${sidebarWidth.value + 40}px`
 		: '0px';
 	
-	const titleHeight = 50; /* Adjust this value if the title's height changes */
+	const titleHeight = 50;
 	const searchBarTotalHeight = isSearchBarVisible.value ? searchBarHeight.value : 0;
 	
 	let totalPadding = searchBarTotalHeight;
@@ -2783,6 +2787,9 @@ window.addEventListener('keydown', (event) => {
 		const searchInput = document.querySelector('input[type="text"][placeholder*="پرش"]');
 		if (searchInput) {
 			searchInput.focus();
+			if (searchInput.value) {
+				searchInput.select();
+			}
 		}
 	}
 });
