@@ -82,8 +82,8 @@ body {
 }
 
 .title-container {
-    position: fixed;
-    top: 5px;
+    position: absolute;
+    top: 10px;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -125,6 +125,7 @@ body {
 }
 
 .search-bar-inner {
+	position: relative;
 	max-width: 960px;
 	width: 100%;
     margin: -50px auto 0;
@@ -132,6 +133,17 @@ body {
 	border-radius: 0 0 16px 16px;
 	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 	background-color: var(--search-background);
+}
+
+.title-wrapper {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .search-bar.visible {
@@ -1491,9 +1503,11 @@ input[type="text"] {
 
 		<div id="searchBar" class="search-bar" :class="{ 'visible': isSearchBarVisible }" ref="searchBarRef" :style="searchBarDynamicStyle">
 			<div class="search-bar-inner">
+				    <div class="title-wrapper">
 				<div class="title-container" :class="{ 'visible-title': isAtTop }">
 					<h1>آرشیو پوسترهای سینمای ایران</h1>
 				</div>
+			</div>
 				<div class="options-wrapper-container">
 					<div class="options-wrapper-top">
 						<button @click="toggleSidebar" id="toggleSidebarButton" class="mobile-only">
@@ -2503,12 +2517,14 @@ const visibleBringToTop = ref(false);
 
 const mainContentPaddingTop = computed(() => {
 	const basePadding = 0;
-	if (isMobileView.value) {
-		return `${searchBarHeight.value + basePadding + 50}px`;
-	} else {
-		const titleHeight = 50; /* Adjust this value if the title's height changes */
-		return isAtTop.value ? `${searchBarHeight.value + titleHeight + basePadding}px` : `${searchBarHeight.value + basePadding}px`;
-	}
+	const titleHeight = 50;
+    const searchBarTotalHeight = isSearchBarVisible.value ? searchBarHeight.value : 0;
+    let totalPadding = searchBarTotalHeight;
+    if (isAtTop.value) {
+        totalPadding += titleHeight;
+    }
+
+    return `${totalPadding}px`;
 });
 
 let lastScrollPosition = 0;
@@ -2770,6 +2786,12 @@ onMounted(() => {
 		});
 		resizeObserver.observe(searchBarRef.value);
 	}
+
+	    const mainContent = document.getElementById('main-content');
+    if (mainContent) {
+        const resizeObserver = new ResizeObserver(entries => {
+        });
+        resizeObserver.observe(mainContent);
 });
 
 onUnmounted(() => {
