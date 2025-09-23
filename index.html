@@ -1569,7 +1569,7 @@ input[type="text"] {
 								<label>
 									<span class="material-symbols-rounded tooltip">
 										info
-										<span class="tooltiptext" v-if="posterMode">مخفی کردن تصاویری که ممکن است نامناسب
+										<span class="tooltiptext">مخفی کردن تصاویری که ممکن است نامناسب
 											باشند</span>
 									</span>
 								</label>
@@ -1643,7 +1643,7 @@ input[type="text"] {
 								<img :src="getItemUrl(item, posterMode, pixelatedEffect)"
 									:key="getItemUrl(item, posterMode, pixelatedEffect)" :alt="item.filmLabel"
 									class="item-image"
-									:class="{ 'no-logo-bw': !item.logo && !posterMode }" :style="{ background: !posterMode ? backgroundColor : 'var(--card-background)', borderRadius: !posterMode && !moreInformation ? '0' : '0', marginBottom: !posterMode && !moreInformation ? '0' : '10px', aspectRatio: !posterMode ? '1/1' : '5/7.5' }" />
+									:class="{ 'no-logo-bw': !item.logo && !posterMode }" :style="{ background: !posterMode ? backgroundColor : 'var(--card-background)', aspectRatio: !posterMode ? '1/1' : '5/7.5' }" />
 						</a>
 						<a :href="downloadLink(item)" aria-label="دریافت پوستر" target="_blank">
 							<button class="download-btn">
