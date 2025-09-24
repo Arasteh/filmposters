@@ -37296,7 +37296,9 @@
 			"date": [
 				"+2016-00-00T00:00:00Z"
 			],
-			"imdb": [],
+			"imdb": [
+				"tt16292836"
+			],
 			"posters": [
 				{
 					"image": "Hossein_Rajabian_A_Film_by_hossein_rajabian_حسین_رجبیان_فیلم.jpg",
@@ -39097,7 +39099,14 @@
 				"en": "Yooz(animation)",
 				"fa": "یوز(انیمیشن)"
 			},
-			"aliases": {},
+			"aliases": {
+				"fa": [
+					"یوز",
+					"کارتون یوز",
+					"انیمیشن یوز",
+					"سینمایی یوز"
+				]
+			},
 			"directors": [],
 			"date": [],
 			"imdb": [],
