@@ -50,6 +50,14 @@ def image_summary(claim):
         if qualifier: result[name] = qualifier
     return result
 
+with open('ia.tsv') as f: ia = {
+    b: [a, c, d, e] for a, b, c, d, e in (
+        l.split('\t') for l in f.read().strip('\n').split('\n')
+    )
+    if b.startswith('Q')
+}
+ia_designers = {d for a, c, d, e in ia.values() if d.startswith('Q')}
+
 films = {
     item['id']: {
         'id': item['id'],
@@ -77,15 +85,16 @@ films = {
                  for x in item['claims'].get('P345', [])],
         'posters': [image_summary(poster) for poster in item['claims'].get('P3383', [])],
         'logos': [image_summary(logo) for logo in item['claims'].get('P154', [])],
+        **({'ia': ia[item['id']]} if item['id'] in a else {}),
     }
     for item in wikidata_items(
-        [
+        {
             x['qid']['value'].split('entity/')[1]
             for x in (queryResult.json()['results']['bindings'])
-        ] + [
+        } | {
             'Q6054055', 'Q6082474', 'Q87193819', 'Q24905261', 'Q131455075',
             'Q88384815',
-        ]
+        } + set(ia.keys())
     )
 }
 
@@ -113,7 +122,8 @@ secondary = {
          for item in value} |
         {director
          for film in films.values()
-         for director in film['directors']}
+         for director in film['directors']} |
+        ia_designers
     )
 }
 
