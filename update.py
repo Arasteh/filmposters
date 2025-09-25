@@ -85,7 +85,7 @@ films = {
                  for x in item['claims'].get('P345', [])],
         'posters': [image_summary(poster) for poster in item['claims'].get('P3383', [])],
         'logos': [image_summary(logo) for logo in item['claims'].get('P154', [])],
-        **({'ia': ia[item['id']]} if item['id'] in a else {}),
+        **({'ia': ia[item['id']]} if item['id'] in ia else {}),
     }
     for item in wikidata_items(
         {
