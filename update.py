@@ -50,13 +50,12 @@ def image_summary(claim):
         if qualifier: result[name] = qualifier
     return result
 
-with open('ia.tsv') as f: ia = {
-    b: [a, c, d, e] for a, b, c, d, e in (
-        l.split('\t') for l in f.read().strip('\n').split('\n')
-    )
-    if b.startswith('Q')
-}
-ia_designers = {d for a, c, d, e in ia.values() if d.startswith('Q')}
+with open('ia.tsv') as f: ia = [
+    data in (l.split('\t') for l in f.read().strip('\n').split('\n'))
+    if data[1].startswith('Q')
+]
+ia_grouped = itertools.groupby(ia, lambda x: x[1])
+ia_designers = {d for a, b, c, d, e in ia if d.startswith('Q')}
 
 films = {
     item['id']: {
@@ -85,7 +84,7 @@ films = {
                  for x in item['claims'].get('P345', [])],
         'posters': [image_summary(poster) for poster in item['claims'].get('P3383', [])],
         'logos': [image_summary(logo) for logo in item['claims'].get('P154', [])],
-        **({'ia': ia[item['id']]} if item['id'] in ia else {}),
+        **({'ia': ia_grouped[item['id']]} if item['id'] in ia_grouped else {}),
     }
     for item in wikidata_items(
         {
@@ -94,7 +93,7 @@ films = {
         } | {
             'Q6054055', 'Q6082474', 'Q87193819', 'Q24905261', 'Q131455075',
             'Q88384815',
-        } | set(ia.keys())
+        } | set(ia_grouped.keys())
     )
 }
 
