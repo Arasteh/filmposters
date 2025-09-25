@@ -51,11 +51,10 @@ def image_summary(claim):
     return result
 
 with open('ia.tsv') as f: ia = [
-    data
-    for data in (l.split('\t') for l in f.read().strip('\n').split('\n'))
+    data for data in (l.split('\t') for l in f.read().strip('\n').split('\n'))
     if data[1].startswith('Q')
 ]
-ia_grouped = itertools.groupby(ia, lambda x: x[1])
+ia_grouped = {x: list(y) for x, y in itertools.groupby(ia, lambda x: x[1])}
 ia_designers = {d for a, b, c, d, e in ia if d.startswith('Q')}
 
 films = {
