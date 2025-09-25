@@ -82,9 +82,18 @@ films = {
                  for x in item['claims'].get('P577', [])],
         'imdb': [x['mainsnak']['datavalue']['value']
                  for x in item['claims'].get('P345', [])],
-        'posters': [image_summary(poster) for poster in item['claims'].get('P3383', [])],
-        'logos': [image_summary(logo) for logo in item['claims'].get('P154', [])],
-        **({'ia': ia_grouped[item['id']]} if item['id'] in ia_grouped else {}),
+        'posters': [
+            image_summary(poster) for poster in item['claims'].get('P3383', [])
+        ] + [
+            {
+                'image': x[0],
+                'hash': '',
+                **({'designers': [x[3]]} if x[3].startswith('Q') else {})
+            } for x in ia_grouped.get(item['id'], [])
+        ],
+        'logos': [
+            image_summary(logo) for logo in item['claims'].get('P154', [])
+        ],
     }
     for item in wikidata_items(
         {

@@ -1897,14 +1897,7 @@ const uniqueResultsFilmCount = computed(() => {
 });
 
 const items = films.flatMap(film => {
-	return (film.ia || []).map((poster, i) => {
-		const result = {
-			image: poster[0],
-			hash: '',
-		};
-		if (poster[3].startsWith('Q')) result.designers = [poster[3]];
-		return result;
-	}).concat(film.posters).map((poster, i) => {
+	return film.posters.map((poster, i) => {
 		const item = {};
 		item.film = film.id;
 		if (!film.labels.fa) {
