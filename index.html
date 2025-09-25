@@ -1887,7 +1887,6 @@ const resetFilters = () => {
 };
 
 const films = Object.values(data.films);
-const posters = films.flatMap(film => film.posters);
 const logos = films.flatMap(film => film.logos).filter(logo => logo.image.endsWith('.png'));
 
 const uniqueFilmCount = computed(() => films.length.toLocaleString('fa', { useGrouping: false }));
@@ -1898,7 +1897,12 @@ const uniqueResultsFilmCount = computed(() => {
 });
 
 const items = films.flatMap(film => {
-	return film.posters.map((poster, i) => {
+	return (film.ia || []).map((poster, i) => {
+		return {
+			image: poster[0],
+			hash: '',
+		};
+	}).concat(film.poster || []).map((poster, i) => {
 		const item = {};
 		item.film = film.id;
 		if (!film.labels.fa) {
@@ -1951,7 +1955,7 @@ const items = films.flatMap(film => {
 });
 const itemsLength = computed(() => {
 	const count = posterMode.value
-		? posters.length
+		? items.length
 		: logos.length;
 	return count.toLocaleString('fa', { useGrouping: false });
 });
@@ -2442,6 +2446,7 @@ const downloadLink = item => {
 	const name = posterMode.value ? item.poster : item.logo;
 	if (!name) return 'https://upload.wikimedia.org/wikipedia/commons/8/82/NoImageEn.svg';
 	const hash = posterMode.value ? item.posterHash : item.logoHash;
+	if (hash === '') return 'https://archive.org/download/filmpostersofiran/' + name;
 	return `https://upload.wikimedia.org/wikipedia/commons/${hash[0]}/${hash}/${name}?download`;
 };
 
@@ -2487,6 +2492,11 @@ const filteredItemsLength = computed(() => {
 
 const getPosterUrl = (name, hash, width) => {
 	if (!name) return 'https://upload.wikimedia.org/wikipedia/commons/8/82/NoImageEn.svg';
+	if (hash === '') {
+		let fileName = name;
+		if (width === 250) fileName = fileName.replace('.jpg', '_thumb.jpg');
+		return 'https://archive.org/download/filmpostersofiran/' + fileName;
+	}
 	return `https://upload.wikimedia.org/wikipedia/commons/thumb/${hash[0]}/${hash}/${name}/${width}px-${name}`;
 };
 
@@ -2507,6 +2517,9 @@ const getItemUrl = (item, posterMode, pixelatedEffect) => {
 
 const getCommonsUrl = (item, posterMode, pixelatedEffect) => {
 	if (!posterMode && !item.logo) return '#';
+	if (posterMode && item.posterHash === '') {
+		return 'https://archive.org/download/filmpostersofiran/' + item.poster;
+	}
 	return 'https://commons.wikimedia.org/wiki/File:' + (posterMode ? item.poster : item.logo);
 };
 
