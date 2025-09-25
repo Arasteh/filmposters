@@ -51,7 +51,8 @@ def image_summary(claim):
     return result
 
 with open('ia.tsv') as f: ia = [
-    data in (l.split('\t') for l in f.read().strip('\n').split('\n'))
+    data
+    for data in (l.split('\t') for l in f.read().strip('\n').split('\n'))
     if data[1].startswith('Q')
 ]
 ia_grouped = itertools.groupby(ia, lambda x: x[1])
