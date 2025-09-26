@@ -921,6 +921,19 @@ input[type="text"] {
 	margin-top: 10px;
 }
 
+.range-track.disabled {
+	background-color: light-dark(#e0e0e0, #444);
+}
+
+.range-fill.disabled {
+	background-color: light-dark(#999, #666);
+}
+
+.range-thumb.disabled {
+	background-color: light-dark(#999, #666);
+	cursor: default;
+}
+
 .no-results {
 	text-align: center;
 	color: light-dark(#777, #999);
@@ -1379,6 +1392,7 @@ input[type="text"] {
 					</div>
 				</div>
 			</div>
+
 			<div class="sidebar-section year-range-section" :class="getSectionClass('yearRange')">
 				<div class="sidebar-section-header" @click="toggleCollapse('yearRange')">
 					<span>بازه سال</span>
@@ -1394,7 +1408,7 @@ input[type="text"] {
 						<label for="yearRangeToggle" style="cursor: pointer;">فیلتر بر اساس بازه سال</label>
 					</div>
 					
-					<div v-if="useYearRange" class="year-range-slider">
+					<div class="year-range-slider">
 						<div class="range-value-display">
 							{{ selectedMinYear }} - {{ selectedMaxYear }}
 						</div>
@@ -1403,13 +1417,13 @@ input[type="text"] {
 							<div class="range-track"></div>
 							<div class="range-fill" :style="rangeFillStyle"></div>
 							<div class="range-thumb" 
-								:style="{ left: minThumbPosition + '%' }"
-								@mousedown="startDrag('min')"
-								@touchstart="startDrag('min', $event)"></div>
+								:style="{ left: minThumbPosition + '%', cursor: useYearRange ? 'pointer' : 'default', opacity: useYearRange ? 1 : 0.5 }"
+								@mousedown="useYearRange ? startDrag('min', $event) : null"
+								@touchstart="useYearRange ? startDrag('min', $event) : null"></div>
 							<div class="range-thumb" 
-								:style="{ left: maxThumbPosition + '%' }"
-								@mousedown="startDrag('max')"
-								@touchstart="startDrag('max', $event)"></div>
+								:style="{ left: maxThumbPosition + '%', cursor: useYearRange ? 'pointer' : 'default', opacity: useYearRange ? 1 : 0.5 }"
+								@mousedown="useYearRange ? startDrag('max', $event) : null"
+								@touchstart="useYearRange ? startDrag('max', $event) : null"></div>
 						</div>
 						
 						<div class="range-labels">
@@ -2007,13 +2021,21 @@ const maxThumbPosition = computed(() => {
 });
 
 const rangeFillStyle = computed(() => {
-	return {
+	const baseStyle = {
 		left: minThumbPosition.value + '%',
 		right: (100 - maxThumbPosition.value) + '%'
 	};
+	
+	if (!useYearRange.value) {
+		baseStyle.backgroundColor = 'var(--year-link-foreground)'; // رنگ خاکستری وقتی غیرفعال است
+	}
+	
+	return baseStyle;
 });
 
 const startDrag = (type, event) => {
+	if (!useYearRange.value) return; // اگر غیرفعال است، کاری نکند
+	
 	isDragging.value = true;
 	dragType.value = type;
 	
@@ -2032,6 +2054,7 @@ const startDrag = (type, event) => {
 	
 	event.preventDefault();
 };
+
 
 const handleDrag = (event) => {
 	if (!isDragging.value) return;
@@ -2419,6 +2442,11 @@ const filteredYearsInModal = computed(() => {
 	const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
 	let years = Object.keys(groups)
 		.map(year => [year, groups[year].length]);
+
+	// اگر years خالی باشد، آرایه خالی برگردان
+	if (years.length === 0) {
+		return [];
+	}
 
 	const unknown = years.find(([name]) => name === 'نامشخص');
 	years = years.filter(([name]) => name !== 'نامشخص').sort();
