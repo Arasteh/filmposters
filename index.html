@@ -1314,8 +1314,8 @@ input[type="text"] {
 						<input type="number" 
 							id="yearRangeStart" 
 							v-model="selectedYearRangeStart" 
-							:min="availableYearsList.min || ''" 
-							:max="availableYearsList.max || ''" 
+							:min="availableYearsList.min" 
+							:max="availableYearsList.max"
 							style="padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
 					</div>
 					<div style="display: flex; flex-direction: column; gap: 5px;">
@@ -1323,8 +1323,8 @@ input[type="text"] {
 						<input type="number" 
 							id="yearRangeEnd" 
 							v-model="selectedYearRangeEnd" 
-							:min="availableYearsList.min || ''" 
-							:max="availableYearsList.max || ''"
+							:min="availableYearsList.min" 
+							:max="availableYearsList.max"
 							style="padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
 					</div>
 					</div>
@@ -1859,9 +1859,7 @@ const hasActiveFilters = computed(() => {
 		selectedYear.value || 
 		selectedDesigner.value || 
 		selectedDirector.value || 
-		selectedLetter.value ||
-		selectedYearRangeStart.value || 
-		selectedYearRangeEnd.value;  
+		selectedLetter.value;
 });
 
 const applyInitialFilters = () => {
@@ -1955,9 +1953,7 @@ const resetFilters = () => {
 	selectedYear.value = '';
 	selectedDesigner.value = '';
 	selectedDirector.value = '';
-	selectedLetter.value = '';  
-	selectedYearRangeStart.value = ''; 
-  	selectedYearRangeEnd.value = '';  
+	selectedLetter.value = '';
 	sortDirection.value = 'asc';
 	exactWordMatch.value = false;
 	moreInformation.value = false;
@@ -2088,7 +2084,7 @@ const availableYears = computed(() => {
 const availableYearsList = computed(() => {
 	const years = items.map(item => toPersianYear(item.date)).filter(year => year !== 'نامشخص');
 	const numericYears = years.map(year => parseInt(year)).filter(year => !isNaN(year));
-  if (numericYears.length === 0) return { min: '', max: '' };
+	if (numericYears.length === 0) return [];
 	return {
 		min: Math.min(...numericYears).toString(),
 		max: Math.max(...numericYears).toString()
