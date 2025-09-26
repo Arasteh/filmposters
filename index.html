@@ -841,6 +841,36 @@ input[type="text"] {
 	font-weight: lighter;
 }
 
+.year-range-inputs {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.year-range-input-group {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.year-range-input-group label {
+	font-size: 0.9em;
+}
+
+.year-range-input-group input {
+	padding: 5px;
+	border-radius: 5px;
+	border: 1px solid var(--text-input-border);
+	width: 100%;
+}
+
+.year-range-buttons {
+	display: flex;
+	gap: 5px;
+	margin-top: 10px;
+}
+
 .no-results {
 	text-align: center;
 	color: light-dark(#777, #999);
@@ -1270,6 +1300,46 @@ input[type="text"] {
 				</div>
 			</div>
 			
+			<div class="sidebar-section" :class="getSectionClass('yearRange')">
+				<div class="sidebar-section-header" @click="toggleCollapse('yearRange')">
+					<span>بازه‌ی سال</span>
+					<button class="collapse-button rotate-up" :class="collapseIconClass(isCollapsed.yearRange)">
+					<span class="material-symbols-rounded">keyboard_arrow_up</span>
+					</button>
+				</div>
+				<div class="sidebar-section-body">
+					<div style="display: flex; gap: 10px; align-items: center; justify-content: space-between;">
+					<div style="display: flex; flex-direction: column; gap: 5px;">
+						<label for="yearRangeStart" style="font-size: 0.9em;">از سال:</label>
+						<input type="number" 
+							id="yearRangeStart" 
+							v-model="selectedYearRangeStart" 
+							:min="availableYearsList.min" 
+							:max="availableYearsList.max"
+							style="padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
+					</div>
+					<div style="display: flex; flex-direction: column; gap: 5px;">
+						<label for="yearRangeEnd" style="font-size: 0.9em;">تا سال:</label>
+						<input type="number" 
+							id="yearRangeEnd" 
+							v-model="selectedYearRangeEnd" 
+							:min="availableYearsList.min" 
+							:max="availableYearsList.max"
+							style="padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
+					</div>
+					</div>
+					<button @click="applyYearRangeFilter" 
+							style="margin-top: 10px; padding: 8px 15px; background-color: var(--bar-color); color: white; border: none; border-radius: 5px; cursor: pointer;">
+					اعمال بازه
+					</button>
+					<button v-if="selectedYearRangeStart || selectedYearRangeEnd" 
+							@click="clearYearRangeFilter"
+							style="margin-top: 5px; padding: 8px 15px; background-color: #888; color: white; border: none; border-radius: 5px; cursor: pointer;">
+					پاک کردن
+					</button>
+				</div>
+			</div>
+
 			<div class="sidebar-section" :class="getSectionClass('years')" :key="'years-section'">
 				<div class="sidebar-section-header" @click="toggleCollapse('years')">
 					<span style="display: none" :style="{ display: undefined }">{{ filteredYearLabel }}</span>
@@ -1769,6 +1839,9 @@ const backgroundColor = ref('#ffffff');
 const savedLogoColor = ref('#ffffff');
 const isAtTop = ref(true);
 
+const selectedYearRangeStart = ref('');
+const selectedYearRangeEnd = ref('');
+
 const onSearchFocus = (event) => {
 	isSearchFocused.value = true;
 	const searchInput = event.target;
@@ -1844,7 +1917,8 @@ const isCollapsed = ref({
 	directors: true,
 	years: false,
 	letters: true,
-	chart: true
+	chart: true,
+	yearRange: true
 });
 
 const getSectionClass = section => isCollapsed.value[section] ? 'collapsed' : 'expanded';
@@ -1885,6 +1959,26 @@ const resetFilters = () => {
 	moreInformation.value = false;
 	backgroundColor.value = '#ffffff';
 };
+
+const applyYearRangeFilter = () => {
+  selectedYear.value = '';
+  
+  if (selectedYearRangeStart.value && selectedYearRangeEnd.value) {
+    const start = parseInt(selectedYearRangeStart.value);
+    const end = parseInt(selectedYearRangeEnd.value);
+    
+    if (start > end) {
+      selectedYearRangeStart.value = end.toString();
+      selectedYearRangeEnd.value = start.toString();
+    }
+  }
+};
+
+const clearYearRangeFilter = () => {
+  selectedYearRangeStart.value = '';
+  selectedYearRangeEnd.value = '';
+};
+
 
 const films = Object.values(data.films);
 const logos = films.flatMap(film => film.logos).filter(logo => logo.image.endsWith('.png'));
@@ -1987,6 +2081,16 @@ const availableYears = computed(() => {
 	return years;
 });
 
+const availableYearsList = computed(() => {
+	const years = items.map(item => toPersianYear(item.date)).filter(year => year !== 'نامشخص');
+	const numericYears = years.map(year => parseInt(year)).filter(year => !isNaN(year));
+	if (numericYears.length === 0) return [];
+	return {
+		min: Math.min(...numericYears).toString(),
+		max: Math.max(...numericYears).toString()
+  };
+});
+
 const availableDesigners = computed(() => {
 	const groups = Object.groupBy(items, item => item.designerLabel);
 	let designers = Object.keys(groups)
@@ -2066,7 +2170,20 @@ const filteredItems = computed(() => {
 
 
 	if (selectedYear.value) {
-		results = results.filter(item => toPersianYear(item.date) === selectedYear.value);
+	results = results.filter(item => toPersianYear(item.date) === selectedYear.value);
+	} else if (selectedYearRangeStart.value || selectedYearRangeEnd.value) {
+	results = results.filter(item => {
+		const itemYear = toPersianYear(item.date);
+		if (itemYear === 'نامشخص') return false;
+		
+		const yearNum = parseInt(itemYear);
+		if (isNaN(yearNum)) return false;
+		
+		const start = selectedYearRangeStart.value ? parseInt(selectedYearRangeStart.value) : -Infinity;
+		const end = selectedYearRangeEnd.value ? parseInt(selectedYearRangeEnd.value) : Infinity;
+		
+		return yearNum >= start && yearNum <= end;
+	});
 	}
 
 	if (selectedDesigner.value) {
@@ -2460,6 +2577,10 @@ const activeFilters = computed(() => {
 	if (selectedLetter.value) {
 		filters.push({ type: 'letter', label: 'حرف اول', value: selectedLetter.value });
 	}
+	if (selectedYearRangeStart.value || selectedYearRangeEnd.value) {
+		const rangeLabel = `${selectedYearRangeStart.value || 'قدیمی'} تا ${selectedYearRangeEnd.value || 'جدید'}`;
+		filters.push({ type: 'yearRange', label: 'بازه‌ی سال', value: rangeLabel });
+	}
 	return filters;
 });
 
@@ -2476,6 +2597,10 @@ const removeFilter = (type, value) => {
 			break;
 		case 'letter':
 			selectedLetter.value = '';
+			break;
+		case 'yearRange':
+			selectedYearRangeStart.value = '';
+			selectedYearRangeEnd.value = '';
 			break;
 	}
 };
