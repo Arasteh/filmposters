@@ -78,32 +78,32 @@ body {
 	max-width: 100%;
 	overflow-x: hidden;
 	transition: padding-top 0.3s ease-in-out, margin-right 0.3s ease-in-out;
-	padding-top: 0; /* Remove initial padding from main-content */
+	padding-top: 0;
 }
 
 .title-container {
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    text-align: center;
-    transition: opacity 0.3s ease-in-out;
-    opacity: 0;
-    z-index: 1;
-    pointer-events: none;
+	position: absolute;
+	top: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100%;
+	text-align: center;
+	transition: opacity 0.3s ease-in-out;
+	opacity: 0;
+	z-index: 1;
+	pointer-events: none;
 }
 
 .title-container.visible-title {
-    opacity: 1;
-    pointer-events: auto;
+	opacity: 1;
+	pointer-events: auto;
 }
 
 .title-container h1 {
-    font-weight: bold;
-    font-size: larger;
-    margin: 0;
-    color: var(--body-foreground);
+	font-weight: bold;
+	font-size: larger;
+	margin: 0;
+	color: var(--body-foreground);
 }
 
 .search-container {
@@ -127,22 +127,22 @@ body {
 	position: relative;
 	max-width: 960px;
 	width: 100%;
-    margin: -50px auto 0;
-    padding: 60px 10px 10px 10px;
+	margin: -50px auto 0;
+	padding: 60px 10px 10px 10px;
 	border-radius: 0 0 16px 16px;
 	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 	background-color: var(--search-background);
 }
 
 .title-wrapper {
-    position: absolute;
-    top: 10px;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    pointer-events: none;
-    z-index: 1;
+	position: absolute;
+	top: 10px;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	pointer-events: none;
+	z-index: 1;
 }
 
 .search-bar.visible {
@@ -433,8 +433,8 @@ input[type="text"] {
 	align-items: center;
 	gap: 10px;
 	width: 100%;
-    z-index: 40;
-    position: relative;
+	z-index: 40;
+	position: relative;
 }
 
 .options-row-top {
@@ -524,7 +524,7 @@ input[type="text"] {
 	padding: 5px 12px;
 	border-radius: 30px;
 	color: light-dark(#888, #888);
-    transition: background-color 0.2s, color 0.2s, font-weight 0.2s;
+	transition: background-color 0.2s, color 0.2s, font-weight 0.2s;
 	cursor: pointer;
 	z-index: 1;
 }
@@ -706,12 +706,12 @@ input[type="text"] {
 }
 
 .filtersTitle {
-    right: 60px;
-    position: relative;
-    width: fit-content;
-    font-weight: bold;
-    height: 15px;
-    top: -5px;
+	right: 60px;
+	position: relative;
+	width: fit-content;
+	font-weight: bold;
+	height: 15px;
+	top: -5px;
 }
 
 .mobile-only {
@@ -1026,7 +1026,7 @@ input[type="text"] {
 	}
 	
 	.title-container {
-        font-size: 1rem;
+		font-size: 1rem;
 	}
 
 	#main-content {
@@ -1043,7 +1043,7 @@ input[type="text"] {
 
 	.search-bar-inner {
 		padding: 15px;
-        border-radius: 0 0 16px 16px;
+		border-radius: 0 0 16px 16px;
 	}
 	
 	.results-grid {
@@ -1073,8 +1073,8 @@ input[type="text"] {
 	}
 
 .options-wrapper-top {
-    padding-top: 60px;
-    margin-top: -15px;
+	padding-top: 60px;
+	margin-top: -15px;
 }
 	.options.collapsed {
 		max-height: 0;
@@ -1138,7 +1138,7 @@ input[type="text"] {
 	}
 
 	.filtersTitle {
-    right: 0px;
+	right: 0px;
 	}
 	.sidebar-resize-handle {
 		display: none;
@@ -1150,12 +1150,12 @@ input[type="text"] {
 		display: none;
 	}
 	.desktop-options-bar-wrapper {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        align-items: center;
+		display: flex;
+		justify-content: center;
+		gap: 20px;
+		align-items: center;
 		margin: 20px 0 5px 0;
-        flex-wrap: wrap;
+		flex-wrap: wrap;
 	}
 	.controls-wrapper-desktop {
 		display: flex;
@@ -1501,7 +1501,7 @@ input[type="text"] {
 
 		<div id="searchBar" class="search-bar" :class="{ 'visible': isSearchBarVisible }" ref="searchBarRef" :style="searchBarDynamicStyle">
 			<div class="search-bar-inner">
-				    <div class="title-wrapper">
+					<div class="title-wrapper">
 				<div class="title-container" :class="{ 'visible-title': isAtTop }">
 					<h1>آرشیو پوسترهای سینمای ایران</h1>
 				</div>
@@ -2041,7 +2041,7 @@ const filteredItems = computed(() => {
 				.map(part => {
 					return part.split('').map(char => combineSimilarChars.value ? (similarCharsMapping[char] || char) : char).join('');
 				})
-				.join('|'); // OR operator
+				.join('|');
 			regexString = `(^|\\s)(${modifiedSearchTerm})(?=\\s|$)`;
 		} else {
 			 let regexParts = trimmedSearchTerm.split(/\s+/).filter(Boolean);
@@ -2175,7 +2175,6 @@ const selectDesignerFromModal = designer => {
 	designerQuery.value = designer;
 };
 
-// تغییر برای بازگرداندن مقادیر عددی
 const filteredYearsInModal = computed(() => {
 	const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
 	let years = Object.keys(groups)
@@ -2524,60 +2523,55 @@ const visibleBringToTop = ref(false);
 const mainContentPaddingTop = computed(() => {
 	const basePadding = 0;
 	const titleHeight = 50;
-    const searchBarTotalHeight = isSearchBarVisible.value ? searchBarHeight.value : 0;
-    let totalPadding = searchBarTotalHeight;
-    if (isAtTop.value) {
-        totalPadding += titleHeight;
-    }
+	const searchBarTotalHeight = isSearchBarVisible.value ? searchBarHeight.value : 0;
+	let totalPadding = searchBarTotalHeight;
+	if (isAtTop.value) {
+		totalPadding += titleHeight;
+	}
 
-    return `${totalPadding}px`;
+	return `${totalPadding}px`;
 });
 
 let lastScrollPosition = 0;
 const scrollTolerance = 20;
 
 const handleScroll = () => {
-    const currentScrollY = window.scrollY;
-    const docHeight = getDocHeight();
-    const viewportHeight = window.innerHeight;
-    
-    // در صورتی که طول صفحه به اندازه کافی برای اسکرول نباشد، نوار جستجو همیشه نمایش داده می‌شود.
-    if (docHeight < viewportHeight * 1.5) {
-        isSearchBarVisible.value = true;
-        lastScrollPosition = currentScrollY;
-    } else {
+	const currentScrollY = window.scrollY;
+	const docHeight = getDocHeight();
+	const viewportHeight = window.innerHeight;
+	
+	if (docHeight < viewportHeight * 1.5) {
+		isSearchBarVisible.value = true;
+		lastScrollPosition = currentScrollY;
+	} else {
 
-        isAtTop.value = currentScrollY < 20;
+		isAtTop.value = currentScrollY < 20;
 
-        // منطق اصلی نمایش/پنهان کردن نوار جستجو
-        // نوار جستجو را پنهان کن اگر به سمت پایین اسکرول می‌کنی
-        if (currentScrollY > lastScrollPosition + scrollTolerance) {
-            isSearchBarVisible.value = false;
-        } 
-        // نوار جستجو را نمایش بده اگر به سمت بالا اسکرول می‌کنی یا در بالای صفحه هستی
-        else if (currentScrollY < lastScrollPosition - scrollTolerance || currentScrollY <= 0) {
-            isSearchBarVisible.value = true;
-        }
-    }
-    
-    // Check for infinite scroll trigger
-    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100) {
-        if (displayedItemsCount.value < filteredItems.value.length) {
-            displayedItemsCount.value += itemsPerPage;
-        }
-    }
+		if (currentScrollY > lastScrollPosition + scrollTolerance) {
+			isSearchBarVisible.value = false;
+		} 
+		else if (currentScrollY < lastScrollPosition - scrollTolerance || currentScrollY <= 0) {
+			isSearchBarVisible.value = true;
+		}
+	}
+	
+	if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100) {
+		if (displayedItemsCount.value < filteredItems.value.length) {
+			displayedItemsCount.value += itemsPerPage;
+		}
+	}
 
 
-    lastScrollPosition = currentScrollY;
-    visibleBringToTop.value = currentScrollY > 20;
+	lastScrollPosition = currentScrollY;
+	visibleBringToTop.value = currentScrollY > 20;
 };
 
 const getDocHeight = () => {
-    return Math.max(
-        document.body.scrollHeight, document.documentElement.scrollHeight,
-        document.body.offsetHeight, document.documentElement.offsetHeight,
-        document.body.clientHeight, document.documentElement.clientHeight
-    );
+	return Math.max(
+		document.body.scrollHeight, document.documentElement.scrollHeight,
+		document.body.offsetHeight, document.documentElement.offsetHeight,
+		document.body.clientHeight, document.documentElement.clientHeight
+	);
 };
 
 
@@ -2793,11 +2787,11 @@ onMounted(() => {
 		resizeObserver.observe(searchBarRef.value);
 	}
 
-	    const mainContent = document.getElementById('main-content');
-    if (mainContent) {
-        const resizeObserver = new ResizeObserver(entries => {
-        });
-        resizeObserver.observe(mainContent);
+		const mainContent = document.getElementById('main-content');
+	if (mainContent) {
+		const resizeObserver = new ResizeObserver(entries => {
+		});
+		resizeObserver.observe(mainContent);
 	}
 });
 
