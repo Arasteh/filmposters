@@ -1411,17 +1411,28 @@ input[type="text"] {
 					<div class="year-range-slider">
 						<div class="range-value-display">
 							{{ selectedMinYear }} - {{ selectedMaxYear }}
+							<span v-if="!useYearRange" style="font-size: 0.8em; color: #888;">(غیرفعال)</span>
 						</div>
 						
 						<div class="range-slider-container">
-							<div class="range-track"></div>
+							<div class="range-track" :class="{ 'disabled': !useYearRange }"></div>
 							<div class="range-fill" :style="rangeFillStyle"></div>
 							<div class="range-thumb" 
-								:style="{ left: minThumbPosition + '%', cursor: useYearRange ? 'pointer' : 'default', opacity: useYearRange ? 1 : 0.5 }"
+								:style="{ 
+									left: minThumbPosition + '%', 
+									cursor: useYearRange ? 'grab' : 'default', 
+									opacity: useYearRange ? 1 : 0.5,
+									backgroundColor: useYearRange ? 'var(--bar-color)' : 'var(--year-link-foreground)'
+								}"
 								@mousedown="useYearRange ? startDrag('min', $event) : null"
 								@touchstart="useYearRange ? startDrag('min', $event) : null"></div>
 							<div class="range-thumb" 
-								:style="{ left: maxThumbPosition + '%', cursor: useYearRange ? 'pointer' : 'default', opacity: useYearRange ? 1 : 0.5 }"
+								:style="{ 
+									left: maxThumbPosition + '%', 
+									cursor: useYearRange ? 'grab' : 'default', 
+									opacity: useYearRange ? 1 : 0.5,
+									backgroundColor: useYearRange ? 'var(--bar-color)' : 'var(--year-link-foreground)'
+								}"
 								@mousedown="useYearRange ? startDrag('max', $event) : null"
 								@touchstart="useYearRange ? startDrag('max', $event) : null"></div>
 						</div>
@@ -1903,9 +1914,9 @@ const backgroundColor = ref('#ffffff');
 const savedLogoColor = ref('#ffffff');
 const isAtTop = ref(true);
 const useYearRange = ref(false);
-const selectedMinYear = ref(0);
-const selectedMaxYear = ref(0);
-const availableYearsRange = ref([0, 0]); // مقادیر پیش‌فرض صفر
+const selectedMinYear = ref(1300);
+const selectedMaxYear = ref(1404);
+const availableYearsRange = ref([1300, 1404]); // مقادیر پیش‌فرض معقول
 const isDragging = ref(false);
 const dragType = ref(''); // 'min' یا 'max'
 const dragStartX = ref(0);
@@ -1991,19 +2002,27 @@ const isCollapsed = ref({
 });
 
 const calculateYearsRange = () => {
-	const years = availableYears.value
-		.filter(([year]) => year !== 'نامشخص')
-		.map(([year]) => parseInt(year))
-		.filter(year => !isNaN(year));
-	
-	if (years.length > 0) {
-		const minYear = Math.min(...years);
-		const maxYear = Math.max(...years);
-		availableYearsRange.value = [minYear, maxYear];
-		selectedMinYear.value = minYear;
-		selectedMaxYear.value = maxYear;
-	} else {
-		// اگر سالی وجود ندارد، مقادیر پیش‌فرض منطقی تنظیم شود
+	try {
+		const years = availableYears.value
+			.filter(([year]) => year !== 'نامشخص')
+			.map(([year]) => parseInt(year))
+			.filter(year => !isNaN(year));
+		
+		if (years.length > 0) {
+			const minYear = Math.min(...years);
+			const maxYear = Math.max(...years);
+			availableYearsRange.value = [minYear, maxYear];
+			selectedMinYear.value = minYear;
+			selectedMaxYear.value = maxYear;
+		} else {
+			// اگر سالی وجود ندارد، از مقادیر پیش‌فرض استفاده کن
+			availableYearsRange.value = [1300, 1400];
+			selectedMinYear.value = 1300;
+			selectedMaxYear.value = 1400;
+		}
+	} catch (error) {
+		console.error('Error calculating years range:', error);
+		// مقادیر پیش‌فرض در صورت خطا
 		availableYearsRange.value = [1300, 1400];
 		selectedMinYear.value = 1300;
 		selectedMaxYear.value = 1400;
@@ -2528,9 +2547,7 @@ onMounted(() => {
 	} else {
 		console.log('عنصر دستگیره تغییر اندازه یافت نشد!');
 	}
-});
 
-onMounted(() => {
 	calculateYearsRange();
 });
 
@@ -2957,6 +2974,10 @@ const updateChart = () => {
 	const width = document.querySelector('.chart-container').clientWidth - margin.left - margin.right;
 	const height = 300 - margin.top - margin.bottom;
 	
+	if (width <= 0) {
+		return;
+	}
+
 	const x = d3.scaleBand()
 		.domain(data.map(d => d[0]))
 		.range([0, width])
@@ -3050,7 +3071,12 @@ const updateChart = () => {
 	document.body.appendChild(script);
 }
 watch([filteredYearsInModal, isD3Loaded], () => {
-	isD3Loaded.value && nextTick(updateChart);
+	if (isD3Loaded.value) {
+		// با تاخیر کمی صبر کن تا DOM کاملاً render شود
+		setTimeout(() => {
+			nextTick(updateChart);
+		}, 100);
+	}
 }, { immediate: true });
 
 watch(useYearRange, (newValue) => {
