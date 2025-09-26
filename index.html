@@ -841,6 +841,20 @@ input[type="text"] {
 	font-weight: lighter;
 }
 
+.year-range-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+.year-range-container label {
+  font-weight: bold;
+  text-align: center;
+}
+.year-range-container input[type="range"] {
+  width: 100%;
+}
+
 .no-results {
 	text-align: center;
 	color: light-dark(#777, #999);
@@ -1281,6 +1295,15 @@ input[type="text"] {
 					</button>
 				</div>
 				<div class="sidebar-section-body">
+					<div class="year-range-container">
+						<label>از {{ yearRangeMin }} تا {{ yearRangeMax }}</label>
+						<input type="range" :min="minYear" :max="maxYear"
+							v-model.number="yearRangeMin"
+							@input="yearRangeMin = Math.min(yearRangeMin, yearRangeMax)">
+						<input type="range" :min="minYear" :max="maxYear"
+							v-model.number="yearRangeMax"
+							@input="yearRangeMax = Math.max(yearRangeMin, yearRangeMax)">
+					</div>
 					<div class="year-grid" style="visibility: hidden" :style="{ visibility: undefined }">
 						<div v-if="filteredYearsInModal.length === 0" class="no-results">
 							نتیجه‌ای وجود ندارد
@@ -1769,6 +1792,17 @@ const backgroundColor = ref('#ffffff');
 const savedLogoColor = ref('#ffffff');
 const isAtTop = ref(true);
 
+const years = data
+	.map(item => new Date(item.date).getFullYear())
+	.filter(y => !isNaN(y));
+
+const minYear = Math.min(...years);
+const maxYear = Math.max(...years);
+
+const yearRangeMin = ref(minYear);
+const yearRangeMax = ref(maxYear);
+
+
 const onSearchFocus = (event) => {
 	isSearchFocused.value = true;
 	const searchInput = event.target;
@@ -2027,6 +2061,11 @@ const letterCounts = computed(() => {
 
 const filteredItems = computed(() => {
 	let results = items;
+
+	data.filter(item => {
+		const y = new Date(item.date).getFullYear();
+		return !isNaN(y) && y >= yearRangeMin.value && y <= yearRangeMax.value;
+	})
 
 	const trimmedSearchTerm = searchTerm.value
 		.replace(/^[\s\u200C]+|[\s\u200C]+$/g, '')
@@ -2836,7 +2875,9 @@ return {
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, uniqueResultsFilmCount,
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
 	searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
-	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle, isAtTop
+	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle, isAtTop,
+	minYear, maxYear, yearRangeMin, yearRangeMax, filteredItems
+
 };
 
 } }).mount('#app');
