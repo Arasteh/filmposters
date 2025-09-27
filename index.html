@@ -2643,7 +2643,7 @@ const mainContentStyle = computed(() => {
 		? `${sidebarWidth.value + 40}px`
 		: '0px';
 	
-	const titleHeight = 65;
+	const titleHeight = isMobileView.value ? 65 : 50;
 	const searchBarTotalHeight = isSearchBarVisible.value ? searchBarHeight.value : 0;
 	
 	let totalPadding = searchBarTotalHeight;
