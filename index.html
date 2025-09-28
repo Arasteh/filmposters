@@ -2528,9 +2528,13 @@ const visibleBringToTop = ref(false);
 
 const mainContentPaddingTop = computed(() => {
 	const basePadding = 0;
-	const titleHeight = 50;
+	const titleHeight = isMobileView.value ? 65 : 50;
 	const searchBarTotalHeight = isSearchBarVisible.value ? searchBarHeight.value : 0;
 	let totalPadding = searchBarTotalHeight;
+	if (isMobileView.value && !isAtTop.value) {
+		totalPadding += 20;
+	}
+
 	if (isAtTop.value) {
 		totalPadding += titleHeight;
 	}
