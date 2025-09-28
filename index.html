@@ -2545,7 +2545,7 @@ const handleScroll = () => {
 		lastScrollPosition = currentScrollY;
 	} else {
 
-		isAtTop.value = currentScrollY < 20;
+		isAtTop.value = currentScrollY < 2;
 
 		if (currentScrollY > lastScrollPosition + scrollTolerance) {
 			isSearchBarVisible.value = false;
