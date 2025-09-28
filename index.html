@@ -1503,7 +1503,7 @@ input[type="text"] {
 			<div class="search-bar-inner">
 					<div class="title-wrapper">
 				<div class="title-container" :class="{ 'visible-title': isAtTop }">
-					<h1>آرشیو پوسترهای سینمای ایران</h1>
+					<h1>{{ pageTitle }}</h1>
 				</div>
 			</div>
 				<div class="options-wrapper-container">
@@ -1768,6 +1768,12 @@ const isD3Loaded = ref(false);
 const backgroundColor = ref('#ffffff');
 const savedLogoColor = ref('#ffffff');
 const isAtTop = ref(true);
+
+const pageTitle = computed(() => {
+  return posterMode.value 
+    ? "آرشیو پوسترهای سینمای ایران" 
+    : "آرشیو لوگوهای سینمای ایران";
+});
 
 const onSearchFocus = (event) => {
 	isSearchFocused.value = true;
@@ -2836,7 +2842,7 @@ return {
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, uniqueResultsFilmCount,
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
 	searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
-	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle, isAtTop
+	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle, isAtTop, pageTitle
 };
 
 } }).mount('#app');
