@@ -2593,7 +2593,7 @@ const getPosterUrl = (name, hash, width) => {
 			? (
 				location.hostname.endsWith('.ir')
 				? 'https://arasteh.studio/filmposters/' + name.replace('.jpg', '.webp')
-				: 'https://archive.org/download/filmpostersofiran/' + fileName.replace('.jpg', '_thumb.jpg')
+				: 'https://archive.org/download/filmpostersofiran/' + name.replace('.jpg', '_thumb.jpg')
 			)
 			: 'https://archive.org/download/filmpostersofiran/' + name;
 	}
