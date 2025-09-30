@@ -1051,8 +1051,11 @@ input[type="text"] {
 }
 
 @media (max-width: 400px) {
+.toggle-switch[data-mode="poster"]::before {
+	transform: translateX(46px);
+}
 .toggle-switch::before {
-	left: -6px;
+	left: 4px;
 	width: 46px;
 }
 .toggle-switch {
