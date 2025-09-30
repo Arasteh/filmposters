@@ -1664,11 +1664,12 @@ input[type="text"] {
 		</div>
 		<div v-if="filteredItems.length > 0" class="results-grid">
 			<div class="item-card" 
-			:class="textColorClass"
+			:class="{ 'dark-text': isLightBackground(item.backgroundColor), 'light-text': !isLightBackground(item.backgroundColor) }" 
 			v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)" 
 			:key="index"
 			style="visibility: hidden"
 			:style="{ 
+				visibility: undefined, 
 				backgroundColor: !posterMode ? backgroundColor : 'var(--card-background)'
 			}">
 
@@ -1852,22 +1853,51 @@ const applyInitialFilters = () => {
 };
 applyInitialFilters();
 
-const isColorDark = (color) => {
-	if (!color) return false;
+const isLightBackground = (color) => {
+    if (!color) return false;
 
-	const hex = color.replace('#', '');
+    // حذف فاصله و تبدیل به حروف کوچک
+    const c = color.trim().toLowerCase();
+    let r, g, b;
 
-	let fullHex = hex;
-	if (hex.length === 3) {
-		fullHex = hex.split('').map(char => char + char).join('');
-	}
+    // 1. مدیریت رنگ‌های هگزادسیمال (#RRGGBB)
+    if (c.startsWith('#')) {
+        const hex = c.slice(1);
+        if (hex.length === 3) {
+            // تبدیل #RGB به #RRGGBB
+            r = parseInt(hex[0] + hex[0], 16);
+            g = parseInt(hex[1] + hex[1], 16);
+            b = parseInt(hex[2] + hex[2], 16);
+        } else if (hex.length === 6) {
+            r = parseInt(hex.slice(0, 2), 16);
+            g = parseInt(hex.slice(2, 4), 16);
+            b = parseInt(hex.slice(4, 6), 16);
+        } else {
+            return false; // هگز نامعتبر
+        }
+    } 
+    // 2. مدیریت رنگ‌های RGB یا RGBA
+    else if (c.startsWith('rgb')) {
+        const match = c.match(/\d+/g);
+        if (match && match.length >= 3) {
+            r = parseInt(match[0]);
+            g = parseInt(match[1]);
+            b = parseInt(match[2]);
+        } else {
+            return false; // RGB نامعتبر
+        }
+    } 
+    // 3. در صورت عدم تطابق با الگوهای رایج، پیش‌فرض تیره
+    else {
+        return false;
+    }
 
-	const r = parseInt(fullHex.substr(0, 2), 16);
-	const g = parseInt(fullHex.substr(2, 2), 16);
-	const b = parseInt(fullHex.substr(4, 2), 16);
+    // محاسبه درخشندگی (Luminance) برای تعیین روشنایی (فرمول Rec. 709)
+    // یک مقدار آستانه (Threshold) برای تشخیص روشن بودن پس‌زمینه. 0.6 یک مقدار متداول برای اطمینان از خوانایی است.
+    const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+    const threshold = 0.6; 
 
-	const brightness = ((r * 299) + (g * 587) + (b * 114)) / 1000;
-	return brightness < 128;
+    return luminance > threshold; // اگر روشنایی از آستانه بیشتر باشد، پس‌زمینه روشن است (True)
 };
 
 const textColorClass = computed(() => {
