@@ -181,7 +181,7 @@ input[type="text"] {
 
 .item-card {	
 	text-align: center;
-	padding: 15px 5px;
+	padding: 15px 0px;
 	background: var(--card-background);
 	border-radius: 12px;
 	display: flex;
@@ -190,6 +190,28 @@ input[type="text"] {
 	align-items: center;
 	transition: background-color 0.3s, border-color 0.3s;
 	position: relative;
+}
+
+.item-card.light-text {
+	color: white;
+}
+
+.item-card.dark-text {
+	color: black;
+}
+
+.item-card.light-text a,
+.item-card.light-text .year-link,
+.item-card.light-text .item-designer,
+.item-card.light-text .item-links a {
+	color: white;
+}
+
+.item-card.dark-text a,
+.item-card.dark-text .year-link,
+.item-card.dark-text .item-designer,
+.item-card.dark-text .item-links a {
+	color: black;
 }
 
 .item-image {
@@ -1635,7 +1657,16 @@ input[type="text"] {
 			</div>
 		</div>
 		<div v-if="filteredItems.length > 0" class="results-grid">
-			<div class="item-card" v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)" :key="index" style="visibility: hidden" :style="{ visibility: undefined, padding: !posterMode && !moreInformation ? '15px 0px' : '15px 0px' }">
+			<div class="item-card" 
+			:class="textColorClass"
+			v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)" 
+			:key="index"
+			style="visibility: hidden"
+			:style="{ 
+				visibility: undefined, 
+				backgroundColor: !posterMode ? backgroundColor : 'var(--card-background)'
+			}">
+
 				<div>
 					<div class="image-container" :style="{ aspectRatio: !posterMode ? '1/1' : '5/7.5' }">
 						<a @click="handleImageClick(item)" :href="getCommonsUrl(item, posterMode, pixelatedEffect)"
@@ -1815,6 +1846,22 @@ const applyInitialFilters = () => {
 	savedLogoColor.value = backgroundColor.value;
 };
 applyInitialFilters();
+
+const isColorDark = (color) => {
+	const hex = color.replace('#', '');
+	const r = parseInt(hex.substr(0, 2), 16);
+	const g = parseInt(hex.substr(2, 2), 16);
+	const b = parseInt(hex.substr(4, 2), 16);
+	const brightness = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+	return brightness < 128;
+};
+
+const textColorClass = computed(() => {
+	if (!posterMode.value) {
+		return isColorDark(backgroundColor.value) ? 'light-text' : 'dark-text';
+	}
+	return '';
+});
 
 const updateURL = () => {
 	const params = new URLSearchParams();
