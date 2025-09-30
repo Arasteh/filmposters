@@ -1711,8 +1711,8 @@ input[type="text"] {
 								<span class="material-symbols-rounded" :class="textColorClass" style="margin-left: 5px; top: 8px; position: relative;">person_edit</span>
 							</span>
 							<span class="desktop-only" :class="textColorClass">{{ item.designers.length === 1 ? 'طراح: ' : 'طراحان: ' }}</span>
-							<span v-for="(designer, index) in item.designers" :key="index">
-								<a href="#" :class="textColorClass" @click.prevent="selectDesigner(designer.label)" aria-label="انتخاب طراح">{{ designer.label }}</a>
+							<span :class="textColorClass" v-for="(designer, index) in item.designers" :key="index">
+								<a href="#" @click.prevent="selectDesigner(designer.label)" aria-label="انتخاب طراح">{{ designer.label }}</a>
 								<span class="item-links">
 									<a :href="'https://www.wikidata.org/wiki/' + designer.id" aria-label="ویکی‌داده" target="_blank">
 										<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg" alt="ویکی‌داده" class="linkIcon">
