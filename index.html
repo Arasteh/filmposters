@@ -2592,8 +2592,7 @@ const getPosterUrl = (name, hash, width) => {
 		return width === 250
 			? (
 				// location.hostname === '127.0.0.1' || location.hostname.endsWith('.ir')
-				// ? 'https://arasteh.studio/filmposters/' + encodeURIComponent(name)
-				// 	.replaceAll('(', '%28').replaceAll(')', '%29').replace('.jpg', '.webp')
+				// ? 'https://arasteh.studio/filmposters/' + name.replace('.jpg', '.webp')
 				// : 
 				'https://archive.org/download/filmpostersofiran/' + name.replace('.jpg', '_thumb.jpg')
 			)
