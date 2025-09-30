@@ -1664,7 +1664,10 @@ input[type="text"] {
 		</div>
 		<div v-if="filteredItems.length > 0" class="results-grid">
 			<div class="item-card" 
-			:class="{ 'dark-text': isLightBackground(item.backgroundColor), 'light-text': !isLightBackground(item.backgroundColor) }" 
+			:class="{ 
+				'dark-text': !posterMode && isLightBackground(backgroundColor), 
+				'light-text': !posterMode && !isLightBackground(backgroundColor) 
+			}" 
 			v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)" 
 			:key="index"
 			style="visibility: hidden"
@@ -1902,7 +1905,7 @@ const isLightBackground = (color) => {
 
 const textColorClass = computed(() => {
 	if (!posterMode.value && backgroundColor.value) {
-		return isColorDark(backgroundColor.value) ? 'light-text' : 'dark-text';
+		return isLightBackground(backgroundColor.value) ? 'dark-text' : 'light-text';
 	}
 	return '';
 });
