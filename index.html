@@ -2589,9 +2589,9 @@ const filteredItemsLength = computed(() => {
 const getPosterUrl = (name, hash, width) => {
 	if (!name) return 'https://upload.wikimedia.org/wikipedia/commons/8/82/NoImageEn.svg';
 	if (hash === '') {
-		let fileName = name;
-		if (width === 250) fileName = fileName.replace('.jpg', '_thumb.jpg');
-		return 'https://archive.org/download/filmpostersofiran/' + fileName;
+		return width === 250
+			? 'https://arasteh.studio/filmposters/' + name.replace('.jpg', '.webp')
+			: 'https://archive.org/download/filmpostersofiran/' + name;
 	}
 	return `https://upload.wikimedia.org/wikipedia/commons/thumb/${hash[0]}/${hash}/${name}/${width}px-${name}`;
 };
