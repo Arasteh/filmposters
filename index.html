@@ -1086,7 +1086,7 @@ input[type="text"] {
 		padding-right: 15px;
 	}
 
-.item-card {
+	.item-card {
 		width: 100%;
 		max-width: none;
 	}
@@ -1102,10 +1102,10 @@ input[type="text"] {
 		align-items: flex-start;
 	}
 
-.options-wrapper-top {
-	padding-top: 60px;
-	margin-top: -15px;
-}
+	.options-wrapper-top {
+		padding-top: 60px;
+		margin-top: -15px;
+	}
 	.options.collapsed {
 		max-height: 0;
 		opacity: 0;
@@ -1129,8 +1129,8 @@ input[type="text"] {
 	}
 
 	#hideSidebarButton:hover {
-	background-color: light-dark(#f0f0f0, #333);
-}
+		background-color: light-dark(#f0f0f0, #333);
+	}
 
 	.sidebar {
 		position: fixed;
@@ -1168,7 +1168,7 @@ input[type="text"] {
 	}
 
 	.filtersTitle {
-	right: 0px;
+		right: 0px;
 	}
 	.sidebar-resize-handle {
 		display: none;
@@ -1813,8 +1813,8 @@ const isAtTop = ref(true);
 
 const pageTitle = computed(() => {
   return posterMode.value
-    ? "آرشیو پوسترهای سینمای ایران"
-    : "آرشیو لوگوهای سینمای ایران";
+	? "آرشیو پوسترهای سینمای ایران"
+	: "آرشیو لوگوهای سینمای ایران";
 });
 
 const onSearchFocus = (event) => {
@@ -1859,50 +1859,50 @@ const applyInitialFilters = () => {
 applyInitialFilters();
 
 const isLightBackground = (color) => {
-    if (!color) return false;
+	if (!color) return false;
 
-    // حذف فاصله و تبدیل به حروف کوچک
-    const c = color.trim().toLowerCase();
-    let r, g, b;
+	// حذف فاصله و تبدیل به حروف کوچک
+	const c = color.trim().toLowerCase();
+	let r, g, b;
 
-    // 1. مدیریت رنگ‌های هگزادسیمال (#RRGGBB)
-    if (c.startsWith('#')) {
-        const hex = c.slice(1);
-        if (hex.length === 3) {
-            // تبدیل #RGB به #RRGGBB
-            r = parseInt(hex[0] + hex[0], 16);
-            g = parseInt(hex[1] + hex[1], 16);
-            b = parseInt(hex[2] + hex[2], 16);
-        } else if (hex.length === 6) {
-            r = parseInt(hex.slice(0, 2), 16);
-            g = parseInt(hex.slice(2, 4), 16);
-            b = parseInt(hex.slice(4, 6), 16);
-        } else {
-            return false; // هگز نامعتبر
-        }
-    }
-    // 2. مدیریت رنگ‌های RGB یا RGBA
-    else if (c.startsWith('rgb')) {
-        const match = c.match(/\d+/g);
-        if (match && match.length >= 3) {
-            r = parseInt(match[0]);
-            g = parseInt(match[1]);
-            b = parseInt(match[2]);
-        } else {
-            return false; // RGB نامعتبر
-        }
-    }
-    // 3. در صورت عدم تطابق با الگوهای رایج، پیش‌فرض تیره
-    else {
-        return false;
-    }
+	// 1. مدیریت رنگ‌های هگزادسیمال (#RRGGBB)
+	if (c.startsWith('#')) {
+		const hex = c.slice(1);
+		if (hex.length === 3) {
+			// تبدیل #RGB به #RRGGBB
+			r = parseInt(hex[0] + hex[0], 16);
+			g = parseInt(hex[1] + hex[1], 16);
+			b = parseInt(hex[2] + hex[2], 16);
+		} else if (hex.length === 6) {
+			r = parseInt(hex.slice(0, 2), 16);
+			g = parseInt(hex.slice(2, 4), 16);
+			b = parseInt(hex.slice(4, 6), 16);
+		} else {
+			return false; // هگز نامعتبر
+		}
+	}
+	// 2. مدیریت رنگ‌های RGB یا RGBA
+	else if (c.startsWith('rgb')) {
+		const match = c.match(/\d+/g);
+		if (match && match.length >= 3) {
+			r = parseInt(match[0]);
+			g = parseInt(match[1]);
+			b = parseInt(match[2]);
+		} else {
+			return false; // RGB نامعتبر
+		}
+	}
+	// 3. در صورت عدم تطابق با الگوهای رایج، پیش‌فرض تیره
+	else {
+		return false;
+	}
 
-    // محاسبه درخشندگی (Luminance) برای تعیین روشنایی (فرمول Rec. 709)
-    // یک مقدار آستانه (Threshold) برای تشخیص روشن بودن پس‌زمینه. 0.6 یک مقدار متداول برای اطمینان از خوانایی است.
-    const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
-    const threshold = 0.6;
+	// محاسبه درخشندگی (Luminance) برای تعیین روشنایی (فرمول Rec. 709)
+	// یک مقدار آستانه (Threshold) برای تشخیص روشن بودن پس‌زمینه. 0.6 یک مقدار متداول برای اطمینان از خوانایی است.
+	const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+	const threshold = 0.6;
 
-    return luminance > threshold; // اگر روشنایی از آستانه بیشتر باشد، پس‌زمینه روشن است (True)
+	return luminance > threshold; // اگر روشنایی از آستانه بیشتر باشد، پس‌زمینه روشن است (True)
 };
 
 const textColorClass = computed(() => {
