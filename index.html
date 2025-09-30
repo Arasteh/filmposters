@@ -2597,18 +2597,9 @@ const getPosterUrl = (name, hash, width) => {
 };
 
 const getItemUrl = (item, posterMode, pixelatedEffect) => {
-	if (posterMode && pixelatedEffect && item.isNsfw && item.logo) {
-		return getPosterUrl(item.logo, item.logoHash, 250);
-	}
-	if (posterMode) {
-		return getPosterUrl(item.poster, item.posterHash, 250);
-	}
-	if (!posterMode) {
-		if (item.logo) {
-			return getPosterUrl(item.logo, item.logoHash, 250);
-		}
-		return getPosterUrl(item.poster, item.posterHash, 250);
-	}
+	return item.logo && (!posterMode || (pixelatedEffect && item.isNsfw))
+		? getPosterUrl(item.logo, item.logoHash, 250)
+		: getPosterUrl(item.poster, item.posterHash, 250);
 };
 
 const getCommonsUrl = (item, posterMode, pixelatedEffect) => {
