@@ -692,11 +692,12 @@ input[type="text"] {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+	transition: max-height 0.2s ease-out, opacity 0.2s ease-out;
 	overflow: visible;
-	max-height: 200px;
+	max-height: 80px;
 }
 .options-wrapper-bottom.collapsed {
+	visibility: hidden;
 	max-height: 0;
 	opacity: 0;
 }
