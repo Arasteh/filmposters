@@ -693,6 +693,7 @@ input[type="text"] {
 	flex-direction: column;
 	width: 100%;
 	transition: max-height 0.2s ease-out, opacity 0.2s ease-out;
+	transition-delay: 0s, 0s;
 	overflow: visible;
 	max-height: 80px;
 }
@@ -700,6 +701,7 @@ input[type="text"] {
 	visibility: hidden;
 	max-height: 0;
 	opacity: 0;
+	transition: max-height 0.2s ease-out, opacity 0.2s ease-out, visibility 0s linear 0.2s;
 }
 .rotate-up {
 	transform: rotate(360deg) translateY(3px);
