@@ -1050,6 +1050,19 @@ input[type="text"] {
 	color: var(--body-foreground);
 }
 
+@media (max-width: 400px) {
+.toggle-switch::before {
+	left: -6px;
+	width: 46px;
+}
+.toggle-switch {
+	width: 100px;
+}
+.triple-switch span {
+	padding: 5px 8px;
+}
+}
+
 @media (max-width: 768px) {
 	#app {
 		padding: 0;
