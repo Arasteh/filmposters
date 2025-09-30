@@ -2588,18 +2588,12 @@ const filteredItemsLength = computed(() => {
 
 const getPosterUrl = (name, hash, width) => {
 	if (!name) return 'https://upload.wikimedia.org/wikipedia/commons/8/82/NoImageEn.svg';
-	if (hash === '') {
-		return width === 250
-			? (
-				location.hostname === '127.0.0.1' || location.hostname.endsWith('.ir')
-				? 'https://arasteh.studio/filmposters/' + name
-					.replaceAll('آ', 'آ')
-					.replaceAll('ئ', 'ئ')
-					.replace(/\.jpg$/, '.webp')
-				: 'https://archive.org/download/filmpostersofiran/' + name.replace(/\.jpg$/, '_thumb.jpg')
-			)
-			: 'https://archive.org/download/filmpostersofiran/' + name;
-	}
+	if (hash === '') return location.hostname === '127.0.0.1' || location.hostname.endsWith('.ir')
+		? 'https://arasteh.studio/filmposters/' + name
+			.replaceAll('آ', 'آ')
+			.replaceAll('ئ', 'ئ')
+			.replace(/\.jpg$/, '.webp')
+		: 'https://archive.org/download/filmpostersofiran/' + name.replace(/\.jpg$/, '_thumb.jpg');
 	return `https://upload.wikimedia.org/wikipedia/commons/thumb/${hash[0]}/${hash}/${name}/${width}px-${name}`;
 };
 
