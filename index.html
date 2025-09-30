@@ -179,7 +179,7 @@ input[type="text"] {
 	padding-left: 60px;
 }
 
-.item-card {	
+.item-card {
 	text-align: center;
 	padding: 15px 0px;
 	background: var(--card-background);
@@ -403,12 +403,12 @@ input[type="text"] {
 	max-width: 80%;
 	text-align: right;
 }
-	
+
 .lightbox-info h2 {
 	margin: 0;
 	font-size: 1.5em;
 }
-	
+
 .lightbox-info p {
 	margin: 5px 0;
 	font-size: 1em;
@@ -1054,7 +1054,7 @@ input[type="text"] {
 	#app {
 		padding: 0;
 	}
-	
+
 	.title-container {
 		font-size: 1rem;
 	}
@@ -1075,7 +1075,7 @@ input[type="text"] {
 		padding: 15px;
 		border-radius: 0 0 16px 16px;
 	}
-	
+
 	.results-grid {
 		width: 100%;
 		max-width: 100%;
@@ -1085,7 +1085,7 @@ input[type="text"] {
 		padding-left: 15px;
 		padding-right: 15px;
 	}
-	
+
 .item-card {
 		width: 100%;
 		max-width: none;
@@ -1272,7 +1272,7 @@ input[type="text"] {
 	</div>
 	<div id="sidebar" class="sidebar" :class="{ 'visible-desktop': sidebarVisible && !isMobileView }" :style="sidebarStyle">
 		<div class="sidebar-resize-handle"></div>
-				
+
 		<div class="sidebar-content">
 		<div style="display: flex; justify-content: start; gap: 20px; padding-top: 10px;">
 			<button @click="hideSidebar" id="hideSidebarButton" class="mobile-only">
@@ -1299,7 +1299,7 @@ input[type="text"] {
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="sidebar-section" :class="getSectionClass('years')" :key="'years-section'">
 				<div class="sidebar-section-header" @click="toggleCollapse('years')">
 					<span style="display: none" :style="{ display: undefined }">{{ filteredYearLabel }}</span>
@@ -1452,7 +1452,7 @@ input[type="text"] {
 			{{ sidebarVisible ? 'close' : 'menu' }}
 		</span>
 	</button>
-	
+
 	<div v-if="lightboxItem" style="display: none" :style="{ display: undefined }" class="lightbox" @click="closeLightbox">
 		<template v-if="lightboxImage">
 			<img :src="lightboxImage" :key="lightboxImage" alt="Lightbox Image" :style="{ backgroundColor: backgroundColor }" />
@@ -1467,7 +1467,7 @@ input[type="text"] {
 			<p>سال تولید: {{ toPersianYear(lightboxItem.date) }}</p>
 			<p v-if="lightboxItem.directorLabel && lightboxItem.directorLabel !== 'نامشخص'">کارگردان: {{ lightboxItem.directorLabel }}</p>
 			<p v-if="lightboxItem.designerLabel && lightboxItem.designerLabel !== 'نامشخص'">
-				طراح پوستر: 
+				طراح پوستر:
 				<span v-for="(designer, index) in lightboxItem.designers" :key="index">
 					{{ designer.label }}<span v-if="index < lightboxItem.designers.length - 1">, </span>
 				</span>
@@ -1519,7 +1519,7 @@ input[type="text"] {
 			</span>
 		</button>
 
-		
+
 	</div>
 
 	<div id="main-content" :style="mainContentStyle">
@@ -1622,7 +1622,7 @@ input[type="text"] {
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="desktop-options-bar-wrapper">
 					<div class="controls-wrapper-desktop">
 						<div class="toggle-switch" @click="togglePosterMode"
@@ -1665,16 +1665,16 @@ input[type="text"] {
 			</div>
 		</div>
 		<div v-if="filteredItems.length > 0" class="results-grid">
-			<div class="item-card" 
-			:class="{ 
-				'dark-text': !posterMode && isLightBackground(backgroundColor), 
-				'light-text': !posterMode && !isLightBackground(backgroundColor) 
-			}" 
-			v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)" 
+			<div class="item-card"
+			:class="{
+				'dark-text': !posterMode && isLightBackground(backgroundColor),
+				'light-text': !posterMode && !isLightBackground(backgroundColor)
+			}"
+			v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)"
 			:key="index"
 			style="visibility: hidden"
-			:style="{ 
-				visibility: undefined, 
+			:style="{
+				visibility: undefined,
 				backgroundColor: !posterMode ? backgroundColor : 'var(--card-background)'
 			}">
 
@@ -1695,7 +1695,7 @@ input[type="text"] {
 							</button>
 						</a>
 					</div>
-	
+
 					<div class="item-title" :class="textColorClass">
 						{{ item.filmLabel }}
 						<span class="year-link" :class="textColorClass" v-if="item.date">
@@ -1812,8 +1812,8 @@ const savedLogoColor = ref('#ffffff');
 const isAtTop = ref(true);
 
 const pageTitle = computed(() => {
-  return posterMode.value 
-    ? "آرشیو پوسترهای سینمای ایران" 
+  return posterMode.value
+    ? "آرشیو پوسترهای سینمای ایران"
     : "آرشیو لوگوهای سینمای ایران";
 });
 
@@ -1830,10 +1830,10 @@ const onSearchBlur = () => {
 };
 
 const hasActiveFilters = computed(() => {
-	return searchTerm.value || 
-		selectedYear.value || 
-		selectedDesigner.value || 
-		selectedDirector.value || 
+	return searchTerm.value ||
+		selectedYear.value ||
+		selectedDesigner.value ||
+		selectedDirector.value ||
 		selectedLetter.value;
 });
 
@@ -1880,7 +1880,7 @@ const isLightBackground = (color) => {
         } else {
             return false; // هگز نامعتبر
         }
-    } 
+    }
     // 2. مدیریت رنگ‌های RGB یا RGBA
     else if (c.startsWith('rgb')) {
         const match = c.match(/\d+/g);
@@ -1891,7 +1891,7 @@ const isLightBackground = (color) => {
         } else {
             return false; // RGB نامعتبر
         }
-    } 
+    }
     // 3. در صورت عدم تطابق با الگوهای رایج، پیش‌فرض تیره
     else {
         return false;
@@ -1900,7 +1900,7 @@ const isLightBackground = (color) => {
     // محاسبه درخشندگی (Luminance) برای تعیین روشنایی (فرمول Rec. 709)
     // یک مقدار آستانه (Threshold) برای تشخیص روشن بودن پس‌زمینه. 0.6 یک مقدار متداول برای اطمینان از خوانایی است.
     const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
-    const threshold = 0.6; 
+    const threshold = 0.6;
 
     return luminance > threshold; // اگر روشنایی از آستانه بیشتر باشد، پس‌زمینه روشن است (True)
 };
@@ -2080,7 +2080,7 @@ const availableYears = computed(() => {
 	const groups = Object.groupBy(items, item => toPersianYear(item.date));
 	let years = Object.keys(groups)
 		.map(year => [year, groups[year].length]);
-	
+
 	const unknown = years.find(([name]) => name === 'نامشخص');
 	years = years.filter(([name]) => name !== 'نامشخص').sort();
 	if (unknown) {
@@ -2154,7 +2154,7 @@ const filteredItems = computed(() => {
 			}
 			regexString = regexParts.map(part => `(?=.*${part})`).join('');
 		}
-		
+
 		try {
 			const regex = new RegExp(regexString, 'iu');
 			results = results.filter(item =>
@@ -2219,7 +2219,7 @@ const filteredYears = computed(() => {
 	const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
 	let years = Object.keys(groups)
 		.map(year => [year, groups[year].length]);
-	
+
 	const unknown = years.find(([name]) => name === 'نامشخص');
 	years = years.filter(([name]) => name !== 'نامشخص').sort();
 	if (unknown) {
@@ -2487,12 +2487,12 @@ const changeLightboxImage = changeIndexCallback => {
 		filteredItems.value.length - 1
 	);
 	lightboxItem.value = filteredItems.value[newIndex];
-	lightboxImage.value = posterMode.value 
-		? getPosterUrl(lightboxItem.value.poster, lightboxItem.value.posterHash, 960) 
+	lightboxImage.value = posterMode.value
+		? getPosterUrl(lightboxItem.value.poster, lightboxItem.value.posterHash, 960)
 		: getPosterUrl(lightboxItem.value.logo, lightboxItem.value.logoHash, 960);
-	
+
 	preloadImages(newIndex);
-	
+
 	setTimeout(() => isLoading.value = false, 1000);
 };
 const prevImage = () => changeLightboxImage((current, lastItem) => current <= 0 ? lastItem : current - 1);
@@ -2523,15 +2523,15 @@ const preloadPrev = ref(null);
 const preloadImages = (currentIndex) => {
 	const nextIndex = currentIndex + 1 < filteredItems.value.length ? currentIndex + 1 : 0;
 	const prevIndex = currentIndex - 1 >= 0 ? currentIndex - 1 : filteredItems.value.length - 1;
-	
+
 	const nextItem = filteredItems.value[nextIndex];
 	const prevItem = filteredItems.value[prevIndex];
-	
+
 	if (nextItem) {
 		preloadNext.value = new Image();
 		preloadNext.value.src = posterMode.value ? getPosterUrl(nextItem.poster, nextItem.posterHash, 960) : getPosterUrl(nextItem.logo, nextItem.logoHash, 960);
 	}
-	
+
 	if (prevItem) {
 		preloadPrev.value = new Image();
 		preloadPrev.value.src = posterMode.value ? getPosterUrl(prevItem.poster, prevItem.posterHash, 960) : getPosterUrl(prevItem.logo, prevItem.logoHash, 960);
@@ -2645,7 +2645,7 @@ const handleScroll = () => {
 	const currentScrollY = window.scrollY;
 	const docHeight = getDocHeight();
 	const viewportHeight = window.innerHeight;
-	
+
 	if (docHeight < viewportHeight * 1.5) {
 		isSearchBarVisible.value = true;
 		lastScrollPosition = currentScrollY;
@@ -2655,12 +2655,12 @@ const handleScroll = () => {
 
 		if (currentScrollY > lastScrollPosition + scrollTolerance) {
 			isSearchBarVisible.value = false;
-		} 
+		}
 		else if (currentScrollY < lastScrollPosition - scrollTolerance || currentScrollY <= 0) {
 			isSearchBarVisible.value = true;
 		}
 	}
-	
+
 	if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100) {
 		if (displayedItemsCount.value < filteredItems.value.length) {
 			displayedItemsCount.value += itemsPerPage;
@@ -2748,10 +2748,10 @@ const mainContentStyle = computed(() => {
 	const effectiveMarginRight = sidebarVisible.value && !isMobileView.value
 		? `${sidebarWidth.value + 40}px`
 		: '0px';
-	
+
 	const titleHeight = isMobileView.value ? 65 : 50;
 	const searchBarTotalHeight = isSearchBarVisible.value ? searchBarHeight.value : 0;
-	
+
 	let totalPadding = searchBarTotalHeight;
 	if (isAtTop.value) {
 		totalPadding += titleHeight;
@@ -2772,7 +2772,7 @@ const updateChart = () => {
 	const margin = { top: 20, right: 30, bottom: 40, left: 60 };
 	const width = document.querySelector('.chart-container').clientWidth - margin.left - margin.right;
 	const height = 300 - margin.top - margin.bottom;
-	
+
 	const x = d3.scaleBand()
 		.domain(data.map(d => d[0]))
 		.range([0, width])
@@ -2781,10 +2781,10 @@ const updateChart = () => {
 	const y = d3.scaleLinear()
 		.domain([0, d3.max(data, d => d[1])]).nice()
 		.range([height, 0]);
-	
+
 	const g = svg.append("g")
 		.attr("transform", `translate(${margin.left},${margin.top})`);
-	
+
 	const xAxis = g => g
 		.attr("transform", `translate(0,${height})`)
 		.call(d3.axisBottom(x).tickSizeOuter(0))
@@ -2808,19 +2808,19 @@ const updateChart = () => {
 		.translateExtent([[0, 0], [width, height]])
 		.extent([[0, 0], [width, height]])
 		.on("zoom", zoomed);
-	
+
 	svg.call(zoom);
 
 	function zoomed(event) {
 		x.range([0, width].map(d => event.transform.applyX(d)));
-		
+
 		barsGroup.selectAll("rect")
 			.attr("x", d => x(d[0]))
 			.attr("width", x.bandwidth());
-		
+
 		g.selectAll(".x-axis").call(xAxis);
 	}
-	
+
 	barsGroup.selectAll(".bar")
 		.data(data)
 		.enter().append("rect")
