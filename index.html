@@ -2593,7 +2593,8 @@ const getPosterUrl = (name, hash, width) => {
 			.replaceAll('آ', 'آ')
 			.replaceAll('ئ', 'ئ')
 			.replace(/\.jpg$/, '.webp')
-		: 'https://archive.org/download/filmpostersofiran/' + name.replace(/\.jpg$/, '_thumb.jpg');
+		: 'https://archive.org/download/filmpostersofiran/' +
+			(width === 250 ? name.replace(/\.jpg$/, '_thumb.jpg') : name);
 	return `https://upload.wikimedia.org/wikipedia/commons/thumb/${hash[0]}/${hash}/${name}/${width}px-${name}`;
 };
 
