@@ -235,6 +235,18 @@ input[type="text"] {
 	image-rendering: pixelated;
 }
 
+.item-image.brightness-0 {
+	filter: brightness(0);
+}
+
+.item-image.brightness-100 {
+	filter: brightness(100);
+}
+
+.item-image.no-filter {
+	filter: none !important;
+}
+
 .item-title {
 	font-weight: bold;
 }
@@ -1217,8 +1229,8 @@ input[type="text"] {
 		gap: 5px;
 	}
 	.download-btn {
-        display: none;
-    }
+		display: none;
+	}
 }
 
 @media (min-width: 769px) {
@@ -1704,9 +1716,19 @@ input[type="text"] {
 						<a @click="handleImageClick(item)" :href="getCommonsUrl(item, posterMode, pixelatedEffect)"
 							class="clickable-image">
 								<img :src="getItemUrl(item, posterMode, pixelatedEffect)"
-									:key="getItemUrl(item, posterMode, pixelatedEffect)" :alt="item.filmLabel"
-									class="item-image"s
-									:class="{ 'no-logo-bw': !item.logo && !posterMode }" :style="{ background: !posterMode ? 'none' : 'var(--card-background)', aspectRatio: !posterMode ? '1/1' : '5/7.5' }" />
+								:key="getItemUrl(item, posterMode, pixelatedEffect)" 
+								:alt="item.filmLabel"
+								class="item-image"
+								:class="{
+									'no-logo-bw': !item.logo && !posterMode,
+									'brightness-0': !posterMode && isLightBackground(backgroundColor) && !moreInformation,
+									'brightness-100': !posterMode && !isLightBackground(backgroundColor) && !moreInformation,
+									'no-filter': !posterMode && moreInformation
+								}" 
+								:style="{ 
+									background: !posterMode ? 'none' : 'var(--card-background)', 
+									aspectRatio: !posterMode ? '1/1' : '5/7.5' 
+								}" />
 						</a>
 						<a :href="downloadLink(item)" aria-label="دریافت پوستر" target="_blank">
 							<button class="download-btn">
