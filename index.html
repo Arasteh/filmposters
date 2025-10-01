@@ -1698,17 +1698,17 @@ input[type="text"] {
 			</div>
 		</div>
 		<div v-if="filteredItems.length > 0" class="results-grid">
-			<div class="item-card"
+		<div class="item-card"
 			:class="{
-				'dark-text': !posterMode && isLightBackground(backgroundColor),
-				'light-text': !posterMode && !isLightBackground(backgroundColor)
+				'dark-text': !posterMode && isLightBackground(actualBackgroundColor(item)),
+				'light-text': !posterMode && !isLightBackground(actualBackgroundColor(item))
 			}"
 			v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)"
 			:key="index"
 			style="visibility: hidden"
 			:style="{
 				visibility: undefined,
-				backgroundColor: !posterMode ? backgroundColor : 'var(--card-background)'
+				backgroundColor: !posterMode ? actualBackgroundColor(item) : 'var(--card-background)'
 			}">
 
 				<div>
@@ -1722,7 +1722,10 @@ input[type="text"] {
 								:class="{
 									'no-logo-bw': !item.logo && !posterMode,
 									'brightness-0': !posterMode && isLightBackground(backgroundColor) && !moreInformation,
-									'brightness-100': !posterMode && !isLightBackground(backgroundColor) && !moreInformation,
+									'brightness-100': !posterMode && 
+									(!isLightBackground(actualBackgroundColor(item)) || 
+									(isDarkTheme && backgroundColor.value === '#ffffff')) && 
+									!moreInformation,
 									'no-filter': !posterMode && moreInformation
 								}" 
 								:style="{ 
@@ -1904,15 +1907,12 @@ applyInitialFilters();
 const isLightBackground = (color) => {
 	if (!color) return false;
 
-	// حذف فاصله و تبدیل به حروف کوچک
 	const c = color.trim().toLowerCase();
 	let r, g, b;
 
-	// 1. مدیریت رنگ‌های هگزادسیمال (#RRGGBB)
 	if (c.startsWith('#')) {
 		const hex = c.slice(1);
 		if (hex.length === 3) {
-			// تبدیل #RGB به #RRGGBB
 			r = parseInt(hex[0] + hex[0], 16);
 			g = parseInt(hex[1] + hex[1], 16);
 			b = parseInt(hex[2] + hex[2], 16);
@@ -1921,10 +1921,9 @@ const isLightBackground = (color) => {
 			g = parseInt(hex.slice(2, 4), 16);
 			b = parseInt(hex.slice(4, 6), 16);
 		} else {
-			return false; // هگز نامعتبر
+			return false;
 		}
 	}
-	// 2. مدیریت رنگ‌های RGB یا RGBA
 	else if (c.startsWith('rgb')) {
 		const match = c.match(/\d+/g);
 		if (match && match.length >= 3) {
@@ -1932,20 +1931,35 @@ const isLightBackground = (color) => {
 			g = parseInt(match[1]);
 			b = parseInt(match[2]);
 		} else {
-			return false; // RGB نامعتبر
+			return false;
 		}
 	}
-	// 3. در صورت عدم تطابق با الگوهای رایج، پیش‌فرض تیره
 	else {
 		return false;
 	}
 
-	// محاسبه درخشندگی (Luminance) برای تعیین روشنایی (فرمول Rec. 709)
-	// یک مقدار آستانه (Threshold) برای تشخیص روشن بودن پس‌زمینه. 0.6 یک مقدار متداول برای اطمینان از خوانایی است.
 	const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
 	const threshold = 0.6;
 
-	return luminance > threshold; // اگر روشنایی از آستانه بیشتر باشد، پس‌زمینه روشن است (True)
+	return luminance > threshold;
+};
+
+const isDarkTheme = computed(() => {
+    return document.documentElement.style.colorScheme === 'dark' ||
+           document.documentElement.classList.contains('dark') ||
+           window.matchMedia('(prefers-color-scheme: dark)').matches;
+});
+
+const actualBackgroundColor = (item) => {
+	if (backgroundColor.value !== '#ffffff') {
+		return backgroundColor.value;
+	}
+	
+	if (isDarkTheme.value) {
+		return '#222';
+	}
+	
+	return '#ffffff';
 };
 
 const textColorClass = computed(() => {
@@ -2978,7 +2992,8 @@ return {
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, uniqueResultsFilmCount,
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
 	searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
-	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle, isAtTop, pageTitle, isLightBackground
+	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle, isAtTop, pageTitle,
+	isLightBackground, actualBackgroundColor, isDarkTheme
 };
 
 } }).mount('#app');
