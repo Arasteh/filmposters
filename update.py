@@ -18,6 +18,10 @@ WHERE {
   'Accept': 'application/json',
   'User-Agent': 'UpdateBot/0.0 (https://github.com/Arasteh/filmposters)',
 })
+film_ids = set(queryResult.json()['results']['bindings'])
+with open('other_ids.txt') as f: film_ids |= {
+    x for x in f.read().strip('\n').split('\n') if x[0].startswith('Q')
+}
 
 def wikidata_items(ids):
     for batch in itertools.batched(sorted(ids, key=lambda x: int(x[1:])), 50):
@@ -98,7 +102,7 @@ films = {
     for item in wikidata_items(
         {
             x['qid']['value'].split('entity/')[1]
-            for x in (queryResult.json()['results']['bindings'])
+            for x in film_ids
         } | {
             'Q6054055', 'Q6082474', 'Q87193819', 'Q24905261', 'Q131455075',
             'Q88384815',
