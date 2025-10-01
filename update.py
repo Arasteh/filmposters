@@ -18,7 +18,7 @@ WHERE {
   'Accept': 'application/json',
   'User-Agent': 'UpdateBot/0.0 (https://github.com/Arasteh/filmposters)',
 })
-film_ids = set(queryResult.json()['results']['bindings'])
+film_ids = set(list(queryResult.json()['results']['bindings']))
 with open('other_ids.txt') as f: film_ids |= {
     x for x in f.read().strip('\n').split('\n') if x[0].startswith('Q')
 }
