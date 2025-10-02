@@ -1352,7 +1352,10 @@ input[type="text"] {
 							@click="selectedYear === year ? removeYearFilter() : selectYearFromModal(year)"
 							@mouseenter="hoveredItem = year" @mouseleave="hoveredItem = null"
 							:class="{ 'hovered': hoveredItem === year }" class="year-item">
-							{{ year }} <span class="count">({{ count.toLocaleString('fa') }})</span>
+							{{ year }} 
+							<span class="count">
+								{{ count.toLocaleString('fa') }}×{{ (filmCountByYear?.[year]?.size || 0).toLocaleString('fa') }}
+							</span>
 							<span v-if="selectedYear === year" class="remove-filter" @click.stop="removeYearFilter">
 								<span class="material-symbols-rounded" style="font-size: inherit;">
 									close
@@ -1391,9 +1394,11 @@ input[type="text"] {
 							@click="selectedDesigner === designer ? removeDesignerFilter() : selectDesignerFromModal(designer)"
 							@mouseenter="hoveredItem = designer" @mouseleave="hoveredItem = null"
 							:class="{ 'hovered': hoveredItem === designer }" class="designer-item">
-							{{ designer }} <span class="count">({{ count.toLocaleString('fa') }})</span>
-							<span v-if="selectedDesigner === designer" class="remove-filter"
-								@click.stop="removeDesignerFilter">
+							{{ designer }} 
+							<span class="count">
+								{{ count.toLocaleString('fa') }}×{{ ((filmCountByDesigner && filmCountByDesigner[designer]) ? filmCountByDesigner[designer].size : 0).toLocaleString('fa') }}
+							</span>
+							<span v-if="selectedDesigner === designer" class="remove-filter" @click.stop="removeDesignerFilter">
 								<span class="material-symbols-rounded" style="font-size: inherit;">
 									close
 								</span>
@@ -1431,9 +1436,11 @@ input[type="text"] {
 							@click="selectedDirector === director ? removeDirectorFilter() : selectDirectorFromModal(director)"
 							@mouseenter="hoveredItem = director" @mouseleave="hoveredItem = null"
 							:class="{ 'hovered': hoveredItem === director }" class="director-item">
-							{{ director }} <span class="count">({{ count.toLocaleString('fa') }})</span>
-							<span v-if="selectedDirector === director" class="remove-filter"
-								@click.stop="removeDirectorFilter">
+							{{ director }} 
+							<span class="count">
+								{{ count.toLocaleString('fa') }}×({{ ((filmCountByDirector && filmCountByDirector[director]) ? filmCountByDirector[director].size : 0).toLocaleString('fa') }}
+							</span>
+							<span v-if="selectedDirector === director" class="remove-filter" @click.stop="removeDirectorFilter">
 								<span class="material-symbols-rounded" style="font-size: inherit;">
 									close
 								</span>
@@ -1461,9 +1468,11 @@ input[type="text"] {
 							@click="selectedLetter === letter ? removeLetterFilter() : selectLetterFromModal(letter)"
 							@mouseenter="hoveredItem = letter" @mouseleave="hoveredItem = null"
 							:class="{ 'hovered': hoveredItem === letter }" class="letter-item">
-							{{ letter }} <span class="count">({{ count.toLocaleString('fa') }})</span>
-							<span v-if="selectedLetter === letter" class="remove-filter"
-								@click.stop="removeLetterFilter">
+							{{ letter }} 
+							<span class="count">
+								{{ count.toLocaleString('fa') }}×{{ ((filmCountByLetter && filmCountByLetter[letter]) ? filmCountByLetter[letter].size : 0).toLocaleString('fa') }}
+							</span>
+							<span v-if="selectedLetter === letter" class="remove-filter" @click.stop="removeLetterFilter">
 								<span class="material-symbols-rounded" style="font-size: inherit;">
 									close
 								</span>
@@ -1825,8 +1834,6 @@ desktopSidebarToggleButton.style.display = 'block';
 
 createApp({ setup: () => {
 
-const darkMode = ref(false);
-const toggleDarkMode = () => darkMode.value = !darkMode.value;
 const designerQuery = ref('');
 const isOptionsCollapsed = ref(true);
 const designerSearchQuery = ref('');
@@ -1850,8 +1857,6 @@ const isSearchBarVisible = ref(true);
 const searchBarRef = ref(null);
 const searchBarHeight = ref(0);
 const isMobileView = ref(false);
-const isDesktopSidebarFixed = ref(false);
-const yearsChartInstance = ref(null);
 const isD3Loaded = ref(false);
 const backgroundColor = ref('#ffffff');
 const savedLogoColor = ref('#ffffff');
@@ -2026,10 +2031,7 @@ const toggleSortDirection = () => sortDirection.value = sortDirection.value === 
 const selectDesigner = designer => {
 	selectedDesigner.value = designer;
 	designerQuery.value = designer;
-	applyFilters();
 };
-
-const applyFilters = () => {};
 
 const resetFilters = () => {
 	searchTerm.value = '';
@@ -2329,6 +2331,62 @@ const filteredDesignersInModal = computed(() => {
 	);
 });
 
+const filmCountByYear = computed(() => {
+	const filmGroups = {};
+	filteredItems.value.forEach(item => {
+		const year = toPersianYear(item.date || '');
+		if (year && year !== 'نامشخص') {
+			if (!filmGroups[year]) filmGroups[year] = new Set();
+			filmGroups[year].add(item.film);
+		}
+	});
+	return filmGroups;
+});
+
+const filmCountByDesigner = computed(() => {
+	const filmGroups = {};
+	films.forEach(film => {
+		film.posters?.forEach(poster => {
+		poster.designers?.forEach(designerId => {
+			const designer = data.secondary[designerId];
+			if (designer) {
+				const designerLabel = designer.labels?.fa || 'نامشخص';
+				if (!filmGroups[designerLabel]) filmGroups[designerLabel] = new Set();
+				filmGroups[designerLabel].add(film.id);
+			}
+		});
+		});
+	});
+	return filmGroups;
+});
+
+const filmCountByDirector = computed(() => {
+	const filmGroups = {};
+	films.forEach(film => {
+		film.directors?.forEach(directorId => {
+			const director = data.secondary[directorId];
+			if (director) {
+				const directorLabel = director.labels?.fa || 'نامشخص';
+				if (!filmGroups[directorLabel]) filmGroups[directorLabel] = new Set();
+				filmGroups[directorLabel].add(film.id);
+			}
+		});
+	});
+	return filmGroups;
+});
+
+const filmCountByLetter = computed(() => {
+	const filmGroups = {};
+	films.forEach(film => {
+		const firstLetter = film.labels?.fa?.[0] || '';
+		if (firstLetter) {
+			if (!filmGroups[firstLetter]) filmGroups[firstLetter] = new Set();
+			filmGroups[firstLetter].add(film.id);
+		}
+	});
+	return filmGroups;
+});
+
 const selectDesignerFromModal = designer => {
 	selectedDesigner.value = designer;
 	designerQuery.value = designer;
@@ -2460,11 +2518,6 @@ const toggleSidebarDesktop = () => {
 	sidebarVisible.value = !sidebarVisible.value;
 };
 
-const handleDesktopSidebarHoverEnter = () => {};
-
-const handleDesktopSidebarHoverLeave = () => {};
-
-
 onMounted(() => window.addEventListener('popstate', handlePopState));
 
 onUnmounted(() => window.removeEventListener('popstate', handlePopState));
@@ -2573,7 +2626,6 @@ const handleKeyDown = (event) => {
 	}
 };
 
-const preloadedImages = ref({});
 const preloadNext = ref(null);
 const preloadPrev = ref(null);
 
@@ -2919,7 +2971,6 @@ watch([filteredYearsInModal, isD3Loaded], () => {
 	isD3Loaded.value && nextTick(updateChart);
 }, { immediate: true });
 
-
 onMounted(() => {
 	const checkMobile = () => {
 		isMobileView.value = window.innerWidth <= 768;
@@ -2975,7 +3026,7 @@ window.addEventListener('keydown', (event) => {
 
 return {
 	searchTerm, combineSimilarChars, posterMode, filteredItems, items,
-	getItemUrl, getCommonsUrl, getItemTitleWithYear, darkMode, toggleDarkMode, sortOrder, sortDirection, selectedYear,
+	getItemUrl, getCommonsUrl, getItemTitleWithYear, sortOrder, sortDirection, selectedYear,
 	availableYears, availableDesigners, selectedDesigner, filteredYears, bringToTop, visibleBringToTop,
 	filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors,
 	selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleSortDirection,
@@ -2992,8 +3043,8 @@ return {
 	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, uniqueResultsFilmCount,
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
 	searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
-	handleDesktopSidebarHoverEnter, handleDesktopSidebarHoverLeave, mainContentStyle, isAtTop, pageTitle,
-	isLightBackground, actualBackgroundColor, isDarkTheme
+	mainContentStyle, isAtTop, pageTitle, isLightBackground, actualBackgroundColor, isDarkTheme,
+	filmCountByYear, filmCountByDesigner, filmCountByDirector, filmCountByLetter
 };
 
 } }).mount('#app');
