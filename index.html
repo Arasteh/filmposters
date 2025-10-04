@@ -1292,7 +1292,8 @@ input[type="text"] {
 				</span>
 			</button>
 			<p class="filtersTitle">فیلترها</p>
-			</div>
+			<p style="font-weight: normal;right: 50px;position: relative;height: 15px;top: -5px;">(پوستر×فیلم)</p>
+		</div>
 
 			<div class="sidebar-section" :class="getSectionClass('chart')">
 				<div class="sidebar-section-header" @click="toggleCollapse('chart')">
@@ -1416,7 +1417,7 @@ input[type="text"] {
 							:class="{ 'hovered': hoveredItem === director }" class="director-item">
 							{{ director }} 
 							<span class="count">
-								{{ count.toLocaleString('fa') }}×({{ ((filmCountByDirector && filmCountByDirector[director]) ? filmCountByDirector[director].size : 0).toLocaleString('fa') }}
+								{{ count.toLocaleString('fa') }}×{{ ((filmCountByDirector && filmCountByDirector[director]) ? filmCountByDirector[director].size : 0).toLocaleString('fa') }}
 							</span>
 							<span v-if="selectedDirector === director" class="remove-filter" @click.stop="removeDirectorFilter">
 								<span class="material-symbols-rounded" style="font-size: inherit;">
@@ -2072,7 +2073,7 @@ const items = films.flatMap(film => {
 		}
 		if (film.directors.length) {
 			item.director = film.directors[0];
-			item.directorLabel = data.secondary[film.directors[0]].labels.fa;
+			item.directorLabel = data.secondary[film.directors[0]].labels.fa || 'نامشخص';
 		} else {
 			item.directorLabel = 'نامشخص';
 		}
@@ -2323,43 +2324,41 @@ const filmCountByYear = computed(() => {
 
 const filmCountByDesigner = computed(() => {
 	const filmGroups = {};
-	films.forEach(film => {
-		film.posters?.forEach(poster => {
-		poster.designers?.forEach(designerId => {
-			const designer = data.secondary[designerId];
-			if (designer) {
-				const designerLabel = designer.labels?.fa || 'نامشخص';
+	filteredItems.value.forEach(item => {
+		if (item.designers && item.designers.length > 0) {
+			item.designers?.forEach(designer => {
+				const designerLabel = designer.label || 'نامشخص';
 				if (!filmGroups[designerLabel]) filmGroups[designerLabel] = new Set();
-				filmGroups[designerLabel].add(film.id);
+				filmGroups[designerLabel].add(item.film);
+			});
+			} else {
+				const designerLabel = 'نامشخص';
+				if (!filmGroups[designerLabel]) filmGroups[designerLabel] = new Set();
+				filmGroups[designerLabel].add(item.film);
 			}
 		});
-		});
-	});
 	return filmGroups;
 });
 
 const filmCountByDirector = computed(() => {
 	const filmGroups = {};
-	films.forEach(film => {
-		film.directors?.forEach(directorId => {
-			const director = data.secondary[directorId];
-			if (director) {
-				const directorLabel = director.labels?.fa || 'نامشخص';
-				if (!filmGroups[directorLabel]) filmGroups[directorLabel] = new Set();
-				filmGroups[directorLabel].add(film.id);
-			}
-		});
+	filteredItems.value.forEach(item => {
+		const directorLabel = item.directorLabel && item.directorLabel !== 'نامشخص' 
+			? item.directorLabel 
+			: 'نامشخص';
+		if (!filmGroups[directorLabel]) filmGroups[directorLabel] = new Set();
+		filmGroups[directorLabel].add(item.film);
 	});
 	return filmGroups;
 });
 
 const filmCountByLetter = computed(() => {
 	const filmGroups = {};
-	films.forEach(film => {
-		const firstLetter = film.labels?.fa?.[0] || '';
+	filteredItems.value.forEach(item => {
+		const firstLetter = item.filmLabel?.[0] || '';
 		if (firstLetter) {
 			if (!filmGroups[firstLetter]) filmGroups[firstLetter] = new Set();
-			filmGroups[firstLetter].add(film.id);
+			filmGroups[firstLetter].add(item.film);
 		}
 	});
 	return filmGroups;
