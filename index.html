@@ -866,7 +866,7 @@ input[type="text"] {
 	padding: 5px 10px;
 	border-radius: 30px;
 	cursor: pointer;
-	transition: background-color 0.3s;
+	transition: background-color 0.3s, color 0.3s;
 	white-space: nowrap;
 	font-size: smaller;
 	display: flex;
@@ -878,12 +878,21 @@ input[type="text"] {
 .director-item:hover,
 .year-item:hover,
 .letter-item:hover {
-	background-color: light-dark(hsl(0 0% 78% / 1), hsl(0 0% 30% / 1));
+	background-color: var(--bar-color);
+	color: #fff !important;
 }
 
 .count {
 	color: light-dark(#555, #999);
 	font-weight: lighter;
+	transition: color 0.3s;
+}
+
+.designer-item:hover .count,
+.director-item:hover .count,
+.year-item:hover .count,
+.letter-item:hover .count {
+	color: #fff !important;
 }
 
 .no-results {
@@ -1731,7 +1740,9 @@ input[type="text"] {
 					</div>
 
 					<div class="item-title" :class="textColorClass">
-						{{ item.filmLabel }}
+							<a :href="getWikipediaUrl(item)" target="_blank" style="text-decoration: none; color: inherit;">
+								{{ item.filmLabel }}
+							</a>
 						<span class="year-link" :class="textColorClass" v-if="item.date">
 							<a @click.prevent="selectYearFromTitle(toPersianYear(item.date))" href="#" class="year-link" :class="textColorClass">
 								({{ toPersianYear(item.date) }}
@@ -2698,6 +2709,13 @@ const getCommonsUrl = (item, posterMode, pixelatedEffect) => {
 	return 'https://commons.wikimedia.org/wiki/File:' + (posterMode ? item.poster : item.logo);
 };
 
+const getWikipediaUrl = (item) => {
+	if (item.faWikipediaLink) {
+		return 'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_');
+	}
+	return 'https://www.wikidata.org/wiki/' + item.film;
+};
+
 const bringToTop = () => document.documentElement.scrollTop = 0;
 const visibleBringToTop = ref(false);
 
@@ -3021,7 +3039,7 @@ return {
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
 	searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
 	mainContentStyle, isAtTop, pageTitle, isLightBackground, actualBackgroundColor, isDarkTheme,
-	filmCountByYear, filmCountByDesigner, filmCountByDirector, filmCountByLetter
+	filmCountByYear, filmCountByDesigner, filmCountByDirector, filmCountByLetter, getWikipediaUrl
 };
 
 } }).mount('#app');
