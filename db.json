@@ -45855,6 +45855,32 @@
 				}
 			]
 		},
+		"Q14757472": {
+			"id": "Q14757472",
+			"sitelinks": {
+				"fawiki": "دختر ساری"
+			},
+			"labels": {
+				"fa": "دختر ساری"
+			},
+			"aliases": {},
+			"directors": [
+				"Q6878368"
+			],
+			"date": [
+				"+1963-00-00T00:00:00Z"
+			],
+			"imdb": [
+				"tt0424047"
+			],
+			"posters": [
+				{
+					"image": "Dokhtar_Sari_Poster.jpg",
+					"hash": "1d"
+				}
+			],
+			"logos": []
+		},
 		"Q14757475": {
 			"id": "Q14757475",
 			"sitelinks": {
