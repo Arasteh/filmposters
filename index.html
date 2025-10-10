@@ -759,6 +759,43 @@ input[type="text"] {
 	top: -5px;
 }
 
+.year-range-inputs {
+	align-self: center;
+	display: flex;
+	gap: 10px;
+	align-items: center;
+}
+
+.year-range-inputs input {
+	width: 80px;
+	padding: 5px;
+	border: 1px solid var(--text-input-border);
+	border-radius: 4px;
+	text-align: center;
+}
+
+input[type="range"] {
+	-webkit-appearance: none;
+	width: 100%;
+	background: transparent;
+}
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	height: 16px;
+	width: 16px;
+	border-radius: 50%;
+	background: var(--bar-color);
+	cursor: pointer;
+	margin-top: -6px;
+	position: relative;
+	z-index: 10;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+	height: 6px;
+	background: transparent;
+	border-radius: 3px;
+}
+
 .mobile-only {
 	display: none;
 }
@@ -1248,7 +1285,7 @@ input[type="text"] {
 	.counter-wrapper-desktop {
 		text-align: center;
 		font-weight: bold;
-		width: 27%;
+		width: 29%;
 	}
 	.options {
 		transition: 0.3s ease-in-out;
@@ -1332,6 +1369,104 @@ input[type="text"] {
 					</button>
 				</div>
 				<div class="sidebar-section-body">
+					<div style="display: flex; flex-direction: column; gap: 10px; padding: 10px;">
+					<div class="year-range-inputs">
+						<label for="yearRangeStart">از:</label>
+						<input type="number" id="yearRangeStart" v-model.number="yearRangeStart" @input="applyYearRangeFilter">
+						<label for="yearRangeEnd">تا:</label>
+						<input type="number" id="yearRangeEnd" v-model.number="yearRangeEnd" @input="applyYearRangeFilter">
+					</div>
+
+					<!-- اسلایدر دوبل -->
+					<div style="position: relative; height: 45px; margin-top: 15px;">
+
+					<!-- نوار زمینه -->
+					<div 
+						style="position: absolute; top: 60%; transform: translateY(-50%); height: 6px; width: 100%; background: var(--text-input-border); border-radius: 4px;">
+					</div>
+
+					<!-- نوار بازه انتخاب‌شده -->
+					<div 
+						:style="{
+						position: 'absolute',
+						top: '60%',
+						transform: 'translateY(-50%)',
+						height: '6px',
+						background: 'var(--bar-color)',
+						borderRadius: '4px',
+						right: ((Math.min(yearRangeStart, yearRangeEnd) - 1309) / (1404 - 1309) * 100) + '%',
+						width: (Math.max(1, Math.abs(yearRangeEnd - yearRangeStart)) / (1404 - 1309) * 100) + '%',
+						...(yearRangeStart && !yearRangeEnd ? {
+							right: '0%',
+							width: ((yearRangeStart - 1309) / (1404 - 1309) * 100) + '%'
+						} : {}),
+						...(!yearRangeStart && yearRangeEnd ? {
+							right: ((yearRangeEnd - 1309) / (1404 - 1309) * 100) + '%',
+							width: ((1404 - yearRangeEnd) / (1404 - 1309) * 100) + '%'
+						} : {})
+							}">
+					</div>
+
+					<!-- برچسب‌های سال -->
+					<div 
+						:style="{
+						position: 'absolute',
+						bottom: '30px',
+						transform: 'translateX(50%)',
+						right: ((yearRangeStart - 1309) / (1404 - 1309) * 100) + '%',
+						fontSize: '0.9em',
+						background: 'var(--bar-color)',
+						color: 'white',
+						padding: '2px 6px',
+						borderRadius: '4px',
+						display: yearRangeStart === yearRangeEnd ? 'none' : 'block'
+						}"
+						>
+							{{ yearRangeStart.toLocaleString('fa', { useGrouping: false }) }}
+					</div>
+
+					<div 
+						:style="{
+						position: 'absolute',
+						bottom: '30px',
+						transform: 'translateX(50%)',
+						right: ((yearRangeEnd - 1309) / (1404 - 1309) * 100) + '%',
+						fontSize: '0.9em',
+						background: 'var(--bar-color)',
+						color: 'white',
+						padding: '2px 6px',
+						borderRadius: '4px',
+						display: yearRangeStart === yearRangeEnd ? 'none' : 'block'
+						}"
+						>
+							{{ yearRangeEnd.toLocaleString('fa', { useGrouping: false }) }}
+					</div>
+
+					<!-- هندل‌ها -->
+					<input 
+					type="range"
+					min="1309" max="1404"
+					v-model.number="yearRangeStart"
+					@input="swapIfNeeded"
+					style="position: absolute; width: 100%; background: none; pointer-events: auto; z-index: 3; top: 60%; transform: translateY(-50%);"
+					>
+					<input 
+					type="range"
+					min="1309" max="1404"
+					v-model.number="yearRangeEnd"
+					@input="swapIfNeeded"
+					style="position: absolute; width: 100%; background: none; pointer-events: auto; z-index: 2; top: 60%; transform: translateY(-50%);"
+					>
+
+					</div>
+
+					<button v-if="yearRangeStart || yearRangeEnd"
+						@click="clearYearRangeFilter"
+						style="padding: 8px 12px; background-color: var(--bar-color); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.9em;">
+						حذف فیلتر بازه
+					</button>
+					</div>
+
 					<div class="year-grid" style="visibility: hidden" :style="{ visibility: undefined }">
 						<div v-if="filteredYearsInModal.length === 0" class="no-results">
 							نتیجه‌ای وجود ندارد
@@ -1851,6 +1986,8 @@ const isD3Loaded = ref(false);
 const backgroundColor = ref('#ffffff');
 const savedLogoColor = ref('#ffffff');
 const isAtTop = ref(true);
+const yearRangeStart = ref('');
+const yearRangeEnd = ref('');
 
 const pageTitle = computed(() => {
   return posterMode.value
@@ -1875,7 +2012,9 @@ const hasActiveFilters = computed(() => {
 		selectedYear.value ||
 		selectedDesigner.value ||
 		selectedDirector.value ||
-		selectedLetter.value;
+		selectedLetter.value ||
+		yearRangeStart.value ||
+		yearRangeEnd.value;
 });
 
 const applyInitialFilters = () => {
@@ -1896,8 +2035,75 @@ const applyInitialFilters = () => {
 	moreInformation.value = urlParams.get('moreInfo') === 'true';
 	backgroundColor.value = urlParams.get('bgcolor') ? `#${urlParams.get('bgcolor')}` : '#ffffff';
 	savedLogoColor.value = backgroundColor.value;
+	yearRangeStart.value = urlParams.get('yearStart') || '';
+	yearRangeEnd.value = urlParams.get('yearEnd') || '';
+
 };
 applyInitialFilters();
+
+
+const normalizeDigits = (s) => {
+	if (s == null || s === '') return '';
+	const map = {
+		'۰':'0','۱':'1','۲':'2','۳':'3','۴':'4','۵':'5','۶':'6','۷':'7','۸':'8','۹':'9',
+		'٠':'0','١':'1','٢':'2','٣':'3','٤':'4','٥':'5','٦':'6','٧':'7','٨':'8','٩':'9'
+	};
+	return String(s).split('').map(ch => map[ch] ?? ch).join('');
+};
+
+const applyYearRangeFilter = () => {
+	if (yearRangeStart.value || yearRangeEnd.value) {
+		selectedYear.value = '';
+	}
+	
+	const startNum = parseInt(yearRangeStart.value) || 1309;
+	const endNum = parseInt(yearRangeEnd.value) || 1404;
+	
+	yearRangeStart.value = Math.max(1309, Math.min(1404, startNum));
+	yearRangeEnd.value = Math.max(1309, Math.min(1404, endNum));
+	
+	if (parseInt(yearRangeStart.value) > parseInt(yearRangeEnd.value)) {
+		const temp = yearRangeStart.value;
+		yearRangeStart.value = yearRangeEnd.value;
+		yearRangeEnd.value = temp;
+	}
+};
+
+
+const clearYearRangeFilter = () => {
+	yearRangeStart.value = '';
+	yearRangeEnd.value = '';
+};
+
+const swapIfNeeded = () => {
+	const startNum = parseInt(yearRangeStart.value) || 1309;
+	const endNum = parseInt(yearRangeEnd.value) || 1404;
+	
+	if (startNum > endNum) {
+		const tempStart = yearRangeStart.value;
+		const tempEnd = yearRangeEnd.value;
+		
+		yearRangeStart.value = tempEnd;
+		yearRangeEnd.value = tempStart;
+  }
+  
+  applyYearRangeFilter();
+};
+
+const isInYearRange = (persianYear) => {
+	if (!persianYear || persianYear === 'نامشخص') return false;
+
+	const yearNum = parseInt(normalizeDigits(persianYear).replace(/[^0-9-]/g, ''), 10);
+	if (isNaN(yearNum)) return false;
+
+	const startNum = parseInt(yearRangeStart.value) || 1309;
+	const endNum = parseInt(yearRangeEnd.value) || 1404;
+
+	const actualStart = Math.min(startNum, endNum);
+	const actualEnd = Math.max(startNum, endNum);
+
+	return yearNum >= actualStart && yearNum <= actualEnd;
+};
 
 const isLightBackground = (color) => {
 	if (!color) return false;
@@ -1984,13 +2190,16 @@ const updateURL = () => {
 		params.set('bgcolor', backgroundColor.value.replace('#', ''));
 	}
 
+	if (yearRangeStart.value) params.set('yearStart', String(yearRangeStart.value));
+	if (yearRangeEnd.value) params.set('yearEnd', String(yearRangeEnd.value));
+
 	const newUrl = `${window.location.pathname}?${params.toString()}`;
 	window.history.pushState({}, '', newUrl);
 };
 watch([
 	searchTerm, selectedYear, selectedDesigner, selectedDirector,
 	selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder, sortDirection, exactWordMatch,
-	moreInformation, backgroundColor
+	moreInformation, backgroundColor, yearRangeStart, yearRangeEnd
 ], updateURL);
 
 const isCollapsed = ref({
@@ -1998,7 +2207,8 @@ const isCollapsed = ref({
 	directors: true,
 	years: false,
 	letters: true,
-	chart: true
+	chart: true,
+	yearRange: true
 });
 
 const getSectionClass = section => isCollapsed.value[section] ? 'collapsed' : 'expanded';
@@ -2035,6 +2245,9 @@ const resetFilters = () => {
 	exactWordMatch.value = false;
 	moreInformation.value = false;
 	backgroundColor.value = '#ffffff';
+		yearRangeStart.value = '';
+	yearRangeEnd.value = '';
+
 };
 
 const films = Object.values(data.films);
@@ -2232,6 +2445,14 @@ const filteredItems = computed(() => {
 
 	if (selectedLetter.value) {
 		results = results.filter(item => item.filmLabel.startsWith(selectedLetter.value));
+	}
+
+// فیلتر بازه سال
+	if (yearRangeStart.value || yearRangeEnd.value) {
+		results = results.filter(item => {
+			const persianYear = toPersianYear(item.date);
+			return isInYearRange(persianYear);
+		});
 	}
 
 	if (!posterMode.value) {
@@ -2659,6 +2880,11 @@ const activeFilters = computed(() => {
 	if (selectedLetter.value) {
 		filters.push({ type: 'letter', label: 'حرف اول', value: selectedLetter.value });
 	}
+	if (yearRangeStart.value || yearRangeEnd.value) {
+		const rangeLabel = `${yearRangeStart.value || '?'} - ${yearRangeEnd.value || '?'}`;
+		filters.push({ type: 'yearRange', label: 'بازه سال', value: rangeLabel });
+	}
+
 	return filters;
 });
 
@@ -2676,6 +2902,11 @@ const removeFilter = (type, value) => {
 		case 'letter':
 			selectedLetter.value = '';
 			break;
+		case 'yearRange':
+			yearRangeStart.value = '';
+			yearRangeEnd.value = '';
+			break;
+
 	}
 };
 
@@ -3039,7 +3270,8 @@ return {
 	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
 	searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
 	mainContentStyle, isAtTop, pageTitle, isLightBackground, actualBackgroundColor, isDarkTheme,
-	filmCountByYear, filmCountByDesigner, filmCountByDirector, filmCountByLetter, getWikipediaUrl
+	filmCountByYear, filmCountByDesigner, filmCountByDirector, filmCountByLetter, getWikipediaUrl,
+	yearRangeStart, yearRangeEnd, applyYearRangeFilter, clearYearRangeFilter
 };
 
 } }).mount('#app');
