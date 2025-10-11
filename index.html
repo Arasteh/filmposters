@@ -760,7 +760,7 @@ input[type="text"] {
 }
 
 .year-range-inputs {
-	align-self: center;
+	align-self: flex-start;
 	display: flex;
 	gap: 10px;
 	align-items: center;
@@ -781,19 +781,36 @@ input[type="range"] {
 }
 input[type="range"]::-webkit-slider-thumb {
 	-webkit-appearance: none;
-	height: 16px;
+	height: 26px;
 	width: 16px;
-	border-radius: 50%;
+	border-radius: 4px;
 	background: var(--bar-color);
 	cursor: pointer;
 	margin-top: -6px;
 	position: relative;
 	z-index: 10;
 }
+input[type="range"]::-webkit-slider-thumb:hover {
+	background: var(--axis-text-color);
+}
 input[type="range"]::-webkit-slider-runnable-track {
 	height: 6px;
 	background: transparent;
 	border-radius: 3px;
+}
+.removeRange {
+	padding: 4px 12px;
+	background-color: light-dark(hsl(0 0% 93% / 1), hsl(0 0% 10% / 1));
+	color: white; 
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	font-size: 0.9em;
+	width: fit-content; 
+	margin-right: 15px;
+}
+.removeRange:hover {
+	background-color: var(--bar-color);
 }
 
 .mobile-only {
@@ -975,10 +992,6 @@ input[type="range"]::-webkit-slider-runnable-track {
 	padding: 0;
 	display: flex;
 	align-items: center;
-}
-
-.remove-filter:hover {
-	color: #b00;
 }
 
 .pixelated {
@@ -1371,11 +1384,17 @@ input[type="range"]::-webkit-slider-runnable-track {
 				<div class="sidebar-section-body">
 					<div style="display: flex; flex-direction: column; gap: 10px; padding: 10px;">
 					<div class="year-range-inputs">
-						<label for="yearRangeStart">از:</label>
+						<label for="yearRangeStart">از</label>
 						<input type="number" id="yearRangeStart" v-model.number="yearRangeStart" @input="applyYearRangeFilter">
-						<label for="yearRangeEnd">تا:</label>
+						<label for="yearRangeEnd">تا</label>
 						<input type="number" id="yearRangeEnd" v-model.number="yearRangeEnd" @input="applyYearRangeFilter">
+						<button v-if="yearRangeStart || yearRangeEnd"
+							@click="clearYearRangeFilter"
+							class="removeRange">
+							حذف
+						</button>
 					</div>
+
 
 					<!-- اسلایدر دوبل -->
 					<div style="position: relative; height: 45px; margin-top: 15px;">
@@ -1460,11 +1479,6 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 					</div>
 
-					<button v-if="yearRangeStart || yearRangeEnd"
-						@click="clearYearRangeFilter"
-						style="padding: 8px 12px; background-color: var(--bar-color); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.9em;">
-						حذف فیلتر بازه
-					</button>
 					</div>
 
 					<div class="year-grid" style="visibility: hidden" :style="{ visibility: undefined }">
