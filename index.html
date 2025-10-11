@@ -760,18 +760,35 @@ input[type="text"] {
 }
 
 .year-range-inputs {
-	align-self: flex-start;
+	align-items: center;
 	display: flex;
 	gap: 10px;
-	align-items: center;
+	flex-wrap: wrap;
 }
 
-.year-range-inputs input {
+.year-range-inputs select {
 	width: 80px;
-	padding: 5px;
+	padding: 8px;
 	border: 1px solid var(--text-input-border);
-	border-radius: 4px;
-	text-align: center;
+	border-radius: 8px;
+	background-color: var(--search-background);
+	color: var(--body-foreground);
+	font-size: 0.9em;
+}
+
+.year-range-inputs select:focus {
+	outline: none;
+	border-color: var(--bar-color);
+	box-shadow: 0 0 0 2px rgba(178, 46, 42, 0.2);
+}
+
+.year-range-inputs option {
+	padding: 5px;
+}
+
+.year-range-inputs label {
+	font-size: 0.9em;
+	color: var(--body-foreground);
 }
 
 input[type="range"] {
@@ -812,6 +829,23 @@ input[type="range"]::-webkit-slider-runnable-track {
 .removeRange:hover {
 	background-color: var(--bar-color);
 }
+
+.applyRange {
+	padding: 4px 12px;
+	background-color: var(--bar-color);
+	color: white;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	font-size: 0.9em;
+	width: fit-content;
+	margin-right: 5px;
+}
+
+.applyRange:hover {
+	background-color: var(--bar-hover-color);
+}
+
 
 .mobile-only {
 	display: none;
@@ -1385,77 +1419,93 @@ input[type="range"]::-webkit-slider-runnable-track {
 					<div style="display: flex; flex-direction: column; gap: 10px; padding: 10px;">
 					<div class="year-range-inputs">
 						<label for="yearRangeStart">از</label>
-						<input type="number" id="yearRangeStart" v-model.number="yearRangeStart" @input="applyYearRangeFilter">
+						<select id="yearRangeStart" v-model="tempYearRangeStart">
+							<option value="">انتخاب کنید</option>
+							<option v-for="[year, count] in availableYears.filter(([y]) => y !== 'نامشخص')" 
+									:key="'start-' + year" 
+									:value="parseInt(normalizeDigits(year))">
+								{{ year }}
+							</option>
+						</select>
+						
 						<label for="yearRangeEnd">تا</label>
-						<input type="number" id="yearRangeEnd" v-model.number="yearRangeEnd" @input="applyYearRangeFilter">
-						<button v-if="yearRangeStart || yearRangeEnd"
-							@click="clearYearRangeFilter"
-							class="removeRange">
+						<select id="yearRangeEnd" v-model="tempYearRangeEnd">
+							<option value="">انتخاب کنید</option>
+							<option v-for="[year, count] in availableYears.filter(([y]) => y !== 'نامشخص')" 
+									:key="'end-' + year" 
+									:value="parseInt(normalizeDigits(year))">
+								{{ year }}
+							</option>
+						</select>
+						
+						<!-- دکمه اعمال با اتصال صحیح -->
+						<button @click="applyYearRangeFilter" class="applyRange">
+							اعمال
+						</button>
+						
+						<button v-if="yearRangeStart !== null || yearRangeEnd !== null"
+								@click="clearYearRangeFilter"
+								class="removeRange">
 							حذف
 						</button>
 					</div>
 
 
+
 					<!-- اسلایدر دوبل -->
-					<div style="position: relative; height: 45px; margin-top: 15px;">
+					<div style="position: relative; height: 80px; margin-top: 15px; padding: 0 10px;">
 
 					<!-- نوار زمینه -->
 					<div 
-						style="position: absolute; top: 60%; transform: translateY(-50%); height: 6px; width: 100%; background: var(--text-input-border); border-radius: 4px;">
+						style="position: absolute; top: 50%; transform: translateY(-50%); height: 6px; width: calc(100% - 20px); background: var(--text-input-border); border-radius: 4px; left: 10px;">
 					</div>
 
 					<!-- نوار بازه انتخاب‌شده -->
 					<div 
 						:style="{
 						position: 'absolute',
-						top: '60%',
+						top: '50%',
 						transform: 'translateY(-50%)',
 						height: '6px',
 						background: 'var(--bar-color)',
 						borderRadius: '4px',
-						right: ((Math.min(yearRangeStart, yearRangeEnd) - 1309) / (1404 - 1309) * 100) + '%',
-						width: (Math.max(1, Math.abs(yearRangeEnd - yearRangeStart)) / (1404 - 1309) * 100) + '%',
-						...(yearRangeStart && !yearRangeEnd ? {
-							right: '0%',
-							width: ((yearRangeStart - 1309) / (1404 - 1309) * 100) + '%'
-						} : {}),
-						...(!yearRangeStart && yearRangeEnd ? {
-							right: ((yearRangeEnd - 1309) / (1404 - 1309) * 100) + '%',
-							width: ((1404 - yearRangeEnd) / (1404 - 1309) * 100) + '%'
-						} : {})
+						right: `calc(${((Math.min(yearRangeStart || yearRangeBounds.minYear, yearRangeEnd || yearRangeBounds.maxYear) - yearRangeBounds.minYear) / (yearRangeBounds.maxYear - yearRangeBounds.minYear)) * 100}% + 10px)`,
+						width: `calc(${((Math.abs((yearRangeEnd || yearRangeBounds.maxYear) - (yearRangeStart || yearRangeBounds.minYear)) / (yearRangeBounds.maxYear - yearRangeBounds.minYear)) * 100)}%)`
 							}">
 					</div>
 
 					<!-- برچسب‌های سال -->
 					<div 
+						v-if="yearRangeStart && yearRangeEnd && yearRangeStart !== yearRangeEnd"
 						:style="{
 						position: 'absolute',
-						bottom: '30px',
+						top: '10px',
+						right: `calc(${((yearRangeStart - yearRangeBounds.minYear) / (yearRangeBounds.maxYear - yearRangeBounds.minYear)) * 100}% + 10px)`,
 						transform: 'translateX(50%)',
-						right: ((yearRangeStart - 1309) / (1404 - 1309) * 100) + '%',
-						fontSize: '0.9em',
+						fontSize: '0.8em',
 						background: 'var(--bar-color)',
 						color: 'white',
 						padding: '2px 6px',
 						borderRadius: '4px',
-						display: yearRangeStart === yearRangeEnd ? 'none' : 'block'
+						whiteSpace: 'nowrap'
 						}"
 						>
 							{{ yearRangeStart.toLocaleString('fa', { useGrouping: false }) }}
 					</div>
 
 					<div 
+						v-if="yearRangeStart && yearRangeEnd && yearRangeStart !== yearRangeEnd"
 						:style="{
 						position: 'absolute',
-						bottom: '30px',
+						top: '10px',
+						right: `calc(${((yearRangeEnd - yearRangeBounds.minYear) / (yearRangeBounds.maxYear - yearRangeBounds.minYear)) * 100}% + 10px)`,
 						transform: 'translateX(50%)',
-						right: ((yearRangeEnd - 1309) / (1404 - 1309) * 100) + '%',
-						fontSize: '0.9em',
+						fontSize: '0.8em',
 						background: 'var(--bar-color)',
 						color: 'white',
 						padding: '2px 6px',
 						borderRadius: '4px',
-						display: yearRangeStart === yearRangeEnd ? 'none' : 'block'
+						whiteSpace: 'nowrap'
 						}"
 						>
 							{{ yearRangeEnd.toLocaleString('fa', { useGrouping: false }) }}
@@ -1464,17 +1514,17 @@ input[type="range"]::-webkit-slider-runnable-track {
 					<!-- هندل‌ها -->
 					<input 
 					type="range"
-					min="1309" max="1404"
-					v-model.number="yearRangeStart"
-					@input="swapIfNeeded"
-					style="position: absolute; width: 100%; background: none; pointer-events: auto; z-index: 3; top: 60%; transform: translateY(-50%);"
+					:min="yearRangeBounds.minYear" 
+					:max="yearRangeBounds.maxYear"
+					v-model.number="tempYearRangeStart"
+					style="position: absolute; width: calc(100% - 20px); background: none; pointer-events: auto; z-index: 3; top: 50%; transform: translateY(-50%); right: 10px;"
 					>
 					<input 
 					type="range"
-					min="1309" max="1404"
-					v-model.number="yearRangeEnd"
-					@input="swapIfNeeded"
-					style="position: absolute; width: 100%; background: none; pointer-events: auto; z-index: 2; top: 60%; transform: translateY(-50%);"
+					:min="yearRangeBounds.minYear" 
+					:max="yearRangeBounds.maxYear"
+					v-model.number="tempYearRangeEnd"
+					style="position: absolute; width: calc(100% - 20px); background: none; pointer-events: auto; z-index: 2; top: 50%; transform: translateY(-50%); right: 10px;"
 					>
 
 					</div>
@@ -2000,8 +2050,10 @@ const isD3Loaded = ref(false);
 const backgroundColor = ref('#ffffff');
 const savedLogoColor = ref('#ffffff');
 const isAtTop = ref(true);
-const yearRangeStart = ref('');
-const yearRangeEnd = ref('');
+const yearRangeStart = ref(null);
+const yearRangeEnd = ref(null);
+const tempYearRangeStart = ref(null);
+const tempYearRangeEnd = ref(null);
 
 const pageTitle = computed(() => {
   return posterMode.value
@@ -2049,9 +2101,8 @@ const applyInitialFilters = () => {
 	moreInformation.value = urlParams.get('moreInfo') === 'true';
 	backgroundColor.value = urlParams.get('bgcolor') ? `#${urlParams.get('bgcolor')}` : '#ffffff';
 	savedLogoColor.value = backgroundColor.value;
-	yearRangeStart.value = urlParams.get('yearStart') || '';
-	yearRangeEnd.value = urlParams.get('yearEnd') || '';
-
+	yearRangeStart.value = urlParams.get('yearStart') ? parseInt(urlParams.get('yearStart')) : null;
+	yearRangeEnd.value = urlParams.get('yearEnd') ? parseInt(urlParams.get('yearEnd')) : null;
 };
 applyInitialFilters();
 
@@ -2065,43 +2116,45 @@ const normalizeDigits = (s) => {
 	return String(s).split('').map(ch => map[ch] ?? ch).join('');
 };
 
+const yearRangeBounds = computed(() => {
+	const years = availableYearsForRange.value;
+	if (years.length === 0) {
+		return { minYear: 1309, maxYear: 1404 };
+	}
+	const minYear = Math.min(...years);
+	const maxYear = Math.max(...years);
+	return { minYear, maxYear };
+});
+
 const applyYearRangeFilter = () => {
-	if (yearRangeStart.value || yearRangeEnd.value) {
+	yearRangeStart.value = tempYearRangeStart.value;
+	yearRangeEnd.value = tempYearRangeEnd.value;
+	
+	if (yearRangeStart.value !== null || yearRangeEnd.value !== null) {
 		selectedYear.value = '';
 	}
 	
-	const startNum = parseInt(yearRangeStart.value) || 1309;
-	const endNum = parseInt(yearRangeEnd.value) || 1404;
-	
-	yearRangeStart.value = Math.max(1309, Math.min(1404, startNum));
-	yearRangeEnd.value = Math.max(1309, Math.min(1404, endNum));
-	
-	if (parseInt(yearRangeStart.value) > parseInt(yearRangeEnd.value)) {
-		const temp = yearRangeStart.value;
-		yearRangeStart.value = yearRangeEnd.value;
-		yearRangeEnd.value = temp;
-	}
+	swapIfNeeded();
 };
 
 
 const clearYearRangeFilter = () => {
-	yearRangeStart.value = '';
-	yearRangeEnd.value = '';
+	yearRangeStart.value = null;
+	yearRangeEnd.value = null;
+	tempYearRangeStart.value = null;
+	tempYearRangeEnd.value = null;
 };
 
 const swapIfNeeded = () => {
-	const startNum = parseInt(yearRangeStart.value) || 1309;
-	const endNum = parseInt(yearRangeEnd.value) || 1404;
+	const { minYear, maxYear } = yearRangeBounds.value;
+	
+	const startNum = yearRangeStart.value !== null ? yearRangeStart.value : minYear;
+	const endNum = yearRangeEnd.value !== null ? yearRangeEnd.value : maxYear;
 	
 	if (startNum > endNum) {
-		const tempStart = yearRangeStart.value;
-		const tempEnd = yearRangeEnd.value;
-		
-		yearRangeStart.value = tempEnd;
-		yearRangeEnd.value = tempStart;
-  }
-  
-  applyYearRangeFilter();
+		[yearRangeStart.value, yearRangeEnd.value] = [endNum, startNum];
+		[tempYearRangeStart.value, tempYearRangeEnd.value] = [endNum, startNum];
+	}
 };
 
 const isInYearRange = (persianYear) => {
@@ -2110,8 +2163,9 @@ const isInYearRange = (persianYear) => {
 	const yearNum = parseInt(normalizeDigits(persianYear).replace(/[^0-9-]/g, ''), 10);
 	if (isNaN(yearNum)) return false;
 
-	const startNum = parseInt(yearRangeStart.value) || 1309;
-	const endNum = parseInt(yearRangeEnd.value) || 1404;
+	const { minYear, maxYear } = yearRangeBounds.value;
+	const startNum = yearRangeStart.value !== null ? yearRangeStart.value : minYear;
+	const endNum = yearRangeEnd.value !== null ? yearRangeEnd.value : maxYear;
 
 	const actualStart = Math.min(startNum, endNum);
 	const actualEnd = Math.max(startNum, endNum);
@@ -2204,8 +2258,8 @@ const updateURL = () => {
 		params.set('bgcolor', backgroundColor.value.replace('#', ''));
 	}
 
-	if (yearRangeStart.value) params.set('yearStart', String(yearRangeStart.value));
-	if (yearRangeEnd.value) params.set('yearEnd', String(yearRangeEnd.value));
+	if (yearRangeStart.value !== null) params.set('yearStart', String(yearRangeStart.value));
+	if (yearRangeEnd.value !== null) params.set('yearEnd', String(yearRangeEnd.value));
 
 	const newUrl = `${window.location.pathname}?${params.toString()}`;
 	window.history.pushState({}, '', newUrl);
@@ -2215,6 +2269,9 @@ watch([
 	selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder, sortDirection, exactWordMatch,
 	moreInformation, backgroundColor, yearRangeStart, yearRangeEnd
 ], updateURL);
+
+watch([yearRangeStart, yearRangeEnd], ([newStart, newEnd]) => {
+}, { deep: true });
 
 const isCollapsed = ref({
 	designers: false,
@@ -2363,6 +2420,15 @@ const availableYears = computed(() => {
 		years.push(unknown);
 	}
 	return years;
+});
+
+const availableYearsForRange = computed(() => {
+	const years = availableYears.value
+		.filter(([year]) => year !== 'نامشخص')
+		.map(([year]) => parseInt(normalizeDigits(year)))
+		.sort((a, b) => a - b);
+	
+	return [...new Set(years)];
 });
 
 const availableDesigners = computed(() => {
@@ -2699,6 +2765,22 @@ onMounted(() => {
 		resizeHandle.addEventListener('mousedown', startResize);
 	} else {
 		console.log('عنصر دستگیره تغییر اندازه یافت نشد!');
+	}
+});
+
+onMounted(() => {
+	const { minYear, maxYear } = yearRangeBounds.value;
+	
+	if (yearRangeStart.value !== null) {
+		tempYearRangeStart.value = yearRangeStart.value;
+	} else {
+		tempYearRangeStart.value = minYear;
+	}
+	
+	if (yearRangeEnd.value !== null) {
+		tempYearRangeEnd.value = yearRangeEnd.value;
+	} else {
+		tempYearRangeEnd.value = maxYear;
 	}
 });
 
@@ -3285,7 +3367,8 @@ return {
 	searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
 	mainContentStyle, isAtTop, pageTitle, isLightBackground, actualBackgroundColor, isDarkTheme,
 	filmCountByYear, filmCountByDesigner, filmCountByDirector, filmCountByLetter, getWikipediaUrl,
-	yearRangeStart, yearRangeEnd, applyYearRangeFilter, clearYearRangeFilter
+	yearRangeStart, yearRangeEnd, applyYearRangeFilter, clearYearRangeFilter, yearRangeBounds,
+	tempYearRangeStart, tempYearRangeEnd, applyYearRangeFilter, clearYearRangeFilter, normalizeDigits
 };
 
 } }).mount('#app');
