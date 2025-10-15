@@ -46268,6 +46268,30 @@
 				}
 			]
 		},
+		"Q14757483": {
+			"id": "Q14757483",
+			"sitelinks": {
+				"fawiki": "لاشخورها"
+			},
+			"labels": {
+				"fa": "لاشخورها"
+			},
+			"aliases": {},
+			"directors": [
+				"Q16051603"
+			],
+			"date": [
+				"+1963-00-00T00:00:00Z"
+			],
+			"imdb": [],
+			"posters": [
+				{
+					"image": "Lashkhorha_Poster.jpg",
+					"hash": "08"
+				}
+			],
+			"logos": []
+		},
 		"Q14757487": {
 			"id": "Q14757487",
 			"sitelinks": {
