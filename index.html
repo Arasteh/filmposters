@@ -2113,8 +2113,21 @@ const applyInitialFilters = () => {
 	moreInformation.value = urlParams.get('moreInfo') === 'true';
 	backgroundColor.value = urlParams.get('bgcolor') ? `#${urlParams.get('bgcolor')}` : '#ffffff';
 	savedLogoColor.value = backgroundColor.value;
-	yearRangeStart.value = urlParams.get('yearStart') ? parseInt(urlParams.get('yearStart')) : null;
-	yearRangeEnd.value = urlParams.get('yearEnd') ? parseInt(urlParams.get('yearEnd')) : null;
+	const yearStartParam = urlParams.get('yearStart');
+	const yearEndParam = urlParams.get('yearEnd');
+
+	if (yearStartParam !== null || yearEndParam !== null) {
+		yearRangeStart.value = yearStartParam ? parseInt(yearStartParam) : null;
+		yearRangeEnd.value = yearEndParam ? parseInt(yearEndParam) : null;
+		
+		tempYearRangeStart.value = yearStartParam ? parseInt(yearStartParam) : '';
+		tempYearRangeEnd.value = yearEndParam ? parseInt(yearEndParam) : '';
+	} else {
+		yearRangeStart.value = null;
+		yearRangeEnd.value = null;
+		tempYearRangeStart.value = '';
+		tempYearRangeEnd.value = '';
+	}
 };
 applyInitialFilters();
 
@@ -2796,16 +2809,8 @@ onMounted(() => {
 onMounted(() => {
 	const { minYear, maxYear } = yearRangeBounds.value;
 	
-	if (yearRangeStart.value !== null) {
-		tempYearRangeStart.value = yearRangeStart.value;
-	} else {
-		tempYearRangeStart.value = minYear;
-	}
-	
-	if (yearRangeEnd.value !== null) {
-		tempYearRangeEnd.value = yearRangeEnd.value;
-	} else {
-		tempYearRangeEnd.value = maxYear;
+	if (tempYearRangeStart.value === '' && tempYearRangeEnd.value === '' && 
+		yearRangeStart.value === null && yearRangeEnd.value === null) {
 	}
 });
 
