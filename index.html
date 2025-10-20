@@ -989,7 +989,11 @@ input[type="range"]::-webkit-slider-runnable-track {
 .designer-item:hover .count,
 .director-item:hover .count,
 .year-item:hover .count,
-.letter-item:hover .count {
+.letter-item:hover .count,
+.designer-item:hover .remove-filter,
+.director-item:hover .remove-filter,
+.year-item:hover .remove-filter,
+.letter-item:hover .remove-filter {
 	color: #fff !important;
 }
 
@@ -1036,6 +1040,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 	padding: 0;
 	display: flex;
 	align-items: center;
+	transition: color 0.3s ease;
 }
 
 .pixelated {
@@ -1394,8 +1399,10 @@ input[type="range"]::-webkit-slider-runnable-track {
 					close
 				</span>
 			</button>
-			<p class="filtersTitle">فیلترها</p>
-			<p style="font-weight: normal;right: 50px;position: relative;height: 15px;top: -5px;">(پوستر×فیلم)</p>
+			<p class="filtersTitle">
+				فیلترها 
+				<span style="font-weight: 400; margin-right: 5px;">(پوستر×فیلم)</span>
+			</p>
 		</div>
 
 			<div class="sidebar-section" :class="getSectionClass('chart')">
@@ -1426,11 +1433,11 @@ input[type="range"]::-webkit-slider-runnable-track {
 					</button>
 				</div>
 				<div class="sidebar-section-body">
-					<div style="display: flex; flex-direction: column; gap: 10px; padding: 10px;">
+					<div style="display: flex; flex-direction: column; gap: 10px; padding: 0 10px 10px 10px;">
 					<div class="year-range-inputs">
 						<label for="yearRangeStart">از</label>
 						<select id="yearRangeStart" v-model="tempYearRangeStart">
-							<option value="">انتخاب کنید</option>
+							<option value="">آغاز</option>
 							<option v-for="[year, count] in availableYears.filter(([y]) => y !== 'نامشخص')" 
 									:key="'start-' + year" 
 									:value="parseInt(normalizeDigits(year))">
@@ -1440,7 +1447,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 						
 						<label for="yearRangeEnd">تا</label>
 						<select id="yearRangeEnd" v-model="tempYearRangeEnd">
-							<option value="">انتخاب کنید</option>
+							<option value="">پایان</option>
 							<option v-for="[year, count] in availableYears.filter(([y]) => y !== 'نامشخص')" 
 									:key="'end-' + year" 
 									:value="parseInt(normalizeDigits(year))">
@@ -1448,29 +1455,24 @@ input[type="range"]::-webkit-slider-runnable-track {
 							</option>
 						</select>
 						
-						<!-- دکمه اعمال با اتصال صحیح -->
-						<button @click="applyYearRangeFilter" class="applyRange">
-							اعمال
-						</button>
-						
-						<button v-if="yearRangeStart !== null || yearRangeEnd !== null"
+						<button v-if="tempYearRangeStart !== '' || tempYearRangeEnd !== ''"
 								@click="clearYearRangeFilter"
 								class="removeRange">
-							حذف
+							<span>
+								حذف
+							</span>
 						</button>
 					</div>
 
 
 
-					<!-- اسلایدر دوبل -->
+					<!-- اسلایدر دوبل
 					<div style="position: relative; height: 80px; margin-top: 15px; padding: 0 10px;">
 
-					<!-- نوار زمینه -->
 					<div 
 						style="position: absolute; top: 50%; transform: translateY(-50%); height: 6px; width: calc(100% - 20px); background: var(--text-input-border); border-radius: 4px; left: 10px;">
 					</div>
 
-					<!-- نوار بازه انتخاب‌شده -->
 					<div 
 						:style="{
 						position: 'absolute',
@@ -1484,7 +1486,6 @@ input[type="range"]::-webkit-slider-runnable-track {
 							}">
 					</div>
 
-					<!-- برچسب‌های سال -->
 					<div 
 						v-if="yearRangeStart && yearRangeEnd && yearRangeStart !== yearRangeEnd"
 						:style="{
@@ -1521,7 +1522,6 @@ input[type="range"]::-webkit-slider-runnable-track {
 							{{ yearRangeEnd.toLocaleString('fa', { useGrouping: false }) }}
 					</div>
 
-					<!-- هندل‌ها -->
 					<input 
 					type="range"
 					:min="yearRangeBounds.minYear" 
@@ -1538,7 +1538,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 					>
 
 					</div>
-
+-->
 					</div>
 
 					<div class="year-grid" style="visibility: hidden" :style="{ visibility: undefined }">
@@ -2064,8 +2064,8 @@ const savedLogoColor = ref('#ffffff');
 const isAtTop = ref(true);
 const yearRangeStart = ref(null);
 const yearRangeEnd = ref(null);
-const tempYearRangeStart = ref(null);
-const tempYearRangeEnd = ref(null);
+const tempYearRangeStart = ref('');
+const tempYearRangeEnd = ref('');
 
 const pageTitle = computed(() => {
   return posterMode.value
@@ -2139,8 +2139,8 @@ const yearRangeBounds = computed(() => {
 });
 
 const applyYearRangeFilter = () => {
-	yearRangeStart.value = tempYearRangeStart.value;
-	yearRangeEnd.value = tempYearRangeEnd.value;
+	yearRangeStart.value = tempYearRangeStart.value !== '' ? tempYearRangeStart.value : null;
+	yearRangeEnd.value = tempYearRangeEnd.value !== '' ? tempYearRangeEnd.value : null;
 	
 	if (yearRangeStart.value !== null || yearRangeEnd.value !== null) {
 		selectedYear.value = '';
@@ -2153,8 +2153,8 @@ const applyYearRangeFilter = () => {
 const clearYearRangeFilter = () => {
 	yearRangeStart.value = null;
 	yearRangeEnd.value = null;
-	tempYearRangeStart.value = null;
-	tempYearRangeEnd.value = null;
+	tempYearRangeStart.value = '';
+	tempYearRangeEnd.value = '';
 };
 
 const swapIfNeeded = () => {
@@ -2284,6 +2284,19 @@ watch([
 
 watch([yearRangeStart, yearRangeEnd], ([newStart, newEnd]) => {
 }, { deep: true });
+
+watch(tempYearRangeStart, (newValue) => {
+    if (newValue !== '') {
+        applyYearRangeFilter();
+    }
+});
+
+watch(tempYearRangeEnd, (newValue) => {
+    if (newValue !== '') {
+        applyYearRangeFilter();
+    }
+});
+
 
 const isCollapsed = ref({
 	designers: false,
@@ -2990,7 +3003,7 @@ const activeFilters = computed(() => {
 	}
 	if (yearRangeStart.value || yearRangeEnd.value) {
 		const rangeLabel = `${yearRangeStart.value || '?'} - ${yearRangeEnd.value || '?'}`;
-		filters.push({ type: 'yearRange', label: 'بازه سال', value: rangeLabel });
+		filters.push({ type: 'yearRange', label: 'بازهٔ سال', value: rangeLabel });
 	}
 
 	return filters;
