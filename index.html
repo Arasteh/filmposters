@@ -3002,7 +3002,7 @@ const activeFilters = computed(() => {
 		filters.push({ type: 'letter', label: 'حرف اول', value: selectedLetter.value });
 	}
 	if (yearRangeStart.value || yearRangeEnd.value) {
-		const rangeLabel = `${yearRangeStart.value || '?'} - ${yearRangeEnd.value || '?'}`;
+		const rangeLabel = `${(yearRangeStart.value || '؟').toLocaleString('fa', { useGrouping: false })} - ${(yearRangeEnd.value || '؟').toLocaleString('fa', { useGrouping: false })}`;
 		filters.push({ type: 'yearRange', label: 'بازهٔ سال', value: rangeLabel });
 	}
 
