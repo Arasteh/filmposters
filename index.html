@@ -2057,7 +2057,7 @@ const searchBarRef = ref(null);
 const searchBarHeight = ref(0);
 const isMobileView = ref(false);
 const itemsPerPageMobile = 6;
-const itemsPerPageDesktop = 18;
+const itemsPerPageDesktop = 24;
 const displayedItemsCount = ref(isMobileView.value ? itemsPerPageMobile : itemsPerPageDesktop);
 const itemsPerPage = computed(() => isMobileView.value ? itemsPerPageMobile : itemsPerPageDesktop);
 const isD3Loaded = ref(false);
