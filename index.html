@@ -2168,6 +2168,7 @@ const clearYearRangeFilter = () => {
 	yearRangeEnd.value = null;
 	tempYearRangeStart.value = '';
 	tempYearRangeEnd.value = '';
+	hoveredItem.value = null;
 };
 
 const swapIfNeeded = () => {
@@ -2767,7 +2768,17 @@ const filteredLettersInModal = computed(() => {
 	return letters;
 });
 
-const filteredYearLabel = computed(() => selectedYear.value ? `سال: ${selectedYear.value}` : 'سال‌ها');
+const filteredYearLabel = computed(() => {
+	if (selectedYear.value) {
+		return `سال: ${selectedYear.value}`;
+	} else if (yearRangeStart.value || yearRangeEnd.value) {
+		const start = yearRangeStart.value ? yearRangeStart.value.toLocaleString('fa', { useGrouping: false }) : '؟';
+		const end = yearRangeEnd.value ? yearRangeEnd.value.toLocaleString('fa', { useGrouping: false }) : '؟';
+		return `بازهٔ سال: ${start}-${end}`;
+	} else {
+		return 'سال‌ها';
+	}
+});
 const filteredDesignerLabel = computed(() => selectedDesigner.value ? `طراح: ${selectedDesigner.value}` : 'طراحان');
 const filteredDirectorLabel = computed(() => selectedDirector.value ? `کارگردان: ${selectedDirector.value}` : 'کارگردان‌ها');
 const filteredLetterLabel = computed(() => selectedLetter.value ? `حرف اول: ${selectedLetter.value}` : 'حروف اول');
@@ -2803,14 +2814,6 @@ onMounted(() => {
 		resizeHandle.addEventListener('mousedown', startResize);
 	} else {
 		console.log('عنصر دستگیره تغییر اندازه یافت نشد!');
-	}
-});
-
-onMounted(() => {
-	const { minYear, maxYear } = yearRangeBounds.value;
-	
-	if (tempYearRangeStart.value === '' && tempYearRangeEnd.value === '' && 
-		yearRangeStart.value === null && yearRangeEnd.value === null) {
 	}
 });
 
@@ -3029,8 +3032,11 @@ const removeFilter = (type, value) => {
 			selectedLetter.value = '';
 			break;
 		case 'yearRange':
-			yearRangeStart.value = '';
-			yearRangeEnd.value = '';
+			yearRangeStart.value = null;
+			yearRangeEnd.value = null;
+			tempYearRangeStart.value = '';
+			tempYearRangeEnd.value = '';
+			hoveredItem.value = null;
 			break;
 
 	}
@@ -3398,7 +3404,7 @@ return {
 	mainContentStyle, isAtTop, pageTitle, isLightBackground, actualBackgroundColor, isDarkTheme,
 	filmCountByYear, filmCountByDesigner, filmCountByDirector, filmCountByLetter, getWikipediaUrl,
 	yearRangeStart, yearRangeEnd, applyYearRangeFilter, clearYearRangeFilter, yearRangeBounds,
-	tempYearRangeStart, tempYearRangeEnd, applyYearRangeFilter, clearYearRangeFilter, normalizeDigits
+	tempYearRangeStart, tempYearRangeEnd, normalizeDigits
 };
 
 } }).mount('#app');
