@@ -2051,13 +2051,15 @@ const sortOrder = ref('random');
 const sortDirection = ref('asc');
 const searchPlaceholder = ref('');
 const isSearchFocused = ref(false);
-const displayedItemsCount = ref(30);
-const itemsPerPage = 12;
 const exactWordMatch = ref(false);
 const isSearchBarVisible = ref(true);
 const searchBarRef = ref(null);
 const searchBarHeight = ref(0);
 const isMobileView = ref(false);
+const itemsPerPageMobile = 6;
+const itemsPerPageDesktop = 18;
+const displayedItemsCount = ref(isMobileView.value ? itemsPerPageMobile : itemsPerPageDesktop);
+const itemsPerPage = computed(() => isMobileView.value ? itemsPerPageMobile : itemsPerPageDesktop);
 const isD3Loaded = ref(false);
 const backgroundColor = ref('#ffffff');
 const savedLogoColor = ref('#ffffff');
@@ -2734,7 +2736,14 @@ const filteredYearsInModal = computed(() => {
 });
 
 watch(filteredItems, () => {
-	displayedItemsCount.value = itemsPerPage;
+	displayedItemsCount.value = itemsPerPage.value;
+});
+
+watch(isMobileView, (newValue) => {
+	const newItemsPerPage = newValue ? itemsPerPageMobile : itemsPerPageDesktop;
+	if (displayedItemsCount.value < newItemsPerPage) {
+		displayedItemsCount.value = newItemsPerPage;
+	}
 });
 
 const directorSearchQuery = ref('');
@@ -3123,7 +3132,7 @@ const handleScroll = () => {
 
 	if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100) {
 		if (displayedItemsCount.value < filteredItems.value.length) {
-			displayedItemsCount.value += itemsPerPage;
+			displayedItemsCount.value += itemsPerPage.value;
 		}
 	}
 
