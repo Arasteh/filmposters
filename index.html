@@ -230,11 +230,6 @@ input[type="text"] {
 	transition: filter 0.3s;
 }
 
-.item-image.no-logo-bw {
-	filter: grayscale(100%) contrast(1.5);
-	image-rendering: pixelated;
-}
-
 .item-image.brightness-0 {
 	filter: invert(1) brightness(0);
 }
@@ -357,17 +352,6 @@ input[type="text"] {
 	width: 100%;
 	height: auto;
 	z-index: 2;
-}
-
-.no-logo-placeholder {
-	height: 50px;
-	border: 1px light-dark(#eee, #333) solid;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-radius: 4px;
-	color: light-dark(#ccc, #555);
-	margin-bottom: 10px;
 }
 
 .lightbox {
@@ -1464,81 +1448,6 @@ input[type="range"]::-webkit-slider-runnable-track {
 						</button>
 					</div>
 
-
-
-					<!-- اسلایدر دوبل
-					<div style="position: relative; height: 80px; margin-top: 15px; padding: 0 10px;">
-
-					<div 
-						style="position: absolute; top: 50%; transform: translateY(-50%); height: 6px; width: calc(100% - 20px); background: var(--text-input-border); border-radius: 4px; left: 10px;">
-					</div>
-
-					<div 
-						:style="{
-						position: 'absolute',
-						top: '50%',
-						transform: 'translateY(-50%)',
-						height: '6px',
-						background: 'var(--bar-color)',
-						borderRadius: '4px',
-						right: `calc(${((Math.min(yearRangeStart || yearRangeBounds.minYear, yearRangeEnd || yearRangeBounds.maxYear) - yearRangeBounds.minYear) / (yearRangeBounds.maxYear - yearRangeBounds.minYear)) * 100}% + 10px)`,
-						width: `calc(${((Math.abs((yearRangeEnd || yearRangeBounds.maxYear) - (yearRangeStart || yearRangeBounds.minYear)) / (yearRangeBounds.maxYear - yearRangeBounds.minYear)) * 100)}%)`
-							}">
-					</div>
-
-					<div 
-						v-if="yearRangeStart && yearRangeEnd && yearRangeStart !== yearRangeEnd"
-						:style="{
-						position: 'absolute',
-						top: '10px',
-						right: `calc(${((yearRangeStart - yearRangeBounds.minYear) / (yearRangeBounds.maxYear - yearRangeBounds.minYear)) * 100}% + 10px)`,
-						transform: 'translateX(50%)',
-						fontSize: '0.8em',
-						background: 'var(--bar-color)',
-						color: 'white',
-						padding: '2px 6px',
-						borderRadius: '4px',
-						whiteSpace: 'nowrap'
-						}"
-						>
-							{{ yearRangeStart.toLocaleString('fa', { useGrouping: false }) }}
-					</div>
-
-					<div 
-						v-if="yearRangeStart && yearRangeEnd && yearRangeStart !== yearRangeEnd"
-						:style="{
-						position: 'absolute',
-						top: '10px',
-						right: `calc(${((yearRangeEnd - yearRangeBounds.minYear) / (yearRangeBounds.maxYear - yearRangeBounds.minYear)) * 100}% + 10px)`,
-						transform: 'translateX(50%)',
-						fontSize: '0.8em',
-						background: 'var(--bar-color)',
-						color: 'white',
-						padding: '2px 6px',
-						borderRadius: '4px',
-						whiteSpace: 'nowrap'
-						}"
-						>
-							{{ yearRangeEnd.toLocaleString('fa', { useGrouping: false }) }}
-					</div>
-
-					<input 
-					type="range"
-					:min="yearRangeBounds.minYear" 
-					:max="yearRangeBounds.maxYear"
-					v-model.number="tempYearRangeStart"
-					style="position: absolute; width: calc(100% - 20px); background: none; pointer-events: auto; z-index: 3; top: 50%; transform: translateY(-50%); right: 10px;"
-					>
-					<input 
-					type="range"
-					:min="yearRangeBounds.minYear" 
-					:max="yearRangeBounds.maxYear"
-					v-model.number="tempYearRangeEnd"
-					style="position: absolute; width: calc(100% - 20px); background: none; pointer-events: auto; z-index: 2; top: 50%; transform: translateY(-50%); right: 10px;"
-					>
-
-					</div>
--->
 					</div>
 
 					<div class="year-grid" style="visibility: hidden" :style="{ visibility: undefined }">
@@ -1575,7 +1484,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 				</div>
 				<div class="sidebar-section-body">
 					<div class="search-container">
-						<input type="text" v-model="designerSearchQuery" placeholder="جستجوی طراح…" />
+						<input type="text" v-model="designerSearchQuery" :placeholder="getTranslatedText('searchDesigner')" />
 						<span v-if="designerSearchQuery" @click="clearDesignerSearchQuery" class="clearSearch"
 							style="display: none" :style="{ display: undefined }">
 							<span class="material-symbols-rounded">
@@ -1585,7 +1494,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 					</div>
 					<div class="designer-grid" style="visibility: hidden" :style="{ visibility: undefined }">
 						<div v-if="filteredDesignersInModal.length === 0" class="no-results">
-							نتیجه‌ای وجود ندارد
+							{{ getTranslatedText('noResults') }}
 						</div>
 						<div v-else v-for="[designer, count] in filteredDesignersInModal" :key="designer"
 							@click="selectedDesigner === designer ? removeDesignerFilter() : selectDesignerFromModal(designer)"
@@ -1617,7 +1526,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 				</div>
 				<div class="sidebar-section-body">
 					<div class="search-container">
-						<input type="text" v-model="directorSearchQuery" placeholder="جستجوی کارگردان…" />
+						<input type="text" v-model="directorSearchQuery" :placeholder="getTranslatedText('searchDirector')" />
 						<span v-if="directorSearchQuery" @click="clearDirectorSearchQuery" class="clearSearch"
 							style="display: none" :style="{ display: undefined }">
 							<span class="material-symbols-rounded">
@@ -1695,11 +1604,6 @@ input[type="range"]::-webkit-slider-runnable-track {
 	<div v-if="lightboxItem" style="display: none" :style="{ display: undefined }" class="lightbox" @click="closeLightbox">
 		<template v-if="lightboxImage">
 			<img :src="lightboxImage" :key="lightboxImage" alt="Lightbox Image" :style="{ backgroundColor: backgroundColor }" />
-		</template>
-		<template v-else>
-			<div class="no-logo-placeholder">
-				(بدون لوگو)
-			</div>
 		</template>
 		<div class="lightbox-info desktop-only" v-if="lightboxItem">
 			<h2>{{ lightboxItem.filmLabel }}</h2>
@@ -1795,6 +1699,9 @@ input[type="range"]::-webkit-slider-runnable-track {
 							<span class="material-symbols-rounded">
 								refresh
 							</span>
+						</button>
+						<button @click="toggleLanguage" id="languageToggle" style="background: none; border: none; cursor: pointer; padding: 5px;">
+							<span style="font-size: 0.9em;">EN/FA</span>
 						</button>
 						<button @click="toggleOptions" class="collapse-button mobile-only"
 							:class="collapseIconClass(isOptionsCollapsed)">
@@ -1894,7 +1801,13 @@ input[type="range"]::-webkit-slider-runnable-track {
 				</div>
 			</div>
 		</div>
-		<div id="filters" class="filters-container" v-if="activeFilters.length > 0" style="display: none" :style="{ display: undefined }">
+		<div id="filters" class="filters-container" 
+			v-if="activeFilters.length > 0" 
+			style="display: none" 
+			:style="{ 
+				display: undefined,
+				...filtersContainerStyle
+			}">
 			<div v-for="(filter, index) in activeFilters" :key="index" @click="removeFilter(filter.type, filter.value)"
 				class="designer-item">
 				<span style="align-content: center;">{{ filter.label }}: {{ filter.value }}</span>
@@ -1911,6 +1824,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 			}"
 			v-for="(item, index) in filteredItems.slice(0, displayedItemsCount)"
 			:key="index"
+			v-show="item"
 			style="visibility: hidden"
 			:style="{
 				visibility: undefined,
@@ -1952,23 +1866,36 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 					<div class="item-title" :class="textColorClass">
 							<a :href="getWikipediaUrl(item)" target="_blank" style="text-decoration: none; color: inherit;">
-								{{ item.filmLabel }}
+								{{ getFilmLabelForItem(item) }}
 							</a>
 						<span class="year-link" :class="textColorClass" v-if="item.date">
 							<a @click.prevent="selectYearFromTitle(toPersianYear(item.date))" href="#" class="year-link" :class="textColorClass">
 								({{ toPersianYear(item.date) }}
-							</a><template v-if="moreInformation"> - <a
-								v-if="moreInformation" :href="'https://commons.wikimedia.org/wiki/Category:' + new Date(item.date).getFullYear() + '_film_posters_of_Iran'"
-								target="_blank" class="gregorian-year-link">{{ new Date(item.date).getFullYear() }}</a></template>)
+							</a>
+							<template v-if="moreInformation && currentLanguage === 'fa'"> 
+								- 
+								<a :href="'https://commons.wikimedia.org/wiki/Category:' + new Date(item.date).getFullYear() + '_film_posters_of_Iran'"
+								target="_blank" class="gregorian-year-link">
+								{{ new Date(item.date).getFullYear() }}
+								</a>
+							</template>
+							<template v-else-if="moreInformation && currentLanguage === 'en'">
+								- 
+								<a :href="'https://commons.wikimedia.org/wiki/Category:' + new Date(item.date).getFullYear() + '_film_posters_of_Iran'"
+								target="_blank" class="gregorian-year-link">
+								{{ new Date(item.date).toLocaleDateString('fa').split('/')[0] }}
+								</a>
+							</template>
+							)
 						</span>
 					</div>
 
 					<div class="more-info-content" :class="{ 'visible': moreInformation }">
-						<div v-if="item.designerLabel && item.designerLabel !== 'نامشخص'" class="item-designer" :class="textColorClass">
+						<div v-if="hasDesigner(item)" class="item-designer" :class="textColorClass">
 							<span class="mobile-only">
 								<span class="material-symbols-rounded" :class="textColorClass" style="margin-left: 5px; top: 8px; position: relative;">person_edit</span>
 							</span>
-							<span class="desktop-only" :class="textColorClass">{{ item.designers.length === 1 ? 'طراح: ' : 'طراحان: ' }}</span>
+							<span class="desktop-only" :class="textColorClass">{{ item.designers.length === 1 ? getTranslatedText('designer') + ': ' : getTranslatedText('designers') + ': ' }}</span>
 							<span :class="textColorClass" v-for="(designer, index) in item.designers" :key="index">
 								<a href="#" :class="textColorClass" @click.prevent="selectDesigner(designer.label)" aria-label="انتخاب طراح">{{ designer.label }}</a>
 								<span class="item-links">
@@ -2000,7 +1927,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 				</div>
 			</div>
 		</div>
-		<p v-else style="text-align: center; display: none;" :style="{ display: undefined }">
+		<p v-else style="text-align: center; padding: 20px;">
 			نتیجه‌ای برای نمایش وجود ندارد.
 		</p>
 	</div>
@@ -2049,7 +1976,54 @@ const pixelatedEffect = ref(false);
 const moreInformation = ref(false);
 const sortOrder = ref('random');
 const sortDirection = ref('asc');
-const searchPlaceholder = ref('');
+
+const translations = {
+	fa: {
+		search: 'جستجو',
+		searchDesktop: 'جستجو (برای پرش به کادر جستجو / را تایپ کنید)',
+		searchDesigner: 'جستجوی طراح…',
+		searchDirector: 'جستجوی کارگردان…',
+		noResults: 'نتیجه‌ای وجود ندارد',
+		unknown: 'نامشخص',
+		designer: 'طراح',
+		designers: 'طراحان',
+		director: 'کارگردان',
+		directors: 'کارگردان‌ها',
+		year: 'سال',
+		years: 'سال‌ها',
+		yearRange: 'بازهٔ سال',
+		letter: 'حرف اول',
+		letters: 'حروف اول',
+		filmPosters: 'آرشیو پوسترهای سینمای ایران',
+		filmLogos: 'آرشیو لوگوهای سینمای ایران',
+	},
+	en: {
+		search: 'Search',
+		searchDesktop: 'Search (type / to jump to search field)',
+		searchDesigner: 'Search designers…',
+		searchDirector: 'Search directors…',
+		noResults: 'No results found',
+		unknown: 'Unknown',
+		designer: 'Designer',
+		designers: 'Designers',
+		director: 'Director',
+		directors: 'Directors',
+		year: 'Year',
+		years: 'Years',
+		yearRange: 'Year Range',
+		letter: 'First Letter',
+		letters: 'First Letters',
+		filmPosters: 'Film Posters of Iran',
+		filmLogos: 'Film Logos of Iran'
+	}
+};
+
+const currentLanguage = ref('fa');
+const getTranslatedText = (key) => {
+	return translations[currentLanguage.value]?.[key] || key;
+};
+
+const searchPlaceholder = ref(getTranslatedText('search'));
 const isSearchFocused = ref(false);
 const exactWordMatch = ref(false);
 const isSearchBarVisible = ref(true);
@@ -2068,11 +2042,18 @@ const yearRangeStart = ref(null);
 const yearRangeEnd = ref(null);
 const tempYearRangeStart = ref('');
 const tempYearRangeEnd = ref('');
+const currentRandomOrder = ref([]);
+
+const toggleLanguage = () => {
+	currentLanguage.value = currentLanguage.value === 'fa' ? 'en' : 'fa';
+	clearYearRangeFilter();
+	updateURL();
+};
 
 const pageTitle = computed(() => {
-  return posterMode.value
-	? "آرشیو پوسترهای سینمای ایران"
-	: "آرشیو لوگوهای سینمای ایران";
+	return posterMode.value
+		? getTranslatedText('filmPosters')
+		: getTranslatedText('filmLogos');
 });
 
 const onSearchFocus = (event) => {
@@ -2117,6 +2098,7 @@ const applyInitialFilters = () => {
 	savedLogoColor.value = backgroundColor.value;
 	const yearStartParam = urlParams.get('yearStart');
 	const yearEndParam = urlParams.get('yearEnd');
+	currentLanguage.value = urlParams.get('lang') || 'fa';
 
 	if (yearStartParam !== null || yearEndParam !== null) {
 		yearRangeStart.value = yearStartParam ? parseInt(yearStartParam) : null;
@@ -2242,9 +2224,9 @@ const isLightBackground = (color) => {
 };
 
 const isDarkTheme = computed(() => {
-    return document.documentElement.style.colorScheme === 'dark' ||
-           document.documentElement.classList.contains('dark') ||
-           window.matchMedia('(prefers-color-scheme: dark)').matches;
+	return document.documentElement.style.colorScheme === 'dark' ||
+		document.documentElement.classList.contains('dark') ||
+		window.matchMedia('(prefers-color-scheme: dark)').matches;
 });
 
 const actualBackgroundColor = (item) => {
@@ -2285,11 +2267,14 @@ const updateURL = () => {
 	if (!posterMode.value && backgroundColor.value !== '#ffffff') {
 		params.set('bgcolor', backgroundColor.value.replace('#', ''));
 	}
+	if (currentLanguage.value !== 'fa') {
+		params.set('lang', currentLanguage.value);
+	}
 
 	if (yearRangeStart.value !== null) params.set('yearStart', String(yearRangeStart.value));
 	if (yearRangeEnd.value !== null) params.set('yearEnd', String(yearRangeEnd.value));
 
-	const newUrl = `${window.location.pathname}?${params.toString()}`;
+	const newUrl = params.toString() ? `${window.location.pathname}?${params.toString()}` : window.location.pathname;
 	window.history.pushState({}, '', newUrl);
 };
 watch([
@@ -2298,19 +2283,25 @@ watch([
 	moreInformation, backgroundColor, yearRangeStart, yearRangeEnd
 ], updateURL);
 
+watch([searchTerm, selectedYear, selectedDesigner, selectedDirector, selectedLetter, yearRangeStart, yearRangeEnd], () => {
+	if (sortOrder.value === 'random') {
+		currentRandomOrder.value = [];
+	}
+});
+
 watch([yearRangeStart, yearRangeEnd], ([newStart, newEnd]) => {
 }, { deep: true });
 
 watch(tempYearRangeStart, (newValue) => {
-    if (newValue !== '') {
-        applyYearRangeFilter();
-    }
+	if (newValue !== '') {
+		applyYearRangeFilter();
+	}
 });
 
 watch(tempYearRangeEnd, (newValue) => {
-    if (newValue !== '') {
-        applyYearRangeFilter();
-    }
+	if (newValue !== '') {
+		applyYearRangeFilter();
+	}
 });
 
 
@@ -2372,61 +2363,100 @@ const uniqueResultsFilmCount = computed(() => {
 	return uniqueFilmIds.size.toLocaleString('fa', { useGrouping: false });
 });
 
-const items = films.flatMap(film => {
+const getLabel = (labels) => {
+	if (!labels) return getTranslatedText('unknown');
+	const label = labels?.[currentLanguage.value] || labels?.fa || labels?.en;
+	return label || getTranslatedText('unknown');
+};
+
+const getItemLabel = (labels) => {
+	if (!labels) return getTranslatedText('unknown');
+	return labels[currentLanguage.value] || labels.fa || labels.en || getTranslatedText('unknown');
+};
+
+const getFilmLabel = (film) => {
+	if (!film?.labels) return getTranslatedText('unknown');
+	return getItemLabel(film.labels);
+};
+
+const getDesignerLabel = (designerId) => {
+	if (!designerId) return getTranslatedText('unknown');
+	const designer = data.secondary[designerId];
+	if (!designer?.labels) return getTranslatedText('unknown');
+	return getItemLabel(designer.labels);
+};
+
+const getDirectorLabel = (directorId) => {
+	if (!directorId) return getTranslatedText('unknown');
+	const director = data.secondary[directorId];
+	if (!director?.labels) return getTranslatedText('unknown');
+	return getItemLabel(director.labels);
+};
+
+const items = computed(() => {
+	return films.flatMap(film => {
+		if (!film) return [];
+
 	return film.posters.map((poster, i) => {
+		if (!poster) return null;
+
 		const item = {};
 		item.film = film.id;
-		if (!film.labels.fa) {
+		if (!film.labels?.fa) {
 			console.log(film.id + ' doesn\'t have Persian label!');
 		}
-		item.filmLabel = film.labels.fa || film.labels.en || '';
-		item.aliases = film.aliases?.fa?.join(',') ?? '';
+		item.filmLabel = getFilmLabel(film) || getTranslatedText('unknown');
+		item.aliases = film.aliases?.[currentLanguage.value]?.join(',') ?? '';
 		item.date = film.date
-			.map(x => x.replace(/^\+/, '')
-				.replace('-01-01T00:00:00Z', '-03-30T00:00:00Z')
-				.replace('-00-00T00:00:00Z', '-03-30T00:00:00Z')
-				.replace('-00T', '-01T')
+			?.map(x => x?.replace(/^\+/, '')
+				?.replace('-01-01T00:00:00Z', '-03-30T00:00:00Z')
+				?.replace('-00-00T00:00:00Z', '-03-30T00:00:00Z')
+				?.replace('-00T', '-01T')
 			)
-			.sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0];
+			?.sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0] || '';
+
 		item.poster = poster.image;
 		item.posterHash = poster.hash;
 		item.isNsfw = poster.characteristics?.includes('Q2716583') ?? false;
-		if (poster.designers?.length ?? 0) {
+		if (poster.designers?.length) {
 			item.designers = poster.designers.map(designerId => {
 				const designer = data.secondary[designerId];
 				return {
 					id: designerId,
-					label: designer.labels.fa,
-					faWikipediaLink: designer.sitelinks?.fawiki
+						label: getItemLabel(designer?.labels) || getTranslatedText('unknown'),
+					faWikipediaLink: designer?.sitelinks?.fawiki
 				};
-			});
+			}).filter(designer => designer != null);
 			item.characteristics = poster.characteristics;
-			item.designerLabel = data.secondary[poster.designers[0]].labels.fa;
-			const fawiki = data.secondary[poster.designers[0]].sitelinks.fawiki;
+			item.designerLabel = getDesignerLabel(poster.designers[0]) || getTranslatedText('unknown');
+			const fawiki = data.secondary[poster.designers[0]]?.sitelinks?.fawiki;
 			if (fawiki) item.designerFaWikipediaLink = fawiki;
 		} else {
-			item.designerLabel = 'نامشخص';
+			item.designers = [];
+			item.designerLabel = getTranslatedText('unknown');
 		}
-		if (film.directors.length) {
+		if (film.directors?.length) {
 			item.director = film.directors[0];
-			item.directorLabel = data.secondary[film.directors[0]].labels.fa || 'نامشخص';
+			item.directorLabel = getDirectorLabel(film.directors[0]) || getTranslatedText('unknown');
 		} else {
-			item.directorLabel = 'نامشخص';
+			item.directorLabel = getTranslatedText('unknown');
 		}
 		if (film.imdb.length) {
-			item.imdbID = film.imdb[0];
+			item.imdbID = film.imdb?.[0];
 		}
-		item.faWikipediaLink = film.sitelinks.fawiki;
-		if (film.logos.length > i && film.logos[i].image.endsWith('.png')) {
+		item.faWikipediaLink = film.sitelinks?.fawiki;
+		if (film.logos?.length > i && film.logos[i]?.image?.endsWith('.png')) {
 			item.logo = film.logos[i].image;
 			item.logoHash = film.logos[i].hash;
 		}
 		return item;
-	});
+		}).filter(item => item != null) || [];
+	}).filter(item => item != null);
 });
+
 const itemsLength = computed(() => {
 	const count = posterMode.value
-		? items.length
+		? items.value.length
 		: logos.length;
 	return count.toLocaleString('fa', { useGrouping: false });
 });
@@ -2446,12 +2476,39 @@ const persianAlphabet = [
 ];
 
 const toPersianYear = date => {
-	const year = new Date(date).toLocaleDateString('fa').split('/')[0];
-	return year === 'Invalid Date' ? 'نامشخص' : year;
+	if (!date) return currentLanguage.value === 'en' ? 'Unknown' : 'نامشخص';
+	
+	const gregorianYear = new Date(date).getFullYear();
+	const persianDate = new Date(date).toLocaleDateString('fa');
+	const persianYear = persianDate.split('/')[0];
+	
+	if (isNaN(gregorianYear) || persianYear === 'Invalid Date') {
+		return currentLanguage.value === 'en' ? 'Unknown' : 'نامشخص';
+	}
+	
+	if (currentLanguage.value === 'en') {
+		if (moreInformation.value) {
+			return `${gregorianYear} (${persianYear})`;
+		} else {
+			return `${gregorianYear}`;
+		}
+	} else {
+		if (moreInformation.value) {
+			return `${persianYear} (${gregorianYear})`;
+		} else {
+			return persianYear;
+		}
+	}
 };
 
 const availableYears = computed(() => {
-	const groups = Object.groupBy(items, item => toPersianYear(item.date));
+	const groups = {};
+	items.value.forEach(item => {
+		const year = toPersianYear(item.date);
+		if (!groups[year]) groups[year] = [];
+		groups[year].push(item);
+	});
+	
 	let years = Object.keys(groups)
 		.map(year => [year, groups[year].length]);
 
@@ -2472,26 +2529,92 @@ const availableYearsForRange = computed(() => {
 	return [...new Set(years)];
 });
 
-const availableDesigners = computed(() => {
-	const groups = Object.groupBy(items, item => item.designerLabel);
-	let designers = Object.keys(groups)
-		.map(designer => [designer, groups[designer].length]);
+const getDesignerLabelForItem = (item) => {
+	if (item.designers && item.designers.length > 0) {
+		return getDesignerLabel(item.designers[0].id);
+	}
+	return getTranslatedText('unknown');
+};
 
-	const unknown = designers.find(([name]) => name === 'نامشخص');
-	designers = designers.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
+const hasDesigner = (item) => {
+	return item.designers && 
+		item.designers.length > 0 && 
+		item.designers.some(designer => designer.label && designer.label !== getTranslatedText('unknown'));
+};
+
+const availableDesigners = computed(() => {
+	const groups = {};
+	items.value.forEach(item => {
+		if (item.designers && item.designers.length > 0) {
+			item.designers.forEach(designer => {
+				const designerId = designer.id;
+				if (!groups[designerId]) groups[designerId] = 0;
+				groups[designerId]++;
+			});
+		} else {
+			const unknownKey = 'unknown';
+			if (!groups[unknownKey]) groups[unknownKey] = 0;
+			groups[unknownKey]++;
+		}
+	});
+
+	let designers = Object.entries(groups).map(([id, count]) => {
+		let label;
+		if (id === 'unknown') {
+			label = getTranslatedText('unknown');
+		} else {
+			const designer = data.secondary[id];
+			label = getItemLabel(designer?.labels) || getTranslatedText('unknown');
+		}
+		return [label, count];
+	});
+
+	const unknown = designers.find(([name]) => name === getTranslatedText('unknown'));
+	designers = designers.filter(([name]) => name !== getTranslatedText('unknown'))
+						.sort((a, b) => b[1] - a[1]);
 	if (unknown) {
 		designers.push(unknown);
 	}
 	return designers;
 });
 
-const availableDirectors = computed(() => {
-	const groups = Object.groupBy(items, item => item.directorLabel);
-	let directors = Object.keys(groups)
-		.map(director => [director, groups[director].length]);
+const getDirectorLabelForItem = (item) => {
+	return item.director ? getDirectorLabel(item.director) : getTranslatedText('unknown');
+};
 
-	const unknown = directors.find(([name]) => name === 'نامشخص');
-	directors = directors.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
+const getFilmLabelForItem = (item) => {
+	const film = data.films[item.film];
+	return getFilmLabel(film);
+};
+
+const availableDirectors = computed(() => {
+	const groups = {};
+	items.value.forEach(item => {
+		if (item.director) {
+			const directorId = item.director;
+			if (!groups[directorId]) groups[directorId] = 0;
+			groups[directorId]++;
+		} else {
+			const unknownKey = 'unknown';
+			if (!groups[unknownKey]) groups[unknownKey] = 0;
+			groups[unknownKey]++;
+		}
+	});
+
+	let directors = Object.entries(groups).map(([id, count]) => {
+		let label;
+		if (id === 'unknown') {
+			label = getTranslatedText('unknown');
+		} else {
+			const director = data.secondary[id];
+			label = getItemLabel(director?.labels) || getTranslatedText('unknown');
+		}
+		return [label, count];
+	});
+
+	const unknown = directors.find(([name]) => name === getTranslatedText('unknown'));
+	directors = directors.filter(([name]) => name !== getTranslatedText('unknown'))
+						.sort((a, b) => b[1] - a[1]);
 	if (unknown) {
 		directors.push(unknown);
 	}
@@ -2504,14 +2627,14 @@ const getItemTitleWithYear = item => {
 
 const letterCounts = computed(() => {
 	const counts = persianAlphabet.reduce((acc, letter) => {
-		acc[letter] = items.filter(item => item.filmLabel.startsWith(letter)).length;
+		acc[letter] = items.value.filter(item => item.filmLabel.startsWith(letter)).length;
 		return acc;
 	}, {});
 	return counts;
 });
 
 const filteredItems = computed(() => {
-	let results = items;
+	let results = items.value.filter(item => item != null);
 
 	const trimmedSearchTerm = searchTerm.value
 		.replace(/^[\s\u200C]+|[\s\u200C]+$/g, '')
@@ -2541,7 +2664,7 @@ const filteredItems = computed(() => {
 		try {
 			const regex = new RegExp(regexString, 'iu');
 			results = results.filter(item =>
-				regex.test(item.filmLabel) ||
+				regex.test(getFilmLabelForItem(item)) ||
 				regex.test(item.aliases || '')
 			);
 		} catch (e) {
@@ -2556,12 +2679,12 @@ const filteredItems = computed(() => {
 
 	if (selectedDesigner.value) {
 		results = results.filter(item =>
-			item.designerLabel === selectedDesigner.value
+			getDesignerLabelForItem(item) === selectedDesigner.value // تغییر این خط
 		);
 	}
 
 	if (selectedDirector.value) {
-		results = results.filter(item => item.directorLabel === selectedDirector.value);
+			getDirectorLabelForItem(item) === selectedDirector.value // تغییر این خط
 	}
 
 	if (selectedLetter.value) {
@@ -2594,9 +2717,19 @@ const filteredItems = computed(() => {
 			return sortDirection.value === 'asc' ? comparison : -comparison;
 		});
 	} else if (sortOrder.value === 'random') {
-		results = results.slice().sort(() => Math.random() - 0.5);
+		if (currentRandomOrder.value.length === 0 || 
+			currentRandomOrder.value.length !== results.length) {
+			
+			const shuffled = [...results].sort(() => Math.random() - 0.5);
+			currentRandomOrder.value = shuffled.map(item => `${item.film}-${item.poster}`);
+			results = shuffled;
+		} else {
+			const itemMap = new Map(results.map(item => [`${item.film}-${item.poster}`, item]));
+			results = currentRandomOrder.value
+				.map(posterId => itemMap.get(posterId))
+				.filter(item => item != null);
+		}
 	}
-
 	return results;
 });
 
@@ -2607,7 +2740,13 @@ watch(designerQuery, newValue => {
 });
 
 const filteredYears = computed(() => {
-	const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
+	const groups = {};
+	filteredItems.value.forEach(item => {
+		const year = toPersianYear(item.date);
+		if (!groups[year]) groups[year] = [];
+		groups[year].push(item);
+	});
+	
 	let years = Object.keys(groups)
 		.map(year => [year, groups[year].length]);
 
@@ -2620,12 +2759,20 @@ const filteredYears = computed(() => {
 });
 
 const filteredDesigners = computed(() => {
-	const groups = Object.groupBy(filteredItems.value, item => item.designerLabel);
+	const lang = currentLanguage.value;
+	
+	const groups = {};
+	filteredItems.value.forEach(item => {
+		const designer = getDesignerLabelForItem(item);
+		if (!groups[designer]) groups[designer] = [];
+		groups[designer].push(item);
+	});
+	
 	let designers = Object.keys(groups)
 		.map(designer => [designer, groups[designer].length]);
 
-	const unknown = designers.find(([name]) => name === 'نامشخص');
-	designers = designers.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
+	const unknown = designers.find(([name]) => name === getTranslatedText('unknown'));
+	designers = designers.filter(([name]) => name !== getTranslatedText('unknown')).sort((a, b) => b[1] - a[1]);
 	if (unknown) {
 		designers.push(unknown);
 	}
@@ -2633,12 +2780,20 @@ const filteredDesigners = computed(() => {
 });
 
 const filteredDirectors = computed(() => {
-	const groups = Object.groupBy(filteredItems.value, item => item.directorLabel);
+	const lang = currentLanguage.value;
+	
+	const groups = {};
+	filteredItems.value.forEach(item => {
+		const director = getDirectorLabelForItem(item);
+		if (!groups[director]) groups[director] = [];
+		groups[director].push(item);
+	});
+	
 	let directors = Object.keys(groups)
 		.map(director => [director, groups[director].length]);
 
-	const unknown = directors.find(([name]) => name === 'نامشخص');
-	directors = directors.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
+	const unknown = directors.find(([name]) => name === getTranslatedText('unknown'));
+	directors = directors.filter(([name]) => name !== getTranslatedText('unknown')).sort((a, b) => b[1] - a[1]);
 	if (unknown) {
 		directors.push(unknown);
 	}
@@ -2646,7 +2801,13 @@ const filteredDirectors = computed(() => {
 });
 
 const filteredDesignersInModal = computed(() => {
-	const groups = Object.groupBy(filteredItems.value, item => item.designerLabel);
+	const groups = {};
+	filteredItems.value.forEach(item => {
+		const designer = item.designerLabel;
+		if (!groups[designer]) groups[designer] = [];
+		groups[designer].push(item);
+	});
+	
 	let designers = Object.keys(groups)
 		.map(designer => [designer, groups[designer].length]);
 
@@ -2723,7 +2884,13 @@ const selectDesignerFromModal = designer => {
 };
 
 const filteredYearsInModal = computed(() => {
-	const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
+	const groups = {};
+	filteredItems.value.forEach(item => {
+		const year = toPersianYear(item.date);
+		if (!groups[year]) groups[year] = [];
+		groups[year].push(item);
+	});
+	
 	let years = Object.keys(groups)
 		.map(year => [year, groups[year].length]);
 
@@ -2746,10 +2913,37 @@ watch(isMobileView, (newValue) => {
 	}
 });
 
+watch(currentLanguage, () => {
+	filteredItems.value = [...filteredItems.value];
+	availableDesigners.value = [...availableDesigners.value];
+	availableDirectors.value = [...availableDirectors.value];
+	filteredDesignersInModal.value = [...filteredDesignersInModal.value];
+	filteredDirectorsInModal.value = [...filteredDirectorsInModal.value];
+});
+
+watch(currentLanguage, (newLang, oldLang) => {
+	if (newLang !== oldLang) {
+		clearYearRangeFilter();
+	}
+});
+
+watch(posterMode, () => {
+	if (sortOrder.value === 'random') {
+		currentRandomOrder.value = [];
+	}
+});
+
+
 const directorSearchQuery = ref('');
 
 const filteredDirectorsInModal = computed(() => {
-	const groups = Object.groupBy(filteredItems.value, item => item.directorLabel);
+	const groups = {};
+	filteredItems.value.forEach(item => {
+		const director = item.directorLabel;
+		if (!groups[director]) groups[director] = [];
+		groups[director].push(item);
+	});
+	
 	let directors = Object.keys(groups)
 		.map(director => [director, groups[director].length]);
 
@@ -2779,18 +2973,33 @@ const filteredLettersInModal = computed(() => {
 
 const filteredYearLabel = computed(() => {
 	if (selectedYear.value) {
-		return `سال: ${selectedYear.value}`;
+		return `${getTranslatedText('year')}: ${selectedYear.value}`;
 	} else if (yearRangeStart.value || yearRangeEnd.value) {
 		const start = yearRangeStart.value ? yearRangeStart.value.toLocaleString('fa', { useGrouping: false }) : '؟';
 		const end = yearRangeEnd.value ? yearRangeEnd.value.toLocaleString('fa', { useGrouping: false }) : '؟';
-		return `بازهٔ سال: ${start}-${end}`;
+		return `${getTranslatedText('yearRange')}: ${start}-${end}`;
 	} else {
-		return 'سال‌ها';
+		return getTranslatedText('years');
 	}
 });
-const filteredDesignerLabel = computed(() => selectedDesigner.value ? `طراح: ${selectedDesigner.value}` : 'طراحان');
-const filteredDirectorLabel = computed(() => selectedDirector.value ? `کارگردان: ${selectedDirector.value}` : 'کارگردان‌ها');
-const filteredLetterLabel = computed(() => selectedLetter.value ? `حرف اول: ${selectedLetter.value}` : 'حروف اول');
+
+const filteredDesignerLabel = computed(() => 
+	selectedDesigner.value 
+		? `${getTranslatedText('designer')}: ${selectedDesigner.value}` 
+		: getTranslatedText('designers')
+);
+
+const filteredDirectorLabel = computed(() => 
+	selectedDirector.value 
+		? `${getTranslatedText('director')}: ${selectedDirector.value}` 
+		: getTranslatedText('directors')
+);
+
+const filteredLetterLabel = computed(() => 
+	selectedLetter.value 
+		? `${getTranslatedText('letter')}: ${selectedLetter.value}` 
+		: getTranslatedText('letters')
+);
 
 const sidebarWidth = ref(440);
 const minSidebarWidth = ref(300);
@@ -3007,20 +3216,22 @@ const selectYearFromTitle = year => selectedYear.value = year;
 const activeFilters = computed(() => {
 	const filters = [];
 	if (selectedYear.value) {
-		filters.push({ type: 'year', label: 'سال', value: selectedYear.value });
+		filters.push({ type: 'year', label: getTranslatedText('year'), value: selectedYear.value });
 	}
 	if (selectedDesigner.value) {
-		filters.push({ type: 'designer', label: 'طراح', value: selectedDesigner.value });
+		filters.push({ type: 'designer', label: getTranslatedText('designer'), value: selectedDesigner.value });
 	}
 	if (selectedDirector.value) {
-		filters.push({ type: 'director', label: 'کارگردان', value: selectedDirector.value });
+		filters.push({ type: 'director', label: getTranslatedText('director'), value: selectedDirector.value });
 	}
 	if (selectedLetter.value) {
-		filters.push({ type: 'letter', label: 'حرف اول', value: selectedLetter.value });
+		filters.push({ type: 'letter', label: getTranslatedText('letter'), value: selectedLetter.value });
 	}
 	if (yearRangeStart.value || yearRangeEnd.value) {
-		const rangeLabel = `${(yearRangeStart.value || '؟').toLocaleString('fa', { useGrouping: false })} - ${(yearRangeEnd.value || '؟').toLocaleString('fa', { useGrouping: false })}`;
-		filters.push({ type: 'yearRange', label: 'بازهٔ سال', value: rangeLabel });
+		const start = yearRangeStart.value ? yearRangeStart.value.toLocaleString(currentLanguage.value === 'fa' ? 'fa' : 'en', { useGrouping: false }) : '?';
+		const end = yearRangeEnd.value ? yearRangeEnd.value.toLocaleString(currentLanguage.value === 'fa' ? 'fa' : 'en', { useGrouping: false }) : '?';
+		const rangeLabel = `${start} - ${end}`;
+		filters.push({ type: 'yearRange', label: getTranslatedText('yearRange'), value: rangeLabel });
 	}
 
 	return filters;
@@ -3232,6 +3443,28 @@ const mainContentStyle = computed(() => {
 	};
 });
 
+const filtersContainerStyle = computed(() => {
+	if (isMobileView.value) {
+		return {
+			width: '100%',
+			maxWidth: '100%'
+		};
+	} else {
+		let style = {};
+		if (sidebarVisible.value) {
+			style.width = `calc(100% - ${sidebarWidth.value - 320}px)`;
+			style.maxWidth = '960px';
+			style.marginLeft = '0px';
+		} else {
+			style.width = '100%';
+			style.maxWidth = '960px';
+			style.marginLeft = '0';
+			style.marginRight = '0';
+		}
+		return style;
+	}
+});
+
 const updateChart = () => {
 	const svg = d3.select("#yearsChart");
 	svg.selectAll("*").remove();
@@ -3302,8 +3535,8 @@ const updateChart = () => {
 			tooltip.transition().duration(200).style("opacity", .9);
 			const [xPos, yPos] = d3.pointer(event);
 			tooltip.html(`سال: ${d[0]}<br/>پوستر: ${d[1].toLocaleString('fa')}`)
-				   .style("left", (xPos + margin.left) + "px")
-				   .style("top", (yPos + margin.top - 28) + "px");
+				.style("left", (xPos + margin.left) + "px")
+				.style("top", (yPos + margin.top - 28) + "px");
 		})
 		.on("mouseout", () => {
 			tooltip.transition().duration(500).style("opacity", 0);
@@ -3342,9 +3575,9 @@ onMounted(() => {
 	const checkMobile = () => {
 		isMobileView.value = window.innerWidth <= 768;
 		if (isMobileView.value) {
-			searchPlaceholder.value = 'جستجو';
+			searchPlaceholder.value = getTranslatedText('search');
 		} else {
-			searchPlaceholder.value = 'جستجو (برای پرش به کادر جستجو / را تایپ کنید)';
+			searchPlaceholder.value = getTranslatedText('searchDesktop');
 		}
 	};
 
@@ -3413,7 +3646,9 @@ return {
 	mainContentStyle, isAtTop, pageTitle, isLightBackground, actualBackgroundColor, isDarkTheme,
 	filmCountByYear, filmCountByDesigner, filmCountByDirector, filmCountByLetter, getWikipediaUrl,
 	yearRangeStart, yearRangeEnd, applyYearRangeFilter, clearYearRangeFilter, yearRangeBounds,
-	tempYearRangeStart, tempYearRangeEnd, normalizeDigits
+	tempYearRangeStart, tempYearRangeEnd, normalizeDigits, currentLanguage, toggleLanguage,
+	getTranslatedText, getFilmLabel, getDesignerLabel, getDirectorLabel, getFilmLabelForItem, hasDesigner, filtersContainerStyle
+
 };
 
 } }).mount('#app');
