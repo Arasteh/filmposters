@@ -1370,7 +1370,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 </style>
 </head>
 <body>
-<div id="app">
+<div id="app"><div :style="{ direction: currentLanguage === 'en' ? 'ltr' : 'rtl'}">
 	<div id="sidebarOverlay" class="sidebar-overlay" :class="{ visible: sidebarVisible && isMobileView }" @click="hideSidebar">
 	</div>
 	<div id="sidebar" class="sidebar" :class="{ 'visible-desktop': sidebarVisible && !isMobileView }" :style="sidebarStyle">
@@ -1971,7 +1971,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 			نتیجه‌ای برای نمایش وجود ندارد.
 		</p>
 	</div>
-</div>
+</div></div>
 <script>
 {
 	const urlParams = new URLSearchParams(window.location.search);
