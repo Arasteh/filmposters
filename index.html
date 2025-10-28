@@ -81,6 +81,182 @@ body {
 	padding-top: 0;
 }
 
+.language-toggle {
+	position: fixed;
+	top: 20px;
+	left: 20px;
+	z-index: 1000;
+	background: var(--search-background);
+	border: 1px solid var(--text-input-border);
+	border-radius: 8px;
+	padding: 8px 12px;
+	cursor: pointer;
+	font-size: 14px;
+	transition: all 0.3s;
+}
+
+.language-toggle:hover {
+	background: var(--bar-color);
+	color: white;
+}
+
+html[dir="ltr"] .language-toggle {
+	left: auto;
+	right: 20px;
+}
+
+html[dir="ltr"] .sidebar {
+	left: 20px;
+	right: auto;
+	transform: translateX(-105%);
+}
+
+html[dir="ltr"] .sidebar.visible-desktop {
+	transform: translateX(0);
+}
+
+html[dir="ltr"] #desktopSidebarToggleButton {
+	left: 20px;
+	right: auto;
+}
+
+html[dir="ltr"] #toTop {
+	left: auto;
+	right: 30px;
+}
+
+html[dir="ltr"] .clearSearch {
+	left: 12px;
+	right: auto;
+}
+
+html[dir="ltr"] .logo-indicator {
+	left: auto;
+	right: 10px;
+}
+
+html[dir="ltr"] .download-btn {
+	left: 10px;
+	right: auto;
+}
+
+html[dir="ltr"] .lightbox-info {
+	left: 20px;
+	right: auto;
+	text-align: left;
+}
+
+html[dir="ltr"] .lightbox-button[style*="left: 20px"] {
+	left: auto;
+	right: 20px;
+}
+
+html[dir="ltr"] .lightbox-button[style*="right: 20px"] {
+	right: auto;
+	left: 20px;
+}
+
+html[dir="ltr"] .tooltip .tooltiptext {
+	left: 70%;
+	right: auto;
+}
+
+html[dir="ltr"] .tooltip .tooltiptext::after {
+	left: 50%;
+	right: auto;
+	margin-left: -5px;
+}
+
+html[dir="ltr"] .filtersTitle {
+	left: 60px;
+	right: auto;
+}
+
+html[dir="ltr"] .removeRange,
+html[dir="ltr"] .applyRange {
+	margin-right: 0;
+	margin-left: 5px;
+}
+
+html[dir="ltr"] .designer-item .remove-filter,
+html[dir="ltr"] .director-item .remove-filter,
+html[dir="ltr"] .year-item .remove-filter,
+html[dir="ltr"] .letter-item .remove-filter {
+	margin-left: 0;
+	margin-right: 4px;
+}
+
+html[dir="ltr"] .item-designer a {
+	margin-left: 0;
+	margin-right: 4px;
+}
+
+html[dir="ltr"] #main-content {
+	margin-right: 0;
+	margin-left: 0;
+}
+
+html[dir="ltr"] .search-bar {
+	left: 20px;
+	right: auto;
+}
+
+html[dir="ltr"] .search-bar.visible {
+	left: 20px;
+	right: auto;
+}
+
+.english-text {
+	direction: ltr;
+	text-align: left;
+}
+
+html[dir="ltr"] .english-text {
+	direction: ltr;
+	text-align: left;
+}
+
+html[dir="rtl"] .english-text {
+	direction: ltr;
+	text-align: left;
+	unicode-bidi: embed;
+}
+
+.film-title-year {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+html[dir="ltr"] .film-title-year {
+	align-items: flex-start;
+}
+
+html[dir="rtl"] .film-title-year {
+	align-items: flex-end;
+}
+
+@media (max-width: 768px) {
+	html[dir="ltr"] .sidebar {
+	left: -105%;
+	right: auto;
+	}
+	
+	html[dir="ltr"] .sidebar.visible {
+	left: 0;
+	right: auto;
+	}
+	
+	html[dir="ltr"] .search-bar {
+	left: 0 !important;
+	right: auto !important;
+	}
+	
+	html[dir="ltr"] #main-content {
+	margin-left: 0 !important;
+	}
+}
+
 .title-container {
 	position: absolute;
 	top: 10px;
@@ -546,6 +722,70 @@ input[type="text"] {
 	transform: translateX(56px);
 }
 
+html[dir="rtl"] .toggle-switch::before {
+	content: '';
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	width: 56px;
+	height: calc(100% - 8px);
+	background-color: var(--bar-color);
+	border-radius: 8px;
+	transition: 0.4s cubic-bezier(1, 0, 0, 1);
+}
+
+html[dir="rtl"] .toggle-switch[data-mode="poster"]::before {
+	transform: translateX(56px);
+}
+
+html[dir="ltr"] .toggle-switch::before {
+	content: '';
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	width: 56px;
+	height: calc(100% - 8px);
+	background-color: var(--bar-color);
+	border-radius: 8px;
+	transition: 0.4s cubic-bezier(1, 0, 0, 1);
+}
+
+html[dir="ltr"] .toggle-switch[data-mode="poster"]::before {
+	transform: translateX(-56px);
+}
+
+html[dir="ltr"] .triple-switch::before {
+	content: '';
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	width: calc(37%);
+	height: calc(100% - 8px);
+	background-color: var(--bar-color);
+	border-radius: 30px;
+	transition: 0.4s cubic-bezier(1, 0, 0, 1);
+	transition-property: transform, width;
+}
+
+html[dir="ltr"] .triple-switch[data-sort="alphabetical"]::before {
+	transform: translateX(-191%);
+	width: calc(33%);
+}
+
+html[dir="ltr"] .triple-switch[data-sort="year"]::before {
+	transform: translateX(-128%);
+	width: calc(28%);
+}
+
+html[dir="ltr"] .triple-switch[data-sort="random"]::before {
+	transform: translateX(0%);
+}
+
+html[dir="ltr"] .sort-direction-icon {
+	transition: transform 0.3s ease-in-out;
+}
+
+
 .sort-order-container {
 	display: flex;
 	align-items: center;
@@ -696,7 +936,7 @@ input[type="text"] {
 	position: fixed;
 	top: 20px;
 	right: 20px;
-	z-index: 999;
+	z-index: 1001;
 	background: none;
 	color: var(--body-foreground);
 	border: none;
@@ -704,6 +944,7 @@ input[type="text"] {
 	padding: 10px 15px;
 	cursor: pointer;
 	transition: all 0.3s ease-in-out;
+	display: block !important;
 }
 
 #desktopSidebarToggleButton:hover {
@@ -740,18 +981,31 @@ input[type="text"] {
 	resize: none;
 	position: fixed;
 	top: 20px;
-	left: auto;
-	right: 20px;
 	height: calc(100vh - 40px);
-	transition: transform 0.3s ease-in-out;
 	background-color: var(--search-background);
 	border-radius: 16px;
 	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-	transform: translateX(105%);
-	z-index: 100;
 }
 
-.sidebar.visible-desktop {
+html[dir="ltr"] .sidebar {
+	left: 20px;
+	right: auto;
+	transform: translateX(-105%);
+	transition: transform 0.3s ease-in-out;
+}
+
+html[dir="ltr"] .sidebar.visible-desktop {
+	transform: translateX(0);
+}
+
+html[dir="rtl"] .sidebar {
+	left: auto;
+	right: 20px;
+	transform: translateX(105%);
+	transition: transform 0.3s ease-in-out;
+}
+
+html[dir="rtl"] .sidebar.visible-desktop {
 	transform: translateX(0);
 }
 
@@ -875,6 +1129,16 @@ input[type="range"]::-webkit-slider-runnable-track {
 	background-color: rgba(128, 128, 128, 0.1);
 	z-index: 999;
 	transition: background-color 0.3s;
+}
+
+html[dir="rtl"] .sidebar-resize-handle {
+	left: 0;
+	right: auto;
+}
+
+html[dir="ltr"] .sidebar-resize-handle {
+	left: auto;
+	right: 0;
 }
 
 .sidebar-resize-handle:hover {
@@ -1267,6 +1531,10 @@ input[type="range"]::-webkit-slider-runnable-track {
 		transform: translateX(0);
 	}
 
+.sidebar-overlay {
+  display: none;
+}
+
 	.sidebar-overlay.visible {
 		display: block;
 	}
@@ -1387,7 +1655,15 @@ input[type="range"]::-webkit-slider-runnable-track {
 </head>
 <body>
 <div id="app">
-	<div id="sidebarOverlay" class="sidebar-overlay" :class="{ visible: sidebarVisible && isMobileView }" @click="hideSidebar">
+	<button class="language-toggle" @click="toggleLanguage">
+		{{ isEnglish ? 'فارسی' : 'English' }}
+	</button>
+
+	<div id="sidebarOverlay" 
+     class="sidebar-overlay" 
+     :class="{ visible: sidebarVisible && isMobileView }"
+     :style="sidebarOverlayStyle"
+     @click="hideSidebar">
 	</div>
 	<div id="sidebar" class="sidebar" :class="{ 'visible-desktop': sidebarVisible && !isMobileView }" :style="sidebarStyle">
 		<div class="sidebar-resize-handle"></div>
@@ -1400,14 +1676,14 @@ input[type="range"]::-webkit-slider-runnable-track {
 				</span>
 			</button>
 			<p class="filtersTitle">
-				فیلترها 
-				<span style="font-weight: 400; margin-right: 5px;">(پوستر×فیلم)</span>
+			{{ isEnglish ? 'Filters' : 'فیلترها' }}
+			<span style="font-weight: 400; margin-right: 5px;">({{ isEnglish ? 'Poster×Film' : 'پوستر×فیلم' }})</span>
 			</p>
 		</div>
 
 			<div class="sidebar-section" :class="getSectionClass('chart')">
 				<div class="sidebar-section-header" @click="toggleCollapse('chart')">
-					<span>نمودار تعداد پوسترها</span>
+				<span>{{ isEnglish ? 'Posters by Year' : 'نمودار تعداد پوسترها' }}</span>
 					<button class="collapse-button rotate-up" :class="collapseIconClass(isCollapsed.chart)">
 						<span class="material-symbols-rounded">
 							keyboard_arrow_up
@@ -1422,45 +1698,52 @@ input[type="range"]::-webkit-slider-runnable-track {
 				</div>
 			</div>
 
-			<div class="sidebar-section" :class="getSectionClass('years')" :key="'years-section'">
+			<div class="sidebar-section" :class="getSectionClass('years')">
 				<div class="sidebar-section-header" @click="toggleCollapse('years')">
-					<span style="display: none" :style="{ display: undefined }">{{ filteredYearLabel }}</span>
-					<span :style="{ display: 'none' }">سال‌ها</span>
-					<button class="collapse-button rotate-up" id="yearsButton" :class="collapseIconClass(isCollapsed.years)">
-						<span class="material-symbols-rounded">
-							keyboard_arrow_up
-						</span>
+				<span>{{ filteredYearLabel }}</span>
+				<button class="collapse-button rotate-up" :class="collapseIconClass(isCollapsed.years)">
+					<span class="material-symbols-rounded">keyboard_arrow_up</span>
 					</button>
 				</div>
 				<div class="sidebar-section-body">
 					<div style="display: flex; flex-direction: column; gap: 10px; padding: 0 10px 10px 10px;">
 					<div class="year-range-inputs">
-						<label for="yearRangeStart">از</label>
+						<label for="yearRangeStart">{{ isEnglish ? 'From' : 'از' }}</label>
 						<select id="yearRangeStart" v-model="tempYearRangeStart">
-							<option value="">آغاز</option>
-							<option v-for="[year, count] in availableYears.filter(([y]) => y !== 'نامشخص')" 
-									:key="'start-' + year" 
-									:value="parseInt(normalizeDigits(year))">
-								{{ year }}
-							</option>
+						<option value="">{{ isEnglish ? 'Start' : 'آغاز' }}</option>
+						<option v-for="[year, count] in availableYearsForRange" 
+								:key="'start-' + year" 
+								:value="parseInt(year)">
+							{{ isEnglish ? year : toPersianNumerals(year) }}
+							({{ isEnglish ? count : toPersianNumerals(count) }}×{{ 
+							isEnglish ? 
+							getFilmCountByGregorianYear(year) : 
+							toPersianNumerals(getFilmCountByGregorianYear(year)) 
+							}})
+						</option>
 						</select>
 						
-						<label for="yearRangeEnd">تا</label>
+						<label for="yearRangeEnd">{{ isEnglish ? 'To' : 'تا' }}</label>
 						<select id="yearRangeEnd" v-model="tempYearRangeEnd">
-							<option value="">پایان</option>
-							<option v-for="[year, count] in availableYears.filter(([y]) => y !== 'نامشخص')" 
-									:key="'end-' + year" 
-									:value="parseInt(normalizeDigits(year))">
-								{{ year }}
-							</option>
+						<option value="">{{ isEnglish ? 'End' : 'پایان' }}</option>
+						<option v-for="[year, count] in availableYearsForRange" 
+								:key="'end-' + year" 
+								:value="parseInt(year)">
+								{{ isEnglish ? year : toPersianNumerals(year) }}
+								({{ isEnglish ? count : toPersianNumerals(count) }}×{{ 
+								isEnglish ? 
+								getFilmCountByGregorianYear(year) : 
+								toPersianNumerals(getFilmCountByGregorianYear(year)) 
+								}})
+						</option>
 						</select>
 						
 						<button v-if="tempYearRangeStart !== '' || tempYearRangeEnd !== ''"
 								@click="clearYearRangeFilter"
 								class="removeRange">
-							<span>
-								حذف
-							</span>
+						<span>
+							{{ isEnglish ? 'Clear' : 'حذف' }}
+						</span>
 						</button>
 					</div>
 
@@ -1543,15 +1826,15 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 					<div class="year-grid" style="visibility: hidden" :style="{ visibility: undefined }">
 						<div v-if="filteredYearsInModal.length === 0" class="no-results">
-							نتیجه‌ای وجود ندارد
+							{{ isEnglish ? 'No results' : 'نتیجه‌ای وجود ندارد' }}
 						</div>
 						<div v-else v-for="[year, count] in filteredYearsInModal" :key="year"
-							@click="selectedYear === year ? removeYearFilter() : selectYearFromModal(year)"
-							@mouseenter="hoveredItem = year" @mouseleave="hoveredItem = null"
-							:class="{ 'hovered': hoveredItem === year }" class="year-item">
-							{{ year }} 
+						@click="selectedYear === year ? removeYearFilter() : selectYearFromModal(year)"
+						@mouseenter="hoveredItem = year" @mouseleave="hoveredItem = null"
+						:class="{ 'hovered': hoveredItem === year }" class="year-item">
+							<span class="english-text">{{ formatNumber(year) }}</span>
 							<span class="count">
-								{{ count.toLocaleString('fa') }}×{{ (filmCountByYear?.[year]?.size || 0).toLocaleString('fa') }}
+								{{ formatNumber(count) }}×{{ formatNumber((filmCountByYear?.[year]?.size || 0)) }}
 							</span>
 							<span v-if="selectedYear === year" class="remove-filter" @click.stop="removeYearFilter">
 								<span class="material-symbols-rounded" style="font-size: inherit;">
@@ -1565,17 +1848,14 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 			<div class="sidebar-section" :class="getSectionClass('designers')">
 				<div class="sidebar-section-header" @click="toggleCollapse('designers')">
-					<span style="display: none" :style="{ display: undefined }">{{ filteredDesignerLabel }}</span>
-					<span :style="{ display: 'none' }">طراحان</span>
-					<button class="collapse-button rotate-up" id="designersButton" :class="collapseIconClass(isCollapsed.designers)">
-						<span class="material-symbols-rounded">
-							keyboard_arrow_up
-						</span>
+				<span>{{ filteredDesignerLabel }}</span>
+				<button class="collapse-button rotate-up" :class="collapseIconClass(isCollapsed.designers)">
+				<span class="material-symbols-rounded">keyboard_arrow_up</span>
 					</button>
 				</div>
 				<div class="sidebar-section-body">
 					<div class="search-container">
-						<input type="text" v-model="designerSearchQuery" placeholder="جستجوی طراح…" />
+						<input type="text" v-model="designerSearchQuery" :placeholder="isEnglish ? 'Search designers...' : 'جستجوی طراح…'" />
 						<span v-if="designerSearchQuery" @click="clearDesignerSearchQuery" class="clearSearch"
 							style="display: none" :style="{ display: undefined }">
 							<span class="material-symbols-rounded">
@@ -1585,7 +1865,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 					</div>
 					<div class="designer-grid" style="visibility: hidden" :style="{ visibility: undefined }">
 						<div v-if="filteredDesignersInModal.length === 0" class="no-results">
-							نتیجه‌ای وجود ندارد
+							{{ isEnglish ? 'No results' : 'نتیجه‌ای وجود ندارد' }}
 						</div>
 						<div v-else v-for="[designer, count] in filteredDesignersInModal" :key="designer"
 							@click="selectedDesigner === designer ? removeDesignerFilter() : selectDesignerFromModal(designer)"
@@ -1593,7 +1873,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 							:class="{ 'hovered': hoveredItem === designer }" class="designer-item">
 							{{ designer }} 
 							<span class="count">
-								{{ count.toLocaleString('fa') }}×{{ ((filmCountByDesigner && filmCountByDesigner[designer]) ? filmCountByDesigner[designer].size : 0).toLocaleString('fa') }}
+								{{ count.toLocaleString(isEnglish ? 'en' : 'fa') }}×{{ ((filmCountByDesigner && filmCountByDesigner[designer]) ? filmCountByDesigner[designer].size : 0).toLocaleString(isEnglish ? 'en' : 'fa') }}
 							</span>
 							<span v-if="selectedDesigner === designer" class="remove-filter" @click.stop="removeDesignerFilter">
 								<span class="material-symbols-rounded" style="font-size: inherit;">
@@ -1607,17 +1887,14 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 			<div class="sidebar-section" :class="getSectionClass('directors')">
 				<div class="sidebar-section-header" @click="toggleCollapse('directors')">
-					<span style="display: none" :style="{ display: undefined }">{{ filteredDirectorLabel }}</span>
-					<span :style="{ display: 'none' }">کارگردان‌ها</span>
-					<button class="collapse-button rotate-up" id="directorsButton" :class="collapseIconClass(isCollapsed.directors)">
-						<span class="material-symbols-rounded">
-							keyboard_arrow_up
-						</span>
+				<span>{{ filteredDirectorLabel }}</span>
+					<button class="collapse-button rotate-up" :class="collapseIconClass(isCollapsed.directors)">
+					<span class="material-symbols-rounded">keyboard_arrow_up</span>
 					</button>
 				</div>
 				<div class="sidebar-section-body">
 					<div class="search-container">
-						<input type="text" v-model="directorSearchQuery" placeholder="جستجوی کارگردان…" />
+						<input type="text" v-model="directorSearchQuery"	:placeholder="isEnglish ? 'Search directors...' : 'جستجوی کارگردان…'" />
 						<span v-if="directorSearchQuery" @click="clearDirectorSearchQuery" class="clearSearch"
 							style="display: none" :style="{ display: undefined }">
 							<span class="material-symbols-rounded">
@@ -1627,7 +1904,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 					</div>
 					<div class="director-grid" style="visibility: hidden" :style="{ visibility: undefined }">
 						<div v-if="filteredDirectorsInModal.length === 0" class="no-results">
-							نتیجه‌ای وجود ندارد
+							{{ isEnglish ? 'No results' : 'نتیجه‌ای وجود ندارد' }}
 						</div>
 						<div v-else v-for="[director, count] in filteredDirectorsInModal" :key="director"
 							@click="selectedDirector === director ? removeDirectorFilter() : selectDirectorFromModal(director)"
@@ -1635,7 +1912,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 							:class="{ 'hovered': hoveredItem === director }" class="director-item">
 							{{ director }} 
 							<span class="count">
-								{{ count.toLocaleString('fa') }}×{{ ((filmCountByDirector && filmCountByDirector[director]) ? filmCountByDirector[director].size : 0).toLocaleString('fa') }}
+								{{ count.toLocaleString(isEnglish ? 'en' : 'fa') }}×{{ ((filmCountByDirector && filmCountByDirector[director]) ? filmCountByDirector[director].size : 0).toLocaleString(isEnglish ? 'en' : 'fa') }}
 							</span>
 							<span v-if="selectedDirector === director" class="remove-filter" @click.stop="removeDirectorFilter">
 								<span class="material-symbols-rounded" style="font-size: inherit;">
@@ -1648,12 +1925,9 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 			<div class="sidebar-section" :class="getSectionClass('letters')">
 				<div class="sidebar-section-header" @click="toggleCollapse('letters')">
-					<span style="display: none" :style="{ display: undefined }">{{ filteredLetterLabel }}</span>
-					<span :style="{ display: 'none' }">حروف اول</span>
-					<button class="collapse-button rotate-up" id="lettersButton" :class="collapseIconClass(isCollapsed.letters)">
-						<span class="material-symbols-rounded">
-							keyboard_arrow_up
-						</span>
+					<span>{{ filteredLetterLabel }}</span>
+					<button class="collapse-button rotate-up" :class="collapseIconClass(isCollapsed.letters)">
+						<span class="material-symbols-rounded">keyboard_arrow_up</span>
 					</button>
 				</div>
 				<div class="sidebar-section-body">
@@ -1698,15 +1972,15 @@ input[type="range"]::-webkit-slider-runnable-track {
 		</template>
 		<template v-else>
 			<div class="no-logo-placeholder">
-				(بدون لوگو)
+				{{ isEnglish ? '(No logo)' : '(بدون لوگو)' }}
 			</div>
 		</template>
 		<div class="lightbox-info desktop-only" v-if="lightboxItem">
 			<h2>{{ lightboxItem.filmLabel }}</h2>
-			<p>سال تولید: {{ toPersianYear(lightboxItem.date) }}</p>
-			<p v-if="lightboxItem.directorLabel && lightboxItem.directorLabel !== 'نامشخص'">کارگردان: {{ lightboxItem.directorLabel }}</p>
+		<p>{{ isEnglish ? 'Year: ' : 'سال تولید: ' }}{{ getDisplayYear(lightboxItem.date) }}</p>
+			<p v-if="lightboxItem.directorLabel && lightboxItem.directorLabel !== 'نامشخص'">		{{ isEnglish ? 'Director: ' : 'کارگردان: ' }}{{ lightboxItem.directorLabel }}</p>
 			<p v-if="lightboxItem.designerLabel && lightboxItem.designerLabel !== 'نامشخص'">
-				طراح پوستر:
+				{{ isEnglish ? 'Poster designer: ' : 'طراح پوستر: ' }}
 				<span v-for="(designer, index) in lightboxItem.designers" :key="index">
 					{{ designer.label }}<span v-if="index < lightboxItem.designers.length - 1">, </span>
 				</span>
@@ -1802,59 +2076,70 @@ input[type="range"]::-webkit-slider-runnable-track {
 								keyboard_arrow_up
 							</span>
 						</button>
-						<button @click="toggleOptions" class="options-toggle-desktop desktop-only" :class="{ 'active-options-toggle': !isOptionsCollapsed }">جستجوی پیشرفته</button>
+						<button @click="toggleOptions" class="options-toggle-desktop desktop-only" :class="{ 'active-options-toggle': !isOptionsCollapsed }">
+							{{ isEnglish ? 'Advanced Search' : 'جستجوی پیشرفته' }}
+						</button>
 					</div>
 					<div class="options-wrapper-bottom" :class="{ 'collapsed-desktop': isOptionsCollapsed, 'collapsed': isOptionsCollapsed }">
 						<div class="options-row-top">
 							<div class="similar-chars-toggle">
 								<label for="similarCharsSwitch" style="cursor: pointer;">
 									<input type="checkbox" id="similarCharsSwitch" v-model="combineSimilarChars">
-									حروف مشابه
+									{{ isEnglish ? 'Similar characters' : 'حروف مشابه' }}
 								</label>
 								<label>
 									<div class="tooltip">
 										<span class="material-symbols-rounded">info</span>
-										<span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود: مانند س، ش</span>
+										<span class="tooltiptext">
+											{{ isEnglish ? 'Treat similar-looking characters as the same: e.g., س and ش' : 'حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود: مانند س، ش' }}
+										</span>
 									</div>
 								</label>
 							</div>
 							<div class="similar-chars-toggle">
 								<label for="exactWordSwitch" style="cursor: pointer;">
 									<input type="checkbox" id="exactWordSwitch" v-model="exactWordMatch">
-									جستجوی دقیق
+									{{ isEnglish ? 'Exact match' : 'جستجوی دقیق' }}
 								</label>
 								<label>
 									<span class="material-symbols-rounded tooltip">
 										info
-										<span class="tooltiptext">فقط نتایجی که دقیقاً با کلمه وارد شده مطابقت دارند</span>
+										<span class="tooltiptext">
+											{{ isEnglish ? 'Only show results that exactly match the entered word' : 'فقط نتایجی که دقیقاً با کلمه وارد شده مطابقت دارند' }}
+										</span>
 									</span>
 								</label>
 							</div>
 							<div class="similar-chars-toggle" v-if="posterMode">
 								<label for="pixelatedSwitch" style="cursor: pointer;">
 									<input type="checkbox" id="pixelatedSwitch" v-model="pixelatedEffect">
-									سانسور
+									{{ isEnglish ? 'Censor' : 'سانسور' }}
 								</label>
 								<label>
 									<span class="material-symbols-rounded tooltip">
 										info
-										<span class="tooltiptext">مخفی کردن تصاویری که ممکن است نامناسب
-											باشد</span>
+										<span class="tooltiptext">
+											{{ isEnglish ? 'Hide images that may be inappropriate' : 'مخفی کردن تصاویری که ممکن است نامناسب باشد' }}
+										</span>
 									</span>
 								</label>
 							</div>
 							<div v-if="!posterMode" style="display: flex; align-items: center;">
-									<p style="margin: 0;">پس‌زمینه: </p><input type="color" v-model="backgroundColor" id="bgColorPicker" style="background: none;width: 40px;height: 24px;border: none;cursor: pointer;padding: 0;">
+									<p style="margin: 0;">
+										{{ isEnglish ? 'Background: ' : 'پس‌زمینه: ' }}
+									</p><input type="color" v-model="backgroundColor" id="bgColorPicker" style="background: none;width: 40px;height: 24px;border: none;cursor: pointer;padding: 0;">
 							</div>
 							<div class="similar-chars-toggle">
 								<label for="moreInfoSwitch" style="cursor: pointer;">
 									<input type="checkbox" id="moreInfoSwitch" v-model="moreInformation">
-									اطلاعات بیشتر
+									{{ isEnglish ? 'More info' : 'اطلاعات بیشتر' }}
 								</label>
 								<label>
 									<span class="material-symbols-rounded tooltip">
 										info
-										<span class="tooltiptext">نمایش اطلاعات بیشتر و لینک‌های مربوط به فیلم، پوستر و طراحان</span>
+										<span class="tooltiptext">
+											{{ isEnglish ? 'Show more information and links related to the film, poster and designers' : 'نمایش اطلاعات بیشتر و لینک‌های مربوط به فیلم، پوستر و طراحان' }}
+										</span>
 									</span>
 								</label>
 							</div>
@@ -1866,8 +2151,12 @@ input[type="range"]::-webkit-slider-runnable-track {
 					<div class="controls-wrapper-desktop">
 						<div class="toggle-switch" @click="togglePosterMode"
 								id="posterLogoSwitch" data-mode="poster" :data-mode="posterMode ? 'poster' : 'logo'">
-								<span id="posterButton" class="active" :class="{ active: posterMode }">پوستر</span>
-								<span :class="{ active: !posterMode }">لوگو</span>
+								<span id="posterButton" class="active" :class="{ active: posterMode }">
+									{{ isEnglish ? 'Poster' : 'پوستر' }}
+								</span>
+								<span :class="{ active: !posterMode }">
+									{{ isEnglish ? 'Logo' : 'لوگو' }}
+								</span>
 						</div>
 						<div class="sort-order-container">
 							<label @click="toggleSortDirection" style="cursor: pointer;">
@@ -1877,19 +2166,35 @@ input[type="range"]::-webkit-slider-runnable-track {
 							</label>
 							<div class="triple-switch" :data-sort="sortOrder">
 								<span :class="{ active: sortOrder === 'alphabetical' }"
-									@click="sortOrder = 'alphabetical'">الفبایی</span>
-								<span :class="{ active: sortOrder === 'year' }" @click="sortOrder = 'year'">سال</span>
+									@click="sortOrder = 'alphabetical'">
+									{{ isEnglish ? 'A-Z' : 'الفبایی' }}
+								</span>
+								<span :class="{ active: sortOrder === 'year' }" @click="sortOrder = 'year'">
+									{{ isEnglish ? 'Year' : 'سال' }}
+								</span>
 								<span id="randomOrderButton" class="active"
-									:class="{ active: sortOrder === 'random' }" @click="sortOrder = 'random'">تصادفی</span>
+									:class="{ active: sortOrder === 'random' }" @click="sortOrder = 'random'">
+									{{ isEnglish ? 'Random' : 'تصادفی' }}
+								</span>
 							</div>
 						</div>
 					</div>
-					<!-- شمارنده نتایج با عرض ثابت -->
+
 					<div v-if="filteredItems.length > 0"
 						class="counter-wrapper-desktop"
 						>
-						<span v-if="hasActiveFilters">{{ filteredItemsLength }} از {{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueResultsFilmCount }} از {{ uniqueFilmCount }} فیلم)</span>
-						<span v-else>{{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueFilmCount }} فیلم)</span>
+						<span v-if="hasActiveFilters">
+							{{ isEnglish ? 
+							`${filteredItemsLength} of ${itemsLength} ${posterMode ? 'posters' : 'logos'} (${uniqueResultsFilmCount} of ${uniqueFilmCount} films)` :
+							`${filteredItemsLength} از ${itemsLength} ${posterMode ? 'پوستر' : 'لوگو'} (${uniqueResultsFilmCount} از ${uniqueFilmCount} فیلم)`
+							}}
+						</span>
+						<span v-else>
+							{{ isEnglish ? 
+							`${itemsLength} ${posterMode ? 'posters' : 'logos'} (${uniqueFilmCount} films)` :
+							`${itemsLength} ${posterMode ? 'پوستر' : 'لوگو'} (${uniqueFilmCount} فیلم)`
+							}}
+						</span>
 					</div>
 				</div>
 			</div>
@@ -1941,7 +2246,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 									aspectRatio: !posterMode ? '1/1' : '5/7.5' 
 								}" />
 						</a>
-						<a :href="downloadLink(item)" aria-label="دریافت پوستر" target="_blank">
+						<a :href="downloadLink(item)" :aria-label="isEnglish ? 'Download poster' : 'دریافت پوستر'" target="_blank">
 							<button class="download-btn">
 								<span class="material-symbols-rounded">
 									download
@@ -1956,7 +2261,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 							</a>
 						<span class="year-link" :class="textColorClass" v-if="item.date">
 							<a @click.prevent="selectYearFromTitle(toPersianYear(item.date))" href="#" class="year-link" :class="textColorClass">
-								({{ toPersianYear(item.date) }}
+								({{ getDisplayYear(item.date) }}
 							</a><template v-if="moreInformation"> - <a
 								v-if="moreInformation" :href="'https://commons.wikimedia.org/wiki/Category:' + new Date(item.date).getFullYear() + '_film_posters_of_Iran'"
 								target="_blank" class="gregorian-year-link">{{ new Date(item.date).getFullYear() }}</a></template>)
@@ -1964,20 +2269,29 @@ input[type="range"]::-webkit-slider-runnable-track {
 					</div>
 
 					<div class="more-info-content" :class="{ 'visible': moreInformation }">
-						<div v-if="item.designerLabel && item.designerLabel !== 'نامشخص'" class="item-designer" :class="textColorClass">
+						<div v-if="item.designerLabel && item.designerLabel !== 'نامشخص' && item.designerLabel !== 'Unknown'" class="item-designer" :class="textColorClass">
 							<span class="mobile-only">
 								<span class="material-symbols-rounded" :class="textColorClass" style="margin-left: 5px; top: 8px; position: relative;">person_edit</span>
 							</span>
-							<span class="desktop-only" :class="textColorClass">{{ item.designers.length === 1 ? 'طراح: ' : 'طراحان: ' }}</span>
+							<span class="desktop-only" :class="textColorClass">
+								{{ isEnglish ? 
+									(item.designers.length === 1 && item.designerLabel !== 'Unknown' ? 'Designer: ' : 
+									item.designers.length > 1 && !item.designers.every(d => d.label === 'Unknown') ? 'Designers: ' : '') : 
+									(item.designers.length === 1 && item.designerLabel !== 'نامشخص' ? 'طراح: ' : 
+									item.designers.length > 1 && !item.designers.every(d => d.label === 'نامشخص') ? 'طراحان: ' : '') 
+								}}
+							</span>
 							<span :class="textColorClass" v-for="(designer, index) in item.designers" :key="index">
-								<a href="#" :class="textColorClass" @click.prevent="selectDesigner(designer.label)" aria-label="انتخاب طراح">{{ designer.label }}</a>
+								<a href="#" :class="textColorClass" @click.prevent="selectDesigner(designer.label)" 
+													:aria-label="isEnglish ? 'Select designer' : 'انتخاب طراح'">
+								{{ designer.label }}</a>
 								<span class="item-links">
-									<a :href="'https://www.wikidata.org/wiki/' + designer.id" aria-label="ویکی‌داده" target="_blank">
-										<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg" alt="ویکی‌داده" class="linkIcon">
+									<a :href="'https://www.wikidata.org/wiki/' + designer.id" :aria-label="isEnglish ? 'Wikidata' : 'ویکی‌داده'" target="_blank">
+										<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg" :alt="isEnglish ? 'Wikidata' : 'ویکی‌داده'" class="linkIcon">
 									</a>
 									<template v-if="designer.faWikipediaLink">
-										<a :href="'https://fa.wikipedia.org/wiki/' + designer.faWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
-											<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
+										<a :href="getDesignerWikipediaUrl(designer)" :aria-label="isEnglish ? 'Wikipedia' : 'ویکی‌پدیا'" target="_blank">
+											<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" :alt="isEnglish ? 'Wikipedia' : 'ویکی‌پدیا'" class="linkIcon">
 										</a>
 									</template>
 								</span>
@@ -1988,11 +2302,11 @@ input[type="range"]::-webkit-slider-runnable-track {
 							<a v-if="item.imdbID" :href="'https://www.imdb.com/title/' + item.imdbID" aria-label="IMDb" target="_blank">
 								<img src="https://upload.wikimedia.org/wikipedia/commons/5/53/IMDB_-_SuperTinyIcons.svg" alt="IMDb" class="linkIcon">
 							</a>
-							<a v-if="item.film" :href="'https://www.wikidata.org/wiki/' + item.film" aria-label="ویکی‌داده" target="_blank">
-								<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg" alt="ویکی‌داده" class="linkIcon">
+							<a v-if="item.film" :href="'https://www.wikidata.org/wiki/' + item.film" :aria-label="isEnglish ? 'Wikidata' : 'ویکی‌داده'" target="_blank">
+								<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg" :alt="isEnglish ? 'Wikidata' : 'ویکی‌داده'" class="linkIcon">
 							</a>
-							<a v-if="item.faWikipediaLink" :href="'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
-								<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
+							<a v-if="item.wikipediaLink" :href="getWikipediaUrl(item)" :aria-label="isEnglish ? 'Wikipedia' : 'ویکی‌پدیا'" target="_blank">
+								<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" :alt="isEnglish ? 'Wikipedia' : 'ویکی‌پدیا'" class="linkIcon">
 							</a>
 						</div>
 					</div>
@@ -2001,20 +2315,10 @@ input[type="range"]::-webkit-slider-runnable-track {
 			</div>
 		</div>
 		<p v-else style="text-align: center; display: none;" :style="{ display: undefined }">
-			نتیجه‌ای برای نمایش وجود ندارد.
+		{{ isEnglish ? 'No results to display.' : 'نتیجه‌ای برای نمایش وجود ندارد.' }}
 		</p>
 	</div>
 </div>
-<script>
-{
-	const urlParams = new URLSearchParams(window.location.search);
-	similarCharsSwitch.checked = urlParams.get('similar') === 'true';
-	moreInfoSwitch.checked = urlParams.get('moreInfo') === 'true';
-	pixelatedSwitch.checked = urlParams.get('censor') === null
-		? location.hostname.endsWith('.ir')
-		: urlParams.get('censor') === 'true';
-}
-</script>
 <link rel="modulepreload" href="./vue.esm-browser.prod.min.js" />
 <link rel="preload" as="fetch" href="./db.json">
 <script type="module">
@@ -2026,12 +2330,6 @@ const data = await (await fetch('./db.json', {
 	credentials: 'include',
 	mode: 'no-cors',
 })).json();
-randomOrderButton.classList.remove('active');
-posterButton.classList.remove('active');
-posterLogoSwitch.removeAttribute('data-mode');
-[yearsButton, designersButton, directorsButton, lettersButton]
-	.forEach(x => x.classList.remove('rotate-up'));
-desktopSidebarToggleButton.style.display = 'block';
 
 createApp({ setup: () => {
 
@@ -2068,12 +2366,243 @@ const yearRangeStart = ref(null);
 const yearRangeEnd = ref(null);
 const tempYearRangeStart = ref('');
 const tempYearRangeEnd = ref('');
+const isEnglish = ref(false);
 
 const pageTitle = computed(() => {
-  return posterMode.value
-	? "آرشیو پوسترهای سینمای ایران"
-	: "آرشیو لوگوهای سینمای ایران";
+	if (isEnglish.value) {
+	return posterMode.value 
+		? "Film Posters of Iran | Iranian Cinema Posters Archive"
+		: "Film Logos of Iran | Iranian Cinema Logos Archive";
+	} else {
+	return posterMode.value 
+		? "آرشیو پوسترهای سینمای ایران"
+		: "آرشیو لوگوهای سینمای ایران";
+	}
 });
+
+const applyLanguageFromURL = () => {
+	const urlParams = new URLSearchParams(window.location.search);
+	const langParam = urlParams.get('lang');
+	if (langParam === 'en') {
+	isEnglish.value = true;
+	document.documentElement.dir = 'ltr';
+	document.documentElement.lang = 'en';
+	}
+};
+
+const toggleLanguage = () => {
+	if (isSidebarAnimating.value) return;
+
+	sidebarWasVisible.value = sidebarVisible.value;
+
+	if (sidebarVisible.value) {
+		isSidebarAnimating.value = true;
+		sidebarAnimationDirection.value = isEnglish.value ? 'left' : 'right';
+		sidebarVisible.value = false;
+		
+		setTimeout(() => {
+		changeLanguageAndRestoreSidebar();
+		}, 300);
+	} else {
+		changeLanguageAndRestoreSidebar();
+	}
+	};
+
+	const changeLanguageAndRestoreSidebar = () => {
+	isSidebarAnimating.value = true;
+
+	isEnglish.value = !isEnglish.value;
+	document.documentElement.dir = isEnglish.value ? 'ltr' : 'rtl';
+	document.documentElement.lang = isEnglish.value ? 'en' : 'fa';
+
+	sidebarAnimationDirection.value = isEnglish.value ? 'left' : 'right';
+
+	if (sidebarWasVisible.value) {
+		setTimeout(() => {
+		sidebarVisible.value = true;
+		isSidebarAnimating.value = false;
+		}, 50);
+	} else {
+		isSidebarAnimating.value = false;
+	}
+
+	updateURL();
+};
+
+const formatNumber = (number) => {
+	if (typeof number !== 'number') return number;
+	return isEnglish.value ? 
+	number.toLocaleString('en', { useGrouping: false }) : 
+	number.toLocaleString('fa', { useGrouping: false });
+};
+
+const getDisplayYear = (date) => {
+	if (!date) return isEnglish.value ? 'Unknown' : 'نامشخص';
+	
+	if (isEnglish.value) {
+	const year = new Date(date).getFullYear();
+	return isNaN(year) ? 'Unknown' : year.toString();
+	} else {
+	const year = new Date(date).toLocaleDateString('fa').split('/')[0];
+	return year === 'Invalid Date' ? 'نامشخص' : year;
+	}
+};
+
+const getYearForFilter = (date) => {
+	if (!date) return isEnglish.value ? 'Unknown' : 'نامشخص';
+	
+	if (isEnglish.value) {
+	const year = new Date(date).getFullYear();
+	return isNaN(year) ? 'Unknown' : year.toString();
+	} else {
+	const year = new Date(date).toLocaleDateString('fa').split('/')[0];
+	return year === 'Invalid Date' ? 'نامشخص' : year;
+	}
+};
+
+const persianToGregorianYear = (persianYear) => {
+	if (!persianYear || persianYear === 'نامشخص') return null;
+	try {
+	const persianNum = parseInt(persianYear.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)));
+	return (persianNum + 621).toString();
+	} catch {
+	return null;
+	}
+};
+
+const toFilterYear = (item) => {
+	if (!item || !item.date) return isEnglish.value ? 'Unknown' : 'نامشخص';
+	return getYearForFilter(item.date);
+};
+
+const getPersianYear = (date) => {
+	if (!date) return 'نامشخص';
+	const year = new Date(date).toLocaleDateString('fa').split('/')[0];
+	return year === 'Invalid Date' ? 'نامشخص' : year;
+};
+
+const hasPersianYear = (date) => {
+	if (!date) return false;
+	const year = new Date(date).toLocaleDateString('fa').split('/')[0];
+	return year !== 'Invalid Date';
+};
+
+const matchesYearFilter = (item) => {
+	if (!selectedYear.value) return true;
+	
+	const itemPersianYear = toPersianYear(item.date);
+	const itemGregorianYear = new Date(item.date).getFullYear().toString();
+	
+	if (isEnglish.value) {
+	return itemGregorianYear === selectedYear.value;
+	} else {
+	return itemPersianYear === selectedYear.value;
+	}
+};
+
+const getFilmLabel = (film) => {
+	if (isEnglish.value) {
+	return film.labels.en || film.labels.fa || 'Unknown';
+	}
+	return film.labels.fa || film.labels.en || 'نامشخص';
+};
+
+const getDesignerWikipediaUrl = (designer) => {
+	if (isEnglish.value && designer.enWikipediaLink) {
+	return 'https://en.wikipedia.org/wiki/' + designer.enWikipediaLink.replaceAll(' ', '_');
+	}
+	if (designer.faWikipediaLink) {
+	return 'https://fa.wikipedia.org/wiki/' + designer.faWikipediaLink.replaceAll(' ', '_');
+	}
+	return 'https://www.wikidata.org/wiki/' + designer.id;
+};
+
+const getDesignerLabel = (designer) => {
+	if (!designer) return isEnglish.value ? 'Unknown' : 'نامشخص';
+	
+	if (isEnglish.value) {
+	return designer.labels?.en || designer.labels?.fa || 'Unknown';
+	}
+	return designer.labels?.fa || designer.labels?.en || 'نامشخص';
+};
+
+const getDirectorLabel = (director) => {
+	if (isEnglish.value) {
+	return director.labels.en || director.labels.fa || 'Unknown';
+	}
+	return director.labels.fa || director.labels.en || 'نامشخص';
+};
+
+const getAlphabeticalSort = (a, b) => {
+	const locale = isEnglish.value ? 'en' : 'fa';
+	const comparison = a.filmLabel.localeCompare(b.filmLabel, locale);
+	return sortDirection.value === 'asc' ? comparison : -comparison;
+};
+
+const getFilmCountByYear = (gregorianYear) => {
+	const filmCounts = {};
+	
+	films.forEach(film => {
+	if (!film.date || film.date.length === 0) return;
+	
+	const dateStr = film.date[0];
+	let date;
+	
+	try {
+		let processedDate = dateStr.replace(/^\+/, '')
+		.replace('-01-01T00:00:00Z', '-03-30T00:00:00Z')
+		.replace('-00-00T00:00:00Z', '-03-30T00:00:00Z')
+		.replace('-00T', '-01T');
+		
+		date = new Date(processedDate);
+		
+		if (isNaN(date.getTime())) {
+		const yearMatch = dateStr.match(/\d{4}/);
+		if (yearMatch) {
+			date = new Date(parseInt(yearMatch[0]), 0, 1);
+		}
+		}
+	} catch (e) {
+		return;
+	}
+	
+	if (!date || isNaN(date.getTime())) return;
+	
+	const year = date.getFullYear().toString();
+	filmCounts[year] = (filmCounts[year] || 0) + 1;
+	});
+	
+	return filmCounts[gregorianYear] || 0;
+};
+
+const getFilmCountByGregorianYear = (gregorianYear) => {
+	console.log("=== DEBUG: getFilmCountByGregorianYear ===");
+	console.log("Requested year:", gregorianYear);
+	
+	const filmSet = new Set();
+	
+	items.forEach(item => {
+	if (!item.date) return;
+	
+	try {
+		const date = new Date(item.date);
+		if (isNaN(date.getTime())) return;
+		
+		const year = date.getFullYear();
+		if (year === parseInt(gregorianYear)) {
+		filmSet.add(item.film);
+		console.log(`Film added: ${item.filmLabel}, Year: ${year}`);
+		}
+	} catch (e) {
+		return;
+	}
+	});
+	
+	console.log(`Film count for ${gregorianYear}:`, filmSet.size);
+	console.log("=== END DEBUG ===");
+	
+	return filmSet.size;
+};
 
 const onSearchFocus = (event) => {
 	isSearchFocused.value = true;
@@ -2099,8 +2628,18 @@ const hasActiveFilters = computed(() => {
 
 const applyInitialFilters = () => {
 	const urlParams = new URLSearchParams(window.location.search);
+		const langParam = urlParams.get('lang');
+	if (langParam === 'en') {
+	isEnglish.value = true;
+	document.documentElement.dir = 'ltr';
+	document.documentElement.lang = 'en';
+	}
 	searchTerm.value = urlParams.get('q') || '';
-	selectedYear.value = urlParams.get('y') || '';
+	if (isEnglish.value) {
+	selectedYear.value = urlParams.get('year_en') || '';
+	} else {
+	selectedYear.value = urlParams.get('year_fa') || '';
+	}
 	selectedDesigner.value = urlParams.get('designer') || '';
 	selectedDirector.value = urlParams.get('director') || '';
 	selectedLetter.value = urlParams.get('letter') || '';
@@ -2135,22 +2674,53 @@ applyInitialFilters();
 
 
 const normalizeDigits = (s) => {
-	if (s == null || s === '') return '';
-	const map = {
-		'۰':'0','۱':'1','۲':'2','۳':'3','۴':'4','۵':'5','۶':'6','۷':'7','۸':'8','۹':'9',
-		'٠':'0','١':'1','٢':'2','٣':'3','٤':'4','٥':'5','٦':'6','٧':'7','٨':'8','٩':'9'
-	};
-	return String(s).split('').map(ch => map[ch] ?? ch).join('');
+  if (s == null || s === '') return '';
+  const persianToEnglishMap = {
+    '۰': '0', '۱': '1', '۲': '2', '۳': '3', '۴': '4',
+    '۵': '5', '۶': '6', '۷': '7', '۸': '8', '۹': '9',
+    '٠': '0', '١': '1', '٢': '2', '٣': '3', '٤': '4',
+    '٥': '5', '٦': '6', '٧': '7', '٨': '8', '٩': '9'
+  };
+  
+  return String(s).split('').map(ch => persianToEnglishMap[ch] || ch).join('');
+};
+
+const toPersianNumerals = (number) => {
+	if (!number && number !== 0) return '';
+	const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+	return number.toString().replace(/\d/g, digit => persianDigits[parseInt(digit)]);
+};
+
+const toEnglishNumerals = (number) => {
+	const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+	return number.toString().split('').map(char => {
+	const index = persianDigits.indexOf(char);
+	return index !== -1 ? index.toString() : char;
+	}).join('');
 };
 
 const yearRangeBounds = computed(() => {
-	const years = availableYearsForRange.value;
-	if (years.length === 0) {
+	if (availableYearsForRange.value.length === 0) {
 		return { minYear: 1309, maxYear: 1404 };
 	}
+	const years = availableYearsForRange.value.map(([year]) => parseInt(year));
 	const minYear = Math.min(...years);
 	const maxYear = Math.max(...years);
 	return { minYear, maxYear };
+});
+
+const activeYearRangeText = computed(() => {
+	if (!yearRangeStart.value && !yearRangeEnd.value) return '';
+	
+	const start = yearRangeStart.value 
+	? (isEnglish.value ? yearRangeStart.value : toPersianNumerals(yearRangeStart.value))
+	: '؟';
+	
+	const end = yearRangeEnd.value 
+	? (isEnglish.value ? yearRangeEnd.value : toPersianNumerals(yearRangeEnd.value))
+	: '؟';
+	
+	return isEnglish.value ? `${start} - ${end}` : `${start} - ${end}`;
 });
 
 const applyYearRangeFilter = () => {
@@ -2185,10 +2755,17 @@ const swapIfNeeded = () => {
 	}
 };
 
-const isInYearRange = (persianYear) => {
-	if (!persianYear || persianYear === 'نامشخص') return false;
+const isInYearRange = (year) => {
+	if (!year || year === 'نامشخص' || year === 'Unknown') return false;
 
-	const yearNum = parseInt(normalizeDigits(persianYear).replace(/[^0-9-]/g, ''), 10);
+	let yearNum;
+	
+	if (isEnglish.value) {
+		yearNum = parseInt(year.replace(/[^0-9]/g, ''), 10);
+	} else {
+		yearNum = parseInt(toEnglishNumerals(year).replace(/[^0-9]/g, ''), 10);
+	}
+	
 	if (isNaN(yearNum)) return false;
 
 	const { minYear, maxYear } = yearRangeBounds.value;
@@ -2242,9 +2819,9 @@ const isLightBackground = (color) => {
 };
 
 const isDarkTheme = computed(() => {
-    return document.documentElement.style.colorScheme === 'dark' ||
-           document.documentElement.classList.contains('dark') ||
-           window.matchMedia('(prefers-color-scheme: dark)').matches;
+	return document.documentElement.style.colorScheme === 'dark' ||
+		document.documentElement.classList.contains('dark') ||
+		window.matchMedia('(prefers-color-scheme: dark)').matches;
 });
 
 const actualBackgroundColor = (item) => {
@@ -2268,8 +2845,18 @@ const textColorClass = computed(() => {
 
 const updateURL = () => {
 	const params = new URLSearchParams();
+		if (isEnglish.value) {
+	params.set('lang', 'en');
+	}
+
 	if (searchTerm.value) params.set('q', searchTerm.value);
-	if (selectedYear.value) params.set('y', selectedYear.value);
+	if (selectedYear.value) {
+	if (isEnglish.value) {
+		params.set('year_en', selectedYear.value);
+	} else {
+		params.set('year_fa', selectedYear.value);
+	}
+	}
 	if (selectedDesigner.value) params.set('designer', selectedDesigner.value);
 	if (selectedDirector.value) params.set('director', selectedDirector.value);
 	if (selectedLetter.value) params.set('letter', selectedLetter.value);
@@ -2302,17 +2889,50 @@ watch([yearRangeStart, yearRangeEnd], ([newStart, newEnd]) => {
 }, { deep: true });
 
 watch(tempYearRangeStart, (newValue) => {
-    if (newValue !== '') {
-        applyYearRangeFilter();
-    }
+		applyYearRangeFilter();
+	}
 });
 
 watch(tempYearRangeEnd, (newValue) => {
-    if (newValue !== '') {
-        applyYearRangeFilter();
-    }
+	if (newValue !== '' && tempYearRangeStart.value !== '') {
+	applyYearRangeFilter();
+	}
 });
 
+watch(isEnglish, (newValue) => {
+	if (selectedYear.value) {
+	if (newValue) {
+		const gregorianYear = persianToGregorianYear(selectedYear.value);
+		selectedYear.value = gregorianYear || '';
+	} else {
+		selectedYear.value = '';
+	}
+	}
+	
+	yearRangeStart.value = null;
+	yearRangeEnd.value = null;
+	tempYearRangeStart.value = '';
+	tempYearRangeEnd.value = '';
+	
+	searchTerm.value = searchTerm.value + ' ';
+	searchTerm.value = searchTerm.value.trim();
+	
+	document.title = pageTitle.value;
+});
+
+watch(isEnglish, () => {
+	itemsWithLocalizedLabels.value = [...itemsWithLocalizedLabels.value];
+	
+	designerSearchQuery.value = designerSearchQuery.value + ' ';
+	designerSearchQuery.value = designerSearchQuery.value.trim();
+	
+	directorSearchQuery.value = directorSearchQuery.value + ' ';
+	directorSearchQuery.value = directorSearchQuery.value.trim();
+});
+
+watch([pageTitle, isEnglish], () => {
+	document.title = pageTitle.value;
+});
 
 const isCollapsed = ref({
 	designers: false,
@@ -2365,70 +2985,113 @@ const resetFilters = () => {
 const films = Object.values(data.films);
 const logos = films.flatMap(film => film.logos).filter(logo => logo.image.endsWith('.png'));
 
-const uniqueFilmCount = computed(() => films.length.toLocaleString('fa', { useGrouping: false }));
+const uniqueFilmCount = computed(() => {
+  return isEnglish.value ? 
+    films.length.toLocaleString('en', { useGrouping: false }) : 
+    films.length.toLocaleString('fa', { useGrouping: false });
+});
 
 const uniqueResultsFilmCount = computed(() => {
-	const uniqueFilmIds = new Set(filteredItems.value.map(item => item.film));
-	return uniqueFilmIds.size.toLocaleString('fa', { useGrouping: false });
+  const uniqueFilmIds = new Set(filteredItems.value.map(item => item.film));
+  return isEnglish.value ? 
+    uniqueFilmIds.size.toLocaleString('en', { useGrouping: false }) : 
+    uniqueFilmIds.size.toLocaleString('fa', { useGrouping: false });
 });
 
 const items = films.flatMap(film => {
 	return film.posters.map((poster, i) => {
-		const item = {};
-		item.film = film.id;
-		if (!film.labels.fa) {
-			console.log(film.id + ' doesn\'t have Persian label!');
-		}
-		item.filmLabel = film.labels.fa || film.labels.en || '';
-		item.aliases = film.aliases?.fa?.join(',') ?? '';
-		item.date = film.date
-			.map(x => x.replace(/^\+/, '')
-				.replace('-01-01T00:00:00Z', '-03-30T00:00:00Z')
-				.replace('-00-00T00:00:00Z', '-03-30T00:00:00Z')
-				.replace('-00T', '-01T')
-			)
-			.sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0];
-		item.poster = poster.image;
-		item.posterHash = poster.hash;
-		item.isNsfw = poster.characteristics?.includes('Q2716583') ?? false;
-		if (poster.designers?.length ?? 0) {
-			item.designers = poster.designers.map(designerId => {
-				const designer = data.secondary[designerId];
-				return {
-					id: designerId,
-					label: designer.labels.fa,
-					faWikipediaLink: designer.sitelinks?.fawiki
-				};
-			});
-			item.characteristics = poster.characteristics;
-			item.designerLabel = data.secondary[poster.designers[0]].labels.fa;
-			const fawiki = data.secondary[poster.designers[0]].sitelinks.fawiki;
-			if (fawiki) item.designerFaWikipediaLink = fawiki;
-		} else {
-			item.designerLabel = 'نامشخص';
-		}
-		if (film.directors.length) {
-			item.director = film.directors[0];
-			item.directorLabel = data.secondary[film.directors[0]].labels.fa || 'نامشخص';
-		} else {
-			item.directorLabel = 'نامشخص';
-		}
-		if (film.imdb.length) {
-			item.imdbID = film.imdb[0];
-		}
-		item.faWikipediaLink = film.sitelinks.fawiki;
-		if (film.logos.length > i && film.logos[i].image.endsWith('.png')) {
-			item.logo = film.logos[i].image;
-			item.logoHash = film.logos[i].hash;
-		}
-		return item;
+	const item = {};
+	item.film = film.id;
+	item.filmLabel = getFilmLabel(film);
+	item.aliases = isEnglish.value ? 
+		(film.aliases?.en?.join(',') || film.aliases?.fa?.join(',') || '') : 
+		(film.aliases?.fa?.join(',') || film.aliases?.en?.join(',') || '');
+	
+	item.date = film.date
+		.map(x => x.replace(/^\+/, '')
+		.replace('-01-01T00:00:00Z', '-03-30T00:00:00Z')
+		.replace('-00-00T00:00:00Z', '-03-30T00:00:00Z')
+		.replace('-00T', '-01T')
+		)
+		.sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0];
+	
+	item.poster = poster.image;
+	item.posterHash = poster.hash;
+	item.isNsfw = poster.characteristics?.includes('Q2716583') ?? false;
+	
+	if (poster.designers?.length ?? 0) {
+		item.designers = poster.designers.map(designerId => {
+		const designer = data.secondary[designerId];
+		return {
+			id: designerId,
+			label: getDesignerLabel(designer),
+			faWikipediaLink: designer.sitelinks?.fawiki,
+			enWikipediaLink: designer.sitelinks?.enwiki
+		};
+		});
+		item.characteristics = poster.characteristics;
+		item.designerLabel = item.designers[0]?.label || (isEnglish.value ? 'Unknown' : 'نامشخص');
+	} else {
+		item.designerLabel = isEnglish.value ? 'Unknown' : 'نامشخص';
+		item.designers = [];
+	}
+	
+	if (film.directors.length) {
+		item.director = film.directors[0];
+		const directorData = data.secondary[film.directors[0]];
+		item.directorLabel = getDirectorLabel(directorData);
+	} else {
+		item.directorLabel = isEnglish.value ? 'Unknown' : 'نامشخص';
+	}
+	
+	if (film.imdb.length) {
+		item.imdbID = film.imdb[0];
+	}
+	
+	item.faWikipediaLink = film.sitelinks.fawiki;
+	item.enWikipediaLink = film.sitelinks.enwiki;
+	item.wikipediaLink = isEnglish.value ? 
+		(item.enWikipediaLink || item.faWikipediaLink) : 
+		(item.faWikipediaLink || item.enWikipediaLink);
+	
+	if (film.logos.length > i && film.logos[i].image.endsWith('.png')) {
+		item.logo = film.logos[i].image;
+		item.logoHash = film.logos[i].hash;
+	}
+	
+	return item;
 	});
 });
+
+const itemsWithLocalizedLabels = computed(() => {
+	return items.map(item => {
+	const film = data.films[item.film];
+	
+	const updatedDesigners = item.designers.map(designer => {
+		const designerData = data.secondary[designer.id];
+		return {
+		...designer,
+		label: getDesignerLabel(designerData)
+		};
+	});
+	
+	return {
+		...item,
+		filmLabel: getFilmLabel(film),
+		designers: updatedDesigners,
+		designerLabel: updatedDesigners.length > 0 
+		? updatedDesigners[0].label 
+		: (isEnglish.value ? 'Unknown' : 'نامشخص'),
+		directorLabel: item.director ? getDirectorLabel(data.secondary[item.director]) : (isEnglish.value ? 'Unknown' : 'نامشخص')
+	};
+	});
+});
+
 const itemsLength = computed(() => {
-	const count = posterMode.value
-		? items.length
-		: logos.length;
-	return count.toLocaleString('fa', { useGrouping: false });
+	const count = posterMode.value ? items.length : logos.length;
+	return isEnglish.value ? 
+		count.toLocaleString('en', { useGrouping: false }) : 
+		count.toLocaleString('fa', { useGrouping: false });
 });
 
 const similarCharsMapping = {
@@ -2451,12 +3114,27 @@ const toPersianYear = date => {
 };
 
 const availableYears = computed(() => {
-	const groups = Object.groupBy(items, item => toPersianYear(item.date));
+	const groups = Object.groupBy(items, item => toFilterYear(item));
 	let years = Object.keys(groups)
-		.map(year => [year, groups[year].length]);
+	.map(year => [year, groups[year].length]);
 
-	const unknown = years.find(([name]) => name === 'نامشخص');
-	years = years.filter(([name]) => name !== 'نامشخص').sort();
+	const unknown = years.find(([name]) => name === 'نامشخص' || name === 'Unknown');
+	
+	years = years.filter(([name]) => name !== 'نامشخص' && name !== 'Unknown')
+	.sort((a, b) => {
+		if (isEnglish.value) {
+		return parseInt(a[0]) - parseInt(b[0]);
+		} else {
+		try {
+			const yearA = parseInt(normalizeDigits(a[0]));
+			const yearB = parseInt(normalizeDigits(b[0]));
+			return yearA - yearB;
+		} catch (e) {
+			return a[0].localeCompare(b[0], 'fa');
+		}
+		}
+	});
+	
 	if (unknown) {
 		years.push(unknown);
 	}
@@ -2464,38 +3142,97 @@ const availableYears = computed(() => {
 });
 
 const availableYearsForRange = computed(() => {
-	const years = availableYears.value
-		.filter(([year]) => year !== 'نامشخص')
-		.map(([year]) => parseInt(normalizeDigits(year)))
-		.sort((a, b) => a - b);
-	
-	return [...new Set(years)];
+  const yearCounts = {};
+  
+  console.log("=== DEBUG: availableYearsForRange ===");
+  console.log("Total items:", items.length);
+  
+  items.forEach((item, index) => {
+    if (!item.date) {
+      console.log(`Item ${index}: No date`, item);
+      return;
+    }
+    
+    try {
+      const dateStr = item.date;
+      let year;
+      
+      if (isEnglish.value) {
+        const yearMatch = dateStr.match(/\d{4}/);
+        year = yearMatch ? parseInt(yearMatch[0]) : null;
+      } else {
+        try {
+          const date = new Date(dateStr);
+          if (!isNaN(date.getTime())) {
+            const persianDate = date.toLocaleDateString('fa-IR');
+            const yearMatch = persianDate.match(/\d+/);
+            year = yearMatch ? parseInt(yearMatch[0]) : null;
+          } else {
+            const yearMatch = dateStr.match(/\d{4}/);
+            year = yearMatch ? parseInt(yearMatch[0]) - 621 : null;
+          }
+        } catch (e) {
+          console.log(`Item ${index}: Error parsing Persian date`, dateStr, e);
+          return;
+        }
+      }
+      
+      if (year && !isNaN(year)) {
+        console.log(`Item ${index}: Date: ${item.date}, Year: ${year}`);
+        yearCounts[year] = (yearCounts[year] || 0) + 1;
+      }
+    } catch (e) {
+      console.log(`Item ${index}: Error processing date`, item.date, e);
+      return;
+    }
+  });
+  
+  console.log("Year counts:", yearCounts);
+  
+  const years = Object.entries(yearCounts)
+    .filter(([year]) => {
+      const yearNum = parseInt(year);
+      return yearNum > 1200 && yearNum < 1500;
+    })
+    .sort(([a], [b]) => parseInt(a) - parseInt(b));
+  
+  console.log("Filtered years:", years);
+  console.log("=== END DEBUG ===");
+  
+  return years;
+});
+
+const availableYearsForDropdown = computed(() => {
+	return availableYearsForRange.value.map(year => [
+	year.toString(), 
+	isEnglish.value ? year.toString() : toPersianNumerals(year.toString())
+	]);
 });
 
 const availableDesigners = computed(() => {
-	const groups = Object.groupBy(items, item => item.designerLabel);
+	const groups = Object.groupBy(itemsWithLocalizedLabels.value, item => item.designerLabel);
 	let designers = Object.keys(groups)
 		.map(designer => [designer, groups[designer].length]);
 
-	const unknown = designers.find(([name]) => name === 'نامشخص');
-	designers = designers.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
+	const unknown = designers.find(([name]) => name === 'نامشخص' || name === 'Unknown');
+	designers = designers.filter(([name]) => name !== 'نامشخص' && name !== 'Unknown').sort((a, b) => b[1] - a[1]);
 	if (unknown) {
 		designers.push(unknown);
 	}
-	return designers;
+		return designers;
 });
 
 const availableDirectors = computed(() => {
-	const groups = Object.groupBy(items, item => item.directorLabel);
+	const groups = Object.groupBy(itemsWithLocalizedLabels.value, item => item.directorLabel);
 	let directors = Object.keys(groups)
 		.map(director => [director, groups[director].length]);
 
-	const unknown = directors.find(([name]) => name === 'نامشخص');
-	directors = directors.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
+	const unknown = directors.find(([name]) => name === 'نامشخص' || name === 'Unknown');
+	directors = directors.filter(([name]) => name !== 'نامشخص' && name !== 'Unknown').sort((a, b) => b[1] - a[1]);
 	if (unknown) {
 		directors.push(unknown);
 	}
-	return directors;
+		return directors;
 });
 
 const getItemTitleWithYear = item => {
@@ -2511,7 +3248,19 @@ const letterCounts = computed(() => {
 });
 
 const filteredItems = computed(() => {
-	let results = items;
+	const itemsWithUpdatedLabels = items.map(item => {
+	const film = data.films[item.film];
+	return {
+		...item,
+		filmLabel: getFilmLabel(film),
+		designerLabel: item.designers && item.designers.length > 0 
+		? getDesignerLabel(data.secondary[item.designers[0].id])
+		: (isEnglish.value ? 'Unknown' : 'نامشخص'),
+		directorLabel: item.director ? getDirectorLabel(data.secondary[item.director]) : (isEnglish.value ? 'Unknown' : 'نامشخص')
+	};
+	});
+
+	let results = itemsWithLocalizedLabels.value;
 
 	const trimmedSearchTerm = searchTerm.value
 		.replace(/^[\s\u200C]+|[\s\u200C]+$/g, '')
@@ -2551,7 +3300,7 @@ const filteredItems = computed(() => {
 
 
 	if (selectedYear.value) {
-		results = results.filter(item => toPersianYear(item.date) === selectedYear.value);
+		results = results.filter(item => matchesYearFilter(item));
 	}
 
 	if (selectedDesigner.value) {
@@ -2568,7 +3317,6 @@ const filteredItems = computed(() => {
 		results = results.filter(item => item.filmLabel.startsWith(selectedLetter.value));
 	}
 
-// فیلتر بازه سال
 	if (yearRangeStart.value || yearRangeEnd.value) {
 		results = results.filter(item => {
 			const persianYear = toPersianYear(item.date);
@@ -2629,7 +3377,7 @@ const filteredDesigners = computed(() => {
 	if (unknown) {
 		designers.push(unknown);
 	}
-	return designers;
+		return designers;
 });
 
 const filteredDirectors = computed(() => {
@@ -2642,16 +3390,16 @@ const filteredDirectors = computed(() => {
 	if (unknown) {
 		directors.push(unknown);
 	}
-	return directors;
+		return directors;
 });
 
 const filteredDesignersInModal = computed(() => {
-	const groups = Object.groupBy(filteredItems.value, item => item.designerLabel);
+	const groups = Object.groupBy(itemsWithLocalizedLabels.value, item => item.designerLabel);
 	let designers = Object.keys(groups)
 		.map(designer => [designer, groups[designer].length]);
 
-	const unknown = designers.find(([name]) => name === 'نامشخص');
-	designers = designers.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
+	const unknown = designers.find(([name]) => name === 'نامشخص' || name === 'Unknown');
+	designers = designers.filter(([name]) => name !== 'نامشخص' && name !== 'Unknown').sort((a, b) => b[1] - a[1]);
 	if (unknown) {
 		designers.push(unknown);
 	}
@@ -2666,8 +3414,8 @@ const filteredDesignersInModal = computed(() => {
 const filmCountByYear = computed(() => {
 	const filmGroups = {};
 	filteredItems.value.forEach(item => {
-		const year = toPersianYear(item.date || '');
-		if (year && year !== 'نامشخص') {
+		const year = toFilterYear(item);
+		if (year && year !== 'نامشخص' && year !== 'Unknown') {
 			if (!filmGroups[year]) filmGroups[year] = new Set();
 			filmGroups[year].add(item.film);
 		}
@@ -2675,17 +3423,23 @@ const filmCountByYear = computed(() => {
 	return filmGroups;
 });
 
+
 const filmCountByDesigner = computed(() => {
 	const filmGroups = {};
+	
 	filteredItems.value.forEach(item => {
 		if (item.designers && item.designers.length > 0) {
-			item.designers?.forEach(designer => {
-				const designerLabel = designer.label || 'نامشخص';
+			item.designers.forEach(designer => {
+				const designerLabel = getDesignerLabel({ 
+					labels: { fa: designer.label, en: designer.label },
+					id: designer.id 
+				});
+			
 				if (!filmGroups[designerLabel]) filmGroups[designerLabel] = new Set();
 				filmGroups[designerLabel].add(item.film);
 			});
 			} else {
-				const designerLabel = 'نامشخص';
+				const designerLabel = isEnglish.value ? 'Unknown' : 'نامشخص';
 				if (!filmGroups[designerLabel]) filmGroups[designerLabel] = new Set();
 				filmGroups[designerLabel].add(item.film);
 			}
@@ -2723,12 +3477,27 @@ const selectDesignerFromModal = designer => {
 };
 
 const filteredYearsInModal = computed(() => {
-	const groups = Object.groupBy(filteredItems.value, item => toPersianYear(item.date));
+	const groups = Object.groupBy(filteredItems.value, item => toFilterYear(item));
 	let years = Object.keys(groups)
-		.map(year => [year, groups[year].length]);
+	.map(year => [year, groups[year].length]);
 
-	const unknown = years.find(([name]) => name === 'نامشخص');
-	years = years.filter(([name]) => name !== 'نامشخص').sort();
+	const unknown = years.find(([name]) => name === 'نامشخص' || name === 'Unknown');
+	
+	years = years.filter(([name]) => name !== 'نامشخص' && name !== 'Unknown')
+	.sort((a, b) => {
+		if (isEnglish.value) {
+		return parseInt(a[0]) - parseInt(b[0]);
+		} else {
+		try {
+			const yearA = parseInt(normalizeDigits(a[0]));
+			const yearB = parseInt(normalizeDigits(b[0]));
+			return yearA - yearB;
+		} catch (e) {
+			return a[0].localeCompare(b[0], 'fa');
+		}
+		}
+	});
+	
 	if (unknown) {
 		years.push(unknown);
 	}
@@ -2749,12 +3518,12 @@ watch(isMobileView, (newValue) => {
 const directorSearchQuery = ref('');
 
 const filteredDirectorsInModal = computed(() => {
-	const groups = Object.groupBy(filteredItems.value, item => item.directorLabel);
+	const groups = Object.groupBy(itemsWithLocalizedLabels.value, item => item.directorLabel);
 	let directors = Object.keys(groups)
 		.map(director => [director, groups[director].length]);
 
-	const unknown = directors.find(([name]) => name === 'نامشخص');
-	directors = directors.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
+	const unknown = directors.find(([name]) => name === 'نامشخص' || name === 'Unknown');
+	directors = directors.filter(([name]) => name !== 'نامشخص' && name !== 'Unknown').sort((a, b) => b[1] - a[1]);
 	if (unknown) {
 		directors.push(unknown);
 	}
@@ -2779,20 +3548,42 @@ const filteredLettersInModal = computed(() => {
 
 const filteredYearLabel = computed(() => {
 	if (selectedYear.value) {
-		return `سال: ${selectedYear.value}`;
+		return isEnglish.value ? `Year: ${selectedYear.value}` : `سال: ${selectedYear.value}`;
 	} else if (yearRangeStart.value || yearRangeEnd.value) {
-		const start = yearRangeStart.value ? yearRangeStart.value.toLocaleString('fa', { useGrouping: false }) : '؟';
-		const end = yearRangeEnd.value ? yearRangeEnd.value.toLocaleString('fa', { useGrouping: false }) : '؟';
-		return `بازهٔ سال: ${start}-${end}`;
+	const start = yearRangeStart.value ? 
+		(isEnglish.value ? yearRangeStart.value : toPersianNumerals(yearRangeStart.value.toString())) 
+		: '؟';
+	const end = yearRangeEnd.value ? 
+		(isEnglish.value ? yearRangeEnd.value : toPersianNumerals(yearRangeEnd.value.toString())) 
+		: '؟';
+	return isEnglish.value ? `Year range: ${start}-${end}` : `بازهٔ سال: ${start}-${end}`;
 	} else {
-		return 'سال‌ها';
+		return isEnglish.value ? 'Years' : 'سال‌ها';
 	}
 });
-const filteredDesignerLabel = computed(() => selectedDesigner.value ? `طراح: ${selectedDesigner.value}` : 'طراحان');
-const filteredDirectorLabel = computed(() => selectedDirector.value ? `کارگردان: ${selectedDirector.value}` : 'کارگردان‌ها');
-const filteredLetterLabel = computed(() => selectedLetter.value ? `حرف اول: ${selectedLetter.value}` : 'حروف اول');
+
+const filteredDesignerLabel = computed(() => 
+	selectedDesigner.value 
+	? (isEnglish.value ? `Designer: ${selectedDesigner.value}` : `طراح: ${selectedDesigner.value}`)
+	: (isEnglish.value ? 'Designers' : 'طراحان')
+);
+
+const filteredDirectorLabel = computed(() => 
+	selectedDirector.value 
+	? (isEnglish.value ? `Director: ${selectedDirector.value}` : `کارگردان: ${selectedDirector.value}`)
+	: (isEnglish.value ? 'Directors' : 'کارگردان‌ها')
+);
+
+const filteredLetterLabel = computed(() => 
+	selectedLetter.value 
+	? (isEnglish.value ? `First letter: ${selectedLetter.value}` : `حرف اول: ${selectedLetter.value}`)
+	: (isEnglish.value ? 'First letters' : 'حروف اول')
+);
 
 const sidebarWidth = ref(440);
+const sidebarAnimationDirection = ref(isEnglish.value ? 'left' : 'right');
+const sidebarWasVisible = ref(false);
+const isSidebarAnimating = ref(false);
 const minSidebarWidth = ref(300);
 const maxSidebarWidth = ref(600);
 
@@ -2851,6 +3642,7 @@ const removeLetterFilter = () => {
 const sidebarVisible = ref(false);
 
 const toggleSidebar = () => {
+	sidebarAnimationDirection.value = isEnglish.value ? 'left' : 'right';
 	sidebarVisible.value = !sidebarVisible.value;
 	if (sidebarVisible.value) {
 		window.history.pushState(null, '', window.location.pathname);
@@ -2858,12 +3650,19 @@ const toggleSidebar = () => {
 };
 
 const hideSidebar = () => {
+	sidebarAnimationDirection.value = isEnglish.value ? 'left' : 'right';
 	sidebarVisible.value = false;
 };
 
 const toggleSidebarDesktop = () => {
+	sidebarAnimationDirection.value = isEnglish.value ? 'left' : 'right';
 	sidebarVisible.value = !sidebarVisible.value;
 };
+
+const desktopToggleBtn = document.getElementById('desktopSidebarToggleButton');
+	if (desktopToggleBtn) {
+		desktopToggleBtn.style.display = 'block';
+	}
 
 onMounted(() => window.addEventListener('popstate', handlePopState));
 
@@ -3052,7 +3851,9 @@ const removeFilter = (type, value) => {
 };
 
 const filteredItemsLength = computed(() => {
-	return filteredItems.value.length.toLocaleString('fa', { useGrouping: false });
+	return isEnglish.value ? 
+		filteredItems.value.length.toLocaleString('en', { useGrouping: false }) : 
+		filteredItems.value.length.toLocaleString('fa', { useGrouping: false });
 });
 
 const getPosterUrl = (name, hash, width) => {
@@ -3082,10 +3883,17 @@ const getCommonsUrl = (item, posterMode, pixelatedEffect) => {
 };
 
 const getWikipediaUrl = (item) => {
+	if (isEnglish.value) {
+	if (item.enWikipediaLink) {
+		return 'https://en.wikipedia.org/wiki/' + item.enWikipediaLink.replaceAll(' ', '_');
+	}
+	return 'https://www.wikidata.org/wiki/' + item.film;
+	} else {
 	if (item.faWikipediaLink) {
 		return 'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_');
 	}
 	return 'https://www.wikidata.org/wiki/' + item.film;
+	}
 };
 
 const bringToTop = () => document.documentElement.scrollTop = 0;
@@ -3152,71 +3960,151 @@ const getDocHeight = () => {
 
 const sidebarStyle = computed(() => {
 	if (isMobileView.value) {
-		return {
-			right: sidebarVisible.value ? '0' : '-105%',
-			width: '385px',
-			height: '100vh',
-			top: '0',
-			transform: 'translateX(0)'
-		};
+		if (isEnglish.value) {
+			return {
+				left: sidebarVisible.value ? '0' : '-105%',
+				right: 'auto',
+				width: '385px',
+				height: '100vh',
+				top: '0',
+				transform: 'translateX(0)',
+				transition: sidebarVisible.value ? 'left 0.3s ease-in-out' : 'none'
+			};
+		} else {
+			return {
+				right: sidebarVisible.value ? '0' : '-105%',
+				left: 'auto',
+				width: '385px',
+				height: '100vh',
+				top: '0',
+				transform: 'translateX(0)',
+				transition: sidebarVisible.value ? 'right 0.3s ease-in-out' : 'none'
+			};
+		}
 	} else {
-		return {
-			transform: sidebarVisible.value ? 'translateX(0)' : 'translateX(105%)',
+		const baseStyle = {
 			width: `${sidebarWidth.value}px`,
 			height: 'calc(100vh - 40px)',
 			top: '20px',
-			right: '20px',
+			transition: 'transform 0.3s ease-in-out'
+		};
+		
+		if (isEnglish.value) {
+			return {
+				...baseStyle,
+				left: '20px',
+				right: 'auto',
+				transform: sidebarVisible.value ? 'translateX(0)' : 'translateX(-105%)'
+			};
+		} else {
+			return {
+				...baseStyle,
+				right: '20px',
+				left: 'auto',
+				transform: sidebarVisible.value ? 'translateX(0)' : 'translateX(105%)'
+			};
+		}
+	}
+});
+
+const sidebarOverlayStyle = computed(() => {
+	if (isMobileView.value && sidebarVisible.value) {
+		return {
+			position: 'fixed',
+			top: 0,
+			left: 0,
+			right: 0,
+			bottom: 0,
+			backgroundColor: 'rgba(0, 0, 0, 0.5)',
+			zIndex: 999,
+			transition: 'opacity 0.3s ease-in-out'
 		};
 	}
+	return {
+		display: 'none'
+  };
 });
 
 const desktopSidebarToggleStyle = computed(() => {
 	if (isMobileView.value) {
 		return { display: 'none' };
 	} else {
-		return {
-			top: '20px',
-			zIndex: '999',
-			transition: 'all 0.3s ease-in-out'
-		};
+	const position = isEnglish.value ? 
+		{ left: '20px', right: 'auto' } : 
+		{ right: '20px', left: 'auto' };
+	
+	return {
+		...position,
+		top: '20px',
+		zIndex: '1001',
+		transition: 'all 0.3s ease-in-out'
+	};
 	}
 });
 
 const searchBarDynamicStyle = computed(() => {
 	let style = {};
+	
 	if (isMobileView.value) {
-		style.left = '0px';
-		style.width = '100%';
-		style.right = 'auto';
-		if (isSearchBarVisible.value) {
-			const titleHeight = 50;
-			style.top = isAtTop.value ? `${titleHeight}px` : '0px';
-		} else {
-			style.top = '-120px';
-		}
+	if (isEnglish.value) {
+		style.right = '0px';
+		style.left = 'auto';
 	} else {
-		if (sidebarVisible.value) {
+		style.left = '0px';
+		style.right = 'auto';
+	}
+	style.width = '100%';
+	
+	if (isSearchBarVisible.value) {
+		const titleHeight = 50;
+		style.top = isAtTop.value ? `${titleHeight}px` : '0px';
+	} else {
+		style.top = '-120px';
+	}
+	} else {
+	if (sidebarVisible.value) {
+		if (isEnglish.value) {
+			style.left = `${sidebarWidth.value + 60}px`;
+			style.right = '20px';
+		} else {
 			style.right = `${sidebarWidth.value + 60}px`;
 			style.left = '20px';
+		}
+	} else {
+		if (isEnglish.value) {
+			style.left = '20px';
+			style.right = '20px';
 		} else {
 			style.left = '20px';
 			style.right = '20px';
 		}
-		style.width = 'auto';
-		if (isSearchBarVisible.value) {
-			const titleHeight = 50;
-			style.top = isAtTop.value ? `${titleHeight}px` : '0px';
-		} else {
-			style.top = '-120px';
-		}
+	}
+	style.width = 'auto';
+	
+	if (isSearchBarVisible.value) {
+		const titleHeight = 50;
+		style.top = isAtTop.value ? `${titleHeight}px` : '0px';
+	} else {
+		style.top = '-120px';
+	}
 	}
 	return style;
 });
 
+const toTopStyle = computed(() => {
+	const position = isEnglish.value ? { right: '30px', left: 'auto' } : { left: '30px', right: 'auto' };
+	return {
+	...position,
+	bottom: visibleBringToTop.value ? '20px' : '-100px'
+	};
+});
+
 const mainContentStyle = computed(() => {
-	const effectiveMarginRight = sidebarVisible.value && !isMobileView.value
-		? `${sidebarWidth.value + 40}px`
-		: '0px';
+	const effectiveMargin = sidebarVisible.value && !isMobileView.value
+	? (isEnglish.value ? 
+		{ marginLeft: `${sidebarWidth.value + 40}px`, marginRight: '0px' } :
+		{ marginRight: `${sidebarWidth.value + 40}px`, marginLeft: '0px' })
+	: { marginRight: '0px', marginLeft: '0px' };
 
 	const titleHeight = isMobileView.value ? 65 : 50;
 	const searchBarTotalHeight = isSearchBarVisible.value ? searchBarHeight.value : 0;
@@ -3227,7 +4115,7 @@ const mainContentStyle = computed(() => {
 	}
 
 	return {
-		marginRight: effectiveMarginRight,
+		...effectiveMargin,
 		paddingTop: `${totalPadding}px`
 	};
 });
@@ -3256,7 +4144,12 @@ const updateChart = () => {
 
 	const xAxis = g => g
 		.attr("transform", `translate(0,${height})`)
-		.call(d3.axisBottom(x).tickSizeOuter(0))
+		.call(d3.axisBottom(x)
+		.tickSizeOuter(0)
+		.tickValues(x.domain().filter((d, i) => {
+			return i % Math.ceil(x.domain().length / 10) === 0;
+		}))
+		)
 		.selectAll("text")
 		.style("text-anchor", "end")
 		.attr("dx", "-.8em")
@@ -3302,8 +4195,8 @@ const updateChart = () => {
 			tooltip.transition().duration(200).style("opacity", .9);
 			const [xPos, yPos] = d3.pointer(event);
 			tooltip.html(`سال: ${d[0]}<br/>پوستر: ${d[1].toLocaleString('fa')}`)
-				   .style("left", (xPos + margin.left) + "px")
-				   .style("top", (yPos + margin.top - 28) + "px");
+				.style("left", (xPos + margin.left) + "px")
+				.style("top", (yPos + margin.top - 28) + "px");
 		})
 		.on("mouseout", () => {
 			tooltip.transition().duration(500).style("opacity", 0);
@@ -3413,7 +4306,10 @@ return {
 	mainContentStyle, isAtTop, pageTitle, isLightBackground, actualBackgroundColor, isDarkTheme,
 	filmCountByYear, filmCountByDesigner, filmCountByDirector, filmCountByLetter, getWikipediaUrl,
 	yearRangeStart, yearRangeEnd, applyYearRangeFilter, clearYearRangeFilter, yearRangeBounds,
-	tempYearRangeStart, tempYearRangeEnd, normalizeDigits
+	tempYearRangeStart, tempYearRangeEnd, normalizeDigits, isEnglish, toggleLanguage,
+	getDisplayYear, getFilmLabel, getDesignerWikipediaUrl, toTopStyle, formatNumber,
+	applyLanguageFromURL, toFilterYear
+
 };
 
 } }).mount('#app');
