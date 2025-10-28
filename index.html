@@ -77,7 +77,7 @@ body {
 	align-items: center;
 	max-width: 100%;
 	overflow-x: hidden;
-	transition: padding-top 0.1s ease-out, margin-right 0.3s ease-in-out;
+	transition: padding-top 0.1s ease-out, margin-inline-start 0.3s ease-in-out;
 	padding-top: 0;
 }
 
@@ -260,7 +260,7 @@ input[type="text"] {
 	color: var(--year-link-foreground);
 	cursor: pointer;
 	text-decoration: none;
-	margin-right: 3px;
+	margin-inline-start: 3px;
 	font-weight: normal;
 }
 
@@ -282,7 +282,7 @@ input[type="text"] {
 .item-designer a {
 	color: light-dark(#222, #ddd);
 	text-decoration: none;
-	margin-left: 4px;
+	margin-inline-end: 4px;
 }
 
 .item-designer a:hover {
@@ -640,7 +640,7 @@ input[type="text"] {
 	z-index: 1000;
 	top: 150%;
 	left: 70%;
-	margin-left: -53px;
+	margin-inline-end: -53px;
 	text-wrap: auto;
 	font-size: medium;
 	line-height: normal;
@@ -652,7 +652,7 @@ input[type="text"] {
 	bottom: 100%;
 	left: 50%;
 	opacity: 1;
-	margin-left: -32.5px;
+	margin-inline-end: -32.5px;
 	border-width: 5px;
 	border-style: solid;
 	border-color: transparent transparent #666 transparent;
@@ -818,7 +818,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 	cursor: pointer;
 	font-size: 0.9em;
 	width: fit-content; 
-	margin-right: 5px;
+	margin-inline-start: 5px;
 }
 .removeRange:hover {
 	background-color: var(--bar-color);
@@ -833,7 +833,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 	cursor: pointer;
 	font-size: 0.9em;
 	width: fit-content;
-	margin-right: 5px;
+	margin-inline-start: 5px;
 }
 
 .applyRange:hover {
@@ -1161,7 +1161,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 	}
 
 	#main-content {
-		margin-right: 0 !important;
+		margin-inline-start: 0 !important;
 		flex-direction: column;
 	}
 
@@ -1183,8 +1183,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		gap: 15px;
-		padding-left: 15px;
-		padding-right: 15px;
+		padding-inline: 15px;
 	}
 
 	.item-card {
@@ -1385,7 +1384,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 			</button>
 			<p class="filtersTitle">
 				فیلترها 
-				<span style="font-weight: 400; margin-right: 5px;">(پوستر×فیلم)</span>
+				<span style="font-weight: 400; margin-inline-start: 5px;">(پوستر×فیلم)</span>
 			</p>
 		</div>
 
@@ -1893,7 +1892,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 					<div class="more-info-content" :class="{ 'visible': moreInformation }">
 						<div v-if="hasDesigner(item)" class="item-designer" :class="textColorClass">
 							<span class="mobile-only">
-								<span class="material-symbols-rounded" :class="textColorClass" style="margin-left: 5px; top: 8px; position: relative;">person_edit</span>
+								<span class="material-symbols-rounded" :class="textColorClass" style="margin-inline-end: 5px; top: 8px; position: relative;">person_edit</span>
 							</span>
 							<span class="desktop-only" :class="textColorClass">{{ item.designers.length === 1 ? getTranslatedText('designer') + ': ' : getTranslatedText('designers') + ': ' }}</span>
 							<span :class="textColorClass" v-for="(designer, index) in item.designers" :key="index">
