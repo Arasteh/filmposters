@@ -2889,6 +2889,7 @@ watch([yearRangeStart, yearRangeEnd], ([newStart, newEnd]) => {
 }, { deep: true });
 
 watch(tempYearRangeStart, (newValue) => {
+	if (newValue !== '' && tempYearRangeEnd.value !== '') {
 		applyYearRangeFilter();
 	}
 });
