@@ -1902,10 +1902,29 @@ input[type="range"]::-webkit-slider-runnable-track {
 									<a :href="'https://www.wikidata.org/wiki/' + designer.id" aria-label="ویکی‌داده" target="_blank">
 										<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg" alt="ویکی‌داده" class="linkIcon">
 									</a>
-									<template v-if="designer.faWikipediaLink">
-										<a :href="'https://fa.wikipedia.org/wiki/' + designer.faWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
-											<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
-										</a>
+									<template v-if="currentLanguage === 'en'">
+										<template v-if="designer.enWikipediaLink">
+											<a :href="'https://en.wikipedia.org/wiki/' + designer.enWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
+												<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
+											</a>
+										</template>
+										<template v-else-if="designer.faWikipediaLink">
+											<a :href="'https://fa.wikipedia.org/wiki/' + designer.faWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
+												<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
+											</a>
+										</template>
+									</template>
+									<template v-else>
+										<template v-if="designer.faWikipediaLink">
+											<a :href="'https://fa.wikipedia.org/wiki/' + designer.faWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
+												<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
+											</a>
+										</template>
+										<template v-else-if="designer.enWikipediaLink">
+											<a :href="'https://en.wikipedia.org/wiki/' + designer.enWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
+												<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
+											</a>
+										</template>
 									</template>
 								</span>
 								<br v-if="index < item.designers.length - 1">
@@ -1918,9 +1937,30 @@ input[type="range"]::-webkit-slider-runnable-track {
 							<a v-if="item.film" :href="'https://www.wikidata.org/wiki/' + item.film" aria-label="ویکی‌داده" target="_blank">
 								<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg" alt="ویکی‌داده" class="linkIcon">
 							</a>
-							<a v-if="item.faWikipediaLink" :href="'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
-								<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
-							</a>
+							<template v-if="currentLanguage === 'en'">
+								<template v-if="item.enWikipediaLink">
+									<a :href="'https://en.wikipedia.org/wiki/' + item.enWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
+										<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
+									</a>
+								</template>
+								<template v-else-if="item.faWikipediaLink">
+									<a :href="'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
+										<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
+									</a>
+								</template>
+							</template>
+							<template v-else>
+								<template v-if="item.faWikipediaLink">
+									<a :href="'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
+										<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
+									</a>
+								</template>
+								<template v-else-if="item.enWikipediaLink">
+									<a :href="'https://en.wikipedia.org/wiki/' + item.enWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
+										<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
+									</a>
+								</template>
+							</template>
 						</div>
 					</div>
 
@@ -2424,7 +2464,8 @@ const items = computed(() => {
 				return {
 					id: designerId,
 						label: getItemLabel(designer?.labels) || getTranslatedText('unknown'),
-					faWikipediaLink: designer?.sitelinks?.fawiki
+					faWikipediaLink: designer?.sitelinks?.fawiki,
+					enWikipediaLink: designer?.sitelinks?.enwiki
 				};
 			}).filter(designer => designer != null);
 			item.characteristics = poster.characteristics;
@@ -2445,6 +2486,7 @@ const items = computed(() => {
 			item.imdbID = film.imdb?.[0];
 		}
 		item.faWikipediaLink = film.sitelinks?.fawiki;
+		item.enWikipediaLink = film.sitelinks?.enwiki;
 		if (film.logos?.length > i && film.logos[i]?.image?.endsWith('.png')) {
 			item.logo = film.logos[i].image;
 			item.logoHash = film.logos[i].hash;
@@ -3293,10 +3335,23 @@ const getCommonsUrl = (item, posterMode, pixelatedEffect) => {
 };
 
 const getWikipediaUrl = (item) => {
-	if (item.faWikipediaLink) {
-		return 'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_');
+	if (currentLanguage.value === 'en') {
+		if (item.enWikipediaLink) {
+			return 'https://en.wikipedia.org/wiki/' + item.enWikipediaLink.replaceAll(' ', '_');
+		}
+		if (item.faWikipediaLink) {
+			return 'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_');
+		}
+		return 'https://www.wikidata.org/wiki/' + item.film;
+	} else {
+		if (item.faWikipediaLink) {
+			return 'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_');
+		}
+		if (item.enWikipediaLink) {
+			return 'https://en.wikipedia.org/wiki/' + item.enWikipediaLink.replaceAll(' ', '_');
+		}
+		return 'https://www.wikidata.org/wiki/' + item.film;
 	}
-	return 'https://www.wikidata.org/wiki/' + item.film;
 };
 
 const bringToTop = () => document.documentElement.scrollTop = 0;
