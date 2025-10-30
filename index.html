@@ -1869,21 +1869,14 @@ input[type="range"]::-webkit-slider-runnable-track {
 								{{ getFilmLabelForItem(item) }}
 							</a>
 						<span class="year-link" :class="textColorClass" v-if="item.date">
-							<a @click.prevent="selectYearFromTitle(toPersianYear(item.date))" href="#" class="year-link" :class="textColorClass">
-								({{ toPersianYear(item.date) }}
+							<a @click.prevent="selectYearFromTitle(getPrimaryYear(item.date))" href="#" class="year-link" :class="textColorClass">
+								({{ getPrimaryYear(item.date) }}
 							</a>
-							<template v-if="moreInformation && currentLanguage === 'fa'"> 
+							<template v-if="moreInformation"> 
 								- 
 								<a :href="'https://commons.wikimedia.org/wiki/Category:' + new Date(item.date).getFullYear() + '_film_posters_of_Iran'"
 								target="_blank" class="gregorian-year-link">
-								{{ new Date(item.date).getFullYear() }}
-								</a>
-							</template>
-							<template v-else-if="moreInformation && currentLanguage === 'en'">
-								- 
-								<a :href="'https://commons.wikimedia.org/wiki/Category:' + new Date(item.date).getFullYear() + '_film_posters_of_Iran'"
-								target="_blank" class="gregorian-year-link">
-								{{ new Date(item.date).toLocaleDateString('fa').split('/')[0] }}
+								{{ getSecondaryYear(item.date) }}
 								</a>
 							</template>
 							)
@@ -2517,30 +2510,17 @@ const persianAlphabet = [
 	'آ', 'ا', 'ب', 'پ', 'ت', 'ث', 'ج', 'چ', 'ح', 'خ', 'د', 'ذ', 'ر', 'ز', 'ژ', 'س', 'ش', 'ص', 'ض', 'ط', 'ظ', 'ع', 'غ', 'ف', 'ق', 'ک', 'گ', 'ل', 'م', 'ن', 'و', 'ه', 'ی'
 ];
 
-const toPersianYear = date => {
-	if (!date) return currentLanguage.value === 'en' ? 'Unknown' : 'نامشخص';
-	
-	const gregorianYear = new Date(date).getFullYear();
-	const persianDate = new Date(date).toLocaleDateString('fa');
-	const persianYear = persianDate.split('/')[0];
-	
-	if (isNaN(gregorianYear) || persianYear === 'Invalid Date') {
-		return currentLanguage.value === 'en' ? 'Unknown' : 'نامشخص';
-	}
-	
-	if (currentLanguage.value === 'en') {
-		if (moreInformation.value) {
-			return `${gregorianYear} (${persianYear})`;
-		} else {
-			return `${gregorianYear}`;
-		}
-	} else {
-		if (moreInformation.value) {
-			return `${persianYear} (${gregorianYear})`;
-		} else {
-			return persianYear;
-		}
-	}
+const toPersianYear = (date) => {
+    if (!date) return 'نامشخص';
+    
+    const persianDate = new Date(date).toLocaleDateString('fa');
+    const persianYear = persianDate.split('/')[0];
+    
+    if (persianYear === 'Invalid Date') {
+        return 'نامشخص';
+    }
+    
+    return persianYear;
 };
 
 const availableYears = computed(() => {
@@ -2666,6 +2646,43 @@ const availableDirectors = computed(() => {
 const getItemTitleWithYear = item => {
 	return item.filmLabel + (item.date ? ` (${toPersianYear(item.date)})` : '');
 };
+
+const getPrimaryYear = (date) => {
+    if (!date) return currentLanguage.value === 'en' ? 'Unknown' : 'نامشخص';
+    
+    const gregorianYear = new Date(date).getFullYear();
+    const persianDate = new Date(date).toLocaleDateString('fa');
+    const persianYear = persianDate.split('/')[0];
+    
+    if (isNaN(gregorianYear) || persianYear === 'Invalid Date') {
+        return currentLanguage.value === 'en' ? 'Unknown' : 'نامشخص';
+    }
+    
+    if (currentLanguage.value === 'en') {
+        return `${gregorianYear}`;
+    } else {
+        return persianYear;
+    }
+};
+
+const getSecondaryYear = (date) => {
+    if (!date) return '';
+    
+    const gregorianYear = new Date(date).getFullYear();
+    const persianDate = new Date(date).toLocaleDateString('fa');
+    const persianYear = persianDate.split('/')[0];
+    
+    if (isNaN(gregorianYear) || persianYear === 'Invalid Date') {
+        return '';
+    }
+    
+    if (currentLanguage.value === 'en') {
+        return persianYear;
+    } else {
+        return `${gregorianYear}`;
+    }
+};
+
 
 const letterCounts = computed(() => {
 	const counts = persianAlphabet.reduce((acc, letter) => {
@@ -3253,7 +3270,21 @@ const downloadLink = item => {
 	return `https://upload.wikimedia.org/wikipedia/commons/${hash[0]}/${hash}/${name}?download`;
 };
 
-const selectYearFromTitle = year => selectedYear.value = year;
+const selectYearFromTitle = (year) => {
+    if (currentLanguage.value === 'en') {
+        const gregorianYear = parseInt(year.replace(/[^0-9]/g, ''));
+        if (!isNaN(gregorianYear)) {
+            const persianYear = gregorianYear - 621;
+            selectedYear.value = persianYear.toLocaleString('fa');
+            return;
+        }
+    }
+    
+    const persianYear = year.replace(/[^۰-۹0-9]/g, '');
+    if (persianYear) {
+        selectedYear.value = persianYear.toLocaleString('fa');
+    }
+};
 
 const activeFilters = computed(() => {
 	const filters = [];
@@ -3702,7 +3733,8 @@ return {
 	filmCountByYear, filmCountByDesigner, filmCountByDirector, filmCountByLetter, getWikipediaUrl,
 	yearRangeStart, yearRangeEnd, applyYearRangeFilter, clearYearRangeFilter, yearRangeBounds,
 	tempYearRangeStart, tempYearRangeEnd, normalizeDigits, currentLanguage, toggleLanguage,
-	getTranslatedText, getFilmLabel, getDesignerLabel, getDirectorLabel, getFilmLabelForItem, hasDesigner, filtersContainerStyle
+	getTranslatedText, getFilmLabel, getDesignerLabel, getDirectorLabel, getFilmLabelForItem, hasDesigner, 
+	filtersContainerStyle, getPrimaryYear, getSecondaryYear
 
 };
 
