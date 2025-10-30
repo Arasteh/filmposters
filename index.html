@@ -2601,7 +2601,8 @@ const availableDesigners = computed(() => {
 });
 
 const getDirectorLabelForItem = (item) => {
-	return item.director ? getDirectorLabel(item.director) : getTranslatedText('unknown');
+	if (!item.director) return getTranslatedText('unknown');
+	return getDirectorLabel(item.director);
 };
 
 const getFilmLabelForItem = (item) => {
@@ -2612,34 +2613,15 @@ const getFilmLabelForItem = (item) => {
 const availableDirectors = computed(() => {
 	const groups = {};
 	items.value.forEach(item => {
-		if (item.director) {
-			const directorId = item.director;
-			if (!groups[directorId]) groups[directorId] = 0;
-			groups[directorId]++;
-		} else {
-			const unknownKey = 'unknown';
-			if (!groups[unknownKey]) groups[unknownKey] = 0;
-			groups[unknownKey]++;
-		}
+		const directorLabel = getDirectorLabelForItem(item);
+		if (!groups[directorLabel]) groups[directorLabel] = 0;
+		groups[directorLabel]++;
 	});
 
-	let directors = Object.entries(groups).map(([id, count]) => {
-		let label;
-		if (id === 'unknown') {
-			label = getTranslatedText('unknown');
-		} else {
-			const director = data.secondary[id];
-			label = getItemLabel(director?.labels) || getTranslatedText('unknown');
-		}
-		return [label, count];
-	});
+	let directors = Object.entries(groups)
+		.map(([label, count]) => [label, count])
+		.sort((a, b) => b[1] - a[1]);
 
-	const unknown = directors.find(([name]) => name === getTranslatedText('unknown'));
-	directors = directors.filter(([name]) => name !== getTranslatedText('unknown'))
-						.sort((a, b) => b[1] - a[1]);
-	if (unknown) {
-		directors.push(unknown);
-	}
 	return directors;
 });
 
@@ -2743,7 +2725,9 @@ const filteredItems = computed(() => {
 	}
 
 	if (selectedDirector.value) {
-			getDirectorLabelForItem(item) === selectedDirector.value // تغییر این خط
+		results = results.filter(item => 
+			getDirectorLabelForItem(item) === selectedDirector.value
+		);
 	}
 
 	if (selectedLetter.value) {
@@ -2998,19 +2982,14 @@ const directorSearchQuery = ref('');
 const filteredDirectorsInModal = computed(() => {
 	const groups = {};
 	filteredItems.value.forEach(item => {
-		const director = item.directorLabel;
-		if (!groups[director]) groups[director] = [];
-		groups[director].push(item);
+		const directorLabel = getDirectorLabelForItem(item);
+		if (!groups[directorLabel]) groups[directorLabel] = 0;
+		groups[directorLabel]++;
 	});
-	
-	let directors = Object.keys(groups)
-		.map(director => [director, groups[director].length]);
 
-	const unknown = directors.find(([name]) => name === 'نامشخص');
-	directors = directors.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
-	if (unknown) {
-		directors.push(unknown);
-	}
+	let directors = Object.entries(groups)
+		.map(([label, count]) => [label, count])
+		.sort((a, b) => b[1] - a[1]);
 
 	if (!directorSearchQuery.value) {
 		return directors;
