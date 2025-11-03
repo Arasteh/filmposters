@@ -977,7 +977,9 @@ input[type="range"]::-webkit-slider-runnable-track {
 .designer-grid,
 .director-grid,
 .year-grid,
-.letter-grid {
+.letter-grid,
+.genre-grid,
+.actor-grid {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 8px;
@@ -986,7 +988,9 @@ input[type="range"]::-webkit-slider-runnable-track {
 .designer-item,
 .director-item,
 .year-item,
-.letter-item {
+.letter-item,
+.genre-item,
+.actor-item {
 	padding: 5px 10px;
 	border-radius: 30px;
 	cursor: pointer;
@@ -1001,7 +1005,9 @@ input[type="range"]::-webkit-slider-runnable-track {
 .designer-item:hover,
 .director-item:hover,
 .year-item:hover,
-.letter-item:hover {
+.letter-item:hover,
+.genre-item:hover,
+.actor-item:hover {
 	background-color: var(--bar-color);
 	color: #fff !important;
 }
@@ -1019,9 +1025,51 @@ input[type="range"]::-webkit-slider-runnable-track {
 .designer-item:hover .remove-filter,
 .director-item:hover .remove-filter,
 .year-item:hover .remove-filter,
-.letter-item:hover .remove-filter {
+.letter-item:hover .remove-filter,
+.genre-item:hover .count,
+.actor-item:hover .count,
+.genre-item:hover .remove-filter,
+.actor-item:hover .remove-filter {
 	color: #fff !important;
 }
+
+.selected-actors,
+.selected-genres {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	padding: 5px;
+	background-color: light-dark(#f5f5f5, #2a2a2a);
+	border-radius: 8px;
+}
+
+.actor-item.selected,
+.genre-item.selected {
+	background-color: var(--bar-color);
+	color: white;
+}
+
+.actor-item.disabled,
+.genre-item.disabled {
+	opacity: 0.5;
+	pointer-events: none;
+}
+
+.add-filter {
+	background: none;
+	border: none;
+	color: light-dark(#555, #bbb);
+	cursor: pointer;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	transition: color 0.3s ease;
+}
+
+.add-filter:hover {
+	color: var(--bar-color);
+}
+
 
 .no-results {
 	text-align: center;
@@ -1514,6 +1562,58 @@ input[type="range"]::-webkit-slider-runnable-track {
 				</div>
 			</div>
 
+			<div class="sidebar-section" :class="getSectionClass('genres')">
+				<div class="sidebar-section-header" @click="toggleCollapse('genres')">
+					<span style="display: none" :style="{ display: undefined }">{{ filteredGenreLabel }}</span>
+					<span :style="{ display: 'none' }">ژانرها</span>
+					<button class="collapse-button rotate-up" id="genresButton" :class="collapseIconClass(isCollapsed.genres)">
+					<span class="material-symbols-rounded">keyboard_arrow_up</span>
+					</button>
+				</div>
+				<div class="sidebar-section-body">
+					<div class="search-container">
+						<input type="text" v-model="genreSearchQuery" :placeholder="'جستجوی ژانر…'" />
+						<span v-if="genreSearchQuery" @click="clearGenreSearchQuery" class="clearSearch"
+							style="display: none" :style="{ display: undefined }">
+							<span class="material-symbols-rounded">close</span>
+						</span>
+					</div>
+					
+					<div class="selected-genres" v-if="selectedGenres.length > 0" style="margin-bottom: 10px;">
+						<div v-for="genre in selectedGenres" :key="'selected-' + genre" 
+							class="genre-item selected" 
+							@click="removeGenreFilter(genre)">
+							{{ genre }}
+							<span class="remove-filter">
+								<span class="material-symbols-rounded" style="font-size: inherit;">close</span>
+							</span>
+						</div>
+					</div>
+
+					<div class="genre-grid" style="visibility: hidden" :style="{ visibility: undefined }">
+						<div v-if="filteredGenresInModal.length === 0" class="no-results">
+							نتیجه‌ای وجود ندارد
+						</div>
+						<div v-else v-for="[genre, count] in filteredGenresInModal" :key="genre"
+							@click="selectGenreFromModal(genre)"
+							@mouseenter="hoveredItem = genre" @mouseleave="hoveredItem = null"
+							:class="{ 'hovered': hoveredItem === genre, 'disabled': selectedGenres.includes(genre) }" 
+							class="genre-item">
+							{{ genre }} 
+							<span class="count">
+								{{ count.toLocaleString('fa') }}×{{ ((filmCountByGenre && filmCountByGenre[genre]) ? filmCountByGenre[genre].size : 0).toLocaleString('fa') }}
+							</span>
+							<span v-if="selectedGenres.includes(genre)" class="remove-filter" @click.stop="removeGenreFilter(genre)">
+								<span class="material-symbols-rounded" style="font-size: inherit;">close</span>
+							</span>
+							<span v-else class="add-filter" @click.stop="selectGenreFromModal(genre)">
+								+
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<div class="sidebar-section" :class="getSectionClass('designers')">
 				<div class="sidebar-section-header" @click="toggleCollapse('designers')">
 					<span style="display: none" :style="{ display: undefined }">{{ filteredDesignerLabel }}</span>
@@ -1592,6 +1692,58 @@ input[type="range"]::-webkit-slider-runnable-track {
 								<span class="material-symbols-rounded" style="font-size: inherit;">
 									close
 								</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="sidebar-section" :class="getSectionClass('actors')">
+				<div class="sidebar-section-header" @click="toggleCollapse('actors')">
+					<span style="display: none" :style="{ display: undefined }">{{ filteredActorLabel }}</span>
+					<span :style="{ display: 'none' }">بازیگران</span>
+					<button class="collapse-button rotate-up" id="actorsButton" :class="collapseIconClass(isCollapsed.actors)">
+					<span class="material-symbols-rounded">keyboard_arrow_up</span>
+					</button>
+				</div>
+				<div class="sidebar-section-body">
+					<div class="search-container">
+						<input type="text" v-model="actorSearchQuery" :placeholder="'جستجوی بازیگر…'" />
+						<span v-if="actorSearchQuery" @click="clearActorSearchQuery" class="clearSearch"
+							style="display: none" :style="{ display: undefined }">
+							<span class="material-symbols-rounded">close</span>
+						</span>
+					</div>
+					
+					<div class="selected-actors" v-if="selectedActors.length > 0" style="margin-bottom: 10px;">
+						<div v-for="actor in selectedActors" :key="'selected-' + actor" 
+							class="actor-item selected" 
+							@click="removeActorFilter(actor)">
+							{{ actor }}
+							<span class="remove-filter">
+								<span class="material-symbols-rounded" style="font-size: inherit;">close</span>
+							</span>
+						</div>
+					</div>
+
+					<div class="actor-grid" style="visibility: hidden" :style="{ visibility: undefined }">
+						<div v-if="filteredActorsInModal.length === 0" class="no-results">
+							نتیجه‌ای وجود ندارد
+						</div>
+						<div v-else v-for="[actor, count] in filteredActorsInModal" :key="actor"
+							@click="selectActorFromModal(actor)"
+							@mouseenter="hoveredItem = actor" @mouseleave="hoveredItem = null"
+							:class="{ 'hovered': hoveredItem === actor, 'disabled': selectedActors.includes(actor) }" 
+							class="actor-item">
+							{{ actor }} 
+							<span class="count">
+								{{ count.toLocaleString('fa') }}×{{ ((filmCountByActor && filmCountByActor[actor]) ? filmCountByActor[actor].size : 0).toLocaleString('fa') }}
+							</span>
+							<span v-if="selectedActors.includes(actor)" class="remove-filter" @click.stop="removeActorFilter(actor)">
+								<span class="material-symbols-rounded" style="font-size: inherit;">close</span>
+							</span>
+							<span v-else class="add-filter" @click.stop="selectActorFromModal(actor)">
+								+
+							</span>
 						</div>
 					</div>
 				</div>
@@ -2047,6 +2199,10 @@ const selectedYear = ref('');
 const selectedDesigner = ref('');
 const selectedDirector = ref('');
 const selectedLetter = ref('');
+const selectedGenres = ref([]);
+const selectedActors = ref([]);
+const genreSearchQuery = ref('');
+const actorSearchQuery = ref('');
 const posterMode = ref(true);
 const combineSimilarChars = ref(false);
 const pixelatedEffect = ref(false);
@@ -2152,7 +2308,10 @@ const hasActiveFilters = computed(() => {
 		selectedDirector.value ||
 		selectedLetter.value ||
 		yearRangeStart.value ||
-		yearRangeEnd.value;
+		yearRangeEnd.value ||
+		selectedGenres.value.length > 0 ||
+		selectedActors.value.length > 0;
+
 });
 
 const applyInitialFilters = () => {
@@ -2162,6 +2321,10 @@ const applyInitialFilters = () => {
 	selectedDesigner.value = urlParams.get('designer') || '';
 	selectedDirector.value = urlParams.get('director') || '';
 	selectedLetter.value = urlParams.get('letter') || '';
+	const genreParam = urlParams.get('genre');
+	selectedGenres.value = genreParam ? genreParam.split(',') : [];
+	const actorParam = urlParams.get('actor');
+	selectedActors.value = actorParam ? actorParam.split(',') : [];
 	posterMode.value = urlParams.get('mode') !== 'logo';
 	combineSimilarChars.value = urlParams.get('similar') === 'true';
 	pixelatedEffect.value = urlParams.get('censor') === null
@@ -2332,6 +2495,8 @@ const updateURL = () => {
 	if (selectedDesigner.value) params.set('designer', selectedDesigner.value);
 	if (selectedDirector.value) params.set('director', selectedDirector.value);
 	if (selectedLetter.value) params.set('letter', selectedLetter.value);
+	if (selectedGenres.value.length > 0) params.set('genre', selectedGenres.value.join(','));
+	if (selectedActors.value.length > 0) params.set('actor', selectedActors.value.join(','));
 	if (!posterMode.value) params.set('mode', 'logo');
 	if (combineSimilarChars.value) params.set('similar', 'true');
 	if (posterMode.value && pixelatedEffect.value) params.set('censor', 'true');
@@ -2388,13 +2553,40 @@ const isCollapsed = ref({
 	years: false,
 	letters: true,
 	chart: true,
-	yearRange: true
+	yearRange: true,
+	genres: true,
+	actors: true
 });
 
 const getSectionClass = section => isCollapsed.value[section] ? 'collapsed' : 'expanded';
 const selectDirectorFromModal = director => selectedDirector.value = director;
 const selectYearFromModal = year => selectedYear.value = year;
 const selectLetterFromModal = letter => selectedLetter.value = letter;
+const selectGenreFromModal = (genre) => {
+	if (!selectedGenres.value.includes(genre)) {
+		selectedGenres.value.push(genre);
+	}
+};
+
+const selectActorFromModal = (actor) => {
+	if (!selectedActors.value.includes(actor)) {
+		selectedActors.value.push(actor);
+	}
+};
+
+const removeGenreFilter = (genre) => {
+	selectedGenres.value = selectedGenres.value.filter(g => g !== genre);
+	hoveredItem.value = null;
+};
+
+const removeActorFilter = (actor) => {
+	selectedActors.value = selectedActors.value.filter(a => a !== actor);
+	hoveredItem.value = null;
+};
+
+const clearGenreSearchQuery = () => genreSearchQuery.value = '';
+const clearActorSearchQuery = () => actorSearchQuery.value = '';
+
 const togglePosterMode = () => {
 	posterMode.value = !posterMode.value;
 	if (posterMode.value) {
@@ -2421,6 +2613,8 @@ const resetFilters = () => {
 	selectedDesigner.value = '';
 	selectedDirector.value = '';
 	selectedLetter.value = '';
+	selectedGenres.value = [];
+	selectedActors.value = [];
 	sortDirection.value = 'asc';
 	exactWordMatch.value = false;
 	moreInformation.value = false;
@@ -2654,6 +2848,199 @@ const getFilmLabelForItem = (item) => {
 	return getFilmLabel(film);
 };
 
+const getGenreLabel = (genreId) => {
+	if (!genreId) return getTranslatedText('unknown');
+	const genre = data.secondary[genreId];
+	if (!genre?.labels) return getTranslatedText('unknown');
+	return getItemLabel(genre.labels);
+};
+
+const getGenreLabelForItem = (item) => {
+	const film = data.films[item.film];
+	if (film.genres && film.genres.length > 0) {
+		return film.genres.map(genreId => getGenreLabel(genreId)).join('، ');
+	}
+	return getTranslatedText('unknown');
+};
+
+const availableGenres = computed(() => {
+const groups = {};
+items.value.forEach(item => {
+	const film = data.films[item.film];
+	if (film.genres && film.genres.length > 0) {
+	film.genres.forEach(genreId => {
+		const genreLabel = getGenreLabel(genreId);
+		if (!groups[genreLabel]) groups[genreLabel] = 0;
+		groups[genreLabel]++;
+	});
+	} else {
+	const unknownKey = getTranslatedText('unknown');
+	if (!groups[unknownKey]) groups[unknownKey] = 0;
+	groups[unknownKey]++;
+	}
+});
+
+let genres = Object.entries(groups).map(([label, count]) => [label, count]);
+
+const unknown = genres.find(([name]) => name === getTranslatedText('unknown'));
+genres = genres.filter(([name]) => name !== getTranslatedText('unknown'))
+			.sort((a, b) => b[1] - a[1]);
+if (unknown) {
+	genres.push(unknown);
+}
+return genres;
+});
+
+const filteredGenres = computed(() => {
+	const groups = {};
+	filteredItems.value.forEach(item => {
+		const film = data.films[item.film];
+		if (film.genres && film.genres.length > 0) {
+		film.genres.forEach(genreId => {
+			const genreLabel = getGenreLabel(genreId);
+			if (!groups[genreLabel]) groups[genreLabel] = 0;
+			groups[genreLabel]++;
+		});
+		} else {
+		const unknownKey = getTranslatedText('unknown');
+		if (!groups[unknownKey]) groups[unknownKey] = 0;
+		groups[unknownKey]++;
+		}
+	});
+
+	let genres = Object.entries(groups).map(([label, count]) => [label, count]);
+
+	const unknown = genres.find(([name]) => name === getTranslatedText('unknown'));
+	genres = genres.filter(([name]) => name !== getTranslatedText('unknown'))
+				.sort((a, b) => b[1] - a[1]);
+	if (unknown) {
+		genres.push(unknown);
+	}
+	return genres;
+});
+
+const filmCountByGenre = computed(() => {
+	const filmGroups = {};
+	filteredItems.value.forEach(item => {
+		const film = data.films[item.film];
+		if (film.genres && film.genres.length > 0) {
+		film.genres.forEach(genreId => {
+			const genreLabel = getGenreLabel(genreId);
+			if (!filmGroups[genreLabel]) filmGroups[genreLabel] = new Set();
+			filmGroups[genreLabel].add(item.film);
+		});
+		} else {
+		const genreLabel = getTranslatedText('unknown');
+		if (!filmGroups[genreLabel]) filmGroups[genreLabel] = new Set();
+		filmGroups[genreLabel].add(item.film);
+		}
+	});
+	return filmGroups;
+});
+
+const getActorLabel = (actorId) => {
+	if (!actorId) return getTranslatedText('unknown');
+	const actor = data.secondary[actorId];
+	if (!actor?.labels) return getTranslatedText('unknown');
+	return getItemLabel(actor.labels);
+};
+
+const getActorLabelForItem = (item) => {
+	const film = data.films[item.film];
+	if (film.cast && film.cast.length > 0) {
+		return film.cast.map(actorId => getActorLabel(actorId)).join('، ');
+	}
+	return getTranslatedText('unknown');
+};
+
+const availableActors = computed(() => {
+	const groups = {};
+	items.value.forEach(item => {
+		const film = data.films[item.film];
+		if (film.cast && film.cast.length > 0) {
+		film.cast.forEach(actorId => {
+			const actorLabel = getActorLabel(actorId);
+			if (!groups[actorLabel]) groups[actorLabel] = 0;
+			groups[actorLabel]++;
+		});
+		} else {
+		const unknownKey = getTranslatedText('unknown');
+		if (!groups[unknownKey]) groups[unknownKey] = 0;
+		groups[unknownKey]++;
+		}
+	});
+
+	let actors = Object.entries(groups).map(([label, count]) => [label, count]);
+
+	const unknown = actors.find(([name]) => name === getTranslatedText('unknown'));
+	actors = actors.filter(([name]) => name !== getTranslatedText('unknown'))
+				.sort((a, b) => b[1] - a[1]);
+	if (unknown) {
+		actors.push(unknown);
+	}
+	return actors;
+});
+
+const filteredActors = computed(() => {
+	const groups = {};
+	filteredItems.value.forEach(item => {
+		const film = data.films[item.film];
+		if (film.cast && film.cast.length > 0) {
+		film.cast.forEach(actorId => {
+			const actorLabel = getActorLabel(actorId);
+			if (!groups[actorLabel]) groups[actorLabel] = 0;
+			groups[actorLabel]++;
+		});
+		} else {
+		const unknownKey = getTranslatedText('unknown');
+		if (!groups[unknownKey]) groups[unknownKey] = 0;
+		groups[unknownKey]++;
+		}
+	});
+
+	let actors = Object.entries(groups).map(([label, count]) => [label, count]);
+
+	const unknown = actors.find(([name]) => name === getTranslatedText('unknown'));
+	actors = actors.filter(([name]) => name !== getTranslatedText('unknown'))
+				.sort((a, b) => b[1] - a[1]);
+	if (unknown) {
+		actors.push(unknown);
+	}
+	return actors;
+});
+
+const filmCountByActor = computed(() => {
+	const filmGroups = {};
+	filteredItems.value.forEach(item => {
+		const film = data.films[item.film];
+		if (film.cast && film.cast.length > 0) {
+		film.cast.forEach(actorId => {
+			const actorLabel = getActorLabel(actorId);
+			if (!filmGroups[actorLabel]) filmGroups[actorLabel] = new Set();
+			filmGroups[actorLabel].add(item.film);
+		});
+		} else {
+		const actorLabel = getTranslatedText('unknown');
+		if (!filmGroups[actorLabel]) filmGroups[actorLabel] = new Set();
+		filmGroups[actorLabel].add(item.film);
+		}
+	});
+	return filmGroups;
+});
+
+const availableGenresForSelection = computed(() => {
+	return availableGenres.value.filter(([genre]) => 
+		!selectedGenres.value.includes(genre)
+	);
+});
+
+const availableActorsForSelection = computed(() => {
+	return availableActors.value.filter(([actor]) => 
+		!selectedActors.value.includes(actor)
+	);
+});
+
+
 const availableDirectors = computed(() => {
 	const groups = {};
 	items.value.forEach(item => {
@@ -2778,6 +3165,46 @@ const filteredItems = computed(() => {
 		results = results.filter(item => item.filmLabel.startsWith(selectedLetter.value));
 	}
 
+	if (selectedGenres.value.length > 0) {
+		results = results.filter(item => {
+		const film = data.films[item.film];
+		
+		if (selectedGenres.value.includes(getTranslatedText('unknown'))) {
+			const hasUnknownGenre = !film.genres || film.genres.length === 0 || 
+			film.genres.every(genreId => getGenreLabel(genreId) === getTranslatedText('unknown'));
+			
+			if (hasUnknownGenre) return true;
+		}
+		
+		const hasSpecificGenres = film.genres && selectedGenres.value.every(selectedGenre => 
+			selectedGenre !== getTranslatedText('unknown') && 
+			film.genres.some(genreId => getGenreLabel(genreId) === selectedGenre)
+		);
+		
+		return hasSpecificGenres;
+		});
+	}
+
+	if (selectedActors.value.length > 0) {
+		results = results.filter(item => {
+		const film = data.films[item.film];
+		
+		if (selectedActors.value.includes(getTranslatedText('unknown'))) {
+			const hasUnknownActor = !film.cast || film.cast.length === 0 || 
+			film.cast.every(actorId => getActorLabel(actorId) === getTranslatedText('unknown'));
+			
+			if (hasUnknownActor) return true;
+		}
+		
+		const hasSpecificActors = film.cast && selectedActors.value.every(selectedActor => 
+			selectedActor !== getTranslatedText('unknown') && 
+			film.cast.some(actorId => getActorLabel(actorId) === selectedActor)
+		);
+		
+		return hasSpecificActors;
+		});
+	}
+
 	if (yearRangeStart.value || yearRangeEnd.value) {
 		results = results.filter(item => {
 			const persianYear = toPersianYear(item.date);
@@ -2824,6 +3251,11 @@ watch(designerQuery, newValue => {
 		selectedDesigner.value = '';
 	}
 });
+
+watch([selectedGenres, selectedActors], () => {
+	filteredItems.value = [...filteredItems.value];
+	updateURL();
+}, { deep: true });
 
 const filteredYears = computed(() => {
 	const groups = {};
@@ -2986,6 +3418,48 @@ const filteredYearsInModal = computed(() => {
 		years.push(unknown);
 	}
 	return years;
+});
+
+const filteredGenresInModal = computed(() => {
+	if (!filteredItems.value) return [];
+
+	if (!genreSearchQuery.value) {
+		return filteredGenres.value;
+	}
+	return filteredGenres.value.filter(([genre]) =>
+		genre.includes(genreSearchQuery.value)
+	);
+});
+
+const filteredActorsInModal = computed(() => {
+	  if (!filteredItems.value) return [];
+
+	if (!actorSearchQuery.value) {
+		return filteredActors.value;
+	}
+	return filteredActors.value.filter(([actor]) =>
+		actor.includes(actorSearchQuery.value)
+	);
+});
+
+const filteredGenreLabel = computed(() => {
+	if (selectedGenres.value.length === 0) {
+		return 'ژانرها';
+	} else if (selectedGenres.value.length === 1) {
+		return `ژانر: ${selectedGenres.value[0]}`;
+	} else {
+		return `ژانرها: ${selectedGenres.value.join('، ')}`;
+	}
+});
+
+const filteredActorLabel = computed(() => {
+	if (selectedActors.value.length === 0) {
+		return 'بازیگران';
+	} else if (selectedActors.value.length === 1) {
+		return `بازیگر: ${selectedActors.value[0]}`;
+	} else {
+		return `بازیگران: ${selectedActors.value.join('، ')}`;
+	}
 });
 
 watch(filteredItems, () => {
@@ -3334,6 +3808,23 @@ const activeFilters = computed(() => {
 	if (selectedLetter.value) {
 		filters.push({ type: 'letter', label: getTranslatedText('letter'), value: selectedLetter.value });
 	}
+
+	if (selectedGenres.value.length > 0) {
+		filters.push({ 
+		type: 'genre', 
+			label: selectedGenres.value.length === 1 ? 'ژانر' : 'ژانرها', 
+			value: selectedGenres.value.join('، ') 
+		});
+	}
+  
+	if (selectedActors.value.length > 0) {
+			filters.push({ 
+				type: 'actor', 
+				label: selectedActors.value.length === 1 ? 'بازیگر' : 'بازیگران', 
+				value: selectedActors.value.join('، ') 
+			});
+	}
+
 	if (yearRangeStart.value || yearRangeEnd.value) {
 		const start = yearRangeStart.value ? yearRangeStart.value.toLocaleString(currentLanguage.value === 'fa' ? 'fa' : 'en', { useGrouping: false }) : 'آغاز';
 		const end = yearRangeEnd.value ? yearRangeEnd.value.toLocaleString(currentLanguage.value === 'fa' ? 'fa' : 'en', { useGrouping: false }) : 'اکنون';
@@ -3357,6 +3848,12 @@ const removeFilter = (type, value) => {
 			break;
 		case 'letter':
 			selectedLetter.value = '';
+			break;
+		case 'genre':
+			selectedGenres.value = selectedGenres.value.filter(g => g !== value);
+			break;
+		case 'actor':
+			selectedActors.value = selectedActors.value.filter(a => a !== value);
 			break;
 		case 'yearRange':
 			yearRangeStart.value = null;
@@ -3769,8 +4266,12 @@ return {
 	yearRangeStart, yearRangeEnd, applyYearRangeFilter, clearYearRangeFilter, yearRangeBounds,
 	tempYearRangeStart, tempYearRangeEnd, normalizeDigits, currentLanguage, toggleLanguage,
 	getTranslatedText, getFilmLabel, getDesignerLabel, getDirectorLabel, getFilmLabelForItem, hasDesigner, 
-	filtersContainerStyle, getPrimaryYear, getSecondaryYear, isLightboxActive, isLightboxVisible
-
+	filtersContainerStyle, getPrimaryYear, getSecondaryYear, isLightboxActive, isLightboxVisible,
+	selectGenreFromModal, filteredGenres, genreSearchQuery, filteredActors, selectActorFromModal, actorSearchQuery,
+	filmCountByGenre, filmCountByActor, availableGenres, availableActors, genreSearchQuery, actorSearchQuery,
+	selectedGenres, selectedActors, removeGenreFilter, removeActorFilter, clearGenreSearchQuery, clearActorSearchQuery,
+	selectGenreFromModal, selectActorFromModal, filteredGenresInModal, filteredActorsInModal, selectGenreFromModal, filteredGenreLabel, filteredActorLabel, 
+	getGenreLabel, getActorLabel, 
 };
 
 } }).mount('#app');
