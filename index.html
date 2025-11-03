@@ -1473,7 +1473,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 						
 						<label for="yearRangeEnd">تا</label>
 						<select id="yearRangeEnd" v-model="tempYearRangeEnd">
-							<option value="">پایان</option>
+							<option value="">اکنون</option>
 							<option v-for="[year, count] in availableYears.filter(([y]) => y !== 'نامشخص')" 
 									:key="'end-' + year" 
 									:value="parseInt(normalizeDigits(year))">
@@ -1917,14 +1917,13 @@ input[type="range"]::-webkit-slider-runnable-track {
 							<a @click.prevent="selectYearFromTitle(getPrimaryYear(item.date))" href="#" class="year-link" :class="textColorClass">
 								({{ getPrimaryYear(item.date) }}
 							</a>
-							<template v-if="moreInformation"> 
+							<template v-if="moreInformation">
 								- 
 								<a :href="'https://commons.wikimedia.org/wiki/Category:' + new Date(item.date).getFullYear() + '_film_posters_of_Iran'"
 								target="_blank" class="gregorian-year-link">
 								{{ getSecondaryYear(item.date) }}
 								</a>
-							</template>
-							)
+							</template>)
 						</span>
 					</div>
 
@@ -2779,7 +2778,6 @@ const filteredItems = computed(() => {
 		results = results.filter(item => item.filmLabel.startsWith(selectedLetter.value));
 	}
 
-// فیلتر بازه سال
 	if (yearRangeStart.value || yearRangeEnd.value) {
 		results = results.filter(item => {
 			const persianYear = toPersianYear(item.date);
@@ -3058,9 +3056,9 @@ const filteredYearLabel = computed(() => {
 	if (selectedYear.value) {
 		return `${getTranslatedText('year')}: ${selectedYear.value}`;
 	} else if (yearRangeStart.value || yearRangeEnd.value) {
-		const start = yearRangeStart.value ? yearRangeStart.value.toLocaleString('fa', { useGrouping: false }) : '؟';
-		const end = yearRangeEnd.value ? yearRangeEnd.value.toLocaleString('fa', { useGrouping: false }) : '؟';
-		return `${getTranslatedText('yearRange')}: ${start}-${end}`;
+		const start = yearRangeStart.value ? yearRangeStart.value.toLocaleString('fa', { useGrouping: false }) : 'آغاز';
+		const end = yearRangeEnd.value ? yearRangeEnd.value.toLocaleString('fa', { useGrouping: false }) : 'اکنون';
+		return `${getTranslatedText('yearRange')}: از ${start} تا ${end}`;
 	} else {
 		return getTranslatedText('years');
 	}
@@ -3337,9 +3335,9 @@ const activeFilters = computed(() => {
 		filters.push({ type: 'letter', label: getTranslatedText('letter'), value: selectedLetter.value });
 	}
 	if (yearRangeStart.value || yearRangeEnd.value) {
-		const start = yearRangeStart.value ? yearRangeStart.value.toLocaleString(currentLanguage.value === 'fa' ? 'fa' : 'en', { useGrouping: false }) : '?';
-		const end = yearRangeEnd.value ? yearRangeEnd.value.toLocaleString(currentLanguage.value === 'fa' ? 'fa' : 'en', { useGrouping: false }) : '?';
-		const rangeLabel = `${start} - ${end}`;
+		const start = yearRangeStart.value ? yearRangeStart.value.toLocaleString(currentLanguage.value === 'fa' ? 'fa' : 'en', { useGrouping: false }) : 'آغاز';
+		const end = yearRangeEnd.value ? yearRangeEnd.value.toLocaleString(currentLanguage.value === 'fa' ? 'fa' : 'en', { useGrouping: false }) : 'اکنون';
+		const rangeLabel = `${start} تا ${end}`;
 		filters.push({ type: 'yearRange', label: getTranslatedText('yearRange'), value: rangeLabel });
 	}
 
