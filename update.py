@@ -89,6 +89,12 @@ films = {
                  for x in item['claims'].get('P577', [])],
         'imdb': [x['mainsnak']['datavalue']['value']
                  for x in item['claims'].get('P345', [])],
+        'genres': [x['mainsnak']['datavalue']['value']['id']
+                   for x in item['claims'].get('P136', [])
+                   if 'datavalue' in x['mainsnak']],
+        'cast': [x['mainsnak']['datavalue']['value']['id']
+                 for x in item['claims'].get('P161', [])
+                 if 'datavalue' in x['mainsnak']],
         'posters': [
             image_summary(poster) for poster in item['claims'].get('P3383', [])
         ] + [
@@ -105,7 +111,7 @@ films = {
     for item in wikidata_items(film_ids | set(ia_grouped.keys()))
 }
 
-# designers and directors
+# designers, directors, genres, and cast
 secondary = {
     item['id']: {
         'id': item['id'],
@@ -130,6 +136,12 @@ secondary = {
         {director
          for film in films.values()
          for director in film['directors']} |
+        {genre
+         for film in films.values()
+         for genre in film['genres']} |
+        {actor
+         for film in films.values()
+         for actor in film['cast']} |
         ia_designers
     )
 }
