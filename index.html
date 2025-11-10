@@ -36,17 +36,18 @@
 
 html {
 	scroll-behavior: smooth;
-	--body-background: light-dark(#eee, #121212);
-	--body-foreground: light-dark(black, #e0e0e0);
+	--body-background: light-dark(#eee, #111);
+	--body-foreground: light-dark(black, #eee);
 	--search-background: light-dark(#fff, #222);
 	--text-input-border: #ccc;
 	--card-background: light-dark(#fff, #222);
-	--year-link-foreground: light-dark(#555, #adadad);
-	--bar-color: light-dark(#b22e2a, #b22e2a);
+	--year-link-foreground: light-dark(#555, #aaa);
+	--bar-color: light-dark(#b22, #b22);
 	--bar-hover-color: light-dark(#a66, #a66);
 	--svg-background: light-dark(#fff, #000);
 	--svg-border-color: light-dark(#ddd, #333);
-	--axis-text-color: light-dark(black, #e0e0e0);
+	--axis-text-color: light-dark(black, #eee);
+	--active-filter:light-dark(#eff, #135);
 }
 
 body {
@@ -959,6 +960,16 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 .sidebar-section.expanded {
 	flex-grow: 1;
+}
+
+.sidebar-section.has-filter .sidebar-section-header {
+	background-color:  var(--active-filter) !important;
+	border: 1px solid var(--active-filter);
+}
+
+.sidebar-section.has-filter .sidebar-section-body {
+	border: 1px solid  var(--active-filter);
+	border-top: none;
 }
 
 .collapse-button {
@@ -2314,6 +2325,16 @@ const hasActiveFilters = computed(() => {
 
 });
 
+const hasActiveFilter = computed(() => ({
+	years: selectedYear.value || yearRangeStart.value || yearRangeEnd.value,
+	designers: selectedDesigner.value,
+	directors: selectedDirector.value,
+	letters: selectedLetter.value,
+	genres: selectedGenres.value.length > 0,
+	actors: selectedActors.value.length > 0
+}));
+
+
 const applyInitialFilters = () => {
 	const urlParams = new URLSearchParams(window.location.search);
 	searchTerm.value = urlParams.get('q') || '';
@@ -2548,7 +2569,7 @@ watch(tempYearRangeEnd, (newValue) => {
 
 
 const isCollapsed = ref({
-	designers: false,
+	designers: true,
 	directors: true,
 	years: false,
 	letters: true,
@@ -2558,7 +2579,11 @@ const isCollapsed = ref({
 	actors: true
 });
 
-const getSectionClass = section => isCollapsed.value[section] ? 'collapsed' : 'expanded';
+const getSectionClass = section => {
+	const baseClass = isCollapsed.value[section] ? 'collapsed' : 'expanded';
+	const hasFilter = hasActiveFilter.value[section];
+	return `${baseClass} ${hasFilter ? 'has-filter' : ''}`;
+};
 const selectDirectorFromModal = director => selectedDirector.value = director;
 const selectYearFromModal = year => selectedYear.value = year;
 const selectLetterFromModal = letter => selectedLetter.value = letter;
