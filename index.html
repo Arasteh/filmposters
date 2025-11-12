@@ -931,6 +931,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 	border-radius: 10px;
 	height: 36px;
 	transition: 0.4s cubic-bezier(1, 0, 0, 1) border-radius;
+	transition-property: all;
 }
 
 .sidebar-section.expanded .sidebar-section-header {
@@ -951,7 +952,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 	border-radius: 0 0 10px 10px;
 	border: 1px var(--svg-border-color) solid;
 	transition: 0.4s cubic-bezier(1, 0, 0, 1);
-	transition-property: opacity, max-height, padding-top, padding-bottom;
+	transition-property: all;
 }
 
 .sidebar-section.collapsed .sidebar-section-body {
@@ -968,12 +969,10 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 .sidebar-section.has-filter .sidebar-section-header {
 	background-color:  var(--active-filter) !important;
-	border: 1px solid var(--active-filter);
 }
 
 .sidebar-section.has-filter .sidebar-section-body {
 	border: 1px solid  var(--active-filter);
-	border-top: none;
 }
 
 .collapse-button {
@@ -1124,7 +1123,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 .remove-filter {
 	background: none;
 	border: none;
-	color: light-dark(#555, #bbb);
+	color: var(--bar-color);
 	cursor: pointer;
 	padding: 0;
 	display: flex;
@@ -2104,13 +2103,16 @@ input[type="range"]::-webkit-slider-runnable-track {
 				display: undefined,
 				...filtersContainerStyle
 			}">
-			<div v-for="(filter, index) in activeFilters" :key="index" @click="removeFilter(filter.type, filter.value)"
-				class="designer-item">
-				<span style="align-content: center;">{{ filter.label }}: {{ filter.value }}</span>
-				<button class="remove-filter">
-					<span class="material-symbols-rounded">close</span>
-				</button>
-			</div>
+		<div v-for="(filter, index) in activeFilters" 
+			:key="index"
+			@click="removeFilter(filter.type, filter.value)"
+			class="filter-item">
+			<span style="align-content: center;">{{ filter.label }}: {{ filter.value }}</span>
+			<button class="remove-filter">
+				<span class="material-symbols-rounded">close</span>
+			</button>
+		</div>
+
 		</div>
 		<div v-if="filteredItems.length > 0" class="results-grid">
 		<div class="item-card"
@@ -3948,28 +3950,21 @@ const activeFilters = computed(() => {
 		filters.push({ type: 'letter', label: getTranslatedText('letter'), value: selectedLetter.value });
 	}
 
-	if (selectedGenres.value.length > 0) {
-		filters.push({ 
-		type: 'genre', 
-			label: selectedGenres.value.length === 1 ? 'ژانر' : 'ژانرها', 
-			value: selectedGenres.value.join('، ') 
-		});
-	}
-  
-	if (selectedActors.value.length > 0) {
-			filters.push({ 
-				type: 'actor', 
-				label: selectedActors.value.length === 1 ? 'بازیگر' : 'بازیگران', 
-				value: selectedActors.value.join('، ') 
-			});
-	}
-
 	if (yearRangeStart.value || yearRangeEnd.value) {
 		const start = yearRangeStart.value ? yearRangeStart.value.toLocaleString(currentLanguage.value === 'fa' ? 'fa' : 'en', { useGrouping: false }) : 'آغاز';
 		const end = yearRangeEnd.value ? yearRangeEnd.value.toLocaleString(currentLanguage.value === 'fa' ? 'fa' : 'en', { useGrouping: false }) : 'اکنون';
 		const rangeLabel = `${start} تا ${end}`;
 		filters.push({ type: 'yearRange', label: getTranslatedText('yearRange'), value: rangeLabel });
 	}
+
+	selectedGenres.value.forEach(genre => {
+		filters.push({ type: 'genre', label: 'ژانر', value: genre });
+	});
+
+	selectedActors.value.forEach(actor => {
+		filters.push({ type: 'actor', label: 'بازیگر', value: actor });
+	});
+
 
 	return filters;
 });
