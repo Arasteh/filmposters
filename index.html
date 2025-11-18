@@ -193,7 +193,7 @@ input[type="text"] {
 	flex-direction: column;
 	justify-content: flex-end;
 	align-items: center;
-	transition: background-color 0.3s, border-color 0.3s;
+	transition: all 0.3s ease;
 	position: relative;
 }
 
@@ -349,6 +349,10 @@ input[type="text"] {
 }
 
 .image-container:hover .download-btn {
+	opacity: 0.6;
+}
+
+.image-container:hover .download-btn:hover {
 	opacity: 1;
 }
 
@@ -1470,6 +1474,14 @@ input[type="range"]::-webkit-slider-runnable-track {
 	.options-toggle-desktop:hover {
 		opacity: 0.8;
 	}
+
+	.item-card:hover {
+		transform: translateY(-100px);
+		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+		color: inherit !important;
+		transform: scale(1.05);
+	}
+
 }
 
 #preloader {
@@ -2149,7 +2161,6 @@ input[type="range"]::-webkit-slider-runnable-track {
 									'no-filter': !posterMode && moreInformation
 								}" 
 								:style="{ 
-									background: !posterMode ? 'none' : 'var(--card-background)', 
 									aspectRatio: !posterMode ? '1/1' : '5/7.5' 
 								}" />
 						</a>
