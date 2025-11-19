@@ -135,8 +135,21 @@ body {
 	margin: -50px auto 0;
 	padding: 60px 10px 10px 10px;
 	border-radius: 0 0 16px 16px;
-	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-	background-color: var(--search-background);
+	
+	background: light-dark(
+		rgba(255, 255, 255, 0.8),
+		rgba(34, 34, 34, 0.8)
+	) !important;
+	backdrop-filter: blur(20px) saturate(180%);
+	-webkit-backdrop-filter: blur(20px) saturate(180%);
+	
+	border: 1px solid light-dark(
+		rgba(255, 255, 255, 0.2),
+		rgba(255, 255, 255, 0.1)
+	);
+	box-shadow: 
+		0 4px 20px light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3)),
+		inset 0 1px 0 light-dark(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
 }
 
 .title-wrapper {
@@ -538,7 +551,6 @@ input[type="text"] {
 .toggle-switch {
 	display: flex;
 	align-items: center;
-	background-color: light-dark(#e0e0e0, #333);
 	border-radius: 12px;
 	padding: 4px;
 	cursor: pointer;
@@ -546,6 +558,7 @@ input[type="text"] {
 	width: 120px;
 	position: relative;
 	transition: background-color 0.3s;
+	border: 1px solid var(--year-link-foreground);
 }
 
 .toggle-switch span {
@@ -595,7 +608,6 @@ input[type="text"] {
 .triple-switch {
 	display: flex;
 	align-items: center;
-	background-color: light-dark(#e0e0e0, #333);
 	border-radius: 50px;
 	padding: 4px;
 	cursor: pointer;
@@ -603,6 +615,7 @@ input[type="text"] {
 	width: fit-content;
 	position: relative;
 	transition: background-color 0.3s;
+	border: 1px solid var(--year-link-foreground);
 }
 
 .triple-switch span {
@@ -1283,6 +1296,8 @@ input[type="range"]::-webkit-slider-runnable-track {
 	.search-bar-inner {
 		padding: 15px;
 		border-radius: 0 0 16px 16px;
+		backdrop-filter: blur(15px);
+		-webkit-backdrop-filter: blur(15px);
 	}
 
 	.results-grid {
@@ -1457,14 +1472,15 @@ input[type="range"]::-webkit-slider-runnable-track {
 	}
 	.options-toggle-desktop {
 		display: inline-block;
-		background-color: light-dark(#e0e0e0, #333);
+		background: none;
 		color: light-dark(#888, #888);
 		border: none;
-		border-radius: 12px;
+		border-radius: 32px;
 		padding: 10px 15px;
 		cursor: pointer;
 		transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
 		white-space: nowrap;
+		border: 1px solid var(--year-link-foreground);
 	}
 	.options-toggle-desktop.active-options-toggle {
 		background-color: light-dark(#b77, #b77);
