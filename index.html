@@ -1362,10 +1362,13 @@ input[type="range"]::-webkit-slider-runnable-track {
 		inset-inline-start: -105%;
 		width: 385px !important;
 		height: 100vh;
-		background-color: light-dark(#fff, #121212);
+		background: light-dark(rgba(255, 255, 255, 0.8), rgba(18, 18, 18, 0.8)) !important;
 		transition: right 0.3s cubic-bezier(1, 0, 0, 1);
 		z-index: 1000;
 		display: block;
+		backdrop-filter: blur(24px);
+		-webkit-backdrop-filter: blur(24px);
+		border-left: 1px #888 solid;
 	}
 
 	.sidebar.visible {
