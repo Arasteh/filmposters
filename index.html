@@ -1437,6 +1437,21 @@ input[type="range"]::-webkit-slider-runnable-track {
 	.download-btn {
 		display: none;
 	}
+	.lightbox-button.mobile-bottom {
+		top: auto;
+		bottom: 20px;
+		transform: none;
+	}
+	
+	.lightbox-button.mobile-bottom:nth-child(5) {
+		inset-inline-end: 80px;
+		inset-inline-start: auto;
+	}
+	
+	.lightbox-button.mobile-bottom:nth-child(4) {
+		inset-inline-start: 80px;
+		inset-inline-end: auto;
+	}
 }
 
 @media (min-width: 769px) {
@@ -1987,12 +2002,16 @@ input[type="range"]::-webkit-slider-runnable-track {
 				</span>
 			</button>
 		</a>
-		<button class="lightbox-button desktop-only" style="inset-inline-end: 20px; top: 50%; transform: translateY(-50%);" @click.stop="nextImage">
+		<button class="lightbox-button mobile-bottom" 
+				style="inset-inline-end: 20px;" 
+				@click.stop="nextImage">
 			<span class="material-symbols-rounded">
 				arrow_back_ios
 			</span>
 		</button>
-		<button class="lightbox-button desktop-only" style="inset-inline-start: 20px; top: 50%; transform: translateY(-50%);" @click.stop="prevImage">
+		<button class="lightbox-button mobile-bottom" 
+				style="inset-inline-start: 20px;" 
+				@click.stop="prevImage">
 			<span class="material-symbols-rounded">
 				arrow_forward_ios
 			</span>
