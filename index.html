@@ -229,6 +229,7 @@ input[type="text"] {
 	color: white !important;
 }
 
+/*
 .item-card.dark-text,
 .item-card.dark-text a,
 .item-card.dark-text .item-title,
@@ -239,6 +240,7 @@ input[type="text"] {
 .item-card.dark-text .material-symbols-rounded {
 	color: black !important;
 }
+*/
 
 .item-image {
 	width: 100%;
@@ -1258,7 +1260,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 @media (max-width: 400px) {
 .toggle-switch[data-mode="poster"]::before {
-	transform: translateX(46px);
+	transform: translateX(44px);
 }
 .toggle-switch::before {
 	inset-inline-end: 4px;
@@ -1269,6 +1271,14 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 .triple-switch span {
 	padding: 5px 8px;
+}
+.triple-switch[data-sort="alphabetical"]::before {
+	transform: translateX(107px);
+	width: calc(33%);
+}
+.triple-switch[data-sort="year"]::before {
+	transform: translateX(62px);
+	width: calc(28%);
 }
 }
 
