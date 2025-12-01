@@ -497,6 +497,28 @@ input[type="text"] {
 	transition-duration: 0.1s;
 }
 
+.reset-all-filters-btn {
+	margin-top: 15px;
+	padding: 10px 20px;
+	background-color: var(--bar-color);
+	color: white;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 1rem;
+	transition: all 0.3s ease;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.reset-all-filters-btn:hover {
+	background-color: var(--bar-hover-color);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
 #resetSearch {
 	border: none;
 	color: white;
@@ -1108,22 +1130,6 @@ input[type="range"]::-webkit-slider-runnable-track {
 	border-radius: 16px;
 	max-width: 960px;
 	width: 100%;
-}
-
-.filter-item {
-	display: flex;
-	align-items: center;
-	gap: 5px;
-	padding: 5px 10px;
-	background-color: light-dark(#eee, #333);
-	border-radius: 20px;
-	font-size: 0.9em;
-	cursor: pointer;
-	transition: background-color 0.3s;
-}
-
-.filter-item:hover {
-	background-color: light-dark(#ddd, #444);
 }
 
 .remove-filter {
@@ -2156,7 +2162,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 		<div v-for="(filter, index) in activeFilters" 
 			:key="index"
 			@click="removeFilter(filter.type, filter.value)"
-			class="filter-item">
+			class="year-item">
 			<span style="align-content: center;">{{ filter.label }}: {{ filter.value }}</span>
 			<button class="remove-filter">
 				<span class="material-symbols-rounded">close</span>
@@ -2308,6 +2314,15 @@ input[type="range"]::-webkit-slider-runnable-track {
 		</div>
 		<p v-else style="text-align: center; padding: 20px;">
 			نتیجه‌ای برای نمایش وجود ندارد.
+			<template v-if="hasActiveFilters">
+				<br>
+				<button  @click="resetActiveFilters" class="reset-all-filters-btn">
+					<span class="material-symbols-rounded" style="vertical-align: middle; margin-left: 5px;">
+						refresh
+					</span>
+					حذف تمام فیلترها
+				</button>
+			</template>
 		</p>
 	</div>
 </div>
@@ -2802,6 +2817,19 @@ const resetFilters = () => {
 		yearRangeStart.value = '';
 	yearRangeEnd.value = '';
 
+};
+
+const resetActiveFilters = () => {
+	selectedYear.value = '';
+	selectedDesigner.value = '';
+	selectedDirector.value = '';
+	selectedLetter.value = '';
+	selectedGenres.value = [];
+	selectedActors.value = [];
+	yearRangeStart.value = null;
+	yearRangeEnd.value = null;
+	tempYearRangeStart.value = '';
+	tempYearRangeEnd.value = '';
 };
 
 const films = Object.values(data.films);
@@ -4446,7 +4474,7 @@ return {
 	getItemUrl, getCommonsUrl, getItemTitleWithYear, sortOrder, sortDirection, selectedYear,
 	availableYears, availableDesigners, selectedDesigner, filteredYears, bringToTop, visibleBringToTop,
 	filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors,
-	selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, togglePosterMode, toggleSortDirection,
+	selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, resetActiveFilters, togglePosterMode, toggleSortDirection,
 	toggleOptions, isOptionsCollapsed, collapseIconClass, filteredDesignersInModal, designerSearchQuery,
 	selectDesignerFromModal, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal,
 	selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse,
