@@ -32,7 +32,6 @@
 	display: inline-block;
 	white-space: nowrap;
 	line-height: 1;
-	text-shadow: 0px 0px 10px black;
 }
 
 html {
@@ -1600,6 +1599,9 @@ input[type="range"]::-webkit-slider-runnable-track {
 			</g>
 		</svg>
 		<div class="loading-text">در حال بارگذاری…</div>
+		<a href="#" id="skipLoading" class="skip-preloader" onclick="skipPreloader(); return false;">
+			رد شدن
+		</a>
 	</div>
 
 <div id="app">
@@ -1978,27 +1980,27 @@ input[type="range"]::-webkit-slider-runnable-track {
 				<circle cx="46.5" cy="46.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.73s; transform-origin: 46.5px 46.5px;"></circle>
 			</svg>
 		</div>
-		<button class="lightbox-button" @click.stop="closeLightbox" style="top: 20px; inset-inline-end: 20px">
+		<button class="lightbox-button" @click.stop="closeLightbox" style="top: 20px; inset-inline-end: 20px; text-shadow: 0px 0px 10px black;">
 			<span class="material-symbols-rounded">
 				close
 			</span>
 		</button>
 		<a :href="downloadLink(lightboxItem)" aria-label="دریافت پوستر" target="_blank">
-			<button class="lightbox-button" style="top: 20px; inset-inline-start: 20px">
+			<button class="lightbox-button" style="top: 20px; inset-inline-start: 20px; text-shadow: 0px 0px 10px black;">
 				<span class="material-symbols-rounded">
 					download
 				</span>
 			</button>
 		</a>
 		<button class="lightbox-button mobile-bottom" 
-				style="inset-inline-end: 20px;" 
+				style="inset-inline-end: 20px; text-shadow: 0px 0px 10px black;" 
 				@click.stop="nextImage">
 			<span class="material-symbols-rounded">
 				arrow_back_ios
 			</span>
 		</button>
 		<button class="lightbox-button mobile-bottom" 
-				style="inset-inline-start: 20px;" 
+				style="inset-inline-start: 20px; text-shadow: 0px 0px 10px black;" 
 				@click.stop="prevImage">
 			<span class="material-symbols-rounded">
 				arrow_forward_ios
@@ -2310,6 +2312,22 @@ input[type="range"]::-webkit-slider-runnable-track {
 	</div>
 </div>
 <script>
+	function skipPreloader() {
+		const preloader = document.getElementById('preloader');
+		if (preloader) {
+			preloader.classList.add('fade-out');
+			setTimeout(() => {
+				preloader.remove();
+			}, 300);
+		}
+		
+		if (window.preloaderTimeout) {
+			clearTimeout(window.preloaderTimeout);
+		}
+	}
+
+	window.preloaderTimeout = setTimeout(skipPreloader, 3000);
+
 {
 	const urlParams = new URLSearchParams(window.location.search);
 	similarCharsSwitch.checked = urlParams.get('similar') === 'true';
