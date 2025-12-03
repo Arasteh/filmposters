@@ -41,15 +41,13 @@ html {
 	scroll-behavior: smooth;
 	--body-background: light-dark(#eee, #111);
 	--body-foreground: light-dark(black, #eee);
-	--search-background: light-dark(#fff, #222);
-	--text-input-border: #ccc;
+	--text-input-border: light-dark(#0005, #fff5);
 	--card-background: light-dark(#fff, #222);
 	--year-link-foreground: light-dark(#555, #aaa);
 	--bar-color: light-dark(#b22, #b22);
 	--bar-hover-color: light-dark(#a66, #a66);
 	--svg-background: light-dark(#fff, #000);
 	--svg-border-color: light-dark(#ddd, #333);
-	--axis-text-color: light-dark(black, #eee);
 	--active-filter:light-dark(#bdf, #159);
 }
 
@@ -270,8 +268,9 @@ input[type="text"] {
 	color: var(--year-link-foreground);
 	cursor: pointer;
 	text-decoration: none;
-	margin-inline-start: 3px;
-	font-weight: normal;
+	margin-inline-start: 2px;
+	font-weight: 300;
+	font-size: 0.95em;
 }
 
 .year-link:hover {
@@ -281,6 +280,8 @@ input[type="text"] {
 .gregorian-year-link {
 	color: inherit;
 	text-decoration-line: none;
+	font-weight: 300;
+	font-size: 0.9em;
 }
 
 .item-designer {
@@ -572,7 +573,7 @@ input[type="text"] {
 	width: 120px;
 	position: relative;
 	transition: background-color 0.3s;
-	border: 1px solid var(--year-link-foreground);
+	border: 1px solid light-dark(#0002, #fff2)
 }
 
 .toggle-switch span {
@@ -629,7 +630,7 @@ input[type="text"] {
 	width: fit-content;
 	position: relative;
 	transition: background-color 0.3s;
-	border: 1px solid var(--year-link-foreground);
+	border: 1px solid light-dark(#0002, #fff2)
 }
 
 .triple-switch span {
@@ -806,7 +807,7 @@ input[type="text"] {
 	inset-inline-start: 20px;
 	height: calc(100vh - 40px);
 	transition: transform 0.3s ease-in-out;
-	background-color: var(--search-background);
+	background-color: var(--card-background);
 	border-radius: 16px;
 	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 	transform: translateX(105%);
@@ -843,7 +844,7 @@ input[type="text"] {
 	padding: 8px;
 	border: 1px solid var(--text-input-border);
 	border-radius: 8px;
-	background-color: var(--search-background);
+	background-color: var(--card-background);
 	color: var(--body-foreground);
 	font-size: 0.9em;
 }
@@ -880,7 +881,7 @@ input[type="range"]::-webkit-slider-thumb {
 	z-index: 10;
 }
 input[type="range"]::-webkit-slider-thumb:hover {
-	background: var(--axis-text-color);
+	background: var(--body-foreground);
 }
 input[type="range"]::-webkit-slider-runnable-track {
 	height: 6px;
@@ -999,12 +1000,12 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 .sidebar-section.has-filter .sidebar-section-header {
-	background-color:  var(--active-filter) !important;
+	background-color: var(--active-filter) !important;
 	font-weight: 700;
 }
 
 .sidebar-section.has-filter .sidebar-section-body {
-	border: 1px solid  var(--active-filter);
+	border: 1px solid var(--active-filter);
 }
 
 .collapse-button {
@@ -1040,12 +1041,13 @@ input[type="range"]::-webkit-slider-runnable-track {
 	padding: 5px 10px;
 	border-radius: 30px;
 	cursor: pointer;
-	transition: background-color 0.3s, color 0.3s;
+	transition: all 0.1s ease;
 	white-space: nowrap;
 	font-size: smaller;
 	display: flex;
 	gap: 5px;
 	background-color: light-dark(hsl(0 0% 93% / 1), hsl(0 0% 10% / 1));
+	border: 1px #fff2 solid;
 }
 
 .designer-item:hover,
@@ -1061,8 +1063,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 .count {
 	color: light-dark(#555, #999);
 	font-weight: lighter;
-	transition: color 0.3s;
-}
+	transition: all 0.1s ease;}
 
 .designer-item:hover .count,
 .director-item:hover .count,
@@ -1092,7 +1093,8 @@ input[type="range"]::-webkit-slider-runnable-track {
 .actor-item.selected,
 .genre-item.selected {
 	background-color: var(--bar-color);
-	color: white;
+	color: white;	
+	font-weight: 700;
 }
 
 .actor-item.disabled,
@@ -1111,11 +1113,6 @@ input[type="range"]::-webkit-slider-runnable-track {
 	align-items: center;
 	transition: color 0.3s ease;
 }
-
-.add-filter:hover {
-	color: var(--bar-color);
-}
-
 
 .no-results {
 	text-align: center;
@@ -1144,8 +1141,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 	padding: 0;
 	display: flex;
 	align-items: center;
-	transition: color 0.3s ease;
-}
+	transition: all 0.1s ease;}
 
 .pixelated {
 	filter: blur(3px);
@@ -1184,11 +1180,11 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 .axis path, .axis line {
-	stroke: var(--axis-text-color);
+	stroke: var(--body-foreground);
 }
 
 .axis text {
-	fill: var(--axis-text-color);
+	fill: var(--body-foreground);
 }
 
 #tooltip {
@@ -1505,7 +1501,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 		cursor: pointer;
 		transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
 		white-space: nowrap;
-		border: 1px solid var(--year-link-foreground);
+		border: 1px solid light-dark(#0005, #fff5);
 	}
 	.options-toggle-desktop.active-options-toggle {
 		background-color: light-dark(#b77, #b77);
@@ -1539,6 +1535,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 	transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
 	flex-direction: column;
 	gap: 20px;
+	cursor: pointer;
 }
 
 #preloader.fade-out {
@@ -1553,6 +1550,42 @@ input[type="range"]::-webkit-slider-runnable-track {
 	text-align: center;
 }
 </style>
+<script>
+(function() {
+	function hidePreloader() {
+		const preloader = document.getElementById('preloader');
+		if (preloader && !preloader.classList.contains('fade-out')) {
+			preloader.classList.add('fade-out');
+			setTimeout(() => {
+				if (preloader.parentNode) {
+					preloader.remove();
+				}
+			}, 300);
+			return true;
+		}
+		return false;
+	}
+	
+	document.addEventListener('DOMContentLoaded', function() {
+		const preloader = document.getElementById('preloader');
+		if (preloader) {
+			document.addEventListener('click', function(e) {
+				hidePreloader();
+			}, { once: true });
+			
+			document.addEventListener('touchstart', function(e) {
+				hidePreloader();
+			}, { once: true });
+			
+			preloader.addEventListener('click', hidePreloader);
+			preloader.addEventListener('touchstart', hidePreloader);
+			
+			setTimeout(hidePreloader, 3000);
+		}
+	});
+})();
+</script>
+
 </head>
 <body>
 	<div id="preloader">
@@ -1610,7 +1643,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 			</g>
 		</svg>
 		<div class="loading-text">در حال بارگذاری…</div>
-		<a href="#" id="skipLoading" style="text-decoration: none; background-color: var(--active-filter); padding: 5px 10px; border-radius: 20px; opacity: 0.5; color: #fff; font-family: system-ui;" onclick="skipPreloader(); return false;">
+		<a href="#" id="skipLoading" style="text-decoration: none; background-color: var(--active-filter); padding: 5px 10px; border-radius: 20px; opacity: 0.5; color: var(--body-foreground); font-family: system-ui; width: 200px; text-align: center;" onclick="skipPreloader(); return false;">
 			رد شدن
 		</a>
 	</div>
@@ -1630,7 +1663,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 			</button>
 			<p class="filtersTitle">
 				فیلترها 
-				<span style="font-weight: 400; margin-inline-start: 5px;">(پوستر×فیلم)</span>
+				<span style="font-weight: 200; margin-inline-start: 5px;">(پوستر×فیلم)</span>
 			</p>
 		</div>
 
@@ -2227,8 +2260,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 								{{ getFilmLabelForItem(item) }}
 							</a>
 						<span class="year-link" :class="textColorClass" v-if="item.date">
-							<a @click.prevent="selectYearFromTitle(getPrimaryYear(item.date))" href="#" class="year-link" :class="textColorClass">
-								({{ getPrimaryYear(item.date) }}
+							<a @click.prevent="selectYearFromTitle(getPrimaryYear(item.date))" href="#" class="year-link" :class="textColorClass">({{ getPrimaryYear(item.date) }}
 							</a>
 							<template v-if="moreInformation">
 								- 
@@ -2321,7 +2353,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 			نتیجه‌ای برای نمایش وجود ندارد.
 			<template v-if="hasActiveFilters">
 				<br>
-				<button  @click="resetActiveFilters" class="reset-all-filters-btn">
+				<button @click="resetActiveFilters" class="reset-all-filters-btn">
 					<span class="material-symbols-rounded" style="vertical-align: middle; margin-left: 5px;">
 						refresh
 					</span>
@@ -2962,16 +2994,16 @@ const persianAlphabet = [
 ];
 
 const toPersianYear = (date) => {
-    if (!date) return 'نامشخص';
-    
-    const persianDate = new Date(date).toLocaleDateString('fa');
-    const persianYear = persianDate.split('/')[0];
-    
-    if (persianYear === 'Invalid Date') {
-        return 'نامشخص';
-    }
-    
-    return persianYear;
+	if (!date) return 'نامشخص';
+	
+	const persianDate = new Date(date).toLocaleDateString('fa');
+	const persianYear = persianDate.split('/')[0];
+	
+	if (persianYear === 'Invalid Date') {
+		return 'نامشخص';
+	}
+	
+	return persianYear;
 };
 
 const availableYears = computed(() => {
@@ -3274,39 +3306,39 @@ const getItemTitleWithYear = item => {
 };
 
 const getPrimaryYear = (date) => {
-    if (!date) return currentLanguage.value === 'en' ? 'Unknown' : 'نامشخص';
-    
-    const gregorianYear = new Date(date).getFullYear();
-    const persianDate = new Date(date).toLocaleDateString('fa');
-    const persianYear = persianDate.split('/')[0];
-    
-    if (isNaN(gregorianYear) || persianYear === 'Invalid Date') {
-        return currentLanguage.value === 'en' ? 'Unknown' : 'نامشخص';
-    }
-    
-    if (currentLanguage.value === 'en') {
-        return `${gregorianYear}`;
-    } else {
-        return persianYear;
-    }
+	if (!date) return currentLanguage.value === 'en' ? 'Unknown' : 'نامشخص';
+	
+	const gregorianYear = new Date(date).getFullYear();
+	const persianDate = new Date(date).toLocaleDateString('fa');
+	const persianYear = persianDate.split('/')[0];
+	
+	if (isNaN(gregorianYear) || persianYear === 'Invalid Date') {
+		return currentLanguage.value === 'en' ? 'Unknown' : 'نامشخص';
+	}
+	
+	if (currentLanguage.value === 'en') {
+		return `${gregorianYear}`;
+	} else {
+		return persianYear;
+	}
 };
 
 const getSecondaryYear = (date) => {
-    if (!date) return '';
-    
-    const gregorianYear = new Date(date).getFullYear();
-    const persianDate = new Date(date).toLocaleDateString('fa');
-    const persianYear = persianDate.split('/')[0];
-    
-    if (isNaN(gregorianYear) || persianYear === 'Invalid Date') {
-        return '';
-    }
-    
-    if (currentLanguage.value === 'en') {
-        return persianYear;
-    } else {
-        return `${gregorianYear}`;
-    }
+	if (!date) return '';
+	
+	const gregorianYear = new Date(date).getFullYear();
+	const persianDate = new Date(date).toLocaleDateString('fa');
+	const persianYear = persianDate.split('/')[0];
+	
+	if (isNaN(gregorianYear) || persianYear === 'Invalid Date') {
+		return '';
+	}
+	
+	if (currentLanguage.value === 'en') {
+		return persianYear;
+	} else {
+		return `${gregorianYear}`;
+	}
 };
 
 
@@ -3364,7 +3396,7 @@ const filteredItems = computed(() => {
 
 	if (selectedDesigner.value) {
 		results = results.filter(item =>
-			getDesignerLabelForItem(item) === selectedDesigner.value // تغییر این خط
+			getDesignerLabelForItem(item) === selectedDesigner.value
 		);
 	}
 
@@ -3645,7 +3677,7 @@ const filteredGenresInModal = computed(() => {
 });
 
 const filteredActorsInModal = computed(() => {
-	  if (!filteredItems.value) return [];
+	if (!filteredItems.value) return [];
 
 	if (!actorSearchQuery.value) {
 		return filteredActors.value;
@@ -4018,19 +4050,19 @@ const downloadLink = item => {
 };
 
 const selectYearFromTitle = (year) => {
-    if (currentLanguage.value === 'en') {
-        const gregorianYear = parseInt(year.replace(/[^0-9]/g, ''));
-        if (!isNaN(gregorianYear)) {
-            const persianYear = gregorianYear - 621;
-            selectedYear.value = persianYear.toLocaleString('fa');
-            return;
-        }
-    }
-    
-    const persianYear = year.replace(/[^۰-۹0-9]/g, '');
-    if (persianYear) {
-        selectedYear.value = persianYear.toLocaleString('fa');
-    }
+	if (currentLanguage.value === 'en') {
+		const gregorianYear = parseInt(year.replace(/[^0-9]/g, ''));
+		if (!isNaN(gregorianYear)) {
+			const persianYear = gregorianYear - 621;
+			selectedYear.value = persianYear.toLocaleString('fa');
+			return;
+		}
+	}
+	
+	const persianYear = year.replace(/[^۰-۹0-9]/g, '');
+	if (persianYear) {
+		selectedYear.value = persianYear.toLocaleString('fa');
+	}
 };
 
 const activeFilters = computed(() => {
