@@ -460,6 +460,9 @@ input[type="text"] {
 	z-index: 1001;
 	backdrop-filter: blur(5px);
 	pointer-events: none;
+	max-width: 320px;
+	max-height: 60vh;
+	overflow-y: auto;
 }
 
 .lightbox.active .lightbox-info {
@@ -1988,7 +1991,8 @@ input[type="range"]::-webkit-slider-runnable-track {
 		:class="{ 'active': isLightboxActive }" 
 		@click="closeLightbox">
 		<template v-if="lightboxImage">
-			<img :src="lightboxImage" :key="lightboxImage" alt="Lightbox Image" :style="{ backgroundColor: backgroundColor }" />
+			<img :src="lightboxImage" :key="lightboxImage" alt="Lightbox Image" 
+				:style="{ backgroundColor: backgroundColor }" />
 		</template>
 		<div class="lightbox-info desktop-only" v-if="lightboxItem">
 			<h2>{{ lightboxItem.filmLabel }}</h2>
@@ -2000,6 +2004,17 @@ input[type="range"]::-webkit-slider-runnable-track {
 					{{ designer.label }}<span v-if="index < lightboxItem.designers.length - 1">, </span>
 				</span>
 			</p>
+			<div v-if="lightboxItem.actors && lightboxItem.actors.length > 0" 
+				style="margin-top: 10px;">
+				<p style="margin-bottom: 5px; font-weight: bold; color: white;">بازیگران:</p>
+				<div style="display: flex; flex-wrap: wrap; gap: 5px;">
+					<span v-for="(actor, index) in lightboxItem.actors" 
+						:key="actor.id"
+						style="color: white; background: rgba(255,255,255,0.15); padding: 2px 8px; border-radius: 4px; font-size: 0.9em;">
+						{{ actor.label }}
+					</span>
+				</div>
+			</div>
 		</div>
 		<div class="loading-spinner" v-if="isLoading">
 			<svg width="53" height="53" viewBox="0 0 53 53" xmlns="http://www.w3.org/2000/svg">
@@ -3198,6 +3213,19 @@ const getActorLabelForItem = (item) => {
 	return getTranslatedText('unknown');
 };
 
+const getActorsForFilm = (filmId) => {
+	const film = data.films[filmId];
+	if (!film?.cast) return [];
+	
+	return film.cast.map(actorId => {
+		const actor = data.secondary[actorId];
+		return {
+			id: actorId,
+			label: getItemLabel(actor?.labels) || getTranslatedText('unknown')
+		};
+	}).filter(actor => actor.label !== getTranslatedText('unknown'));
+};
+
 const availableActors = computed(() => {
 	const groups = {};
 	items.value.forEach(item => {
@@ -3930,7 +3958,10 @@ const openLightbox = item => {
 	}
 	
 	isLightboxVisible.value = true;
-	lightboxItem.value = item;
+	lightboxItem.value = {
+		...item,
+		actors: getActorsForFilm(item.film)
+	};
 	lightboxImage.value = posterMode.value ? getPosterUrl(item.poster, item.posterHash, 960) : getPosterUrl(item.logo, item.logoHash, 960);
 	isLoading.value = true;
 	
@@ -3990,7 +4021,11 @@ const changeLightboxImage = changeIndexCallback => {
 		filteredItems.value.findIndex(item => item.poster === lightboxItem.value.poster),
 		filteredItems.value.length - 1
 	);
-	lightboxItem.value = filteredItems.value[newIndex];
+	const newItem = filteredItems.value[newIndex];
+	lightboxItem.value = {
+		...newItem,
+		actors: getActorsForFilm(newItem.film)
+	};
 	lightboxImage.value = posterMode.value
 		? getPosterUrl(lightboxItem.value.poster, lightboxItem.value.posterHash, 960)
 		: getPosterUrl(lightboxItem.value.logo, lightboxItem.value.logoHash, 960);
@@ -4535,7 +4570,7 @@ return {
 	filmCountByGenre, filmCountByActor, availableGenres, availableActors, genreSearchQuery, actorSearchQuery,
 	selectedGenres, selectedActors, removeGenreFilter, removeActorFilter, clearGenreSearchQuery, clearActorSearchQuery,
 	selectGenreFromModal, selectActorFromModal, filteredGenresInModal, filteredActorsInModal, selectGenreFromModal, filteredGenreLabel, filteredActorLabel, 
-	getGenreLabel, getActorLabel, 
+	getGenreLabel, getActorLabel, getActorsForFilm
 };
 
 } }).mount('#app');
