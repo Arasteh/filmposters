@@ -67715,7 +67715,8 @@
 				"enwiki": "Elmyr de Hory"
 			},
 			"labels": {
-				"en": "Elmyr de Hory"
+				"en": "Elmyr de Hory",
+				"fa": "المیر د هوری"
 			}
 		},
 		"Q1361167": {
@@ -70241,7 +70242,7 @@
 			},
 			"labels": {
 				"en": "Hassan Abbasi",
-				"fa": "حسن عباسی(بازیگر)"
+				"fa": "حسن عباسی"
 			}
 		},
 		"Q5755544": {
@@ -71174,7 +71175,7 @@
 			},
 			"labels": {
 				"en": "Niloofar",
-				"fa": "شهین خلیلی"
+				"fa": "نیلوفر"
 			}
 		},
 		"Q5922679": {
@@ -72180,8 +72181,8 @@
 				"fawiki": "محمد خواجوی‌ها"
 			},
 			"labels": {
-				"en": "Mohammad Khajaviha",
-				"fa": "مانی (بازیگر)"
+				"en": "Mani",
+				"fa": "مانی"
 			}
 		},
 		"Q5940937": {
@@ -72366,8 +72367,8 @@
 				"fawiki": "سپیده (بازیگر)"
 			},
 			"labels": {
-				"en": "Nasrin Kahzak",
-				"fa": "سپیده (بازیگر)"
+				"en": "Sepideh",
+				"fa": "سپیده"
 			}
 		},
 		"Q5942162": {
@@ -74865,7 +74866,8 @@
 			"id": "Q5990650",
 			"sitelinks": {},
 			"labels": {
-				"en": "Razi Mohebi"
+				"en": "Razi Mohebi",
+				"fa": "راضی محبی"
 			}
 		},
 		"Q6014829": {
@@ -74894,7 +74896,8 @@
 			"id": "Q6029809",
 			"sitelinks": {},
 			"labels": {
-				"en": "Esen Püsküllü"
+				"en": "Esen Püsküllü",
+				"fa": "اسن پوسکولو"
 			}
 		},
 		"Q6031405": {
@@ -74911,14 +74914,16 @@
 			"id": "Q6041351",
 			"sitelinks": {},
 			"labels": {
-				"en": "Mümtaz Ener"
+				"en": "Mümtaz Ener",
+				"fa": "ممتاز انر"
 			}
 		},
 		"Q6042753": {
 			"id": "Q6042753",
 			"sitelinks": {},
 			"labels": {
-				"en": "Behçet Nacar"
+				"en": "Behçet Nacar",
+				"fa": "بهجت ناچار"
 			}
 		},
 		"Q6045927": {
@@ -74951,7 +74956,8 @@
 				"enwiki": "Erol Büyükburç"
 			},
 			"labels": {
-				"en": "Erol Büyükburç"
+				"en": "Erol Büyükburç",
+				"fa": "ارول بویوکبورچ"
 			}
 		},
 		"Q6074254": {
@@ -74966,7 +74972,8 @@
 			"id": "Q6077413",
 			"sitelinks": {},
 			"labels": {
-				"en": "Suzan Avcı"
+				"en": "Suzan Avcı",
+				"fa": "سوزان آوچی"
 			}
 		},
 		"Q6078770": {
@@ -74999,7 +75006,8 @@
 			"id": "Q6089106",
 			"sitelinks": {},
 			"labels": {
-				"en": "Gülsüm Kamu"
+				"en": "Gülsüm Kamu",
+				"fa": "کلثوم کامو"
 			}
 		},
 		"Q6091689": {
@@ -75034,21 +75042,24 @@
 			"id": "Q6098630",
 			"sitelinks": {},
 			"labels": {
-				"en": "Yıldırım Gencer"
+				"en": "Yıldırım Gencer",
+				"fa": "ایلدریم گنسر"
 			}
 		},
 		"Q6098994": {
 			"id": "Q6098994",
 			"sitelinks": {},
 			"labels": {
-				"en": "Sezer Güvenirgil"
+				"en": "Sezer Güvenirgil",
+				"fa": "سزر گوونیرگیل"
 			}
 		},
 		"Q6100402": {
 			"id": "Q6100402",
 			"sitelinks": {},
 			"labels": {
-				"en": "Orhan Günşiray"
+				"en": "Orhan Günşiray",
+				"fa": "اورهان گونشیرای"
 			}
 		},
 		"Q6101620": {
@@ -75091,7 +75102,8 @@
 			"id": "Q6103779",
 			"sitelinks": {},
 			"labels": {
-				"en": "Feridun Çölgeçen"
+				"en": "Feridun Çölgeçen",
+				"fa": "فریدون چولگچن"
 			}
 		},
 		"Q6123147": {
@@ -75306,7 +75318,7 @@
 			},
 			"labels": {
 				"en": "Mahmoud Jafari",
-				"fa": "محمود جعفری (بازیگر)"
+				"fa": "محمود جعفری"
 			}
 		},
 		"Q6502339": {
@@ -75509,7 +75521,8 @@
 			"id": "Q6585199",
 			"sitelinks": {},
 			"labels": {
-				"en": "Mine Mutlu"
+				"en": "Mine Mutlu",
+				"fa": "مینه موتلو"
 			}
 		},
 		"Q6607382": {
@@ -76413,7 +76426,8 @@
 			"id": "Q13142105",
 			"sitelinks": {},
 			"labels": {
-				"en": "Lola Sedki"
+				"en": "Lola Sedki",
+				"fa": "لولا صدقی"
 			}
 		},
 		"Q13198465": {
@@ -81366,8 +81380,8 @@
 				"fawiki": "نگار (بازیگر)"
 			},
 			"labels": {
-				"en": "Sima Hajikhani",
-				"fa": "نگار (بازیگر)"
+				"en": "Negar",
+				"fa": "نگار"
 			}
 		},
 		"Q47467922": {
@@ -81977,7 +81991,8 @@
 			"id": "Q61014875",
 			"sitelinks": {},
 			"labels": {
-				"en": "Aydın Haberdar"
+				"en": "Aydın Haberdar",
+				"fa": "آیدین حبردار"
 			}
 		},
 		"Q61060465": {
@@ -82203,7 +82218,8 @@
 				"enwiki": "Madjid Niroumand"
 			},
 			"labels": {
-				"en": "Madjid Niroumand"
+				"en": "Madjid Niroumand",
+				"fa": "مجید نیرومند"
 			}
 		},
 		"Q85970076": {
@@ -82300,49 +82316,56 @@
 			"id": "Q95684456",
 			"sitelinks": {},
 			"labels": {
-				"en": "Sakibe Kaya"
+				"en": "Sakibe Kaya",
+				"fa": "شکیب کایا"
 			}
 		},
 		"Q95707523": {
 			"id": "Q95707523",
 			"sitelinks": {},
 			"labels": {
-				"en": "Ute Bokelmann"
+				"en": "Ute Bokelmann",
+				"fa": "اوته بوکمن"
 			}
 		},
 		"Q95712788": {
 			"id": "Q95712788",
 			"sitelinks": {},
 			"labels": {
-				"en": "Ursula Kessler"
+				"en": "Ursula Kessler",
+				"fa": "اورسلا کیسلر"
 			}
 		},
 		"Q95741191": {
 			"id": "Q95741191",
 			"sitelinks": {},
 			"labels": {
-				"en": "Imran Kaya"
+				"en": "Imran Kaya",
+				"fa": "عمران کایا"
 			}
 		},
 		"Q95809189": {
 			"id": "Q95809189",
 			"sitelinks": {},
 			"labels": {
-				"en": "Hüsamettin Kaya"
+				"en": "Hüsamettin Kaya",
+				"fa": "هوستامتین کایا"
 			}
 		},
 		"Q95883915": {
 			"id": "Q95883915",
 			"sitelinks": {},
 			"labels": {
-				"en": "Muhammet Temizkan"
+				"en": "Muhammet Temizkan",
+				"fa": "محمت تمیزکان"
 			}
 		},
 		"Q95905396": {
 			"id": "Q95905396",
 			"sitelinks": {},
 			"labels": {
-				"en": "Anasal Cihan"
+				"en": "Anasal Cihan",
+				"fa": "جیهان آناسل"
 			}
 		},
 		"Q97197915": {
@@ -82403,7 +82426,7 @@
 			},
 			"labels": {
 				"en": "Ali Salehi",
-				"fa": "سید علی صالحی (بازیگر)"
+				"fa": "سید علی صالحی"
 			}
 		},
 		"Q106772589": {
@@ -82614,7 +82637,8 @@
 			"id": "Q111976635",
 			"sitelinks": {},
 			"labels": {
-				"en": "Niloofar Rajaeifar"
+				"en": "Niloofar Rajaeifar",
+				"fa": "نیلوفر رجایی‌فر"
 			}
 		},
 		"Q112056525": {
@@ -82655,7 +82679,8 @@
 			"id": "Q119891727",
 			"sitelinks": {},
 			"labels": {
-				"en": "Hayedeh"
+				"en": "Hayedeh",
+				"fa": "هایده"
 			}
 		},
 		"Q121080301": {
@@ -83302,8 +83327,8 @@
 			"id": "Q131745186",
 			"sitelinks": {},
 			"labels": {
-				"en": "Heidarzadeh",
-				"fa": "حیدرزاده"
+				"en": "Parviz Heidarzadeh",
+				"fa": "پرویز حیدرزاده"
 			}
 		},
 		"Q131745214": {
