@@ -19223,10 +19223,6 @@
 			],
 			"logos": [
 				{
-					"image": "Tangna_(logo).jpg",
-					"hash": "5a"
-				},
-				{
 					"image": "تنگنا_(لوگو).png",
 					"hash": "b5"
 				}
@@ -52651,7 +52647,10 @@
 			"posters": [
 				{
 					"image": "یک_خوشگل_و_۱۰۰۰_مشکل_(پوستر).jpg",
-					"hash": "e9"
+					"hash": "e9",
+					"designers": [
+						"Q131377764"
+					]
 				}
 			],
 			"logos": []
@@ -83484,7 +83483,7 @@
 			"id": "Q95741191",
 			"sitelinks": {},
 			"labels": {
-				"en": "Imran Kaya",
+				"en": "İmran Kaya",
 				"fa": "عمران کایا"
 			}
 		},
