@@ -2917,11 +2917,31 @@ const getDesignerLabel = (designerId) => {
 	return getItemLabel(designer.labels);
 };
 
+const getLabelWithAliases = (entity) => {
+	const label = entity?.labels ? getItemLabel(entity.labels) : getTranslatedText('unknown');
+	if (!entity || !label || label === getTranslatedText('unknown')) return label;
+
+	const aliasList =
+		entity?.aliases?.[currentLanguage.value] ||
+		entity?.aliases?.fa ||
+		entity?.aliases?.en ||
+		[];
+
+	const cleaned = Array.from(new Set((aliasList || [])
+		.map(a => (typeof a === 'string' ? a.trim() : ''))
+		.filter(a => a && a !== label)
+	));
+
+	if (cleaned.length === 0) return label;
+	const sep = currentLanguage.value === 'fa' ? '، ' : ', ';
+	return `${label} (${cleaned.join(sep)})`;
+};
+
 const getDirectorLabel = (directorId) => {
 	if (!directorId) return getTranslatedText('unknown');
 	const director = data.secondary[directorId];
 	if (!director?.labels) return getTranslatedText('unknown');
-	return getItemLabel(director.labels);
+	return getLabelWithAliases(director);
 };
 
 const items = computed(() => {
@@ -3202,7 +3222,7 @@ const getActorLabel = (actorId) => {
 	if (!actorId) return getTranslatedText('unknown');
 	const actor = data.secondary[actorId];
 	if (!actor?.labels) return getTranslatedText('unknown');
-	return getItemLabel(actor.labels);
+	return getLabelWithAliases(actor);
 };
 
 const getActorLabelForItem = (item) => {
@@ -3221,7 +3241,7 @@ const getActorsForFilm = (filmId) => {
 		const actor = data.secondary[actorId];
 		return {
 			id: actorId,
-			label: getItemLabel(actor?.labels) || getTranslatedText('unknown')
+			label: getActorLabel(actorId)
 		};
 	}).filter(actor => actor.label !== getTranslatedText('unknown'));
 };
