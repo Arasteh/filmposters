@@ -39,6 +39,22 @@ def wikidata_items(ids):
 		time.sleep(2)
 	print('finished', file=sys.stderr)
 
+def get_lang_map(entity_dict, lang_keys=('fa', 'en')):
+	"""Return a dict containing only requested languages (missing -> omitted)."""
+	return {
+		lang: data['value']
+		for lang, data in sorted(entity_dict.items())
+		if lang in lang_keys
+	}
+
+def get_aliases(aliases_dict, lang_keys=('fa', 'en')):
+	"""Return aliases split by language; always returns keys for requested langs."""
+	out = {lang: [] for lang in lang_keys}
+	for lang, alias_list in aliases_dict.items():
+		if lang in out:
+			out[lang] = [x['value'] for x in alias_list]
+	return out
+
 image_qualifiers = {
 	'designers': 'P170',
 	'colors': 'P462',
@@ -72,16 +88,8 @@ films = {
 			for site, link in sorted(item['sitelinks'].items())
 			if site == 'fawiki' or site == 'enwiki'
 		},
-		'labels': {
-			lang: label['value']
-			for lang, label in sorted(item['labels'].items())
-			if lang == 'fa' or lang == 'en'
-		},
-		'aliases': {
-			lang: [x['value'] for x in alias]
-			for lang, alias in sorted(item['aliases'].items())
-			if lang == 'fa' or lang == 'en'
-		},
+		'labels': get_lang_map(item.get('labels', {})),
+		'aliases': get_aliases(item.get('aliases', {})),
 		'directors': [x['mainsnak']['datavalue']['value']['id']
 						for x in item['claims'].get('P57', [])
 						if 'datavalue' in x['mainsnak']],
@@ -120,16 +128,8 @@ secondary = {
 			for site, link in sorted(item['sitelinks'].items())
 			if site == 'fawiki' or site == 'enwiki'
 		},
-		'labels': {
-			lang: label['value']
-			for lang, label in sorted(item['labels'].items())
-			if lang == 'fa' or lang == 'en'
-		},
-		'aliases': {
-			lang: [x['value'] for x in alias]
-			for lang, alias in sorted(item['aliases'].items())
-			if lang == 'fa' or lang == 'en'
-		},
+		'labels': get_lang_map(item.get('labels', {})),
+		'aliases': get_aliases(item.get('aliases', {})),
 	}
 	for item in wikidata_items(
 		{item
