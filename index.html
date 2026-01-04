@@ -1997,7 +1997,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 		<div class="lightbox-info desktop-only" v-if="lightboxItem">
 			<h2>{{ lightboxItem.filmLabel }}</h2>
 			<p>سال تولید: {{ toPersianYear(lightboxItem.date) }}</p>
-			<p v-if="lightboxItem.directorLabel && lightboxItem.directorLabel !== 'نامشخص'">کارگردان: {{ getDirectorLabel(lightboxItem.director, moreInformation) }}</p>
+			<p v-if="lightboxItem.directorLabel && lightboxItem.directorLabel !== 'نامشخص'">کارگردان: {{ lightboxItem.directorLabel }}</p>
 			<p v-if="lightboxItem.designerLabel && lightboxItem.designerLabel !== 'نامشخص'">
 				طراح پوستر:
 				<span v-for="(designer, index) in lightboxItem.designers" :key="index">
@@ -2899,75 +2899,10 @@ const getItemLabel = (labels) => {
 	return labels[currentLanguage.value] || labels.fa || labels.en || getTranslatedText('unknown');
 };
 
-
-const getPersonAliasesList = (person) => {
-	if (!person?.aliases) return [];
-	// Collect aliases from current language first, then fall back to fa/en if present
-	const current = person.aliases?.[currentLanguage.value] || [];
-	const fa = person.aliases?.fa || [];
-	const en = person.aliases?.en || [];
-	// Merge and deduplicate while keeping order
-	const seen = new Set();
-	const merged = [...current, ...fa, ...en]
-		.map(a => (a || '').trim())
-		.filter(Boolean);
-	const out = [];
-	for (const a of merged) {
-		if (!seen.has(a)) { seen.add(a); out.push(a); }
-	}
-	return out;
-};
-
-const formatPersonLabel = (person, includeAliases = false) => {
-	const baseLabel = person?.labels ? getItemLabel(person.labels) : getTranslatedText('unknown');
-	if (!includeAliases) return baseLabel;
-
-	const aliases = getPersonAliasesList(person)
-		.filter(a => a !== baseLabel); // avoid repeating the main label
-
-	if (!aliases.length) return baseLabel;
-	return `${baseLabel} (${aliases.join('، ')})`;
-};
-
-const getPersonSearchText = (personId) => {
-	if (!personId) return '';
-	const person = data.secondary?.[personId];
-	if (!person) return '';
-	const label = person.labels ? getItemLabel(person.labels) : '';
-	const aliases = getPersonAliasesList(person).join(' ');
-	return `${label} ${aliases}`.trim();
-};
-
 const getFilmLabel = (film) => {
 	if (!film?.labels) return getTranslatedText('unknown');
 	return getItemLabel(film.labels);
 };
-
-
-const getSearchableTextForItem = (item) => {
-	const parts = [];
-	try {
-		parts.push(getFilmLabelForItem(item) || '');
-		parts.push(item.aliases || '');
-
-		const film = data.films?.[item.film];
-		if (film?.directors?.length) {
-			for (const directorId of film.directors) {
-				parts.push(getPersonSearchText(directorId));
-			}
-		}
-		if (film?.cast?.length) {
-			for (const actorId of film.cast) {
-				parts.push(getPersonSearchText(actorId));
-			}
-		}
-	} catch (e) {
-		console.error('Error building searchable text:', e);
-	}
-	return parts.filter(Boolean).join(' ');
-};
-
-
 
 const getDesignerLabel = (designerId) => {
 	if (!designerId) return getTranslatedText('unknown');
@@ -2976,11 +2911,31 @@ const getDesignerLabel = (designerId) => {
 	return getItemLabel(designer.labels);
 };
 
-const getDirectorLabel = (directorId, includeAliases = false) => {
+const getLabelWithAliases = (entity) => {
+	const label = entity?.labels ? getItemLabel(entity.labels) : getTranslatedText('unknown');
+	if (!entity || !label || label === getTranslatedText('unknown')) return label;
+
+	const aliasList =
+		entity?.aliases?.[currentLanguage.value] ||
+		entity?.aliases?.fa ||
+		entity?.aliases?.en ||
+		[];
+
+	const cleaned = Array.from(new Set((aliasList || [])
+		.map(a => (typeof a === 'string' ? a.trim() : ''))
+		.filter(a => a && a !== label)
+	));
+
+	if (cleaned.length === 0) return label;
+	const sep = currentLanguage.value === 'fa' ? '، ' : ', ';
+	return `${label} (${cleaned.join(sep)})`;
+};
+
+const getDirectorLabel = (directorId) => {
 	if (!directorId) return getTranslatedText('unknown');
 	const director = data.secondary[directorId];
 	if (!director?.labels) return getTranslatedText('unknown');
-	return formatPersonLabel(director, includeAliases);
+	return getLabelWithAliases(director);
 };
 
 const items = computed(() => {
@@ -3250,11 +3205,11 @@ const filmCountByGenre = computed(() => {
 	return filmGroups;
 });
 
-const getActorLabel = (actorId, includeAliases = false) => {
+const getActorLabel = (actorId) => {
 	if (!actorId) return getTranslatedText('unknown');
 	const actor = data.secondary[actorId];
 	if (!actor?.labels) return getTranslatedText('unknown');
-	return formatPersonLabel(actor, includeAliases);
+	return getLabelWithAliases(actor);
 };
 
 const getActorsForFilm = (filmId) => {
@@ -3265,9 +3220,7 @@ const getActorsForFilm = (filmId) => {
 		const actor = data.secondary[actorId];
 		return {
 			id: actorId,
-			label: actor?.labels 
-				? getActorLabel(actorId, moreInformation.value)
-				: getTranslatedText('unknown')
+			label: getActorLabel(actorId)
 		};
 	}).filter(actor => actor.label !== getTranslatedText('unknown'));
 };
@@ -3454,7 +3407,10 @@ const filteredItems = computed(() => {
 
 		try {
 			const regex = new RegExp(regexString, 'iu');
-			results = results.filter(item => regex.test(getSearchableTextForItem(item)));
+			results = results.filter(item =>
+				regex.test(getFilmLabelForItem(item)) ||
+				regex.test(item.aliases || '')
+			);
 		} catch (e) {
 			console.error("Error in regex:", e);
 		}
