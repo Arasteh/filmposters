@@ -2894,12 +2894,6 @@ const uniqueResultsFilmCount = computed(() => {
 	return uniqueFilmIds.size.toLocaleString('fa', { useGrouping: false });
 });
 
-const getLabel = (labels) => {
-	if (!labels) return getTranslatedText('unknown');
-	const label = labels?.[currentLanguage.value] || labels?.fa || labels?.en;
-	return label || getTranslatedText('unknown');
-};
-
 const getItemLabel = (labels) => {
 	if (!labels) return getTranslatedText('unknown');
 	return labels[currentLanguage.value] || labels.fa || labels.en || getTranslatedText('unknown');
@@ -3135,13 +3129,6 @@ const getGenreLabel = (genreId) => {
 	return getItemLabel(genre.labels);
 };
 
-const getGenreLabelForItem = (item) => {
-	const film = data.films[item.film];
-	if (film.genres && film.genres.length > 0) {
-		return film.genres.map(genreId => getGenreLabel(genreId)).join('، ');
-	}
-	return getTranslatedText('unknown');
-};
 
 const availableGenres = computed(() => {
 const groups = {};
@@ -3223,14 +3210,6 @@ const getActorLabel = (actorId) => {
 	const actor = data.secondary[actorId];
 	if (!actor?.labels) return getTranslatedText('unknown');
 	return getLabelWithAliases(actor);
-};
-
-const getActorLabelForItem = (item) => {
-	const film = data.films[item.film];
-	if (film.cast && film.cast.length > 0) {
-		return film.cast.map(actorId => getActorLabel(actorId)).join('، ');
-	}
-	return getTranslatedText('unknown');
 };
 
 const getActorsForFilm = (filmId) => {
