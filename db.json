@@ -5042,10 +5042,14 @@
 				"fawiki": "ساخت ایران (فیلم)"
 			},
 			"labels": {
-				"en": "Sakhte Iran",
+				"en": "Made in Iran",
 				"fa": "ساخت ایران"
 			},
-			"aliases": {},
+			"aliases": {
+				"en": [
+					"Sakhte Iran"
+				]
+			},
 			"directors": [
 				"Q2717537"
 			],
@@ -50970,12 +50974,18 @@
 		"Q14757045": {
 			"id": "Q14757045",
 			"sitelinks": {
+				"enwiki": "An Isfahani in New York",
 				"fawiki": "یک اصفهانی در نیویورک"
 			},
 			"labels": {
+				"en": "An Isfahani in New York",
 				"fa": "یک اصفهانی در نیویورک"
 			},
-			"aliases": {},
+			"aliases": {
+				"en": [
+					"Yek Esfahani dar New York"
+				]
+			},
 			"directors": [
 				"Q135925174"
 			],
@@ -78762,7 +78772,7 @@
 				"fawiki": "سرور رجایی"
 			},
 			"labels": {
-				"en": "Sorour Rajaei",
+				"en": "Soroor Rajai",
 				"fa": "سرور رجایی"
 			}
 		},
