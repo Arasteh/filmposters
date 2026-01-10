@@ -35178,16 +35178,24 @@
 				"fawiki": "جعفرخان از فرنگ برگشته"
 			},
 			"labels": {
+				"en": "Jafar Khan Is Back from the West",
 				"fa": "جعفرخان از فرنگ برگشته"
 			},
-			"aliases": {},
+			"aliases": {
+				"en": [
+					"Jafar Khan az farang bargashte",
+					"Jafar Khan has Returned from Abroad"
+				]
+			},
 			"directors": [
 				"Q250608"
 			],
 			"date": [
 				"+1987-01-01T00:00:00Z"
 			],
-			"imdb": [],
+			"imdb": [
+				"tt0122553"
+			],
 			"genres": [
 				"Q130232"
 			],
@@ -75645,6 +75653,7 @@
 		"Q5959897": {
 			"id": "Q5959897",
 			"sitelinks": {
+				"enwiki": "Reza Arham Sadr",
 				"fawiki": "رضا ارحام صدر"
 			},
 			"labels": {
@@ -85112,7 +85121,7 @@
 			"id": "Q135925174",
 			"sitelinks": {},
 			"labels": {
-				"en": "Mashallah Nazerian",
+				"en": "Shaollah Nazerian",
 				"fa": "ماشاءالله ناظریان"
 			}
 		},
