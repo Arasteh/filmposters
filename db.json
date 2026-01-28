@@ -3777,12 +3777,14 @@
 				"fawiki": "روسری‌آبی"
 			},
 			"labels": {
-				"en": "The Blue Veiled",
+				"en": "The Blue-Veiled",
 				"fa": "روسری آبی"
 			},
 			"aliases": {
 				"en": [
-					"Roosari abi"
+					"Roosari abi",
+					"The Blue Veiled",
+					"The Blue Scarf"
 				],
 				"fa": [
 					"روسری ابی"
@@ -11133,12 +11135,13 @@
 				"fawiki": "آرامش در حضور دیگران (فیلم)"
 			},
 			"labels": {
-				"en": "Tranquility in the Presence of Others",
+				"en": "Peace in the Presence of Others",
 				"fa": "آرامش در حضور دیگران"
 			},
 			"aliases": {
 				"en": [
-					"Aramesh dar hozoore digaran"
+					"Aramesh dar hozoore digaran",
+					"Tranquility in the Presence of Others"
 				]
 			},
 			"directors": [
@@ -12652,11 +12655,13 @@
 				"fawiki": "خط قرمز (فیلم)"
 			},
 			"labels": {
+				"en": "The Red Line",
 				"fa": "خط قرمز"
 			},
 			"aliases": {
 				"en": [
-					"Khate ghermez"
+					"Khate ghermez",
+					"Khatte ghermez"
 				]
 			},
 			"directors": [
@@ -39874,9 +39879,15 @@
 				"fawiki": "هیولای درون"
 			},
 			"labels": {
+				"en": "The Inner Beast",
 				"fa": "هیولای درون"
 			},
-			"aliases": {},
+			"aliases": {
+				"en": [
+					"Hayoola-ye daroon",
+					"The Monster Within"
+				]
+			},
 			"directors": [
 				"Q923365"
 			],
@@ -56056,9 +56067,16 @@
 				"fawiki": "تنگه اژدها"
 			},
 			"labels": {
+				"en": "Dragon Gorge",
 				"fa": "تنگه اژدها"
 			},
-			"aliases": {},
+			"aliases": {
+				"en": [
+					"Tangeh Ajdha",
+					"Tange Ezhdeha",
+					"The Dragon Gorge"
+				]
+			},
 			"directors": [
 				"Q5943061"
 			],
@@ -71935,6 +71953,7 @@
 		"Q5907365": {
 			"id": "Q5907365",
 			"sitelinks": {
+				"enwiki": "Turan Mehrzad",
 				"fawiki": "توران مهرزاد"
 			},
 			"labels": {
@@ -73835,6 +73854,7 @@
 		"Q5945946": {
 			"id": "Q5945946",
 			"sitelinks": {
+				"enwiki": "Mehri Mehrnia",
 				"fawiki": "مهری مهرنیا"
 			},
 			"labels": {
@@ -78436,7 +78456,7 @@
 				"fawiki": "ملوسک"
 			},
 			"labels": {
-				"en": "Maloosak",
+				"en": "ملوسک",
 				"fa": "ملوسک"
 			}
 		},
