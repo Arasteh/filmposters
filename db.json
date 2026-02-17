@@ -2030,6 +2030,7 @@
 				"fawiki": "دو فیلم با یک بلیط"
 			},
 			"labels": {
+				"en": "One Ticket, Two Movies",
 				"fa": "دو فیلم با یک بلیط"
 			},
 			"aliases": {
@@ -3627,6 +3628,7 @@
 				"fawiki": "شب‌های تهران (فیلم ۱۳۷۹)"
 			},
 			"labels": {
+				"en": "Nights of Tehran",
 				"fa": "شبهای تهران"
 			},
 			"aliases": {
@@ -5204,6 +5206,7 @@
 				"fawiki": "آبشار طلا"
 			},
 			"labels": {
+				"en": "The Golden Waterfall",
 				"fa": "آبشار طلا"
 			},
 			"aliases": {},
@@ -5244,6 +5247,7 @@
 				"fawiki": "توبه نصوح"
 			},
 			"labels": {
+				"en": "The Repentance of Nosuh",
 				"fa": "توبه نصوح"
 			},
 			"aliases": {},
@@ -5485,6 +5489,7 @@
 				"fawiki": "زرد قناری"
 			},
 			"labels": {
+				"en": "Canary Yellow",
 				"fa": "زرد قناری"
 			},
 			"aliases": {},
@@ -5535,6 +5540,7 @@
 				"fawiki": "اوکی مستر"
 			},
 			"labels": {
+				"en": "O.K. Mister",
 				"fa": "اکی میستر"
 			},
 			"aliases": {
@@ -5670,6 +5676,7 @@
 				"fawiki": "تجارت (فیلم)"
 			},
 			"labels": {
+				"en": "The Trade",
 				"fa": "تجارت"
 			},
 			"aliases": {},
@@ -5715,6 +5722,7 @@
 				"fawiki": "چکمه (فیلم)"
 			},
 			"labels": {
+				"en": "The Boot",
 				"fa": "چکمه"
 			},
 			"aliases": {},
@@ -5748,6 +5756,7 @@
 				"fawiki": "آنسوی آتش"
 			},
 			"labels": {
+				"en": "Beyond the Fire",
 				"fa": "آن‌سوی آتش"
 			},
 			"aliases": {},
@@ -5787,6 +5796,7 @@
 				"fawiki": "مغول‌ها (فیلم ۱۳۵۲)"
 			},
 			"labels": {
+				"en": "The Mongols",
 				"fa": "مغول‌ها"
 			},
 			"aliases": {},
@@ -5975,6 +5985,7 @@
 				"fawiki": "یکبار برای همیشه"
 			},
 			"labels": {
+				"en": "Once for Ever",
 				"fa": "یکبار برای همیشه"
 			},
 			"aliases": {
@@ -6028,6 +6039,7 @@
 				"fawiki": "تولد یک پروانه"
 			},
 			"labels": {
+				"en": "Birth of a Butterfly",
 				"fa": "تولد یک پروانه"
 			},
 			"aliases": {},
@@ -6066,6 +6078,7 @@
 				"fawiki": "استعاذه (فیلم)"
 			},
 			"labels": {
+				"en": "Fleeing from Evil to God",
 				"fa": "استعاذه"
 			},
 			"aliases": {},
@@ -6363,6 +6376,7 @@
 				"fawiki": "انتخاب (فیلم ۱۳۸۳)"
 			},
 			"labels": {
+				"en": "The Choice",
 				"fa": "انتخاب"
 			},
 			"aliases": {},
@@ -6695,6 +6709,7 @@
 				"fawiki": "ضیافت (فیلم ۱۳۷۴)"
 			},
 			"labels": {
+				"en": "The Feast",
 				"fa": "ضیافت"
 			},
 			"aliases": {},
@@ -7109,6 +7124,7 @@
 				"fawiki": "ترن (فیلم ۱۳۶۶)"
 			},
 			"labels": {
+				"en": "Train",
 				"fa": "ترن"
 			},
 			"aliases": {},
@@ -7186,6 +7202,7 @@
 				"fawiki": "نیاز (فیلم)"
 			},
 			"labels": {
+				"en": "The Need",
 				"fa": "نیاز"
 			},
 			"aliases": {},
@@ -7419,6 +7436,7 @@
 				"fawiki": "ناخدا با خدا"
 			},
 			"labels": {
+				"en": "Nakhoda Ba Khoda",
 				"fa": "ناخدا با خدا"
 			},
 			"aliases": {},
@@ -7834,6 +7852,7 @@
 				"fawiki": "بخاطر هانیه"
 			},
 			"labels": {
+				"en": "For the Sake of Haniyeh",
 				"fa": "به خاطر هانیه"
 			},
 			"aliases": {},
@@ -7973,6 +7992,7 @@
 				"fawiki": "تیغ و ابریشم"
 			},
 			"labels": {
+				"en": "The Blade and the Silk",
 				"fa": "تیغ و ابریشم"
 			},
 			"aliases": {},
@@ -8231,6 +8251,7 @@
 				"fawiki": "گرداب (فیلم ۱۳۸۳)"
 			},
 			"labels": {
+				"en": "Whirpool",
 				"fa": "گرداب"
 			},
 			"aliases": {},
@@ -8507,6 +8528,7 @@
 				"fawiki": "مجنون (فیلم ۱۳۶۹)"
 			},
 			"labels": {
+				"en": "Majnoon",
 				"fa": "مجنون"
 			},
 			"aliases": {},
@@ -8724,6 +8746,7 @@
 				"fawiki": "شاباجی خانم (فیلم)"
 			},
 			"labels": {
+				"en": "Shahbaji khanom",
 				"fa": "شاباجی خانم"
 			},
 			"aliases": {},
@@ -9194,6 +9217,7 @@
 				"fawiki": "ساقی (فیلم ۱۳۸۰)"
 			},
 			"labels": {
+				"en": "Saghi",
 				"fa": "ساقی"
 			},
 			"aliases": {},
@@ -9246,6 +9270,7 @@
 				"fawiki": "پشت و خنجر"
 			},
 			"labels": {
+				"en": "Stab in the Back",
 				"fa": "پشت و خنجر"
 			},
 			"aliases": {},
@@ -9331,6 +9356,7 @@
 				"fawiki": "رابطه (فیلم ۱۳۶۵)"
 			},
 			"labels": {
+				"en": "Mute Contact",
 				"fa": "رابطه"
 			},
 			"aliases": {},
@@ -9420,6 +9446,7 @@
 				"fawiki": "شارلاتان (فیلم ۱۳۸۳)"
 			},
 			"labels": {
+				"en": "The Charlatan",
 				"fa": "شارلاتان"
 			},
 			"aliases": {},
@@ -9471,6 +9498,7 @@
 				"fawiki": "تله (فیلم)"
 			},
 			"labels": {
+				"en": "Taleh",
 				"fa": "تله"
 			},
 			"aliases": {},
@@ -9809,6 +9837,7 @@
 				"fawiki": "بادام‌های تلخ"
 			},
 			"labels": {
+				"en": "Bitter Almonds",
 				"fa": "بادام‌های تلخ"
 			},
 			"aliases": {},
@@ -10353,6 +10382,7 @@
 				"fawiki": "سینما سینماست"
 			},
 			"labels": {
+				"en": "Sinama Sinamast",
 				"fa": "سینما سینماست"
 			},
 			"aliases": {},
@@ -10384,6 +10414,7 @@
 				"fawiki": "سرود تولد"
 			},
 			"labels": {
+				"en": "The Birthday Chant",
 				"fa": "سرود تولد"
 			},
 			"aliases": {},
@@ -10432,6 +10463,7 @@
 				"fawiki": "سام و نرگس"
 			},
 			"labels": {
+				"en": "Sam and Narges",
 				"fa": "سام و نرگس"
 			},
 			"aliases": {},
@@ -10689,6 +10721,7 @@
 				"fawiki": "نوک برج"
 			},
 			"labels": {
+				"en": "Top of the Tower",
 				"fa": "نوک برج"
 			},
 			"aliases": {},
@@ -11012,6 +11045,7 @@
 				"fawiki": "افعی (فیلم)"
 			},
 			"labels": {
+				"en": "The Viper",
 				"fa": "افعی"
 			},
 			"aliases": {},
@@ -12242,6 +12276,7 @@
 				"fawiki": "مجردها (فیلم ۱۳۸۳)"
 			},
 			"labels": {
+				"en": "The Singles",
 				"fa": "مجردها"
 			},
 			"aliases": {},
@@ -12308,6 +12343,7 @@
 				"fawiki": "هفت‌تیرهای چوبی"
 			},
 			"labels": {
+				"en": "Wooden Pistols",
 				"fa": "هفت‌تیرهای چوبی"
 			},
 			"aliases": {},
@@ -12381,6 +12417,7 @@
 				"fawiki": "به دادم برس رفیق"
 			},
 			"labels": {
+				"en": "Be dadam beres rafigh",
 				"fa": "به دادم برس رفیق"
 			},
 			"aliases": {
@@ -12624,6 +12661,7 @@
 				"fawiki": "ستاره‌ها ۲: ستاره‌است"
 			},
 			"labels": {
+				"en": "Being a Star",
 				"fa": "ستاره‌ها ۲: ستاره است"
 			},
 			"aliases": {},
@@ -12975,6 +13013,7 @@
 				"fawiki": "سوغات فرنگ (فیلم ۱۳۸۵)"
 			},
 			"labels": {
+				"en": "Foreign Souvenir",
 				"fa": "سوغات فرنگ"
 			},
 			"aliases": {},
@@ -13008,6 +13047,7 @@
 				"fawiki": "دختری از شیراز"
 			},
 			"labels": {
+				"en": "A Girl from Shiraz",
 				"fa": "دختری از شیراز"
 			},
 			"aliases": {},
@@ -13230,6 +13270,7 @@
 				"fawiki": "گل یخ (فیلم)"
 			},
 			"labels": {
+				"en": "Ice Flower",
 				"fa": "گل یخ"
 			},
 			"aliases": {},
@@ -13274,6 +13315,7 @@
 				"fawiki": "ستاره‌ها ۱: ستاره می‌شود"
 			},
 			"labels": {
+				"en": "To be a Star",
 				"fa": "ستاره‌ها ۱: ستاره می‌شود"
 			},
 			"aliases": {},
@@ -14040,6 +14082,7 @@
 				"fawiki": "خط پایان (فیلم)"
 			},
 			"labels": {
+				"en": "The Finish Line",
 				"fa": "خط پایان"
 			},
 			"aliases": {},
@@ -14093,6 +14136,7 @@
 				"fawiki": "رشید (فیلم)"
 			},
 			"labels": {
+				"en": "Rashid",
 				"fa": "رشید"
 			},
 			"aliases": {},
@@ -14399,6 +14443,7 @@
 				"fawiki": "نیش (فیلم ۱۳۷۳)"
 			},
 			"labels": {
+				"en": "Bite",
 				"fa": "نیش"
 			},
 			"aliases": {},
@@ -14663,6 +14708,7 @@
 				"fawiki": "وقتی همه خواب بودند"
 			},
 			"labels": {
+				"en": "When Everybody Was Asleep",
 				"fa": "وقتی همه خواب بودند"
 			},
 			"aliases": {},
@@ -14835,6 +14881,7 @@
 				"fawiki": "روسپی (فیلم ۱۳۴۸)"
 			},
 			"labels": {
+				"en": "Prostitute",
 				"fa": "روسپی"
 			},
 			"aliases": {},
@@ -15385,6 +15432,7 @@
 				"fawiki": "جنگ نفتکشها (فیلم)"
 			},
 			"labels": {
+				"en": "Battle of Oil Tankers",
 				"fa": "جنگ نفت‌کش‌ها"
 			},
 			"aliases": {},
@@ -15474,6 +15522,7 @@
 				"fawiki": "روزگار ما"
 			},
 			"labels": {
+				"en": "Our Times",
 				"fa": "روزگار ما"
 			},
 			"aliases": {},
@@ -16591,6 +16640,7 @@
 				"fawiki": "دان (فیلم ۱۳۷۶)"
 			},
 			"labels": {
+				"en": "Don",
 				"fa": "دان"
 			},
 			"aliases": {},
@@ -16623,6 +16673,7 @@
 				"fawiki": "کمیته مجازات (فیلم)"
 			},
 			"labels": {
+				"en": "Punishment Committe",
 				"fa": "کمیته مجازات"
 			},
 			"aliases": {},
@@ -17125,6 +17176,7 @@
 				"fawiki": "خوابگاه دختران"
 			},
 			"labels": {
+				"en": "Girl's Dormitory",
 				"fa": "خوابگاه دختران"
 			},
 			"aliases": {},
@@ -17282,6 +17334,7 @@
 				"fawiki": "صادق کرده"
 			},
 			"labels": {
+				"en": "Sadegh the Kurd",
 				"fa": "صادق کرده"
 			},
 			"aliases": {},
@@ -17488,6 +17541,7 @@
 				"fawiki": "گال (فیلم)"
 			},
 			"labels": {
+				"en": "Scabies",
 				"fa": "گال"
 			},
 			"aliases": {},
@@ -18568,6 +18622,7 @@
 				"fawiki": "خواستگاری (فیلم ۱۳۶۸)"
 			},
 			"labels": {
+				"en": "Courtship",
 				"fa": "خواستگاری"
 			},
 			"aliases": {},
@@ -22363,6 +22418,7 @@
 				"fawiki": "نابخشوده (فیلم ۱۳۷۵)"
 			},
 			"labels": {
+				"en": "Unforgiven",
 				"fa": "نابخشوده"
 			},
 			"aliases": {},
@@ -22437,6 +22493,7 @@
 				"fawiki": "حکم تیر (فیلم)"
 			},
 			"labels": {
+				"en": "Execution of the Bullet",
 				"fa": "حکم تیر"
 			},
 			"aliases": {},
@@ -22470,6 +22527,7 @@
 				"fawiki": "بت (فیلم ۱۳۵۵)"
 			},
 			"labels": {
+				"en": "The Idol",
 				"fa": "بت"
 			},
 			"aliases": {},
@@ -22517,6 +22575,7 @@
 				"fawiki": "بیدار در شهر"
 			},
 			"labels": {
+				"en": "Awake in the City",
 				"fa": "بیدار در شهر"
 			},
 			"aliases": {},
@@ -22564,6 +22623,7 @@
 				"fawiki": "سینه‌چاک"
 			},
 			"labels": {
+				"en": "Sine-chak",
 				"fa": "سینه‌چاک"
 			},
 			"aliases": {},
@@ -22662,6 +22722,7 @@
 				"fawiki": "هدف (فیلم ۱۳۵۴)"
 			},
 			"labels": {
+				"en": "The Target",
 				"fa": "هدف"
 			},
 			"aliases": {},
@@ -22710,6 +22771,7 @@
 				"fawiki": "قفس (فیلم ۱۳۵۳)"
 			},
 			"labels": {
+				"en": "Cage",
 				"fa": "قفس"
 			},
 			"aliases": {},
@@ -22862,6 +22924,7 @@
 				"fawiki": "بی‌حجاب (فیلم)"
 			},
 			"labels": {
+				"en": "Bi-hejab",
 				"fa": "بی‌حجاب"
 			},
 			"aliases": {
@@ -22914,6 +22977,7 @@
 				"fawiki": "میعادگاه خشم"
 			},
 			"labels": {
+				"en": "The Meeting place of Anger",
 				"fa": "میعادگاه خشم"
 			},
 			"aliases": {},
@@ -23199,6 +23263,7 @@
 				"fawiki": "بوسه بر لبهای خونین"
 			},
 			"labels": {
+				"en": "Kiss on Bloody Lips",
 				"fa": "بوسه بر لب‌های خونین"
 			},
 			"aliases": {},
@@ -23247,6 +23312,7 @@
 				"fawiki": "بت‌شکن (فیلم)"
 			},
 			"labels": {
+				"en": "The Iconoclast",
 				"fa": "بت‌شکن"
 			},
 			"aliases": {},
@@ -23338,6 +23404,7 @@
 				"fawiki": "شاهرگ (فیلم ۱۳۵۴)"
 			},
 			"labels": {
+				"en": "Shahrag",
 				"fa": "شاهرگ"
 			},
 			"aliases": {},
@@ -23553,6 +23620,7 @@
 				"fawiki": "مردان خشن"
 			},
 			"labels": {
+				"en": "Furious Men",
 				"fa": "مردان خشن"
 			},
 			"aliases": {},
@@ -23757,6 +23825,7 @@
 				"fawiki": "یک قدم تا مرگ"
 			},
 			"labels": {
+				"en": "One Step to Death",
 				"fa": "یک قدم تا مرگ"
 			},
 			"aliases": {},
@@ -23871,6 +23940,7 @@
 				"fawiki": "بی‌پناه (فیلم ۱۳۶۵)"
 			},
 			"labels": {
+				"en": "Exposed",
 				"fa": "بی‌پناه"
 			},
 			"aliases": {},
@@ -24052,6 +24122,7 @@
 				"fawiki": "رؤیای خیس (فیلم)"
 			},
 			"labels": {
+				"en": "The Wet Dream",
 				"fa": "رویای خیس"
 			},
 			"aliases": {},
@@ -24121,6 +24192,7 @@
 				"fawiki": "آلبوم (فیلم)"
 			},
 			"labels": {
+				"en": "Album",
 				"fa": "آلبوم"
 			},
 			"aliases": {},
@@ -24434,6 +24506,7 @@
 				"fawiki": "هم‌نفس"
 			},
 			"labels": {
+				"en": "Hamnafas",
 				"fa": "هم‌نفس"
 			},
 			"aliases": {},
@@ -24712,6 +24785,7 @@
 				"fawiki": "رسم عاشق‌کشی"
 			},
 			"labels": {
+				"en": "Tradition of Lover Killing",
 				"fa": "رسم عاشق‌کشی"
 			},
 			"aliases": {},
@@ -24809,6 +24883,7 @@
 				"fawiki": "سایه‌روشن (فیلم ۱۳۸۰)"
 			},
 			"labels": {
+				"en": "Twilight",
 				"fa": "سایه‌روشن"
 			},
 			"aliases": {
@@ -25053,6 +25128,7 @@
 				"fawiki": "تو آزادی"
 			},
 			"labels": {
+				"en": "You Are Free",
 				"fa": "تو آزادی"
 			},
 			"aliases": {},
@@ -25086,6 +25162,7 @@
 				"fawiki": "رنگ شب"
 			},
 			"labels": {
+				"en": "Color of the Night",
 				"fa": "رنگ شب"
 			},
 			"aliases": {},
@@ -25124,6 +25201,7 @@
 				"fawiki": "شیفته (فیلم ۱۳۷۹)"
 			},
 			"labels": {
+				"en": "Posessed",
 				"fa": "شیفته"
 			},
 			"aliases": {},
@@ -25264,6 +25342,7 @@
 				"fawiki": "مارال (فیلم)"
 			},
 			"labels": {
+				"en": "Maral",
 				"fa": "مارال"
 			},
 			"aliases": {},
@@ -25420,6 +25499,7 @@
 				"fawiki": "چشمهایش (فیلم ۱۳۷۸)"
 			},
 			"labels": {
+				"en": "Her Eyes",
 				"fa": "چشمهایش"
 			},
 			"aliases": {},
@@ -25566,6 +25646,7 @@
 				"fawiki": "عشق شیشه‌ای"
 			},
 			"labels": {
+				"en": "Glasses Love",
 				"fa": "عشق شیشه‌ای"
 			},
 			"aliases": {},
@@ -25596,6 +25677,7 @@
 				"fawiki": "عشق طاهر"
 			},
 			"labels": {
+				"en": "Taher's Love",
 				"fa": "عشق طاهر"
 			},
 			"aliases": {},
@@ -25777,6 +25859,7 @@
 				"fawiki": "بلوغ (فیلم)"
 			},
 			"labels": {
+				"en": "Maturity",
 				"fa": "بلوغ"
 			},
 			"aliases": {},
@@ -26113,6 +26196,7 @@
 				"fawiki": "لژیون (فیلم ۱۳۷۷)"
 			},
 			"labels": {
+				"en": "Legion",
 				"fa": "لژیون"
 			},
 			"aliases": {},
@@ -26247,6 +26331,7 @@
 				"fawiki": "مهره (فیلم ۱۳۷۷)"
 			},
 			"labels": {
+				"en": "Bead",
 				"fa": "مهره"
 			},
 			"aliases": {},
@@ -26465,6 +26550,7 @@
 				"fawiki": "روانی (فیلم ۱۳۷۶)"
 			},
 			"labels": {
+				"en": "Psycho",
 				"fa": "روانی"
 			},
 			"aliases": {},
@@ -26885,6 +26971,7 @@
 				"fawiki": "یاغی (فیلم ۱۳۷۶)"
 			},
 			"labels": {
+				"en": "Outlaw",
 				"fa": "یاغی"
 			},
 			"aliases": {},
@@ -27354,6 +27441,7 @@
 				"fawiki": "مسافر جنوب"
 			},
 			"labels": {
+				"en": "The Traveler from the South",
 				"fa": "مسافر جنوب"
 			},
 			"aliases": {
@@ -28041,6 +28129,7 @@
 				"fawiki": "شاخ گاو"
 			},
 			"labels": {
+				"en": "Shakh-e gav",
 				"fa": "شاخ گاو"
 			},
 			"aliases": {},
@@ -28366,6 +28455,7 @@
 				"fawiki": "گروگان (فیلم ۱۳۷۴)"
 			},
 			"labels": {
+				"en": "The Hostage",
 				"fa": "گروگان"
 			},
 			"aliases": {
@@ -28545,6 +28635,7 @@
 				"fawiki": "نجات‌یافتگان"
 			},
 			"labels": {
+				"en": "The Survivors",
 				"fa": "نجات‌یافتگان"
 			},
 			"aliases": {
@@ -28965,6 +29056,7 @@
 				"fawiki": "دیدار (فیلم ۱۳۷۳)"
 			},
 			"labels": {
+				"en": "The Visit",
 				"fa": "دیدار"
 			},
 			"aliases": {},
@@ -29551,6 +29643,7 @@
 				"fawiki": "آخرین خون"
 			},
 			"labels": {
+				"en": "The last blood",
 				"fa": "آخرین خون"
 			},
 			"aliases": {},
@@ -30000,6 +30093,7 @@
 				"fawiki": "دمرل"
 			},
 			"labels": {
+				"en": "Domrol",
 				"fa": "دمرل"
 			},
 			"aliases": {},
@@ -30272,6 +30366,7 @@
 				"fawiki": "نان و شعر"
 			},
 			"labels": {
+				"en": "Bread and Poetry",
 				"fa": "نان و شعر"
 			},
 			"aliases": {},
@@ -30565,6 +30660,7 @@
 				"fawiki": "بازیچه"
 			},
 			"labels": {
+				"en": "Baziche",
 				"fa": "بازیچه"
 			},
 			"aliases": {},
@@ -31407,6 +31503,7 @@
 				"fawiki": "اتل متل توتوله (فیلم ۱۳۷۰)"
 			},
 			"labels": {
+				"en": "Atal Matal Tootoole",
 				"fa": "اتل متل توتوله"
 			},
 			"aliases": {},
@@ -31448,6 +31545,7 @@
 				"fawiki": "افسانه‌ی مه‌پلنگ"
 			},
 			"labels": {
+				"en": "Afsaneye mah-palang",
 				"fa": "افسانه مه‌پلنگ"
 			},
 			"aliases": {},
@@ -31823,6 +31921,7 @@
 				"fawiki": "دو نیمه سیب"
 			},
 			"labels": {
+				"en": "Two Halves of an Apple",
 				"fa": "دو نیمه سیب"
 			},
 			"aliases": {},
@@ -32075,6 +32174,7 @@
 				"fawiki": "شقایق (فیلم)"
 			},
 			"labels": {
+				"en": "Shaghayegh",
 				"fa": "شقایق"
 			},
 			"aliases": {},
@@ -32529,6 +32629,7 @@
 				"fawiki": "بخاطر همه چیز"
 			},
 			"labels": {
+				"en": "For Everything",
 				"fa": "به خاطر همه چیز"
 			},
 			"aliases": {
@@ -32695,6 +32796,7 @@
 				"fawiki": "جستجو در جزیره"
 			},
 			"labels": {
+				"en": "A Search In The Island",
 				"fa": "جستجو در جزیره"
 			},
 			"aliases": {},
@@ -32815,6 +32917,7 @@
 				"fawiki": "حکایت آن مرد خوشبخت"
 			},
 			"labels": {
+				"en": "The Story of a Luckyman",
 				"fa": "حکایت آن مرد خوشبخت"
 			},
 			"aliases": {},
@@ -33216,6 +33319,7 @@
 				"fawiki": "مهاجران (فیلم ۱۳۶۹)"
 			},
 			"labels": {
+				"en": "The Immigrants",
 				"fa": "مهاجران"
 			},
 			"aliases": {},
@@ -33398,6 +33502,7 @@
 				"fawiki": "پول خارجی"
 			},
 			"labels": {
+				"en": "Foreign Currency",
 				"fa": "پول خارجی"
 			},
 			"aliases": {},
@@ -33852,6 +33957,7 @@
 				"fawiki": "ساوالان (فیلم)"
 			},
 			"labels": {
+				"en": "Savalan",
 				"fa": "ساوالان"
 			},
 			"aliases": {},
@@ -33950,6 +34056,7 @@
 				"fawiki": "شنگول و منگول (فیلم)"
 			},
 			"labels": {
+				"en": "Shangool and Mangool",
 				"fa": "شنگول و منگول"
 			},
 			"aliases": {},
@@ -35357,6 +35464,7 @@
 				"fawiki": "خارج از محدوده"
 			},
 			"labels": {
+				"en": "Off-Limits",
 				"fa": "خارج از محدوده"
 			},
 			"aliases": {},
@@ -36077,6 +36185,7 @@
 				"fawiki": "مار (فیلم)"
 			},
 			"labels": {
+				"en": "The Snake",
 				"fa": "مار"
 			},
 			"aliases": {},
@@ -36382,6 +36491,7 @@
 				"fawiki": "یار در خانه"
 			},
 			"labels": {
+				"en": "Going Astray",
 				"fa": "یار در خانه"
 			},
 			"aliases": {},
@@ -36470,6 +36580,7 @@
 				"fawiki": "بگذار زندگی کنم"
 			},
 			"labels": {
+				"en": "Let Me Live",
 				"fa": "بگذار زندگی کنم"
 			},
 			"aliases": {},
@@ -36648,6 +36759,7 @@
 				"fawiki": "تیرباران (فیلم)"
 			},
 			"labels": {
+				"en": "Death by Shooting",
 				"fa": "تیرباران"
 			},
 			"aliases": {},
@@ -36815,6 +36927,7 @@
 				"fawiki": "دبیرستان (فیلم ۱۳۶۵)"
 			},
 			"labels": {
+				"en": "The Highschool",
 				"fa": "دبیرستان"
 			},
 			"aliases": {},
@@ -36983,6 +37096,7 @@
 				"fawiki": "شبح کژدم"
 			},
 			"labels": {
+				"en": "Spectre of Scorpion",
 				"fa": "شبح کژدم"
 			},
 			"aliases": {},
@@ -37057,6 +37171,7 @@
 				"fawiki": "گزارش یک قتل"
 			},
 			"labels": {
+				"en": "A Report on a Murder",
 				"fa": "گزارش یک قتل"
 			},
 			"aliases": {},
@@ -37576,6 +37691,7 @@
 				"fawiki": "پدربزرگ (فیلم ۱۳۶۴)"
 			},
 			"labels": {
+				"en": "The Grandfather",
 				"fa": "پدربزرگ"
 			},
 			"aliases": {},
@@ -37773,6 +37889,7 @@
 				"fawiki": "تنوره دیو (فیلم)"
 			},
 			"labels": {
+				"en": "The Monster",
 				"fa": "تنوره دیو"
 			},
 			"aliases": {},
@@ -37869,6 +37986,7 @@
 				"fawiki": "جستجو در شهر"
 			},
 			"labels": {
+				"en": "Search the City",
 				"fa": "جستجو در شهر"
 			},
 			"aliases": {},
@@ -37943,6 +38061,7 @@
 				"fawiki": "سامان (فیلم)"
 			},
 			"labels": {
+				"en": "Saman",
 				"fa": "سامان"
 			},
 			"aliases": {},
@@ -38744,6 +38863,7 @@
 				"fawiki": "تاتوره (فیلم)"
 			},
 			"labels": {
+				"en": "Tatooreh",
 				"fa": "تاتوره"
 			},
 			"aliases": {},
@@ -39252,6 +39372,7 @@
 				"fawiki": "بازجویی یک جنایت"
 			},
 			"labels": {
+				"en": "A Murder Investigation",
 				"fa": "بازجویی یک جنایت"
 			},
 			"aliases": {
@@ -39989,6 +40110,7 @@
 				"fawiki": "سفیر (فیلم ۱۳۶۱)"
 			},
 			"labels": {
+				"en": "The emissary",
 				"fa": "سفیر"
 			},
 			"aliases": {},
@@ -40260,6 +40382,7 @@
 				"fawiki": "مدرسه‌ای که می‌رفتیم"
 			},
 			"labels": {
+				"en": "The School We Went To",
 				"fa": "مدرسه‌ای که می‌رفتیم"
 			},
 			"aliases": {},
@@ -40330,6 +40453,7 @@
 				"fawiki": "جنگ اطهر"
 			},
 			"labels": {
+				"en": "Athar's syllabus",
 				"fa": "جنگ اطهر"
 			},
 			"aliases": {},
@@ -40418,6 +40542,7 @@
 				"fawiki": "باغ بلور"
 			},
 			"labels": {
+				"en": "Bagh-e boloor",
 				"fa": "باغ بلور"
 			},
 			"aliases": {},
@@ -40506,6 +40631,7 @@
 				"fawiki": "حق و ناحق"
 			},
 			"labels": {
+				"en": "Right and Wrong",
 				"fa": "حق و ناحق"
 			},
 			"aliases": {},
@@ -40636,6 +40762,7 @@
 				"fawiki": "زرخرید"
 			},
 			"labels": {
+				"en": "Zar Kharid",
 				"fa": "زرخرید"
 			},
 			"aliases": {
@@ -40880,6 +41007,7 @@
 				"fawiki": "اقای لر بشهر میرود"
 			},
 			"labels": {
+				"en": "Agha-ye Lor be shahr miravad",
 				"fa": "آقای لر به شهر می‌رود"
 			},
 			"aliases": {
@@ -40928,6 +41056,7 @@
 				"fawiki": "اشک رقاصه"
 			},
 			"labels": {
+				"en": "Tear of the Dancer",
 				"fa": "اشک رقاصه"
 			},
 			"aliases": {},
@@ -41002,6 +41131,7 @@
 				"fawiki": "تازه‌عروس"
 			},
 			"labels": {
+				"en": "The Newly-Wed Bride",
 				"fa": "تازه عروس"
 			},
 			"aliases": {},
@@ -41046,6 +41176,7 @@
 				"fawiki": "تلافی (فیلم ۱۳۵۶)"
 			},
 			"labels": {
+				"en": "Talafi",
 				"fa": "تلافی"
 			},
 			"aliases": {},
@@ -41175,6 +41306,7 @@
 				"fawiki": "خان نایب"
 			},
 			"labels": {
+				"en": "Khan Nayeb",
 				"fa": "خان نایب"
 			},
 			"aliases": {},
@@ -41353,6 +41485,7 @@
 				"fawiki": "سه ماه تعطیلی"
 			},
 			"labels": {
+				"en": "Summer Vacation",
 				"fa": "سه ماه تعطیلی"
 			},
 			"aliases": {},
@@ -41435,6 +41568,7 @@
 				"fawiki": "شب آفتابی"
 			},
 			"labels": {
+				"en": "Shab-e aftabi",
 				"fa": "شب آفتابی"
 			},
 			"aliases": {},
@@ -41569,6 +41703,7 @@
 				"fawiki": "طوطی (فیلم)"
 			},
 			"labels": {
+				"en": "Parrot",
 				"fa": "طوطی"
 			},
 			"aliases": {
@@ -42107,6 +42242,7 @@
 				"fawiki": "بی‌گناه"
 			},
 			"labels": {
+				"en": "Bi-Gonah",
 				"fa": "بی‌گناه"
 			},
 			"aliases": {},
@@ -42306,6 +42442,7 @@
 				"fawiki": "پیش‌کسوت (فیلم)"
 			},
 			"labels": {
+				"en": "Pishkesvat",
 				"fa": "پیش‌کسوت"
 			},
 			"aliases": {
@@ -42442,6 +42579,7 @@
 				"fawiki": "جاهل و رقاصه"
 			},
 			"labels": {
+				"en": "Jaahel and the Dancer",
 				"fa": "جاهل و رقاصه"
 			},
 			"aliases": {},
@@ -42527,6 +42665,7 @@
 				"fawiki": "چلچراغ (فیلم)"
 			},
 			"labels": {
+				"en": "Chelcheragh (Chandelier)",
 				"fa": "چلچراغ"
 			},
 			"aliases": {},
@@ -42576,6 +42715,7 @@
 				"fawiki": "دلقک (فیلم ۱۳۵۵)"
 			},
 			"labels": {
+				"en": "The Clown",
 				"fa": "دلقک"
 			},
 			"aliases": {},
@@ -42859,6 +42999,7 @@
 				"fawiki": "شام آخر (فیلم ۱۳۵۵)"
 			},
 			"labels": {
+				"en": "The Last Supper",
 				"fa": "شام آخر"
 			},
 			"aliases": {},
@@ -42899,6 +43040,7 @@
 				"fawiki": "شهر شراب"
 			},
 			"labels": {
+				"en": "The City of Wine",
 				"fa": "شهر شراب"
 			},
 			"aliases": {},
@@ -43003,6 +43145,7 @@
 				"fawiki": "عنتر و منتر"
 			},
 			"labels": {
+				"en": "Antar-o-Mantar",
 				"fa": "عنتر و منتر"
 			},
 			"aliases": {},
@@ -43050,6 +43193,7 @@
 				"fawiki": "غرور و تعصب (فیلم ۱۳۵۵)"
 			},
 			"labels": {
+				"en": "Pride and Prejudice",
 				"fa": "غرور و تعصب"
 			},
 			"aliases": {},
@@ -43177,6 +43321,7 @@
 				"fawiki": "گل خشخاش (فیلم)"
 			},
 			"labels": {
+				"en": "The Poppy Flower",
 				"fa": "گل خشخاش"
 			},
 			"aliases": {},
@@ -43263,6 +43408,7 @@
 				"fawiki": "ماه عسل (فیلم ۱۳۵۵)"
 			},
 			"labels": {
+				"en": "Honeymoon",
 				"fa": "ماه عسل"
 			},
 			"aliases": {},
@@ -43392,6 +43538,7 @@
 				"fawiki": "مهمان (فیلم ۱۳۵۵)"
 			},
 			"labels": {
+				"en": "The Guest",
 				"fa": "مهمان"
 			},
 			"aliases": {},
@@ -43431,6 +43578,7 @@
 				"fawiki": "نقص فنی (فیلم)"
 			},
 			"labels": {
+				"en": "A Technical Malfunction",
 				"fa": "نقص فنی"
 			},
 			"aliases": {},
@@ -43473,6 +43621,7 @@
 				"fawiki": "هیولا (فیلم ۱۳۵۵)"
 			},
 			"labels": {
+				"en": "Monster",
 				"fa": "هیولا"
 			},
 			"aliases": {},
@@ -43707,6 +43856,7 @@
 				"fawiki": "انگشت‌نما"
 			},
 			"labels": {
+				"en": "Singled out",
 				"fa": "انگشت‌نما"
 			},
 			"aliases": {},
@@ -43797,6 +43947,7 @@
 				"fawiki": "پلنگ در شب"
 			},
 			"labels": {
+				"en": "The Night Leopard",
 				"fa": "پلنگ در شب"
 			},
 			"aliases": {},
@@ -43894,6 +44045,7 @@
 				"fawiki": "چشم‌انتظار"
 			},
 			"labels": {
+				"en": "Cheshme Entezar",
 				"fa": "چشم انتظار"
 			},
 			"aliases": {},
@@ -44160,6 +44312,7 @@
 				"fawiki": "دفاع از ناموس"
 			},
 			"labels": {
+				"en": "Defa' az namoos",
 				"fa": "دفاع از ناموس"
 			},
 			"aliases": {},
@@ -44198,6 +44351,7 @@
 				"fawiki": "راننده اجباری"
 			},
 			"labels": {
+				"en": "Driver by Force",
 				"fa": "راننده اجباری"
 			},
 			"aliases": {},
@@ -44284,6 +44438,7 @@
 				"fawiki": "شبگرد (فیلم ۱۳۵۴)"
 			},
 			"labels": {
+				"en": "The Night-Prowler",
 				"fa": "شبگرد"
 			},
 			"aliases": {},
@@ -44321,6 +44476,7 @@
 				"fawiki": "شرف (فیلم ۱۳۵۴)"
 			},
 			"labels": {
+				"en": "Sharaf",
 				"fa": "شرف"
 			},
 			"aliases": {},
@@ -44365,6 +44521,7 @@
 				"fawiki": "صدای صحرا"
 			},
 			"labels": {
+				"en": "The Sound of the Desert",
 				"fa": "صدای صحرا"
 			},
 			"aliases": {},
@@ -44449,6 +44606,7 @@
 				"fawiki": "عبور از مرز زندگی"
 			},
 			"labels": {
+				"en": "Oboor Az Marze Zendegi",
 				"fa": "عبور از مرز زندگی"
 			},
 			"aliases": {},
@@ -44584,6 +44742,7 @@
 				"fawiki": "فاصله (فیلم ۱۳۵۴)"
 			},
 			"labels": {
+				"en": "Faseleh",
 				"fa": "فاصله"
 			},
 			"aliases": {},
@@ -44795,6 +44954,7 @@
 				"fawiki": "کمین (فیلم ۱۳۵۴)"
 			},
 			"labels": {
+				"en": "Ambush",
 				"fa": "کمین"
 			},
 			"aliases": {},
@@ -44877,6 +45037,7 @@
 				"fawiki": "مرد شرقی و زن فرنگی"
 			},
 			"labels": {
+				"en": "Eastern Man, Western Woman",
 				"fa": "مرد شرقی و زن فرنگی"
 			},
 			"aliases": {},
@@ -44912,6 +45073,7 @@
 				"fawiki": "مشکی (فیلم)"
 			},
 			"labels": {
+				"en": "Meshki",
 				"fa": "مشکی"
 			},
 			"aliases": {},
@@ -45034,6 +45196,7 @@
 				"fawiki": "هم‌خون (فیلم)"
 			},
 			"labels": {
+				"en": "Brothers in Blood",
 				"fa": "هم‌خون"
 			},
 			"aliases": {
@@ -45312,6 +45475,7 @@
 				"fawiki": "آقا رضای گل"
 			},
 			"labels": {
+				"en": "Mr. Handsome Reza",
 				"fa": "آقا رضای گل"
 			},
 			"aliases": {},
@@ -45356,6 +45520,7 @@
 				"fawiki": "آقا مهدی وارد میشود"
 			},
 			"labels": {
+				"en": "Here Comes Mr. Mehdi",
 				"fa": "آقا مهدی وارد می‌شود"
 			},
 			"aliases": {},
@@ -45454,6 +45619,7 @@
 				"fawiki": "الکی خوش"
 			},
 			"labels": {
+				"en": "Happy for No Reason‏",
 				"fa": "الکی خوش"
 			},
 			"aliases": {},
@@ -45664,6 +45830,7 @@
 				"fawiki": "پری خوشگله"
 			},
 			"labels": {
+				"en": "The Beautiful Pari",
 				"fa": "پری خوشگله"
 			},
 			"aliases": {},
@@ -45856,6 +46023,7 @@
 				"fawiki": "حسین آژدان"
 			},
 			"labels": {
+				"en": "Hossein, the Cop",
 				"fa": "حسین آژدان"
 			},
 			"aliases": {},
@@ -45953,6 +46121,7 @@
 				"fawiki": "دختران بلا، مردان ناقلا"
 			},
 			"labels": {
+				"en": "Daughter of Bella, People of Naqla",
 				"fa": "دختران بلا، مردان ناقلا"
 			},
 			"aliases": {},
@@ -46077,6 +46246,7 @@
 				"fawiki": "صلات ظهر"
 			},
 			"labels": {
+				"en": "High Noon",
 				"fa": "صلات ظهر"
 			},
 			"aliases": {
@@ -46130,6 +46300,7 @@
 				"fawiki": "عروس پابرهنه"
 			},
 			"labels": {
+				"en": "The Barefoot Bride",
 				"fa": "عروس پابرهنه"
 			},
 			"aliases": {},
@@ -46230,6 +46401,7 @@
 				"fawiki": "کنیز (فیلم ۱۳۵۳)"
 			},
 			"labels": {
+				"en": "Kaniz",
 				"fa": "کنیز"
 			},
 			"aliases": {},
@@ -46282,6 +46454,7 @@
 				"fawiki": "کوثر (فیلم)"
 			},
 			"labels": {
+				"en": "Kowsar",
 				"fa": "کوثر"
 			},
 			"aliases": {},
@@ -46373,6 +46546,7 @@
 				"fawiki": "گلنسا در پاریس"
 			},
 			"labels": {
+				"en": "Golnesa In Paris",
 				"fa": "گلنسا در پاریس"
 			},
 			"aliases": {
@@ -46420,6 +46594,7 @@
 				"fawiki": "ماجراجویان خشن"
 			},
 			"labels": {
+				"en": "Majerajooyane khashen",
 				"fa": "ماجراجویان خشن"
 			},
 			"aliases": {},
@@ -46747,6 +46922,7 @@
 				"fawiki": "می‌رم بابا بخرم"
 			},
 			"labels": {
+				"en": "I'm Gonna Buy a Dad",
 				"fa": "می‌رم بابا بخرم"
 			},
 			"aliases": {
@@ -46801,6 +46977,7 @@
 				"fawiki": "هرجایی"
 			},
 			"labels": {
+				"en": "Outcast",
 				"fa": "هرجایی"
 			},
 			"aliases": {
@@ -47205,6 +47382,7 @@
 				"fawiki": "پاپوش (فیلم ۱۳۵۲)"
 			},
 			"labels": {
+				"en": "Papoosh",
 				"fa": "پاپوش"
 			},
 			"aliases": {},
@@ -47244,6 +47422,7 @@
 				"fawiki": "پری‌زاد (فیلم)"
 			},
 			"labels": {
+				"en": "Parizad (Fairy Child)",
 				"fa": "پری‌زاد"
 			},
 			"aliases": {
@@ -47288,6 +47467,7 @@
 				"fawiki": "پسرخوانده"
 			},
 			"labels": {
+				"en": "Pesar-khande",
 				"fa": "پسرخوانده"
 			},
 			"aliases": {},
@@ -47332,6 +47512,7 @@
 				"fawiki": "جبار سرجوخه فراری"
 			},
 			"labels": {
+				"en": "Jabbar, Runaway Sergeant",
 				"fa": "جبار سرجوخه فراری"
 			},
 			"aliases": {},
@@ -47466,6 +47647,7 @@
 				"fawiki": "خروس (فیلم ۱۳۵۲)"
 			},
 			"labels": {
+				"en": "Rooster",
 				"fa": "خروس"
 			},
 			"aliases": {
@@ -47646,6 +47828,7 @@
 				"fawiki": "در آخرین لحظه (فیلم ۱۳۵۲)"
 			},
 			"labels": {
+				"en": "At the Last Moment",
 				"fa": "در آخرین لحظه"
 			},
 			"aliases": {},
@@ -47694,6 +47877,7 @@
 				"fawiki": "دشمن (فیلم ۱۳۵۲)"
 			},
 			"labels": {
+				"en": "The Enemy",
 				"fa": "دشمن"
 			},
 			"aliases": {},
@@ -47799,6 +47983,7 @@
 				"fawiki": "زن باکره"
 			},
 			"labels": {
+				"en": "Virgin Woman",
 				"fa": "زن باکره"
 			},
 			"aliases": {},
@@ -47848,6 +48033,7 @@
 				"fawiki": "سالومه (فیلم ۱۳۵۲)"
 			},
 			"labels": {
+				"en": "Salome",
 				"fa": "سالومه"
 			},
 			"aliases": {},
@@ -47893,6 +48079,7 @@
 				"fawiki": "شرور (فیلم ۱۳۵۲)"
 			},
 			"labels": {
+				"en": "Sharoor",
 				"fa": "شرور"
 			},
 			"aliases": {},
@@ -47934,6 +48121,7 @@
 				"fawiki": "شیخ صالح"
 			},
 			"labels": {
+				"en": "Sheikh Saleh",
 				"fa": "شیخ صالح"
 			},
 			"aliases": {},
@@ -48278,6 +48466,7 @@
 				"fawiki": "قربون هرچی خوشگله"
 			},
 			"labels": {
+				"en": "Sacrifice myself for all the beauties",
 				"fa": "قربون هرچی خوشگله"
 			},
 			"aliases": {},
@@ -48611,6 +48800,7 @@
 				"fawiki": "مترس (فیلم)"
 			},
 			"labels": {
+				"en": "The Mistress",
 				"fa": "مترس"
 			},
 			"aliases": {},
@@ -48684,6 +48874,7 @@
 				"fawiki": "معشوقه (فیلم ۱۳۵۲)"
 			},
 			"labels": {
+				"en": "Ma'shooghe",
 				"fa": "معشوقه"
 			},
 			"aliases": {},
@@ -48918,6 +49109,7 @@
 				"fawiki": "آب‌نبات‌چوبی (فیلم ۱۳۵۱)"
 			},
 			"labels": {
+				"en": "Lollipop",
 				"fa": "آب نبات چوبی"
 			},
 			"aliases": {},
@@ -49059,6 +49251,7 @@
 				"fawiki": "اعجوبه‌ها"
 			},
 			"labels": {
+				"en": "Prodigies",
 				"fa": "اعجوبه‌ها"
 			},
 			"aliases": {},
@@ -49104,6 +49297,7 @@
 				"fawiki": "بابا نان داد"
 			},
 			"labels": {
+				"en": "Dad is Breadwinner",
 				"fa": "بابا نان داد"
 			},
 			"aliases": {},
@@ -49266,6 +49460,7 @@
 				"fawiki": "تنها مرد محله"
 			},
 			"labels": {
+				"en": "Tanha marde mahalle",
 				"fa": "تنها مرد محله"
 			},
 			"aliases": {},
@@ -49317,6 +49512,7 @@
 				"fawiki": "توبه (فیلم ۱۳۵۱)"
 			},
 			"labels": {
+				"en": "Repentance",
 				"fa": "توبه"
 			},
 			"aliases": {},
@@ -49502,6 +49698,7 @@
 				"fawiki": "حسن دینامیت"
 			},
 			"labels": {
+				"en": "Hassan Dynamite",
 				"fa": "حسن دینامیت"
 			},
 			"aliases": {},
@@ -49663,6 +49860,7 @@
 				"fawiki": "رضا هفت‌خط"
 			},
 			"labels": {
+				"en": "Reza Haft-Khat",
 				"fa": "رضا هفت‌خط"
 			},
 			"aliases": {},
@@ -49717,6 +49915,7 @@
 				"fawiki": "سرگروهبان"
 			},
 			"labels": {
+				"en": "The Master Sergeant",
 				"fa": "سرگروهبان"
 			},
 			"aliases": {
@@ -50085,6 +50284,7 @@
 				"fawiki": "عاصی (فیلم)"
 			},
 			"labels": {
+				"en": "Asey",
 				"fa": "عاصی"
 			},
 			"aliases": {},
@@ -50159,6 +50359,7 @@
 				"fawiki": "عطش (فیلم ۱۳۵۱)"
 			},
 			"labels": {
+				"en": "Atash",
 				"fa": "عطش"
 			},
 			"aliases": {},
@@ -50197,6 +50398,7 @@
 				"fawiki": "علی سورچی"
 			},
 			"labels": {
+				"en": "Ali Soorchi",
 				"fa": "علی سورچی"
 			},
 			"aliases": {},
@@ -50236,6 +50438,7 @@
 				"fawiki": "غریبه (فیلم ۱۳۵۱)"
 			},
 			"labels": {
+				"en": "Stranger",
 				"fa": "غریبه"
 			},
 			"aliases": {},
@@ -50403,6 +50606,7 @@
 				"fawiki": "قایقرانان"
 			},
 			"labels": {
+				"en": "Illegal",
 				"fa": "قایقرانان"
 			},
 			"aliases": {},
@@ -50448,6 +50652,7 @@
 				"fawiki": "کافر (فیلم ۱۳۵۲)"
 			},
 			"labels": {
+				"en": "Kaafar",
 				"fa": "کافر"
 			},
 			"aliases": {},
@@ -50495,6 +50700,7 @@
 				"fawiki": "کاکل‌زری (فیلم)"
 			},
 			"labels": {
+				"en": "Kakol Zari",
 				"fa": "کاکل‌زری"
 			},
 			"aliases": {
@@ -50578,6 +50784,7 @@
 				"fawiki": "مرد (فیلم ۱۳۵۱)"
 			},
 			"labels": {
+				"en": "The Man",
 				"fa": "مرد"
 			},
 			"aliases": {},
@@ -50613,6 +50820,7 @@
 				"fawiki": "مرد اجاره‌ای"
 			},
 			"labels": {
+				"en": "A Man for Rent‏",
 				"fa": "مرد اجاره‌ای"
 			},
 			"aliases": {},
@@ -50735,6 +50943,7 @@
 				"fawiki": "مرغ تخم‌طلا"
 			},
 			"labels": {
+				"en": "Golden Egg Chicken",
 				"fa": "مرغ تخم‌طلا"
 			},
 			"aliases": {},
@@ -50956,6 +51165,7 @@
 				"fawiki": "همیشه قهرمان"
 			},
 			"labels": {
+				"en": "Hamisheh Ghahreman",
 				"fa": "همیشه قهرمان"
 			},
 			"aliases": {
@@ -51083,6 +51293,7 @@
 				"fawiki": "آتشپاره شهر"
 			},
 			"labels": {
+				"en": "Fireworks of the City",
 				"fa": "آتشپاره شهر"
 			},
 			"aliases": {},
@@ -51213,6 +51424,7 @@
 				"fawiki": "بده در راه خدا"
 			},
 			"labels": {
+				"en": "Bedeh dar raah-e khoda",
 				"fa": "بده در راه خدا"
 			},
 			"aliases": {},
@@ -51254,6 +51466,7 @@
 				"fawiki": "برای که قلبها میطپد"
 			},
 			"labels": {
+				"en": "For Whom the Hearts Beat",
 				"fa": "برای که قلب‌ها می‌تپد"
 			},
 			"aliases": {
@@ -51302,6 +51515,7 @@
 				"fawiki": "پل (فیلم ۱۳۵۰)"
 			},
 			"labels": {
+				"en": "Pol",
 				"fa": "پل"
 			},
 			"aliases": {},
@@ -51438,6 +51652,7 @@
 				"fawiki": "حیدر (فیلم ۱۳۵۰)"
 			},
 			"labels": {
+				"en": "Heydar",
 				"fa": "حیدر"
 			},
 			"aliases": {},
@@ -51583,6 +51798,7 @@
 				"fawiki": "درختان ایستاده می‌میرند"
 			},
 			"labels": {
+				"en": "Trees Die Standing",
 				"fa": "درخت‌ها ایستاده می‌میرند"
 			},
 			"aliases": {
@@ -51630,6 +51846,7 @@
 				"fawiki": "دلهای بی‌آرام"
 			},
 			"labels": {
+				"en": "Del-haye Bi-aram",
 				"fa": "دل‌های بی‌آرام"
 			},
 			"aliases": {
@@ -51677,6 +51894,7 @@
 				"fawiki": "دلقک‌ها (فیلم ۱۳۵۰)"
 			},
 			"labels": {
+				"en": "Clowns",
 				"fa": "دلقک‌ها"
 			},
 			"aliases": {
@@ -51773,6 +51991,7 @@
 				"fawiki": "دیوار شیشه‌ای"
 			},
 			"labels": {
+				"en": "The Glass Wall",
 				"fa": "دیوار شیشه‌ای"
 			},
 			"aliases": {},
@@ -51864,6 +52083,7 @@
 				"fawiki": "رضا چلچله"
 			},
 			"labels": {
+				"en": "Reza Chelcheleh",
 				"fa": "رضا چلچله"
 			},
 			"aliases": {},
@@ -51904,6 +52124,7 @@
 				"fawiki": "زیر بازارچه"
 			},
 			"labels": {
+				"en": "Under the Bazaar",
 				"fa": "زیر بازارچه"
 			},
 			"aliases": {},
@@ -52232,6 +52453,7 @@
 				"fawiki": "غلام ژاندارم"
 			},
 			"labels": {
+				"en": "Gholam zhandarm",
 				"fa": "غلام ژاندارم"
 			},
 			"aliases": {},
@@ -52369,6 +52591,7 @@
 				"fawiki": "کاکو (فیلم)"
 			},
 			"labels": {
+				"en": "The Brother",
 				"fa": "کاکو"
 			},
 			"aliases": {},
@@ -52412,6 +52635,7 @@
 				"fawiki": "کلبه‌ای آن‌سوی رودخانه"
 			},
 			"labels": {
+				"en": "A Hut across the River",
 				"fa": "کلبه‌ای آن‌سوی رودخانه"
 			},
 			"aliases": {},
@@ -52497,6 +52721,7 @@
 				"fawiki": "مرد هزار لبخند"
 			},
 			"labels": {
+				"en": "Mard-e hezar labkhand",
 				"fa": "مرد هزار لبخند"
 			},
 			"aliases": {},
@@ -52561,6 +52786,7 @@
 				"fawiki": "ملا ممد جان (فیلم)"
 			},
 			"labels": {
+				"en": "Dear Mullah Mammad",
 				"fa": "ملا ممد جان"
 			},
 			"aliases": {},
@@ -52603,6 +52829,7 @@
 				"fawiki": "نقره‌داغ"
 			},
 			"labels": {
+				"en": "Noghre-Dagh",
 				"fa": "نقره‌داغ"
 			},
 			"aliases": {
@@ -52832,6 +53059,7 @@
 				"fawiki": "اجل معلق (فیلم)"
 			},
 			"labels": {
+				"en": "Ajale Moallagh",
 				"fa": "اجل معلق"
 			},
 			"aliases": {},
@@ -52873,6 +53101,7 @@
 				"fawiki": "ارادتمند شما عزرائیل"
 			},
 			"labels": {
+				"en": "Eradatmand-e shoma, Ezraeel",
 				"fa": "ارادتمند شما عزرائیل"
 			},
 			"aliases": {},
@@ -53154,6 +53383,7 @@
 				"fawiki": "جنجال عروسی"
 			},
 			"labels": {
+				"en": "The Wedding Commotion",
 				"fa": "جنجال عروسی"
 			},
 			"aliases": {},
@@ -53196,6 +53426,7 @@
 				"fawiki": "حادثه‌جویان (فیلم ۱۳۴۹)"
 			},
 			"labels": {
+				"en": "The Accident Seekers",
 				"fa": "حادثه جویان"
 			},
 			"aliases": {},
@@ -53464,6 +53695,7 @@
 				"fawiki": "رسوایی (فیلم ۱۳۴۹)"
 			},
 			"labels": {
+				"en": "Scandal",
 				"fa": "رسوایی"
 			},
 			"aliases": {},
@@ -53553,6 +53785,7 @@
 				"fawiki": "سکه شانس"
 			},
 			"labels": {
+				"en": "Sekke-ye shans",
 				"fa": "سکه شانس"
 			},
 			"aliases": {},
@@ -53592,6 +53825,7 @@
 				"fawiki": "سوگلی (فیلم ۱۳۴۹)"
 			},
 			"labels": {
+				"en": "Sogoli",
 				"fa": "سوگلی"
 			},
 			"aliases": {},
@@ -53678,6 +53912,7 @@
 				"fawiki": "شهر گناه (فیلم ۱۳۴۹)"
 			},
 			"labels": {
+				"en": "Shahre gonah",
 				"fa": "شهر گناه"
 			},
 			"aliases": {},
@@ -53808,6 +54043,7 @@
 				"fawiki": "عروس بیانکا"
 			},
 			"labels": {
+				"en": "Bride of Bianca",
 				"fa": "عروس بیانکا"
 			},
 			"aliases": {},
@@ -54080,6 +54316,7 @@
 				"fawiki": "مردی از جنوب شهر"
 			},
 			"labels": {
+				"en": "A Man from the South of the City",
 				"fa": "مردی از جنوب شهر"
 			},
 			"aliases": {},
@@ -54374,6 +54611,7 @@
 				"fawiki": "بابا کوهی (فیلم)"
 			},
 			"labels": {
+				"en": "Baba Kohi",
 				"fa": "بابا کوهی"
 			},
 			"aliases": {},
@@ -54643,6 +54881,7 @@
 				"fawiki": "دنیای پرامید (فیلم ۱۳۴۸)"
 			},
 			"labels": {
+				"en": "A World Full of Hope",
 				"fa": "دنیای پرامید"
 			},
 			"aliases": {},
@@ -54692,6 +54931,7 @@
 				"fawiki": "زن وحشی وحشی"
 			},
 			"labels": {
+				"en": "A wild, wild woman",
 				"fa": "زن وحشی وحشی"
 			},
 			"aliases": {},
@@ -55018,6 +55258,7 @@
 				"fawiki": "عشق کولی"
 			},
 			"labels": {
+				"en": "Eshgh-e koli",
 				"fa": "عشق کولی"
 			},
 			"aliases": {},
@@ -55108,6 +55349,7 @@
 				"fawiki": "قصر زرین"
 			},
 			"labels": {
+				"en": "The Golden Palace",
 				"fa": "قصر زرین"
 			},
 			"aliases": {},
@@ -55157,6 +55399,7 @@
 				"fawiki": "قلب‌های طلایی"
 			},
 			"labels": {
+				"en": "Golden Hearts",
 				"fa": "قلب‌های طلایی"
 			},
 			"aliases": {},
@@ -55199,6 +55442,7 @@
 				"fawiki": "قهوه‌خانه قنبر (فیلم)"
 			},
 			"labels": {
+				"en": "Ghanbar Coffeehouse",
 				"fa": "قهوه‌خانه قنبر"
 			},
 			"aliases": {},
@@ -55241,6 +55485,7 @@
 				"fawiki": "کاسب‌های محل"
 			},
 			"labels": {
+				"en": "Local tradesmen",
 				"fa": "کاسب‌های محل"
 			},
 			"aliases": {},
@@ -55419,6 +55664,7 @@
 				"fawiki": "مردان روزگار"
 			},
 			"labels": {
+				"en": "Mardan-e roozegar",
 				"fa": "مردان روزگار"
 			},
 			"aliases": {},
@@ -55688,6 +55934,7 @@
 				"fawiki": "ازدواج ایرانی (فیلم)"
 			},
 			"labels": {
+				"en": "Ezdevaj irani",
 				"fa": "ازدواج ایرانی"
 			},
 			"aliases": {},
@@ -56175,6 +56422,7 @@
 				"fawiki": "جهنم سفید"
 			},
 			"labels": {
+				"en": "The White Hell",
 				"fa": "جهنم سفید"
 			},
 			"aliases": {},
@@ -56350,6 +56598,7 @@
 				"fawiki": "دختر شاه پریون (فیلم ۱۳۴۷)"
 			},
 			"labels": {
+				"en": "Dokhtar-e Shaah-e Parian",
 				"fa": "دختر شاه پریان"
 			},
 			"aliases": {
@@ -56485,6 +56734,7 @@
 				"fawiki": "ریکاردو (فیلم)"
 			},
 			"labels": {
+				"en": "Riccardo",
 				"fa": "ریکاردو"
 			},
 			"aliases": {},
@@ -56523,6 +56773,7 @@
 				"fawiki": "سالار مردان"
 			},
 			"labels": {
+				"en": "Saalaar-e Mardan",
 				"fa": "سالار مردان"
 			},
 			"aliases": {},
@@ -56561,6 +56812,7 @@
 				"fawiki": "ستاره هفت آسمون"
 			},
 			"labels": {
+				"en": "The Star of the Seven Skies",
 				"fa": "ستاره هفت آسمان"
 			},
 			"aliases": {
@@ -56728,6 +56980,7 @@
 				"fawiki": "عشق قارون"
 			},
 			"labels": {
+				"en": "Qaroon's Love",
 				"fa": "عشق قارون"
 			},
 			"aliases": {},
@@ -56894,6 +57147,7 @@
 				"fawiki": "کشتی نوح (فیلم ۱۳۴۷)"
 			},
 			"labels": {
+				"en": "Noah's Ark",
 				"fa": "کشتی نوح"
 			},
 			"aliases": {},
@@ -56981,6 +57235,7 @@
 				"fawiki": "لوطی قرن بیستم"
 			},
 			"labels": {
+				"en": "Twentieth Century Looti",
 				"fa": "لوطی قرن بیستم"
 			},
 			"aliases": {},
@@ -57199,6 +57454,7 @@
 				"fawiki": "منهم گریه کردم"
 			},
 			"labels": {
+				"en": "Man ham gerye kardam",
 				"fa": "من هم گریه کردم"
 			},
 			"aliases": {
@@ -57381,6 +57637,7 @@
 				"fawiki": "پسران علاءالدین"
 			},
 			"labels": {
+				"en": "Pesaran Alaedi'n",
 				"fa": "پسران علاءالدین"
 			},
 			"aliases": {},
@@ -57561,6 +57818,7 @@
 				"fawiki": "داش احمد"
 			},
 			"labels": {
+				"en": "Daash Ahmad",
 				"fa": "داش احمد"
 			},
 			"aliases": {},
@@ -57600,6 +57858,7 @@
 				"fawiki": "دختر طلا"
 			},
 			"labels": {
+				"en": "Dokhate-e tala",
 				"fa": "دختر طلا"
 			},
 			"aliases": {},
@@ -57784,6 +58043,7 @@
 				"fawiki": "شکوه جوانمردی"
 			},
 			"labels": {
+				"en": "Shokoh-e-javanmardi",
 				"fa": "شکوه جوانمردی"
 			},
 			"aliases": {},
@@ -57855,6 +58115,7 @@
 				"fawiki": "طوفان نوح (فیلم)"
 			},
 			"labels": {
+				"en": "Noah's Storm",
 				"fa": "طوفان نوح"
 			},
 			"aliases": {},
@@ -57950,6 +58211,7 @@
 				"fawiki": "غم‌ها و شادی‌ها"
 			},
 			"labels": {
+				"en": "Sorrows and Joys",
 				"fa": "غم‌ها و شادی‌ها"
 			},
 			"aliases": {},
@@ -58524,6 +58786,7 @@
 				"fawiki": "امیرارسلان نامدار (فیلم ۱۳۴۵)"
 			},
 			"labels": {
+				"en": "Amir Arsalan-e Namdar",
 				"fa": "امیر ارسلان نامدار"
 			},
 			"aliases": {},
@@ -58637,6 +58900,7 @@
 				"fawiki": "جهان‌پهلوان (فیلم)"
 			},
 			"labels": {
+				"en": "Jahan Pahlavan",
 				"fa": "جهان پهلوان"
 			},
 			"aliases": {},
@@ -58823,6 +59087,7 @@
 				"fawiki": "دختر کدخدا"
 			},
 			"labels": {
+				"en": "Kadkhoda's Daughter",
 				"fa": "دختر کدخدا"
 			},
 			"aliases": {},
@@ -59260,6 +59525,7 @@
 				"fawiki": "گدایان تهران"
 			},
 			"labels": {
+				"en": "Beggars of Tehran",
 				"fa": "گدایان تهران"
 			},
 			"aliases": {
@@ -59790,6 +60056,7 @@
 				"fawiki": "ده سایه خطرناک"
 			},
 			"labels": {
+				"en": "Ten Dangerous Shadows",
 				"fa": "ده سایه خطرناک"
 			},
 			"aliases": {},
@@ -60045,6 +60312,7 @@
 				"fawiki": "عروس دریا"
 			},
 			"labels": {
+				"en": "The Bride of the Sea",
 				"fa": "عروس دریا"
 			},
 			"aliases": {},
@@ -60456,6 +60724,7 @@
 				"fawiki": "یک پارچه آقا"
 			},
 			"labels": {
+				"en": "A Perfect Gentleman",
 				"fa": "یک پارچه آقا"
 			},
 			"aliases": {},
@@ -60500,6 +60769,7 @@
 				"fawiki": "آقای قرن بیستم"
 			},
 			"labels": {
+				"en": "Mr. Twentieth Century",
 				"fa": "آقای قرن بیستم"
 			},
 			"aliases": {},
@@ -60830,6 +61100,7 @@
 				"fawiki": "جهنم زیر پای من"
 			},
 			"labels": {
+				"en": "Hell Under My Foot",
 				"fa": "جهنم زیر پای من"
 			},
 			"aliases": {},
@@ -60930,6 +61201,7 @@
 				"fawiki": "دهکده طلائی"
 			},
 			"labels": {
+				"en": "The Golden Village",
 				"fa": "دهکده طلایی"
 			},
 			"aliases": {},
@@ -61102,6 +61374,7 @@
 				"fawiki": "ضربت"
 			},
 			"labels": {
+				"en": "The Strike",
 				"fa": "ضربت"
 			},
 			"aliases": {},
@@ -61380,6 +61653,7 @@
 				"fawiki": "آراس خان"
 			},
 			"labels": {
+				"en": "Aras Khan",
 				"fa": "آراس خان"
 			},
 			"aliases": {},
@@ -61563,6 +61837,7 @@
 				"fawiki": "پرستوها بلانه برمیگردند"
 			},
 			"labels": {
+				"en": "Parastuha be laneh barmigardand",
 				"fa": "پرستوها به لانه برمی‌گردند"
 			},
 			"aliases": {
@@ -61606,6 +61881,7 @@
 				"fawiki": "ترس و تاریکی"
 			},
 			"labels": {
+				"en": "Fear and Darkness",
 				"fa": "ترس و تاریکی"
 			},
 			"aliases": {},
@@ -61679,6 +61955,7 @@
 				"fawiki": "زنها فرشته‌اند (فیلم ۱۳۴۲)"
 			},
 			"labels": {
+				"en": "Women Are Angels",
 				"fa": "زن‌ها فرشته‌اند"
 			},
 			"aliases": {
@@ -61727,6 +62004,7 @@
 				"fawiki": "ساحل انتظار"
 			},
 			"labels": {
+				"en": "Sahel-e Entezar",
 				"fa": "ساحل انتظار"
 			},
 			"aliases": {},
@@ -61853,6 +62131,7 @@
 				"fawiki": "مردها و جاده‌ها"
 			},
 			"labels": {
+				"en": "Men and Roads",
 				"fa": "مردها و جاده‌ها"
 			},
 			"aliases": {},
@@ -61890,6 +62169,7 @@
 				"fawiki": "مسافری از بهشت"
 			},
 			"labels": {
+				"en": "A Traveler from Heaven",
 				"fa": "مسافری از بهشت"
 			},
 			"aliases": {},
@@ -62149,6 +62429,7 @@
 				"fawiki": "زمین تلخ"
 			},
 			"labels": {
+				"en": "The Bitter Land",
 				"fa": "زمین تلخ"
 			},
 			"aliases": {},
@@ -62198,6 +62479,7 @@
 				"fawiki": "سوداگران مرگ (فیلم)"
 			},
 			"labels": {
+				"en": "Traders of Death",
 				"fa": "سوداگران مرگ"
 			},
 			"aliases": {},
@@ -62381,6 +62663,7 @@
 				"fawiki": "نصیب و قسمت"
 			},
 			"labels": {
+				"en": "Nasib Va Qesmat",
 				"fa": "نصیب و قسمت"
 			},
 			"aliases": {},
@@ -62763,6 +63046,7 @@
 				"fawiki": "اول هیکل"
 			},
 			"labels": {
+				"en": "The Strong Man",
 				"fa": "اول هیکل"
 			},
 			"aliases": {},
@@ -62892,6 +63176,7 @@
 				"fawiki": "فردا روشن است"
 			},
 			"labels": {
+				"en": "Tomorrow Is Bright",
 				"fa": "فردا روشن است"
 			},
 			"aliases": {},
@@ -63335,6 +63620,7 @@
 				"fawiki": "بیژن و منیژه (فیلم)"
 			},
 			"labels": {
+				"en": "Bijan va Manijeh",
 				"fa": "بیژن و منیژه"
 			},
 			"aliases": {},
@@ -63371,6 +63657,7 @@
 				"fawiki": "جنوب شهر"
 			},
 			"labels": {
+				"en": "South of the City",
 				"fa": "جنوب شهر"
 			},
 			"aliases": {},
@@ -63535,6 +63822,7 @@
 				"fawiki": "لات جوانمرد"
 			},
 			"labels": {
+				"en": "The Generous Tough",
 				"fa": "لات جوانمرد"
 			},
 			"aliases": {},
@@ -64148,6 +64436,7 @@
 				"fawiki": "آخرین شب"
 			},
 			"labels": {
+				"en": "The Last Night",
 				"fa": "آخرین شب"
 			},
 			"aliases": {},
@@ -64305,6 +64594,7 @@
 				"fawiki": "خون و شرف (فیلم)"
 			},
 			"labels": {
+				"en": "Khoon va sharaf",
 				"fa": "خون و شرف"
 			},
 			"aliases": {},
@@ -64864,6 +65154,7 @@
 				"fawiki": "تیغ آفتاب (فیلم ۱۳۵۲)"
 			},
 			"labels": {
+				"en": "The Strengthening Sun",
 				"fa": "تیغ آفتاب"
 			},
 			"aliases": {},
@@ -65899,6 +66190,7 @@
 				"fawiki": "رانده شده (فیلم ۱۳۵۴)"
 			},
 			"labels": {
+				"en": "Rande shod-e",
 				"fa": "رانده‌شده"
 			},
 			"aliases": {
@@ -66021,6 +66313,7 @@
 				"fawiki": "یوسف و زلیخا (فیلم ۱۳۳۵)"
 			},
 			"labels": {
+				"en": "Yousof va Zoleikha",
 				"fa": "یوسف و زلیخا"
 			},
 			"aliases": {},
@@ -66657,6 +66950,7 @@
 			"id": "Q131547093",
 			"sitelinks": {},
 			"labels": {
+				"en": "Child and Exploitation",
 				"fa": "کودک و استثمار"
 			},
 			"aliases": {},
@@ -67140,6 +67434,7 @@
 			"id": "Q136373367",
 			"sitelinks": {},
 			"labels": {
+				"en": "The Future World",
 				"fa": "دنیای آینده"
 			},
 			"aliases": {},
@@ -77219,6 +77514,7 @@
 				"fawiki": "شهراد وثوقی"
 			},
 			"labels": {
+				"en": "Shahurad Vossughi",
 				"fa": "شهراد وثوقی"
 			}
 		},
