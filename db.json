@@ -14795,10 +14795,14 @@
 				"fawiki": "نفرین (فیلم ۱۳۵۲)"
 			},
 			"labels": {
-				"en": "Curse",
+				"en": "The Curse",
 				"fa": "نفرین"
 			},
-			"aliases": {},
+			"aliases": {
+				"en": [
+					"Nefrin"
+				]
+			},
 			"directors": [
 				"Q2817346"
 			],
