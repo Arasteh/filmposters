@@ -13591,6 +13591,7 @@
 			},
 			"aliases": {
 				"en": [
+					"Ei Iran",
 					"O Iran"
 				]
 			},
@@ -31957,9 +31958,14 @@
 				"fawiki": "راه و بیراه"
 			},
 			"labels": {
+				"en": "The Way and the Wayless",
 				"fa": "راه و بیراه"
 			},
-			"aliases": {},
+			"aliases": {
+				"en": [
+					"Rah o birah"
+				]
+			},
 			"directors": [
 				"Q7506733"
 			],
@@ -69097,6 +69103,7 @@
 		"Q1630526": {
 			"id": "Q1630526",
 			"sitelinks": {
+				"enwiki": "Hossein Sarshar",
 				"fawiki": "حسین سرشار"
 			},
 			"labels": {
@@ -82435,6 +82442,7 @@
 				"fawiki": "مهستی بدیعی"
 			},
 			"labels": {
+				"en": "Mahasti Badiei",
 				"fa": "مهستی بدیعی"
 			}
 		},
