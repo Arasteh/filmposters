@@ -16970,7 +16970,11 @@
 				"en": "Wood Pigeon",
 				"fa": "طوقی"
 			},
-			"aliases": {},
+			"aliases": {
+				"en": [
+					"The Ring-necked Dove"
+				]
+			},
 			"directors": [
 				"Q250608"
 			],
@@ -52092,7 +52096,11 @@
 				"en": "Under the Bazaar",
 				"fa": "زیر بازارچه"
 			},
-			"aliases": {},
+			"aliases": {
+				"en": [
+					"Zir-e bazarche"
+				]
+			},
 			"directors": [
 				"Q16046480"
 			],
@@ -56120,7 +56128,11 @@
 				"en": "So Long",
 				"fa": "به امید دیدار"
 			},
-			"aliases": {},
+			"aliases": {
+				"en": [
+					"Be omid-e didar"
+				]
+			},
 			"directors": [
 				"Q14916698"
 			],
