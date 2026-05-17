@@ -1796,7 +1796,11 @@
 				"en": "Dancing in the Dust",
 				"fa": "رقص در غبار"
 			},
-			"aliases": {},
+			"aliases": {
+				"en": [
+					"Raghs dar ghobar"
+				]
+			},
 			"directors": [
 				"Q334242"
 			],
