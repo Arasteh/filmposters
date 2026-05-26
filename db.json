@@ -45912,7 +45912,11 @@
 				"en": "Baby Dandy",
 				"fa": "جوجه فکلی"
 			},
-			"aliases": {},
+			"aliases": {
+				"en": [
+					"Jooje fokoli"
+				]
+			},
 			"directors": [
 				"Q16046480"
 			],
