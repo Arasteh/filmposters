@@ -5821,7 +5821,8 @@
 					"image": "مغول_ها_(پوستر).jpg",
 					"hash": "3b",
 					"designers": [
-						"Q10294036"
+						"Q10294036",
+						"Q140307842"
 					]
 				}
 			],
@@ -49626,7 +49627,10 @@
 			"posters": [
 				{
 					"image": "چشمه_(پوستر).jpg",
-					"hash": "6e"
+					"hash": "6e",
+					"designers": [
+						"Q140307851"
+					]
 				}
 			],
 			"logos": [
@@ -59332,7 +59336,7 @@
 		"Q14757364": {
 			"id": "Q14757364",
 			"sitelinks": {
-				"fawiki": "فیل و فنجان"
+				"fawiki": "فیل و فنجون"
 			},
 			"labels": {
 				"en": "Elephant and Teacup",
@@ -62695,6 +62699,48 @@
 					"designers": [
 						"Q16051488"
 					]
+				}
+			],
+			"logos": []
+		},
+		"Q14757520": {
+			"id": "Q14757520",
+			"sitelinks": {
+				"fawiki": "بیوه‌های خندان"
+			},
+			"labels": {
+				"en": "The Laughing Widows",
+				"fa": "بیوه‌های خندان"
+			},
+			"aliases": {
+				"en": [
+					"Biveha-ye Khandan"
+				]
+			},
+			"directors": [
+				"Q16074680"
+			],
+			"date": [
+				"+1961-00-00T00:00:00Z"
+			],
+			"imdb": [
+				"tt0409755"
+			],
+			"genres": [],
+			"cast": [
+				"Q1370293"
+			],
+			"posters": [
+				{
+					"image": "بیوه‌های_خندان_(پوستر).jpg",
+					"hash": "74",
+					"designers": [
+						"Q25423900"
+					]
+				},
+				{
+					"image": "بیوه‌های_خندان_(پوستر_۲).jpg",
+					"hash": "79"
 				}
 			],
 			"logos": []
@@ -86150,6 +86196,22 @@
 			"sitelinks": {},
 			"labels": {
 				"fa": "رضا گنجی"
+			}
+		},
+		"Q140307842": {
+			"id": "Q140307842",
+			"sitelinks": {},
+			"labels": {
+				"en": "Mohammadreza Adnani",
+				"fa": "محمدرضا عدنانی"
+			}
+		},
+		"Q140307851": {
+			"id": "Q140307851",
+			"sitelinks": {},
+			"labels": {
+				"en": "Edward Arshamian",
+				"fa": "ادوارد آرشامیان"
 			}
 		}
 	}
