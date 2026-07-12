@@ -12233,6 +12233,32 @@
 			],
 			"logos": []
 		},
+		"Q5881949": {
+			"id": "Q5881949",
+			"sitelinks": {
+				"fawiki": "گلنسا"
+			},
+			"labels": {
+				"fa": "گلنسا"
+			},
+			"aliases": {},
+			"directors": [
+				"Q17991115"
+			],
+			"date": [
+				"+1952-00-00T00:00:00Z"
+			],
+			"imdb": [],
+			"genres": [],
+			"cast": [],
+			"posters": [
+				{
+					"image": "گلنسا_(پوستر).jpg",
+					"hash": "c3"
+				}
+			],
+			"logos": []
+		},
 		"Q5883462": {
 			"id": "Q5883462",
 			"sitelinks": {
@@ -43386,6 +43412,13 @@
 				{
 					"image": "Honeymoon_movie_poster.png",
 					"hash": "97"
+				},
+				{
+					"image": "ماه_عسل_(پوستر_۲).jpg",
+					"hash": "d8",
+					"designers": [
+						"Q131377834"
+					]
 				}
 			],
 			"logos": []
@@ -52827,6 +52860,32 @@
 			],
 			"logos": []
 		},
+		"Q14757115": {
+			"id": "Q14757115",
+			"sitelinks": {
+				"fawiki": "وحشی جنگل"
+			},
+			"labels": {
+				"fa": "وحشی جنگل"
+			},
+			"aliases": {},
+			"directors": [
+				"Q6411011"
+			],
+			"date": [
+				"+1971-00-00T00:00:00Z"
+			],
+			"imdb": [],
+			"genres": [],
+			"cast": [],
+			"posters": [
+				{
+					"image": "وحشی_جنگل_(پوستر).jpg",
+					"hash": "99"
+				}
+			],
+			"logos": []
+		},
 		"Q14757116": {
 			"id": "Q14757116",
 			"sitelinks": {
@@ -53603,6 +53662,40 @@
 					"hash": "b5"
 				}
 			]
+		},
+		"Q14757142": {
+			"id": "Q14757142",
+			"sitelinks": {
+				"fawiki": "دور دنیا با جیب خالی"
+			},
+			"labels": {
+				"en": "Dor-e donya ba jib-e khali",
+				"fa": "دور دنیا با جیب خالی"
+			},
+			"aliases": {},
+			"directors": [
+				"Q5958448"
+			],
+			"date": [
+				"+1969-01-01T00:00:00Z"
+			],
+			"imdb": [
+				"tt5389860"
+			],
+			"genres": [],
+			"cast": [
+				"Q2893939"
+			],
+			"posters": [
+				{
+					"image": "دور_دنیا_با_جیب_خالی_(پوستر).jpg",
+					"hash": "07",
+					"designers": [
+						"Q16051488"
+					]
+				}
+			],
+			"logos": []
 		},
 		"Q14757143": {
 			"id": "Q14757143",
@@ -56773,11 +56866,14 @@
 			},
 			"labels": {
 				"en": "The Star of the Seven Skies",
-				"fa": "ستاره هفت آسمان"
+				"fa": "ستاره هفت آسمون"
 			},
 			"aliases": {
 				"en": [
 					"Setare-ye haft-asemoon"
+				],
+				"fa": [
+					"ستاره هفت آسمان"
 				]
 			},
 			"directors": [
@@ -60266,6 +60362,39 @@
 				}
 			]
 		},
+		"Q14757405": {
+			"id": "Q14757405",
+			"sitelinks": {
+				"fawiki": "شیطان سفید"
+			},
+			"labels": {
+				"en": "The White Devil",
+				"fa": "شیطان سفید"
+			},
+			"aliases": {
+				"en": [
+					"Sheitane sefid"
+				]
+			},
+			"directors": [
+				"Q135925094"
+			],
+			"date": [
+				"+1965-00-00T00:00:00Z"
+			],
+			"imdb": [
+				"tt0434337"
+			],
+			"genres": [],
+			"cast": [],
+			"posters": [
+				{
+					"image": "شیطان_سفید_(پوستر).jpg",
+					"hash": "15"
+				}
+			],
+			"logos": []
+		},
 		"Q14757408": {
 			"id": "Q14757408",
 			"sitelinks": {
@@ -62118,6 +62247,35 @@
 			],
 			"logos": []
 		},
+		"Q14757485": {
+			"id": "Q14757485",
+			"sitelinks": {
+				"fawiki": "محکوم (فیلم ۱۳۴۲)"
+			},
+			"labels": {
+				"fa": "محکوم"
+			},
+			"aliases": {},
+			"directors": [
+				"Q31070222"
+			],
+			"date": [
+				"+1963-00-00T00:00:00Z"
+			],
+			"imdb": [],
+			"genres": [],
+			"cast": [],
+			"posters": [
+				{
+					"image": "محکوم_(پوستر).jpg",
+					"hash": "ec",
+					"designers": [
+						"Q131377994"
+					]
+				}
+			],
+			"logos": []
+		},
 		"Q14757487": {
 			"id": "Q14757487",
 			"sitelinks": {
@@ -63649,6 +63807,38 @@
 			],
 			"logos": []
 		},
+		"Q14757589": {
+			"id": "Q14757589",
+			"sitelinks": {
+				"fawiki": "فرشته وحشی"
+			},
+			"labels": {
+				"en": "Wild Angel",
+				"fa": "فرشته وحشی"
+			},
+			"aliases": {},
+			"directors": [
+				"Q16049015"
+			],
+			"date": [
+				"+1959-04-08T00:00:00Z"
+			],
+			"imdb": [
+				"tt0399049"
+			],
+			"genres": [],
+			"cast": [],
+			"posters": [
+				{
+					"image": "فرشته_وحشی_(پوستر).jpg",
+					"hash": "63",
+					"designers": [
+						"Q140510904"
+					]
+				}
+			],
+			"logos": []
+		},
 		"Q14757594": {
 			"id": "Q14757594",
 			"sitelinks": {
@@ -63765,6 +63955,10 @@
 				{
 					"image": "چشم_براه_(پوستر).jpg",
 					"hash": "da"
+				},
+				{
+					"image": "چشم_براه_(پوستر_۲).jpg",
+					"hash": "0c"
 				}
 			],
 			"logos": [
@@ -66084,6 +66278,37 @@
 					"hash": "ee"
 				}
 			]
+		},
+		"Q113519164": {
+			"id": "Q113519164",
+			"sitelinks": {
+				"fawiki": "خطاکاران"
+			},
+			"labels": {
+				"fa": "خطاکاران"
+			},
+			"aliases": {},
+			"directors": [
+				"Q1442859"
+			],
+			"date": [
+				"+1969-01-01T00:00:00Z"
+			],
+			"imdb": [
+				"tt5940840"
+			],
+			"genres": [],
+			"cast": [],
+			"posters": [
+				{
+					"image": "خطاکاران_(پوستر).jpg",
+					"hash": "ac",
+					"designers": [
+						"Q131377869"
+					]
+				}
+			],
+			"logos": []
 		},
 		"Q113847203": {
 			"id": "Q113847203",
@@ -80487,6 +80712,16 @@
 				"en": "Baki Tamer"
 			}
 		},
+		"Q17991115": {
+			"id": "Q17991115",
+			"sitelinks": {
+				"fawiki": "سرژ آزاریان"
+			},
+			"labels": {
+				"en": "Serge Azaryan",
+				"fa": "سرژ آزاریان"
+			}
+		},
 		"Q17991166": {
 			"id": "Q17991166",
 			"sitelinks": {
@@ -86261,6 +86496,14 @@
 			"labels": {
 				"en": "Edward Arshamian",
 				"fa": "ادوارد آرشامیان"
+			}
+		},
+		"Q140510904": {
+			"id": "Q140510904",
+			"sitelinks": {},
+			"labels": {
+				"en": "Madine-i Atelier",
+				"fa": "آتلیه مدینه‌ای"
 			}
 		}
 	}
