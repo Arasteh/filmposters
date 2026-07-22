@@ -711,12 +711,12 @@ input[type="text"]:focus {
 }
 
 .triple-switch[data-sort="alphabetical"]::before {
-	transform: translateX(123px);
+	transform: translateX(114px);
 	width: calc(33%);
 }
 
 .triple-switch[data-sort="year"]::before {
-	transform: translateX(70px);
+	transform: translateX(64px);
 	width: calc(28%);
 }
 
@@ -810,8 +810,8 @@ input[type="text"]:focus {
 
 #desktopSidebarToggleButton {
 	position: fixed;
-	top: 20px;
-	inset-inline-start: 20px;
+	top: 22px;
+	inset-inline-start: 22px;
 	z-index: 999;
 	background: none;
 	color: var(--body-foreground);
@@ -827,6 +827,10 @@ input[type="text"]:focus {
 #desktopSidebarToggleButton:hover {
 	background-color: light-dark(#e2e8f0, #2d343b);
 	box-shadow: var(--shadow-md);
+}
+
+#desktopSidebarToggleButton.no-shadow {
+	box-shadow: none !important;
 }
 
 .options-wrapper-bottom {
@@ -1581,12 +1585,6 @@ input[type="range"]::-webkit-slider-runnable-track {
 		font-weight: 500;
 		width: 29%;
 		color: var(--body-foreground);
-		font-size: 0.95rem;
-		background: var(--card-background);
-		padding: 6px 16px;
-		border-radius: var(--radius-xl);
-		box-shadow: var(--shadow-sm);
-		border: 1px solid light-dark(rgba(0,0,0,0.04), rgba(255,255,255,0.04));
 	}
 	.options {
 		transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -2089,7 +2087,8 @@ input[type="range"]::-webkit-slider-runnable-track {
 	<button id="desktopSidebarToggleButton" class="desktop-only"
 		@click="toggleSidebarDesktop"
 		style="display: none;"
-		:style="desktopSidebarToggleStyle">
+		:style="desktopSidebarToggleStyle"
+		:class="{ 'no-shadow': sidebarVisible }">
 		<span class="material-symbols-rounded">
 			{{ sidebarVisible ? 'close' : 'menu' }}
 		</span>
@@ -2213,9 +2212,11 @@ input[type="range"]::-webkit-slider-runnable-track {
 								refresh
 							</span>
 						</button>
+						<!--
 						<button @click="toggleLanguage" id="languageToggle" style="background: none; border: none; cursor: pointer; padding: 5px; border-radius: var(--radius-sm); transition: var(--transition);">
 							<span style="font-size: 0.9em; font-weight: 500;">EN/FA</span>
 						</button>
+						-->
 						<button @click="toggleOptions" class="collapse-button mobile-only"
 							:class="collapseIconClass(isOptionsCollapsed)">
 							<span class="material-symbols-rounded" style="font-size: xx-large;">
@@ -2232,10 +2233,10 @@ input[type="range"]::-webkit-slider-runnable-track {
 									حروف مشابه
 								</label>
 								<label>
-									<div class="tooltip">
-										<span class="material-symbols-rounded">info</span>
+									<span class="material-symbols-rounded tooltip">
+										info
 										<span class="tooltiptext">حروفی که شکل یکسانی دارند، یکی در نظر گرفته شود: مانند س، ش</span>
-									</div>
+									</span>
 								</label>
 							</div>
 							<div class="similar-chars-toggle">
@@ -4411,10 +4412,11 @@ const desktopSidebarToggleStyle = computed(() => {
 		return { display: 'none' };
 	} else {
 		return {
-			top: '20px',
-			insetInlineStart: '20px', 
+			top: '22px',
+			insetInlineStart: '22px', 
 			zIndex: '999',
-			transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+			transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+			boxShadow: sidebarVisible.value ? 'none' : 'var(--shadow-sm)'
 		};
 	}
 });
