@@ -493,7 +493,6 @@ input[type="text"]:focus {
 	transition-delay: 0.1s;
 	z-index: 1001;
 	backdrop-filter: blur(12px);
-	pointer-events: none;
 	max-width: 320px;
 	max-height: 60vh;
 	overflow-y: auto;
@@ -1357,7 +1356,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 @media (max-width: 400px) {
 .toggle-switch[data-mode="poster"]::before {
-	transform: translateX(44px);
+	transform: translateX(43px);
 }
 .toggle-switch::before {
 	inset-inline-end: 4px;
@@ -1370,11 +1369,11 @@ input[type="range"]::-webkit-slider-runnable-track {
 	padding: 5px 8px;
 }
 .triple-switch[data-sort="alphabetical"]::before {
-	transform: translateX(107px);
+	transform: translateX(98px);
 	width: calc(33%);
 }
 .triple-switch[data-sort="year"]::before {
-	transform: translateX(62px);
+	transform: translateX(55px);
 	width: calc(28%);
 }
 }
@@ -2100,16 +2099,32 @@ input[type="range"]::-webkit-slider-runnable-track {
 		@click="closeLightbox">
 		<template v-if="lightboxImage">
 			<img :src="lightboxImage" :key="lightboxImage" alt="Lightbox Image" 
-				:style="{ backgroundColor: backgroundColor }" />
+				:style="{ backgroundColor: backgroundColor }" @click.stop />
 		</template>
-		<div class="lightbox-info desktop-only" v-if="lightboxItem">
-			<h2>{{ lightboxItem.filmLabel }}</h2>
-			<p>سال تولید: {{ toPersianYear(lightboxItem.date) }}</p>
-			<p v-if="lightboxItem.directorLabel && lightboxItem.directorLabel !== 'نامشخص'">کارگردان: {{ lightboxItem.directorLabel }}</p>
+		<div class="lightbox-info desktop-only" v-if="lightboxItem" @click.stop>
+			<h2>
+				<a href="#" @click.prevent="selectFilm(lightboxItem.film)" style="color: inherit; text-decoration: none; cursor: pointer;">
+					{{ lightboxItem.filmLabel }}
+				</a>
+			</h2>
+			<p>
+				سال تولید: 
+				<a href="#" @click.prevent="selectYear(lightboxItem.date)" style="color: inherit; text-decoration: none; cursor: pointer;">
+					{{ toPersianYear(lightboxItem.date) }}
+				</a>
+			</p>
+			<p v-if="lightboxItem.directorLabel && lightboxItem.directorLabel !== 'نامشخص'">
+				کارگردان: 
+				<a href="#" @click.prevent="selectDirector(lightboxItem.directorLabel)" style="color: inherit; text-decoration: none; cursor: pointer;">
+					{{ lightboxItem.directorLabel }}
+				</a>
+			</p>
 			<p v-if="lightboxItem.designerLabel && lightboxItem.designerLabel !== 'نامشخص'">
 				طراح پوستر:
 				<span v-for="(designer, index) in lightboxItem.designers" :key="index">
-					{{ designer.label }}<span v-if="index < lightboxItem.designers.length - 1">, </span>
+					<a href="#" @click.prevent="selectDesigner(designer.label)" style="color: inherit; text-decoration: none; cursor: pointer;">
+						{{ designer.label }}
+					</a><span v-if="index < lightboxItem.designers.length - 1">, </span>
 				</span>
 			</p>
 			<div v-if="lightboxItem.actors && lightboxItem.actors.length > 0" 
@@ -2118,7 +2133,8 @@ input[type="range"]::-webkit-slider-runnable-track {
 				<div style="display: flex; flex-wrap: wrap; gap: 5px;">
 					<span v-for="(actor, index) in lightboxItem.actors" 
 						:key="actor.id"
-						style="color: white; background: rgba(255,255,255,0.12); padding: 2px 10px; border-radius: var(--radius-xl); font-size: 0.9em;">
+						style="color: white; background: rgba(255,255,255,0.12); padding: 2px 10px; border-radius: var(--radius-xl); font-size: 0.9em; cursor: pointer;"
+						@click.stop="selectActor(actor.label)">
 						{{ actor.label }}
 					</span>
 				</div>
@@ -2148,30 +2164,22 @@ input[type="range"]::-webkit-slider-runnable-track {
 			</svg>
 		</div>
 		<button class="lightbox-button" @click.stop="closeLightbox" style="top: 20px; inset-inline-end: 20px; text-shadow: 0px 0px 10px black;">
-			<span class="material-symbols-rounded">
-				close
-			</span>
+			<span class="material-symbols-rounded">close</span>
 		</button>
-		<a :href="downloadLink(lightboxItem)" aria-label="دریافت پوستر" target="_blank">
+		<a :href="downloadLink(lightboxItem)" aria-label="دریافت پوستر" target="_blank" @click.stop>
 			<button class="lightbox-button" style="top: 20px; inset-inline-start: 20px; text-shadow: 0px 0px 10px black;">
-				<span class="material-symbols-rounded">
-					download
-				</span>
+				<span class="material-symbols-rounded">download</span>
 			</button>
 		</a>
 		<button class="lightbox-button mobile-bottom" 
 				style="inset-inline-end: 20px; text-shadow: 0px 0px 10px black;" 
 				@click.stop="nextImage">
-			<span class="material-symbols-rounded">
-				arrow_back_ios
-			</span>
+			<span class="material-symbols-rounded">arrow_back_ios</span>
 		</button>
 		<button class="lightbox-button mobile-bottom" 
 				style="inset-inline-start: 20px; text-shadow: 0px 0px 10px black;" 
 				@click.stop="prevImage">
-			<span class="material-symbols-rounded">
-				arrow_forward_ios
-			</span>
+			<span class="material-symbols-rounded">arrow_forward_ios</span>
 		</button>
 
 
@@ -2291,7 +2299,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 								<span :class="{ active: !posterMode }">لوگو</span>
 						</div>
 						<div class="sort-order-container">
-							<label @click="toggleSortDirection" style="cursor: pointer;">
+							<label @click="toggleSortDirection" style="cursor: pointer; align-self: flex-end;">
 								<span class="material-symbols-rounded sort-direction-icon" :class="sortDirection">
 									swap_vert
 								</span>
@@ -2930,6 +2938,49 @@ const selectActorFromModal = (actor) => {
 		selectedActors.value.push(actor);
 	}
 };
+
+const selectFilm = (filmId) => {
+	// برای فیلتر کردن بر اساس فیلم، باید searchTerm را به نام فیلم تنظیم کنیم
+	const film = data.films[filmId];
+	if (film) {
+		searchTerm.value = getFilmLabel(film);
+		closeLightbox();
+	}
+};
+
+const selectYear = (date) => {
+	if (date) {
+		const year = toPersianYear(date);
+		if (year && year !== 'نامشخص') {
+			selectedYear.value = year;
+			closeLightbox();
+		}
+	}
+};
+
+const selectDirector = (directorLabel) => {
+	if (directorLabel && directorLabel !== 'نامشخص') {
+		selectedDirector.value = directorLabel;
+		closeLightbox();
+	}
+};
+
+const selectDesignerFromLightbox = (designerLabel) => {
+	if (designerLabel && designerLabel !== 'نامشخص') {
+		selectedDesigner.value = designerLabel;
+		closeLightbox();
+	}
+};
+
+const selectActor = (actorLabel) => {
+	if (actorLabel && actorLabel !== 'نامشخص') {
+		if (!selectedActors.value.includes(actorLabel)) {
+			selectedActors.value.push(actorLabel);
+		}
+		closeLightbox();
+	}
+};
+
 
 const removeGenreFilter = (genre) => {
 	selectedGenres.value = selectedGenres.value.filter(g => g !== genre);
@@ -4681,7 +4732,8 @@ return {
 	filmCountByGenre, filmCountByActor, availableGenres, availableActors, genreSearchQuery, actorSearchQuery,
 	selectedGenres, selectedActors, removeGenreFilter, removeActorFilter, clearGenreSearchQuery, clearActorSearchQuery,
 	selectGenreFromModal, selectActorFromModal, filteredGenresInModal, filteredActorsInModal, selectGenreFromModal, filteredGenreLabel, filteredActorLabel, 
-	getGenreLabel, getActorLabel, getActorsForFilm
+	getGenreLabel, getActorLabel, getActorsForFilm, selectFilm, selectYear, selectDirector, selectDesigner: selectDesignerFromLightbox, selectActor,
+
 };
 
 } }).mount('#app');
