@@ -4693,13 +4693,16 @@ window.addEventListener('keydown', () => {
 window.addEventListener('keydown', (event) => {
 	if (event.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
 		event.preventDefault();
-		const searchInput = document.querySelector('input[type="text"][placeholder*="پرش"]');
-		if (searchInput) {
-			searchInput.focus();
-			if (searchInput.value) {
-				searchInput.select();
+		isSearchBarVisible.value = true;
+		nextTick(() => {
+			const searchInput = document.querySelector('input[type="text"][placeholder*="پرش"]');
+			if (searchInput) {
+				searchInput.focus();
+				if (searchInput.value) {
+					searchInput.select();
+				}
 			}
-		}
+		});
 	}
 });
 
