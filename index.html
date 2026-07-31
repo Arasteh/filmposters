@@ -1103,7 +1103,8 @@ input[type="range"]::-webkit-slider-runnable-track {
 .year-grid,
 .letter-grid,
 .genre-grid,
-.actor-grid {
+.actor-grid,
+.studio-grid {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 8px;
@@ -1114,7 +1115,8 @@ input[type="range"]::-webkit-slider-runnable-track {
 .year-item,
 .letter-item,
 .genre-item,
-.actor-item {
+.actor-item,
+.studio-item {
 	padding: 5px 12px;
 	border-radius: var(--radius-xl);
 	cursor: pointer;
@@ -1133,7 +1135,8 @@ input[type="range"]::-webkit-slider-runnable-track {
 .year-item:hover,
 .letter-item:hover,
 .genre-item:hover,
-.actor-item:hover {
+.actor-item:hover,
+.studio-item:hover {
 	background-color: var(--bar-color);
 	color: #fff !important;
 	box-shadow: var(--shadow-sm);
@@ -1156,7 +1159,10 @@ input[type="range"]::-webkit-slider-runnable-track {
 .genre-item:hover .count,
 .actor-item:hover .count,
 .genre-item:hover .remove-filter,
-.actor-item:hover .remove-filter {
+.actor-item:hover .remove-filter,
+.studio-item:hover .count,
+.studio-item:hover .remove-filter
+ {
 	color: #fff !important;
 }
 
@@ -2046,6 +2052,48 @@ input[type="range"]::-webkit-slider-runnable-track {
 				</div>
 			</div>
 
+			<div class="sidebar-section" :class="getSectionClass('studios')">
+				<div class="sidebar-section-header" @click="toggleCollapse('studios')">
+					<span style="display: none" :style="{ display: undefined }">{{ filteredStudioLabel }}</span>
+					<span :style="{ display: 'none' }">استودیوها</span>
+					<button class="collapse-button rotate-up" id="studiosButton" :class="collapseIconClass(isCollapsed.studios)">
+						<span class="material-symbols-rounded">
+							keyboard_arrow_up
+						</span>
+					</button>
+				</div>
+				<div class="sidebar-section-body">
+					<div class="search-container">
+						<input type="text" v-model="studioSearchQuery" :placeholder="'جستجوی استودیو…'" />
+						<span v-if="studioSearchQuery" @click="clearStudioSearchQuery" class="clearSearch"
+							style="display: none" :style="{ display: undefined }">
+							<span class="material-symbols-rounded">
+								close
+							</span>
+						</span>
+					</div>
+					<div class="studio-grid" style="visibility: hidden" :style="{ visibility: undefined }">
+						<div v-if="filteredStudiosInModal.length === 0" class="no-results">
+							نتیجه‌ای وجود ندارد
+						</div>
+						<div v-else v-for="[studio, count] in filteredStudiosInModal" :key="studio"
+							@click="selectedStudio === studio ? removeStudioFilter() : selectStudioFromModal(studio)"
+							@mouseenter="hoveredItem = studio" @mouseleave="hoveredItem = null"
+							:class="{ 'hovered': hoveredItem === studio }" class="studio-item">
+							{{ studio }} 
+							<span class="count">
+								{{ count.toLocaleString('fa') }}×{{ ((filmCountByStudio && filmCountByStudio[studio]) ? filmCountByStudio[studio].size : 0).toLocaleString('fa') }}
+							</span>
+							<span v-if="selectedStudio === studio" class="remove-filter" @click.stop="removeStudioFilter">
+								<span class="material-symbols-rounded" style="font-size: inherit;">
+									close
+								</span>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<div class="sidebar-section" :class="getSectionClass('letters')">
 				<div class="sidebar-section-header" @click="toggleCollapse('letters')">
 					<span style="display: none" :style="{ display: undefined }">{{ filteredLetterLabel }}</span>
@@ -2113,6 +2161,12 @@ input[type="range"]::-webkit-slider-runnable-track {
 					{{ toPersianYear(lightboxItem.date) }}
 				</a>
 			</p>
+			<p v-if="lightboxItem.studioLabel && lightboxItem.studioLabel !== 'نامشخص'">
+				استودیو: 
+				<a href="#" @click.prevent="selectStudio(lightboxItem.studioLabel)" style="color: white; background: rgba(255,255,255,0.12); padding: 2px 10px; border-radius: var(--radius-xl); font-size: 0.9em; cursor: pointer;text-decoration: none;">
+					{{ lightboxItem.studioLabel }}
+				</a>
+			</p>
 			<p v-if="lightboxItem.directorLabel && lightboxItem.directorLabel !== 'نامشخص'">
 				کارگردان: 
 				<a href="#" @click.prevent="selectDirector(lightboxItem.directorLabel)" style="color: white; background: rgba(255,255,255,0.12); padding: 2px 10px; border-radius: var(--radius-xl); font-size: 0.9em; cursor: pointer;text-decoration: none;">
@@ -2122,7 +2176,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 			<p v-if="lightboxItem.designerLabel && lightboxItem.designerLabel !== 'نامشخص'">
 				طراح پوستر:
 				<span v-for="(designer, index) in lightboxItem.designers" :key="index">
-					<a href="#" @click.prevent="selectDesigner(designer.label)" style="color: white; background: rgba(255,255,255,0.12); padding: 2px 10px; border-radius: var(--radius-xl); font-size: 0.9em; cursor: pointer;text-decoration: none;">
+					<a href="#" @click.prevent="selectDesignerFromLightbox(designer.label)" style="color: white; background: rgba(255,255,255,0.12); padding: 2px 10px; border-radius: var(--radius-xl); font-size: 0.9em; cursor: pointer;text-decoration: none;">
 						{{ designer.label }}
 					</a><span v-if="index < lightboxItem.designers.length - 1">, </span>
 				</span>
@@ -2552,6 +2606,8 @@ const selectedDirector = ref('');
 const selectedLetter = ref('');
 const selectedGenres = ref([]);
 const selectedActors = ref([]);
+const selectedStudio = ref('');
+const studioSearchQuery = ref('');
 const genreSearchQuery = ref('');
 const actorSearchQuery = ref('');
 const posterMode = ref(true);
@@ -2671,6 +2727,7 @@ const hasActiveFilter = computed(() => ({
 	directors: selectedDirector.value,
 	letters: selectedLetter.value,
 	genres: selectedGenres.value.length > 0,
+	studios: selectedStudio.value,
 	actors: selectedActors.value.length > 0
 }));
 
@@ -2686,6 +2743,7 @@ const applyInitialFilters = () => {
 	selectedGenres.value = genreParam ? genreParam.split(',') : [];
 	const actorParam = urlParams.get('actor');
 	selectedActors.value = actorParam ? actorParam.split(',') : [];
+	selectedStudio.value = urlParams.get('studio') || '';
 	posterMode.value = urlParams.get('mode') !== 'logo';
 	combineSimilarChars.value = urlParams.get('similar') === 'true';
 	pixelatedEffect.value = urlParams.get('censor') === null
@@ -2858,6 +2916,7 @@ const updateURL = () => {
 	if (selectedLetter.value) params.set('letter', selectedLetter.value);
 	if (selectedGenres.value.length > 0) params.set('genre', selectedGenres.value.join(','));
 	if (selectedActors.value.length > 0) params.set('actor', selectedActors.value.join(','));
+	if (selectedStudio.value) params.set('studio', selectedStudio.value);
 	if (!posterMode.value) params.set('mode', 'logo');
 	if (combineSimilarChars.value) params.set('similar', 'true');
 	if (posterMode.value && pixelatedEffect.value) params.set('censor', 'true');
@@ -2916,6 +2975,7 @@ const isCollapsed = ref({
 	chart: true,
 	yearRange: true,
 	genres: true,
+	studios: true,
 	actors: true
 });
 
@@ -2940,9 +3000,9 @@ const selectActorFromModal = (actor) => {
 };
 
 const selectFilm = (filmId) => {
-	// برای فیلتر کردن بر اساس فیلم، باید searchTerm را به نام فیلم تنظیم کنیم
 	const film = data.films[filmId];
 	if (film) {
+		resetFilters();
 		searchTerm.value = getFilmLabel(film);
 		closeLightbox();
 	}
@@ -2952,6 +3012,7 @@ const selectYear = (date) => {
 	if (date) {
 		const year = toPersianYear(date);
 		if (year && year !== 'نامشخص') {
+			resetFilters();
 			selectedYear.value = year;
 			closeLightbox();
 		}
@@ -2960,6 +3021,7 @@ const selectYear = (date) => {
 
 const selectDirector = (directorLabel) => {
 	if (directorLabel && directorLabel !== 'نامشخص') {
+		resetFilters();
 		selectedDirector.value = directorLabel;
 		closeLightbox();
 	}
@@ -2967,6 +3029,7 @@ const selectDirector = (directorLabel) => {
 
 const selectDesignerFromLightbox = (designerLabel) => {
 	if (designerLabel && designerLabel !== 'نامشخص') {
+		resetFilters();
 		selectedDesigner.value = designerLabel;
 		closeLightbox();
 	}
@@ -2974,6 +3037,7 @@ const selectDesignerFromLightbox = (designerLabel) => {
 
 const selectActor = (actorLabel) => {
 	if (actorLabel && actorLabel !== 'نامشخص') {
+		resetFilters();
 		if (!selectedActors.value.includes(actorLabel)) {
 			selectedActors.value.push(actorLabel);
 		}
@@ -2981,6 +3045,13 @@ const selectActor = (actorLabel) => {
 	}
 };
 
+const selectStudio = (studioLabel) => {
+	if (studioLabel && studioLabel !== 'نامشخص') {
+		resetFilters();
+		selectedStudio.value = studioLabel;
+		closeLightbox();
+	}
+};
 
 const removeGenreFilter = (genre) => {
 	selectedGenres.value = selectedGenres.value.filter(g => g !== genre);
@@ -3043,6 +3114,7 @@ const resetActiveFilters = () => {
 	yearRangeEnd.value = null;
 	tempYearRangeStart.value = '';
 	tempYearRangeEnd.value = '';
+	selectedStudio.value = '';
 };
 
 const films = Object.values(data.films);
@@ -3133,6 +3205,12 @@ const items = computed(() => {
 			item.directorLabel = getDirectorLabel(film.directors[0]) || getTranslatedText('unknown');
 		} else {
 			item.directorLabel = getTranslatedText('unknown');
+		}
+		if (film.studios && film.studios.length) {
+			item.studio = film.studios[0];
+			item.studioLabel = getStudioLabel(film.studios[0]) || getTranslatedText('unknown');
+		} else {
+			item.studioLabel = getTranslatedText('unknown');
 		}
 		if (film.imdb.length) {
 			item.imdbID = film.imdb?.[0];
@@ -3283,6 +3361,108 @@ const getGenreLabelForItem = (item) => {
 	}
 	return getTranslatedText('unknown');
 };
+
+// تابع دریافت برچسب استودیو
+const getStudioLabel = (studioId) => {
+	if (!studioId) return getTranslatedText('unknown');
+	const studio = data.secondary[studioId];
+	if (!studio?.labels) return getTranslatedText('unknown');
+	return getItemLabel(studio.labels);
+};
+
+// تابع دریافت برچسب استودیو برای آیتم
+const getStudioLabelForItem = (item) => {
+	if (!item.studio) return getTranslatedText('unknown');
+	return getStudioLabel(item.studio);
+};
+
+// داده‌های موجود برای استودیوها
+const availableStudios = computed(() => {
+	const groups = {};
+	items.value.forEach(item => {
+		const studioLabel = getStudioLabelForItem(item);
+		if (!groups[studioLabel]) groups[studioLabel] = 0;
+		groups[studioLabel]++;
+	});
+
+	let studios = Object.entries(groups)
+		.map(([label, count]) => [label, count])
+		.sort((a, b) => b[1] - a[1]);
+
+	return studios;
+});
+
+// استودیوهای فیلتر شده
+const filteredStudios = computed(() => {
+	const groups = {};
+	filteredItems.value.forEach(item => {
+		const studio = getStudioLabelForItem(item);
+		if (!groups[studio]) groups[studio] = [];
+		groups[studio].push(item);
+	});
+	
+	let studios = Object.keys(groups)
+		.map(studio => [studio, groups[studio].length]);
+
+	const unknown = studios.find(([name]) => name === getTranslatedText('unknown'));
+	studios = studios.filter(([name]) => name !== getTranslatedText('unknown')).sort((a, b) => b[1] - a[1]);
+	if (unknown) {
+		studios.push(unknown);
+	}
+	return studios;
+});
+
+// استودیوهای فیلتر شده در مودال
+const filteredStudiosInModal = computed(() => {
+	const groups = {};
+	filteredItems.value.forEach(item => {
+		const studio = getStudioLabelForItem(item);
+		if (!groups[studio]) groups[studio] = [];
+		groups[studio].push(item);
+	});
+	
+	let studios = Object.keys(groups)
+		.map(studio => [studio, groups[studio].length]);
+
+	const unknown = studios.find(([name]) => name === 'نامشخص');
+	studios = studios.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
+	if (unknown) {
+		studios.push(unknown);
+	}
+	if (!studioSearchQuery.value) {
+		return studios;
+	}
+	return studios.filter(([studio]) =>
+		studio.includes(studioSearchQuery.value)
+	);
+});
+
+const filmCountByStudio = computed(() => {
+	const filmGroups = {};
+	filteredItems.value.forEach(item => {
+		const studioLabel = getStudioLabelForItem(item);
+		if (!filmGroups[studioLabel]) filmGroups[studioLabel] = new Set();
+		filmGroups[studioLabel].add(item.film);
+	});
+	return filmGroups;
+});
+
+const selectStudioFromModal = studio => {
+	selectedStudio.value = studio;
+};
+
+const removeStudioFilter = () => {
+	selectedStudio.value = '';
+	hoveredItem.value = null;
+};
+
+const clearStudioSearchQuery = () => studioSearchQuery.value = '';
+
+const filteredStudioLabel = computed(() => 
+	selectedStudio.value 
+		? `استودیو: ${selectedStudio.value}` 
+		: 'استودیوها'
+);
 
 const availableGenres = computed(() => {
 const groups = {};
@@ -3597,6 +3777,12 @@ const filteredItems = computed(() => {
 
 	if (selectedLetter.value) {
 		results = results.filter(item => item.filmLabel.startsWith(selectedLetter.value));
+	}
+
+	if (selectedStudio.value) {
+		results = results.filter(item => 
+			getStudioLabelForItem(item) === selectedStudio.value
+		);
 	}
 
 	if (selectedGenres.value.length > 0) {
@@ -4275,6 +4461,9 @@ const activeFilters = computed(() => {
 	if (selectedLetter.value) {
 		filters.push({ type: 'letter', label: getTranslatedText('letter'), value: selectedLetter.value });
 	}
+	if (selectedStudio.value) {
+		filters.push({ type: 'studio', label: 'استودیو', value: selectedStudio.value });
+	}
 
 	if (yearRangeStart.value || yearRangeEnd.value) {
 		const start = yearRangeStart.value ? yearRangeStart.value.toLocaleString(currentLanguage.value === 'fa' ? 'fa' : 'en', { useGrouping: false }) : 'آغاز';
@@ -4314,6 +4503,9 @@ const removeFilter = (type, value) => {
 			break;
 		case 'actor':
 			selectedActors.value = selectedActors.value.filter(a => a !== value);
+			break;
+		case 'studio':
+			selectedStudio.value = '';
 			break;
 		case 'yearRange':
 			yearRangeStart.value = null;
@@ -4707,35 +4899,65 @@ window.addEventListener('keydown', (event) => {
 });
 
 return {
-	searchTerm, combineSimilarChars, posterMode, filteredItems, items,
-	getItemUrl, getCommonsUrl, getItemTitleWithYear, sortOrder, sortDirection, selectedYear,
-	availableYears, availableDesigners, selectedDesigner, filteredYears, bringToTop, visibleBringToTop,
-	filteredDesigners, designerQuery, selectDesigner, filteredDirectors, availableDirectors,
-	selectedDirector, persianAlphabet, selectedLetter, letterCounts, resetFilters, resetActiveFilters, togglePosterMode, toggleSortDirection,
-	toggleOptions, isOptionsCollapsed, collapseIconClass, filteredDesignersInModal, designerSearchQuery,
-	selectDesignerFromModal, filteredDirectorsInModal, selectDirectorFromModal, filteredYearsInModal,
-	selectYearFromModal, filteredLettersInModal, selectLetterFromModal, isCollapsed, toggleCollapse,
-	filteredYearLabel, filteredDesignerLabel, filteredDirectorLabel, filteredLetterLabel, getSectionClass,
-	directorSearchQuery, sidebarWidth, minSidebarWidth, maxSidebarWidth, removeYearFilter,
-	removeDesignerFilter, removeDirectorFilter, removeLetterFilter, hoveredItem, hideSidebar,
-	sidebarVisible, uniqueFilmCount, toggleSidebar, pixelatedEffect, moreInformation, backgroundColor, clearSearchTerm, lightboxItem,
-	lightboxImage, openLightbox, closeLightbox, downloadLink, handleImageClick,
-	clearDesignerSearchQuery, clearDirectorSearchQuery, selectYearFromTitle, toPersianYear, isLoading,
-	handlePopState, activeFilters, removeFilter, filteredItemsLength, itemsLength, prevImage, nextImage,
-	searchPlaceholder, onSearchFocus, onSearchBlur, displayedItemsCount, uniqueResultsFilmCount,
-	hasActiveFilters, exactWordMatch, isSearchBarVisible, searchBarRef, mainContentPaddingTop,
-	searchBarDynamicStyle, sidebarStyle, desktopSidebarToggleStyle, toggleSidebarDesktop,
-	mainContentStyle, isAtTop, pageTitle, isLightBackground, actualBackgroundColor, isDarkTheme,
-	filmCountByYear, filmCountByDesigner, filmCountByDirector, filmCountByLetter, getWikipediaUrl,
-	yearRangeStart, yearRangeEnd, applyYearRangeFilter, clearYearRangeFilter, yearRangeBounds,
-	tempYearRangeStart, tempYearRangeEnd, normalizeDigits, currentLanguage, toggleLanguage,
-	getTranslatedText, getFilmLabel, getDesignerLabel, getDirectorLabel, getFilmLabelForItem, hasDesigner, 
-	filtersContainerStyle, getPrimaryYear, getSecondaryYear, isLightboxActive, isLightboxVisible,
-	selectGenreFromModal, filteredGenres, genreSearchQuery, filteredActors, selectActorFromModal, actorSearchQuery,
-	filmCountByGenre, filmCountByActor, availableGenres, availableActors, genreSearchQuery, actorSearchQuery,
-	selectedGenres, selectedActors, removeGenreFilter, removeActorFilter, clearGenreSearchQuery, clearActorSearchQuery,
-	selectGenreFromModal, selectActorFromModal, filteredGenresInModal, filteredActorsInModal, selectGenreFromModal, filteredGenreLabel, filteredActorLabel, 
-	getGenreLabel, getActorLabel, getActorsForFilm, selectFilm, selectYear, selectDirector, selectDesigner: selectDesignerFromLightbox, selectActor,
+    items, filteredItems, itemsLength, filteredItemsLength, uniqueFilmCount, uniqueResultsFilmCount,
+    hasActiveFilters, displayedItemsCount,
+
+    searchTerm, searchPlaceholder, onSearchFocus, onSearchBlur, clearSearchTerm,
+    isSearchBarVisible, searchBarRef, searchBarDynamicStyle, exactWordMatch, combineSimilarChars,
+
+    selectedYear, selectedDesigner, selectedDirector, selectedLetter, selectedGenres, selectedActors, selectedStudio,
+
+    availableYears, filteredYears, filteredYearsInModal, selectYearFromModal, removeYearFilter,
+    yearRangeStart, yearRangeEnd, applyYearRangeFilter, clearYearRangeFilter, yearRangeBounds,
+    tempYearRangeStart, tempYearRangeEnd, normalizeDigits, filteredYearLabel,
+
+    availableDesigners, filteredDesigners, filteredDesignersInModal, designerSearchQuery,
+    selectDesignerFromModal, removeDesignerFilter, clearDesignerSearchQuery, filteredDesignerLabel,
+
+    availableDirectors, filteredDirectors, filteredDirectorsInModal, directorSearchQuery,
+    selectDirectorFromModal, removeDirectorFilter, clearDirectorSearchQuery, filteredDirectorLabel,
+
+    availableActors, filteredActors, filteredActorsInModal, actorSearchQuery,
+    selectActorFromModal, removeActorFilter, clearActorSearchQuery, filteredActorLabel,
+
+    availableGenres, filteredGenres, filteredGenresInModal, genreSearchQuery,
+    selectGenreFromModal, removeGenreFilter, clearGenreSearchQuery, filteredGenreLabel,
+
+    availableStudios, filteredStudios, filteredStudiosInModal, studioSearchQuery,
+    selectStudioFromModal, removeStudioFilter, clearStudioSearchQuery, filteredStudioLabel,
+
+    persianAlphabet, selectedLetter, letterCounts, filteredLettersInModal,
+    selectLetterFromModal, removeLetterFilter, filteredLetterLabel,
+
+    resetFilters, resetActiveFilters, activeFilters, removeFilter,
+    sortOrder, sortDirection, toggleSortDirection,
+
+    posterMode, togglePosterMode, pixelatedEffect, moreInformation, backgroundColor,
+    actualBackgroundColor, isLightBackground, isDarkTheme, toggleOptions, isOptionsCollapsed, collapseIconClass,
+
+    lightboxItem, lightboxImage, isLightboxActive, isLightboxVisible, isLoading,
+    openLightbox, closeLightbox, prevImage, nextImage, handleImageClick, downloadLink,
+
+    sidebarVisible, toggleSidebar, toggleSidebarDesktop, hideSidebar,
+    sidebarWidth, minSidebarWidth, maxSidebarWidth, sidebarStyle,
+    desktopSidebarToggleStyle, filtersContainerStyle,
+
+    getItemUrl, getCommonsUrl, getItemTitleWithYear, getFilmLabel, getFilmLabelForItem,
+    getDesignerLabel, getDirectorLabel, getGenreLabel, getActorLabel, getStudioLabel, getStudioLabelForItem,
+    getActorsForFilm, getWikipediaUrl, getTranslatedText, getPrimaryYear, getSecondaryYear,
+    hasDesigner, toPersianYear, normalizeDigits,
+
+    selectFilm, selectYear, selectDirector, selectDesigner, selectActor, selectStudio, selectDesignerFromLightbox,
+
+    filmCountByYear, filmCountByDesigner, filmCountByDirector, filmCountByGenre, filmCountByActor, filmCountByLetter, filmCountByStudio,
+
+    isCollapsed, toggleCollapse, getSectionClass, hoveredItem, isAtTop,
+    bringToTop, visibleBringToTop, mainContentPaddingTop, mainContentStyle, pageTitle,
+
+    currentLanguage, toggleLanguage,
+
+    handlePopState, selectYearFromTitle
+
 
 };
 
