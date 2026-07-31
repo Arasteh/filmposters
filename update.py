@@ -107,7 +107,12 @@ films = {
         'logos': [
             image_summary(logo) for logo in item['claims'].get('P154', [])
         ],
-    }
+        'studios': [
+            x['mainsnak']['datavalue']['value']['id']
+                for x in item['claims'].get('P272', [])
+                if 'datavalue' in x['mainsnak']
+            ],
+        }
     for item in wikidata_items(film_ids | set(ia_grouped.keys()))
 }
 
@@ -142,6 +147,9 @@ secondary = {
         {actor
          for film in films.values()
          for actor in film['cast']} |
+        {studio
+         for film in films.values()
+         for studio in film['studios']} |
         ia_designers
     )
 }
