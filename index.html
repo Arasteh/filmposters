@@ -2976,7 +2976,7 @@ const updateURL = () => {
 	window.history.pushState({}, '', newUrl);
 };
 watch([
-	searchTerm, selectedYear, selectedDesigner, selectedDirector,
+	searchTerm, selectedYear, selectedDesigner, selectedDirector, selectedStudio,
 	selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder, sortDirection, exactWordMatch,
 	moreInformation, backgroundColor, yearRangeStart, yearRangeEnd
 ], updateURL);
