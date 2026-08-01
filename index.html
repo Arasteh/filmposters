@@ -347,12 +347,16 @@ input[type="text"]:focus {
 	padding: 3px 10px;
 	border-radius: 30px;
 	font-weight: bold;
+    max-width: fit-content;
 }
 
 .linkIcon {
 	opacity: 0.7;
 	height: 14px;
 	transition: 0.1s;
+	vertical-align: middle;
+    background: none !important;
+    border-radius: 0 !important;
 }
 
 .linkIcon:hover {
@@ -2155,6 +2159,38 @@ input[type="range"]::-webkit-slider-runnable-track {
 					{{ lightboxItem.filmLabel }}
 				</a>
 			</h2>
+			<div id="film-links" class="item-links">
+				<a v-if="lightboxItem.imdbID" :href="'https://www.imdb.com/title/' + lightboxItem.imdbID" aria-label="IMDb" target="_blank">
+					<img src="https://upload.wikimedia.org/wikipedia/commons/5/53/IMDB_-_SuperTinyIcons.svg" alt="IMDb" class="linkIcon">
+				</a>
+				<a v-if="lightboxItem.film" :href="'https://www.wikidata.org/wiki/' + lightboxItem.film" aria-label="ویکی‌داده" target="_blank">
+					<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg" alt="ویکی‌داده" class="linkIcon">
+				</a>
+				<template v-if="currentLanguage === 'en'">
+					<template v-if="lightboxItem.enWikipediaLink">
+						<a :href="'https://en.wikipedia.org/wiki/' + lightboxItem.enWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
+							<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
+						</a>
+					</template>
+					<template v-else-if="lightboxItem.faWikipediaLink">
+						<a :href="'https://fa.wikipedia.org/wiki/' + lightboxItem.faWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
+							<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
+						</a>
+					</template>
+				</template>
+				<template v-else>
+					<template v-if="lightboxItem.faWikipediaLink">
+						<a :href="'https://fa.wikipedia.org/wiki/' + lightboxItem.faWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
+							<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
+						</a>
+					</template>
+					<template v-else-if="lightboxItem.enWikipediaLink">
+						<a :href="'https://en.wikipedia.org/wiki/' + lightboxItem.enWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
+							<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
+						</a>
+					</template>
+				</template>
+			</div>
 			<p>
 				سال تولید: 
 				<a href="#" @click.prevent="selectYear(lightboxItem.date)" style="color: white; background: rgba(255,255,255,0.12); padding: 2px 10px; border-radius: var(--radius-xl); font-size: 0.9em; cursor: pointer;text-decoration: none;">
