@@ -2364,7 +2364,9 @@
 					"hash": "cb"
 				}
 			],
-			"studios": []
+			"studios": [
+				"Q140837046"
+			]
 		},
 		"Q3036867": {
 			"id": "Q3036867",
@@ -2710,7 +2712,9 @@
 				}
 			],
 			"logos": [],
-			"studios": []
+			"studios": [
+				"Q140836512"
+			]
 		},
 		"Q3107471": {
 			"id": "Q3107471",
@@ -4068,7 +4072,9 @@
 					"hash": "d7"
 				}
 			],
-			"studios": []
+			"studios": [
+				"Q140837046"
+			]
 		},
 		"Q3513830": {
 			"id": "Q3513830",
@@ -7945,7 +7951,12 @@
 					]
 				}
 			],
-			"logos": [],
+			"logos": [
+				{
+					"image": "سرایدار_(لوگو).png",
+					"hash": "8b"
+				}
+			],
 			"studios": []
 		},
 		"Q5724674": {
@@ -11631,7 +11642,9 @@
 					"hash": "2c"
 				}
 			],
-			"studios": []
+			"studios": [
+				"Q140836512"
+			]
 		},
 		"Q5867681": {
 			"id": "Q5867681",
@@ -12546,7 +12559,8 @@
 				}
 			],
 			"studios": [
-				"Q140834471"
+				"Q140834471",
+				"Q140836512"
 			]
 		},
 		"Q5880418": {
@@ -18021,7 +18035,8 @@
 				}
 			],
 			"studios": [
-				"Q140794361"
+				"Q140794361",
+				"Q140836788"
 			]
 		},
 		"Q5952052": {
@@ -19542,7 +19557,9 @@
 					"hash": "7f"
 				}
 			],
-			"studios": []
+			"studios": [
+				"Q140837046"
+			]
 		},
 		"Q6555390": {
 			"id": "Q6555390",
@@ -43403,7 +43420,9 @@
 				}
 			],
 			"logos": [],
-			"studios": []
+			"studios": [
+				"Q1728199"
+			]
 		},
 		"Q14756710": {
 			"id": "Q14756710",
@@ -43658,6 +43677,10 @@
 				{
 					"image": "طوطی_(لوگو).png",
 					"hash": "03"
+				},
+				{
+					"image": "طوطی_(لوگو_۲).png",
+					"hash": "9d"
 				}
 			],
 			"studios": []
@@ -44649,7 +44672,9 @@
 					"hash": "17"
 				}
 			],
-			"studios": []
+			"studios": [
+				"Q140833592"
+			]
 		},
 		"Q14756750": {
 			"id": "Q14756750",
@@ -44780,7 +44805,9 @@
 				}
 			],
 			"logos": [],
-			"studios": []
+			"studios": [
+				"Q140836687"
+			]
 		},
 		"Q14756755": {
 			"id": "Q14756755",
@@ -47287,7 +47314,9 @@
 					"hash": "94"
 				}
 			],
-			"studios": []
+			"studios": [
+				"Q140836687"
+			]
 		},
 		"Q14756823": {
 			"id": "Q14756823",
@@ -47797,7 +47826,9 @@
 				}
 			],
 			"logos": [],
-			"studios": []
+			"studios": [
+				"Q140836687"
+			]
 		},
 		"Q14756837": {
 			"id": "Q14756837",
@@ -50568,6 +50599,39 @@
 			"logos": [],
 			"studios": []
 		},
+		"Q14756912": {
+			"id": "Q14756912",
+			"sitelinks": {
+				"fawiki": "تنها و گل‌ها"
+			},
+			"labels": {
+				"en": "Tanha va Golha",
+				"fa": "تنها و گل‌ها"
+			},
+			"aliases": {},
+			"directors": [
+				"Q16046695"
+			],
+			"date": [
+				"+1973-01-01T00:00:00Z"
+			],
+			"imdb": [
+				"tt12498548"
+			],
+			"genres": [],
+			"cast": [],
+			"posters": [
+				{
+					"image": "تنها_و_گلها_(پوستر).jpg",
+					"hash": "d9",
+					"designers": [
+						"Q131377869"
+					]
+				}
+			],
+			"logos": [],
+			"studios": []
+		},
 		"Q14756914": {
 			"id": "Q14756914",
 			"sitelinks": {
@@ -50855,7 +50919,9 @@
 					"hash": "56"
 				}
 			],
-			"studios": []
+			"studios": [
+				"Q140837106"
+			]
 		},
 		"Q14756921": {
 			"id": "Q14756921",
@@ -51343,6 +51409,9 @@
 					"hash": "03",
 					"designers": [
 						"Q61060515"
+					],
+					"characteristics": [
+						"Q2716583"
 					]
 				}
 			],
@@ -52551,7 +52620,9 @@
 					"hash": "a9"
 				}
 			],
-			"studios": []
+			"studios": [
+				"Q140837066"
+			]
 		},
 		"Q14756974": {
 			"id": "Q14756974",
@@ -53421,7 +53492,9 @@
 					"hash": "fa"
 				}
 			],
-			"studios": []
+			"studios": [
+				"Q140836687"
+			]
 		},
 		"Q14757000": {
 			"id": "Q14757000",
@@ -53555,7 +53628,9 @@
 					"hash": "9a"
 				}
 			],
-			"studios": []
+			"studios": [
+				"Q140836788"
+			]
 		},
 		"Q14757006": {
 			"id": "Q14757006",
@@ -54077,7 +54152,12 @@
 					]
 				}
 			],
-			"logos": [],
+			"logos": [
+				{
+					"image": "عطش_(لوگو).png",
+					"hash": "0b"
+				}
+			],
 			"studios": [
 				"Q140794930"
 			]
@@ -55084,7 +55164,9 @@
 			"date": [
 				"+1972-00-00T00:00:00Z"
 			],
-			"imdb": [],
+			"imdb": [
+				"tt1924454"
+			],
 			"genres": [],
 			"cast": [],
 			"posters": [
@@ -55103,7 +55185,9 @@
 					"hash": "af"
 				}
 			],
-			"studios": []
+			"studios": [
+				"Q140836687"
+			]
 		},
 		"Q14757048": {
 			"id": "Q14757048",
@@ -56389,7 +56473,12 @@
 					]
 				}
 			],
-			"logos": [],
+			"logos": [
+				{
+					"image": "شوهر_پاستوریزه_(لوگو).png",
+					"hash": "87"
+				}
+			],
 			"studios": [
 				"Q140794543",
 				"Q140794636"
@@ -56435,8 +56524,8 @@
 			],
 			"logos": [
 				{
-					"image": "عزیز_قرقی_(لوگو).jpg",
-					"hash": "54"
+					"image": "عزیز_قرقی_(لوگو).png",
+					"hash": "b9"
 				}
 			],
 			"studios": [
@@ -57913,7 +58002,12 @@
 					]
 				}
 			],
-			"logos": [],
+			"logos": [
+				{
+					"image": "دور_دنیا_با_جیب_خالی_(لوگو).png",
+					"hash": "7f"
+				}
+			],
 			"studios": [
 				"Q114689255"
 			]
@@ -60094,7 +60188,9 @@
 					"hash": "52"
 				}
 			],
-			"studios": []
+			"studios": [
+				"Q140837023"
+			]
 		},
 		"Q14757206": {
 			"id": "Q14757206",
@@ -61588,7 +61684,9 @@
 				}
 			],
 			"logos": [],
-			"studios": []
+			"studios": [
+				"Q140794467"
+			]
 		},
 		"Q14757257": {
 			"id": "Q14757257",
@@ -62518,7 +62616,9 @@
 					"hash": "e6"
 				}
 			],
-			"studios": []
+			"studios": [
+				"Q140834247"
+			]
 		},
 		"Q14757286": {
 			"id": "Q14757286",
@@ -62786,7 +62886,12 @@
 					]
 				}
 			],
-			"logos": [],
+			"logos": [
+				{
+					"image": "زنی_بنام_شراب_(لوگو).png",
+					"hash": "1e"
+				}
+			],
 			"studios": [
 				"Q114689255"
 			]
@@ -64726,7 +64831,9 @@
 				}
 			],
 			"logos": [],
-			"studios": []
+			"studios": [
+				"Q140797596"
+			]
 		},
 		"Q14757382": {
 			"id": "Q14757382",
@@ -69382,7 +69489,12 @@
 					"hash": "4d"
 				}
 			],
-			"logos": [],
+			"logos": [
+				{
+					"image": "روزنه_امید_(لوگو).png",
+					"hash": "31"
+				}
+			],
 			"studios": [
 				"Q140794543"
 			]
@@ -70902,7 +71014,9 @@
 					"hash": "b7"
 				}
 			],
-			"studios": []
+			"studios": [
+				"Q140836687"
+			]
 		},
 		"Q20110309": {
 			"id": "Q20110309",
@@ -73036,7 +73150,9 @@
 			"date": [
 				"+1974-00-00T00:00:00Z"
 			],
-			"imdb": [],
+			"imdb": [
+				"tt0495752"
+			],
 			"genres": [],
 			"cast": [],
 			"posters": [
@@ -73058,7 +73174,9 @@
 					"hash": "c0"
 				}
 			],
-			"studios": []
+			"studios": [
+				"Q1728199"
+			]
 		},
 		"Q131522980": {
 			"id": "Q131522980",
@@ -73174,7 +73292,9 @@
 			"date": [
 				"+1976-00-00T00:00:00Z"
 			],
-			"imdb": [],
+			"imdb": [
+				"tt7146294"
+			],
 			"genres": [],
 			"cast": [],
 			"posters": [
@@ -73191,7 +73311,9 @@
 				}
 			],
 			"logos": [],
-			"studios": []
+			"studios": [
+				"Q1728199"
+			]
 		},
 		"Q131547085": {
 			"id": "Q131547085",
@@ -82600,6 +82722,7 @@
 				"fawiki": "حسن بنی‌هاشمی"
 			},
 			"labels": {
+				"en": "Hassan Bani-Hashemi",
 				"fa": "حسن بنی‌هاشمی"
 			}
 		},
@@ -93040,168 +93163,246 @@
 			"id": "Q140799447",
 			"sitelinks": {},
 			"labels": {
-				"en": "Jourak Film"
+				"en": "Jourak Film",
+				"fa": "ژورک فیلم"
 			}
 		},
 		"Q140799454": {
 			"id": "Q140799454",
 			"sitelinks": {},
 			"labels": {
-				"en": "Plaza Studio"
+				"en": "Plaza Studio",
+				"fa": "استودیو پلازا"
 			}
 		},
 		"Q140833567": {
 			"id": "Q140833567",
 			"sitelinks": {},
 			"labels": {
-				"en": "Tasavir Cinematic Organization"
+				"en": "Tasavir Cinematic Organization",
+				"fa": "سازمان سینمایی تصاویر"
 			}
 		},
 		"Q140833592": {
 			"id": "Q140833592",
 			"sitelinks": {},
 			"labels": {
-				"en": "Shahr-e Farang Cinematic Organization"
+				"en": "Shahr-e Farang Cinematic Organization",
+				"fa": "سازمان سینمایی شهر فرنگ"
 			}
 		},
 		"Q140833632": {
 			"id": "Q140833632",
 			"sitelinks": {},
 			"labels": {
-				"en": "Ferdowsi Film"
+				"en": "Ferdowsi Film",
+				"fa": "فردوسی فیلم"
 			}
 		},
 		"Q140833718": {
 			"id": "Q140833718",
 			"sitelinks": {},
 			"labels": {
-				"en": "Tina Film"
+				"en": "Tina Film",
+				"fa": "تینا فیلم"
 			}
 		},
 		"Q140833732": {
 			"id": "Q140833732",
 			"sitelinks": {},
 			"labels": {
-				"en": "Poorya Film"
+				"en": "Poorya Film",
+				"fa": "پوریا فیلم"
 			}
 		},
 		"Q140834013": {
 			"id": "Q140834013",
 			"sitelinks": {},
 			"labels": {
-				"en": "Diana Film"
+				"en": "Diana Film",
+				"fa": "دیانا فیلم"
 			}
 		},
 		"Q140834081": {
 			"id": "Q140834081",
 			"sitelinks": {},
 			"labels": {
-				"en": "Aas Film"
+				"en": "Aas Film",
+				"fa": "آس فیلم"
 			}
 		},
 		"Q140834156": {
 			"id": "Q140834156",
 			"sitelinks": {},
 			"labels": {
-				"en": "Panorama Cinematic Organization"
+				"en": "Panorama Cinematic Organization",
+				"fa": "سازمان سینمایی پانوراما"
 			}
 		},
 		"Q140834216": {
 			"id": "Q140834216",
 			"sitelinks": {},
 			"labels": {
-				"en": "Gorooh-e Azad-e Film"
+				"en": "Gorooh-e Azad-e Film",
+				"fa": "گروه آزاد فیلم"
 			}
 		},
 		"Q140834247": {
 			"id": "Q140834247",
 			"sitelinks": {},
 			"labels": {
-				"en": "Chehel-sotoon cinematic organization"
+				"en": "Chehel-sotoon cinematic organization",
+				"fa": "سازمان سینمایی چهل‌ستون"
 			}
 		},
 		"Q140834323": {
 			"id": "Q140834323",
 			"sitelinks": {},
 			"labels": {
-				"en": "Telfilm"
+				"en": "Telfilm",
+				"fa": "تلفیلم"
 			}
 		},
 		"Q140834379": {
 			"id": "Q140834379",
 			"sitelinks": {},
 			"labels": {
-				"en": "Dohol film"
+				"en": "Dohol film",
+				"fa": "دهل فیلم"
 			}
 		},
 		"Q140834442": {
 			"id": "Q140834442",
 			"sitelinks": {},
 			"labels": {
-				"en": "Farvadin Film"
+				"en": "Farvadin Film",
+				"fa": "فرودین فیلم"
 			}
 		},
 		"Q140834464": {
 			"id": "Q140834464",
 			"sitelinks": {},
 			"labels": {
-				"en": "Diamond Film"
+				"en": "Diamond Film",
+				"fa": "دیاموند فیلم"
 			}
 		},
 		"Q140834471": {
 			"id": "Q140834471",
 			"sitelinks": {},
 			"labels": {
-				"en": "Iran Center for film Industries"
+				"en": "Iran Center for film Industries",
+				"fa": "مرکز پخش فیلم ایران"
 			}
 		},
 		"Q140834536": {
 			"id": "Q140834536",
 			"sitelinks": {},
 			"labels": {
-				"en": "Kanoon-E Sinamagran-E Pishro"
+				"en": "Kanoon-E Sinamagran-E Pishro",
+				"fa": "کانون سینماگران پیشرو"
 			}
 		},
 		"Q140834541": {
 			"id": "Q140834541",
 			"sitelinks": {},
 			"labels": {
-				"en": "Taslimi Cinematic Organization"
+				"en": "Taslimi Cinematic Organization",
+				"fa": "سازمان سینمایی تسلیمی"
 			}
 		},
 		"Q140834546": {
 			"id": "Q140834546",
 			"sitelinks": {},
 			"labels": {
-				"en": "Hesamiyan Film"
+				"en": "Hesamiyan Film",
+				"fa": "حسامیان فیلم"
 			}
 		},
 		"Q140834560": {
 			"id": "Q140834560",
 			"sitelinks": {},
 			"labels": {
-				"en": "Iran Nema Studio"
+				"en": "Iran Nema Studio",
+				"fa": "استودیو ایران‌نما"
 			}
 		},
 		"Q140834663": {
 			"id": "Q140834663",
 			"sitelinks": {},
 			"labels": {
-				"en": "Koohi-Noor Film"
+				"en": "Koohi-Noor Film",
+				"fa": "کوه نور فیلم"
 			}
 		},
 		"Q140834692": {
 			"id": "Q140834692",
 			"sitelinks": {},
 			"labels": {
-				"en": "R-B studio"
+				"en": "R-B studio",
+				"fa": "آر بی استودیو"
 			}
 		},
 		"Q140834717": {
 			"id": "Q140834717",
 			"sitelinks": {},
 			"labels": {
-				"en": "Mashal Cinematic Organization"
+				"en": "Mashal Cinematic Organization",
+				"fa": "سازمان سینمایی مشعل"
+			}
+		},
+		"Q140836512": {
+			"id": "Q140836512",
+			"sitelinks": {},
+			"labels": {
+				"en": "Film Industry Development Company of Iran",
+				"fa": "شرکت گسترش صنایع سینمایی ایران"
+			}
+		},
+		"Q140836687": {
+			"id": "Q140836687",
+			"sitelinks": {},
+			"labels": {
+				"en": "Chahar Nam Company",
+				"fa": "شرکت سینمایی چهارنام"
+			}
+		},
+		"Q140836788": {
+			"id": "Q140836788",
+			"sitelinks": {},
+			"labels": {
+				"en": "Imaj Film"
+			}
+		},
+		"Q140837023": {
+			"id": "Q140837023",
+			"sitelinks": {},
+			"labels": {
+				"en": "Azad Film",
+				"fa": "آزاد فیلم"
+			}
+		},
+		"Q140837046": {
+			"id": "Q140837046",
+			"sitelinks": {},
+			"labels": {
+				"en": "Imperial Film of Bombay"
+			}
+		},
+		"Q140837066": {
+			"id": "Q140837066",
+			"sitelinks": {},
+			"labels": {
+				"en": "Iran Ecran",
+				"fa": "ایران اکران"
+			}
+		},
+		"Q140837106": {
+			"id": "Q140837106",
+			"sitelinks": {},
+			"labels": {
+				"en": "Negah Cinematic Organization",
+				"fa": "سازمان سینمایی نگاه"
 			}
 		}
 	}
