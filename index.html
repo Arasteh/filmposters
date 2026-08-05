@@ -355,8 +355,8 @@ input[type="text"]:focus {
 	height: 14px;
 	transition: 0.1s;
 	vertical-align: middle;
-    background: none;
-    border-radius: 0;
+    background: none !important;
+    border-radius: 0 !important;
 }
 
 .linkIcon:hover {
@@ -429,13 +429,14 @@ input[type="text"]:focus {
 	opacity: 1;
 }
 
-.lightbox-main-image {
-	width: 90vw !important;
-	height: 90vh !important;
-    max-inline-size: fit-content;
+.lightbox img {
+	max-width: 90%;
+	max-height: 90%;
 	border-radius: var(--radius-md);
 	z-index: 1000;
 	background-color: #fff;
+	transform: scale(0.9);
+	transition: all 0.3s ease;
 	position: relative;
 	box-shadow: var(--shadow-lg);
 }
@@ -446,6 +447,14 @@ input[type="text"]:focus {
 
 .lightbox img:hover {
 	z-index: 1002;
+}
+
+.loading-spinner {
+	position: absolute;
+	top: 50%;
+	inset-inline-end: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 1;
 }
 
 .lightbox-button {
@@ -2140,14 +2149,10 @@ input[type="range"]::-webkit-slider-runnable-track {
 		class="lightbox" 
 		:class="{ 'active': isLightboxActive }" 
 		@click="closeLightbox">
-	<template v-if="lightboxImage">
-		<img :src="lightboxImage" 
-		     :key="lightboxImage" 
-		     alt="Lightbox Image" 
-		     class="lightbox-main-image"
-		     :class="{ 'loading': imageLoadState === 'loading', 'loaded': imageLoadState === 'loaded' }"
-		     @click.stop />
-	</template>
+		<template v-if="lightboxImage">
+			<img :src="lightboxImage" :key="lightboxImage" alt="Lightbox Image" 
+				:style="{ backgroundColor: backgroundColor }" @click.stop />
+		</template>
 		<div class="lightbox-info desktop-only" v-if="lightboxItem" @click.stop>
 			<h2>
 				<a href="#" @click.prevent="selectFilm(lightboxItem.film)" style="color: inherit; text-decoration: none; cursor: pointer;">
@@ -2224,6 +2229,29 @@ input[type="range"]::-webkit-slider-runnable-track {
 					</span>
 				</div>
 			</div>
+		</div>
+		<div class="loading-spinner" v-if="isLoading">
+			<svg width="53" height="53" viewBox="0 0 53 53" xmlns="http://www.w3.org/2000/svg">
+				<svg:style type="text/css">
+@keyframes scale_SQHYY {
+	0%, 100% { transform: scale(1); }
+	50% { transform: scale(0.7); }
+}
+@keyframes fade_SQHYY {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.5; }
+}
+				</svg:style>
+				<circle cx="6.5" cy="6.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.57s; transform-origin: 6.5px 6.5px;"></circle>
+				<circle cx="6.5" cy="26.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.32s; transform-origin: 6.5px 26.5px;"></circle>
+				<circle cx="6.5" cy="46.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.82s; transform-origin: 6.5px 46.5px;"></circle>
+				<circle cx="26.5" cy="6.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.04s; transform-origin: 26.5px 6.5px;"></circle>
+				<circle cx="26.5" cy="26.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.12s; transform-origin: 26.5px 26.5px;"></circle>
+				<circle cx="26.5" cy="46.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -1.2s; transform-origin: 26.5px 46.5px;"></circle>
+				<circle cx="46.5" cy="6.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.46s; transform-origin: 46.5px 6.5px;"></circle>
+				<circle cx="46.5" cy="26.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.9s; transform-origin: 46.5px 26.5px;"></circle>
+				<circle cx="46.5" cy="46.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.73s; transform-origin: 46.5px 46.5px;"></circle>
+			</svg>
 		</div>
 		<button class="lightbox-button" @click.stop="closeLightbox" style="top: 20px; inset-inline-end: 20px; text-shadow: 0px 0px 10px black;">
 			<span class="material-symbols-rounded">close</span>
@@ -2624,7 +2652,6 @@ const pixelatedEffect = ref(false);
 const moreInformation = ref(false);
 const sortOrder = ref('random');
 const sortDirection = ref('asc');
-const imageLoadState = ref('loading');
 
 const translations = {
 	fa: {
@@ -3371,6 +3398,7 @@ const getGenreLabelForItem = (item) => {
 	return getTranslatedText('unknown');
 };
 
+// تابع دریافت برچسب استودیو
 const getStudioLabel = (studioId) => {
 	if (!studioId) return getTranslatedText('unknown');
 	const studio = data.secondary[studioId];
@@ -3378,11 +3406,13 @@ const getStudioLabel = (studioId) => {
 	return getItemLabel(studio.labels);
 };
 
+// تابع دریافت برچسب استودیو برای آیتم
 const getStudioLabelForItem = (item) => {
 	if (!item.studio) return getTranslatedText('unknown');
 	return getStudioLabel(item.studio);
 };
 
+// داده‌های موجود برای استودیوها
 const availableStudios = computed(() => {
 	const groups = {};
 	items.value.forEach(item => {
@@ -3398,6 +3428,7 @@ const availableStudios = computed(() => {
 	return studios;
 });
 
+// استودیوهای فیلتر شده
 const filteredStudios = computed(() => {
 	const groups = {};
 	filteredItems.value.forEach(item => {
@@ -3417,6 +3448,7 @@ const filteredStudios = computed(() => {
 	return studios;
 });
 
+// استودیوهای فیلتر شده در مودال
 const filteredStudiosInModal = computed(() => {
 	const groups = {};
 	filteredItems.value.forEach(item => {
@@ -4313,33 +4345,19 @@ const openLightbox = item => {
 		...item,
 		actors: getActorsForFilm(item.film)
 	};
+	lightboxImage.value = posterMode.value ? getPosterUrl(item.poster, item.posterHash, 960) : getPosterUrl(item.logo, item.logoHash, 960);
+	isLoading.value = true;
 	
-	const thumbnailUrl = posterMode.value 
-		? getPosterUrl(item.poster, item.posterHash, 250) 
-		: getPosterUrl(item.logo, item.logoHash, 250);
-	
-	lightboxImage.value = thumbnailUrl;
-	isLoading.value = false;
-
 	setTimeout(() => {
 		isLightboxActive.value = true;
 	}, 10);
 	
-	const highQualityUrl = posterMode.value 
-		? getPosterUrl(item.poster, item.posterHash, 960) 
-		: getPosterUrl(item.logo, item.logoHash, 960);
-	
-	const img = new Image();
-	img.onload = function() {
-		lightboxImage.value = highQualityUrl;
-	};
-	img.onerror = function() {
-		console.warn('Failed to load high quality image');
-	};
-	img.src = highQualityUrl;
-	
 	const currentIndex = filteredItems.value.findIndex(i => i === item);
 	preloadImages(currentIndex);
+
+	setTimeout(() => {
+		isLoading.value = false;
+	}, 1000);
 };
 
 const closeLightbox = () => {
@@ -4391,28 +4409,13 @@ const changeLightboxImage = changeIndexCallback => {
 		...newItem,
 		actors: getActorsForFilm(newItem.film)
 	};
-	
-	const thumbUrl = posterMode.value
-		? getPosterUrl(newItem.poster, newItem.posterHash, 250)
-		: getPosterUrl(newItem.logo, newItem.logoHash, 250);
-	
-	lightboxImage.value = thumbUrl;
-	
-	const highQualityUrl = posterMode.value
-		? getPosterUrl(newItem.poster, newItem.posterHash, 960)
-		: getPosterUrl(newItem.logo, newItem.logoHash, 960);
-	
-	const img = new Image();
-img.onload = function() {
-	lightboxImage.value = highQualityUrl;
-	imageLoadState.value = 'loaded';
-};
-	img.onerror = function() {
-		isLoading.value = false;
-	};
-	img.src = highQualityUrl;
+	lightboxImage.value = posterMode.value
+		? getPosterUrl(lightboxItem.value.poster, lightboxItem.value.posterHash, 960)
+		: getPosterUrl(lightboxItem.value.logo, lightboxItem.value.logoHash, 960);
 
 	preloadImages(newIndex);
+
+	setTimeout(() => isLoading.value = false, 1000);
 };
 const prevImage = () => changeLightboxImage((current, lastItem) => current <= 0 ? lastItem : current - 1);
 const nextImage = () => changeLightboxImage((current, lastItem) => current >= lastItem ? 0 : current + 1);
