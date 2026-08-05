@@ -6904,9 +6904,11 @@
 		"Q5713813": {
 			"id": "Q5713813",
 			"sitelinks": {
+				"enwiki": "The Pastry Girl",
 				"fawiki": "دختر شیرینی‌فروش"
 			},
 			"labels": {
+				"en": "The Pastry Girl",
 				"fa": "دختر شیرینی فروش"
 			},
 			"aliases": {},
@@ -74086,6 +74088,42 @@
 				"Q131728036",
 				"Q140797539"
 			]
+		},
+		"Q140876048": {
+			"id": "Q140876048",
+			"sitelinks": {
+				"fawiki": "تمشک طلایی (فیلم)"
+			},
+			"labels": {
+				"en": "Tameshke Talayi",
+				"fa": "تمشک طلایی"
+			},
+			"aliases": {
+				"fa": [
+					"تمشک طلایی سعید کوه زاد"
+				]
+			},
+			"directors": [],
+			"date": [
+				"+2025-00-00T00:00:00Z"
+			],
+			"imdb": [
+				"tt39817365/?ref_=fn_t_2"
+			],
+			"genres": [
+				"Q24862"
+			],
+			"cast": [
+				"Q5938478"
+			],
+			"posters": [
+				{
+					"image": "پوستر_فیلم_کوتاه_تمشک_طلایی.jpg",
+					"hash": "33"
+				}
+			],
+			"logos": [],
+			"studios": []
 		}
 	},
 	"secondary": {
