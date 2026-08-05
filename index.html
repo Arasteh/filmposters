@@ -430,8 +430,9 @@ input[type="text"]:focus {
 }
 
 .lightbox-main-image {
-	max-width: 90%;
-	max-height: 90%;
+	width: 90vw !important;
+	height: 90vh !important;
+    max-inline-size: fit-content;
 	border-radius: var(--radius-md);
 	z-index: 1000;
 	background-color: #fff;
