@@ -52452,7 +52452,10 @@
 			"posters": [
 				{
 					"image": "مروارید_(پوستر).jpg",
-					"hash": "c9"
+					"hash": "c9",
+					"designers": [
+						"Q131377955"
+					]
 				}
 			],
 			"logos": [],
@@ -68394,6 +68397,10 @@
 				{
 					"image": "لاله_آتشین_(پوستر).jpg",
 					"hash": "80"
+				},
+				{
+					"image": "لاله_آتشین_(پوستر_۲).jpg",
+					"hash": "4a"
 				}
 			],
 			"logos": [],
@@ -92633,6 +92640,7 @@
 			"id": "Q135926160",
 			"sitelinks": {},
 			"labels": {
+				"en": "Masoud Ghandi",
 				"fa": "مسعود قندی"
 			}
 		},
@@ -92640,6 +92648,7 @@
 			"id": "Q135926177",
 			"sitelinks": {},
 			"labels": {
+				"en": "Shahrzad Atelier",
 				"fa": "آتلیه شهرزاد"
 			}
 		},
@@ -92681,6 +92690,7 @@
 			"id": "Q136375279",
 			"sitelinks": {},
 			"labels": {
+				"en": "Ehsan Barabadi",
 				"fa": "احسان برآبادی"
 			}
 		},
@@ -92688,6 +92698,7 @@
 			"id": "Q136375289",
 			"sitelinks": {},
 			"labels": {
+				"en": "Amir Sheyban Khaghani",
 				"fa": "امیرشیبان خاقانی"
 			}
 		},
@@ -92703,6 +92714,7 @@
 			"id": "Q136375316",
 			"sitelinks": {},
 			"labels": {
+				"en": "Hamidreza Eshaghi",
 				"fa": "حمیدرضا اسحاقی"
 			}
 		},
@@ -92710,6 +92722,7 @@
 			"id": "Q136375319",
 			"sitelinks": {},
 			"labels": {
+				"en": "Ali Mirfattah",
 				"fa": "علی میرفتاح"
 			}
 		},
@@ -92717,6 +92730,7 @@
 			"id": "Q136375320",
 			"sitelinks": {},
 			"labels": {
+				"en": "Alireza Goldouzian",
 				"fa": "علیرضا گلدوزیان"
 			}
 		},
@@ -92724,6 +92738,7 @@
 			"id": "Q136375323",
 			"sitelinks": {},
 			"labels": {
+				"en": "Javad Atashbari",
 				"fa": "جواد آتشباری"
 			}
 		},
@@ -92731,6 +92746,7 @@
 			"id": "Q136375411",
 			"sitelinks": {},
 			"labels": {
+				"en": "Amir Khoob-bakht",
 				"fa": "امیر خوب‌بخت"
 			}
 		},
@@ -92738,6 +92754,7 @@
 			"id": "Q136375415",
 			"sitelinks": {},
 			"labels": {
+				"en": "Tahereh Mohebi Taban",
 				"fa": "طاهره محبی تابان"
 			}
 		},
@@ -92745,6 +92762,7 @@
 			"id": "Q136375420",
 			"sitelinks": {},
 			"labels": {
+				"en": "Cyrus Salimi Khaligh",
 				"fa": "سیروس سلیمی خلیق"
 			}
 		},
@@ -92759,6 +92777,7 @@
 			"id": "Q136375446",
 			"sitelinks": {},
 			"labels": {
+				"en": "Miranda Ansari",
 				"fa": "میراندا انصاری"
 			}
 		},
@@ -92780,6 +92799,7 @@
 			"id": "Q136375476",
 			"sitelinks": {},
 			"labels": {
+				"en": "Behzad Soleymani",
 				"fa": "بهزاد سلیمانی"
 			}
 		},
@@ -92795,6 +92815,7 @@
 			"id": "Q136377109",
 			"sitelinks": {},
 			"labels": {
+				"en": "Ehsan Zavoshi",
 				"fa": "احسان زاوشی"
 			}
 		},
@@ -92845,6 +92866,7 @@
 			"id": "Q136377142",
 			"sitelinks": {},
 			"labels": {
+				"en": "Farshad Hooshyar",
 				"fa": "فرشاد هوشیار"
 			}
 		},
@@ -92859,6 +92881,7 @@
 			"id": "Q136377144",
 			"sitelinks": {},
 			"labels": {
+				"en": "Mostafa Shayesteh",
 				"fa": "مصطفی شایسته"
 			}
 		},
@@ -92922,6 +92945,7 @@
 			"id": "Q136377161",
 			"sitelinks": {},
 			"labels": {
+				"en": "Mahsa Ghabaee",
 				"fa": "مهسا قبایی"
 			}
 		},
@@ -93007,6 +93031,7 @@
 			"id": "Q136377192",
 			"sitelinks": {},
 			"labels": {
+				"en": "Ahoora",
 				"fa": "اهورا"
 			}
 		},
@@ -93035,6 +93060,7 @@
 			"id": "Q136377197",
 			"sitelinks": {},
 			"labels": {
+				"en": "Rasagraph",
 				"fa": "رساگراف"
 			}
 		},
@@ -93042,6 +93068,7 @@
 			"id": "Q136377198",
 			"sitelinks": {},
 			"labels": {
+				"en": "Rang-Ara",
 				"fa": "رنگ‌آرا"
 			}
 		},
@@ -93078,6 +93105,7 @@
 			"id": "Q136377203",
 			"sitelinks": {},
 			"labels": {
+				"en": "Ramak advertising agency",
 				"fa": "کانون تبلیغاتی رامک"
 			}
 		},
@@ -93085,6 +93113,7 @@
 			"id": "Q136377204",
 			"sitelinks": {},
 			"labels": {
+				"en": "Honarkhaneh Mahtab",
 				"fa": "هنرخانه مهتاب"
 			}
 		},
@@ -93551,7 +93580,8 @@
 			"id": "Q140837046",
 			"sitelinks": {},
 			"labels": {
-				"en": "Imperial Film of Bombay"
+				"en": "Imperial Film of Bombay",
+				"fa": "امپریال کمپانی بمبئی"
 			}
 		},
 		"Q140837066": {
