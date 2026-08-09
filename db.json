@@ -3548,7 +3548,9 @@
 					"hash": "1d"
 				}
 			],
-			"studios": []
+			"studios": [
+				"Q5328635"
+			]
 		},
 		"Q3275390": {
 			"id": "Q3275390",
@@ -47999,9 +48001,13 @@
 				"fawiki": "نیزار (فیلم)"
 			},
 			"labels": {
+				"en": "Reed Bed",
 				"fa": "نیزار"
 			},
 			"aliases": {
+				"en": [
+					"Neyzar"
+				],
 				"fa": [
 					"نی زار",
 					"نی‌زار"
@@ -48013,7 +48019,9 @@
 			"date": [
 				"+1975-00-00T00:00:00Z"
 			],
-			"imdb": [],
+			"imdb": [
+				"tt6516922"
+			],
 			"genres": [],
 			"cast": [
 				"Q4808641"
@@ -48028,7 +48036,9 @@
 				}
 			],
 			"logos": [],
-			"studios": []
+			"studios": [
+				"Q131728128"
+			]
 		},
 		"Q14756839": {
 			"id": "Q14756839",
@@ -74258,6 +74268,39 @@
 			],
 			"logos": [],
 			"studios": []
+		},
+		"Q140949344": {
+			"id": "Q140949344",
+			"sitelinks": {},
+			"labels": {
+				"en": "Sunrice"
+			},
+			"aliases": {
+				"en": [
+					"Sunrise (6:00 AM) , Sunrise 2026"
+				]
+			},
+			"directors": [
+				"Q140950439"
+			],
+			"date": [
+				"+2026-08-00T00:00:00Z"
+			],
+			"imdb": [
+				"tt43741230"
+			],
+			"genres": [
+				"Q130232"
+			],
+			"cast": [],
+			"posters": [
+				{
+					"image": "Sunrise_(2026)_Film_Poster_Sina_Sahelgozin_SinaSGZ.jpg",
+					"hash": "e5"
+				}
+			],
+			"logos": [],
+			"studios": []
 		}
 	},
 	"secondary": {
@@ -77792,6 +77835,15 @@
 			},
 			"labels": {
 				"en": "comedy"
+			}
+		},
+		"Q5328635": {
+			"id": "Q5328635",
+			"sitelinks": {
+				"enwiki": "East India Film Company"
+			},
+			"labels": {
+				"en": "East India Film Company"
 			}
 		},
 		"Q5360118": {
@@ -93598,6 +93650,13 @@
 			"labels": {
 				"en": "Negah Cinematic Organization",
 				"fa": "سازمان سینمایی نگاه"
+			}
+		},
+		"Q140950439": {
+			"id": "Q140950439",
+			"sitelinks": {},
+			"labels": {
+				"en": "Sina Sahelgozin"
 			}
 		}
 	}
