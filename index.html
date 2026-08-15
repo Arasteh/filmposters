@@ -39,24 +39,26 @@
 
 html {
 	scroll-behavior: smooth;
-	--body-background: light-dark(#f5f7fa, #0f1217);
-	--body-foreground: light-dark(#1a1e24, #e8ecf1);
-	--text-input-border: light-dark(#00000020, #ffffff20);
-	--card-background: light-dark(#ffffff, #1c2128);
-	--year-link-foreground: light-dark(#5a6a7a, #8a9aaa);
-	--bar-color: light-dark(#c0392b, #e74c3c);
-	--bar-hover-color: light-dark(#e74c3c, #ff6b5a);
-	--svg-background: light-dark(#ffffff, #1c2128);
-	--svg-border-color: light-dark(#e2e8f0, #2d343b);
-	--active-filter: light-dark(#dbeafe, #1e3a5f);
-	--shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-	--shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
-	--shadow-lg: 0 8px 30px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.04);
-	--radius-sm: 6px;
-	--radius-md: 10px;
+	--body-background: light-dark(#f8fafc, #0b0e13);
+	--body-foreground: light-dark(#0f172a, #f1f5f9);
+	--text-input-border: light-dark(#e2e8f0, #334155);
+	--card-background: light-dark(#ffffff, #151a21);
+	--year-link-foreground: light-dark(#64748b, #94a3b8);
+	--bar-color: light-dark(#dc2626, #ef4444);
+	--bar-hover-color: light-dark(#ef4444, #f87171);
+	--svg-background: light-dark(#ffffff, #151a21);
+	--svg-border-color: light-dark(#e2e8f0, #1e293b);
+	--active-filter: light-dark(#fee2e2, #450a0a);
+	--shadow-sm: 0 1px 2px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.06);
+	--shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+	--shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.05);
+	--shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.06);
+	--radius-sm: 8px;
+	--radius-md: 12px;
 	--radius-lg: 16px;
-	--radius-xl: 20px;
-	--transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+	--radius-xl: 24px;
+	--transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	--transition-spring: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 body {
@@ -69,13 +71,15 @@ body {
 	margin: 0;
 	transition: var(--transition);
 	overflow-x: hidden;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 #app {
 	display: flex;
 	flex: 1;
 	width: 100%;
-	padding: 20px;
+	padding: 16px;
 	transition: var(--transition);
 }
 
@@ -114,8 +118,9 @@ body {
 }
 
 .title-container h1 {
-	font-weight: bold;
-	font-size: larger;
+	font-weight: 700;
+	font-size: 1.15rem;
+	letter-spacing: -0.01em;
 	margin: 0;
 	color: var(--body-foreground);
 }
@@ -141,29 +146,29 @@ body {
 	position: relative;
 	max-width: 960px;
 	width: 100%;
-	margin: -50px auto 0;
-	padding: 60px 10px 10px 10px;
+	margin: -40px auto 0;
+	padding: 42px 10px 8px 10px;
 	border-radius: 0 0 var(--radius-lg) var(--radius-lg);
 	
 	background: light-dark(
-		rgba(255, 255, 255, 0.75),
-		rgba(28, 33, 40, 0.85)
+		rgba(255, 255, 255, 0.72),
+		rgba(21, 26, 33, 0.78)
 	) !important;
-	backdrop-filter: blur(24px) saturate(180%);
-	-webkit-backdrop-filter: blur(24px) saturate(180%);
+	backdrop-filter: blur(28px) saturate(200%);
+	-webkit-backdrop-filter: blur(28px) saturate(200%);
 	
 	border: 1px solid light-dark(
-		rgba(255, 255, 255, 0.5),
-		rgba(255, 255, 255, 0.08)
+		rgba(255, 255, 255, 0.55),
+		rgba(255, 255, 255, 0.07)
 	);
 	box-shadow: 
-		0 8px 32px light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.4)),
-		inset 0 1px 0 light-dark(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.06));
+		0 8px 28px light-dark(rgba(0, 0, 0, 0.07), rgba(0, 0, 0, 0.45)),
+		inset 0 1px 0 light-dark(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.05));
 }
 
 .title-wrapper {
 	position: absolute;
-	top: 10px;
+	top: 6px;
 	inset-inline-end: 0;
 	inset-inline-start: 0;
 	display: flex;
@@ -178,61 +183,83 @@ body {
 
 input[type="text"] {
 	width: 100%;
-	padding: 12px 16px;
+	padding: 8px 12px;
 	border: 1.5px solid var(--text-input-border);
 	border-radius: var(--radius-md);
-	background: light-dark(rgba(255,255,255,0.7), rgba(255,255,255,0.05));
+	background: light-dark(rgba(255,255,255,0.85), rgba(255,255,255,0.04));
 	transition: var(--transition);
-	font-size: 0.95rem;
+	font-size: 0.9rem;
+	color: var(--body-foreground);
 }
 
 input[type="text"]:focus {
 	outline: none;
 	border-color: var(--bar-color);
-	box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.15);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--bar-color) 20%, transparent);
+	background: light-dark(#fff, rgba(255,255,255,0.06));
 }
 
 .options {
 	display: flex;
 	flex-wrap: wrap;
-	column-gap: 20px;
-	row-gap: 10px;
+	column-gap: 14px;
+	row-gap: 6px;
 	justify-content: space-around;
-	margin: 10px 0 10px;
+	margin: 6px 0 4px;
 	border: none;
 	align-items: center;
 }
 
 .results-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	grid-template-columns: repeat(6, minmax(0, 1fr));
 	justify-content: center;
-	gap: 20px;
+	gap: 24px;
 	max-width: 1520px;
 	width: 100%;
 	z-index: 1;
-	padding-right: 60px;
-	padding-left: 60px;
+	padding-right: 48px;
+	padding-left: 48px;
+}
+
+@media (max-width: 1400px) {
+	.results-grid {
+		grid-template-columns: repeat(5, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 1200px) {
+	.results-grid {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 1000px) {
+	.results-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
 }
 
 .item-card {
 	text-align: center;
-	padding: 16px 12px;
+	padding: 14px 12px 16px;
 	background: var(--card-background);
-	border-radius: var(--radius-md);
+	border-radius: var(--radius-lg);
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
 	align-items: center;
-	transition: var(--transition);
+	transition: var(--transition-spring);
 	position: relative;
 	box-shadow: var(--shadow-sm);
-	border: 1px solid light-dark(rgba(0,0,0,0.04), rgba(255,255,255,0.04));
+	border: 1px solid light-dark(rgba(0,0,0,0.05), rgba(255,255,255,0.06));
+	overflow: hidden;
 }
 
 .item-card:hover {
-	transform: translateY(-4px);
-	box-shadow: var(--shadow-lg);
+	transform: translateY(-6px);
+	box-shadow: var(--shadow-xl);
+	border-color: light-dark(rgba(0,0,0,0.08), rgba(255,255,255,0.1));
 }
 
 .item-card.light-text {
@@ -258,9 +285,9 @@ input[type="text"]:focus {
 	width: 100%;
 	object-fit: contain;
 	aspect-ratio: 5 / 7.5;
-	margin-bottom: 10px;
-	border-radius: var(--radius-sm);
-	transition: filter 0.3s;
+	margin-bottom: 12px;
+	border-radius: var(--radius-md);
+	transition: filter 0.3s, transform 0.3s;
 }
 
 .item-image.brightness-0 {
@@ -369,7 +396,7 @@ input[type="text"]:focus {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border-radius: var(--radius-sm);
+	border-radius: var(--radius-md);
 	overflow: hidden;
 }
 
@@ -377,25 +404,28 @@ input[type="text"]:focus {
 	position: absolute;
 	bottom: 12px;
 	inset-inline-start: 12px;
-	background-color: rgba(0, 0, 0, 0.6);
+	background-color: rgba(0, 0, 0, 0.55);
 	color: white;
 	border: none;
 	padding: 8px 12px;
-	border-radius: var(--radius-sm);
+	border-radius: var(--radius-md);
 	cursor: pointer;
 	opacity: 0;
 	transition: var(--transition);
 	z-index: 10;
-	backdrop-filter: blur(4px);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 .image-container:hover .download-btn {
-	opacity: 0.7;
+	opacity: 0.85;
 }
 
 .image-container:hover .download-btn:hover {
 	opacity: 1;
 	background-color: rgba(0, 0, 0, 0.8);
+	transform: scale(1.05);
 }
 
 .clickable-image {
@@ -417,44 +447,97 @@ input[type="text"]:focus {
 	justify-content: center;
 	align-items: center;
 	z-index: 1000;
-	transition: all 0.3s ease;
+	transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 	visibility: hidden;
 	opacity: 0;
-	backdrop-filter: blur(8px);
+	backdrop-filter: blur(16px) saturate(120%);
+	-webkit-backdrop-filter: blur(16px) saturate(120%);
 }
 
 .lightbox.active {
-	background-color: rgba(0, 0, 0, 0.85);
+	background-color: rgba(0, 0, 0, 0.82);
 	visibility: visible;
 	opacity: 1;
 }
 
-.lightbox img {
-	max-width: 90%;
-	max-height: 90%;
-	border-radius: var(--radius-md);
+.lightbox-image-wrapper {
+	max-width: 90vw;
+	max-height: 90vh;
+	width: 90vw;
+	height: 90vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transform: scale(0.92);
+	transition: transform 0.35s cubic-bezier(0.34, 1.2, 0.64, 1), width 0.25s ease, height 0.25s ease;
 	z-index: 1000;
-	background-color: #fff;
-	transform: scale(0.9);
-	transition: all 0.3s ease;
-	position: relative;
-	box-shadow: var(--shadow-lg);
 }
 
-.lightbox.active img {
+/* لوگو همیشه در قالب مربع */
+.lightbox-image-wrapper.is-logo {
+	width: min(90vw, 90vh);
+	height: min(90vw, 90vh);
+	max-width: min(90vw, 90vh);
+	max-height: min(90vw, 90vh);
+}
+
+.lightbox-view-switch {
+	position: absolute;
+	bottom: 88px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 1004;
+	display: flex;
+	gap: 0;
+	padding: 3px;
+	border-radius: 999px;
+	background: rgba(0, 0, 0, 0.55);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+	cursor: pointer;
+}
+
+@media (min-width: 769px) {
+	.lightbox-view-switch {
+		bottom: 28px;
+	}
+}
+
+.lightbox-view-switch span {
+	border: none;
+	background: transparent;
+	color: rgba(255, 255, 255, 0.7);
+	padding: 8px 18px;
+	border-radius: 999px;
+	font-size: 0.85rem;
+	font-weight: 600;
+	transition: var(--transition);
+	font-family: inherit;
+	pointer-events: none;
+	user-select: none;
+}
+
+.lightbox-view-switch span.active {
+	background: var(--bar-color);
+	color: #fff;
+	box-shadow: 0 2px 8px color-mix(in srgb, var(--bar-color) 40%, transparent);
+}
+
+.lightbox.active .lightbox-image-wrapper {
 	transform: scale(1);
 }
 
-.lightbox img:hover {
-	z-index: 1002;
-}
-
-.loading-spinner {
-	position: absolute;
-	top: 50%;
-	inset-inline-end: 50%;
-	transform: translate(-50%, -50%);
-	z-index: 1;
+/* Only the main lightbox photo — not the small icons inside .lightbox-info */
+.lightbox-image-wrapper img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	border-radius: var(--radius-lg);
+	background-color: transparent;
+	transition: opacity 0.2s ease;
+	box-shadow: none;
 }
 
 .lightbox-button {
@@ -483,24 +566,26 @@ input[type="text"]:focus {
 
 .lightbox-info {
 	position: absolute;
-	bottom: 30px;
-	inset-inline-start: 30px;
-	background-color: rgba(0, 0, 0, 0.6);
+	bottom: 28px;
+	inset-inline-start: 28px;
+	background-color: rgba(15, 18, 23, 0.75);
 	color: white;
-	padding: 24px 28px;
-	border-radius: var(--radius-md);
+	padding: 22px 26px;
+	border-radius: var(--radius-lg);
 	max-width: 80%;
 	text-align: right;
-	transform: translateY(20px);
+	transform: translateY(24px);
 	opacity: 0;
-	transition: all 0.3s ease;
-	transition-delay: 0.1s;
+	transition: all 0.35s cubic-bezier(0.34, 1.2, 0.64, 1);
+	transition-delay: 0.08s;
 	z-index: 1001;
-	backdrop-filter: blur(12px);
-	max-width: 320px;
+	backdrop-filter: blur(20px) saturate(150%);
+	-webkit-backdrop-filter: blur(20px) saturate(150%);
+	max-width: 340px;
 	max-height: 60vh;
 	overflow-y: auto;
-	border: 1px solid rgba(255,255,255,0.1);
+	border: 1px solid rgba(255,255,255,0.12);
+	box-shadow: 0 12px 40px rgba(0,0,0,0.35);
 }
 
 .lightbox.active .lightbox-info {
@@ -519,12 +604,12 @@ input[type="text"]:focus {
 }
 
 #toTop {
-	transition: bottom ease-in-out 350ms, opacity linear 350ms;
+	transition: bottom ease-in-out 350ms, opacity linear 350ms, transform 0.2s, box-shadow 0.2s;
 	bottom: -100px;
-	width: 52px;
-	height: 52px;
+	width: 48px;
+	height: 48px;
 	position: fixed;
-	inset-inline-end: 30px;
+	inset-inline-end: 24px;
 	z-index: 99;
 	font-size: 18px;
 	border: none;
@@ -532,59 +617,59 @@ input[type="text"]:focus {
 	background-color: var(--bar-color);
 	color: white;
 	cursor: pointer;
-	padding: 15px;
-	border-radius: var(--radius-md);
-	box-shadow: var(--shadow-md);
+	padding: 12px;
+	border-radius: 50%;
+	box-shadow: 0 4px 14px color-mix(in srgb, var(--bar-color) 40%, transparent);
 }
 
 #toTop:hover {
-	opacity: 80%;
-	transform: translateY(-2px);
-	box-shadow: var(--shadow-lg);
-	transition-duration: 0.1s;
+	opacity: 1;
+	transform: translateY(-3px) scale(1.05);
+	box-shadow: 0 8px 20px color-mix(in srgb, var(--bar-color) 50%, transparent);
 }
 
 .reset-all-filters-btn {
 	margin-top: 15px;
-	padding: 10px 24px;
+	padding: 12px 28px;
 	background-color: var(--bar-color);
 	color: white;
 	border: none;
-	border-radius: var(--radius-md);
+	border-radius: var(--radius-xl);
 	cursor: pointer;
-	font-size: 1rem;
-	transition: var(--transition);
+	font-size: 0.95rem;
+	font-weight: 600;
+	transition: var(--transition-spring);
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	box-shadow: var(--shadow-sm);
+	box-shadow: 0 4px 14px color-mix(in srgb, var(--bar-color) 35%, transparent);
 }
 
 .reset-all-filters-btn:hover {
 	background-color: var(--bar-hover-color);
 	transform: translateY(-2px);
-	box-shadow: var(--shadow-md);
+	box-shadow: 0 6px 20px color-mix(in srgb, var(--bar-color) 45%, transparent);
 }
 
 
 #resetSearch {
 	border: none;
 	color: white;
-	padding: 8px 8px 0px;
+	padding: 8px 10px 2px;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
 	cursor: pointer;
 	border-radius: var(--radius-xl);
-	background-color: #7a8a9a;
-	opacity: 0.8;
+	background-color: light-dark(#64748b, #475569);
+	opacity: 0.85;
 	transition: var(--transition);
 }
 
 #resetSearch:hover {
 	opacity: 1;
 	background-color: var(--bar-color);
-	transition-duration: 0.3s;
+	transform: scale(1.05);
 }
 
 .options-wrapper-top {
@@ -599,10 +684,10 @@ input[type="text"]:focus {
 .options-row-top {
 	display: flex;
 	flex-wrap: wrap;
-	column-gap: 20px;
-	row-gap: 10px;
+	column-gap: 12px;
+	row-gap: 6px;
 	justify-content: space-around;
-	margin: 15px 0 0px;
+	margin: 6px 0 0;
 	border: none;
 	align-items: center;
 }
@@ -617,15 +702,15 @@ input[type="text"]:focus {
 	width: 120px;
 	position: relative;
 	transition: var(--transition);
-	border: 1.5px solid light-dark(#00000012, #ffffff12);
-	background: light-dark(#f1f4f8, #252b33);
+	border: 1.5px solid light-dark(#e2e8f0, #334155);
+	background: light-dark(#f1f5f9, #1e293b);
 }
 
 .toggle-switch span {
 	flex: 1;
 	text-align: center;
 	padding: 5px;
-	color: light-dark(#7a8a9a, #7a8a9a);
+	color: light-dark(#64748b, #94a3b8);
 	z-index: 1;
 	transition: var(--transition);
 	font-weight: 500;
@@ -645,8 +730,8 @@ input[type="text"]:focus {
 	height: calc(100% - 8px);
 	background-color: var(--bar-color);
 	border-radius: var(--radius-xl);
-	transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-	box-shadow: 0 2px 8px rgba(192, 57, 43, 0.3);
+	transition: 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
+	box-shadow: 0 2px 10px color-mix(in srgb, var(--bar-color) 40%, transparent);
 }
 
 .toggle-switch.active {
@@ -678,8 +763,8 @@ input[type="text"]:focus {
 	width: fit-content;
 	position: relative;
 	transition: var(--transition);
-	border: 1.5px solid light-dark(#00000012, #ffffff12);
-	background: light-dark(#f1f4f8, #252b33);
+	border: 1.5px solid light-dark(#e2e8f0, #334155);
+	background: light-dark(#f1f5f9, #1e293b);
 }
 
 .triple-switch span {
@@ -687,7 +772,7 @@ input[type="text"]:focus {
 	text-align: center;
 	padding: 5px 12px;
 	border-radius: var(--radius-xl);
-	color: light-dark(#7a8a9a, #7a8a9a);
+	color: light-dark(#64748b, #94a3b8);
 	transition: var(--transition);
 	cursor: pointer;
 	z-index: 1;
@@ -708,9 +793,9 @@ input[type="text"]:focus {
 	height: calc(100% - 8px);
 	background-color: var(--bar-color);
 	border-radius: var(--radius-xl);
-	transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+	transition: 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
 	transition-property: transform, width;
-	box-shadow: 0 2px 8px rgba(192, 57, 43, 0.3);
+	box-shadow: 0 2px 10px color-mix(in srgb, var(--bar-color) 40%, transparent);
 }
 
 .triple-switch[data-sort="alphabetical"]::before {
@@ -865,17 +950,17 @@ input[type="text"]:focus {
 	z-index: 1000;
 	resize: none;
 	position: fixed;
-	top: 20px;
+	top: 16px;
 	inset-inline-end: auto;
-	inset-inline-start: 20px;
-	height: calc(100vh - 40px);
-	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	inset-inline-start: 16px;
+	height: calc(100vh - 32px);
+	transition: transform 0.35s cubic-bezier(0.34, 1.2, 0.64, 1);
 	background-color: var(--card-background);
-	border-radius: var(--radius-lg);
-	box-shadow: var(--shadow-lg);
+	border-radius: var(--radius-xl);
+	box-shadow: var(--shadow-xl);
 	transform: translateX(105%);
 	z-index: 100;
-	border: 1px solid light-dark(rgba(0,0,0,0.04), rgba(255,255,255,0.04));
+	border: 1px solid light-dark(rgba(0,0,0,0.05), rgba(255,255,255,0.06));
 }
 
 .sidebar.visible-desktop {
@@ -884,17 +969,19 @@ input[type="text"]:focus {
 
 
 .sidebar-content {
-	padding: 0 12px 0 12px;
+	padding: 0 8px 8px;
 }
 
 .filtersTitle {
-	inset-inline-start: 60px;
+	inset-inline-start: 0;
 	position: relative;
 	width: fit-content;
 	font-weight: bold;
-	height: 15px;
-	top: -5px;
+	font-size: 0.95rem;
+	height: auto;
+	top: 0;
 	color: var(--body-foreground);
+	margin: 0;
 }
 
 .year-range-inputs {
@@ -905,13 +992,13 @@ input[type="text"]:focus {
 }
 
 .year-range-inputs select {
-	width: 80px;
-	padding: 8px 12px;
+	width: 72px;
+	padding: 4px 8px;
 	border: 1.5px solid var(--text-input-border);
 	border-radius: var(--radius-sm);
 	background-color: var(--card-background);
 	color: var(--body-foreground);
-	font-size: 0.9em;
+	font-size: 0.85em;
 	transition: var(--transition);
 }
 
@@ -930,39 +1017,120 @@ input[type="text"]:focus {
 	color: var(--body-foreground);
 }
 
-input[type="range"] {
-	-webkit-appearance: none;
-	width: 100%;
-	background: transparent;
+.year-range-slider {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 4px 0 2px;
 }
-input[type="range"]::-webkit-slider-thumb {
-	-webkit-appearance: none;
-	height: 26px;
-	width: 16px;
-	border-radius: var(--radius-sm);
-	background: var(--bar-color);
-	cursor: pointer;
-	margin-top: -6px;
+
+.year-range-slider-labels {
+	display: flex;
+	justify-content: space-between;
+	font-size: 0.8rem;
+	color: var(--year-link-foreground);
+	font-weight: 500;
+}
+
+.year-range-slider-track {
 	position: relative;
-	z-index: 10;
-	box-shadow: 0 2px 6px rgba(192, 57, 43, 0.3);
+	height: 28px;
+	direction: ltr; /* اسلایدر همیشه چپ=کم، راست=زیاد */
 }
-input[type="range"]::-webkit-slider-thumb:hover {
-	background: var(--bar-hover-color);
+
+.year-range-slider-track .slider-bg {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: 0;
+	right: 0;
+	height: 6px;
+	border-radius: 3px;
+	background: light-dark(#e2e8f0, #334155);
+	pointer-events: none;
 }
-input[type="range"]::-webkit-slider-runnable-track {
+
+.year-range-slider-track .slider-fill {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	height: 6px;
+	border-radius: 3px;
+	background: var(--bar-color);
+	pointer-events: none;
+}
+
+.year-range-slider-track input[type="range"] {
+	-webkit-appearance: none;
+	appearance: none;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 28px;
+	margin: 0;
+	background: transparent;
+	pointer-events: none;
+}
+
+.year-range-slider-track input[type="range"]::-webkit-slider-runnable-track {
 	height: 6px;
 	background: transparent;
-	border-radius: 3px;
+	border: none;
+}
+
+.year-range-slider-track input[type="range"]::-moz-range-track {
+	height: 6px;
+	background: transparent;
+	border: none;
+}
+
+.year-range-slider-track input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	height: 18px;
+	width: 18px;
+	border-radius: 50%;
+	background: var(--bar-color);
+	cursor: pointer;
+	pointer-events: auto;
+	border: 2px solid #fff;
+	box-shadow: 0 2px 6px rgba(192, 57, 43, 0.35);
+	margin-top: -6px;
+	position: relative;
+	z-index: 2;
+}
+
+.year-range-slider-track input[type="range"]::-moz-range-thumb {
+	height: 18px;
+	width: 18px;
+	border-radius: 50%;
+	background: var(--bar-color);
+	cursor: pointer;
+	pointer-events: auto;
+	border: 2px solid #fff;
+	box-shadow: 0 2px 6px rgba(192, 57, 43, 0.35);
+}
+
+.year-range-slider-track input[type="range"]:hover::-webkit-slider-thumb {
+	background: var(--bar-hover-color);
+}
+
+.year-range-slider-actions {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	flex-wrap: wrap;
 }
 .removeRange {
-	padding: 4px 14px;
-	background-color: light-dark(#e2e8f0, #252b33);
+	padding: 6px 16px;
+	background-color: light-dark(#f1f5f9, #1e293b);
 	color: var(--body-foreground);
 	border: 1px solid var(--text-input-border);
-	border-radius: var(--radius-sm);
+	border-radius: var(--radius-md);
 	cursor: pointer;
-	font-size: 0.9em;
+	font-size: 0.85em;
+	font-weight: 500;
 	width: fit-content; 
 	margin-inline-start: 5px;
 	transition: var(--transition);
@@ -974,22 +1142,23 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 .applyRange {
-	padding: 4px 14px;
+	padding: 6px 16px;
 	background-color: var(--bar-color);
 	color: white;
 	border: none;
-	border-radius: var(--radius-sm);
+	border-radius: var(--radius-md);
 	cursor: pointer;
-	font-size: 0.9em;
+	font-size: 0.85em;
+	font-weight: 500;
 	width: fit-content;
 	margin-inline-start: 5px;
 	transition: var(--transition);
-	box-shadow: var(--shadow-sm);
+	box-shadow: 0 2px 8px color-mix(in srgb, var(--bar-color) 30%, transparent);
 }
 
 .applyRange:hover {
 	background-color: var(--bar-hover-color);
-	box-shadow: var(--shadow-md);
+	box-shadow: 0 4px 12px color-mix(in srgb, var(--bar-color) 40%, transparent);
 }
 
 
@@ -1024,7 +1193,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 	flex-direction: column;
 	min-height: 0;
 	transition: flex-grow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-	padding-bottom: 8px;
+	padding-bottom: 4px;
 }
 
 .sidebar-section-header {
@@ -1032,13 +1201,14 @@ input[type="range"]::-webkit-slider-runnable-track {
 	justify-content: space-between;
 	align-items: center;
 	cursor: pointer;
-	padding: 0px 20px 0 5px;
-	background-color: light-dark(#e8ecf1, #252b33);
+	padding: 0px 10px 0 6px;
+	background-color: light-dark(#f1f5f9, #1e293b);
 	border-radius: var(--radius-sm);
-	height: 36px;
-	transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1) border-radius;
+	height: 32px;
+	transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	transition-property: all;
-	font-weight: 500;
+	font-weight: 600;
+	font-size: 0.85rem;
 }
 
 .sidebar-section.expanded .sidebar-section-header {
@@ -1047,19 +1217,45 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 .sidebar-section-body {
 	flex: 1;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-inline: 10px;
-	overflow-y: scroll;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	padding-inline: 6px;
+	overflow-y: auto;
+	overflow-x: hidden;
 	interpolate-size: allow-keywords;
 	min-height: 0;
 	background-color: var(--svg-background);
 	opacity: 1;
-	max-height: 350px;
+	max-height: 320px;
 	border-radius: 0 0 var(--radius-sm) var(--radius-sm);
 	border: 1px solid var(--svg-border-color);
 	transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 	transition-property: all;
+	position: relative;
+	scrollbar-width: thin;
+	scrollbar-color: light-dark(#cbd5e1, #475569) transparent;
+}
+
+/* نوار اسکرول مخفی وقتی نیاز نیست؛ در WebKit فقط وقتی overflow هست نشان داده می‌شود با auto */
+.sidebar-section-body::-webkit-scrollbar {
+	width: 5px;
+}
+.sidebar-section-body::-webkit-scrollbar-thumb {
+	background: light-dark(#cbd5e1, #475569);
+	border-radius: 4px;
+}
+.sidebar-section-body::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+/* گرادیان محو چسبیده به پایین ناحیهٔ قابل‌نمایش؛ فقط وقتی اسکرول به آخر نرسیده */
+.sidebar-section-body.has-overflow:not(.at-bottom) {
+	-webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 calc(100% - 40px), transparent 100%);
+	mask-image: linear-gradient(to bottom, #000 0%, #000 calc(100% - 40px), transparent 100%);
+}
+.sidebar-section-body.has-overflow.at-bottom {
+	-webkit-mask-image: none;
+	mask-image: none;
 }
 
 .sidebar-section.collapsed .sidebar-section-body {
@@ -1077,10 +1273,11 @@ input[type="range"]::-webkit-slider-runnable-track {
 .sidebar-section.has-filter .sidebar-section-header {
 	background-color: var(--active-filter) !important;
 	font-weight: 700;
+	color: light-dark(#991b1b, #fecaca);
 }
 
 .sidebar-section.has-filter .sidebar-section-body {
-	border: 1px solid var(--active-filter);
+	border: 1px solid color-mix(in srgb, var(--bar-color) 40%, transparent);
 }
 
 .collapse-button {
@@ -1111,7 +1308,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 .studio-grid {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 8px;
+	gap: 5px;
 }
 
 .designer-item,
@@ -1121,16 +1318,17 @@ input[type="range"]::-webkit-slider-runnable-track {
 .genre-item,
 .actor-item,
 .studio-item {
-	padding: 5px 12px;
+	padding: 4px 10px;
 	border-radius: var(--radius-xl);
 	cursor: pointer;
 	transition: var(--transition);
 	white-space: nowrap;
-	font-size: smaller;
+	font-size: 0.8rem;
 	display: flex;
-	gap: 5px;
-	background-color: light-dark(#e8ecf1, #252b33);
-	border: 1px solid light-dark(rgba(0,0,0,0.04), rgba(255,255,255,0.04));
+	gap: 4px;
+	align-items: center;
+	background-color: light-dark(#f1f5f9, #1e293b);
+	border: 1px solid light-dark(rgba(0,0,0,0.05), rgba(255,255,255,0.06));
 	font-weight: 500;
 }
 
@@ -1143,11 +1341,12 @@ input[type="range"]::-webkit-slider-runnable-track {
 .studio-item:hover {
 	background-color: var(--bar-color);
 	color: #fff !important;
-	box-shadow: var(--shadow-sm);
+	box-shadow: 0 4px 12px color-mix(in srgb, var(--bar-color) 30%, transparent);
+	transform: translateY(-1px);
 }
 
 .count {
-	color: light-dark(#5a6a7a, #8a9aaa);
+	color: light-dark(#64748b, #94a3b8);
 	font-weight: 400;
 	transition: var(--transition);
 }
@@ -1185,7 +1384,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 	background-color: var(--bar-color);
 	color: white;	
 	font-weight: 700;
-	box-shadow: 0 2px 8px rgba(192, 57, 43, 0.3);
+	box-shadow: 0 4px 12px color-mix(in srgb, var(--bar-color) 35%, transparent);
 }
 
 .actor-item.disabled,
@@ -1220,15 +1419,207 @@ input[type="range"]::-webkit-slider-runnable-track {
 .filters-container {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 10px;
-	padding: 12px 16px;
-	margin-bottom: 15px;
+	gap: 6px;
+	padding: 8px 12px;
+	margin-bottom: 10px;
 	background-color: var(--card-background);
 	border-radius: var(--radius-md);
 	max-width: 960px;
 	width: 100%;
 	box-shadow: var(--shadow-sm);
-	border: 1px solid light-dark(rgba(0,0,0,0.04), rgba(255,255,255,0.04));
+	border: 1px solid light-dark(rgba(0,0,0,0.05), rgba(255,255,255,0.06));
+}
+
+.profile-header {
+	max-width: 960px;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.profile-header-inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 12px 16px;
+	background: linear-gradient(
+		135deg,
+		light-dark(#fff, #151a21) 0%,
+		light-dark(#fef2f2, #1c1010) 100%
+	);
+	border-radius: var(--radius-md);
+	border: 1px solid light-dark(rgba(220, 38, 38, 0.12), rgba(239, 68, 68, 0.2));
+	box-shadow: var(--shadow-sm);
+	flex-wrap: wrap;
+}
+
+.profile-header-type {
+	display: block;
+	font-size: 0.75rem;
+	font-weight: 500;
+	color: var(--bar-color);
+	margin-bottom: 2px;
+	letter-spacing: 0.02em;
+}
+
+.profile-header-name {
+	margin: 0;
+	font-size: 1.15rem;
+	font-weight: 700;
+	color: var(--body-foreground);
+	line-height: 1.3;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.profile-header-links {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	vertical-align: middle;
+}
+
+.profile-header-links .linkIcon {
+	height: 16px;
+	opacity: 0.75;
+}
+
+.profile-header-links .linkIcon:hover {
+	opacity: 1;
+}
+
+.profile-wiki-icon {
+	filter: invert(0.4);
+}
+
+:root.dark .profile-wiki-icon,
+html[style*="color-scheme: dark"] .profile-wiki-icon {
+	filter: invert(1);
+}
+
+@media (prefers-color-scheme: dark) {
+	html:not([style*="color-scheme: light"]) .profile-wiki-icon {
+		filter: invert(1);
+	}
+}
+
+.profile-header-count {
+	display: block;
+	margin-top: 4px;
+	font-size: 0.85rem;
+	color: var(--year-link-foreground);
+}
+
+.profile-header-summary {
+	margin: 6px 0 0;
+	font-size: 0.9rem;
+	line-height: 1.65;
+	color: var(--body-foreground);
+	opacity: 0.9;
+	max-width: 52rem;
+}
+
+.profile-summary-link {
+	color: var(--bar-color);
+	text-decoration: none;
+	font-weight: 600;
+	border-bottom: 1px solid color-mix(in srgb, var(--bar-color) 35%, transparent);
+	transition: var(--transition);
+}
+
+.profile-summary-link:hover {
+	border-bottom-color: var(--bar-color);
+	background: color-mix(in srgb, var(--bar-color) 8%, transparent);
+}
+
+.sidebar-top-bar {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 14px 12px 12px;
+	flex-wrap: nowrap;
+	min-height: 48px;
+}
+
+.sidebar-top-bar .filtersTitle {
+	flex: 1;
+	margin: 0;
+	inset-inline-start: 0;
+	position: static;
+	top: auto;
+	height: auto;
+	font-size: 1rem;
+	line-height: 1.4;
+	min-width: 0;
+	padding-right: 45px;
+}
+
+.sidebar-top-bar #hideSidebarButton {
+	flex-shrink: 0;
+	margin: 0;
+	padding: 6px 8px;
+	line-height: 1;
+}
+
+.theme-switch {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	align-items: center;
+	border-radius: 999px;
+	padding: 2px;
+	position: relative;
+	border: 1px solid light-dark(#e2e8f0, #334155);
+	background: light-dark(#f1f5f9, #1e293b);
+	user-select: none;
+}
+
+.theme-switch--mini {
+	width: 72px;
+	flex-shrink: 0;
+	margin-inline-start: auto;
+}
+
+.theme-switch span {
+	text-align: center;
+	padding: 3px 0;
+	border-radius: 999px;
+	color: light-dark(#64748b, #94a3b8);
+	font-weight: 600;
+	font-size: 0.7rem;
+	cursor: pointer;
+	z-index: 1;
+	transition: color 0.2s ease;
+	position: relative;
+	line-height: 1.2;
+}
+
+.theme-switch span.active {
+	color: #fff;
+}
+
+.theme-switch::before {
+	content: '';
+	position: absolute;
+	top: 2px;
+	bottom: 2px;
+	width: calc(33.333% - 2px);
+	background-color: var(--bar-color);
+	border-radius: 999px;
+	transition: inset-inline-start 0.3s cubic-bezier(0.34, 1.4, 0.64, 1);
+	box-shadow: 0 1px 4px color-mix(in srgb, var(--bar-color) 35%, transparent);
+	inset-inline-start: 2px;
+}
+
+.theme-switch[data-theme="dark"]::before {
+	inset-inline-start: 2px;
+}
+.theme-switch[data-theme="system"]::before {
+	inset-inline-start: calc(33.333% + 1px);
+}
+.theme-switch[data-theme="light"]::before {
+	inset-inline-start: calc(66.666%);
 }
 
 .remove-filter {
@@ -1460,15 +1851,18 @@ input[type="range"]::-webkit-slider-runnable-track {
 	}
 
 	#hideSidebarButton {
-		display: inline-block;
-		margin-bottom: 10px;
-		padding: 12px 16px 0px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		margin: 0;
+		padding: 6px 8px;
 		border: none;
 		background: none;
 		font-size: x-large;
 		cursor: pointer;
 		border-radius: var(--radius-sm);
 		transition: var(--transition);
+		flex-shrink: 0;
 	}
 
 	#hideSidebarButton:hover {
@@ -1578,7 +1972,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin: 15px 0 10px 0;
+		margin: 6px 0 4px 0;
 	}
 	.controls-wrapper-desktop {
 		display: flex;
@@ -1586,8 +1980,8 @@ input[type="range"]::-webkit-slider-runnable-track {
 		flex-wrap: wrap;
 		width: 63%;
 		justify-content: space-around;
-		row-gap: 10px;
-		column-gap: 20px;
+		row-gap: 6px;
+		column-gap: 12px;
 	}
 	.counter-wrapper-desktop {
 		text-align: center;
@@ -1612,30 +2006,32 @@ input[type="range"]::-webkit-slider-runnable-track {
 	.options-toggle-desktop {
 		display: inline-block;
 		background: none;
-		color: light-dark(#5a6a7a, #8a9aaa);
-		border: 1.5px solid light-dark(#00000012, #ffffff12);
+		color: light-dark(#64748b, #94a3b8);
+		border: 1.5px solid light-dark(#e2e8f0, #334155);
 		border-radius: var(--radius-xl);
-		padding: 10px 18px;
+		padding: 10px 20px;
 		cursor: pointer;
 		transition: var(--transition);
 		white-space: nowrap;
 		background: var(--card-background);
-		font-weight: 500;
+		font-weight: 600;
+		font-size: 0.9rem;
 	}
 	.options-toggle-desktop.active-options-toggle {
 		background-color: var(--bar-color);
 		color: white;
-		box-shadow: 0 2px 8px rgba(192, 57, 43, 0.3);
+		box-shadow: 0 4px 14px color-mix(in srgb, var(--bar-color) 35%, transparent);
 		border-color: var(--bar-color);
 	}
 	.options-toggle-desktop:hover {
-		opacity: 0.85;
+		opacity: 0.9;
 		box-shadow: var(--shadow-sm);
+		transform: translateY(-1px);
 	}
 
 	.item-card:hover {
 		transform: translateY(-8px) scale(1.02);
-		box-shadow: var(--shadow-lg);
+		box-shadow: var(--shadow-xl);
 	}
 
 }
@@ -1774,7 +2170,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 		<div class="sidebar-resize-handle"></div>
 
 		<div class="sidebar-content">
-		<div style="display: flex; justify-content: start; gap: 20px; padding-top: 10px;">
+		<div class="sidebar-top-bar">
 			<button @click="hideSidebar" id="hideSidebarButton" class="mobile-only">
 				<span class="material-symbols-rounded">
 					close
@@ -1782,8 +2178,13 @@ input[type="range"]::-webkit-slider-runnable-track {
 			</button>
 			<p class="filtersTitle">
 				فیلترها 
-				<span style="font-weight: 200; margin-inline-start: 5px;">(پوستر×فیلم)</span>
+				<span style="font-weight: 200; margin-inline-start: 4px;">(پوستر×فیلم)</span>
 			</p>
+			<div class="theme-switch theme-switch--mini" :data-theme="themeMode" title="ظاهر">
+				<span :class="{ active: themeMode === 'dark' }" @click="themeMode = 'dark'" title="تاریک">ت</span>
+				<span :class="{ active: themeMode === 'system' }" @click="themeMode = 'system'" title="سیستم">س</span>
+				<span :class="{ active: themeMode === 'light' }" @click="themeMode = 'light'" title="روشن">ر</span>
+			</div>
 		</div>
 
 			<div class="sidebar-section" :class="getSectionClass('chart')">
@@ -1835,14 +2236,35 @@ input[type="range"]::-webkit-slider-runnable-track {
 								{{ year }}
 							</option>
 						</select>
-						
-						<button v-if="tempYearRangeStart !== '' || tempYearRangeEnd !== ''"
+					</div>
+
+					<div class="year-range-slider" v-if="yearRangeBounds.minYear < yearRangeBounds.maxYear">
+						<div class="year-range-slider-labels">
+							<span>{{ sliderYearStart.toLocaleString('fa', { useGrouping: false }) }}</span>
+							<span>{{ sliderYearEnd.toLocaleString('fa', { useGrouping: false }) }}</span>
+						</div>
+						<div class="year-range-slider-track">
+							<div class="slider-bg"></div>
+							<div class="slider-fill" :style="yearSliderFillStyle"></div>
+							<input type="range"
+								:min="yearRangeBounds.minYear"
+								:max="yearRangeBounds.maxYear"
+								:value="sliderYearStart"
+								@input="onSliderYearStart($event)"
+								aria-label="سال آغاز">
+							<input type="range"
+								:min="yearRangeBounds.minYear"
+								:max="yearRangeBounds.maxYear"
+								:value="sliderYearEnd"
+								@input="onSliderYearEnd($event)"
+								aria-label="سال پایان">
+						</div>
+						<div class="year-range-slider-actions">
+							<button type="button" class="applyRange" @click="applyYearRangeFilter">اعمال بازه</button>
+							<button type="button" v-if="tempYearRangeStart !== '' || tempYearRangeEnd !== '' || yearRangeStart !== null || yearRangeEnd !== null"
 								@click="clearYearRangeFilter"
-								class="removeRange">
-							<span>
-								حذف
-							</span>
-						</button>
+								class="removeRange">حذف</button>
+						</div>
 					</div>
 
 					</div>
@@ -2130,7 +2552,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 				</div>
 			</div>
 			<a href="https://t.me/arastehnasab" class="mobile-only"
-				style="color: gray; font-weight: normal; text-decoration: none; padding: 10px 20px;">
+				style="color: gray; font-weight: normal; text-decoration: none; padding: 8px 16px;">
 				پیشنهادی دارید؟
 			</a>
 		</div>
@@ -2150,9 +2572,15 @@ input[type="range"]::-webkit-slider-runnable-track {
 		:class="{ 'active': isLightboxActive }" 
 		@click="closeLightbox">
 		<template v-if="lightboxImage">
-			<img :src="lightboxImage" :key="lightboxImage" alt="Lightbox Image" 
-				:style="{ backgroundColor: backgroundColor }" @click.stop />
+			<div class="lightbox-image-wrapper" :class="{ 'is-logo': lightboxViewMode === 'logo' }">
+				<img :src="lightboxImage" :key="lightboxImage" alt="Lightbox Image"
+					:style="lightboxViewMode === 'logo' ? { backgroundColor: backgroundColor } : null" />
+			</div>
 		</template>
+		<div v-if="showLightboxViewSwitch" class="lightbox-view-switch" @click.stop="toggleLightboxViewMode" role="button" :title="lightboxViewMode === 'poster' ? 'نمایش لوگو' : 'نمایش پوستر'">
+			<span :class="{ active: lightboxViewMode === 'poster' }">پوستر</span>
+			<span :class="{ active: lightboxViewMode === 'logo' }">لوگو</span>
+		</div>
 		<div class="lightbox-info desktop-only" v-if="lightboxItem" @click.stop>
 			<h2>
 				<a href="#" @click.prevent="selectFilm(lightboxItem.film)" style="color: inherit; text-decoration: none; cursor: pointer;">
@@ -2230,33 +2658,10 @@ input[type="range"]::-webkit-slider-runnable-track {
 				</div>
 			</div>
 		</div>
-		<div class="loading-spinner" v-if="isLoading">
-			<svg width="53" height="53" viewBox="0 0 53 53" xmlns="http://www.w3.org/2000/svg">
-				<svg:style type="text/css">
-@keyframes scale_SQHYY {
-	0%, 100% { transform: scale(1); }
-	50% { transform: scale(0.7); }
-}
-@keyframes fade_SQHYY {
-	0%, 100% { opacity: 1; }
-	50% { opacity: 0.5; }
-}
-				</svg:style>
-				<circle cx="6.5" cy="6.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.57s; transform-origin: 6.5px 6.5px;"></circle>
-				<circle cx="6.5" cy="26.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.32s; transform-origin: 6.5px 26.5px;"></circle>
-				<circle cx="6.5" cy="46.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.82s; transform-origin: 6.5px 46.5px;"></circle>
-				<circle cx="26.5" cy="6.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.04s; transform-origin: 26.5px 6.5px;"></circle>
-				<circle cx="26.5" cy="26.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.12s; transform-origin: 26.5px 26.5px;"></circle>
-				<circle cx="26.5" cy="46.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -1.2s; transform-origin: 26.5px 46.5px;"></circle>
-				<circle cx="46.5" cy="6.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.46s; transform-origin: 46.5px 6.5px;"></circle>
-				<circle cx="46.5" cy="26.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.9s; transform-origin: 46.5px 26.5px;"></circle>
-				<circle cx="46.5" cy="46.5" r="6.5" fill="#ccc" style="animation: scale_SQHYY 1.2s linear infinite, fade_SQHYY 1.2s linear infinite; animation-delay: -0.73s; transform-origin: 46.5px 46.5px;"></circle>
-			</svg>
-		</div>
 		<button class="lightbox-button" @click.stop="closeLightbox" style="top: 20px; inset-inline-end: 20px; text-shadow: 0px 0px 10px black;">
 			<span class="material-symbols-rounded">close</span>
 		</button>
-		<a :href="downloadLink(lightboxItem)" aria-label="دریافت پوستر" target="_blank" @click.stop>
+		<a :href="lightboxDownloadLink" aria-label="دریافت" target="_blank" @click.stop>
 			<button class="lightbox-button" style="top: 20px; inset-inline-start: 20px; text-shadow: 0px 0px 10px black;">
 				<span class="material-symbols-rounded">download</span>
 			</button>
@@ -2362,6 +2767,18 @@ input[type="range"]::-webkit-slider-runnable-track {
 									</span>
 								</label>
 							</div>
+							<div class="similar-chars-toggle" v-if="posterMode">
+								<label for="hasLogoOnlySwitch" style="cursor: pointer;">
+									<input type="checkbox" id="hasLogoOnlySwitch" v-model="hasLogoOnly">
+									لوگو دارد
+								</label>
+								<label>
+									<span class="material-symbols-rounded tooltip">
+										info
+										<span class="tooltiptext">پوسترهایی که لوگو ندارند مخفی شود</span>
+									</span>
+								</label>
+							</div>
 							<div v-if="!posterMode" style="display: flex; align-items: center;">
 									<p style="margin: 0;">پس‌زمینه: </p><input type="color" v-model="backgroundColor" id="bgColorPicker" style="background: none;width: 40px;height: 24px;border: none;cursor: pointer;padding: 0;">
 							</div>
@@ -2410,6 +2827,35 @@ input[type="range"]::-webkit-slider-runnable-track {
 						<span v-if="hasActiveFilters">{{ filteredItemsLength }} از {{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueResultsFilmCount }} از {{ uniqueFilmCount }} فیلم)</span>
 						<span v-else>{{ itemsLength }} {{ posterMode ? 'پوستر' : 'لوگو' }} ({{ uniqueFilmCount }} فیلم)</span>
 					</div>
+				</div>
+			</div>
+		</div>
+		<div v-if="profileHeader" class="profile-header" :style="filtersContainerStyle">
+			<div class="profile-header-inner">
+				<div class="profile-header-text">
+					<span class="profile-header-type">{{ profileHeader.type }}</span>
+					<h2 class="profile-header-name">
+						{{ profileHeader.name }}
+						<span v-if="profileHeader.links" class="profile-header-links" @click.stop>
+							<a v-if="profileHeader.links.wikidata"
+								:href="'https://www.wikidata.org/wiki/' + profileHeader.links.wikidata"
+								target="_blank" aria-label="ویکی‌داده" title="ویکی‌داده">
+								<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg" alt="ویکی‌داده" class="linkIcon">
+							</a>
+							<a v-if="profileHeader.links.wikipedia"
+								:href="profileHeader.links.wikipedia"
+								target="_blank" aria-label="ویکی‌پدیا" title="ویکی‌پدیا">
+								<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon profile-wiki-icon">
+							</a>
+						</span>
+					</h2>
+					<p v-if="profileHeader.summaryParts && profileHeader.summaryParts.length" class="profile-header-summary">
+						<template v-for="(part, i) in profileHeader.summaryParts" :key="i">
+							<a v-if="part.type" href="#" class="profile-summary-link" @click.prevent="applyProfileLink(part)">{{ part.text }}</a>
+							<span v-else>{{ part.text }}</span>
+						</template>
+					</p>
+					<span class="profile-header-count">{{ profileHeader.count }}</span>
 				</div>
 			</div>
 		</div>
@@ -2632,7 +3078,6 @@ desktopSidebarToggleButton.style.display = 'block';
 
 createApp({ setup: () => {
 
-const designerQuery = ref('');
 const isOptionsCollapsed = ref(true);
 const designerSearchQuery = ref('');
 const searchTerm = ref('');
@@ -2649,6 +3094,7 @@ const actorSearchQuery = ref('');
 const posterMode = ref(true);
 const combineSimilarChars = ref(false);
 const pixelatedEffect = ref(false);
+const hasLogoOnly = ref(false);
 const moreInformation = ref(false);
 const sortOrder = ref('random');
 const sortDirection = ref('asc');
@@ -2732,6 +3178,25 @@ const pageTitle = computed(() => {
 		: getTranslatedText('filmLogos');
 });
 
+const updateDocumentTitle = (item) => {
+	const base = pageTitle.value;
+	if (item && item.filmLabel) {
+		const year = item.date ? toPersianYear(item.date) : '';
+		document.title = year && year !== 'نامشخص'
+			? `${item.filmLabel} (${year}) | ${base}`
+			: `${item.filmLabel} | ${base}`;
+		return;
+	}
+	const parts = [];
+	if (selectedDesigner.value) parts.push(selectedDesigner.value);
+	if (selectedDirector.value) parts.push(selectedDirector.value);
+	if (selectedActors.value.length === 1) parts.push(selectedActors.value[0]);
+	if (selectedStudio.value) parts.push(selectedStudio.value);
+	if (selectedYear.value) parts.push(selectedYear.value);
+	if (searchTerm.value) parts.push(searchTerm.value);
+	document.title = parts.length ? `${parts.join(' · ')} | ${base}` : base;
+};
+
 const onSearchFocus = (event) => {
 	isSearchFocused.value = true;
 	const searchInput = event.target;
@@ -2785,6 +3250,7 @@ const applyInitialFilters = () => {
 	pixelatedEffect.value = urlParams.get('censor') === null
 		? location.hostname.endsWith('.ir')
 		: urlParams.get('censor') === 'true';
+	hasLogoOnly.value = urlParams.get('hasLogo') === 'true';
 	sortOrder.value = urlParams.get('sort') || 'random';
 	sortDirection.value = urlParams.get('dir') || 'asc';
 	exactWordMatch.value = urlParams.get('exact') === 'true';
@@ -2830,14 +3296,74 @@ const yearRangeBounds = computed(() => {
 	return { minYear, maxYear };
 });
 
+const sliderYearStart = computed(() => {
+	const { minYear } = yearRangeBounds.value;
+	if (tempYearRangeStart.value === '' || tempYearRangeStart.value === null || tempYearRangeStart.value === undefined) {
+		return minYear;
+	}
+	return Number(tempYearRangeStart.value);
+});
+
+const sliderYearEnd = computed(() => {
+	const { maxYear } = yearRangeBounds.value;
+	if (tempYearRangeEnd.value === '' || tempYearRangeEnd.value === null || tempYearRangeEnd.value === undefined) {
+		return maxYear;
+	}
+	return Number(tempYearRangeEnd.value);
+});
+
+const yearSliderFillStyle = computed(() => {
+	const { minYear, maxYear } = yearRangeBounds.value;
+	const span = maxYear - minYear || 1;
+	const start = sliderYearStart.value;
+	const end = sliderYearEnd.value;
+	const left = ((Math.min(start, end) - minYear) / span) * 100;
+	const right = ((Math.max(start, end) - minYear) / span) * 100;
+	return {
+		left: left + '%',
+		width: (right - left) + '%'
+	};
+});
+
+const onSliderYearStart = (event) => {
+	let val = parseInt(event.target.value, 10);
+	const end = sliderYearEnd.value;
+	if (val > end) val = end;
+	tempYearRangeStart.value = val;
+};
+
+const onSliderYearEnd = (event) => {
+	let val = parseInt(event.target.value, 10);
+	const start = sliderYearStart.value;
+	if (val < start) val = start;
+	tempYearRangeEnd.value = val;
+};
+
 const applyYearRangeFilter = () => {
-	yearRangeStart.value = tempYearRangeStart.value !== '' ? tempYearRangeStart.value : null;
-	yearRangeEnd.value = tempYearRangeEnd.value !== '' ? tempYearRangeEnd.value : null;
-	
+	const { minYear, maxYear } = yearRangeBounds.value;
+	let start = tempYearRangeStart.value !== '' && tempYearRangeStart.value != null
+		? Number(tempYearRangeStart.value) : null;
+	let end = tempYearRangeEnd.value !== '' && tempYearRangeEnd.value != null
+		? Number(tempYearRangeEnd.value) : null;
+
+	// اگر اسلایدر روی کل بازه است و مقدار temp خالی نبوده، همان را نگه دار
+	if (start === null && end === null) {
+		yearRangeStart.value = null;
+		yearRangeEnd.value = null;
+		return;
+	}
+	if (start === null) start = minYear;
+	if (end === null) end = maxYear;
+
+	yearRangeStart.value = start;
+	yearRangeEnd.value = end;
+	tempYearRangeStart.value = start;
+	tempYearRangeEnd.value = end;
+
 	if (yearRangeStart.value !== null || yearRangeEnd.value !== null) {
 		selectedYear.value = '';
 	}
-	
+
 	swapIfNeeded();
 };
 
@@ -2918,10 +3444,44 @@ const isLightBackground = (color) => {
 	return luminance > threshold;
 };
 
+const themeMode = ref('system'); // 'dark' | 'system' | 'light'
+const systemPrefersDark = ref(
+	typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches
+);
+
+const applyThemeMode = () => {
+	const root = document.documentElement;
+	if (themeMode.value === 'dark') {
+		root.style.colorScheme = 'dark';
+	} else if (themeMode.value === 'light') {
+		root.style.colorScheme = 'light';
+	} else {
+		root.style.colorScheme = 'light dark';
+	}
+};
+
+watch(themeMode, () => {
+	applyThemeMode();
+	try { localStorage.setItem('themeMode', themeMode.value); } catch (_) {}
+}, { immediate: true });
+
+if (typeof window !== 'undefined') {
+	try {
+		const saved = localStorage.getItem('themeMode');
+		if (saved === 'dark' || saved === 'light' || saved === 'system') {
+			themeMode.value = saved;
+		}
+	} catch (_) {}
+	const mq = window.matchMedia('(prefers-color-scheme: dark)');
+	const onSchemeChange = (e) => { systemPrefersDark.value = e.matches; };
+	if (mq.addEventListener) mq.addEventListener('change', onSchemeChange);
+	else if (mq.addListener) mq.addListener(onSchemeChange);
+}
+
 const isDarkTheme = computed(() => {
-	return document.documentElement.style.colorScheme === 'dark' ||
-		document.documentElement.classList.contains('dark') ||
-		window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (themeMode.value === 'dark') return true;
+	if (themeMode.value === 'light') return false;
+	return systemPrefersDark.value;
 });
 
 const actualBackgroundColor = (item) => {
@@ -2956,6 +3516,7 @@ const updateURL = () => {
 	if (!posterMode.value) params.set('mode', 'logo');
 	if (combineSimilarChars.value) params.set('similar', 'true');
 	if (posterMode.value && pixelatedEffect.value) params.set('censor', 'true');
+	if (posterMode.value && hasLogoOnly.value) params.set('hasLogo', 'true');
 	params.set('sort', sortOrder.value);
 	if (sortOrder.value !== 'random') {
 		params.set('dir', sortDirection.value);
@@ -2972,12 +3533,21 @@ const updateURL = () => {
 	if (yearRangeStart.value !== null) params.set('yearStart', String(yearRangeStart.value));
 	if (yearRangeEnd.value !== null) params.set('yearEnd', String(yearRangeEnd.value));
 
+	// Preserve deep-link to open poster/logo while lightbox is visible
+	if (lightboxItem.value) {
+		if (posterMode.value && lightboxItem.value.poster) {
+			params.set('poster', lightboxItem.value.poster);
+		} else if (lightboxItem.value.logo) {
+			params.set('logo', lightboxItem.value.logo);
+		}
+	}
+
 	const newUrl = params.toString() ? `${window.location.pathname}?${params.toString()}` : window.location.pathname;
 	window.history.pushState({}, '', newUrl);
 };
 watch([
 	searchTerm, selectedYear, selectedDesigner, selectedDirector, selectedStudio,
-	selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, sortOrder, sortDirection, exactWordMatch,
+	selectedLetter, posterMode, combineSimilarChars, pixelatedEffect, hasLogoOnly, sortOrder, sortDirection, exactWordMatch,
 	moreInformation, backgroundColor, yearRangeStart, yearRangeEnd
 ], updateURL);
 
@@ -2986,22 +3556,6 @@ watch([searchTerm, selectedYear, selectedDesigner, selectedDirector, selectedLet
 		currentRandomOrder.value = [];
 	}
 });
-
-watch([yearRangeStart, yearRangeEnd], ([newStart, newEnd]) => {
-}, { deep: true });
-
-watch(tempYearRangeStart, (newValue) => {
-	if (newValue !== '') {
-		applyYearRangeFilter();
-	}
-});
-
-watch(tempYearRangeEnd, (newValue) => {
-	if (newValue !== '') {
-		applyYearRangeFilter();
-	}
-});
-
 
 const isCollapsed = ref({
 	designers: true,
@@ -3021,7 +3575,13 @@ const getSectionClass = section => {
 	return `${baseClass} ${hasFilter ? 'has-filter' : ''}`;
 };
 const selectDirectorFromModal = director => selectedDirector.value = director;
-const selectYearFromModal = year => selectedYear.value = year;
+const selectYearFromModal = year => {
+	selectedYear.value = year;
+	yearRangeStart.value = null;
+	yearRangeEnd.value = null;
+	tempYearRangeStart.value = '';
+	tempYearRangeEnd.value = '';
+};
 const selectLetterFromModal = letter => selectedLetter.value = letter;
 const selectGenreFromModal = (genre) => {
 	if (!selectedGenres.value.includes(genre)) {
@@ -3117,7 +3677,6 @@ const toggleSortDirection = () => sortDirection.value = sortDirection.value === 
 
 const selectDesigner = designer => {
 	selectedDesigner.value = designer;
-	designerQuery.value = designer;
 };
 
 const resetFilters = () => {
@@ -3130,13 +3689,16 @@ const resetFilters = () => {
 	selectedLetter.value = '';
 	selectedGenres.value = [];
 	selectedActors.value = [];
+	selectedStudio.value = '';
 	sortDirection.value = 'asc';
 	exactWordMatch.value = false;
 	moreInformation.value = false;
+	hasLogoOnly.value = false;
 	backgroundColor.value = '#ffffff';
-		yearRangeStart.value = '';
-	yearRangeEnd.value = '';
-
+	yearRangeStart.value = null;
+	yearRangeEnd.value = null;
+	tempYearRangeStart.value = '';
+	tempYearRangeEnd.value = '';
 };
 
 const resetActiveFilters = () => {
@@ -3202,9 +3764,6 @@ const items = computed(() => {
 
 		const item = {};
 		item.film = film.id;
-		if (!film.labels?.fa) {
-			console.log(film.id + ' doesn\'t have Persian label!');
-		}
 		item.filmLabel = getFilmLabel(film) || getTranslatedText('unknown');
 		item.aliases = film.aliases?.[currentLanguage.value]?.join(',') ?? '';
 		item.date = film.date
@@ -3337,42 +3896,6 @@ const hasDesigner = (item) => {
 		item.designers.some(designer => designer.label && designer.label !== getTranslatedText('unknown'));
 };
 
-const availableDesigners = computed(() => {
-	const groups = {};
-	items.value.forEach(item => {
-		if (item.designers && item.designers.length > 0) {
-			item.designers.forEach(designer => {
-				const designerId = designer.id;
-				if (!groups[designerId]) groups[designerId] = 0;
-				groups[designerId]++;
-			});
-		} else {
-			const unknownKey = 'unknown';
-			if (!groups[unknownKey]) groups[unknownKey] = 0;
-			groups[unknownKey]++;
-		}
-	});
-
-	let designers = Object.entries(groups).map(([id, count]) => {
-		let label;
-		if (id === 'unknown') {
-			label = getTranslatedText('unknown');
-		} else {
-			const designer = data.secondary[id];
-			label = getItemLabel(designer?.labels) || getTranslatedText('unknown');
-		}
-		return [label, count];
-	});
-
-	const unknown = designers.find(([name]) => name === getTranslatedText('unknown'));
-	designers = designers.filter(([name]) => name !== getTranslatedText('unknown'))
-						.sort((a, b) => b[1] - a[1]);
-	if (unknown) {
-		designers.push(unknown);
-	}
-	return designers;
-});
-
 const getDirectorLabelForItem = (item) => {
 	if (!item.director) return getTranslatedText('unknown');
 	return getDirectorLabel(item.director);
@@ -3390,14 +3913,6 @@ const getGenreLabel = (genreId) => {
 	return getItemLabel(genre.labels);
 };
 
-const getGenreLabelForItem = (item) => {
-	const film = data.films[item.film];
-	if (film.genres && film.genres.length > 0) {
-		return film.genres.map(genreId => getGenreLabel(genreId)).join('، ');
-	}
-	return getTranslatedText('unknown');
-};
-
 // تابع دریافت برچسب استودیو
 const getStudioLabel = (studioId) => {
 	if (!studioId) return getTranslatedText('unknown');
@@ -3412,21 +3927,7 @@ const getStudioLabelForItem = (item) => {
 	return getStudioLabel(item.studio);
 };
 
-// داده‌های موجود برای استودیوها
-const availableStudios = computed(() => {
-	const groups = {};
-	items.value.forEach(item => {
-		const studioLabel = getStudioLabelForItem(item);
-		if (!groups[studioLabel]) groups[studioLabel] = 0;
-		groups[studioLabel]++;
-	});
 
-	let studios = Object.entries(groups)
-		.map(([label, count]) => [label, count])
-		.sort((a, b) => b[1] - a[1]);
-
-	return studios;
-});
 
 // استودیوهای فیلتر شده
 const filteredStudios = computed(() => {
@@ -3500,34 +4001,6 @@ const filteredStudioLabel = computed(() =>
 		: 'استودیوها'
 );
 
-const availableGenres = computed(() => {
-const groups = {};
-items.value.forEach(item => {
-	const film = data.films[item.film];
-	if (film.genres && film.genres.length > 0) {
-	film.genres.forEach(genreId => {
-		const genreLabel = getGenreLabel(genreId);
-		if (!groups[genreLabel]) groups[genreLabel] = 0;
-		groups[genreLabel]++;
-	});
-	} else {
-	const unknownKey = getTranslatedText('unknown');
-	if (!groups[unknownKey]) groups[unknownKey] = 0;
-	groups[unknownKey]++;
-	}
-});
-
-let genres = Object.entries(groups).map(([label, count]) => [label, count]);
-
-const unknown = genres.find(([name]) => name === getTranslatedText('unknown'));
-genres = genres.filter(([name]) => name !== getTranslatedText('unknown'))
-			.sort((a, b) => b[1] - a[1]);
-if (unknown) {
-	genres.push(unknown);
-}
-return genres;
-});
-
 const filteredGenres = computed(() => {
 	const groups = {};
 	filteredItems.value.forEach(item => {
@@ -3582,14 +4055,6 @@ const getActorLabel = (actorId) => {
 	return getItemLabel(actor.labels);
 };
 
-const getActorLabelForItem = (item) => {
-	const film = data.films[item.film];
-	if (film.cast && film.cast.length > 0) {
-		return film.cast.map(actorId => getActorLabel(actorId)).join('، ');
-	}
-	return getTranslatedText('unknown');
-};
-
 const getActorsForFilm = (filmId) => {
 	const film = data.films[filmId];
 	if (!film?.cast) return [];
@@ -3602,34 +4067,6 @@ const getActorsForFilm = (filmId) => {
 		};
 	}).filter(actor => actor.label !== getTranslatedText('unknown'));
 };
-
-const availableActors = computed(() => {
-	const groups = {};
-	items.value.forEach(item => {
-		const film = data.films[item.film];
-		if (film.cast && film.cast.length > 0) {
-		film.cast.forEach(actorId => {
-			const actorLabel = getActorLabel(actorId);
-			if (!groups[actorLabel]) groups[actorLabel] = 0;
-			groups[actorLabel]++;
-		});
-		} else {
-		const unknownKey = getTranslatedText('unknown');
-		if (!groups[unknownKey]) groups[unknownKey] = 0;
-		groups[unknownKey]++;
-		}
-	});
-
-	let actors = Object.entries(groups).map(([label, count]) => [label, count]);
-
-	const unknown = actors.find(([name]) => name === getTranslatedText('unknown'));
-	actors = actors.filter(([name]) => name !== getTranslatedText('unknown'))
-				.sort((a, b) => b[1] - a[1]);
-	if (unknown) {
-		actors.push(unknown);
-	}
-	return actors;
-});
 
 const filteredActors = computed(() => {
 	const groups = {};
@@ -3678,38 +4115,6 @@ const filmCountByActor = computed(() => {
 	return filmGroups;
 });
 
-const availableGenresForSelection = computed(() => {
-	return availableGenres.value.filter(([genre]) => 
-		!selectedGenres.value.includes(genre)
-	);
-});
-
-const availableActorsForSelection = computed(() => {
-	return availableActors.value.filter(([actor]) => 
-		!selectedActors.value.includes(actor)
-	);
-});
-
-
-const availableDirectors = computed(() => {
-	const groups = {};
-	items.value.forEach(item => {
-		const directorLabel = getDirectorLabelForItem(item);
-		if (!groups[directorLabel]) groups[directorLabel] = 0;
-		groups[directorLabel]++;
-	});
-
-	let directors = Object.entries(groups)
-		.map(([label, count]) => [label, count])
-		.sort((a, b) => b[1] - a[1]);
-
-	return directors;
-});
-
-const getItemTitleWithYear = item => {
-	return item.filmLabel + (item.date ? ` (${toPersianYear(item.date)})` : '');
-};
-
 const getPrimaryYear = (date) => {
 	if (!date) return currentLanguage.value === 'en' ? 'Unknown' : 'نامشخص';
 	
@@ -3747,13 +4152,7 @@ const getSecondaryYear = (date) => {
 };
 
 
-const letterCounts = computed(() => {
-	const counts = persianAlphabet.reduce((acc, letter) => {
-		acc[letter] = items.value.filter(item => item.filmLabel.startsWith(letter)).length;
-		return acc;
-	}, {});
-	return counts;
-});
+
 
 const filteredItems = computed(() => {
 	let results = items.value.filter(item => item != null);
@@ -3872,6 +4271,9 @@ const filteredItems = computed(() => {
 		results = results.filter(item => item.logo);
 	}
 
+	if (posterMode.value && hasLogoOnly.value) {
+		results = results.filter(item => !!item.logo);
+	}
 
 	if (sortOrder.value === 'alphabetical') {
 		results = results.sort((a, b) => {
@@ -3902,77 +4304,9 @@ const filteredItems = computed(() => {
 	return results;
 });
 
-watch(designerQuery, newValue => {
-	if (!newValue) {
-		selectedDesigner.value = '';
-	}
-});
-
 watch([selectedGenres, selectedActors], () => {
-	filteredItems.value = [...filteredItems.value];
 	updateURL();
 }, { deep: true });
-
-const filteredYears = computed(() => {
-	const groups = {};
-	filteredItems.value.forEach(item => {
-		const year = toPersianYear(item.date);
-		if (!groups[year]) groups[year] = [];
-		groups[year].push(item);
-	});
-	
-	let years = Object.keys(groups)
-		.map(year => [year, groups[year].length]);
-
-	const unknown = years.find(([name]) => name === 'نامشخص');
-	years = years.filter(([name]) => name !== 'نامشخص').sort();
-	if (unknown) {
-		years.push(unknown);
-	}
-	return years;
-});
-
-const filteredDesigners = computed(() => {
-	const lang = currentLanguage.value;
-	
-	const groups = {};
-	filteredItems.value.forEach(item => {
-		const designer = getDesignerLabelForItem(item);
-		if (!groups[designer]) groups[designer] = [];
-		groups[designer].push(item);
-	});
-	
-	let designers = Object.keys(groups)
-		.map(designer => [designer, groups[designer].length]);
-
-	const unknown = designers.find(([name]) => name === getTranslatedText('unknown'));
-	designers = designers.filter(([name]) => name !== getTranslatedText('unknown')).sort((a, b) => b[1] - a[1]);
-	if (unknown) {
-		designers.push(unknown);
-	}
-	return designers;
-});
-
-const filteredDirectors = computed(() => {
-	const lang = currentLanguage.value;
-	
-	const groups = {};
-	filteredItems.value.forEach(item => {
-		const director = getDirectorLabelForItem(item);
-		if (!groups[director]) groups[director] = [];
-		groups[director].push(item);
-	});
-	
-	let directors = Object.keys(groups)
-		.map(director => [director, groups[director].length]);
-
-	const unknown = directors.find(([name]) => name === getTranslatedText('unknown'));
-	directors = directors.filter(([name]) => name !== getTranslatedText('unknown')).sort((a, b) => b[1] - a[1]);
-	if (unknown) {
-		directors.push(unknown);
-	}
-	return directors;
-});
 
 const filteredDesignersInModal = computed(() => {
 	const groups = {};
@@ -4054,7 +4388,6 @@ const filmCountByLetter = computed(() => {
 
 const selectDesignerFromModal = designer => {
 	selectedDesigner.value = designer;
-	designerQuery.value = designer;
 };
 
 const filteredYearsInModal = computed(() => {
@@ -4127,14 +4460,6 @@ watch(isMobileView, (newValue) => {
 	if (displayedItemsCount.value < newItemsPerPage) {
 		displayedItemsCount.value = newItemsPerPage;
 	}
-});
-
-watch(currentLanguage, () => {
-	filteredItems.value = [...filteredItems.value];
-	availableDesigners.value = [...availableDesigners.value];
-	availableDirectors.value = [...availableDirectors.value];
-	filteredDesignersInModal.value = [...filteredDesignersInModal.value];
-	filteredDirectorsInModal.value = [...filteredDirectorsInModal.value];
 });
 
 watch(currentLanguage, (newLang, oldLang) => {
@@ -4241,8 +4566,6 @@ onMounted(() => {
 	const resizeHandle = document.querySelector('.sidebar-resize-handle');
 	if (resizeHandle) {
 		resizeHandle.addEventListener('mousedown', startResize);
-	} else {
-		console.log('عنصر دستگیره تغییر اندازه یافت نشد!');
 	}
 });
 
@@ -4297,43 +4620,135 @@ const handlePopState = e => {
 	}
 };
 
-const hidePreloader = () => {
-	const preloader = document.getElementById('preloader');
-	if (preloader) {
-		preloader.classList.add('fade-out');
-		setTimeout(() => {
-			preloader.remove();
-		}, 500);
-	}
-};
-
-const checkContentLoaded = () => {
-	setTimeout(() => {
-		if (window.data && Object.keys(window.data).length > 0) {
-			setTimeout(hidePreloader, 500);
-		} else {
-			setTimeout(checkContentLoaded, 100);
-		}
-	}, 100);
-};
-
-document.addEventListener('DOMContentLoaded', () => {
-	checkContentLoaded();
-});
-
-setTimeout(hidePreloader, 3000);
-
 const clearSearchTerm = () => searchTerm.value = '';
 const clearDesignerSearchQuery = () => designerSearchQuery.value = '';
 const clearDirectorSearchQuery = () => directorSearchQuery.value = '';
 
-const toggleCollapse = section => isCollapsed.value[section] = !isCollapsed.value[section];
+const updateSidebarBodyScrollState = (el) => {
+	const section = el.closest('.sidebar-section');
+	if (section && section.classList.contains('collapsed')) {
+		el.classList.remove('has-overflow', 'at-bottom');
+		return;
+	}
+	// فقط وقتی واقعاً محتوا از ارتفاع قابل‌نمایش بیشتر است
+	const needs = el.scrollHeight > el.clientHeight + 4;
+	el.classList.toggle('has-overflow', needs);
+	const atBottom = !needs || (el.scrollTop + el.clientHeight >= el.scrollHeight - 4);
+	el.classList.toggle('at-bottom', atBottom);
+};
+
+let sidebarOverflowTimer = null;
+const updateSidebarOverflow = () => {
+	const run = () => {
+		document.querySelectorAll('.sidebar-section-body').forEach(el => {
+			updateSidebarBodyScrollState(el);
+			if (!el.dataset.scrollBound) {
+				el.dataset.scrollBound = '1';
+				el.addEventListener('scroll', () => updateSidebarBodyScrollState(el), { passive: true });
+			}
+		});
+	};
+	nextTick(run);
+	// پس از اتمام انیمیشن max-height دوباره بررسی کن تا گرادیان کاذب نماند
+	if (sidebarOverflowTimer) clearTimeout(sidebarOverflowTimer);
+	sidebarOverflowTimer = setTimeout(run, 450);
+};
+
+const toggleCollapse = section => {
+	isCollapsed.value[section] = !isCollapsed.value[section];
+	updateSidebarOverflow();
+};
 
 const lightboxItem = ref(undefined);
 const lightboxImage = ref(undefined);
-const isLoading = ref(false);
 const isLightboxActive = ref(false);
 const isLightboxVisible = ref(false);
+// حالت نمایش داخل لایت‌باکس (مستقل از posterMode سایت)
+const lightboxViewMode = ref('poster'); // 'poster' | 'logo'
+let lightboxLoadId = 0;
+
+const lightboxHasLogo = computed(() => !!(lightboxItem.value && lightboxItem.value.logo));
+const lightboxHasPoster = computed(() => !!(lightboxItem.value && lightboxItem.value.poster));
+const showLightboxViewSwitch = computed(() => {
+	if (!lightboxItem.value) return false;
+	// در حالت لوگوی سایت همیشه؛ در حالت پوستر فقط اگر لوگو داشته باشد
+	if (!posterMode.value) return lightboxHasLogo.value || lightboxHasPoster.value;
+	return lightboxHasLogo.value;
+});
+
+const getLightboxThumbUrl = (item, viewMode) => {
+	const mode = viewMode || lightboxViewMode.value;
+	if (mode === 'logo' && item.logo) {
+		return getPosterUrl(item.logo, item.logoHash, 250);
+	}
+	return getPosterUrl(item.poster, item.posterHash, 250);
+};
+
+const getLightboxFullUrl = (item, viewMode) => {
+	const mode = viewMode || lightboxViewMode.value;
+	if (mode === 'logo' && item.logo) {
+		return getPosterUrl(item.logo, item.logoHash, 960);
+	}
+	return getPosterUrl(item.poster, item.posterHash, 960);
+};
+
+const loadLightboxImage = (item, viewMode) => {
+	const mode = viewMode || lightboxViewMode.value;
+	const thumbUrl = getLightboxThumbUrl(item, mode);
+	const fullUrl = getLightboxFullUrl(item, mode);
+	const currentId = ++lightboxLoadId;
+
+	lightboxImage.value = thumbUrl;
+
+	if (!fullUrl || fullUrl === thumbUrl) {
+		return;
+	}
+
+	const img = new Image();
+	img.onload = () => {
+		if (currentId === lightboxLoadId) {
+			lightboxImage.value = fullUrl;
+		}
+	};
+	img.onerror = () => {
+		// keep thumbnail visible
+	};
+	img.src = fullUrl;
+};
+
+const setLightboxViewMode = (mode) => {
+	if (!lightboxItem.value) return;
+	if (mode === 'logo' && !lightboxItem.value.logo) return;
+	if (mode === 'poster' && !lightboxItem.value.poster) return;
+	lightboxViewMode.value = mode;
+	loadLightboxImage(lightboxItem.value, mode);
+};
+
+const toggleLightboxViewMode = () => {
+	if (!lightboxItem.value) return;
+	if (lightboxViewMode.value === 'poster') {
+		if (lightboxItem.value.logo) setLightboxViewMode('logo');
+	} else {
+		if (lightboxItem.value.poster) setLightboxViewMode('poster');
+	}
+};
+
+const updateLightboxURL = (item) => {
+	const params = new URLSearchParams(window.location.search);
+	params.delete('poster');
+	params.delete('logo');
+	if (item) {
+		if (posterMode.value && item.poster) {
+			params.set('poster', item.poster);
+		} else if (item.logo) {
+			params.set('logo', item.logo);
+			if (!posterMode.value) params.set('mode', 'logo');
+		}
+	}
+	const qs = params.toString();
+	const newUrl = qs ? `${window.location.pathname}?${qs}` : window.location.pathname;
+	window.history.replaceState({}, '', newUrl);
+};
 
 const openLightbox = item => {
 	if (!posterMode.value && !item.logo) {
@@ -4345,29 +4760,40 @@ const openLightbox = item => {
 		...item,
 		actors: getActorsForFilm(item.film)
 	};
-	lightboxImage.value = posterMode.value ? getPosterUrl(item.poster, item.posterHash, 960) : getPosterUrl(item.logo, item.logoHash, 960);
-	isLoading.value = true;
+	// حالت اولیهٔ نمایش داخل لایت‌باکس از حالت سایت پیروی می‌کند، بدون تغییر posterMode
+	if (!posterMode.value && item.logo) {
+		lightboxViewMode.value = 'logo';
+	} else if (item.poster) {
+		lightboxViewMode.value = 'poster';
+	} else if (item.logo) {
+		lightboxViewMode.value = 'logo';
+	} else {
+		lightboxViewMode.value = 'poster';
+	}
+	loadLightboxImage(item, lightboxViewMode.value);
+	updateLightboxURL(item);
+	updateDocumentTitle(item);
 	
 	setTimeout(() => {
 		isLightboxActive.value = true;
 	}, 10);
 	
-	const currentIndex = filteredItems.value.findIndex(i => i === item);
-	preloadImages(currentIndex);
-
-	setTimeout(() => {
-		isLoading.value = false;
-	}, 1000);
+	const currentIndex = filteredItems.value.findIndex(i =>
+		i && item && (i.poster === item.poster && i.film === item.film)
+	);
+	preloadImages(currentIndex >= 0 ? currentIndex : 0);
 };
 
 const closeLightbox = () => {
 	isLightboxActive.value = false;
+	lightboxLoadId++; // cancel any in-flight load
+	updateLightboxURL(null);
+	updateDocumentTitle(null);
 	
 	setTimeout(() => {
 		isLightboxVisible.value = false;
 		lightboxItem.value = undefined;
 		lightboxImage.value = undefined;
-		isLoading.value = false;
 	}, 300);
 };
 
@@ -4392,30 +4818,37 @@ const handleImageClick = item => {
 		return true;
 	}
 
-	console.log('Image clicked:', item);
 	event.preventDefault();
 	event.stopPropagation();
 	openLightbox(item);
 };
 
 const changeLightboxImage = changeIndexCallback => {
-	isLoading.value = true;
+	const currentIdx = filteredItems.value.findIndex(item =>
+		item && lightboxItem.value &&
+		item.poster === lightboxItem.value.poster &&
+		item.film === lightboxItem.value.film
+	);
 	const newIndex = changeIndexCallback(
-		filteredItems.value.findIndex(item => item.poster === lightboxItem.value.poster),
+		currentIdx >= 0 ? currentIdx : 0,
 		filteredItems.value.length - 1
 	);
 	const newItem = filteredItems.value[newIndex];
+	if (!newItem) return;
 	lightboxItem.value = {
 		...newItem,
 		actors: getActorsForFilm(newItem.film)
 	};
-	lightboxImage.value = posterMode.value
-		? getPosterUrl(lightboxItem.value.poster, lightboxItem.value.posterHash, 960)
-		: getPosterUrl(lightboxItem.value.logo, lightboxItem.value.logoHash, 960);
-
+	// اگر حالت فعلی لوگو است ولی آیتم جدید لوگو ندارد، به پوستر برگرد
+	if (lightboxViewMode.value === 'logo' && !newItem.logo) {
+		lightboxViewMode.value = 'poster';
+	} else if (lightboxViewMode.value === 'poster' && !newItem.poster && newItem.logo) {
+		lightboxViewMode.value = 'logo';
+	}
+	loadLightboxImage(newItem, lightboxViewMode.value);
+	updateLightboxURL(newItem);
+	updateDocumentTitle(newItem);
 	preloadImages(newIndex);
-
-	setTimeout(() => isLoading.value = false, 1000);
 };
 const prevImage = () => changeLightboxImage((current, lastItem) => current <= 0 ? lastItem : current - 1);
 const nextImage = () => changeLightboxImage((current, lastItem) => current >= lastItem ? 0 : current + 1);
@@ -4459,15 +4892,27 @@ const preloadImages = (currentIndex) => {
 	}
 };
 
-const downloadLink = item => {
-	const name = posterMode.value ? item.poster : item.logo;
+const downloadLink = (item, forceMode) => {
+	if (!item) return 'https://upload.wikimedia.org/wikipedia/commons/8/82/NoImageEn.svg';
+	const useLogo = forceMode === 'logo' || (!forceMode && !posterMode.value);
+	const name = useLogo ? item.logo : item.poster;
 	if (!name) return 'https://upload.wikimedia.org/wikipedia/commons/8/82/NoImageEn.svg';
-	const hash = posterMode.value ? item.posterHash : item.logoHash;
+	const hash = useLogo ? item.logoHash : item.posterHash;
 	if (hash === '') return 'https://archive.org/download/filmpostersofiran/' + name;
 	return `https://upload.wikimedia.org/wikipedia/commons/${hash[0]}/${hash}/${name}?download`;
 };
 
+const lightboxDownloadLink = computed(() => {
+	if (!lightboxItem.value) return '#';
+	return downloadLink(lightboxItem.value, lightboxViewMode.value);
+});
+
 const selectYearFromTitle = (year) => {
+	yearRangeStart.value = null;
+	yearRangeEnd.value = null;
+	tempYearRangeStart.value = '';
+	tempYearRangeEnd.value = '';
+
 	if (currentLanguage.value === 'en') {
 		const gregorianYear = parseInt(year.replace(/[^0-9]/g, ''));
 		if (!isNaN(gregorianYear)) {
@@ -4482,6 +4927,238 @@ const selectYearFromTitle = (year) => {
 		selectedYear.value = persianYear.toLocaleString('fa');
 	}
 };
+
+const faNum = (n) => Number(n).toLocaleString('fa', { useGrouping: false });
+
+const collectYearStats = (list) => {
+	const byYear = {};
+	list.forEach(item => {
+		const y = toPersianYear(item.date);
+		if (!y || y === 'نامشخص') return;
+		byYear[y] = (byYear[y] || 0) + 1;
+	});
+	const years = Object.keys(byYear).sort((a, b) =>
+		parseInt(normalizeDigits(a), 10) - parseInt(normalizeDigits(b), 10)
+	);
+	let peakYear = null;
+	let peakCount = 0;
+	years.forEach(y => {
+		// فقط سال‌هایی با بیش از یک پوستر
+		if (byYear[y] > 1 && byYear[y] > peakCount) {
+			peakCount = byYear[y];
+			peakYear = y;
+		}
+	});
+	return {
+		oldest: years[0] || null,
+		newest: years.length ? years[years.length - 1] : null,
+		peakYear,
+		peakCount,
+		byYear
+	};
+};
+
+const topCollaborator = (list, getLabel) => {
+	const map = {};
+	list.forEach(item => {
+		const label = getLabel(item);
+		if (!label || label === 'نامشخص' || label === getTranslatedText('unknown')) return;
+		if (!map[label]) map[label] = { posters: 0, films: new Set() };
+		map[label].posters++;
+		map[label].films.add(item.film);
+	});
+	let best = null;
+	let bestPosters = 0;
+	Object.entries(map).forEach(([name, data]) => {
+		// فقط همکاری‌های با بیش از یک پوستر
+		if (data.posters > 1 && data.posters > bestPosters) {
+			bestPosters = data.posters;
+			best = { name, posters: data.posters, films: data.films.size };
+		}
+	});
+	return best;
+};
+
+const t = (text) => ({ text });
+const linkPart = (text, type, value) => ({ text, type, value });
+
+const applyProfileLink = (part) => {
+	if (!part?.type || !part?.value) return;
+	if (part.type === 'year') {
+		// سال را روی همان فرد/استودیوی فعلی اعمال کن
+		yearRangeStart.value = null;
+		yearRangeEnd.value = null;
+		tempYearRangeStart.value = '';
+		tempYearRangeEnd.value = '';
+		selectedYear.value = part.value;
+		return;
+	}
+	// برای افراد/استودیو: فیلتر قبلی را با هدف جدید جایگزین کن
+	selectedYear.value = '';
+	yearRangeStart.value = null;
+	yearRangeEnd.value = null;
+	tempYearRangeStart.value = '';
+	tempYearRangeEnd.value = '';
+	selectedDesigner.value = '';
+	selectedDirector.value = '';
+	selectedActors.value = [];
+	selectedStudio.value = '';
+	selectedLetter.value = '';
+	selectedGenres.value = [];
+	if (part.type === 'designer') selectedDesigner.value = part.value;
+	else if (part.type === 'director') selectedDirector.value = part.value;
+	else if (part.type === 'actor') selectedActors.value = [part.value];
+	else if (part.type === 'studio') selectedStudio.value = part.value;
+};
+
+const profileHeader = computed(() => {
+	const buildCount = (list) => {
+		const films = new Set(list.map(i => i.film)).size;
+		return posterMode.value
+			? `${faNum(list.length)} پوستر · ${faNum(films)} فیلم`
+			: `${faNum(list.length)} لوگو · ${faNum(films)} فیلم`;
+	};
+
+	if (selectedDesigner.value) {
+		const name = selectedDesigner.value;
+		const list = items.value.filter(item => getDesignerLabelForItem(item) === name);
+		const films = new Set(list.map(i => i.film)).size;
+		const ys = collectYearStats(list);
+		const topDir = topCollaborator(list, i => i.directorLabel);
+		const parts = [];
+		if (list.length && ys.oldest && ys.newest) {
+			parts.push(t(`${name} در فاصلهٔ سال‌های ${ys.oldest} تا ${ys.newest}، ${faNum(list.length)} پوستر برای ${faNum(films)} فیلم طراحی کرده است.`));
+			if (ys.peakYear && ys.peakCount > 1) {
+				parts.push(t(` او با ${faNum(ys.peakCount)} پوستر، بیشترین تعداد پوسترهایش را در سال `));
+				parts.push(linkPart(ys.peakYear, 'year', ys.peakYear));
+				parts.push(t(' طراحی کرده'));
+				if (topDir) {
+					parts.push(t(' و بیش از همه با کارگردان '));
+					parts.push(linkPart(topDir.name, 'director', topDir.name));
+					parts.push(t(` (${faNum(topDir.posters)} پوستر برای ${faNum(topDir.films)} فیلم) کار کرده است.`));
+				} else {
+					parts.push(t(' است.'));
+				}
+			} else if (topDir) {
+				parts.push(t(' او بیش از همه با کارگردان '));
+				parts.push(linkPart(topDir.name, 'director', topDir.name));
+				parts.push(t(` (${faNum(topDir.posters)} پوستر برای ${faNum(topDir.films)} فیلم) کار کرده است.`));
+			}
+		}
+		// لینک‌های ویکی‌داده و ویکی‌پدیا کنار نام طراح
+		let links = null;
+		for (const item of list) {
+			const d = item.designers?.find(x => x.label === name) || item.designers?.[0];
+			if (d && d.label === name) {
+				const wikiTitle = currentLanguage.value === 'en'
+					? (d.enWikipediaLink || d.faWikipediaLink)
+					: (d.faWikipediaLink || d.enWikipediaLink);
+				const wikiLang = currentLanguage.value === 'en'
+					? (d.enWikipediaLink ? 'en' : (d.faWikipediaLink ? 'fa' : null))
+					: (d.faWikipediaLink ? 'fa' : (d.enWikipediaLink ? 'en' : null));
+				links = {
+					wikidata: d.id || null,
+					wikipedia: wikiTitle && wikiLang
+						? `https://${wikiLang}.wikipedia.org/wiki/${wikiTitle.replaceAll(' ', '_')}`
+						: null
+				};
+				if (links.wikidata || links.wikipedia) break;
+			}
+		}
+		if (!links || (!links.wikidata && !links.wikipedia)) {
+			for (const [id, ent] of Object.entries(data.secondary || {})) {
+				if (getItemLabel(ent?.labels) === name) {
+					const fa = ent.sitelinks?.fawiki;
+					const en = ent.sitelinks?.enwiki;
+					const wikiTitle = currentLanguage.value === 'en' ? (en || fa) : (fa || en);
+					const wikiLang = currentLanguage.value === 'en' ? (en ? 'en' : (fa ? 'fa' : null)) : (fa ? 'fa' : (en ? 'en' : null));
+					links = {
+						wikidata: id,
+						wikipedia: wikiTitle && wikiLang
+							? `https://${wikiLang}.wikipedia.org/wiki/${String(wikiTitle).replaceAll(' ', '_')}`
+							: null
+					};
+					break;
+				}
+			}
+		}
+		return { type: 'طراح پوستر', name, count: buildCount(list), summaryParts: parts, links };
+	}
+
+	if (selectedDirector.value) {
+		const name = selectedDirector.value;
+		const list = items.value.filter(item => getDirectorLabelForItem(item) === name);
+		const films = new Set(list.map(i => i.film)).size;
+		const topDes = topCollaborator(list, i => getDesignerLabelForItem(i));
+		const parts = [
+			t(`از فیلم‌های ${name}، در آرشیو پوسترهای سینمای ایران، ${faNum(list.length)} پوستر برای ${faNum(films)} فیلم دیده می‌شود.`)
+		];
+		if (topDes) {
+			parts.push(t(' او بیش از همهٔ طراحان، با '));
+			parts.push(linkPart(topDes.name, 'designer', topDes.name));
+			parts.push(t(` در ${faNum(topDes.posters)} پوستر برای ${faNum(topDes.films)} فیلم کار کرده است.`));
+		}
+		return { type: 'کارگردان', name, count: buildCount(list), summaryParts: parts };
+	}
+
+	if (selectedActors.value.length === 1) {
+		const name = selectedActors.value[0];
+		const list = items.value.filter(item => {
+			const film = data.films[item.film];
+			if (!film?.cast?.length) return false;
+			return film.cast.some(id => getActorLabel(id) === name);
+		});
+		const films = new Set(list.map(i => i.film)).size;
+		const ys = collectYearStats(list);
+		const topDir = topCollaborator(list, i => i.directorLabel);
+		const topDes = topCollaborator(list, i => getDesignerLabelForItem(i));
+		const parts = [
+			t(`از فیلم‌های با بازی ${name}، در این آرشیو ${faNum(list.length)} پوستر برای ${faNum(films)} فیلم موجود است.`)
+		];
+		if (ys.oldest && ys.newest) {
+			parts.push(t(` این آثار مربوط به سال‌های ${ys.oldest} تا ${ys.newest} هستند.`));
+		}
+		if (topDir) {
+			parts.push(t(' بیشترین همکاری با کارگردان '));
+			parts.push(linkPart(topDir.name, 'director', topDir.name));
+			parts.push(t(` در ${faNum(topDir.posters)} پوستر برای ${faNum(topDir.films)} فیلم بوده است.`));
+		}
+		if (topDes) {
+			parts.push(t(' در طراحی پوستر بیش از همه با '));
+			parts.push(linkPart(topDes.name, 'designer', topDes.name));
+			parts.push(t(` (${faNum(topDes.posters)} پوستر برای ${faNum(topDes.films)} فیلم) همراه بوده است.`));
+		}
+		return { type: 'بازیگر', name, count: buildCount(list), summaryParts: parts };
+	}
+
+	if (selectedStudio.value) {
+		const name = selectedStudio.value;
+		const list = items.value.filter(item => getStudioLabelForItem(item) === name);
+		const films = new Set(list.map(i => i.film)).size;
+		const ys = collectYearStats(list);
+		const topDir = topCollaborator(list, i => i.directorLabel);
+		const topDes = topCollaborator(list, i => getDesignerLabelForItem(i));
+		const parts = [
+			t(`از تولیدات استودیو ${name}، در آرشیو ${faNum(list.length)} پوستر برای ${faNum(films)} فیلم دیده می‌شود.`)
+		];
+		if (ys.oldest && ys.newest) {
+			parts.push(t(` این آثار مربوط به فاصلهٔ سال‌های ${ys.oldest} تا ${ys.newest} هستند.`));
+		}
+		if (topDir) {
+			parts.push(t(' بیشترین همکاری با کارگردان '));
+			parts.push(linkPart(topDir.name, 'director', topDir.name));
+			parts.push(t(` در ${faNum(topDir.posters)} پوستر برای ${faNum(topDir.films)} فیلم بوده است.`));
+		}
+		if (topDes) {
+			parts.push(t(' در طراحی پوستر بیش از همه با '));
+			parts.push(linkPart(topDes.name, 'designer', topDes.name));
+			parts.push(t(` (${faNum(topDes.posters)} پوستر برای ${faNum(topDes.films)} فیلم) کار شده است.`));
+		}
+		return { type: 'استودیو', name, count: buildCount(list), summaryParts: parts };
+	}
+
+	return null;
+});
 
 const activeFilters = computed(() => {
 	const filters = [];
@@ -4606,22 +5283,6 @@ const getWikipediaUrl = (item) => {
 
 const bringToTop = () => document.documentElement.scrollTop = 0;
 const visibleBringToTop = ref(false);
-
-const mainContentPaddingTop = computed(() => {
-	const basePadding = 0;
-	const titleHeight = isMobileView.value ? 65 : 50;
-	const searchBarTotalHeight = isSearchBarVisible.value ? searchBarHeight.value : 0;
-	let totalPadding = searchBarTotalHeight;
-	if (isMobileView.value && !isAtTop.value) {
-		totalPadding += 20;
-	}
-
-	if (isAtTop.value) {
-		totalPadding += titleHeight;
-	}
-
-	return `${totalPadding}px`;
-});
 
 let lastScrollPosition = 0;
 const scrollTolerance = 20;
@@ -4878,6 +5539,29 @@ watch([filteredYearsInModal, isD3Loaded], () => {
 	isD3Loaded.value && nextTick(updateChart);
 }, { immediate: true });
 
+const openFromDeepLink = () => {
+	const urlParams = new URLSearchParams(window.location.search);
+	const posterFile = urlParams.get('poster');
+	const logoFile = urlParams.get('logo');
+	if (!posterFile && !logoFile) {
+		updateDocumentTitle(null);
+		return;
+	}
+	if (logoFile && posterMode.value) {
+		posterMode.value = false;
+	}
+	const match = items.value.find(item => {
+		if (posterFile && item.poster === posterFile) return true;
+		if (logoFile && item.logo === logoFile) return true;
+		return false;
+	});
+	if (match) {
+		nextTick(() => openLightbox(match));
+	} else {
+		updateDocumentTitle(null);
+	}
+};
+
 onMounted(() => {
 	const checkMobile = () => {
 		isMobileView.value = window.innerWidth <= 768;
@@ -4901,13 +5585,32 @@ onMounted(() => {
 		resizeObserver.observe(searchBarRef.value);
 	}
 
-		const mainContent = document.getElementById('main-content');
+	const mainContent = document.getElementById('main-content');
 	if (mainContent) {
 		const resizeObserver = new ResizeObserver(entries => {
 		});
 		resizeObserver.observe(mainContent);
 	}
+
+	// Deep-link: open poster/logo from URL after data is ready
+	nextTick(() => openFromDeepLink());
+	updateDocumentTitle(null);
+	updateSidebarOverflow();
+	window.addEventListener('resize', updateSidebarOverflow);
 });
+
+watch([selectedDesigner, selectedDirector, selectedStudio, selectedYear, selectedActors, searchTerm, posterMode], () => {
+	if (!lightboxItem.value) updateDocumentTitle(null);
+	updateSidebarOverflow();
+});
+
+watch(filteredItems, () => {
+	updateSidebarOverflow();
+});
+
+watch(isCollapsed, () => {
+	updateSidebarOverflow();
+}, { deep: true });
 
 onUnmounted(() => {
 	window.removeEventListener('scroll', handleScroll);
@@ -4943,42 +5646,44 @@ return {
 
     selectedYear, selectedDesigner, selectedDirector, selectedLetter, selectedGenres, selectedActors, selectedStudio,
 
-    availableYears, filteredYears, filteredYearsInModal, selectYearFromModal, removeYearFilter,
+    availableYears, filteredYearsInModal, selectYearFromModal, removeYearFilter,
     yearRangeStart, yearRangeEnd, applyYearRangeFilter, clearYearRangeFilter, yearRangeBounds,
     tempYearRangeStart, tempYearRangeEnd, normalizeDigits, filteredYearLabel,
+    sliderYearStart, sliderYearEnd, yearSliderFillStyle, onSliderYearStart, onSliderYearEnd,
 
-    availableDesigners, filteredDesigners, filteredDesignersInModal, designerSearchQuery,
+    filteredDesignersInModal, designerSearchQuery,
     selectDesignerFromModal, removeDesignerFilter, clearDesignerSearchQuery, filteredDesignerLabel,
 
-    availableDirectors, filteredDirectors, filteredDirectorsInModal, directorSearchQuery,
+    filteredDirectorsInModal, directorSearchQuery,
     selectDirectorFromModal, removeDirectorFilter, clearDirectorSearchQuery, filteredDirectorLabel,
 
-    availableActors, filteredActors, filteredActorsInModal, actorSearchQuery,
+    filteredActors, filteredActorsInModal, actorSearchQuery,
     selectActorFromModal, removeActorFilter, clearActorSearchQuery, filteredActorLabel,
 
-    availableGenres, filteredGenres, filteredGenresInModal, genreSearchQuery,
+    filteredGenres, filteredGenresInModal, genreSearchQuery,
     selectGenreFromModal, removeGenreFilter, clearGenreSearchQuery, filteredGenreLabel,
 
-    availableStudios, filteredStudios, filteredStudiosInModal, studioSearchQuery,
+    filteredStudios, filteredStudiosInModal, studioSearchQuery,
     selectStudioFromModal, removeStudioFilter, clearStudioSearchQuery, filteredStudioLabel,
 
-    persianAlphabet, selectedLetter, letterCounts, filteredLettersInModal,
+    persianAlphabet, selectedLetter, filteredLettersInModal,
     selectLetterFromModal, removeLetterFilter, filteredLetterLabel,
 
     resetFilters, resetActiveFilters, activeFilters, removeFilter,
     sortOrder, sortDirection, toggleSortDirection,
 
-    posterMode, togglePosterMode, pixelatedEffect, moreInformation, backgroundColor,
-    actualBackgroundColor, isLightBackground, isDarkTheme, toggleOptions, isOptionsCollapsed, collapseIconClass,
+    posterMode, togglePosterMode, pixelatedEffect, hasLogoOnly, moreInformation, backgroundColor,
+    actualBackgroundColor, isLightBackground, isDarkTheme, textColorClass, toggleOptions, isOptionsCollapsed, collapseIconClass,
 
-    lightboxItem, lightboxImage, isLightboxActive, isLightboxVisible, isLoading,
+    lightboxItem, lightboxImage, isLightboxActive, isLightboxVisible,
     openLightbox, closeLightbox, prevImage, nextImage, handleImageClick, downloadLink,
+    lightboxViewMode, setLightboxViewMode, toggleLightboxViewMode, showLightboxViewSwitch, lightboxHasLogo, lightboxHasPoster, lightboxDownloadLink,
 
     sidebarVisible, toggleSidebar, toggleSidebarDesktop, hideSidebar,
     sidebarWidth, minSidebarWidth, maxSidebarWidth, sidebarStyle,
     desktopSidebarToggleStyle, filtersContainerStyle,
 
-    getItemUrl, getCommonsUrl, getItemTitleWithYear, getFilmLabel, getFilmLabelForItem,
+    getItemUrl, getCommonsUrl, getFilmLabel, getFilmLabelForItem,
     getDesignerLabel, getDirectorLabel, getGenreLabel, getActorLabel, getStudioLabel, getStudioLabelForItem,
     getActorsForFilm, getWikipediaUrl, getTranslatedText, getPrimaryYear, getSecondaryYear,
     hasDesigner, toPersianYear, normalizeDigits,
@@ -4988,11 +5693,15 @@ return {
     filmCountByYear, filmCountByDesigner, filmCountByDirector, filmCountByGenre, filmCountByActor, filmCountByLetter, filmCountByStudio,
 
     isCollapsed, toggleCollapse, getSectionClass, hoveredItem, isAtTop,
-    bringToTop, visibleBringToTop, mainContentPaddingTop, mainContentStyle, pageTitle,
+    bringToTop, visibleBringToTop, mainContentStyle, pageTitle,
 
     currentLanguage, toggleLanguage,
 
-    handlePopState, selectYearFromTitle
+    handlePopState, selectYearFromTitle,
+
+    profileHeader, applyProfileLink,
+
+    themeMode
 
 
 };
