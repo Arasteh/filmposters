@@ -2945,7 +2945,7 @@ html[style*="color-scheme: dark"] .profile-wiki-icon {
 		</div>
 
 		</div>
-		<div v-if="filteredItems.length > 0" class="results-grid">
+		<div v-if="filteredItems.length > 0" class="results-grid" :style="resultsGridStyle">
 		<div class="item-card"
 			:class="{
 				'dark-text': !posterMode && isLightBackground(actualBackgroundColor(item)),
@@ -3220,6 +3220,7 @@ const isSearchBarVisible = ref(true);
 const searchBarRef = ref(null);
 const searchBarHeight = ref(0);
 const isMobileView = ref(false);
+const windowWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 1200);
 const itemsPerPageMobile = 6;
 const itemsPerPageDesktop = 24;
 const displayedItemsCount = ref(isMobileView.value ? itemsPerPageMobile : itemsPerPageDesktop);
@@ -5650,6 +5651,29 @@ const searchBarDynamicStyle = computed(() => {
 	return style;
 });
 
+// تعداد ستون‌های گرید بر اساس عرض قابل‌استفاده (عرض پنجره منهای سایدبار)
+const resultsGridColumns = computed(() => {
+	const vw = windowWidth.value || 1200;
+	if (vw <= 768 || isMobileView.value) return 2;
+
+	const sidebarTaken = (sidebarVisible.value && !isMobileView.value)
+		? (sidebarWidth.value + 40)
+		: 0;
+	// padding افقی گرید (۴۸px از هر طرف) + کمی حاشیهٔ #app
+	const available = vw - sidebarTaken;
+
+	// آستانه‌ها بر اساس عرض محتوا، نه عرض کل viewport
+	// تقریباً هر ستون حداقل ~۲۰۰px + فاصله
+	if (available >= 1400) return 5;
+	if (available >= 1100) return 4;
+	if (available >= 720) return 3;
+	return 2;
+});
+
+const resultsGridStyle = computed(() => ({
+	gridTemplateColumns: `repeat(${resultsGridColumns.value}, minmax(0, 1fr))`
+}));
+
 const mainContentStyle = computed(() => {
 	const effectiveMarginRight = sidebarVisible.value && !isMobileView.value
 		? `${sidebarWidth.value + 40}px`
@@ -5817,6 +5841,7 @@ const openFromDeepLink = () => {
 
 onMounted(() => {
 	const checkMobile = () => {
+		windowWidth.value = window.innerWidth;
 		isMobileView.value = window.innerWidth <= 768;
 		if (isMobileView.value) {
 			searchPlaceholder.value = getTranslatedText('search');
@@ -5948,7 +5973,7 @@ return {
 
     isCollapsed, toggleCollapse, getSectionClass, hoveredItem, isAtTop,
     allSectionsExpanded, toggleAllSections,
-    bringToTop, visibleBringToTop, mainContentStyle, pageTitle,
+    bringToTop, visibleBringToTop, mainContentStyle, resultsGridStyle, pageTitle,
 
     currentLanguage, toggleLanguage,
 
