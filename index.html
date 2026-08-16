@@ -96,10 +96,8 @@ body {
 }
 
 .title-container {
-	position: absolute;
-	top: 10px;
-	inset-inline-end: 50%;
-	transform: translateX(-50%);
+	position: relative;
+	top: 0;
 	width: 100%;
 	text-align: center;
 	transition: opacity 0.3s ease-in-out;
@@ -109,6 +107,7 @@ body {
 	flex-wrap: nowrap;
 	display: flex;
 	justify-content: center;
+	align-items: center;
 	gap: 10px;
 }
 
@@ -146,9 +145,10 @@ body {
 	position: relative;
 	max-width: 960px;
 	width: 100%;
-	margin: -40px auto 0;
-	padding: 42px 10px 8px 10px;
+	margin: 0 auto;
+	padding: 44px 10px 8px 10px;
 	border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+	transition: padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	
 	background: light-dark(
 		rgba(255, 255, 255, 0.72),
@@ -166,9 +166,13 @@ body {
 		inset 0 1px 0 light-dark(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.05));
 }
 
+.search-bar-inner.title-hidden {
+	padding-top: 12px;
+}
+
 .title-wrapper {
 	position: absolute;
-	top: 6px;
+	top: 12px;
 	inset-inline-end: 0;
 	inset-inline-start: 0;
 	display: flex;
@@ -469,16 +473,27 @@ input[type="text"]:focus {
 	align-items: center;
 	justify-content: center;
 	transform: scale(0.92);
-	transition: transform 0.35s cubic-bezier(0.34, 1.2, 0.64, 1), width 0.25s ease, height 0.25s ease;
+	transition: transform 0.35s cubic-bezier(0.34, 1.2, 0.64, 1), width 0.2s ease, height 0.2s ease, max-width 0.2s ease, max-height 0.2s ease;
 	z-index: 1000;
+	overflow: hidden;
 }
 
-/* لوگو همیشه در قالب مربع */
+/* لوگو همیشه در قالب مربع — اندازه با زوم از طریق استایل اینلاین بزرگ می‌شود */
 .lightbox-image-wrapper.is-logo {
 	width: min(90vw, 90vh);
 	height: min(90vw, 90vh);
 	max-width: min(90vw, 90vh);
 	max-height: min(90vw, 90vh);
+}
+
+.lightbox-image-wrapper.is-panning {
+	cursor: grabbing;
+}
+.lightbox-image-wrapper.is-panning img {
+	cursor: grabbing !important;
+}
+.lightbox-image-wrapper.can-pan img {
+	cursor: grab;
 }
 
 .lightbox-view-switch {
@@ -538,6 +553,8 @@ input[type="text"]:focus {
 	background-color: transparent;
 	transition: opacity 0.2s ease;
 	box-shadow: none;
+	will-change: transform;
+	cursor: default;
 }
 
 .lightbox-button {
@@ -1118,22 +1135,29 @@ input[type="text"]:focus {
 
 .year-range-slider-actions {
 	display: flex;
-	gap: 8px;
+	gap: 6px;
 	align-items: center;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
+	margin-inline-start: 4px;
 }
 .removeRange {
-	padding: 6px 16px;
-	background-color: light-dark(#f1f5f9, #1e293b);
-	color: var(--body-foreground);
+	padding: 4px 6px;
+	background: none;
+	color: light-dark(#64748b, #94a3b8);
 	border: 1px solid var(--text-input-border);
-	border-radius: var(--radius-md);
+	border-radius: var(--radius-sm);
 	cursor: pointer;
 	font-size: 0.85em;
 	font-weight: 500;
-	width: fit-content; 
-	margin-inline-start: 5px;
+	width: fit-content;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	line-height: 1;
 	transition: var(--transition);
+}
+.removeRange .material-symbols-rounded {
+	font-size: 18px;
 }
 .removeRange:hover {
 	background-color: var(--bar-color);
@@ -1142,7 +1166,7 @@ input[type="text"]:focus {
 }
 
 .applyRange {
-	padding: 6px 16px;
+	padding: 5px 12px;
 	background-color: var(--bar-color);
 	color: white;
 	border: none;
@@ -1151,9 +1175,9 @@ input[type="text"]:focus {
 	font-size: 0.85em;
 	font-weight: 500;
 	width: fit-content;
-	margin-inline-start: 5px;
 	transition: var(--transition);
 	box-shadow: 0 2px 8px color-mix(in srgb, var(--bar-color) 30%, transparent);
+	white-space: nowrap;
 }
 
 .applyRange:hover {
@@ -1578,7 +1602,30 @@ html[style*="color-scheme: dark"] .profile-wiki-icon {
 .theme-switch--mini {
 	width: 72px;
 	flex-shrink: 0;
+	margin-inline-start: 0;
+}
+
+.sidebar-expand-all-btn {
+	background: none;
+	border: 1px solid light-dark(#e2e8f0, #334155);
+	border-radius: 999px;
+	padding: 4px 6px;
+	cursor: pointer;
+	color: var(--body-foreground);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
 	margin-inline-start: auto;
+	margin-inline-end: 6px;
+	transition: var(--transition);
+	line-height: 1;
+}
+
+.sidebar-expand-all-btn:hover {
+	background-color: light-dark(#e2e8f0, #2d343b);
+	border-color: var(--bar-color);
+	color: var(--bar-color);
 }
 
 .theme-switch span {
@@ -1801,10 +1848,13 @@ html[style*="color-scheme: dark"] .profile-wiki-icon {
 	}
 
 	.search-bar-inner {
-		padding: 15px;
+		padding: 44px 15px 12px 15px;
 		border-radius: 0 0 var(--radius-md) var(--radius-md);
 		backdrop-filter: blur(20px);
 		-webkit-backdrop-filter: blur(20px);
+	}
+	.search-bar-inner.title-hidden {
+		padding-top: 12px;
 	}
 
 	.results-grid {
@@ -1835,8 +1885,8 @@ html[style*="color-scheme: dark"] .profile-wiki-icon {
 	}
 
 	.options-wrapper-top {
-		padding-top: 60px;
-		margin-top: -15px;
+		padding-top: 0;
+		margin-top: 0;
 	}
 	.options.collapsed {
 		max-height: 0;
@@ -2180,6 +2230,11 @@ html[style*="color-scheme: dark"] .profile-wiki-icon {
 				فیلترها 
 				<span style="font-weight: 200; margin-inline-start: 4px;">(پوستر×فیلم)</span>
 			</p>
+			<button type="button" class="sidebar-expand-all-btn" @click="toggleAllSections" :title="allSectionsExpanded ? 'بستن همه بخش‌ها' : 'باز کردن همه بخش‌ها'">
+				<span class="material-symbols-rounded" :class="allSectionsExpanded ? 'rotate-up' : 'rotate-down'" style="font-size: 20px;">
+					keyboard_arrow_up
+				</span>
+			</button>
 			<div class="theme-switch theme-switch--mini" :data-theme="themeMode" title="ظاهر">
 				<span :class="{ active: themeMode === 'dark' }" @click="themeMode = 'dark'" title="تاریک">ت</span>
 				<span :class="{ active: themeMode === 'system' }" @click="themeMode = 'system'" title="سیستم">س</span>
@@ -2236,6 +2291,14 @@ html[style*="color-scheme: dark"] .profile-wiki-icon {
 								{{ year }}
 							</option>
 						</select>
+						<div class="year-range-slider-actions">
+							<button type="button" class="applyRange" @click="applyYearRangeFilter">اعمال</button>
+							<button type="button" v-if="tempYearRangeStart !== '' || tempYearRangeEnd !== '' || yearRangeStart !== null || yearRangeEnd !== null"
+								@click="clearYearRangeFilter"
+								class="removeRange" title="حذف بازه" aria-label="حذف بازه">
+								<span class="material-symbols-rounded">close</span>
+							</button>
+						</div>
 					</div>
 
 					<div class="year-range-slider" v-if="yearRangeBounds.minYear < yearRangeBounds.maxYear">
@@ -2249,21 +2312,15 @@ html[style*="color-scheme: dark"] .profile-wiki-icon {
 							<input type="range"
 								:min="yearRangeBounds.minYear"
 								:max="yearRangeBounds.maxYear"
-								:value="sliderYearStart"
+								:value="invertYearForSlider(sliderYearStart)"
 								@input="onSliderYearStart($event)"
 								aria-label="سال آغاز">
 							<input type="range"
 								:min="yearRangeBounds.minYear"
 								:max="yearRangeBounds.maxYear"
-								:value="sliderYearEnd"
+								:value="invertYearForSlider(sliderYearEnd)"
 								@input="onSliderYearEnd($event)"
 								aria-label="سال پایان">
-						</div>
-						<div class="year-range-slider-actions">
-							<button type="button" class="applyRange" @click="applyYearRangeFilter">اعمال بازه</button>
-							<button type="button" v-if="tempYearRangeStart !== '' || tempYearRangeEnd !== '' || yearRangeStart !== null || yearRangeEnd !== null"
-								@click="clearYearRangeFilter"
-								class="removeRange">حذف</button>
 						</div>
 					</div>
 
@@ -2572,9 +2629,20 @@ html[style*="color-scheme: dark"] .profile-wiki-icon {
 		:class="{ 'active': isLightboxActive }" 
 		@click="closeLightbox">
 		<template v-if="lightboxImage">
-			<div class="lightbox-image-wrapper" :class="{ 'is-logo': lightboxViewMode === 'logo' }">
+			<div class="lightbox-image-wrapper"
+				:class="{
+					'is-logo': lightboxViewMode === 'logo',
+					'zoomed': lightboxZoomScale > 1,
+					'can-pan': lightboxZoomScale > 1,
+					'is-panning': lightboxIsPanning
+				}"
+				:style="lightboxWrapperStyle"
+				@wheel.prevent="onLightboxWheel"
+				@pointerdown="onLightboxPointerDown"
+				@click="onLightboxImageClick">
 				<img :src="lightboxImage" :key="lightboxImage" alt="Lightbox Image"
-					:style="lightboxViewMode === 'logo' ? { backgroundColor: backgroundColor } : null" />
+					:style="lightboxImageStyle"
+					draggable="false" />
 			</div>
 		</template>
 		<div v-if="showLightboxViewSwitch" class="lightbox-view-switch" @click.stop="toggleLightboxViewMode" role="button" :title="lightboxViewMode === 'poster' ? 'نمایش لوگو' : 'نمایش پوستر'">
@@ -2688,7 +2756,7 @@ html[style*="color-scheme: dark"] .profile-wiki-icon {
 		</button>
 
 		<div id="searchBar" class="search-bar" :class="{ 'visible': isSearchBarVisible }" ref="searchBarRef" :style="searchBarDynamicStyle">
-			<div class="search-bar-inner">
+			<div class="search-bar-inner" :class="{ 'title-hidden': !isAtTop }">
 					<div class="title-wrapper">
 				<div class="title-container" :class="{ 'visible-title': isAtTop }">
 					<img src="favicon.svg" style="width: 24px; border-radius: var(--radius-sm);"><h1>{{ pageTitle }}</h1>
@@ -3312,28 +3380,37 @@ const sliderYearEnd = computed(() => {
 	return Number(tempYearRangeEnd.value);
 });
 
+// اسلایدر معکوس: سمت چپ = سال بیشتر، سمت راست = سال کمتر (برای تطابق با برچسب‌ها در RTL)
+const invertYearForSlider = (y) => {
+	const { minYear, maxYear } = yearRangeBounds.value;
+	return minYear + maxYear - y;
+};
+
 const yearSliderFillStyle = computed(() => {
 	const { minYear, maxYear } = yearRangeBounds.value;
 	const span = maxYear - minYear || 1;
 	const start = sliderYearStart.value;
 	const end = sliderYearEnd.value;
-	const left = ((Math.min(start, end) - minYear) / span) * 100;
-	const right = ((Math.max(start, end) - minYear) / span) * 100;
+	// موقعیت فیزیکی: سال بالاتر سمت چپ
+	const physLeft = ((maxYear - Math.max(start, end)) / span) * 100;
+	const physRight = ((maxYear - Math.min(start, end)) / span) * 100;
 	return {
-		left: left + '%',
-		width: (right - left) + '%'
+		left: physLeft + '%',
+		width: (physRight - physLeft) + '%'
 	};
 });
 
 const onSliderYearStart = (event) => {
-	let val = parseInt(event.target.value, 10);
+	let invertedVal = parseInt(event.target.value, 10);
+	let val = invertYearForSlider(invertedVal);
 	const end = sliderYearEnd.value;
 	if (val > end) val = end;
 	tempYearRangeStart.value = val;
 };
 
 const onSliderYearEnd = (event) => {
-	let val = parseInt(event.target.value, 10);
+	let invertedVal = parseInt(event.target.value, 10);
+	let val = invertYearForSlider(invertedVal);
 	const start = sliderYearStart.value;
 	if (val < start) val = start;
 	tempYearRangeEnd.value = val;
@@ -3568,6 +3645,18 @@ const isCollapsed = ref({
 	studios: true,
 	actors: true
 });
+
+const allSectionsExpanded = computed(() => {
+	return Object.values(isCollapsed.value).every(v => !v);
+});
+
+const toggleAllSections = () => {
+	const expand = !allSectionsExpanded.value;
+	Object.keys(isCollapsed.value).forEach(key => {
+		isCollapsed.value[key] = !expand;
+	});
+	updateSidebarOverflow();
+};
 
 const getSectionClass = section => {
 	const baseClass = isCollapsed.value[section] ? 'collapsed' : 'expanded';
@@ -4666,6 +4755,140 @@ const isLightboxVisible = ref(false);
 // حالت نمایش داخل لایت‌باکس (مستقل از posterMode سایت)
 const lightboxViewMode = ref('poster'); // 'poster' | 'logo'
 let lightboxLoadId = 0;
+const lightboxZoomScale = ref(1);
+const lightboxPanX = ref(0);
+const lightboxPanY = ref(0);
+const lightboxIsPanning = ref(false);
+let lightboxPanStartX = 0;
+let lightboxPanStartY = 0;
+let lightboxPanOriginX = 0;
+let lightboxPanOriginY = 0;
+let lightboxDidPan = false;
+const LIGHTBOX_ZOOM_MIN = 1;
+const LIGHTBOX_ZOOM_MAX_POSTER = 3;
+const LIGHTBOX_ZOOM_MAX_LOGO = 6;
+// حساسیت پیوسته به میزان اسکرول (deltaY معمولاً ~۱۰۰ در هر پلهٔ چرخ)
+const LIGHTBOX_ZOOM_SENSITIVITY = 0.0018;
+
+const lightboxZoomMax = computed(() =>
+	lightboxViewMode.value === 'logo' ? LIGHTBOX_ZOOM_MAX_LOGO : LIGHTBOX_ZOOM_MAX_POSTER
+);
+
+const onLightboxWheel = (event) => {
+	if (!isLightboxVisible.value) return;
+	event.preventDefault();
+	event.stopPropagation();
+
+	const wrapper = event.currentTarget;
+	const rect = wrapper.getBoundingClientRect();
+	const prev = lightboxZoomScale.value;
+	const factor = Math.exp(-event.deltaY * LIGHTBOX_ZOOM_SENSITIVITY);
+	let next = prev * factor;
+	next = Math.max(LIGHTBOX_ZOOM_MIN, Math.min(lightboxZoomMax.value, next));
+
+	if (rect.width > 0 && rect.height > 0 && next !== prev) {
+		// زوم حول موقعیت ماوس: جابه‌جایی pan طوری که نقطهٔ زیر نشانگر ثابت بماند
+		const mx = event.clientX - rect.left - rect.width / 2;
+		const my = event.clientY - rect.top - rect.height / 2;
+		const ratio = next / prev;
+		lightboxPanX.value = mx - (mx - lightboxPanX.value) * ratio;
+		lightboxPanY.value = my - (my - lightboxPanY.value) * ratio;
+	}
+
+	lightboxZoomScale.value = next;
+	if (next <= 1.001) {
+		lightboxPanX.value = 0;
+		lightboxPanY.value = 0;
+	}
+};
+
+const onLightboxPointerDown = (event) => {
+	if (lightboxZoomScale.value <= 1.001) return;
+	if (event.button !== 0) return;
+	event.preventDefault();
+	event.stopPropagation();
+	lightboxIsPanning.value = true;
+	lightboxDidPan = false;
+	lightboxPanStartX = event.clientX;
+	lightboxPanStartY = event.clientY;
+	lightboxPanOriginX = lightboxPanX.value;
+	lightboxPanOriginY = lightboxPanY.value;
+	window.addEventListener('pointermove', onLightboxPointerMove);
+	window.addEventListener('pointerup', onLightboxPointerUp);
+	window.addEventListener('pointercancel', onLightboxPointerUp);
+};
+
+const onLightboxPointerMove = (event) => {
+	if (!lightboxIsPanning.value) return;
+	const dx = event.clientX - lightboxPanStartX;
+	const dy = event.clientY - lightboxPanStartY;
+	if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+		lightboxDidPan = true;
+	}
+	lightboxPanX.value = lightboxPanOriginX + dx;
+	lightboxPanY.value = lightboxPanOriginY + dy;
+};
+
+const onLightboxPointerUp = () => {
+	lightboxIsPanning.value = false;
+	window.removeEventListener('pointermove', onLightboxPointerMove);
+	window.removeEventListener('pointerup', onLightboxPointerUp);
+	window.removeEventListener('pointercancel', onLightboxPointerUp);
+};
+
+// بدون زوم: کلیک روی تصویر هم لایت‌باکس را می‌بندد
+// با زوم: فقط کلیک بیرون از تصویر می‌بندد (پن با درگ کار می‌کند)
+const onLightboxImageClick = (event) => {
+	if (lightboxZoomScale.value > 1 || lightboxDidPan) {
+		event.stopPropagation();
+		lightboxDidPan = false;
+		return;
+	}
+	closeLightbox();
+};
+
+const resetLightboxZoom = () => {
+	lightboxZoomScale.value = 1;
+	lightboxPanX.value = 0;
+	lightboxPanY.value = 0;
+	lightboxIsPanning.value = false;
+};
+
+const lightboxImageStyle = computed(() => {
+	const s = lightboxZoomScale.value;
+	const px = lightboxPanX.value;
+	const py = lightboxPanY.value;
+	let imgScale = s;
+	// در حالت لوگو بخشی از زوم با بزرگ‌شدن کادر جذب می‌شود تا دوبرابر نشود
+	if (lightboxViewMode.value === 'logo' && s > 1) {
+		const boxScale = Math.min(s, 98 / 90);
+		imgScale = s / boxScale;
+	}
+	const style = {
+		transform: `translate(${px}px, ${py}px) scale(${imgScale})`,
+		transformOrigin: 'center center'
+	};
+	if (lightboxViewMode.value === 'logo') {
+		style.backgroundColor = backgroundColor.value;
+	}
+	return style;
+});
+
+// در حالت لوگو: کادر تا نزدیک کل viewport بزرگ می‌شود؛ زوم بیشتر با scale روی تصویر + پن
+const lightboxWrapperStyle = computed(() => {
+	if (lightboxViewMode.value !== 'logo') return null;
+	const s = lightboxZoomScale.value;
+	if (s <= 1.001) return null;
+	const boxScale = Math.min(s, 98 / 90);
+	const pct = Math.min(90 * boxScale, 98);
+	const size = `min(${pct}vw, ${pct}vh)`;
+	return {
+		width: size,
+		height: size,
+		maxWidth: size,
+		maxHeight: size
+	};
+});
 
 const lightboxHasLogo = computed(() => !!(lightboxItem.value && lightboxItem.value.logo));
 const lightboxHasPoster = computed(() => !!(lightboxItem.value && lightboxItem.value.poster));
@@ -4722,6 +4945,7 @@ const setLightboxViewMode = (mode) => {
 	if (mode === 'poster' && !lightboxItem.value.poster) return;
 	lightboxViewMode.value = mode;
 	loadLightboxImage(lightboxItem.value, mode);
+	resetLightboxZoom();
 };
 
 const toggleLightboxViewMode = () => {
@@ -4773,6 +4997,7 @@ const openLightbox = item => {
 	loadLightboxImage(item, lightboxViewMode.value);
 	updateLightboxURL(item);
 	updateDocumentTitle(item);
+	resetLightboxZoom();
 	
 	setTimeout(() => {
 		isLightboxActive.value = true;
@@ -4789,6 +5014,7 @@ const closeLightbox = () => {
 	lightboxLoadId++; // cancel any in-flight load
 	updateLightboxURL(null);
 	updateDocumentTitle(null);
+	resetLightboxZoom();
 	
 	setTimeout(() => {
 		isLightboxVisible.value = false;
@@ -4848,6 +5074,7 @@ const changeLightboxImage = changeIndexCallback => {
 	loadLightboxImage(newItem, lightboxViewMode.value);
 	updateLightboxURL(newItem);
 	updateDocumentTitle(newItem);
+	resetLightboxZoom();
 	preloadImages(newIndex);
 };
 const prevImage = () => changeLightboxImage((current, lastItem) => current <= 0 ? lastItem : current - 1);
@@ -4958,7 +5185,7 @@ const collectYearStats = (list) => {
 	};
 };
 
-const topCollaborator = (list, getLabel) => {
+const topCollaborators = (list, getLabel) => {
 	const map = {};
 	list.forEach(item => {
 		const label = getLabel(item);
@@ -4967,16 +5194,18 @@ const topCollaborator = (list, getLabel) => {
 		map[label].posters++;
 		map[label].films.add(item.film);
 	});
-	let best = null;
 	let bestPosters = 0;
 	Object.entries(map).forEach(([name, data]) => {
 		// فقط همکاری‌های با بیش از یک پوستر
 		if (data.posters > 1 && data.posters > bestPosters) {
 			bestPosters = data.posters;
-			best = { name, posters: data.posters, films: data.films.size };
 		}
 	});
-	return best;
+	if (bestPosters === 0) return [];
+	return Object.entries(map)
+		.filter(([name, data]) => data.posters === bestPosters)
+		.map(([name, data]) => ({ name, posters: data.posters, films: data.films.size }))
+		.sort((a, b) => a.name.localeCompare(b.name, 'fa'));
 };
 
 const t = (text) => ({ text });
@@ -5013,40 +5242,55 @@ const applyProfileLink = (part) => {
 
 const profileHeader = computed(() => {
 	const buildCount = (list) => {
-		const films = new Set(list.map(i => i.film)).size;
-		return posterMode.value
-			? `${faNum(list.length)} پوستر · ${faNum(films)} فیلم`
-			: `${faNum(list.length)} لوگو · ${faNum(films)} فیلم`;
+		if (posterMode.value) {
+			const films = new Set(list.map(i => i.film)).size;
+			return `${faNum(list.length)} پوستر · ${faNum(films)} فیلم`;
+		}
+		// در حالت لوگو فقط آیتم‌هایی که واقعاً لوگو دارند شمرده شوند
+		const withLogo = list.filter(i => i.logo);
+		const films = new Set(withLogo.map(i => i.film)).size;
+		return `${faNum(withLogo.length)} لوگو · ${faNum(films)} فیلم`;
 	};
+
+	const isUnknown = (name) => !name || name === 'نامشخص' || name === 'Unknown' || name === getTranslatedText('unknown');
 
 	if (selectedDesigner.value) {
 		const name = selectedDesigner.value;
 		const list = items.value.filter(item => getDesignerLabelForItem(item) === name);
 		const films = new Set(list.map(i => i.film)).size;
 		const ys = collectYearStats(list);
-		const topDir = topCollaborator(list, i => i.directorLabel);
+		const topDirs = topCollaborators(list, i => i.directorLabel);
 		const parts = [];
-		if (list.length && ys.oldest && ys.newest) {
+		if (!isUnknown(name) && list.length && ys.oldest && ys.newest) {
 			parts.push(t(`${name} در فاصلهٔ سال‌های ${ys.oldest} تا ${ys.newest}، ${faNum(list.length)} پوستر برای ${faNum(films)} فیلم طراحی کرده است.`));
 			if (ys.peakYear && ys.peakCount > 1) {
 				parts.push(t(` او با ${faNum(ys.peakCount)} پوستر، بیشترین تعداد پوسترهایش را در سال `));
 				parts.push(linkPart(ys.peakYear, 'year', ys.peakYear));
 				parts.push(t(' طراحی کرده'));
-				if (topDir) {
-					parts.push(t(' و بیش از همه با کارگردان '));
-					parts.push(linkPart(topDir.name, 'director', topDir.name));
-					parts.push(t(` (${faNum(topDir.posters)} پوستر برای ${faNum(topDir.films)} فیلم) کار کرده است.`));
+				if (topDirs.length > 0) {
+					parts.push(t(topDirs.length === 1 ? ' و بیش از همه با کارگردان ' : ' و بیش از همه با کارگردان‌های '));
+					topDirs.forEach((topDir, idx) => {
+						if (idx > 0) parts.push(t(idx === topDirs.length - 1 ? ' و ' : '، '));
+						parts.push(linkPart(topDir.name, 'director', topDir.name));
+						parts.push(t(` (${faNum(topDir.posters)} پوستر برای ${faNum(topDir.films)} فیلم)`));
+					});
+					parts.push(t(' کار کرده است.'));
 				} else {
 					parts.push(t(' است.'));
 				}
-			} else if (topDir) {
-				parts.push(t(' او بیش از همه با کارگردان '));
-				parts.push(linkPart(topDir.name, 'director', topDir.name));
-				parts.push(t(` (${faNum(topDir.posters)} پوستر برای ${faNum(topDir.films)} فیلم) کار کرده است.`));
+			} else if (topDirs.length > 0) {
+				parts.push(t(topDirs.length === 1 ? ' او بیش از همه با کارگردان ' : ' او بیش از همه با کارگردان‌های '));
+				topDirs.forEach((topDir, idx) => {
+					if (idx > 0) parts.push(t(idx === topDirs.length - 1 ? ' و ' : '، '));
+					parts.push(linkPart(topDir.name, 'director', topDir.name));
+					parts.push(t(` (${faNum(topDir.posters)} پوستر برای ${faNum(topDir.films)} فیلم)`));
+				});
+				parts.push(t(' کار کرده است.'));
 			}
 		}
 		// لینک‌های ویکی‌داده و ویکی‌پدیا کنار نام طراح
 		let links = null;
+		if (!isUnknown(name)) {
 		for (const item of list) {
 			const d = item.designers?.find(x => x.label === name) || item.designers?.[0];
 			if (d && d.label === name) {
@@ -5082,6 +5326,7 @@ const profileHeader = computed(() => {
 				}
 			}
 		}
+		} // end if (!isUnknown(name)) for links
 		return { type: 'طراح پوستر', name, count: buildCount(list), summaryParts: parts, links };
 	}
 
@@ -5089,14 +5334,19 @@ const profileHeader = computed(() => {
 		const name = selectedDirector.value;
 		const list = items.value.filter(item => getDirectorLabelForItem(item) === name);
 		const films = new Set(list.map(i => i.film)).size;
-		const topDes = topCollaborator(list, i => getDesignerLabelForItem(i));
-		const parts = [
-			t(`از فیلم‌های ${name}، در آرشیو پوسترهای سینمای ایران، ${faNum(list.length)} پوستر برای ${faNum(films)} فیلم دیده می‌شود.`)
-		];
-		if (topDes) {
-			parts.push(t(' او بیش از همهٔ طراحان، با '));
-			parts.push(linkPart(topDes.name, 'designer', topDes.name));
-			parts.push(t(` در ${faNum(topDes.posters)} پوستر برای ${faNum(topDes.films)} فیلم کار کرده است.`));
+		const topDess = topCollaborators(list, i => getDesignerLabelForItem(i));
+		const parts = [];
+		if (!isUnknown(name)) {
+			parts.push(t(`از فیلم‌های ${name}، در آرشیو پوسترهای سینمای ایران، ${faNum(list.length)} پوستر برای ${faNum(films)} فیلم دیده می‌شود.`));
+			if (topDess.length > 0) {
+				parts.push(t(topDess.length === 1 ? ' او بیش از همهٔ طراحان، با ' : ' او بیش از همهٔ طراحان، با '));
+				topDess.forEach((topDes, idx) => {
+					if (idx > 0) parts.push(t(idx === topDess.length - 1 ? ' و ' : '، '));
+					parts.push(linkPart(topDes.name, 'designer', topDes.name));
+					parts.push(t(` (${faNum(topDes.posters)} پوستر برای ${faNum(topDes.films)} فیلم)`));
+				});
+				parts.push(t(' کار کرده است.'));
+			}
 		}
 		return { type: 'کارگردان', name, count: buildCount(list), summaryParts: parts };
 	}
@@ -5110,23 +5360,32 @@ const profileHeader = computed(() => {
 		});
 		const films = new Set(list.map(i => i.film)).size;
 		const ys = collectYearStats(list);
-		const topDir = topCollaborator(list, i => i.directorLabel);
-		const topDes = topCollaborator(list, i => getDesignerLabelForItem(i));
-		const parts = [
-			t(`از فیلم‌های با بازی ${name}، در این آرشیو ${faNum(list.length)} پوستر برای ${faNum(films)} فیلم موجود است.`)
-		];
-		if (ys.oldest && ys.newest) {
-			parts.push(t(` این آثار مربوط به سال‌های ${ys.oldest} تا ${ys.newest} هستند.`));
-		}
-		if (topDir) {
-			parts.push(t(' بیشترین همکاری با کارگردان '));
-			parts.push(linkPart(topDir.name, 'director', topDir.name));
-			parts.push(t(` در ${faNum(topDir.posters)} پوستر برای ${faNum(topDir.films)} فیلم بوده است.`));
-		}
-		if (topDes) {
-			parts.push(t(' در طراحی پوستر بیش از همه با '));
-			parts.push(linkPart(topDes.name, 'designer', topDes.name));
-			parts.push(t(` (${faNum(topDes.posters)} پوستر برای ${faNum(topDes.films)} فیلم) همراه بوده است.`));
+		const topDirs = topCollaborators(list, i => i.directorLabel);
+		const topDess = topCollaborators(list, i => getDesignerLabelForItem(i));
+		const parts = [];
+		if (!isUnknown(name)) {
+			parts.push(t(`از فیلم‌های با بازی ${name}، در این آرشیو ${faNum(list.length)} پوستر برای ${faNum(films)} فیلم موجود است.`));
+			if (ys.oldest && ys.newest) {
+				parts.push(t(` این آثار مربوط به سال‌های ${ys.oldest} تا ${ys.newest} هستند.`));
+			}
+			if (topDirs.length > 0) {
+				parts.push(t(topDirs.length === 1 ? ' بیشترین همکاری با کارگردان ' : ' بیشترین همکاری با کارگردان‌های '));
+				topDirs.forEach((topDir, idx) => {
+					if (idx > 0) parts.push(t(idx === topDirs.length - 1 ? ' و ' : '، '));
+					parts.push(linkPart(topDir.name, 'director', topDir.name));
+					parts.push(t(` (${faNum(topDir.posters)} پوستر برای ${faNum(topDir.films)} فیلم)`));
+				});
+				parts.push(t(' بوده است.'));
+			}
+			if (topDess.length > 0) {
+				parts.push(t(topDess.length === 1 ? ' در طراحی پوستر بیش از همه با ' : ' در طراحی پوستر بیش از همه با '));
+				topDess.forEach((topDes, idx) => {
+					if (idx > 0) parts.push(t(idx === topDess.length - 1 ? ' و ' : '، '));
+					parts.push(linkPart(topDes.name, 'designer', topDes.name));
+					parts.push(t(` (${faNum(topDes.posters)} پوستر برای ${faNum(topDes.films)} فیلم)`));
+				});
+				parts.push(t(' همراه بوده است.'));
+			}
 		}
 		return { type: 'بازیگر', name, count: buildCount(list), summaryParts: parts };
 	}
@@ -5136,23 +5395,32 @@ const profileHeader = computed(() => {
 		const list = items.value.filter(item => getStudioLabelForItem(item) === name);
 		const films = new Set(list.map(i => i.film)).size;
 		const ys = collectYearStats(list);
-		const topDir = topCollaborator(list, i => i.directorLabel);
-		const topDes = topCollaborator(list, i => getDesignerLabelForItem(i));
-		const parts = [
-			t(`از تولیدات استودیو ${name}، در آرشیو ${faNum(list.length)} پوستر برای ${faNum(films)} فیلم دیده می‌شود.`)
-		];
-		if (ys.oldest && ys.newest) {
-			parts.push(t(` این آثار مربوط به فاصلهٔ سال‌های ${ys.oldest} تا ${ys.newest} هستند.`));
-		}
-		if (topDir) {
-			parts.push(t(' بیشترین همکاری با کارگردان '));
-			parts.push(linkPart(topDir.name, 'director', topDir.name));
-			parts.push(t(` در ${faNum(topDir.posters)} پوستر برای ${faNum(topDir.films)} فیلم بوده است.`));
-		}
-		if (topDes) {
-			parts.push(t(' در طراحی پوستر بیش از همه با '));
-			parts.push(linkPart(topDes.name, 'designer', topDes.name));
-			parts.push(t(` (${faNum(topDes.posters)} پوستر برای ${faNum(topDes.films)} فیلم) کار شده است.`));
+		const topDirs = topCollaborators(list, i => i.directorLabel);
+		const topDess = topCollaborators(list, i => getDesignerLabelForItem(i));
+		const parts = [];
+		if (!isUnknown(name)) {
+			parts.push(t(`از تولیدات استودیو ${name}، در آرشیو ${faNum(list.length)} پوستر برای ${faNum(films)} فیلم دیده می‌شود.`));
+			if (ys.oldest && ys.newest) {
+				parts.push(t(` این آثار مربوط به فاصلهٔ سال‌های ${ys.oldest} تا ${ys.newest} هستند.`));
+			}
+			if (topDirs.length > 0) {
+				parts.push(t(topDirs.length === 1 ? ' بیشترین همکاری با کارگردان ' : ' بیشترین همکاری با کارگردان‌های '));
+				topDirs.forEach((topDir, idx) => {
+					if (idx > 0) parts.push(t(idx === topDirs.length - 1 ? ' و ' : '، '));
+					parts.push(linkPart(topDir.name, 'director', topDir.name));
+					parts.push(t(` (${faNum(topDir.posters)} پوستر برای ${faNum(topDir.films)} فیلم)`));
+				});
+				parts.push(t(' بوده است.'));
+			}
+			if (topDess.length > 0) {
+				parts.push(t(topDess.length === 1 ? ' در طراحی پوستر بیش از همه با ' : ' در طراحی پوستر بیش از همه با '));
+				topDess.forEach((topDes, idx) => {
+					if (idx > 0) parts.push(t(idx === topDess.length - 1 ? ' و ' : '، '));
+					parts.push(linkPart(topDes.name, 'designer', topDes.name));
+					parts.push(t(` (${faNum(topDes.posters)} پوستر برای ${faNum(topDes.films)} فیلم)`));
+				});
+				parts.push(t(' کار شده است.'));
+			}
 		}
 		return { type: 'استودیو', name, count: buildCount(list), summaryParts: parts };
 	}
@@ -5367,12 +5635,7 @@ const searchBarDynamicStyle = computed(() => {
 		style.insetInlineEnd = '0px';
 		style.width = '100%';
 		style.insetInlineStart = 'auto';
-		if (isSearchBarVisible.value) {
-			const titleHeight = 50;
-			style.top = isAtTop.value ? `${titleHeight}px` : '0px';
-		} else {
-			style.top = '-120px';
-		}
+		style.top = isSearchBarVisible.value ? '0px' : '-120px';
 	} else {
 		if (sidebarVisible.value) {
 			style.right = `${sidebarWidth.value + 60}px`;
@@ -5382,12 +5645,7 @@ const searchBarDynamicStyle = computed(() => {
 			style.insetInlineStart = '20px';
 		}
 		style.width = 'auto';
-		if (isSearchBarVisible.value) {
-			const titleHeight = 50;
-			style.top = isAtTop.value ? `${titleHeight}px` : '0px';
-		} else {
-			style.top = '-120px';
-		}
+		style.top = isSearchBarVisible.value ? '0px' : '-120px';
 	}
 	return style;
 });
@@ -5397,17 +5655,12 @@ const mainContentStyle = computed(() => {
 		? `${sidebarWidth.value + 40}px`
 		: '0px';
 
-	const titleHeight = isMobileView.value ? 65 : 50;
+	// عنوان داخل خودِ نوار جستجو است؛ فقط ارتفاع اندازه‌گیری‌شدهٔ نوار کافی است
 	const searchBarTotalHeight = isSearchBarVisible.value ? searchBarHeight.value : 0;
-
-	let totalPadding = searchBarTotalHeight;
-	if (isAtTop.value) {
-		totalPadding += titleHeight;
-	}
 
 	return {
 		marginRight: effectiveMarginRight,
-		paddingTop: `${totalPadding}px`
+		paddingTop: `${searchBarTotalHeight}px`
 	};
 });
 
@@ -5649,7 +5902,7 @@ return {
     availableYears, filteredYearsInModal, selectYearFromModal, removeYearFilter,
     yearRangeStart, yearRangeEnd, applyYearRangeFilter, clearYearRangeFilter, yearRangeBounds,
     tempYearRangeStart, tempYearRangeEnd, normalizeDigits, filteredYearLabel,
-    sliderYearStart, sliderYearEnd, yearSliderFillStyle, onSliderYearStart, onSliderYearEnd,
+    sliderYearStart, sliderYearEnd, yearSliderFillStyle, onSliderYearStart, onSliderYearEnd, invertYearForSlider,
 
     filteredDesignersInModal, designerSearchQuery,
     selectDesignerFromModal, removeDesignerFilter, clearDesignerSearchQuery, filteredDesignerLabel,
@@ -5678,6 +5931,7 @@ return {
     lightboxItem, lightboxImage, isLightboxActive, isLightboxVisible,
     openLightbox, closeLightbox, prevImage, nextImage, handleImageClick, downloadLink,
     lightboxViewMode, setLightboxViewMode, toggleLightboxViewMode, showLightboxViewSwitch, lightboxHasLogo, lightboxHasPoster, lightboxDownloadLink,
+    lightboxZoomScale, lightboxIsPanning, onLightboxWheel, onLightboxPointerDown, onLightboxImageClick, lightboxImageStyle, lightboxWrapperStyle,
 
     sidebarVisible, toggleSidebar, toggleSidebarDesktop, hideSidebar,
     sidebarWidth, minSidebarWidth, maxSidebarWidth, sidebarStyle,
@@ -5693,6 +5947,7 @@ return {
     filmCountByYear, filmCountByDesigner, filmCountByDirector, filmCountByGenre, filmCountByActor, filmCountByLetter, filmCountByStudio,
 
     isCollapsed, toggleCollapse, getSectionClass, hoveredItem, isAtTop,
+    allSectionsExpanded, toggleAllSections,
     bringToTop, visibleBringToTop, mainContentStyle, pageTitle,
 
     currentLanguage, toggleLanguage,
