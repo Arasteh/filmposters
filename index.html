@@ -39,20 +39,23 @@
 
 html {
 	scroll-behavior: smooth;
-	--body-background: light-dark(#f8fafc, #0b0e13);
-	--body-foreground: light-dark(#0f172a, #f1f5f9);
-	--text-input-border: light-dark(#e2e8f0, #334155);
-	--card-background: light-dark(#ffffff, #151a21);
-	--year-link-foreground: light-dark(#64748b, #94a3b8);
-	--bar-color: light-dark(#dc2626, #ef4444);
-	--bar-hover-color: light-dark(#ef4444, #f87171);
-	--svg-background: light-dark(#ffffff, #151a21);
-	--svg-border-color: light-dark(#e2e8f0, #1e293b);
-	--active-filter: light-dark(#fee2e2, #450a0a);
-	--shadow-sm: 0 1px 2px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.06);
-	--shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
-	--shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.05);
-	--shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.06);
+	--body-background: light-dark(#f7f7fb, #0a0c11);
+	--body-background-accent: light-dark(#eef0f7, #12151c);
+	--body-foreground: light-dark(#181523, #f2f1f7);
+	--text-input-border: light-dark(#e3e1ee, #2d3340);
+	--card-background: light-dark(#ffffff, #161922);
+	--year-link-foreground: light-dark(#6b6a80, #9491a8);
+	--bar-color: light-dark(#a3123a, #e2496f);
+	--bar-hover-color: light-dark(#c41846, #ef5f83);
+	--bar-color-soft: light-dark(#c9345a, #d94f77);
+	--gold-accent: light-dark(#b3892c, #d9a74a);
+	--svg-background: light-dark(#ffffff, #161922);
+	--svg-border-color: light-dark(#e3e1ee, #212632);
+	--active-filter: light-dark(#fbe4ea, #401322);
+	--shadow-sm: 0 1px 2px rgba(20,10,30,0.05), 0 1px 3px rgba(20,10,30,0.07);
+	--shadow-md: 0 4px 8px -2px rgba(20,10,30,0.09), 0 2px 4px -2px rgba(20,10,30,0.06);
+	--shadow-lg: 0 12px 20px -4px rgba(20,10,30,0.11), 0 4px 8px -4px rgba(20,10,30,0.07);
+	--shadow-xl: 0 24px 32px -8px rgba(20,10,30,0.16), 0 8px 12px -6px rgba(20,10,30,0.08);
 	--radius-sm: 8px;
 	--radius-md: 12px;
 	--radius-lg: 16px;
@@ -61,12 +64,40 @@ html {
 	--transition-spring: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+::selection {
+	background: color-mix(in srgb, var(--bar-color) 30%, transparent);
+	color: var(--body-foreground);
+}
+
+::-webkit-scrollbar {
+	width: 11px;
+	height: 11px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: light-dark(rgba(24,21,35,0.16), rgba(242,241,247,0.14));
+	border-radius: 10px;
+	border: 3px solid var(--body-background);
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: light-dark(rgba(24,21,35,0.28), rgba(242,241,247,0.24));
+}
+
 body {
 	display: flex;
 	justify-content: flex-start;
 	align-items: flex-start;
 	min-height: 100vh;
 	background-color: var(--body-background);
+	background-image:
+		radial-gradient(ellipse 900px 500px at 12% -10%, color-mix(in srgb, var(--bar-color) 7%, transparent), transparent 60%),
+		radial-gradient(ellipse 800px 500px at 100% 0%, color-mix(in srgb, var(--gold-accent) 5%, transparent), transparent 55%);
+	background-attachment: fixed;
 	color: var(--body-foreground);
 	margin: 0;
 	transition: var(--transition);
@@ -117,11 +148,14 @@ body {
 }
 
 .title-container h1 {
-	font-weight: 700;
-	font-size: 1.15rem;
-	letter-spacing: -0.01em;
+	font-weight: 800;
+	font-size: 1.2rem;
+	letter-spacing: -0.015em;
 	margin: 0;
-	color: var(--body-foreground);
+	background: linear-gradient(95deg, var(--body-foreground) 35%, var(--bar-color-soft) 120%);
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 
 .search-container {
@@ -187,13 +221,17 @@ body {
 
 input[type="text"] {
 	width: 100%;
-	padding: 8px 12px;
+	padding: 9px 13px;
 	border: 1.5px solid var(--text-input-border);
 	border-radius: var(--radius-md);
 	background: light-dark(rgba(255,255,255,0.85), rgba(255,255,255,0.04));
 	transition: var(--transition);
 	font-size: 0.9rem;
 	color: var(--body-foreground);
+}
+
+input[type="text"]::placeholder {
+	color: light-dark(#9491a8, #6b6a80);
 }
 
 input[type="text"]:focus {
@@ -256,14 +294,18 @@ input[type="text"]:focus {
 	transition: var(--transition-spring);
 	position: relative;
 	box-shadow: var(--shadow-sm);
-	border: 1px solid light-dark(rgba(0,0,0,0.05), rgba(255,255,255,0.06));
+	border: 1px solid light-dark(rgba(24,21,35,0.06), rgba(255,255,255,0.06));
 	overflow: hidden;
 }
 
 .item-card:hover {
 	transform: translateY(-6px);
 	box-shadow: var(--shadow-xl);
-	border-color: light-dark(rgba(0,0,0,0.08), rgba(255,255,255,0.1));
+	border-color: color-mix(in srgb, var(--bar-color) 25%, transparent);
+}
+
+.item-card:hover .item-image {
+	transform: scale(1.03);
 }
 
 .item-card.light-text {
@@ -319,8 +361,9 @@ input[type="text"]:focus {
 }
 
 .item-title {
-	font-weight: bold;
+	font-weight: 700;
 	font-size: 0.95rem;
+	letter-spacing: -0.005em;
 }
 
 .year-link {
@@ -585,7 +628,7 @@ input[type="text"]:focus {
 	position: absolute;
 	bottom: 28px;
 	inset-inline-start: 28px;
-	background-color: rgba(15, 18, 23, 0.75);
+	background-color: rgba(12, 10, 18, 0.78);
 	color: white;
 	padding: 22px 26px;
 	border-radius: var(--radius-lg);
@@ -631,7 +674,7 @@ input[type="text"]:focus {
 	font-size: 18px;
 	border: none;
 	outline: none;
-	background-color: var(--bar-color);
+	background: linear-gradient(135deg, var(--bar-color), var(--bar-hover-color));
 	color: white;
 	cursor: pointer;
 	padding: 12px;
@@ -648,7 +691,7 @@ input[type="text"]:focus {
 .reset-all-filters-btn {
 	margin-top: 15px;
 	padding: 12px 28px;
-	background-color: var(--bar-color);
+	background: linear-gradient(135deg, var(--bar-color), var(--bar-hover-color));
 	color: white;
 	border: none;
 	border-radius: var(--radius-xl);
@@ -2109,10 +2152,204 @@ html[style*="color-scheme: dark"] .profile-wiki-icon {
 }
 
 .loading-text {
-	font-family: system-ui;
 	color: var(--body-foreground);
 	font-size: 1.1rem;
+	font-weight: 500;
 	text-align: center;
+}
+
+.collab-stats-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	width: calc(100% - 32px);
+	margin: 6px 16px 18px;
+	padding: 11px 16px;
+	border: none;
+	border-radius: var(--radius-xl);
+	background: linear-gradient(135deg, var(--bar-color), var(--bar-hover-color));
+	color: #fff;
+	font-family: inherit;
+	font-weight: 600;
+	font-size: 0.85rem;
+	cursor: pointer;
+	transition: var(--transition-spring);
+	box-shadow: 0 4px 14px color-mix(in srgb, var(--bar-color) 30%, transparent);
+}
+
+.collab-stats-btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 6px 20px color-mix(in srgb, var(--bar-color) 45%, transparent);
+}
+
+.collab-stats-btn .material-symbols-rounded {
+	font-size: 18px;
+}
+
+.collab-modal-overlay {
+	position: fixed;
+	inset: 0;
+	background: rgba(10, 8, 14, 0.6);
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
+	z-index: 1200;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24px;
+}
+
+.collab-modal {
+	background: var(--card-background);
+	border-radius: var(--radius-lg);
+	max-width: 900px;
+	width: 100%;
+	max-height: 85vh;
+	display: flex;
+	flex-direction: column;
+	box-shadow: var(--shadow-xl);
+	overflow: hidden;
+	border: 1px solid light-dark(rgba(24,21,35,0.06), rgba(255,255,255,0.08));
+}
+
+.collab-modal-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 18px 22px;
+	border-bottom: 1px solid var(--text-input-border);
+	flex-shrink: 0;
+}
+
+.collab-modal-header h2 {
+	margin: 0;
+	font-size: 1.05rem;
+	font-weight: 700;
+}
+
+.collab-modal-header p {
+	margin: 4px 0 0;
+	font-size: 0.8rem;
+	color: var(--year-link-foreground);
+	font-weight: 400;
+}
+
+.collab-modal-close {
+	background: none;
+	border: none;
+	cursor: pointer;
+	color: var(--body-foreground);
+	padding: 6px;
+	border-radius: 50%;
+	display: flex;
+	flex-shrink: 0;
+	transition: var(--transition);
+}
+
+.collab-modal-close:hover {
+	background: light-dark(rgba(24,21,35,0.06), rgba(255,255,255,0.08));
+	color: var(--bar-color);
+}
+
+.collab-modal-body {
+	padding: 20px 22px 28px;
+	overflow-y: auto;
+}
+
+.collab-categories-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 24px 28px;
+}
+
+@media (max-width: 768px) {
+	.collab-categories-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+.collab-category-title {
+	font-size: 0.92rem;
+	font-weight: 700;
+	margin: 0 0 10px;
+	color: var(--bar-color);
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.collab-category-title .count-pill {
+	font-size: 0.72rem;
+	font-weight: 600;
+	color: var(--year-link-foreground);
+	background: light-dark(#f1f1f6, #1b1e27);
+	border-radius: 999px;
+	padding: 1px 9px;
+}
+
+.collab-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.collab-list-item {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 8px 12px;
+	border-radius: var(--radius-md);
+	background: light-dark(#f4f4f9, #1b1e27);
+	cursor: pointer;
+	transition: var(--transition);
+	border: 1px solid transparent;
+}
+
+.collab-list-item:hover {
+	background: color-mix(in srgb, var(--bar-color) 10%, transparent);
+	border-color: color-mix(in srgb, var(--bar-color) 25%, transparent);
+}
+
+.collab-list-rank {
+	color: var(--year-link-foreground);
+	font-size: 0.75rem;
+	font-weight: 600;
+	width: 16px;
+	flex-shrink: 0;
+	text-align: center;
+}
+
+.collab-list-names {
+	flex: 1;
+	font-size: 0.85rem;
+	line-height: 1.5;
+	min-width: 0;
+}
+
+.collab-list-names .entity-type {
+	color: var(--year-link-foreground);
+	font-size: 0.72rem;
+	margin-inline-end: 3px;
+}
+
+.collab-list-count {
+	font-weight: 700;
+	color: var(--bar-color);
+	font-size: 0.8rem;
+	flex-shrink: 0;
+	white-space: nowrap;
+}
+
+.collab-empty {
+	color: var(--year-link-foreground);
+	text-align: center;
+	padding: 40px 0;
+	font-size: 0.9rem;
 }
 </style>
 <script>
@@ -2412,7 +2649,7 @@ html[style*="color-scheme: dark"] .profile-wiki-icon {
 				</div>
 				<div class="sidebar-section-body">
 					<div class="search-container">
-						<input type="text" v-model="designerSearchQuery" :placeholder="getTranslatedText('searchDesigner')" />
+						<input type="text" v-model="designerSearchQuery" placeholder="جستجوی طراح…" />
 						<span v-if="designerSearchQuery" @click="clearDesignerSearchQuery" class="clearSearch"
 							style="display: none" :style="{ display: undefined }">
 							<span class="material-symbols-rounded">
@@ -2422,7 +2659,7 @@ html[style*="color-scheme: dark"] .profile-wiki-icon {
 					</div>
 					<div class="designer-grid" style="visibility: hidden" :style="{ visibility: undefined }">
 						<div v-if="filteredDesignersInModal.length === 0" class="no-results">
-							{{ getTranslatedText('noResults') }}
+							نتیجه‌ای وجود ندارد
 						</div>
 						<div v-else v-for="[designer, count] in filteredDesignersInModal" :key="designer"
 							@click="selectedDesigner === designer ? removeDesignerFilter() : selectDesignerFromModal(designer)"
@@ -2454,7 +2691,7 @@ html[style*="color-scheme: dark"] .profile-wiki-icon {
 				</div>
 				<div class="sidebar-section-body">
 					<div class="search-container">
-						<input type="text" v-model="directorSearchQuery" :placeholder="getTranslatedText('searchDirector')" />
+						<input type="text" v-model="directorSearchQuery" placeholder="جستجوی کارگردان…" />
 						<span v-if="directorSearchQuery" @click="clearDirectorSearchQuery" class="clearSearch"
 							style="display: none" :style="{ display: undefined }">
 							<span class="material-symbols-rounded">
@@ -2608,6 +2845,10 @@ html[style*="color-scheme: dark"] .profile-wiki-icon {
 					</div>
 				</div>
 			</div>
+			<button type="button" class="collab-stats-btn" @click="showCollaborationsModal = true">
+				<span class="material-symbols-rounded">swap_vert</span>
+				پرتکرارترین همکاری‌ها
+			</button>
 			<a href="https://t.me/arastehnasab" class="mobile-only"
 				style="color: gray; font-weight: normal; text-decoration: none; padding: 8px 16px;">
 				پیشنهادی دارید؟
@@ -2662,29 +2903,15 @@ html[style*="color-scheme: dark"] .profile-wiki-icon {
 				<a v-if="lightboxItem.film" :href="'https://www.wikidata.org/wiki/' + lightboxItem.film" aria-label="ویکی‌داده" target="_blank">
 					<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg" alt="ویکی‌داده" class="linkIcon">
 				</a>
-				<template v-if="currentLanguage === 'en'">
-					<template v-if="lightboxItem.enWikipediaLink">
-						<a :href="'https://en.wikipedia.org/wiki/' + lightboxItem.enWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
-							<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
-						</a>
-					</template>
-					<template v-else-if="lightboxItem.faWikipediaLink">
-						<a :href="'https://fa.wikipedia.org/wiki/' + lightboxItem.faWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
-							<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
-						</a>
-					</template>
+				<template v-if="lightboxItem.faWikipediaLink">
+					<a :href="'https://fa.wikipedia.org/wiki/' + lightboxItem.faWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
+						<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
+					</a>
 				</template>
-				<template v-else>
-					<template v-if="lightboxItem.faWikipediaLink">
-						<a :href="'https://fa.wikipedia.org/wiki/' + lightboxItem.faWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
-							<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
-						</a>
-					</template>
-					<template v-else-if="lightboxItem.enWikipediaLink">
-						<a :href="'https://en.wikipedia.org/wiki/' + lightboxItem.enWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
-							<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
-						</a>
-					</template>
+				<template v-else-if="lightboxItem.enWikipediaLink">
+					<a :href="'https://en.wikipedia.org/wiki/' + lightboxItem.enWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
+						<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
+					</a>
 				</template>
 			</div>
 			<p>
@@ -2783,11 +3010,6 @@ html[style*="color-scheme: dark"] .profile-wiki-icon {
 								refresh
 							</span>
 						</button>
-						<!--
-						<button @click="toggleLanguage" id="languageToggle" style="background: none; border: none; cursor: pointer; padding: 5px; border-radius: var(--radius-sm); transition: var(--transition);">
-							<span style="font-size: 0.9em; font-weight: 500;">EN/FA</span>
-						</button>
-						-->
 						<button @click="toggleOptions" class="collapse-button mobile-only"
 							:class="collapseIconClass(isOptionsCollapsed)">
 							<span class="material-symbols-rounded" style="font-size: xx-large;">
@@ -3014,36 +3236,22 @@ html[style*="color-scheme: dark"] .profile-wiki-icon {
 							<span class="mobile-only">
 								<span class="material-symbols-rounded" :class="textColorClass" style="margin-inline-end: 5px; top: 8px; position: relative;">person_edit</span>
 							</span>
-							<span class="desktop-only" :class="textColorClass">{{ item.designers.length === 1 ? getTranslatedText('designer') + ': ' : getTranslatedText('designers') + ': ' }}</span>
+							<span class="desktop-only" :class="textColorClass">{{ item.designers.length === 1 ? 'طراح: ' : 'طراحان: ' }}</span>
 							<span :class="textColorClass" v-for="(designer, index) in item.designers" :key="index">
 								<a href="#" :class="textColorClass" @click.prevent="selectDesigner(designer.label)" aria-label="انتخاب طراح">{{ designer.label }}</a>
 								<span class="item-links">
 									<a :href="'https://www.wikidata.org/wiki/' + designer.id" aria-label="ویکی‌داده" target="_blank">
 										<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg" alt="ویکی‌داده" class="linkIcon">
 									</a>
-									<template v-if="currentLanguage === 'en'">
-										<template v-if="designer.enWikipediaLink">
-											<a :href="'https://en.wikipedia.org/wiki/' + designer.enWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
-												<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
-											</a>
-										</template>
-										<template v-else-if="designer.faWikipediaLink">
-											<a :href="'https://fa.wikipedia.org/wiki/' + designer.faWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
-												<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
-											</a>
-										</template>
+									<template v-if="designer.faWikipediaLink">
+										<a :href="'https://fa.wikipedia.org/wiki/' + designer.faWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
+											<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
+										</a>
 									</template>
-									<template v-else>
-										<template v-if="designer.faWikipediaLink">
-											<a :href="'https://fa.wikipedia.org/wiki/' + designer.faWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
-												<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
-											</a>
-										</template>
-										<template v-else-if="designer.enWikipediaLink">
-											<a :href="'https://en.wikipedia.org/wiki/' + designer.enWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
-												<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
-											</a>
-										</template>
+									<template v-else-if="designer.enWikipediaLink">
+										<a :href="'https://en.wikipedia.org/wiki/' + designer.enWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
+											<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
+										</a>
 									</template>
 								</span>
 								<br v-if="index < item.designers.length - 1">
@@ -3056,29 +3264,15 @@ html[style*="color-scheme: dark"] .profile-wiki-icon {
 							<a v-if="item.film" :href="'https://www.wikidata.org/wiki/' + item.film" aria-label="ویکی‌داده" target="_blank">
 								<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Wikidata.svg" alt="ویکی‌داده" class="linkIcon">
 							</a>
-							<template v-if="currentLanguage === 'en'">
-								<template v-if="item.enWikipediaLink">
-									<a :href="'https://en.wikipedia.org/wiki/' + item.enWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
-										<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
-									</a>
-								</template>
-								<template v-else-if="item.faWikipediaLink">
-									<a :href="'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
-										<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
-									</a>
-								</template>
+							<template v-if="item.faWikipediaLink">
+								<a :href="'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
+									<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
+								</a>
 							</template>
-							<template v-else>
-								<template v-if="item.faWikipediaLink">
-									<a :href="'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
-										<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
-									</a>
-								</template>
-								<template v-else-if="item.enWikipediaLink">
-									<a :href="'https://en.wikipedia.org/wiki/' + item.enWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
-										<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
-									</a>
-								</template>
+							<template v-else-if="item.enWikipediaLink">
+								<a :href="'https://en.wikipedia.org/wiki/' + item.enWikipediaLink.replaceAll(' ', '_')" aria-label="ویکی‌پدیا" target="_blank">
+									<img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wikipedia_%22W%22_Rounded_White.svg" alt="ویکی‌پدیا" class="linkIcon">
+								</a>
 							</template>
 						</div>
 					</div>
@@ -3098,6 +3292,46 @@ html[style*="color-scheme: dark"] .profile-wiki-icon {
 				</button>
 			</template>
 		</p>
+	</div>
+
+	<div v-if="showCollaborationsModal" class="collab-modal-overlay" @click="showCollaborationsModal = false">
+		<div class="collab-modal" @click.stop>
+			<div class="collab-modal-header">
+				<div>
+					<h2>پرتکرارترین همکاری‌ها</h2>
+					<p>۱۰ مورد برتر از هر نوع رابطه، بر اساس تعداد فیلم‌های مشترک</p>
+				</div>
+				<button type="button" class="collab-modal-close" @click="showCollaborationsModal = false" aria-label="بستن">
+					<span class="material-symbols-rounded">close</span>
+				</button>
+			</div>
+			<div class="collab-modal-body">
+				<div v-if="collaborationCategories.length === 0" class="collab-empty">
+					همکاری تکرارشونده‌ای یافت نشد.
+				</div>
+				<div v-else class="collab-categories-grid">
+					<div v-for="category in collaborationCategories" :key="category.id" class="collab-category">
+						<h3 class="collab-category-title">
+							{{ category.title }}
+							<span class="count-pill">{{ category.items.length.toLocaleString('fa') }}</span>
+						</h3>
+						<ol class="collab-list">
+							<li v-for="(combo, index) in category.items" :key="index"
+								class="collab-list-item"
+								@click="applyCollaborationFilter(combo.entities)">
+								<span class="collab-list-rank">{{ (index + 1).toLocaleString('fa') }}</span>
+								<span class="collab-list-names">
+									<template v-for="(entity, eIndex) in combo.entities" :key="eIndex">
+										{{ entity.label }}<span v-if="eIndex < combo.entities.length - 1"> × </span>
+									</template>
+								</span>
+								<span class="collab-list-count">{{ combo.count.toLocaleString('fa') }} فیلم</span>
+							</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 <script>
@@ -3147,6 +3381,7 @@ desktopSidebarToggleButton.style.display = 'block';
 createApp({ setup: () => {
 
 const isOptionsCollapsed = ref(true);
+const showCollaborationsModal = ref(false);
 const designerSearchQuery = ref('');
 const searchTerm = ref('');
 const selectedYear = ref('');
@@ -3167,53 +3402,7 @@ const moreInformation = ref(false);
 const sortOrder = ref('random');
 const sortDirection = ref('asc');
 
-const translations = {
-	fa: {
-		search: 'جستجو',
-		searchDesktop: 'جستجو (برای پرش به کادر جستجو / را تایپ کنید)',
-		searchDesigner: 'جستجوی طراح…',
-		searchDirector: 'جستجوی کارگردان…',
-		noResults: 'نتیجه‌ای وجود ندارد',
-		unknown: 'نامشخص',
-		designer: 'طراح',
-		designers: 'طراحان',
-		director: 'کارگردان',
-		directors: 'کارگردان‌ها',
-		year: 'سال',
-		years: 'سال‌ها',
-		yearRange: 'بازهٔ سال',
-		letter: 'حرف اول',
-		letters: 'حروف اول',
-		filmPosters: 'آرشیو پوسترهای سینمای ایران',
-		filmLogos: 'آرشیو لوگوهای سینمای ایران',
-	},
-	en: {
-		search: 'Search',
-		searchDesktop: 'Search (type / to jump to search field)',
-		searchDesigner: 'Search designers…',
-		searchDirector: 'Search directors…',
-		noResults: 'No results found',
-		unknown: 'Unknown',
-		designer: 'Designer',
-		designers: 'Designers',
-		director: 'Director',
-		directors: 'Directors',
-		year: 'Year',
-		years: 'Years',
-		yearRange: 'Year Range',
-		letter: 'First Letter',
-		letters: 'First Letters',
-		filmPosters: 'Film Posters of Iran',
-		filmLogos: 'Film Logos of Iran'
-	}
-};
-
-const currentLanguage = ref('fa');
-const getTranslatedText = (key) => {
-	return translations[currentLanguage.value]?.[key] || key;
-};
-
-const searchPlaceholder = ref(getTranslatedText('search'));
+const searchPlaceholder = ref('جستجو');
 const isSearchFocused = ref(false);
 const exactWordMatch = ref(false);
 const isSearchBarVisible = ref(true);
@@ -3235,16 +3424,10 @@ const tempYearRangeStart = ref('');
 const tempYearRangeEnd = ref('');
 const currentRandomOrder = ref([]);
 
-const toggleLanguage = () => {
-	currentLanguage.value = currentLanguage.value === 'fa' ? 'en' : 'fa';
-	clearYearRangeFilter();
-	updateURL();
-};
-
 const pageTitle = computed(() => {
 	return posterMode.value
-		? getTranslatedText('filmPosters')
-		: getTranslatedText('filmLogos');
+		? 'آرشیو پوسترهای سینمای ایران'
+		: 'آرشیو لوگوهای سینمای ایران';
 });
 
 const updateDocumentTitle = (item) => {
@@ -3328,7 +3511,6 @@ const applyInitialFilters = () => {
 	savedLogoColor.value = backgroundColor.value;
 	const yearStartParam = urlParams.get('yearStart');
 	const yearEndParam = urlParams.get('yearEnd');
-	currentLanguage.value = urlParams.get('lang') || 'fa';
 
 	if (yearStartParam !== null || yearEndParam !== null) {
 		yearRangeStart.value = yearStartParam ? parseInt(yearStartParam) : null;
@@ -3604,9 +3786,6 @@ const updateURL = () => {
 	if (!posterMode.value && backgroundColor.value !== '#ffffff') {
 		params.set('bgcolor', backgroundColor.value.replace('#', ''));
 	}
-	if (currentLanguage.value !== 'fa') {
-		params.set('lang', currentLanguage.value);
-	}
 
 	if (yearRangeStart.value !== null) params.set('yearStart', String(yearRangeStart.value));
 	if (yearRangeEnd.value !== null) params.set('yearEnd', String(yearRangeEnd.value));
@@ -3816,32 +3995,32 @@ const uniqueResultsFilmCount = computed(() => {
 });
 
 const getLabel = (labels) => {
-	if (!labels) return getTranslatedText('unknown');
-	const label = labels?.[currentLanguage.value] || labels?.fa || labels?.en;
-	return label || getTranslatedText('unknown');
+	if (!labels) return 'نامشخص';
+	const label = labels?.fa || labels?.en;
+	return label || 'نامشخص';
 };
 
 const getItemLabel = (labels) => {
-	if (!labels) return getTranslatedText('unknown');
-	return labels[currentLanguage.value] || labels.fa || labels.en || getTranslatedText('unknown');
+	if (!labels) return 'نامشخص';
+	return labels.fa || labels.en || 'نامشخص';
 };
 
 const getFilmLabel = (film) => {
-	if (!film?.labels) return getTranslatedText('unknown');
+	if (!film?.labels) return 'نامشخص';
 	return getItemLabel(film.labels);
 };
 
 const getDesignerLabel = (designerId) => {
-	if (!designerId) return getTranslatedText('unknown');
+	if (!designerId) return 'نامشخص';
 	const designer = data.secondary[designerId];
-	if (!designer?.labels) return getTranslatedText('unknown');
+	if (!designer?.labels) return 'نامشخص';
 	return getItemLabel(designer.labels);
 };
 
 const getDirectorLabel = (directorId) => {
-	if (!directorId) return getTranslatedText('unknown');
+	if (!directorId) return 'نامشخص';
 	const director = data.secondary[directorId];
-	if (!director?.labels) return getTranslatedText('unknown');
+	if (!director?.labels) return 'نامشخص';
 	return getItemLabel(director.labels);
 };
 
@@ -3854,8 +4033,8 @@ const items = computed(() => {
 
 		const item = {};
 		item.film = film.id;
-		item.filmLabel = getFilmLabel(film) || getTranslatedText('unknown');
-		item.aliases = film.aliases?.[currentLanguage.value]?.join(',') ?? '';
+		item.filmLabel = getFilmLabel(film) || 'نامشخص';
+		item.aliases = film.aliases?.fa?.join(',') ?? '';
 		item.date = film.date
 			?.map(x => x?.replace(/^\+/, '')
 				?.replace('-01-01T00:00:00Z', '-03-30T00:00:00Z')
@@ -3872,30 +4051,30 @@ const items = computed(() => {
 				const designer = data.secondary[designerId];
 				return {
 					id: designerId,
-						label: getItemLabel(designer?.labels) || getTranslatedText('unknown'),
+						label: getItemLabel(designer?.labels) || 'نامشخص',
 					faWikipediaLink: designer?.sitelinks?.fawiki,
 					enWikipediaLink: designer?.sitelinks?.enwiki
 				};
 			}).filter(designer => designer != null);
 			item.characteristics = poster.characteristics;
-			item.designerLabel = getDesignerLabel(poster.designers[0]) || getTranslatedText('unknown');
+			item.designerLabel = getDesignerLabel(poster.designers[0]) || 'نامشخص';
 			const fawiki = data.secondary[poster.designers[0]]?.sitelinks?.fawiki;
 			if (fawiki) item.designerFaWikipediaLink = fawiki;
 		} else {
 			item.designers = [];
-			item.designerLabel = getTranslatedText('unknown');
+			item.designerLabel = 'نامشخص';
 		}
 		if (film.directors?.length) {
 			item.director = film.directors[0];
-			item.directorLabel = getDirectorLabel(film.directors[0]) || getTranslatedText('unknown');
+			item.directorLabel = getDirectorLabel(film.directors[0]) || 'نامشخص';
 		} else {
-			item.directorLabel = getTranslatedText('unknown');
+			item.directorLabel = 'نامشخص';
 		}
 		if (film.studios && film.studios.length) {
 			item.studio = film.studios[0];
-			item.studioLabel = getStudioLabel(film.studios[0]) || getTranslatedText('unknown');
+			item.studioLabel = getStudioLabel(film.studios[0]) || 'نامشخص';
 		} else {
-			item.studioLabel = getTranslatedText('unknown');
+			item.studioLabel = 'نامشخص';
 		}
 		if (film.imdb.length) {
 			item.imdbID = film.imdb?.[0];
@@ -3977,17 +4156,17 @@ const getDesignerLabelForItem = (item) => {
 	if (item.designers && item.designers.length > 0) {
 		return getDesignerLabel(item.designers[0].id);
 	}
-	return getTranslatedText('unknown');
+	return 'نامشخص';
 };
 
 const hasDesigner = (item) => {
 	return item.designers && 
 		item.designers.length > 0 && 
-		item.designers.some(designer => designer.label && designer.label !== getTranslatedText('unknown'));
+		item.designers.some(designer => designer.label && designer.label !== 'نامشخص');
 };
 
 const getDirectorLabelForItem = (item) => {
-	if (!item.director) return getTranslatedText('unknown');
+	if (!item.director) return 'نامشخص';
 	return getDirectorLabel(item.director);
 };
 
@@ -3997,23 +4176,23 @@ const getFilmLabelForItem = (item) => {
 };
 
 const getGenreLabel = (genreId) => {
-	if (!genreId) return getTranslatedText('unknown');
+	if (!genreId) return 'نامشخص';
 	const genre = data.secondary[genreId];
-	if (!genre?.labels) return getTranslatedText('unknown');
+	if (!genre?.labels) return 'نامشخص';
 	return getItemLabel(genre.labels);
 };
 
 // تابع دریافت برچسب استودیو
 const getStudioLabel = (studioId) => {
-	if (!studioId) return getTranslatedText('unknown');
+	if (!studioId) return 'نامشخص';
 	const studio = data.secondary[studioId];
-	if (!studio?.labels) return getTranslatedText('unknown');
+	if (!studio?.labels) return 'نامشخص';
 	return getItemLabel(studio.labels);
 };
 
 // تابع دریافت برچسب استودیو برای آیتم
 const getStudioLabelForItem = (item) => {
-	if (!item.studio) return getTranslatedText('unknown');
+	if (!item.studio) return 'نامشخص';
 	return getStudioLabel(item.studio);
 };
 
@@ -4031,8 +4210,8 @@ const filteredStudios = computed(() => {
 	let studios = Object.keys(groups)
 		.map(studio => [studio, groups[studio].length]);
 
-	const unknown = studios.find(([name]) => name === getTranslatedText('unknown'));
-	studios = studios.filter(([name]) => name !== getTranslatedText('unknown')).sort((a, b) => b[1] - a[1]);
+	const unknown = studios.find(([name]) => name === 'نامشخص');
+	studios = studios.filter(([name]) => name !== 'نامشخص').sort((a, b) => b[1] - a[1]);
 	if (unknown) {
 		studios.push(unknown);
 	}
@@ -4102,7 +4281,7 @@ const filteredGenres = computed(() => {
 			groups[genreLabel]++;
 		});
 		} else {
-		const unknownKey = getTranslatedText('unknown');
+		const unknownKey = 'نامشخص';
 		if (!groups[unknownKey]) groups[unknownKey] = 0;
 		groups[unknownKey]++;
 		}
@@ -4110,8 +4289,8 @@ const filteredGenres = computed(() => {
 
 	let genres = Object.entries(groups).map(([label, count]) => [label, count]);
 
-	const unknown = genres.find(([name]) => name === getTranslatedText('unknown'));
-	genres = genres.filter(([name]) => name !== getTranslatedText('unknown'))
+	const unknown = genres.find(([name]) => name === 'نامشخص');
+	genres = genres.filter(([name]) => name !== 'نامشخص')
 				.sort((a, b) => b[1] - a[1]);
 	if (unknown) {
 		genres.push(unknown);
@@ -4130,7 +4309,7 @@ const filmCountByGenre = computed(() => {
 			filmGroups[genreLabel].add(item.film);
 		});
 		} else {
-		const genreLabel = getTranslatedText('unknown');
+		const genreLabel = 'نامشخص';
 		if (!filmGroups[genreLabel]) filmGroups[genreLabel] = new Set();
 		filmGroups[genreLabel].add(item.film);
 		}
@@ -4139,10 +4318,95 @@ const filmCountByGenre = computed(() => {
 });
 
 const getActorLabel = (actorId) => {
-	if (!actorId) return getTranslatedText('unknown');
+	if (!actorId) return 'نامشخص';
 	const actor = data.secondary[actorId];
-	if (!actor?.labels) return getTranslatedText('unknown');
+	if (!actor?.labels) return 'نامشخص';
 	return getItemLabel(actor.labels);
+};
+
+// آماده‌سازی فهرست طراح/کارگردان/استودیو/بازیگر برای هر فیلم، جهت محاسبهٔ پرتکرارترین همکاری‌ها
+const collaborationFilmEntities = computed(() => {
+	const unknown = 'نامشخص';
+	const toEntityList = (ids, type, labelFn) => {
+		return [...new Set((ids || []).filter(Boolean))]
+			.map(id => ({ id, type, label: labelFn(id) }))
+			.filter(entity => entity.label && entity.label !== unknown);
+	};
+
+	return films.map(film => {
+		const designerIds = new Set();
+		(film.posters || []).forEach(poster => {
+			(poster.designers || []).forEach(id => designerIds.add(id));
+		});
+		return {
+			filmId: film.id,
+			designers: toEntityList([...designerIds], 'designer', getDesignerLabel),
+			directors: toEntityList(film.directors, 'director', getDirectorLabel),
+			studios: toEntityList(film.studios, 'studio', getStudioLabel),
+			actors: toEntityList(film.cast, 'actor', getActorLabel)
+		};
+	});
+});
+
+// محاسبهٔ پرتکرارترین ترکیب‌های N‌تایی (دوتایی، سه‌تایی، چهارتایی) بین انواع همکاری مشخص‌شده
+const buildCollaborationCombos = (filmEntities, keys, minCount = 2, limit = 10) => {
+	const combos = new Map();
+
+	filmEntities.forEach(entry => {
+		const lists = keys.map(key => entry[key]);
+		if (lists.some(list => list.length === 0)) return;
+
+		const buildAcc = (index, acc) => {
+			if (index === lists.length) {
+				const comboKey = acc.map(entity => `${entity.type}:${entity.id}`).join('|');
+				if (!combos.has(comboKey)) {
+					combos.set(comboKey, { entities: acc.slice(), films: new Set() });
+				}
+				combos.get(comboKey).films.add(entry.filmId);
+				return;
+			}
+			lists[index].forEach(entity => buildAcc(index + 1, [...acc, entity]));
+		};
+		buildAcc(0, []);
+	});
+
+	return [...combos.values()]
+		.map(combo => ({ entities: combo.entities, count: combo.films.size }))
+		.filter(combo => combo.count >= minCount)
+		.sort((a, b) => b.count - a.count)
+		.slice(0, limit);
+};
+
+const collaborationCategories = computed(() => {
+	const filmEntities = collaborationFilmEntities.value;
+	const categoryDefs = [
+		{ id: 'designer-director', title: 'طراح × کارگردان', keys: ['designers', 'directors'] },
+		{ id: 'designer-studio', title: 'طراح × استودیو', keys: ['designers', 'studios'] },
+		{ id: 'designer-actor', title: 'طراح × بازیگر', keys: ['designers', 'actors'] },
+		{ id: 'director-studio', title: 'کارگردان × استودیو', keys: ['directors', 'studios'] },
+		{ id: 'director-actor', title: 'کارگردان × بازیگر', keys: ['directors', 'actors'] },
+		{ id: 'studio-actor', title: 'استودیو × بازیگر', keys: ['studios', 'actors'] },
+		{ id: 'designer-director-studio', title: 'طراح × کارگردان × استودیو', keys: ['designers', 'directors', 'studios'] },
+		{ id: 'designer-director-actor', title: 'طراح × کارگردان × بازیگر', keys: ['designers', 'directors', 'actors'] },
+		{ id: 'designer-studio-actor', title: 'طراح × استودیو × بازیگر', keys: ['designers', 'studios', 'actors'] },
+		{ id: 'director-studio-actor', title: 'کارگردان × استودیو × بازیگر', keys: ['directors', 'studios', 'actors'] },
+		{ id: 'designer-director-studio-actor', title: 'طراح × کارگردان × استودیو × بازیگر', keys: ['designers', 'directors', 'studios', 'actors'] }
+	];
+
+	return categoryDefs
+		.map(def => ({ id: def.id, title: def.title, items: buildCollaborationCombos(filmEntities, def.keys) }))
+		.filter(category => category.items.length > 0);
+});
+
+const applyCollaborationFilter = (entities) => {
+	resetFilters();
+	entities.forEach(entity => {
+		if (entity.type === 'designer') selectedDesigner.value = entity.label;
+		else if (entity.type === 'director') selectedDirector.value = entity.label;
+		else if (entity.type === 'studio') selectedStudio.value = entity.label;
+		else if (entity.type === 'actor' && !selectedActors.value.includes(entity.label)) selectedActors.value.push(entity.label);
+	});
+	showCollaborationsModal.value = false;
 };
 
 const getActorsForFilm = (filmId) => {
@@ -4153,9 +4417,9 @@ const getActorsForFilm = (filmId) => {
 		const actor = data.secondary[actorId];
 		return {
 			id: actorId,
-			label: getItemLabel(actor?.labels) || getTranslatedText('unknown')
+			label: getItemLabel(actor?.labels) || 'نامشخص'
 		};
-	}).filter(actor => actor.label !== getTranslatedText('unknown'));
+	}).filter(actor => actor.label !== 'نامشخص');
 };
 
 const filteredActors = computed(() => {
@@ -4169,7 +4433,7 @@ const filteredActors = computed(() => {
 			groups[actorLabel]++;
 		});
 		} else {
-		const unknownKey = getTranslatedText('unknown');
+		const unknownKey = 'نامشخص';
 		if (!groups[unknownKey]) groups[unknownKey] = 0;
 		groups[unknownKey]++;
 		}
@@ -4177,8 +4441,8 @@ const filteredActors = computed(() => {
 
 	let actors = Object.entries(groups).map(([label, count]) => [label, count]);
 
-	const unknown = actors.find(([name]) => name === getTranslatedText('unknown'));
-	actors = actors.filter(([name]) => name !== getTranslatedText('unknown'))
+	const unknown = actors.find(([name]) => name === 'نامشخص');
+	actors = actors.filter(([name]) => name !== 'نامشخص')
 				.sort((a, b) => b[1] - a[1]);
 	if (unknown) {
 		actors.push(unknown);
@@ -4197,7 +4461,7 @@ const filmCountByActor = computed(() => {
 			filmGroups[actorLabel].add(item.film);
 		});
 		} else {
-		const actorLabel = getTranslatedText('unknown');
+		const actorLabel = 'نامشخص';
 		if (!filmGroups[actorLabel]) filmGroups[actorLabel] = new Set();
 		filmGroups[actorLabel].add(item.film);
 		}
@@ -4206,21 +4470,17 @@ const filmCountByActor = computed(() => {
 });
 
 const getPrimaryYear = (date) => {
-	if (!date) return currentLanguage.value === 'en' ? 'Unknown' : 'نامشخص';
+	if (!date) return 'نامشخص';
 	
 	const gregorianYear = new Date(date).getFullYear();
 	const persianDate = new Date(date).toLocaleDateString('fa');
 	const persianYear = persianDate.split('/')[0];
 	
 	if (isNaN(gregorianYear) || persianYear === 'Invalid Date') {
-		return currentLanguage.value === 'en' ? 'Unknown' : 'نامشخص';
+		return 'نامشخص';
 	}
 	
-	if (currentLanguage.value === 'en') {
-		return `${gregorianYear}`;
-	} else {
-		return persianYear;
-	}
+	return persianYear;
 };
 
 const getSecondaryYear = (date) => {
@@ -4234,11 +4494,7 @@ const getSecondaryYear = (date) => {
 		return '';
 	}
 	
-	if (currentLanguage.value === 'en') {
-		return persianYear;
-	} else {
-		return `${gregorianYear}`;
-	}
+	return `${gregorianYear}`;
 };
 
 
@@ -4314,15 +4570,15 @@ const filteredItems = computed(() => {
 		results = results.filter(item => {
 		const film = data.films[item.film];
 		
-		if (selectedGenres.value.includes(getTranslatedText('unknown'))) {
+		if (selectedGenres.value.includes('نامشخص')) {
 			const hasUnknownGenre = !film.genres || film.genres.length === 0 || 
-			film.genres.every(genreId => getGenreLabel(genreId) === getTranslatedText('unknown'));
+			film.genres.every(genreId => getGenreLabel(genreId) === 'نامشخص');
 			
 			if (hasUnknownGenre) return true;
 		}
 		
 		const hasSpecificGenres = film.genres && selectedGenres.value.every(selectedGenre => 
-			selectedGenre !== getTranslatedText('unknown') && 
+			selectedGenre !== 'نامشخص' && 
 			film.genres.some(genreId => getGenreLabel(genreId) === selectedGenre)
 		);
 		
@@ -4334,15 +4590,15 @@ const filteredItems = computed(() => {
 		results = results.filter(item => {
 		const film = data.films[item.film];
 		
-		if (selectedActors.value.includes(getTranslatedText('unknown'))) {
+		if (selectedActors.value.includes('نامشخص')) {
 			const hasUnknownActor = !film.cast || film.cast.length === 0 || 
-			film.cast.every(actorId => getActorLabel(actorId) === getTranslatedText('unknown'));
+			film.cast.every(actorId => getActorLabel(actorId) === 'نامشخص');
 			
 			if (hasUnknownActor) return true;
 		}
 		
 		const hasSpecificActors = film.cast && selectedActors.value.every(selectedActor => 
-			selectedActor !== getTranslatedText('unknown') && 
+			selectedActor !== 'نامشخص' && 
 			film.cast.some(actorId => getActorLabel(actorId) === selectedActor)
 		);
 		
@@ -4552,12 +4808,6 @@ watch(isMobileView, (newValue) => {
 	}
 });
 
-watch(currentLanguage, (newLang, oldLang) => {
-	if (newLang !== oldLang) {
-		clearYearRangeFilter();
-	}
-});
-
 watch(posterMode, () => {
 	if (sortOrder.value === 'random') {
 		currentRandomOrder.value = [];
@@ -4599,32 +4849,32 @@ const filteredLettersInModal = computed(() => {
 
 const filteredYearLabel = computed(() => {
 	if (selectedYear.value) {
-		return `${getTranslatedText('year')}: ${selectedYear.value}`;
+		return `سال: ${selectedYear.value}`;
 	} else if (yearRangeStart.value || yearRangeEnd.value) {
 		const start = yearRangeStart.value ? yearRangeStart.value.toLocaleString('fa', { useGrouping: false }) : 'آغاز';
 		const end = yearRangeEnd.value ? yearRangeEnd.value.toLocaleString('fa', { useGrouping: false }) : 'اکنون';
-		return `${getTranslatedText('yearRange')}: از ${start} تا ${end}`;
+		return `بازهٔ سال: از ${start} تا ${end}`;
 	} else {
-		return getTranslatedText('years');
+		return 'سال‌ها';
 	}
 });
 
 const filteredDesignerLabel = computed(() => 
 	selectedDesigner.value 
-		? `${getTranslatedText('designer')}: ${selectedDesigner.value}` 
-		: getTranslatedText('designers')
+		? `طراح: ${selectedDesigner.value}` 
+		: 'طراحان'
 );
 
 const filteredDirectorLabel = computed(() => 
 	selectedDirector.value 
-		? `${getTranslatedText('director')}: ${selectedDirector.value}` 
-		: getTranslatedText('directors')
+		? `کارگردان: ${selectedDirector.value}` 
+		: 'کارگردان‌ها'
 );
 
 const filteredLetterLabel = computed(() => 
 	selectedLetter.value 
-		? `${getTranslatedText('letter')}: ${selectedLetter.value}` 
-		: getTranslatedText('letters')
+		? `حرف اول: ${selectedLetter.value}` 
+		: 'حروف اول'
 );
 
 const sidebarWidth = ref(440);
@@ -5141,15 +5391,6 @@ const selectYearFromTitle = (year) => {
 	tempYearRangeStart.value = '';
 	tempYearRangeEnd.value = '';
 
-	if (currentLanguage.value === 'en') {
-		const gregorianYear = parseInt(year.replace(/[^0-9]/g, ''));
-		if (!isNaN(gregorianYear)) {
-			const persianYear = gregorianYear - 621;
-			selectedYear.value = persianYear.toLocaleString('fa');
-			return;
-		}
-	}
-	
 	const persianYear = year.replace(/[^۰-۹0-9]/g, '');
 	if (persianYear) {
 		selectedYear.value = persianYear.toLocaleString('fa');
@@ -5190,7 +5431,7 @@ const topCollaborators = (list, getLabel) => {
 	const map = {};
 	list.forEach(item => {
 		const label = getLabel(item);
-		if (!label || label === 'نامشخص' || label === getTranslatedText('unknown')) return;
+		if (!label || label === 'نامشخص' || label === 'نامشخص') return;
 		if (!map[label]) map[label] = { posters: 0, films: new Set() };
 		map[label].posters++;
 		map[label].films.add(item.film);
@@ -5253,7 +5494,7 @@ const profileHeader = computed(() => {
 		return `${faNum(withLogo.length)} لوگو · ${faNum(films)} فیلم`;
 	};
 
-	const isUnknown = (name) => !name || name === 'نامشخص' || name === 'Unknown' || name === getTranslatedText('unknown');
+	const isUnknown = (name) => !name || name === 'نامشخص' || name === 'Unknown' || name === 'نامشخص';
 
 	if (selectedDesigner.value) {
 		const name = selectedDesigner.value;
@@ -5295,12 +5536,8 @@ const profileHeader = computed(() => {
 		for (const item of list) {
 			const d = item.designers?.find(x => x.label === name) || item.designers?.[0];
 			if (d && d.label === name) {
-				const wikiTitle = currentLanguage.value === 'en'
-					? (d.enWikipediaLink || d.faWikipediaLink)
-					: (d.faWikipediaLink || d.enWikipediaLink);
-				const wikiLang = currentLanguage.value === 'en'
-					? (d.enWikipediaLink ? 'en' : (d.faWikipediaLink ? 'fa' : null))
-					: (d.faWikipediaLink ? 'fa' : (d.enWikipediaLink ? 'en' : null));
+				const wikiTitle = d.faWikipediaLink || d.enWikipediaLink;
+				const wikiLang = d.faWikipediaLink ? 'fa' : (d.enWikipediaLink ? 'en' : null);
 				links = {
 					wikidata: d.id || null,
 					wikipedia: wikiTitle && wikiLang
@@ -5315,8 +5552,8 @@ const profileHeader = computed(() => {
 				if (getItemLabel(ent?.labels) === name) {
 					const fa = ent.sitelinks?.fawiki;
 					const en = ent.sitelinks?.enwiki;
-					const wikiTitle = currentLanguage.value === 'en' ? (en || fa) : (fa || en);
-					const wikiLang = currentLanguage.value === 'en' ? (en ? 'en' : (fa ? 'fa' : null)) : (fa ? 'fa' : (en ? 'en' : null));
+					const wikiTitle = fa || en;
+					const wikiLang = fa ? 'fa' : (en ? 'en' : null);
 					links = {
 						wikidata: id,
 						wikipedia: wikiTitle && wikiLang
@@ -5432,26 +5669,26 @@ const profileHeader = computed(() => {
 const activeFilters = computed(() => {
 	const filters = [];
 	if (selectedYear.value) {
-		filters.push({ type: 'year', label: getTranslatedText('year'), value: selectedYear.value });
+		filters.push({ type: 'year', label: 'سال', value: selectedYear.value });
 	}
 	if (selectedDesigner.value) {
-		filters.push({ type: 'designer', label: getTranslatedText('designer'), value: selectedDesigner.value });
+		filters.push({ type: 'designer', label: 'طراح', value: selectedDesigner.value });
 	}
 	if (selectedDirector.value) {
-		filters.push({ type: 'director', label: getTranslatedText('director'), value: selectedDirector.value });
+		filters.push({ type: 'director', label: 'کارگردان', value: selectedDirector.value });
 	}
 	if (selectedLetter.value) {
-		filters.push({ type: 'letter', label: getTranslatedText('letter'), value: selectedLetter.value });
+		filters.push({ type: 'letter', label: 'حرف اول', value: selectedLetter.value });
 	}
 	if (selectedStudio.value) {
 		filters.push({ type: 'studio', label: 'استودیو', value: selectedStudio.value });
 	}
 
 	if (yearRangeStart.value || yearRangeEnd.value) {
-		const start = yearRangeStart.value ? yearRangeStart.value.toLocaleString(currentLanguage.value === 'fa' ? 'fa' : 'en', { useGrouping: false }) : 'آغاز';
-		const end = yearRangeEnd.value ? yearRangeEnd.value.toLocaleString(currentLanguage.value === 'fa' ? 'fa' : 'en', { useGrouping: false }) : 'اکنون';
+		const start = yearRangeStart.value ? yearRangeStart.value.toLocaleString('fa', { useGrouping: false }) : 'آغاز';
+		const end = yearRangeEnd.value ? yearRangeEnd.value.toLocaleString('fa', { useGrouping: false }) : 'اکنون';
 		const rangeLabel = `${start} تا ${end}`;
-		filters.push({ type: 'yearRange', label: getTranslatedText('yearRange'), value: rangeLabel });
+		filters.push({ type: 'yearRange', label: 'بازهٔ سال', value: rangeLabel });
 	}
 
 	selectedGenres.value.forEach(genre => {
@@ -5531,23 +5768,13 @@ const getCommonsUrl = (item, posterMode, pixelatedEffect) => {
 };
 
 const getWikipediaUrl = (item) => {
-	if (currentLanguage.value === 'en') {
-		if (item.enWikipediaLink) {
-			return 'https://en.wikipedia.org/wiki/' + item.enWikipediaLink.replaceAll(' ', '_');
-		}
-		if (item.faWikipediaLink) {
-			return 'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_');
-		}
-		return 'https://www.wikidata.org/wiki/' + item.film;
-	} else {
-		if (item.faWikipediaLink) {
-			return 'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_');
-		}
-		if (item.enWikipediaLink) {
-			return 'https://en.wikipedia.org/wiki/' + item.enWikipediaLink.replaceAll(' ', '_');
-		}
-		return 'https://www.wikidata.org/wiki/' + item.film;
+	if (item.faWikipediaLink) {
+		return 'https://fa.wikipedia.org/wiki/' + item.faWikipediaLink.replaceAll(' ', '_');
 	}
+	if (item.enWikipediaLink) {
+		return 'https://en.wikipedia.org/wiki/' + item.enWikipediaLink.replaceAll(' ', '_');
+	}
+	return 'https://www.wikidata.org/wiki/' + item.film;
 };
 
 const bringToTop = () => document.documentElement.scrollTop = 0;
@@ -5844,9 +6071,9 @@ onMounted(() => {
 		windowWidth.value = window.innerWidth;
 		isMobileView.value = window.innerWidth <= 768;
 		if (isMobileView.value) {
-			searchPlaceholder.value = getTranslatedText('search');
+			searchPlaceholder.value = 'جستجو';
 		} else {
-			searchPlaceholder.value = getTranslatedText('searchDesktop');
+			searchPlaceholder.value = 'جستجو (برای پرش به کادر جستجو / یا Ctrl+K را بزنید)';
 		}
 	};
 
@@ -5900,7 +6127,10 @@ window.addEventListener('keydown', () => {
 });
 
 window.addEventListener('keydown', (event) => {
-	if (event.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+	const isCtrlK = (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k';
+	const isSlash = event.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName);
+
+	if (isSlash || isCtrlK) {
 		event.preventDefault();
 		isSearchBarVisible.value = true;
 		nextTick(() => {
@@ -5964,7 +6194,7 @@ return {
 
     getItemUrl, getCommonsUrl, getFilmLabel, getFilmLabelForItem,
     getDesignerLabel, getDirectorLabel, getGenreLabel, getActorLabel, getStudioLabel, getStudioLabelForItem,
-    getActorsForFilm, getWikipediaUrl, getTranslatedText, getPrimaryYear, getSecondaryYear,
+    getActorsForFilm, getWikipediaUrl, getPrimaryYear, getSecondaryYear,
     hasDesigner, toPersianYear, normalizeDigits,
 
     selectFilm, selectYear, selectDirector, selectDesigner, selectActor, selectStudio, selectDesignerFromLightbox,
@@ -5975,13 +6205,13 @@ return {
     allSectionsExpanded, toggleAllSections,
     bringToTop, visibleBringToTop, mainContentStyle, resultsGridStyle, pageTitle,
 
-    currentLanguage, toggleLanguage,
-
     handlePopState, selectYearFromTitle,
 
     profileHeader, applyProfileLink,
 
-    themeMode
+    themeMode,
+
+    showCollaborationsModal, collaborationCategories, applyCollaborationFilter
 
 
 };
