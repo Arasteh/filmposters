@@ -3563,7 +3563,6 @@ const sliderYearEnd = computed(() => {
 	return Number(tempYearRangeEnd.value);
 });
 
-// اسلایدر معکوس: سمت چپ = سال بیشتر، سمت راست = سال کمتر (برای تطابق با برچسب‌ها در RTL)
 const invertYearForSlider = (y) => {
 	const { minYear, maxYear } = yearRangeBounds.value;
 	return minYear + maxYear - y;
@@ -3574,7 +3573,6 @@ const yearSliderFillStyle = computed(() => {
 	const span = maxYear - minYear || 1;
 	const start = sliderYearStart.value;
 	const end = sliderYearEnd.value;
-	// موقعیت فیزیکی: سال بالاتر سمت چپ
 	const physLeft = ((maxYear - Math.max(start, end)) / span) * 100;
 	const physRight = ((maxYear - Math.min(start, end)) / span) * 100;
 	return {
@@ -3606,7 +3604,6 @@ const applyYearRangeFilter = () => {
 	let end = tempYearRangeEnd.value !== '' && tempYearRangeEnd.value != null
 		? Number(tempYearRangeEnd.value) : null;
 
-	// اگر اسلایدر روی کل بازه است و مقدار temp خالی نبوده، همان را نگه دار
 	if (start === null && end === null) {
 		yearRangeStart.value = null;
 		yearRangeEnd.value = null;
@@ -3704,7 +3701,7 @@ const isLightBackground = (color) => {
 	return luminance > threshold;
 };
 
-const themeMode = ref('system'); // 'dark' | 'system' | 'light'
+const themeMode = ref('system');
 const systemPrefersDark = ref(
 	typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches
 );
@@ -3790,7 +3787,6 @@ const updateURL = () => {
 	if (yearRangeStart.value !== null) params.set('yearStart', String(yearRangeStart.value));
 	if (yearRangeEnd.value !== null) params.set('yearEnd', String(yearRangeEnd.value));
 
-	// Preserve deep-link to open poster/logo while lightbox is visible
 	if (lightboxItem.value) {
 		if (posterMode.value && lightboxItem.value.poster) {
 			params.set('poster', lightboxItem.value.poster);
@@ -4182,7 +4178,6 @@ const getGenreLabel = (genreId) => {
 	return getItemLabel(genre.labels);
 };
 
-// تابع دریافت برچسب استودیو
 const getStudioLabel = (studioId) => {
 	if (!studioId) return 'نامشخص';
 	const studio = data.secondary[studioId];
@@ -4190,15 +4185,11 @@ const getStudioLabel = (studioId) => {
 	return getItemLabel(studio.labels);
 };
 
-// تابع دریافت برچسب استودیو برای آیتم
 const getStudioLabelForItem = (item) => {
 	if (!item.studio) return 'نامشخص';
 	return getStudioLabel(item.studio);
 };
 
-
-
-// استودیوهای فیلتر شده
 const filteredStudios = computed(() => {
 	const groups = {};
 	filteredItems.value.forEach(item => {
@@ -4218,7 +4209,6 @@ const filteredStudios = computed(() => {
 	return studios;
 });
 
-// استودیوهای فیلتر شده در مودال
 const filteredStudiosInModal = computed(() => {
 	const groups = {};
 	filteredItems.value.forEach(item => {
@@ -4324,7 +4314,6 @@ const getActorLabel = (actorId) => {
 	return getItemLabel(actor.labels);
 };
 
-// آماده‌سازی فهرست طراح/کارگردان/استودیو/بازیگر برای هر فیلم، جهت محاسبهٔ پرتکرارترین همکاری‌ها
 const collaborationFilmEntities = computed(() => {
 	const unknown = 'نامشخص';
 	const toEntityList = (ids, type, labelFn) => {
@@ -4348,7 +4337,6 @@ const collaborationFilmEntities = computed(() => {
 	});
 });
 
-// محاسبهٔ پرتکرارترین ترکیب‌های N‌تایی (دوتایی، سه‌تایی، چهارتایی) بین انواع همکاری مشخص‌شده
 const buildCollaborationCombos = (filmEntities, keys, minCount = 2, limit = 10) => {
 	const combos = new Map();
 
@@ -4970,7 +4958,6 @@ const updateSidebarBodyScrollState = (el) => {
 		el.classList.remove('has-overflow', 'at-bottom');
 		return;
 	}
-	// فقط وقتی واقعاً محتوا از ارتفاع قابل‌نمایش بیشتر است
 	const needs = el.scrollHeight > el.clientHeight + 4;
 	el.classList.toggle('has-overflow', needs);
 	const atBottom = !needs || (el.scrollTop + el.clientHeight >= el.scrollHeight - 4);
@@ -4989,7 +4976,6 @@ const updateSidebarOverflow = () => {
 		});
 	};
 	nextTick(run);
-	// پس از اتمام انیمیشن max-height دوباره بررسی کن تا گرادیان کاذب نماند
 	if (sidebarOverflowTimer) clearTimeout(sidebarOverflowTimer);
 	sidebarOverflowTimer = setTimeout(run, 450);
 };
@@ -5003,8 +4989,7 @@ const lightboxItem = ref(undefined);
 const lightboxImage = ref(undefined);
 const isLightboxActive = ref(false);
 const isLightboxVisible = ref(false);
-// حالت نمایش داخل لایت‌باکس (مستقل از posterMode سایت)
-const lightboxViewMode = ref('poster'); // 'poster' | 'logo'
+const lightboxViewMode = ref('poster');
 let lightboxLoadId = 0;
 const lightboxZoomScale = ref(1);
 const lightboxPanX = ref(0);
@@ -5018,7 +5003,6 @@ let lightboxDidPan = false;
 const LIGHTBOX_ZOOM_MIN = 1;
 const LIGHTBOX_ZOOM_MAX_POSTER = 3;
 const LIGHTBOX_ZOOM_MAX_LOGO = 6;
-// حساسیت پیوسته به میزان اسکرول (deltaY معمولاً ~۱۰۰ در هر پلهٔ چرخ)
 const LIGHTBOX_ZOOM_SENSITIVITY = 0.0018;
 
 const lightboxZoomMax = computed(() =>
@@ -5038,7 +5022,6 @@ const onLightboxWheel = (event) => {
 	next = Math.max(LIGHTBOX_ZOOM_MIN, Math.min(lightboxZoomMax.value, next));
 
 	if (rect.width > 0 && rect.height > 0 && next !== prev) {
-		// زوم حول موقعیت ماوس: جابه‌جایی pan طوری که نقطهٔ زیر نشانگر ثابت بماند
 		const mx = event.clientX - rect.left - rect.width / 2;
 		const my = event.clientY - rect.top - rect.height / 2;
 		const ratio = next / prev;
@@ -5050,6 +5033,15 @@ const onLightboxWheel = (event) => {
 	if (next <= 1.001) {
 		lightboxPanX.value = 0;
 		lightboxPanY.value = 0;
+	}
+
+	const maxZoom = lightboxZoomMax?.value || 5;
+	if (next >= maxZoom * 0.9 && window.__pendingHighResImage) {
+		const pending = window.__pendingHighResImage;
+		if (pending.id === lightboxLoadId) {
+		lightboxImage.src = pending.url;
+			window.__pendingHighResImage = null;
+		}
 	}
 };
 
@@ -5087,8 +5079,6 @@ const onLightboxPointerUp = () => {
 	window.removeEventListener('pointercancel', onLightboxPointerUp);
 };
 
-// بدون زوم: کلیک روی تصویر هم لایت‌باکس را می‌بندد
-// با زوم: فقط کلیک بیرون از تصویر می‌بندد (پن با درگ کار می‌کند)
 const onLightboxImageClick = (event) => {
 	if (lightboxZoomScale.value > 1 || lightboxDidPan) {
 		event.stopPropagation();
@@ -5103,6 +5093,7 @@ const resetLightboxZoom = () => {
 	lightboxPanX.value = 0;
 	lightboxPanY.value = 0;
 	lightboxIsPanning.value = false;
+	window.__pendingHighResImage = null;
 };
 
 const lightboxImageStyle = computed(() => {
@@ -5110,7 +5101,6 @@ const lightboxImageStyle = computed(() => {
 	const px = lightboxPanX.value;
 	const py = lightboxPanY.value;
 	let imgScale = s;
-	// در حالت لوگو بخشی از زوم با بزرگ‌شدن کادر جذب می‌شود تا دوبرابر نشود
 	if (lightboxViewMode.value === 'logo' && s > 1) {
 		const boxScale = Math.min(s, 98 / 90);
 		imgScale = s / boxScale;
@@ -5125,7 +5115,6 @@ const lightboxImageStyle = computed(() => {
 	return style;
 });
 
-// در حالت لوگو: کادر تا نزدیک کل viewport بزرگ می‌شود؛ زوم بیشتر با scale روی تصویر + پن
 const lightboxWrapperStyle = computed(() => {
 	if (lightboxViewMode.value !== 'logo') return null;
 	const s = lightboxZoomScale.value;
@@ -5145,7 +5134,6 @@ const lightboxHasLogo = computed(() => !!(lightboxItem.value && lightboxItem.val
 const lightboxHasPoster = computed(() => !!(lightboxItem.value && lightboxItem.value.poster));
 const showLightboxViewSwitch = computed(() => {
 	if (!lightboxItem.value) return false;
-	// در حالت لوگوی سایت همیشه؛ در حالت پوستر فقط اگر لوگو داشته باشد
 	if (!posterMode.value) return lightboxHasLogo.value || lightboxHasPoster.value;
 	return lightboxHasLogo.value;
 });
@@ -5170,6 +5158,11 @@ const loadLightboxImage = (item, viewMode) => {
 	const mode = viewMode || lightboxViewMode.value;
 	const thumbUrl = getLightboxThumbUrl(item, mode);
 	const fullUrl = getLightboxFullUrl(item, mode);
+	const highResUrl = getPosterUrl(
+		mode === 'logo' ? item.logo : item.poster,
+		mode === 'logo' ? item.logoHash : item.posterHash,
+		1920
+	);
 	const currentId = ++lightboxLoadId;
 
 	lightboxImage.value = thumbUrl;
@@ -5182,10 +5175,24 @@ const loadLightboxImage = (item, viewMode) => {
 	img.onload = () => {
 		if (currentId === lightboxLoadId) {
 			lightboxImage.value = fullUrl;
+			
+			const highResImg = new Image();
+			highResImg.onload = () => {
+				if (currentId === lightboxLoadId) {
+					if (lightboxZoomScale.value >= lightboxZoomMax.value * 0.8) {
+						lightboxImage.value = highResUrl;
+					} else {
+						window.__pendingHighResImage = { url: highResUrl, id: currentId };
+					}
+				}
+			};
+			highResImg.onerror = () => {
+				window.__pendingHighResImage = null;
+			};
+			highResImg.src = highResUrl;
 		}
 	};
 	img.onerror = () => {
-		// keep thumbnail visible
 	};
 	img.src = fullUrl;
 };
@@ -5235,7 +5242,6 @@ const openLightbox = item => {
 		...item,
 		actors: getActorsForFilm(item.film)
 	};
-	// حالت اولیهٔ نمایش داخل لایت‌باکس از حالت سایت پیروی می‌کند، بدون تغییر posterMode
 	if (!posterMode.value && item.logo) {
 		lightboxViewMode.value = 'logo';
 	} else if (item.poster) {
@@ -5262,7 +5268,7 @@ const openLightbox = item => {
 
 const closeLightbox = () => {
 	isLightboxActive.value = false;
-	lightboxLoadId++; // cancel any in-flight load
+	lightboxLoadId++;
 	updateLightboxURL(null);
 	updateDocumentTitle(null);
 	resetLightboxZoom();
@@ -5316,7 +5322,6 @@ const changeLightboxImage = changeIndexCallback => {
 		...newItem,
 		actors: getActorsForFilm(newItem.film)
 	};
-	// اگر حالت فعلی لوگو است ولی آیتم جدید لوگو ندارد، به پوستر برگرد
 	if (lightboxViewMode.value === 'logo' && !newItem.logo) {
 		lightboxViewMode.value = 'poster';
 	} else if (lightboxViewMode.value === 'poster' && !newItem.poster && newItem.logo) {
@@ -5412,7 +5417,6 @@ const collectYearStats = (list) => {
 	let peakYear = null;
 	let peakCount = 0;
 	years.forEach(y => {
-		// فقط سال‌هایی با بیش از یک پوستر
 		if (byYear[y] > 1 && byYear[y] > peakCount) {
 			peakCount = byYear[y];
 			peakYear = y;
@@ -5438,7 +5442,6 @@ const topCollaborators = (list, getLabel) => {
 	});
 	let bestPosters = 0;
 	Object.entries(map).forEach(([name, data]) => {
-		// فقط همکاری‌های با بیش از یک پوستر
 		if (data.posters > 1 && data.posters > bestPosters) {
 			bestPosters = data.posters;
 		}
@@ -5456,7 +5459,6 @@ const linkPart = (text, type, value) => ({ text, type, value });
 const applyProfileLink = (part) => {
 	if (!part?.type || !part?.value) return;
 	if (part.type === 'year') {
-		// سال را روی همان فرد/استودیوی فعلی اعمال کن
 		yearRangeStart.value = null;
 		yearRangeEnd.value = null;
 		tempYearRangeStart.value = '';
@@ -5464,7 +5466,6 @@ const applyProfileLink = (part) => {
 		selectedYear.value = part.value;
 		return;
 	}
-	// برای افراد/استودیو: فیلتر قبلی را با هدف جدید جایگزین کن
 	selectedYear.value = '';
 	yearRangeStart.value = null;
 	yearRangeEnd.value = null;
@@ -5488,7 +5489,6 @@ const profileHeader = computed(() => {
 			const films = new Set(list.map(i => i.film)).size;
 			return `${faNum(list.length)} پوستر · ${faNum(films)} فیلم`;
 		}
-		// در حالت لوگو فقط آیتم‌هایی که واقعاً لوگو دارند شمرده شوند
 		const withLogo = list.filter(i => i.logo);
 		const films = new Set(withLogo.map(i => i.film)).size;
 		return `${faNum(withLogo.length)} لوگو · ${faNum(films)} فیلم`;
@@ -5530,7 +5530,6 @@ const profileHeader = computed(() => {
 				parts.push(t(' کار کرده است.'));
 			}
 		}
-		// لینک‌های ویکی‌داده و ویکی‌پدیا کنار نام طراح
 		let links = null;
 		if (!isUnknown(name)) {
 		for (const item of list) {
@@ -5564,7 +5563,7 @@ const profileHeader = computed(() => {
 				}
 			}
 		}
-		} // end if (!isUnknown(name)) for links
+		}
 		return { type: 'طراح پوستر', name, count: buildCount(list), summaryParts: parts, links };
 	}
 
@@ -5750,7 +5749,9 @@ const getPosterUrl = (name, hash, width) => {
 			.replace(/\.jpg$/, '.webp')
 		: 'https://archive.org/download/filmpostersofiran/' +
 			(width === 250 ? name.replace(/\.jpg$/, '_thumb.jpg') : name);
-	return `https://upload.wikimedia.org/wikipedia/commons/thumb/${hash[0]}/${hash}/${name}/${width}px-${name}`;
+	const validWidths = [250, 960, 1920];
+	const actualWidth = validWidths.includes(width) ? width : 960;
+	return `https://upload.wikimedia.org/wikipedia/commons/thumb/${hash[0]}/${hash}/${name}/${actualWidth}px-${name}`;
 };
 
 const getItemUrl = (item, posterMode, pixelatedEffect) => {
@@ -5878,7 +5879,6 @@ const searchBarDynamicStyle = computed(() => {
 	return style;
 });
 
-// تعداد ستون‌های گرید بر اساس عرض قابل‌استفاده (عرض پنجره منهای سایدبار)
 const resultsGridColumns = computed(() => {
 	const vw = windowWidth.value || 1200;
 	if (vw <= 768 || isMobileView.value) return 2;
@@ -5886,11 +5886,8 @@ const resultsGridColumns = computed(() => {
 	const sidebarTaken = (sidebarVisible.value && !isMobileView.value)
 		? (sidebarWidth.value + 40)
 		: 0;
-	// padding افقی گرید (۴۸px از هر طرف) + کمی حاشیهٔ #app
 	const available = vw - sidebarTaken;
 
-	// آستانه‌ها بر اساس عرض محتوا، نه عرض کل viewport
-	// تقریباً هر ستون حداقل ~۲۰۰px + فاصله
 	if (available >= 1400) return 5;
 	if (available >= 1100) return 4;
 	if (available >= 720) return 3;
@@ -5906,7 +5903,6 @@ const mainContentStyle = computed(() => {
 		? `${sidebarWidth.value + 40}px`
 		: '0px';
 
-	// عنوان داخل خودِ نوار جستجو است؛ فقط ارتفاع اندازه‌گیری‌شدهٔ نوار کافی است
 	const searchBarTotalHeight = isSearchBarVisible.value ? searchBarHeight.value : 0;
 
 	return {
@@ -6097,7 +6093,6 @@ onMounted(() => {
 		resizeObserver.observe(mainContent);
 	}
 
-	// Deep-link: open poster/logo from URL after data is ready
 	nextTick(() => openFromDeepLink());
 	updateDocumentTitle(null);
 	updateSidebarOverflow();
