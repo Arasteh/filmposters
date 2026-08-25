@@ -74359,7 +74359,9 @@
 		},
 		"Q137599660": {
 			"id": "Q137599660",
-			"sitelinks": {},
+			"sitelinks": {
+				"fawiki": "یلدای سپید (مستند)"
+			},
 			"labels": {
 				"en": "Yalda Sepid",
 				"fa": "یلدای سپید"
@@ -76354,7 +76356,7 @@
 			"id": "Q2427828",
 			"sitelinks": {
 				"enwiki": "Nebahat Çehre",
-				"fawiki": "نباهات چهره"
+				"fawiki": "نباهت چهره"
 			},
 			"labels": {
 				"en": "Nebahat Çehre",
