@@ -62110,7 +62110,10 @@
 			"posters": [
 				{
 					"image": "غروب_بت_پرستان_(پوستر).jpg",
-					"hash": "d0"
+					"hash": "d0",
+					"designers": [
+						"Q131377887"
+					]
 				}
 			],
 			"logos": [
@@ -64449,7 +64452,10 @@
 			"posters": [
 				{
 					"image": "پوستر_داماد_فراری.jpg",
-					"hash": "f9"
+					"hash": "f9",
+					"designers": [
+						"Q20109479"
+					]
 				}
 			],
 			"logos": [],
@@ -82888,7 +82894,6 @@
 		"Q5957724": {
 			"id": "Q5957724",
 			"sitelinks": {
-				"enwiki": "Farhad Ayish",
 				"fawiki": "فرهاد آئیش"
 			},
 			"labels": {
