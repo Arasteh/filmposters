@@ -7168,7 +7168,11 @@
 				"en": "The Rice Bag",
 				"fa": "کیسه برنج"
 			},
-			"aliases": {},
+			"aliases": {
+				"en": [
+					"The Bag of Rice"
+				]
+			},
 			"directors": [
 				"Q5955198"
 			],
@@ -33865,6 +33869,7 @@
 				"fawiki": "موتو"
 			},
 			"labels": {
+				"en": "Moto",
 				"fa": "موتو"
 			},
 			"aliases": {},
