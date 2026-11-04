@@ -1326,7 +1326,7 @@
 			],
 			"logos": [],
 			"studios": [
-				"Q233620"
+				"Q3857330"
 			]
 		},
 		"Q2399461": {
@@ -75264,15 +75264,6 @@
 				"fa": "شهره آغداشلو"
 			}
 		},
-		"Q233620": {
-			"id": "Q233620",
-			"sitelinks": {
-				"enwiki": "Mikado"
-			},
-			"labels": {
-				"en": "Mikado"
-			}
-		},
 		"Q241115": {
 			"id": "Q241115",
 			"sitelinks": {
@@ -77914,6 +77905,13 @@
 			"labels": {
 				"en": "Mohammad-Ali Sepanlou",
 				"fa": "محمدعلی سپانلو"
+			}
+		},
+		"Q3857330": {
+			"id": "Q3857330",
+			"sitelinks": {},
+			"labels": {
+				"en": "Mikado Film"
 			}
 		},
 		"Q3938408": {
@@ -83303,7 +83301,7 @@
 				"fawiki": "فرانک میرقهاری"
 			},
 			"labels": {
-				"en": "Faranak Mirqahhari",
+				"en": "Faranak Mirghahari",
 				"fa": "فرانک میرقهاری"
 			}
 		},
